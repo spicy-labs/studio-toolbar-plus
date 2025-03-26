@@ -1,0 +1,35 @@
+{
+  "name": "studio-toolbar-plus",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun build.js",
+    "prepare": "ts-patch install"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "~5.8.2"
+  },
+  "dependencies": {
+    "@chili-publish/studio-sdk": "^1.21.0",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@mantine/core": "^7.17.2",
+    "@mantine/hooks": "^7.17.2",
+    "@tabler/icons-react": "^3.31.0",
+    "@types/chrome": "^0.0.309",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "immer": "^10.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "styled-components": "^6.1.15",
+    "typescript-result": "^3.1.1",
+    "zustand": "^5.0.3"
+  }
+}
+
