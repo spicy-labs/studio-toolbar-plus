@@ -4,8 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "bun build.js",
-    "prepare": "ts-patch install"
+    "build": "bun build.js"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -32,4 +31,3 @@
     "zustand": "^5.0.3"
   }
 }
-

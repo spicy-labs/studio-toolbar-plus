@@ -14,7 +14,6 @@ async function checkForUpdates() {
       "https://raw.githubusercontent.com/spicy-labs/studio-toolbar-plus/refs/heads/main/manifest.json",
     );
     const packageJson = await response.json();
-    console.log(packageJson);
     const githubVersion = packageJson.version;
 
     // Compare versions and check if we've already notified
