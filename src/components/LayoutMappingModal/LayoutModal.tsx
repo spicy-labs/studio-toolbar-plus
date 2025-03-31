@@ -16,11 +16,19 @@ import {
   Title,
   Modal,
   Checkbox,
+  Text,
+  List,
+  Alert,
 } from "@mantine/core";
+import {
+  layoutMappingValidation,
+  type ValidationReport,
+} from "../../studio-adaptor/layoutMapingValidation.ts";
 import { IconPlus } from "@tabler/icons-react";
 import { AddMappingImageVariableModal } from "./AddMappingImageVariableModal";
 import { AddDependentModal } from "./AddDependentModal";
 import { LayoutConfigSection } from "./LayoutConfigSelection";
+import { Result } from "typescript-result";
 
 type LayoutImageMappingModalProps = {
   onExportCSV: () => void;
@@ -32,6 +40,9 @@ export const LayoutImageMappingModal: React.FC<
   LayoutImageMappingModalProps
 > = ({ onExportCSV = () => console.log("Export CSV clicked") }) => {
   const { state, effects: events, raiseError, enableToolbar } = useAppStore();
+  const [validationReport, setValidationReport] =
+    useState<ValidationReport | null>(null);
+  const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
 
   // Filter image variables from documentState
   const imageVariables = useMemo(() => {
@@ -51,20 +62,66 @@ export const LayoutImageMappingModal: React.FC<
   // Load config when component mounts if it"s not loaded yet
   useEffect(() => {
     const loadConfig = async () => {
-      if (!state.studio.isLayoutConfigLoaded) {
-        const result = await loadLayoutImageMapFromDoc();
-        console.log("result", result);
-        result.fold(
-          (config) => events.studio.layoutImageMapping.load(config),
-          () => raiseError(result),
-        );
-      }
-      if (!state.studio.isDocumentLoaded) {
-        const result = await loadDocFromDoc();
-        result.fold(
-          (doc) => events.studio.document.load(doc),
-          () => raiseError(result),
-        );
+      if (
+        !state.studio.isLayoutConfigLoaded &&
+        !state.studio.isDocumentLoaded
+      ) {
+        const resultDoc = await loadDocFromDoc();
+        const resultLayoutMap = await loadLayoutImageMapFromDoc();
+
+        resultLayoutMap.fold((layoutMapArray) => {
+          resultDoc.fold((doc) => {
+            // Create a combined validation report
+            const combinedReport: ValidationReport = {
+              removedLayoutIds: [],
+              removedVariables: [],
+              removedDependents: [],
+              removedVariableValues: [],
+            };
+
+            // Process each layout map in the array
+            const cleanedConfigArray = layoutMapArray.map((config) => {
+              // Validate the layout mapping against the document
+              const { cleanLayoutMap, report } = layoutMappingValidation(
+                config,
+                doc,
+              );
+
+              // Combine the reports
+              combinedReport.removedLayoutIds.push(...report.removedLayoutIds);
+              combinedReport.removedVariables.push(...report.removedVariables);
+              combinedReport.removedDependents.push(
+                ...report.removedDependents,
+              );
+              combinedReport.removedVariableValues.push(
+                ...report.removedVariableValues,
+              );
+
+              return cleanLayoutMap;
+            });
+
+            // Check if any items were removed during validation
+            const hasRemovedItems =
+              combinedReport.removedLayoutIds.length > 0 ||
+              combinedReport.removedVariables.length > 0 ||
+              combinedReport.removedDependents.length > 0 ||
+              combinedReport.removedVariableValues.length > 0;
+
+            if (hasRemovedItems) {
+              // Store the report and show the validation modal
+              setValidationReport(combinedReport);
+              setIsValidationModalOpen(true);
+
+              // Load the cleaned config
+              events.studio.layoutImageMapping.load(cleanedConfigArray);
+            } else {
+              // No validation issues, load the original config
+              events.studio.layoutImageMapping.load(layoutMapArray);
+            }
+
+            events.studio.document.load(doc);
+          }, raiseError);
+        }, raiseError);
       }
     };
 
@@ -200,12 +257,93 @@ export const LayoutImageMappingModal: React.FC<
       </Modal>
 
       <AddMappingImageVariableModal
-        currentMapConfig={state.studio.layoutImageMapping.find(
-          config => config.id === state.modal.currentSelectedMapId
-        ) || null}
+        currentMapConfig={
+          state.studio.layoutImageMapping.find(
+            (config) => config.id === state.modal.currentSelectedMapId,
+          ) || null
+        }
       />
 
       <AddDependentModal />
+
+      {/* Validation Report Modal */}
+      <Modal
+        opened={isValidationModalOpen}
+        onClose={() => setIsValidationModalOpen(false)}
+        title={<Title order={4}>Layout Mapping Validation</Title>}
+        centered
+        size="lg"
+      >
+        <Stack gap="md">
+          <Alert color="yellow" title="Items Removed from Layout Mapping">
+            <Text>
+              Values were deleted from the document and thus we also removed
+              those values from your layout mapping.
+            </Text>
+          </Alert>
+
+          {validationReport && (
+            <>
+              {validationReport.removedLayoutIds.length > 0 && (
+                <Stack gap="xs">
+                  <Text fw={600}>Removed Layout IDs:</Text>
+                  <List>
+                    {validationReport.removedLayoutIds.map((id, index) => (
+                      <List.Item key={index}>{id}</List.Item>
+                    ))}
+                  </List>
+                </Stack>
+              )}
+
+              {validationReport.removedVariables.length > 0 && (
+                <Stack gap="xs">
+                  <Text fw={600}>Removed Variables:</Text>
+                  <List>
+                    {validationReport.removedVariables.map((id, index) => (
+                      <List.Item key={index}>{id}</List.Item>
+                    ))}
+                  </List>
+                </Stack>
+              )}
+
+              {validationReport.removedDependents.length > 0 && (
+                <Stack gap="xs">
+                  <Text fw={600}>Removed Dependents:</Text>
+                  <List>
+                    {validationReport.removedDependents.map((item, index) => (
+                      <List.Item key={index}>
+                        Variable ID: {item.variableId} (from Image Variable:{" "}
+                        {item.imageVariableId})
+                      </List.Item>
+                    ))}
+                  </List>
+                </Stack>
+              )}
+
+              {validationReport.removedVariableValues.length > 0 && (
+                <Stack gap="xs">
+                  <Text fw={600}>Removed Variable Values:</Text>
+                  <List>
+                    {validationReport.removedVariableValues.map(
+                      (item, index) => (
+                        <List.Item key={index}>
+                          Value: {item.value} (from Image Variable:{" "}
+                          {item.imageVariableId}, Group:{" "}
+                          {item.dependentGroupIndex})
+                        </List.Item>
+                      ),
+                    )}
+                  </List>
+                </Stack>
+              )}
+            </>
+          )}
+
+          <Group justify="flex-end">
+            <Button onClick={() => setIsValidationModalOpen(false)}>OK</Button>
+          </Group>
+        </Stack>
+      </Modal>
     </MantineProvider>
   );
 };

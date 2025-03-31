@@ -2403,6 +2403,8 @@ fieldset:disabled .mantine-active:active {
 .m_89ab340[data-disabled] {
   --app-shell-header-offset: 0rem !important;
   --app-shell-navbar-offset: 0rem !important;
+  --app-shell-aside-offset: 0rem !important;
+  --app-shell-footer-offset: 0rem !important;
 }
 
 [data-mantine-color-scheme="light"] .m_89ab340 {

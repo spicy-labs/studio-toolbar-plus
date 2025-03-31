@@ -19,19 +19,25 @@ import {
   IconDownload,
   IconUpload,
   IconSquareToggle,
+  IconExternalLink,
 } from "@tabler/icons-react";
 import { useAppStore } from "../modalStore";
 import {
   getCurrentDocumentState,
   loadDocumentFromJsonStr,
 } from "../studio/documentHandler";
-import { getStudio, convertOldMap } from "../studio/studioAdapter";
+import { getStudio } from "../studio/studioAdapter";
 
 export function Toolbar() {
   const [visible, setVisible] = useState(false);
   const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] =
     useState(false);
   const [isConvertModalOpen, setIsConvertModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [updateInfo, setUpdateInfo] = useState<{
+    currentVersion: string;
+    latestVersion: string;
+  } | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -42,7 +48,6 @@ export function Toolbar() {
   };
 
   const setVisibleIntercept = (value: boolean) => {
-    console.log(value, state.isToolbarEnabled);
     if (!state.isToolbarEnabled) {
       setVisible(false);
     }
@@ -144,19 +149,50 @@ export function Toolbar() {
     }
   };
 
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      // Show toolbar when mouse is within 40px of the top of the screen and 60% of the center horizontally
-      // const screenWidth = window.innerWidth;
-      // const centerX = screenWidth / 2;
-      // const mouseX = event.clientX;
-      // const distanceToCenter = Math.abs(mouseX - centerX);
-      // const isWithinCenter = distanceToCenter <= screenWidth * 0.8;
-      //
-      // if (event.clientY <= 40 && isWithinCenter) {
-      //   setVisible(true);
-      // }
+    // Handle dismissing update notification
+    const handleDismissUpdate = () => {
+      if (updateInfo) {
+          // Fallback for local storage if chrome API isn't available
+          localStorage.setItem('toolbarplus_last_notified_version', updateInfo.latestVersion);
+        
+      }
+      setIsUpdateModalOpen(false);
+    };
 
+  // Listen for update notifications
+  useEffect(() => {
+    // Check for version info div (from content script)
+    const versionDiv = document.getElementById('toolbar-version');
+    if (versionDiv) {
+      const currentVersion = versionDiv.dataset.currentVersion;
+      const latestVersion = versionDiv.dataset.latestVersion;
+
+      if (currentVersion && latestVersion && currentVersion !== latestVersion) {
+        setUpdateInfo({
+          currentVersion,
+          latestVersion
+        });
+        setIsUpdateModalOpen(true);
+      }
+    }
+
+    // // Listen for custom event from content script
+    // const updateListener = (e: CustomEvent) => {
+    //   if (e.detail && e.detail.currentVersion && e.detail.latestVersion) {
+    //     setUpdateInfo({
+    //       currentVersion: e.detail.currentVersion,
+    //       latestVersion: e.detail.latestVersion
+    //     });
+    //     setIsUpdateModalOpen(true);
+    //   }
+    // };
+
+    // document.addEventListener('toolbarPlusUpdate', updateListener as EventListener);
+    // return () => {
+    //   document.removeEventListener('toolbarPlusUpdate', updateListener as EventListener);
+    // };
+
+    const handleMouseMove = (event: MouseEvent) => {
       if (event.clientY <= 40) {
         setVisibleIntercept(true);
       }
@@ -289,6 +325,39 @@ export function Toolbar() {
                 <IconUpload size={20} />
                 <span>Upload</span>
               </Group>
+            </Button>
+          </Group>
+        </Stack>
+      </Modal>
+
+      {/* Update Available Modal */}
+      <Modal
+        opened={isUpdateModalOpen}
+        onClose={() => setIsUpdateModalOpen(false)}
+        title="Update Available"
+        centered
+      >
+        <Stack>
+          <Text>
+            A new version of Studio Toolbar Plus is available!
+          </Text>
+          <Text size="sm">
+            Current version: {updateInfo?.currentVersion}
+            <br />
+            Latest version: {updateInfo?.latestVersion}
+          </Text>
+          <Group justify="space-between" mt="md">
+            <Button onClick={handleDismissUpdate} variant="subtle" color="gray">
+              Dismiss
+            </Button>
+            <Button
+              component="a"
+              href="https://github.com/spicy-labs/studio-toolbar-plus/"
+              target="_blank"
+              rightSection={<IconExternalLink size={16} />}
+              color="blue"
+            >
+              Download Update
             </Button>
           </Group>
         </Stack>
