@@ -1,0 +1,41 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+._*
+
+# Cache directories
+node_modules
+.bun
+.DS_Store
+build
+.cache
+.parcel-cache
+
+# Environment variables
+.env
+.env.*
+!.env.example # Include .env.example template
+.continueignore
+
+# System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Lockfiles
+package-lock.json
+bun.lock
+yarn.lock
+pnpm-lock.yaml
+
+# OS generated files
+.vscode/
