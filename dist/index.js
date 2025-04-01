@@ -21147,8 +21147,7 @@ function imageSelectionScript(debug) {
     }, getCompositeKeyFromVariables = function(dependencies) {
       return dependencies.map((dep) => {
         const variableRawValue = getVariableValue(dep);
-        const variableValue = typeof variableRawValue == "boolean" ? variableRawValue ? "TRUE" : "FALSE" : variableRawValue;
-        return `${variableValue}`;
+        return `${variableRawValue}`;
       }).join("|");
     };
     const vars = studio.variables.all();
@@ -44841,4 +44840,4 @@ setTimeout(() => {
   renderToolbar();
 }, 5000);
 
-//# debugId=186E117CAF4FCFF564756E2164756E21
+//# debugId=991AE7088F38349F64756E2164756E21
