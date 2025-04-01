@@ -115,13 +115,13 @@ export function imageSelectionScript(debug) {
       return dependencies
         .map((dep) => {
           const variableRawValue = getVariableValue(dep);
-          const variableValue =
-            typeof variableRawValue == "boolean"
-              ? variableRawValue
-                ? "TRUE"
-                : "FALSE"
-              : variableRawValue;
-          return `${variableValue}`;
+          // const variableValue =
+          //   typeof variableRawValue == "boolean"
+          //     ? variableRawValue
+          //       ? "TRUE"
+          //       : "FALSE"
+          //     : variableRawValue;
+          return `${variableRawValue}`;
         })
         .join("|");
     }
