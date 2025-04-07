@@ -149,20 +149,22 @@ export function Toolbar() {
     }
   };
 
-    // Handle dismissing update notification
-    const handleDismissUpdate = () => {
-      if (updateInfo) {
-          // Fallback for local storage if chrome API isn't available
-          localStorage.setItem('toolbarplus_last_notified_version', updateInfo.latestVersion);
-        
-      }
-      setIsUpdateModalOpen(false);
-    };
+  // Handle dismissing update notification
+  const handleDismissUpdate = () => {
+    if (updateInfo) {
+      // Fallback for local storage if chrome API isn't available
+      localStorage.setItem(
+        "toolbarplus_last_notified_version",
+        updateInfo.latestVersion,
+      );
+    }
+    setIsUpdateModalOpen(false);
+  };
 
   // Listen for update notifications
   useEffect(() => {
     // Check for version info div (from content script)
-    const versionDiv = document.getElementById('toolbar-version');
+    const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
       const latestVersion = versionDiv.dataset.latestVersion;
@@ -170,7 +172,7 @@ export function Toolbar() {
       if (currentVersion && latestVersion && currentVersion !== latestVersion) {
         setUpdateInfo({
           currentVersion,
-          latestVersion
+          latestVersion,
         });
         setIsUpdateModalOpen(true);
       }
@@ -338,9 +340,7 @@ export function Toolbar() {
         centered
       >
         <Stack>
-          <Text>
-            A new version of Studio Toolbar Plus is available!
-          </Text>
+          <Text>A new version of Studio Toolbar Plus is available!</Text>
           <Text size="sm">
             Current version: {updateInfo?.currentVersion}
             <br />

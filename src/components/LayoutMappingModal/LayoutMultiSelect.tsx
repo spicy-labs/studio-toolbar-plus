@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Group, MultiSelect, Checkbox, Tree, Drawer, Button, getTreeExpandedState, useTree } from "@mantine/core";
+import {
+  Group,
+  MultiSelect,
+  Checkbox,
+  Tree,
+  Drawer,
+  Button,
+  getTreeExpandedState,
+  useTree,
+} from "@mantine/core";
 import type { TreeNodeData as MantineTreeNodeData } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
 import type { LayoutMap } from "../../types/layoutConfigTypes.ts";
@@ -21,11 +30,11 @@ type LayoutMultiSelectProps = {
 const buildTreeData = (
   documentLayouts: Layout[],
   selectedLayoutIds: string[],
-  disabledLayoutIds: string[]
+  disabledLayoutIds: string[],
 ): TreeNodeData[] => {
   // Create a map to organize layouts by parent
   const layoutsByParent: Record<string, Layout[]> = {};
-  
+
   // Group layouts by parentId
   documentLayouts.forEach((layout) => {
     const parentId = layout.parentId || "root";
@@ -34,7 +43,7 @@ const buildTreeData = (
     }
     layoutsByParent[parentId].push(layout);
   });
-  
+
   // Recursive function to build the tree
   const buildNodes = (parentId: string = "root"): TreeNodeData[] => {
     const children = layoutsByParent[parentId] || [];
@@ -45,7 +54,7 @@ const buildTreeData = (
       children: buildNodes(layout.id),
     }));
   };
-  
+
   return buildNodes();
 };
 
@@ -57,9 +66,10 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
   const { state, effects: events } = useAppStore();
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [selectedLayouts, setSelectedLayouts] = useState<string[]>(
-    state.studio.layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []
+    state.studio.layoutImageMapping.find((lc) => lc.id === layoutConfig.id)
+      ?.layoutIds || [],
   );
-  
+
   // Get all layout IDs that are already assigned to other LayoutMaps
   const assignedToOtherMaps = state.studio.layoutImageMapping
     .filter((map) => map.id !== layoutConfig.id) // Exclude current map
@@ -71,12 +81,12 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
       layoutIds: updateLayoutIds,
     });
   };
-  
+
   const handleSave = () => {
     handleMultiSelectChange(selectedLayouts);
     setDrawerOpened(false);
   };
-  
+
   const handleToggleLayout = (layoutId: string) => {
     setSelectedLayouts((prev) => {
       if (prev.includes(layoutId)) {
@@ -86,20 +96,20 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
       }
     });
   };
-  
+
   // Build tree data from layouts
   const treeData = buildTreeData(
     state.studio.document.layouts,
     selectedLayouts,
-    assignedToOtherMaps
+    assignedToOtherMaps,
   );
-  
+
   // Custom render function for tree nodes
   const renderTreeNode = ({
     node,
     expanded,
     hasChildren,
-    elementProps
+    elementProps,
   }: {
     node: TreeNodeData;
     expanded: boolean;
@@ -108,7 +118,7 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
   }) => {
     const isDisabled = node.disabled;
     const isChecked = selectedLayouts.includes(node.value);
-    
+
     return (
       <Group gap="xs" {...elementProps}>
         <Checkbox.Indicator
@@ -121,18 +131,23 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
             }
           }}
         />
-        
-        <Group gap={5} style={{
-          color: isDisabled ? 'var(--mantine-color-gray-6)' : undefined,
-          cursor: isDisabled ? 'not-allowed' : 'pointer'
-        }}>
+
+        <Group
+          gap={5}
+          style={{
+            color: isDisabled ? "var(--mantine-color-gray-6)" : undefined,
+            cursor: isDisabled ? "not-allowed" : "pointer",
+          }}
+        >
           <span>{node.label}</span>
-          
+
           {hasChildren && (
             <IconChevronDown
               size={14}
-              color={isDisabled ? 'var(--mantine-color-gray-6)' : undefined}
-              style={{ transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+              color={isDisabled ? "var(--mantine-color-gray-6)" : undefined}
+              style={{
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+              }}
             />
           )}
         </Group>
@@ -152,8 +167,9 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
             };
           })}
           value={
-            state.studio.layoutImageMapping.find((lc) => lc.id === layoutConfig.id)
-              ?.layoutIds
+            state.studio.layoutImageMapping.find(
+              (lc) => lc.id === layoutConfig.id,
+            )?.layoutIds
           }
           onChange={handleMultiSelectChange}
           placeholder="Select layouts"
@@ -190,7 +206,7 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
           </Button>
         )}
       </Group>
-      
+
       <Drawer
         opened={drawerOpened}
         onClose={() => setDrawerOpened(false)}
@@ -206,7 +222,7 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
             expandOnClick={true}
           />
         </div>
-        
+
         <Button fullWidth onClick={handleSave}>
           Save
         </Button>

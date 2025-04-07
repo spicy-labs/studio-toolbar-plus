@@ -61,4 +61,3 @@ export function AlertsContainer() {
     </Box>
   );
 }
-

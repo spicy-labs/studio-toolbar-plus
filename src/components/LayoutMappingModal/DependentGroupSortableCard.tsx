@@ -1,6 +1,26 @@
-import { ActionIcon, Text, Card, Input, Select, Modal, Stack, Button, Checkbox, Group } from "@mantine/core";
-import { IconX, IconGripVertical, IconWand, IconPlus } from "@tabler/icons-react";
-import type { Variable, StudioList, TransformCommands } from "../../types/layoutConfigTypes";
+import {
+  ActionIcon,
+  Text,
+  Card,
+  Input,
+  Select,
+  Modal,
+  Stack,
+  Button,
+  Checkbox,
+  Group,
+} from "@mantine/core";
+import {
+  IconX,
+  IconGripVertical,
+  IconWand,
+  IconPlus,
+} from "@tabler/icons-react";
+import type {
+  Variable,
+  StudioList,
+  TransformCommands,
+} from "../../types/layoutConfigTypes";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useAppStore } from "../../modalStore";
@@ -32,8 +52,10 @@ const TransformCommandCard: React.FC<TransformCommandCardProps> = ({
           <IconX size={16} />
         </ActionIcon>
       </Group>
-      
-      <Text size="xs" mb="xs">Find:</Text>
+
+      <Text size="xs" mb="xs">
+        Find:
+      </Text>
       <Input
         placeholder="Text to find"
         value={transform.find}
@@ -43,8 +65,10 @@ const TransformCommandCard: React.FC<TransformCommandCardProps> = ({
         mb="xs"
         size="xs"
       />
-      
-      <Text size="xs" mb="xs">Replace:</Text>
+
+      <Text size="xs" mb="xs">
+        Replace:
+      </Text>
       <Input
         placeholder="Replacement text"
         value={transform.replace}
@@ -54,7 +78,7 @@ const TransformCommandCard: React.FC<TransformCommandCardProps> = ({
         mb="xs"
         size="xs"
       />
-      
+
       <Checkbox
         label="Replace All"
         checked={transform.replaceAll}
@@ -146,7 +170,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
 
   // Initialize transforms from value when modal opens
   const openTransformModal = () => {
-    if (typeof value !== 'string' && value.transform) {
+    if (typeof value !== "string" && value.transform) {
       setTransforms([...value.transform]);
     } else {
       setTransforms([]);
@@ -155,7 +179,10 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   };
 
   // Update a transform at a specific index
-  const updateTransform = (index: number, updatedTransform: TransformCommands) => {
+  const updateTransform = (
+    index: number,
+    updatedTransform: TransformCommands,
+  ) => {
     const newTransforms = [...transforms];
     newTransforms[index] = updatedTransform;
     setTransforms(newTransforms);
@@ -170,35 +197,45 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   const addTransform = () => {
     setTransforms([
       ...transforms,
-      { find: "", replace: "", replaceAll: false, regex: false }
+      { find: "", replace: "", replaceAll: false, regex: false },
     ]);
   };
 
   // Save transforms back to the variable
   const saveTransforms = () => {
     // Filter out transforms with missing find or replace
-    const validTransforms = transforms.filter(t => t.find.trim() !== "" && t.replace.trim() !== "");
-    
-    if (typeof value !== 'string' && value.type) {
+    const validTransforms = transforms.filter(
+      (t) => t.find.trim() !== "" && t.replace.trim() !== "",
+    );
+
+    if (typeof value !== "string" && value.type) {
       updateVarValue({
         ...value,
-        transform: validTransforms
+        transform: validTransforms,
       });
     }
-    
+
     setTransformModalOpen(false);
   };
 
   // Determine wand icon color based on transform array length
   const getWandColor = () => {
-    if (typeof value !== 'string' && value.transform && value.transform.length > 0) {
+    if (
+      typeof value !== "string" &&
+      value.transform &&
+      value.transform.length > 0
+    ) {
       return "blue";
     }
     return "gray";
   };
 
   const getWandOpacity = () => {
-    if (typeof value !== 'string' && value.transform && value.transform.length > 0) {
+    if (
+      typeof value !== "string" &&
+      value.transform &&
+      value.transform.length > 0
+    ) {
       return 1;
     }
     return 0.5;
@@ -222,7 +259,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
           <IconX />
         </ActionIcon>
 
-        {typeof value !== 'string' && (
+        {typeof value !== "string" && (
           <ActionIcon
             variant="subtle"
             size="sm"
@@ -233,7 +270,6 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
               position: "absolute",
               top: "5px",
               right: "30px",
-              
             }}
             onClick={openTransformModal}
           >
@@ -304,26 +340,23 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
               onRemove={removeTransform}
             />
           ))}
-          
+
           <Card shadow="sm" padding="xs" radius="md" withBorder>
             <Group justify="center">
-              <ActionIcon
-                variant="subtle"
-                color="blue"
-                onClick={addTransform}
-              >
+              <ActionIcon variant="subtle" color="blue" onClick={addTransform}>
                 <IconPlus size={20} />
               </ActionIcon>
             </Group>
           </Card>
-          
+
           <Group justify="flex-end" mt="md">
-            <Button variant="outline" onClick={() => setTransformModalOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setTransformModalOpen(false)}
+            >
               Cancel
             </Button>
-            <Button onClick={saveTransforms}>
-              Save
-            </Button>
+            <Button onClick={saveTransforms}>Save</Button>
           </Group>
         </Stack>
       </Modal>
