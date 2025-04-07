@@ -39,3 +39,6 @@ pnpm-lock.yaml
 
 # OS generated files
 .vscode/
+
+# AI Files
+.aider*
