@@ -23,7 +23,7 @@ import {
 import {
   layoutMappingValidation,
   type ValidationReport,
-} from "../../studio-adaptor/layoutMapingValidation.ts";
+} from "../../studio-adapter/layoutMapingValidation.ts";
 import { IconPlus } from "@tabler/icons-react";
 import { AddMappingImageVariableModal } from "./AddMappingImageVariableModal";
 import { AddDependentModal } from "./AddDependentModal";
