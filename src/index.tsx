@@ -1,6 +1,5 @@
 import React from "react";
 import { createRoot, type Root } from "react-dom/client";
-import { ConfigModal } from "./components/Old/ConfigModal.tsx";
 import { appStore } from "./modalStore";
 import type { default as SDKType } from "@chili-publish/studio-sdk";
 import { LayoutImageMappingModal } from "./components/LayoutMappingModal/LayoutModal.tsx";
@@ -47,7 +46,7 @@ const handleExportCSV = () => {
 async function renderToolbar() {
   const studioResult = await getStudio();
   studioResult.onSuccess((studio) => setEnableActions(studio, true));
-  
+
   // Create our modal root if it doesn't exist
   if (!window.rootInstance) {
     // Create div on body and use in it in the createRoot
@@ -70,7 +69,7 @@ async function renderToolbar() {
   // Render the modal
   window.rootInstance.render(
     <React.StrictMode>
-        <LayoutImageMappingModal onExportCSV={() => console.log("Look")} />
+      <LayoutImageMappingModal onExportCSV={() => console.log("Look")} />
     </React.StrictMode>,
   );
 
