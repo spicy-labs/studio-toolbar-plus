@@ -7,6 +7,9 @@ import {
   getPropertiesOnSelectedLayout,
   getById,
 } from "../studio/frameHandler";
+import {
+  getById as getVariableById
+} from "../studio/variableHandler";
 import type SDK from "@chili-publish/studio-sdk";
 import { Result } from "typescript-result";
 
@@ -91,6 +94,12 @@ export function AddFrameSnapshotModal({
         if (!frameResult.isOk()) {
           throw frameResult.error;
         }
+
+        const frame = frameResult.value;
+
+        // AI Check if src is on frame and then if no throw error "Image frame is not tied to image variable"
+
+        // If src, then call getVariableById and get the value AI!
 
         // 4. Get Frame Properties
         const propertiesResult = await getPropertiesOnSelectedLayout(studio);
