@@ -84,10 +84,10 @@ export function FrameSnapshotLayoutModal({
     }
   }, [opened]);
 
-  const handleRemoveFrameLayout = async (frameId: string, layoutId: string) => {
+  const handleRemoveFrameLayout = async (frameId: string, imageName:string, layoutId: string) => {
     try {
       setIsRemoving(true);
-      await removeFrameLayouyMap(frameId, layoutId);
+      await removeFrameLayouyMap(frameId, imageName, layoutId);
       
       // Reload the frame layouts after successful removal
       await loadFrameLayouts();
@@ -161,7 +161,7 @@ export function FrameSnapshotLayoutModal({
                                   <ActionIcon
                                     color="red"
                                     variant="subtle"
-                                    onClick={() => handleRemoveFrameLayout(snapshot.frameId, frameLayoutMap.layoutId)}
+                                    onClick={() => handleRemoveFrameLayout(snapshot.frameId, snapshot.imageName, frameLayoutMap.layoutId)}
                                     disabled={isRemoving || isLoading}
                                   >
                                     <IconTrash size={16} />

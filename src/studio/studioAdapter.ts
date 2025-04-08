@@ -405,7 +405,7 @@ export async function saveImageSizingMappingToAction(
 //   }
 // }
 
-export async function removeFrameLayouyMap(frameId:string, layoutId:string): Promise<Result<void, Error>> {
+export async function removeFrameLayouyMap(frameId:string, imageName:String, layoutId:string): Promise<Result<void, Error>> {
   try {
     // 1. Load frame layout maps from doc
     const frameLayoutMapsResult = await loadFrameLayoutMapsFromDoc();
@@ -425,7 +425,7 @@ export async function removeFrameLayouyMap(frameId:string, layoutId:string): Pro
     // 3. Find the frame snapshot with the specified frame ID
     const frameLayoutMap = frameLayoutMaps[frameLayoutMapIndex];
     const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex(
-      snapshot => snapshot.frameId === frameId
+      snapshot => snapshot.frameId === frameId && snapshot.imageName == imageName
     );
     
     if (frameSnapshotIndex === -1) {
@@ -503,7 +503,7 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
 
     // 5. Find or add a FrameSnapshot for the selected frame
     const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex(
-      snapshot => snapshot.frameId === frameSnapshot.frameId
+      snapshot => snapshot.frameId === frameSnapshot.frameId && snapshot.imageName == frameSnapshot.assetId
     );
 
     const newFrameSnapshot = {
