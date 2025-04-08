@@ -21272,7 +21272,7 @@ function imageSizingScript(debug) {
   }
   for (const imageVar of imageVars) {
     const imageSizeData = layoutImageSizingData[imageVar.value];
-    if (imageSizingData == null) {
+    if (imageSizeData == null) {
       errorCollection.push(Error(`No image size data found for ${imageVar.value} for variable ${imageVar.name}`));
       continue;
     }
@@ -21302,8 +21302,8 @@ function imageSizingScript(debug) {
     const updatedHeight = currentPage.height * heightRatio;
     const updatedRelativeX = currentPage.width * xPosRatio;
     const updatedRelativeY = currentPage.height * yPosRatio;
-    const updatedX = currentPage.x + updatedRelativeX;
-    const updatedY = currentPage.y + updatedRelativeY;
+    const updatedX = updatedRelativeX;
+    const updatedY = updatedRelativeY;
     return {
       x: Math.round(updatedX),
       y: Math.round(updatedY),
@@ -21692,7 +21692,7 @@ console.log(imageSizingScript(false))`;
   });
   return updateResult;
 }
-async function removeFrameLayouyMap(frameId, layoutId) {
+async function removeFrameLayouyMap(frameId, imageName, layoutId) {
   try {
     const frameLayoutMapsResult = await loadFrameLayoutMapsFromDoc();
     if (!frameLayoutMapsResult.isOk()) {
@@ -21704,7 +21704,7 @@ async function removeFrameLayouyMap(frameId, layoutId) {
       return Result.error(new Error(`No frame layout map found for layout ID: ${layoutId}`));
     }
     const frameLayoutMap = frameLayoutMaps[frameLayoutMapIndex];
-    const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex((snapshot) => snapshot.frameId === frameId);
+    const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex((snapshot) => snapshot.frameId === frameId && snapshot.imageName == imageName);
     if (frameSnapshotIndex === -1) {
       return Result.error(new Error(`No frame snapshot found with ID: ${frameId}`));
     }
@@ -21750,7 +21750,7 @@ async function updateFrameLayoutMaps(frameSnapshot) {
       };
       frameLayoutMaps.push(frameLayoutMap);
     }
-    const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex((snapshot) => snapshot.frameId === frameSnapshot.frameId);
+    const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex((snapshot) => snapshot.frameId === frameSnapshot.frameId && snapshot.imageName == frameSnapshot.assetId);
     const newFrameSnapshot = {
       imageName: frameSnapshot.assetId,
       frameId: frameSnapshot.frameId,
@@ -46653,10 +46653,10 @@ function FrameSnapshotLayoutModal({
       loadFrameLayouts();
     }
   }, [opened]);
-  const handleRemoveFrameLayout = async (frameId, layoutId) => {
+  const handleRemoveFrameLayout = async (frameId, imageName, layoutId) => {
     try {
       setIsRemoving(true);
-      await removeFrameLayouyMap(frameId, layoutId);
+      await removeFrameLayouyMap(frameId, imageName, layoutId);
       await loadFrameLayouts();
     } catch (error2) {
       raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
@@ -46762,7 +46762,7 @@ function FrameSnapshotLayoutModal({
                               children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(ActionIcon, {
                                 color: "red",
                                 variant: "subtle",
-                                onClick: () => handleRemoveFrameLayout(snapshot.frameId, frameLayoutMap.layoutId),
+                                onClick: () => handleRemoveFrameLayout(snapshot.frameId, snapshot.imageName, frameLayoutMap.layoutId),
                                 disabled: isRemoving || isLoading,
                                 children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(IconTrash, {
                                   size: 16
@@ -47637,4 +47637,4 @@ setTimeout(() => {
   renderToolbar();
 }, 5000);
 
-//# debugId=F88A8A777B75FBC064756E2164756E21
+//# debugId=9A11F7D126DD128664756E2164756E21
