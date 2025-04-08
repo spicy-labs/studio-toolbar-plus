@@ -1,4 +1,5 @@
 export function imageSelectionScript(debug) {
+  const version = "0.4";
   const imageSelectionData = "%DATA%";
 
   const errorCollection = [];
@@ -8,7 +9,9 @@ export function imageSelectionScript(debug) {
     const vars = studio.variables.all();
     const imageVars = vars.filter((f) => f.type == "image");
 
-    const layoutImageMapping = imageSelectionData[getSelectedLayoutName()];
+    const layoutName = getSelectedLayoutName();
+
+    const layoutImageMapping = imageSelectionData[layoutName];
 
     if (debug) {
       debugData.imageVars = imageVars;
@@ -17,7 +20,7 @@ export function imageSelectionScript(debug) {
 
     if (!layoutImageMapping) {
       errorCollection.push(
-        Error(`No image mapping found for layout ${getSelectedLayoutName()}`),
+        Error(`No image mapping found for layout ${layoutName}`),
       );
       return { debugData, errorCollection };
     }
@@ -131,3 +134,4 @@ export function imageSelectionScript(debug) {
 
   return { debugData, errorCollection };
 }
+

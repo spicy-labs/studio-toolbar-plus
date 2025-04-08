@@ -92,3 +92,7 @@ export async function setOrCreateVariableValue({
     }
   });
 }
+
+export async function getById(studio:SDK, id:string) {
+    return handleStudioFunc(studio.next.variable.getById, id);
+}

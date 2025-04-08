@@ -1,7 +1,7 @@
 import type SDK from "@chili-publish/studio-sdk";
 import { Result } from "typescript-result";
 import { handleStudioFunc } from "./utils";
-import type { PrivateData } from "@chili-publish/studio-sdk";
+import type { PrivateData, ResizableLayoutPropertiesUpdate } from "@chili-publish/studio-sdk";
 
 type GetPrivateDataProps = {
   studio: SDK;
@@ -29,7 +29,6 @@ export async function setPrivateData({
   id,
   privateData,
 }: SetPrivateDataProps) {
-  console.log("AHHHHH", studio, id, privateData);
   return await handleStudioFunc(studio.layout.setPrivateData, id, privateData);
 }
 
@@ -37,3 +36,10 @@ export async function getAllLayouts(studio: SDK) {
   return await handleStudioFunc(studio.layout.getAll);
 }
 
+export async function getSelected(studio: SDK) {
+  return await handleStudioFunc(studio.layout.getSelected);
+}
+
+export async function updateLayoutResizable(studio:SDK, id:string, update: ResizableLayoutPropertiesUpdate) {
+  return await handleStudioFunc(studio.layout.setResizableByUser, id, update);
+}

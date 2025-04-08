@@ -19132,8 +19132,8 @@ var init_defaultAttributes = __esm(() => {
 });
 
 // node_modules/@tabler/icons-react/dist/esm/createReactComponent.mjs
-var import_react224, createReactComponent = (type, iconName, iconNamePascal, iconNode) => {
-  const Component = import_react224.forwardRef(({ color = "currentColor", size: size4 = 24, stroke = 2, title, className, children, ...rest }, ref) => import_react224.createElement("svg", {
+var import_react234, createReactComponent = (type, iconName, iconNamePascal, iconNode) => {
+  const Component = import_react234.forwardRef(({ color = "currentColor", size: size4 = 24, stroke = 2, title, className, children, ...rest }, ref) => import_react234.createElement("svg", {
     ref,
     ...defaultAttributes[type],
     width: size4,
@@ -19147,15 +19147,15 @@ var import_react224, createReactComponent = (type, iconName, iconNamePascal, ico
     },
     ...rest
   }, [
-    title && import_react224.createElement("title", { key: "svg-title" }, title),
-    ...iconNode.map(([tag, attrs]) => import_react224.createElement(tag, attrs)),
+    title && import_react234.createElement("title", { key: "svg-title" }, title),
+    ...iconNode.map(([tag, attrs]) => import_react234.createElement(tag, attrs)),
     ...Array.isArray(children) ? children : [children]
   ]));
   Component.displayName = `${iconNamePascal}`;
   return Component;
 };
 var init_createReactComponent = __esm(() => {
-  import_react224 = __toESM(require_react(), 1);
+  import_react234 = __toESM(require_react(), 1);
   init_defaultAttributes();
 });
 
@@ -19164,6 +19164,13 @@ var IconAbc;
 var init_IconAbc = __esm(() => {
   init_createReactComponent();
   IconAbc = createReactComponent("outline", "abc", "IconAbc", [["path", { d: "M3 16v-6a2 2 0 1 1 4 0v6", key: "svg-0" }], ["path", { d: "M3 13h4", key: "svg-1" }], ["path", { d: "M10 8v6a2 2 0 1 0 4 0v-1a2 2 0 1 0 -4 0v1", key: "svg-2" }], ["path", { d: "M20.732 12a2 2 0 0 0 -3.732 1v1a2 2 0 0 0 3.726 1.01", key: "svg-3" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconAlertCircle.mjs
+var IconAlertCircle;
+var init_IconAlertCircle = __esm(() => {
+  init_createReactComponent();
+  IconAlertCircle = createReactComponent("outline", "alert-circle", "IconAlertCircle", [["path", { d: "M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0", key: "svg-0" }], ["path", { d: "M12 8v4", key: "svg-1" }], ["path", { d: "M12 16h.01", key: "svg-2" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconArrowsTransferUpDown.mjs
@@ -19178,6 +19185,13 @@ var IconBug;
 var init_IconBug = __esm(() => {
   init_createReactComponent();
   IconBug = createReactComponent("outline", "bug", "IconBug", [["path", { d: "M9 9v-1a3 3 0 0 1 6 0v1", key: "svg-0" }], ["path", { d: "M8 9h8a6 6 0 0 1 1 3v3a5 5 0 0 1 -10 0v-3a6 6 0 0 1 1 -3", key: "svg-1" }], ["path", { d: "M3 13l4 0", key: "svg-2" }], ["path", { d: "M17 13l4 0", key: "svg-3" }], ["path", { d: "M12 20l0 -6", key: "svg-4" }], ["path", { d: "M4 19l3.35 -2", key: "svg-5" }], ["path", { d: "M20 19l-3.35 -2", key: "svg-6" }], ["path", { d: "M4 7l3.75 2.4", key: "svg-7" }], ["path", { d: "M20 7l-3.75 2.4", key: "svg-8" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconCameraPlus.mjs
+var IconCameraPlus;
+var init_IconCameraPlus = __esm(() => {
+  init_createReactComponent();
+  IconCameraPlus = createReactComponent("outline", "camera-plus", "IconCameraPlus", [["path", { d: "M12 20h-7a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v3.5", key: "svg-0" }], ["path", { d: "M16 19h6", key: "svg-1" }], ["path", { d: "M19 16v6", key: "svg-2" }], ["path", { d: "M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0", key: "svg-3" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconChevronDown.mjs
@@ -19236,11 +19250,25 @@ var init_IconMapBolt = __esm(() => {
   IconMapBolt = createReactComponent("outline", "map-bolt", "IconMapBolt", [["path", { d: "M13 19l-4 -2l-6 3v-13l6 -3l6 3l6 -3v8.5", key: "svg-0" }], ["path", { d: "M9 4v13", key: "svg-1" }], ["path", { d: "M15 7v7.5", key: "svg-2" }], ["path", { d: "M19 16l-2 3h4l-2 3", key: "svg-3" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconPhotoCog.mjs
+var IconPhotoCog;
+var init_IconPhotoCog = __esm(() => {
+  init_createReactComponent();
+  IconPhotoCog = createReactComponent("outline", "photo-cog", "IconPhotoCog", [["path", { d: "M15 8h.01", key: "svg-0" }], ["path", { d: "M12 21h-6a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6", key: "svg-1" }], ["path", { d: "M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3", key: "svg-2" }], ["path", { d: "M14 14l1 -1c.48 -.461 1.016 -.684 1.551 -.67", key: "svg-3" }], ["path", { d: "M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-4" }], ["path", { d: "M19.001 15.5v1.5", key: "svg-5" }], ["path", { d: "M19.001 21v1.5", key: "svg-6" }], ["path", { d: "M22.032 17.25l-1.299 .75", key: "svg-7" }], ["path", { d: "M17.27 20l-1.3 .75", key: "svg-8" }], ["path", { d: "M15.97 17.25l1.3 .75", key: "svg-9" }], ["path", { d: "M20.733 20l1.3 .75", key: "svg-10" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPlus.mjs
 var IconPlus;
 var init_IconPlus = __esm(() => {
   init_createReactComponent();
   IconPlus = createReactComponent("outline", "plus", "IconPlus", [["path", { d: "M12 5l0 14", key: "svg-0" }], ["path", { d: "M5 12l14 0", key: "svg-1" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconTrash.mjs
+var IconTrash;
+var init_IconTrash = __esm(() => {
+  init_createReactComponent();
+  IconTrash = createReactComponent("outline", "trash", "IconTrash", [["path", { d: "M4 7l16 0", key: "svg-0" }], ["path", { d: "M10 11l0 6", key: "svg-1" }], ["path", { d: "M14 11l0 6", key: "svg-2" }], ["path", { d: "M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12", key: "svg-3" }], ["path", { d: "M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3", key: "svg-4" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconUpload.mjs
@@ -19280,7 +19308,7 @@ var init_IconTrashFilled = __esm(() => {
 
 // node_modules/react/cjs/react-jsx-dev-runtime.development.js
 var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
-  var React15 = __toESM(require_react(), 1);
+  var React16 = __toESM(require_react(), 1);
   (function() {
     function getComponentNameFromType(type) {
       if (type == null)
@@ -19472,17 +19500,17 @@ React keys must be passed directly to JSX without using spread:
     }
     var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler");
     Symbol.for("react.provider");
-    var REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React15.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+    var REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React16.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
       return null;
     };
-    React15 = {
+    React16 = {
       "react-stack-bottom-frame": function(callStackForError) {
         return callStackForError();
       }
     };
     var specialPropKeyWarningShown;
     var didWarnAboutElementRef = {};
-    var unknownOwnerDebugStack = React15["react-stack-bottom-frame"].bind(React15, UnknownOwner)();
+    var unknownOwnerDebugStack = React16["react-stack-bottom-frame"].bind(React16, UnknownOwner)();
     var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
     var didWarnAboutKeySpread = {};
     exports.Fragment = REACT_FRAGMENT_TYPE;
@@ -19503,7 +19531,7 @@ var require_jsx_dev_runtime = __commonJS((exports, module) => {
 });
 
 // src/index.tsx
-var import_react237 = __toESM(require_react(), 1);
+var import_react250 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -21064,16 +21092,24 @@ async function setPrivateData({
   id,
   privateData
 }) {
-  console.log("AHHHHH", studio2, id, privateData);
   return await handleStudioFunc(studio2.layout.setPrivateData, id, privateData);
 }
 async function getAllLayouts(studio2) {
   return await handleStudioFunc(studio2.layout.getAll);
 }
+async function getSelected(studio2) {
+  return await handleStudioFunc(studio2.layout.getSelected);
+}
+async function updateLayoutResizable(studio2, id, update) {
+  return await handleStudioFunc(studio2.layout.setResizableByUser, id, update);
+}
 
 // src/studio/variableHandler.ts
 async function getAllVariables(studio2) {
   return handleStudioFunc(studio2.next.variable.getAll);
+}
+async function getById(studio2, id) {
+  return handleStudioFunc(studio2.next.variable.getById, id);
 }
 
 // src/studio/studioAdapter.ts
@@ -21082,7 +21118,9 @@ var import_studio_sdk = __toESM(require_main(), 1);
 // src/types/toolbarEnvelope.ts
 function createEmptyEnvelope() {
   return {
-    layoutMaps: []
+    layoutMaps: [],
+    frameMaps: [],
+    layoutSizes: {}
   };
 }
 
@@ -21129,6 +21167,7 @@ function setEnableActions(studio2, value) {
 
 // src/studio/actions/imageSelection.js
 function imageSelectionScript(debug) {
+  const version = "0.4";
   const imageSelectionData = "%DATA%";
   const errorCollection = [];
   const debugData = {};
@@ -21152,13 +21191,14 @@ function imageSelectionScript(debug) {
     };
     const vars = studio.variables.all();
     const imageVars = vars.filter((f) => f.type == "image");
-    const layoutImageMapping = imageSelectionData[getSelectedLayoutName()];
+    const layoutName = getSelectedLayoutName();
+    const layoutImageMapping = imageSelectionData[layoutName];
     if (debug) {
       debugData.imageVars = imageVars;
       debugData.layoutImageMapping = layoutImageMapping;
     }
     if (!layoutImageMapping) {
-      errorCollection.push(Error(`No image mapping found for layout ${getSelectedLayoutName()}`));
+      errorCollection.push(Error(`No image mapping found for layout ${layoutName}`));
       return { debugData, errorCollection };
     }
     for (const imageVar of imageVars) {
@@ -21209,6 +21249,68 @@ function imageSelectionScript(debug) {
     errorCollection.push(e);
   }
   return { debugData, errorCollection };
+}
+
+// src/studio/actions/imageSizing.js
+function imageSizingScript(debug) {
+  const version = 0.4;
+  const imageSizingData = "%DATA1%";
+  const layoutSizingData = "%DATA2%";
+  const errorCollection = [];
+  const vars = studio.variables.all();
+  const imageVars = vars.filter((f) => f.type == "image");
+  const layoutName = getSelectedLayoutName();
+  const layoutImageSizingData = imageSizingData[layoutName];
+  const layoutSizeData = layoutSizingData[layoutName];
+  if (layoutSizeData == null) {
+    errorCollection.push(Error(`No layout sizing data found for ${layoutName}}`));
+    return;
+  }
+  if (layoutImageSizingData == null) {
+    errorCollection.push(Error(`No layout image sizing data found for ${layoutName}}`));
+    return;
+  }
+  for (const imageVar of imageVars) {
+    const imageSizeData = layoutImageSizingData[imageVar.value];
+    if (imageSizingData == null) {
+      errorCollection.push(Error(`No image size data found for ${imageVar.value} for variable ${imageVar.name}`));
+      continue;
+    }
+    console.log("HELLO");
+    console.log(JSON.stringify(imageSizeData));
+    const newFramePos = calculateUpdatedFrame(imageSizeData, layoutSizeData, {
+      width: getPageWidth(),
+      height: getPageHeight()
+    });
+    const frameName = imageSizeData.frameName;
+    setFrameX(frameName, newFramePos.x);
+    setFrameY(frameName, newFramePos.y);
+    setFrameWidth(frameName, newFramePos.width);
+    setFrameHeight(frameName, newFramePos.height);
+  }
+  function calculateUpdatedFrame(initialFrame, initialPage, currentPage) {
+    if (initialPage.width <= 0 || initialPage.height <= 0) {
+      return initialFrame;
+    }
+    const relativeInitialX = initialFrame.x;
+    const relativeInitialY = initialFrame.y;
+    const widthRatio = initialFrame.width / initialPage.width;
+    const heightRatio = initialFrame.height / initialPage.height;
+    const xPosRatio = relativeInitialX / initialPage.width;
+    const yPosRatio = relativeInitialY / initialPage.height;
+    const updatedWidth = currentPage.width * widthRatio;
+    const updatedHeight = currentPage.height * heightRatio;
+    const updatedRelativeX = currentPage.width * xPosRatio;
+    const updatedRelativeY = currentPage.height * yPosRatio;
+    const updatedX = currentPage.x + updatedRelativeX;
+    const updatedY = currentPage.y + updatedRelativeY;
+    return {
+      x: Math.round(updatedX),
+      y: Math.round(updatedY),
+      width: Math.round(updatedWidth),
+      height: Math.round(updatedHeight)
+    };
+  }
 }
 
 // src/studio/layoutMappingToActionMap.ts
@@ -21294,6 +21396,97 @@ function layoutMappingToActionMap(layoutMaps, doc) {
   return actionMap;
 }
 
+// src/studio/frameHandler.ts
+async function getSelected2(studio2) {
+  return handleStudioFunc(studio2.frame.getSelected);
+}
+async function getById2(studio2, id) {
+  return handleStudioFunc(studio2.frame.getById, id);
+}
+async function getAll(studio2) {
+  return handleStudioFunc(studio2.frame.getAll);
+}
+async function getPropertiesOnSelectedLayout(studio2) {
+  return handleStudioFunc(studio2.frame.getPropertiesOnSelectedLayout);
+}
+
+// src/studio-adapter/frameLayoutMappingToLookup.ts
+async function frameLayoutMappingToLookup(frameMaps, studio2) {
+  try {
+    const result = {};
+    const layoutsResult = await getAllLayouts(studio2);
+    if (layoutsResult.isError()) {
+      throw layoutsResult.error;
+    }
+    const layouts = layoutsResult.value;
+    if (!layouts) {
+      throw new Error("Failed to get layouts");
+    }
+    const framesResult = await getAll(studio2);
+    if (framesResult.isError()) {
+      throw framesResult.error;
+    }
+    const frames = framesResult.value;
+    if (!frames) {
+      throw new Error("Failed to get frames");
+    }
+    const layoutIdToNameMap = new Map;
+    const frameIdToNameMap = new Map;
+    for (const layout of layouts) {
+      layoutIdToNameMap.set(layout.id, layout.name);
+    }
+    for (const frame of frames) {
+      frameIdToNameMap.set(frame.id, frame.name);
+    }
+    for (const frameMap of frameMaps) {
+      const { layoutId, frameSnapshots } = frameMap;
+      const layoutName = layoutIdToNameMap.get(layoutId) || layoutId;
+      if (!result[layoutName]) {
+        result[layoutName] = {};
+      }
+      for (const snapshot of frameSnapshots) {
+        const { imageName, ...rest } = snapshot;
+        const frameName = frameIdToNameMap.get(snapshot.frameId);
+        if (!frameName) {
+          throw new Error(`No frame name for frame with ID: ${snapshot.frameId}`);
+        }
+        const newRest = { ...rest, frameName };
+        result[layoutName][imageName] = newRest;
+      }
+    }
+    return Result.ok(result);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+
+// src/studio-adapter/layoutManagerToLookup.ts
+async function layoutManagerToLookup(studio2) {
+  const layoutsResult = await getAllLayouts(studio2);
+  if (layoutsResult.isError()) {
+    console.error("Failed to get layouts:", layoutsResult.error);
+    return layoutsResult;
+  }
+  const layouts = layoutsResult.value;
+  if (!layouts) {
+    return Result.error(new Error("Layouts are null or undefined"));
+  }
+  return Result.try(() => {
+    const layoutSizes = {};
+    for (const layout of layouts) {
+      const widthValue = typeof layout.width === "object" && layout.width !== null ? layout.width.value : layout.width;
+      const heightValue = typeof layout.height === "object" && layout.height !== null ? layout.height.value : layout.height;
+      const aspectRatioPercentage = heightValue > 0 ? widthValue / heightValue * 100 : 0;
+      layoutSizes[layout.name] = {
+        width: widthValue,
+        height: heightValue,
+        aspectRatioPercentage
+      };
+    }
+    return layoutSizes;
+  });
+}
+
 // src/studio/studioAdapter.ts
 async function getStudio() {
   if (window.SDK == null)
@@ -21312,6 +21505,20 @@ async function tryAddingToolbarToData(data) {
   });
 }
 async function loadLayoutImageMapFromDoc() {
+  const result = await loadToolbarDataFromDoc();
+  if (await result.isOk()) {
+    return Result.ok(result.value?.layoutMaps ?? []);
+  }
+  return result;
+}
+async function loadFrameLayoutMapsFromDoc() {
+  const result = await loadToolbarDataFromDoc();
+  if (await result.isOk()) {
+    return Result.ok(result.value?.frameMaps ?? []);
+  }
+  return result;
+}
+async function loadToolbarDataFromDoc() {
   const dataResult = await getPrivateData({
     id: "0",
     studio: window.SDK
@@ -21321,20 +21528,26 @@ async function loadLayoutImageMapFromDoc() {
     if (data.toolbar != null) {
       const toolbarResult = await Result.try(() => JSON.parse(data.toolbar));
       if (toolbarResult.isOk()) {
-        return Result.ok(toolbarResult.value.layoutMaps);
+        return Result.ok(toolbarResult.value);
       }
       return toolbarResult;
     } else {
       const setDataResult = await tryAddingToolbarToData(data);
       if (setDataResult.isOk()) {
-        return Result.ok([]);
+        return Result.ok(createEmptyEnvelope());
       }
       return setDataResult;
     }
   }
   return dataResult;
 }
-async function saveLayoutImageMapToDoc(layoutMaps) {
+function saveLayoutImageMapToDoc(layoutMaps) {
+  return saveToolbarDataToDoc("layoutMaps", layoutMaps);
+}
+function saveFrameLayoutMapsToDoc(frameMaps) {
+  return saveToolbarDataToDoc("frameMaps", frameMaps);
+}
+async function saveToolbarDataToDoc(key, value) {
   const dataResult = await getPrivateData({
     id: "0",
     studio: window.SDK
@@ -21360,7 +21573,7 @@ async function saveLayoutImageMapToDoc(layoutMaps) {
       const toolbarResult = await Result.try(() => JSON.parse(data.toolbar));
       if (toolbarResult.isOk()) {
         const toolbar = toolbarResult.value;
-        toolbar.layoutMaps = layoutMaps;
+        toolbar[key] = value;
         const stringifyResult = Result.try(() => JSON.stringify(toolbar, null, 0));
         if (stringifyResult.isOk()) {
           data.toolbar = stringifyResult.value;
@@ -21442,7 +21655,7 @@ async function loadDocFromDoc() {
 async function saveLayoutMappingToAction(layoutMaps, doc) {
   const actionMap = layoutMappingToActionMap(layoutMaps, doc);
   const script = imageSelectionScript.toString().replace('"%DATA%"', JSON.stringify(actionMap)) + `
-console.log(imageSelectionScript(true))`;
+console.log(imageSelectionScript(false))`;
   const updateResult = await updateAction({
     name: "AUTO_GEN_TOOLBAR",
     studio: window.SDK
@@ -21456,9 +21669,113 @@ console.log(imageSelectionScript(true))`;
   });
   return updateResult;
 }
+async function saveImageSizingMappingToAction(frameMaps) {
+  const imageResizingMapResult = await frameLayoutMappingToLookup(frameMaps, window.SDK);
+  const layoutSizingMapResult = await layoutManagerToLookup(window.SDK);
+  const results = Result.all(imageResizingMapResult, layoutSizingMapResult);
+  if (results.isError() || results.value == null) {
+    return results;
+  }
+  const [imageResizingData, layoutSizingData] = results.value;
+  const script = imageSizingScript.toString().replace('"%DATA1%"', JSON.stringify(imageResizingData)).replace('"%DATA2%"', JSON.stringify(layoutSizingData)) + `
+console.log(imageSizingScript(false))`;
+  const updateResult = await updateAction({
+    name: "AUTO_GEN_TOOLBAR_IR",
+    studio: window.SDK
+  }, {
+    name: "AUTO_GEN_TOOLBAR_IR",
+    triggers: [
+      { event: import_studio_sdk.ActionEditorEvent.selectedLayoutChanged },
+      { event: import_studio_sdk.ActionEditorEvent.variableValueChanged }
+    ],
+    script
+  });
+  return updateResult;
+}
+async function removeFrameLayouyMap(frameId, layoutId) {
+  try {
+    const frameLayoutMapsResult = await loadFrameLayoutMapsFromDoc();
+    if (!frameLayoutMapsResult.isOk()) {
+      return Result.error(new Error("Failed to load frame layout maps: " + frameLayoutMapsResult.error?.message));
+    }
+    const frameLayoutMaps = frameLayoutMapsResult.value;
+    const frameLayoutMapIndex = frameLayoutMaps.findIndex((map) => map.layoutId === layoutId);
+    if (frameLayoutMapIndex === -1) {
+      return Result.error(new Error(`No frame layout map found for layout ID: ${layoutId}`));
+    }
+    const frameLayoutMap = frameLayoutMaps[frameLayoutMapIndex];
+    const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex((snapshot) => snapshot.frameId === frameId);
+    if (frameSnapshotIndex === -1) {
+      return Result.error(new Error(`No frame snapshot found with ID: ${frameId}`));
+    }
+    frameLayoutMap.frameSnapshots.splice(frameSnapshotIndex, 1);
+    if (frameLayoutMap.frameSnapshots.length === 0) {
+      frameLayoutMaps.splice(frameLayoutMapIndex, 1);
+    }
+    const saveResult = await saveFrameLayoutMapsToDoc(frameLayoutMaps);
+    if (!saveResult.isOk()) {
+      return Result.error(new Error("Failed to save frame layout maps: " + saveResult.error?.message));
+    }
+    return Result.ok(undefined);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+async function updateFrameLayoutMaps(frameSnapshot) {
+  try {
+    const studioResult = await getStudio();
+    if (!studioResult.isOk()) {
+      return Result.error(studioResult.error);
+    }
+    const studio2 = studioResult.value;
+    const selectedLayoutResult = await getSelected(studio2);
+    if (!selectedLayoutResult.isOk()) {
+      return Result.error(new Error("Failed to get selected layout: " + selectedLayoutResult.error?.message));
+    }
+    const selectedLayout = selectedLayoutResult.value;
+    if (!selectedLayout || !selectedLayout.id) {
+      return Result.error(new Error("No layout is currently selected"));
+    }
+    const layoutId = selectedLayout.id;
+    const frameLayoutMapsResult = await loadFrameLayoutMapsFromDoc();
+    if (!frameLayoutMapsResult.isOk()) {
+      return Result.error(new Error("Failed to load frame layout maps: " + frameLayoutMapsResult.error?.message));
+    }
+    const frameLayoutMaps = frameLayoutMapsResult.value;
+    let frameLayoutMap = frameLayoutMaps.find((map) => map.layoutId === layoutId);
+    if (!frameLayoutMap) {
+      frameLayoutMap = {
+        layoutId,
+        frameSnapshots: []
+      };
+      frameLayoutMaps.push(frameLayoutMap);
+    }
+    const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex((snapshot) => snapshot.frameId === frameSnapshot.frameId);
+    const newFrameSnapshot = {
+      imageName: frameSnapshot.assetId,
+      frameId: frameSnapshot.frameId,
+      x: frameSnapshot.x,
+      y: frameSnapshot.y,
+      width: frameSnapshot.width,
+      height: frameSnapshot.height
+    };
+    if (frameSnapshotIndex >= 0) {
+      frameLayoutMap.frameSnapshots[frameSnapshotIndex] = newFrameSnapshot;
+    } else {
+      frameLayoutMap.frameSnapshots.push(newFrameSnapshot);
+    }
+    const saveResult = await saveFrameLayoutMapsToDoc(frameLayoutMaps);
+    if (!saveResult.isOk()) {
+      return Result.error(new Error("Failed to save frame layout maps: " + saveResult.error?.message));
+    }
+    return Result.ok(undefined);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
 
 // src/components/LayoutMappingModal/LayoutModal.tsx
-var import_react234 = __toESM(require_react(), 1);
+var import_react244 = __toESM(require_react(), 1);
 
 // node_modules/styled-components/node_modules/tslib/tslib.es6.mjs
 var __assign = function() {
@@ -23985,6 +24302,20 @@ function useHovered() {
   return [hovered, { setHovered, resetHovered }];
 }
 
+// node_modules/@mantine/hooks/esm/utils/clamp/clamp.mjs
+"use client";
+function clamp(value, min, max) {
+  if (min === undefined && max === undefined) {
+    return value;
+  }
+  if (min !== undefined && max === undefined) {
+    return Math.max(value, min);
+  }
+  if (min === undefined && max !== undefined) {
+    return Math.min(value, max);
+  }
+  return Math.min(Math.max(value, min), max);
+}
 // node_modules/@mantine/hooks/esm/utils/random-id/random-id.mjs
 "use client";
 function randomId(prefix2 = "mantine-") {
@@ -27107,7 +27438,7 @@ var oppositeAlignmentMap = {
   start: "end",
   end: "start"
 };
-function clamp(start, value, end) {
+function clamp2(start, value, end) {
   return max(start, min(value, end));
 }
 function evaluate(value, param) {
@@ -27463,7 +27794,7 @@ var arrow = (options) => ({
     const min$1 = minPadding;
     const max2 = clientSize - arrowDimensions[length2] - maxPadding;
     const center = clientSize / 2 - arrowDimensions[length2] / 2 + centerToReference;
-    const offset = clamp(min$1, center, max2);
+    const offset = clamp2(min$1, center, max2);
     const shouldAddOffset = !middlewareData.arrow && getAlignment(placement) != null && center !== offset && rects.reference[length2] / 2 - (center < min$1 ? minPadding : maxPadding) - arrowDimensions[length2] / 2 < 0;
     const alignmentOffset = shouldAddOffset ? center < min$1 ? center - min$1 : center - max2 : 0;
     return {
@@ -27810,14 +28141,14 @@ var shift = function(options) {
         const maxSide = mainAxis === "y" ? "bottom" : "right";
         const min2 = mainAxisCoord + overflow[minSide];
         const max2 = mainAxisCoord - overflow[maxSide];
-        mainAxisCoord = clamp(min2, mainAxisCoord, max2);
+        mainAxisCoord = clamp2(min2, mainAxisCoord, max2);
       }
       if (checkCrossAxis) {
         const minSide = crossAxis === "y" ? "top" : "left";
         const maxSide = crossAxis === "y" ? "bottom" : "right";
         const min2 = crossAxisCoord + overflow[minSide];
         const max2 = crossAxisCoord - overflow[maxSide];
-        crossAxisCoord = clamp(min2, crossAxisCoord, max2);
+        crossAxisCoord = clamp2(min2, crossAxisCoord, max2);
       }
       const limitedCoords = limiter.fn({
         ...state,
@@ -30230,7 +30561,7 @@ function linearScale(input, output) {
 
 // node_modules/@mantine/core/esm/components/ScrollArea/utils/get-thumb-offset-from-scroll.mjs
 "use client";
-function clamp2(value, [min2, max2]) {
+function clamp3(value, [min2, max2]) {
   return Math.min(max2, Math.max(min2, value));
 }
 function getThumbOffsetFromScroll(scrollPos, sizes, dir = "ltr") {
@@ -30240,7 +30571,7 @@ function getThumbOffsetFromScroll(scrollPos, sizes, dir = "ltr") {
   const maxScrollPos = sizes.content - sizes.viewport;
   const maxThumbPos = scrollbar - thumbSizePx;
   const scrollClampRange = dir === "ltr" ? [0, maxScrollPos] : [maxScrollPos * -1, 0];
-  const scrollWithoutMomentum = clamp2(scrollPos, scrollClampRange);
+  const scrollWithoutMomentum = clamp3(scrollPos, scrollClampRange);
   const interpolate = linearScale([0, maxScrollPos], [0, maxThumbPos]);
   return interpolate(scrollWithoutMomentum);
 }
@@ -35565,17 +35896,46 @@ var Card = polymorphicFactory((_props, ref) => {
 Card.classes = classes21;
 Card.displayName = "@mantine/core/Card";
 Card.Section = CardSection;
-// node_modules/@mantine/core/esm/components/Divider/Divider.mjs
+// node_modules/@mantine/core/esm/components/Center/Center.mjs
 var import_jsx_runtime125 = __toESM(require_jsx_runtime(), 1);
 var import_react161 = __toESM(require_react(), 1);
 
+// node_modules/@mantine/core/esm/components/Center/Center.module.css.mjs
+"use client";
+var classes22 = { root: "m_4451eb3a" };
+
+// node_modules/@mantine/core/esm/components/Center/Center.mjs
+"use client";
+var defaultProps49 = {};
+var Center = polymorphicFactory((_props, ref) => {
+  const props = useProps("Center", defaultProps49, _props);
+  const { classNames, className, style, styles, unstyled, vars, inline: inline4, mod, ...others } = props;
+  const getStyles2 = useStyles({
+    name: "Center",
+    props,
+    classes: classes22,
+    className,
+    style,
+    classNames,
+    styles,
+    unstyled,
+    vars
+  });
+  return /* @__PURE__ */ import_jsx_runtime125.jsx(Box, { ref, mod: [{ inline: inline4 }, mod], ...getStyles2("root"), ...others });
+});
+Center.classes = classes22;
+Center.displayName = "@mantine/core/Center";
+// node_modules/@mantine/core/esm/components/Divider/Divider.mjs
+var import_jsx_runtime126 = __toESM(require_jsx_runtime(), 1);
+var import_react162 = __toESM(require_react(), 1);
+
 // node_modules/@mantine/core/esm/components/Divider/Divider.module.css.mjs
 "use client";
-var classes22 = { root: "m_3eebeb36", label: "m_9e365f20" };
+var classes23 = { root: "m_3eebeb36", label: "m_9e365f20" };
 
 // node_modules/@mantine/core/esm/components/Divider/Divider.mjs
 "use client";
-var defaultProps49 = {
+var defaultProps50 = {
   orientation: "horizontal"
 };
 var varsResolver27 = createVarsResolver((theme, { color, variant, size: size4 }) => ({
@@ -35586,7 +35946,7 @@ var varsResolver27 = createVarsResolver((theme, { color, variant, size: size4 })
   }
 }));
 var Divider = factory((_props, ref) => {
-  const props = useProps("Divider", defaultProps49, _props);
+  const props = useProps("Divider", defaultProps50, _props);
   const {
     classNames,
     className,
@@ -35603,7 +35963,7 @@ var Divider = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "Divider",
-    classes: classes22,
+    classes: classes23,
     props,
     className,
     style,
@@ -35613,131 +35973,131 @@ var Divider = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver27
   });
-  return /* @__PURE__ */ import_jsx_runtime125.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime126.jsx(Box, {
     ref,
     mod: [{ orientation, "with-label": !!label }, mod],
     ...getStyles2("root"),
     ...others,
     role: "separator",
-    children: label && /* @__PURE__ */ import_jsx_runtime125.jsx(Box, { component: "span", mod: { position: labelPosition }, ...getStyles2("label"), children: label })
+    children: label && /* @__PURE__ */ import_jsx_runtime126.jsx(Box, { component: "span", mod: { position: labelPosition }, ...getStyles2("label"), children: label })
   });
 });
-Divider.classes = classes22;
+Divider.classes = classes23;
 Divider.displayName = "@mantine/core/Divider";
 // node_modules/@mantine/core/esm/components/Drawer/Drawer.mjs
-var import_jsx_runtime135 = __toESM(require_jsx_runtime(), 1);
-var import_react171 = __toESM(require_react(), 1);
+var import_jsx_runtime136 = __toESM(require_jsx_runtime(), 1);
+var import_react172 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerBody.mjs
-var import_jsx_runtime127 = __toESM(require_jsx_runtime(), 1);
-var import_react163 = __toESM(require_react(), 1);
+var import_jsx_runtime128 = __toESM(require_jsx_runtime(), 1);
+var import_react164 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Drawer/Drawer.context.mjs
-var import_react162 = __toESM(require_react(), 1);
-var import_jsx_runtime126 = __toESM(require_jsx_runtime(), 1);
+var import_react163 = __toESM(require_react(), 1);
+var import_jsx_runtime127 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [DrawerProvider, useDrawerContext] = createSafeContext("Drawer component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Drawer/Drawer.module.css.mjs
 "use client";
-var classes23 = { root: "m_f11b401e", header: "m_5a7c2c9", content: "m_b8a05bbd", inner: "m_31cd769a" };
+var classes24 = { root: "m_f11b401e", header: "m_5a7c2c9", content: "m_b8a05bbd", inner: "m_31cd769a" };
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerBody.mjs
 "use client";
-var defaultProps50 = {};
+var defaultProps51 = {};
 var DrawerBody = factory((_props, ref) => {
-  const props = useProps("DrawerBody", defaultProps50, _props);
+  const props = useProps("DrawerBody", defaultProps51, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime127.jsx(ModalBaseBody, {
+  return /* @__PURE__ */ import_jsx_runtime128.jsx(ModalBaseBody, {
     ref,
     ...ctx.getStyles("body", { classNames, style, styles, className }),
     ...others
   });
 });
-DrawerBody.classes = classes23;
+DrawerBody.classes = classes24;
 DrawerBody.displayName = "@mantine/core/DrawerBody";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerCloseButton.mjs
-var import_jsx_runtime128 = __toESM(require_jsx_runtime(), 1);
-var import_react164 = __toESM(require_react(), 1);
+var import_jsx_runtime129 = __toESM(require_jsx_runtime(), 1);
+var import_react165 = __toESM(require_react(), 1);
 "use client";
-var defaultProps51 = {};
+var defaultProps52 = {};
 var DrawerCloseButton = factory((_props, ref) => {
-  const props = useProps("DrawerCloseButton", defaultProps51, _props);
+  const props = useProps("DrawerCloseButton", defaultProps52, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime128.jsx(ModalBaseCloseButton, {
+  return /* @__PURE__ */ import_jsx_runtime129.jsx(ModalBaseCloseButton, {
     ref,
     ...ctx.getStyles("close", { classNames, style, styles, className }),
     ...others
   });
 });
-DrawerCloseButton.classes = classes23;
+DrawerCloseButton.classes = classes24;
 DrawerCloseButton.displayName = "@mantine/core/DrawerCloseButton";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerContent.mjs
-var import_jsx_runtime129 = __toESM(require_jsx_runtime(), 1);
-var import_react165 = __toESM(require_react(), 1);
+var import_jsx_runtime130 = __toESM(require_jsx_runtime(), 1);
+var import_react166 = __toESM(require_react(), 1);
 "use client";
-var defaultProps52 = {};
+var defaultProps53 = {};
 var DrawerContent = factory((_props, ref) => {
-  const props = useProps("DrawerContent", defaultProps52, _props);
+  const props = useProps("DrawerContent", defaultProps53, _props);
   const { classNames, className, style, styles, vars, children, radius, __hidden, ...others } = props;
   const ctx = useDrawerContext();
   const Scroll = ctx.scrollAreaComponent || NativeScrollArea;
-  return /* @__PURE__ */ import_jsx_runtime129.jsx(ModalBaseContent, {
+  return /* @__PURE__ */ import_jsx_runtime130.jsx(ModalBaseContent, {
     ...ctx.getStyles("content", { className, style, styles, classNames }),
     innerProps: ctx.getStyles("inner", { className, style, styles, classNames }),
     ref,
     ...others,
     radius: radius || ctx.radius || 0,
     "data-hidden": __hidden || undefined,
-    children: /* @__PURE__ */ import_jsx_runtime129.jsx(Scroll, { style: { height: "calc(100vh - var(--drawer-offset) * 2)" }, children })
+    children: /* @__PURE__ */ import_jsx_runtime130.jsx(Scroll, { style: { height: "calc(100vh - var(--drawer-offset) * 2)" }, children })
   });
 });
-DrawerContent.classes = classes23;
+DrawerContent.classes = classes24;
 DrawerContent.displayName = "@mantine/core/DrawerContent";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerHeader.mjs
-var import_jsx_runtime130 = __toESM(require_jsx_runtime(), 1);
-var import_react166 = __toESM(require_react(), 1);
+var import_jsx_runtime131 = __toESM(require_jsx_runtime(), 1);
+var import_react167 = __toESM(require_react(), 1);
 "use client";
-var defaultProps53 = {};
+var defaultProps54 = {};
 var DrawerHeader = factory((_props, ref) => {
-  const props = useProps("DrawerHeader", defaultProps53, _props);
+  const props = useProps("DrawerHeader", defaultProps54, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime130.jsx(ModalBaseHeader, {
+  return /* @__PURE__ */ import_jsx_runtime131.jsx(ModalBaseHeader, {
     ref,
     ...ctx.getStyles("header", { classNames, style, styles, className }),
     ...others
   });
 });
-DrawerHeader.classes = classes23;
+DrawerHeader.classes = classes24;
 DrawerHeader.displayName = "@mantine/core/DrawerHeader";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerOverlay.mjs
-var import_jsx_runtime131 = __toESM(require_jsx_runtime(), 1);
-var import_react167 = __toESM(require_react(), 1);
+var import_jsx_runtime132 = __toESM(require_jsx_runtime(), 1);
+var import_react168 = __toESM(require_react(), 1);
 "use client";
-var defaultProps54 = {};
+var defaultProps55 = {};
 var DrawerOverlay = factory((_props, ref) => {
-  const props = useProps("DrawerOverlay", defaultProps54, _props);
+  const props = useProps("DrawerOverlay", defaultProps55, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime131.jsx(ModalBaseOverlay, {
+  return /* @__PURE__ */ import_jsx_runtime132.jsx(ModalBaseOverlay, {
     ref,
     ...ctx.getStyles("overlay", { classNames, style, styles, className }),
     ...others
   });
 });
-DrawerOverlay.classes = classes23;
+DrawerOverlay.classes = classes24;
 DrawerOverlay.displayName = "@mantine/core/DrawerOverlay";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerRoot.mjs
-var import_jsx_runtime132 = __toESM(require_jsx_runtime(), 1);
-var import_react168 = __toESM(require_react(), 1);
+var import_jsx_runtime133 = __toESM(require_jsx_runtime(), 1);
+var import_react169 = __toESM(require_react(), 1);
 "use client";
 function getDrawerAlign(position2) {
   switch (position2) {
@@ -35767,7 +36127,7 @@ var rtlTransitions = {
   right: "slide-right",
   left: "slide-left"
 };
-var defaultProps55 = {
+var defaultProps56 = {
   closeOnClickOutside: true,
   withinPortal: true,
   lockScroll: true,
@@ -35789,7 +36149,7 @@ var varsResolver28 = createVarsResolver((_2, { position: position2, size: size4,
   }
 }));
 var DrawerRoot = factory((_props, ref) => {
-  const props = useProps("DrawerRoot", defaultProps55, _props);
+  const props = useProps("DrawerRoot", defaultProps56, _props);
   const {
     classNames,
     className,
@@ -35806,7 +36166,7 @@ var DrawerRoot = factory((_props, ref) => {
   const { dir } = useDirection();
   const getStyles2 = useStyles({
     name: "Drawer",
-    classes: classes23,
+    classes: classes24,
     props,
     className,
     style,
@@ -35817,7 +36177,7 @@ var DrawerRoot = factory((_props, ref) => {
     varsResolver: varsResolver28
   });
   const drawerTransition = (dir === "rtl" ? rtlTransitions : transitions2)[position2];
-  return /* @__PURE__ */ import_jsx_runtime132.jsx(DrawerProvider, { value: { scrollAreaComponent, getStyles: getStyles2, radius }, children: /* @__PURE__ */ import_jsx_runtime132.jsx(ModalBase, {
+  return /* @__PURE__ */ import_jsx_runtime133.jsx(DrawerProvider, { value: { scrollAreaComponent, getStyles: getStyles2, radius }, children: /* @__PURE__ */ import_jsx_runtime133.jsx(ModalBase, {
     ref,
     ...getStyles2("root"),
     transitionProps: { transition: drawerTransition, ...transitionProps },
@@ -35825,18 +36185,18 @@ var DrawerRoot = factory((_props, ref) => {
     ...others
   }) });
 });
-DrawerRoot.classes = classes23;
+DrawerRoot.classes = classes24;
 DrawerRoot.displayName = "@mantine/core/DrawerRoot";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerStack.mjs
-var import_jsx_runtime133 = __toESM(require_jsx_runtime(), 1);
-var import_react169 = __toESM(require_react(), 1);
+var import_jsx_runtime134 = __toESM(require_jsx_runtime(), 1);
+var import_react170 = __toESM(require_react(), 1);
 "use client";
 var [DrawerStackProvider, useDrawerStackContext] = createOptionalContext();
 function DrawerStack({ children }) {
-  const [stack, setStack] = import_react169.useState([]);
-  const [maxZIndex, setMaxZIndex] = import_react169.useState(getDefaultZIndex("modal"));
-  return /* @__PURE__ */ import_jsx_runtime133.jsx(DrawerStackProvider, {
+  const [stack, setStack] = import_react170.useState([]);
+  const [maxZIndex, setMaxZIndex] = import_react170.useState(getDefaultZIndex("modal"));
+  return /* @__PURE__ */ import_jsx_runtime134.jsx(DrawerStackProvider, {
     value: {
       stack,
       addModal: (id, zIndex) => {
@@ -35854,26 +36214,26 @@ function DrawerStack({ children }) {
 DrawerStack.displayName = "@mantine/core/DrawerStack";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerTitle.mjs
-var import_jsx_runtime134 = __toESM(require_jsx_runtime(), 1);
-var import_react170 = __toESM(require_react(), 1);
+var import_jsx_runtime135 = __toESM(require_jsx_runtime(), 1);
+var import_react171 = __toESM(require_react(), 1);
 "use client";
-var defaultProps56 = {};
+var defaultProps57 = {};
 var DrawerTitle = factory((_props, ref) => {
-  const props = useProps("DrawerTitle", defaultProps56, _props);
+  const props = useProps("DrawerTitle", defaultProps57, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime134.jsx(ModalBaseTitle, {
+  return /* @__PURE__ */ import_jsx_runtime135.jsx(ModalBaseTitle, {
     ref,
     ...ctx.getStyles("title", { classNames, style, styles, className }),
     ...others
   });
 });
-DrawerTitle.classes = classes23;
+DrawerTitle.classes = classes24;
 DrawerTitle.displayName = "@mantine/core/DrawerTitle";
 
 // node_modules/@mantine/core/esm/components/Drawer/Drawer.mjs
 "use client";
-var defaultProps57 = {
+var defaultProps58 = {
   closeOnClickOutside: true,
   withinPortal: true,
   lockScroll: true,
@@ -35897,7 +36257,7 @@ var Drawer = factory((_props, ref) => {
     stackId,
     zIndex,
     ...others
-  } = useProps("Drawer", defaultProps57, _props);
+  } = useProps("Drawer", defaultProps58, _props);
   const ctx = useDrawerStackContext();
   const hasHeader = !!title || withCloseButton;
   const stackProps = ctx && stackId ? {
@@ -35906,34 +36266,34 @@ var Drawer = factory((_props, ref) => {
     zIndex: ctx.getZIndex(stackId)
   } : {};
   const overlayVisible = withOverlay === false ? false : stackId && ctx ? ctx.currentId === stackId : opened;
-  import_react171.useEffect(() => {
+  import_react172.useEffect(() => {
     if (ctx && stackId) {
       opened ? ctx.addModal(stackId, zIndex || getDefaultZIndex("modal")) : ctx.removeModal(stackId);
     }
   }, [opened, stackId, zIndex]);
-  return /* @__PURE__ */ import_jsx_runtime135.jsxs(DrawerRoot, {
+  return /* @__PURE__ */ import_jsx_runtime136.jsxs(DrawerRoot, {
     ref,
     opened,
     zIndex: ctx && stackId ? ctx.getZIndex(stackId) : zIndex,
     ...others,
     ...stackProps,
     children: [
-      withOverlay && /* @__PURE__ */ import_jsx_runtime135.jsx(DrawerOverlay, {
+      withOverlay && /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerOverlay, {
         visible: overlayVisible,
         transitionProps: ctx && stackId ? { duration: 0 } : undefined,
         ...overlayProps
       }),
-      /* @__PURE__ */ import_jsx_runtime135.jsxs(DrawerContent, { __hidden: ctx && stackId && opened ? stackId !== ctx.currentId : false, children: [
-        hasHeader && /* @__PURE__ */ import_jsx_runtime135.jsxs(DrawerHeader, { children: [
-          title && /* @__PURE__ */ import_jsx_runtime135.jsx(DrawerTitle, { children: title }),
-          withCloseButton && /* @__PURE__ */ import_jsx_runtime135.jsx(DrawerCloseButton, { ...closeButtonProps })
+      /* @__PURE__ */ import_jsx_runtime136.jsxs(DrawerContent, { __hidden: ctx && stackId && opened ? stackId !== ctx.currentId : false, children: [
+        hasHeader && /* @__PURE__ */ import_jsx_runtime136.jsxs(DrawerHeader, { children: [
+          title && /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerTitle, { children: title }),
+          withCloseButton && /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerCloseButton, { ...closeButtonProps })
         ] }),
-        /* @__PURE__ */ import_jsx_runtime135.jsx(DrawerBody, { children })
+        /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerBody, { children })
       ] })
     ]
   });
 });
-Drawer.classes = classes23;
+Drawer.classes = classes24;
 Drawer.displayName = "@mantine/core/Drawer";
 Drawer.Root = DrawerRoot;
 Drawer.Overlay = DrawerOverlay;
@@ -35944,11 +36304,11 @@ Drawer.Title = DrawerTitle;
 Drawer.CloseButton = DrawerCloseButton;
 Drawer.Stack = DrawerStack;
 // node_modules/@mantine/core/esm/components/Floating/use-delayed-hover.mjs
-var import_react172 = __toESM(require_react(), 1);
+var import_react173 = __toESM(require_react(), 1);
 "use client";
 function useDelayedHover({ open, close, openDelay, closeDelay }) {
-  const openTimeout = import_react172.useRef(-1);
-  const closeTimeout = import_react172.useRef(-1);
+  const openTimeout = import_react173.useRef(-1);
+  const closeTimeout = import_react173.useRef(-1);
   const clearTimeouts = () => {
     window.clearTimeout(openTimeout.current);
     window.clearTimeout(closeTimeout.current);
@@ -35969,27 +36329,27 @@ function useDelayedHover({ open, close, openDelay, closeDelay }) {
       closeTimeout.current = window.setTimeout(close, closeDelay);
     }
   };
-  import_react172.useEffect(() => clearTimeouts, []);
+  import_react173.useEffect(() => clearTimeouts, []);
   return { openDropdown, closeDropdown };
 }
 
 // node_modules/@mantine/core/esm/components/Grid/Grid.mjs
-var import_jsx_runtime140 = __toESM(require_jsx_runtime(), 1);
-var import_react177 = __toESM(require_react(), 1);
+var import_jsx_runtime141 = __toESM(require_jsx_runtime(), 1);
+var import_react178 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Grid/Grid.context.mjs
-var import_react173 = __toESM(require_react(), 1);
-var import_jsx_runtime136 = __toESM(require_jsx_runtime(), 1);
+var import_react174 = __toESM(require_react(), 1);
+var import_jsx_runtime137 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [GridProvider, useGridContext] = createSafeContext("Grid component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Grid/GridCol/GridCol.mjs
-var import_jsx_runtime138 = __toESM(require_jsx_runtime(), 1);
-var import_react175 = __toESM(require_react(), 1);
+var import_jsx_runtime139 = __toESM(require_jsx_runtime(), 1);
+var import_react176 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Grid/GridCol/GridColVariables.mjs
-var import_jsx_runtime137 = __toESM(require_jsx_runtime(), 1);
-var import_react174 = __toESM(require_react(), 1);
+var import_jsx_runtime138 = __toESM(require_jsx_runtime(), 1);
+var import_react175 = __toESM(require_react(), 1);
 "use client";
 var getColumnFlexBasis = (colSpan, columns) => {
   if (colSpan === "content") {
@@ -36053,7 +36413,7 @@ function GridColVariables({ span, order, offset: offset4, selector }) {
     query: ctx.type === "container" ? `mantine-grid (min-width: ${_breakpoints[breakpoint.value]})` : `(min-width: ${_breakpoints[breakpoint.value]})`,
     styles: queries[breakpoint.value]
   }));
-  return /* @__PURE__ */ import_jsx_runtime137.jsx(InlineStyles, {
+  return /* @__PURE__ */ import_jsx_runtime138.jsx(InlineStyles, {
     styles: baseStyles,
     media: ctx.type === "container" ? undefined : values2,
     container: ctx.type === "container" ? values2 : undefined,
@@ -36063,26 +36423,26 @@ function GridColVariables({ span, order, offset: offset4, selector }) {
 
 // node_modules/@mantine/core/esm/components/Grid/Grid.module.css.mjs
 "use client";
-var classes24 = { container: "m_8478a6da", root: "m_410352e9", inner: "m_dee7bd2f", col: "m_96bdd299" };
+var classes25 = { container: "m_8478a6da", root: "m_410352e9", inner: "m_dee7bd2f", col: "m_96bdd299" };
 
 // node_modules/@mantine/core/esm/components/Grid/GridCol/GridCol.mjs
 "use client";
-var defaultProps58 = {
+var defaultProps59 = {
   span: 12
 };
 var GridCol = factory((_props, ref) => {
-  const props = useProps("GridCol", defaultProps58, _props);
+  const props = useProps("GridCol", defaultProps59, _props);
   const { classNames, className, style, styles, vars, span, order, offset: offset4, ...others } = props;
   const ctx = useGridContext();
   const responsiveClassName = useRandomClassName();
-  return /* @__PURE__ */ import_jsx_runtime138.jsxs(import_jsx_runtime138.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime138.jsx(GridColVariables, {
+  return /* @__PURE__ */ import_jsx_runtime139.jsxs(import_jsx_runtime139.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime139.jsx(GridColVariables, {
       selector: `.${responsiveClassName}`,
       span,
       order,
       offset: offset4
     }),
-    /* @__PURE__ */ import_jsx_runtime138.jsx(Box, {
+    /* @__PURE__ */ import_jsx_runtime139.jsx(Box, {
       ref,
       ...ctx.getStyles("col", {
         className: clsx_default(className, responsiveClassName),
@@ -36094,12 +36454,12 @@ var GridCol = factory((_props, ref) => {
     })
   ] });
 });
-GridCol.classes = classes24;
+GridCol.classes = classes25;
 GridCol.displayName = "@mantine/core/GridCol";
 
 // node_modules/@mantine/core/esm/components/Grid/GridVariables.mjs
-var import_jsx_runtime139 = __toESM(require_jsx_runtime(), 1);
-var import_react176 = __toESM(require_react(), 1);
+var import_jsx_runtime140 = __toESM(require_jsx_runtime(), 1);
+var import_react177 = __toESM(require_react(), 1);
 "use client";
 function GridVariables({ gutter, selector, breakpoints, type }) {
   const theme = useMantineTheme();
@@ -36121,7 +36481,7 @@ function GridVariables({ gutter, selector, breakpoints, type }) {
     query: type === "container" ? `mantine-grid (min-width: ${_breakpoints[breakpoint.value]})` : `(min-width: ${_breakpoints[breakpoint.value]})`,
     styles: queries[breakpoint.value]
   }));
-  return /* @__PURE__ */ import_jsx_runtime139.jsx(InlineStyles, {
+  return /* @__PURE__ */ import_jsx_runtime140.jsx(InlineStyles, {
     styles: baseStyles,
     media: type === "container" ? undefined : values2,
     container: type === "container" ? values2 : undefined,
@@ -36131,7 +36491,7 @@ function GridVariables({ gutter, selector, breakpoints, type }) {
 
 // node_modules/@mantine/core/esm/components/Grid/Grid.mjs
 "use client";
-var defaultProps59 = {
+var defaultProps60 = {
   gutter: "md",
   grow: false,
   columns: 12
@@ -36144,7 +36504,7 @@ var varsResolver29 = createVarsResolver((_2, { justify, align, overflow }) => ({
   }
 }));
 var Grid = factory((_props, ref) => {
-  const props = useProps("Grid", defaultProps59, _props);
+  const props = useProps("Grid", defaultProps60, _props);
   const {
     classNames,
     className,
@@ -36164,7 +36524,7 @@ var Grid = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "Grid",
-    classes: classes24,
+    classes: classes25,
     props,
     className,
     style,
@@ -36176,64 +36536,64 @@ var Grid = factory((_props, ref) => {
   });
   const responsiveClassName = useRandomClassName();
   if (type === "container" && breakpoints) {
-    return /* @__PURE__ */ import_jsx_runtime140.jsxs(GridProvider, { value: { getStyles: getStyles2, grow, columns: columns || 12, breakpoints, type }, children: [
-      /* @__PURE__ */ import_jsx_runtime140.jsx(GridVariables, { selector: `.${responsiveClassName}`, ...props }),
-      /* @__PURE__ */ import_jsx_runtime140.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime140.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others, children: /* @__PURE__ */ import_jsx_runtime140.jsx("div", { ...getStyles2("inner"), children }) }) })
+    return /* @__PURE__ */ import_jsx_runtime141.jsxs(GridProvider, { value: { getStyles: getStyles2, grow, columns: columns || 12, breakpoints, type }, children: [
+      /* @__PURE__ */ import_jsx_runtime141.jsx(GridVariables, { selector: `.${responsiveClassName}`, ...props }),
+      /* @__PURE__ */ import_jsx_runtime141.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime141.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others, children: /* @__PURE__ */ import_jsx_runtime141.jsx("div", { ...getStyles2("inner"), children }) }) })
     ] });
   }
-  return /* @__PURE__ */ import_jsx_runtime140.jsxs(GridProvider, { value: { getStyles: getStyles2, grow, columns: columns || 12, breakpoints, type }, children: [
-    /* @__PURE__ */ import_jsx_runtime140.jsx(GridVariables, { selector: `.${responsiveClassName}`, ...props }),
-    /* @__PURE__ */ import_jsx_runtime140.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others, children: /* @__PURE__ */ import_jsx_runtime140.jsx("div", { ...getStyles2("inner"), children }) })
+  return /* @__PURE__ */ import_jsx_runtime141.jsxs(GridProvider, { value: { getStyles: getStyles2, grow, columns: columns || 12, breakpoints, type }, children: [
+    /* @__PURE__ */ import_jsx_runtime141.jsx(GridVariables, { selector: `.${responsiveClassName}`, ...props }),
+    /* @__PURE__ */ import_jsx_runtime141.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others, children: /* @__PURE__ */ import_jsx_runtime141.jsx("div", { ...getStyles2("inner"), children }) })
   ] });
 });
-Grid.classes = classes24;
+Grid.classes = classes25;
 Grid.displayName = "@mantine/core/Grid";
 Grid.Col = GridCol;
 // node_modules/@mantine/core/esm/components/List/List.mjs
-var import_jsx_runtime143 = __toESM(require_jsx_runtime(), 1);
-var import_react180 = __toESM(require_react(), 1);
+var import_jsx_runtime144 = __toESM(require_jsx_runtime(), 1);
+var import_react181 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/List/List.context.mjs
-var import_react178 = __toESM(require_react(), 1);
-var import_jsx_runtime141 = __toESM(require_jsx_runtime(), 1);
+var import_react179 = __toESM(require_react(), 1);
+var import_jsx_runtime142 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [ListProvider, useListContext] = createSafeContext("List component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/List/ListItem/ListItem.mjs
-var import_jsx_runtime142 = __toESM(require_jsx_runtime(), 1);
-var import_react179 = __toESM(require_react(), 1);
+var import_jsx_runtime143 = __toESM(require_jsx_runtime(), 1);
+var import_react180 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/List/List.module.css.mjs
 "use client";
-var classes25 = { root: "m_abbac491", item: "m_abb6bec2", itemWrapper: "m_75cd9f71", itemIcon: "m_60f83e5b" };
+var classes26 = { root: "m_abbac491", item: "m_abb6bec2", itemWrapper: "m_75cd9f71", itemIcon: "m_60f83e5b" };
 
 // node_modules/@mantine/core/esm/components/List/ListItem/ListItem.mjs
 "use client";
-var defaultProps60 = {};
+var defaultProps61 = {};
 var ListItem = factory((_props, ref) => {
-  const props = useProps("ListItem", defaultProps60, _props);
+  const props = useProps("ListItem", defaultProps61, _props);
   const { classNames, className, style, styles, vars, icon, children, mod, ...others } = props;
   const ctx = useListContext();
   const _icon = icon || ctx.icon;
   const stylesApiProps = { classNames, styles };
-  return /* @__PURE__ */ import_jsx_runtime142.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime143.jsx(Box, {
     ...ctx.getStyles("item", { ...stylesApiProps, className, style }),
     component: "li",
     mod: [{ "with-icon": !!_icon, centered: ctx.center }, mod],
     ref,
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime142.jsxs("div", { ...ctx.getStyles("itemWrapper", stylesApiProps), children: [
-      _icon && /* @__PURE__ */ import_jsx_runtime142.jsx("span", { ...ctx.getStyles("itemIcon", stylesApiProps), children: _icon }),
-      /* @__PURE__ */ import_jsx_runtime142.jsx("span", { ...ctx.getStyles("itemLabel", stylesApiProps), children })
+    children: /* @__PURE__ */ import_jsx_runtime143.jsxs("div", { ...ctx.getStyles("itemWrapper", stylesApiProps), children: [
+      _icon && /* @__PURE__ */ import_jsx_runtime143.jsx("span", { ...ctx.getStyles("itemIcon", stylesApiProps), children: _icon }),
+      /* @__PURE__ */ import_jsx_runtime143.jsx("span", { ...ctx.getStyles("itemLabel", stylesApiProps), children })
     ] })
   });
 });
-ListItem.classes = classes25;
+ListItem.classes = classes26;
 ListItem.displayName = "@mantine/core/ListItem";
 
 // node_modules/@mantine/core/esm/components/List/List.mjs
 "use client";
-var defaultProps61 = {
+var defaultProps62 = {
   type: "unordered"
 };
 var varsResolver30 = createVarsResolver((_2, { size: size4, spacing }) => ({
@@ -36244,7 +36604,7 @@ var varsResolver30 = createVarsResolver((_2, { size: size4, spacing }) => ({
   }
 }));
 var List = factory((_props, ref) => {
-  const props = useProps("List", defaultProps61, _props);
+  const props = useProps("List", defaultProps62, _props);
   const {
     classNames,
     className,
@@ -36264,7 +36624,7 @@ var List = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "List",
-    classes: classes25,
+    classes: classes26,
     props,
     className,
     style,
@@ -36274,7 +36634,7 @@ var List = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver30
   });
-  return /* @__PURE__ */ import_jsx_runtime143.jsx(ListProvider, { value: { center, icon, getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime143.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime144.jsx(ListProvider, { value: { center, icon, getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime144.jsx(Box, {
     ...getStyles2("root", { style: { listStyleType } }),
     component: type === "unordered" ? "ul" : "ol",
     mod: [{ "with-padding": withPadding }, mod],
@@ -36283,47 +36643,47 @@ var List = factory((_props, ref) => {
     children
   }) });
 });
-List.classes = classes25;
+List.classes = classes26;
 List.displayName = "@mantine/core/List";
 List.Item = ListItem;
 // node_modules/@mantine/core/esm/components/Menu/Menu.mjs
-var import_jsx_runtime150 = __toESM(require_jsx_runtime(), 1);
-var import_react187 = __toESM(require_react(), 1);
+var import_jsx_runtime151 = __toESM(require_jsx_runtime(), 1);
+var import_react188 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.context.mjs
-var import_react181 = __toESM(require_react(), 1);
-var import_jsx_runtime144 = __toESM(require_jsx_runtime(), 1);
+var import_react182 = __toESM(require_react(), 1);
+var import_jsx_runtime145 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [MenuContextProvider, useMenuContext] = createSafeContext("Menu component was not found in the tree");
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDivider/MenuDivider.mjs
-var import_jsx_runtime145 = __toESM(require_jsx_runtime(), 1);
-var import_react182 = __toESM(require_react(), 1);
+var import_jsx_runtime146 = __toESM(require_jsx_runtime(), 1);
+var import_react183 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.module.css.mjs
 "use client";
-var classes26 = { dropdown: "m_dc9b7c9f", label: "m_9bfac126", divider: "m_efdf90cb", item: "m_99ac2aa1", itemLabel: "m_5476e0d3", itemSection: "m_8b75e504" };
+var classes27 = { dropdown: "m_dc9b7c9f", label: "m_9bfac126", divider: "m_efdf90cb", item: "m_99ac2aa1", itemLabel: "m_5476e0d3", itemSection: "m_8b75e504" };
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDivider/MenuDivider.mjs
 "use client";
-var defaultProps62 = {};
+var defaultProps63 = {};
 var MenuDivider = factory((props, ref) => {
-  const { classNames, className, style, styles, vars, ...others } = useProps("MenuDivider", defaultProps62, props);
+  const { classNames, className, style, styles, vars, ...others } = useProps("MenuDivider", defaultProps63, props);
   const ctx = useMenuContext();
-  return /* @__PURE__ */ import_jsx_runtime145.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime146.jsx(Box, {
     ref,
     ...ctx.getStyles("divider", { className, style, styles, classNames }),
     ...others
   });
 });
-MenuDivider.classes = classes26;
+MenuDivider.classes = classes27;
 MenuDivider.displayName = "@mantine/core/MenuDivider";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDropdown/MenuDropdown.mjs
-var import_jsx_runtime146 = __toESM(require_jsx_runtime(), 1);
-var import_react183 = __toESM(require_react(), 1);
+var import_jsx_runtime147 = __toESM(require_jsx_runtime(), 1);
+var import_react184 = __toESM(require_react(), 1);
 "use client";
-var defaultProps63 = {};
+var defaultProps64 = {};
 var MenuDropdown = factory((props, ref) => {
   const {
     classNames,
@@ -36336,8 +36696,8 @@ var MenuDropdown = factory((props, ref) => {
     onKeyDown,
     children,
     ...others
-  } = useProps("MenuDropdown", defaultProps63, props);
-  const wrapperRef = import_react183.useRef(null);
+  } = useProps("MenuDropdown", defaultProps64, props);
+  const wrapperRef = import_react184.useRef(null);
   const ctx = useMenuContext();
   const handleKeyDown = createEventHandler(onKeyDown, (event) => {
     if (event.key === "ArrowUp" || event.key === "ArrowDown") {
@@ -36347,7 +36707,7 @@ var MenuDropdown = factory((props, ref) => {
   });
   const handleMouseEnter = createEventHandler(onMouseEnter, () => (ctx.trigger === "hover" || ctx.trigger === "click-hover") && ctx.openDropdown());
   const handleMouseLeave = createEventHandler(onMouseLeave, () => (ctx.trigger === "hover" || ctx.trigger === "click-hover") && ctx.closeDropdown());
-  return /* @__PURE__ */ import_jsx_runtime146.jsxs(Popover.Dropdown, {
+  return /* @__PURE__ */ import_jsx_runtime147.jsxs(Popover.Dropdown, {
     ...others,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
@@ -36365,19 +36725,19 @@ var MenuDropdown = factory((props, ref) => {
     "data-menu-dropdown": true,
     onKeyDown: handleKeyDown,
     children: [
-      ctx.withInitialFocusPlaceholder && /* @__PURE__ */ import_jsx_runtime146.jsx("div", { tabIndex: -1, "data-autofocus": true, "data-mantine-stop-propagation": true, style: { outline: 0 } }),
+      ctx.withInitialFocusPlaceholder && /* @__PURE__ */ import_jsx_runtime147.jsx("div", { tabIndex: -1, "data-autofocus": true, "data-mantine-stop-propagation": true, style: { outline: 0 } }),
       children
     ]
   });
 });
-MenuDropdown.classes = classes26;
+MenuDropdown.classes = classes27;
 MenuDropdown.displayName = "@mantine/core/MenuDropdown";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuItem/MenuItem.mjs
-var import_jsx_runtime147 = __toESM(require_jsx_runtime(), 1);
-var import_react184 = __toESM(require_react(), 1);
+var import_jsx_runtime148 = __toESM(require_jsx_runtime(), 1);
+var import_react185 = __toESM(require_react(), 1);
 "use client";
-var defaultProps64 = {};
+var defaultProps65 = {};
 var MenuItem = polymorphicFactory((props, ref) => {
   const {
     classNames,
@@ -36393,11 +36753,11 @@ var MenuItem = polymorphicFactory((props, ref) => {
     disabled,
     "data-disabled": dataDisabled,
     ...others
-  } = useProps("MenuItem", defaultProps64, props);
+  } = useProps("MenuItem", defaultProps65, props);
   const ctx = useMenuContext();
   const theme = useMantineTheme();
   const { dir } = useDirection();
-  const itemRef = import_react184.useRef(null);
+  const itemRef = import_react185.useRef(null);
   const itemIndex = ctx.getItemIndex(itemRef.current);
   const _others = others;
   const handleMouseLeave = createEventHandler(_others.onMouseLeave, () => ctx.setHovered(-1));
@@ -36415,7 +36775,7 @@ var MenuItem = polymorphicFactory((props, ref) => {
   const handleFocus = createEventHandler(_others.onFocus, () => ctx.setHovered(ctx.getItemIndex(itemRef.current)));
   const colors = color ? theme.variantColorResolver({ color, theme, variant: "light" }) : undefined;
   const parsedThemeColor = color ? parseThemeColor({ color, theme }) : null;
-  return /* @__PURE__ */ import_jsx_runtime147.jsxs(UnstyledButton, {
+  return /* @__PURE__ */ import_jsx_runtime148.jsxs(UnstyledButton, {
     ...others,
     unstyled: ctx.unstyled,
     tabIndex: ctx.menuItemTabIndex,
@@ -36445,41 +36805,41 @@ var MenuItem = polymorphicFactory((props, ref) => {
       "--menu-item-hover": colors?.hover
     },
     children: [
-      leftSection && /* @__PURE__ */ import_jsx_runtime147.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "left", children: leftSection }),
-      children && /* @__PURE__ */ import_jsx_runtime147.jsx("div", { ...ctx.getStyles("itemLabel", { styles, classNames }), children }),
-      rightSection && /* @__PURE__ */ import_jsx_runtime147.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "right", children: rightSection })
+      leftSection && /* @__PURE__ */ import_jsx_runtime148.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "left", children: leftSection }),
+      children && /* @__PURE__ */ import_jsx_runtime148.jsx("div", { ...ctx.getStyles("itemLabel", { styles, classNames }), children }),
+      rightSection && /* @__PURE__ */ import_jsx_runtime148.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "right", children: rightSection })
     ]
   });
 });
-MenuItem.classes = classes26;
+MenuItem.classes = classes27;
 MenuItem.displayName = "@mantine/core/MenuItem";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuLabel/MenuLabel.mjs
-var import_jsx_runtime148 = __toESM(require_jsx_runtime(), 1);
-var import_react185 = __toESM(require_react(), 1);
+var import_jsx_runtime149 = __toESM(require_jsx_runtime(), 1);
+var import_react186 = __toESM(require_react(), 1);
 "use client";
-var defaultProps65 = {};
+var defaultProps66 = {};
 var MenuLabel = factory((props, ref) => {
-  const { classNames, className, style, styles, vars, ...others } = useProps("MenuLabel", defaultProps65, props);
+  const { classNames, className, style, styles, vars, ...others } = useProps("MenuLabel", defaultProps66, props);
   const ctx = useMenuContext();
-  return /* @__PURE__ */ import_jsx_runtime148.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime149.jsx(Box, {
     ref,
     ...ctx.getStyles("label", { className, style, styles, classNames }),
     ...others
   });
 });
-MenuLabel.classes = classes26;
+MenuLabel.classes = classes27;
 MenuLabel.displayName = "@mantine/core/MenuLabel";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuTarget/MenuTarget.mjs
-var import_jsx_runtime149 = __toESM(require_jsx_runtime(), 1);
-var import_react186 = __toESM(require_react(), 1);
+var import_jsx_runtime150 = __toESM(require_jsx_runtime(), 1);
+var import_react187 = __toESM(require_react(), 1);
 "use client";
-var defaultProps66 = {
+var defaultProps67 = {
   refProp: "ref"
 };
-var MenuTarget = import_react186.forwardRef((props, ref) => {
-  const { children, refProp, ...others } = useProps("MenuTarget", defaultProps66, props);
+var MenuTarget = import_react187.forwardRef((props, ref) => {
+  const { children, refProp, ...others } = useProps("MenuTarget", defaultProps67, props);
   if (!isElement(children)) {
     throw new Error("Menu.Target component children should be an element or a component that accepts ref. Fragments, strings, numbers and other primitive values are not supported");
   }
@@ -36503,7 +36863,7 @@ var MenuTarget = import_react186.forwardRef((props, ref) => {
       ctx.closeDropdown();
     }
   });
-  return /* @__PURE__ */ import_jsx_runtime149.jsx(Popover.Target, { refProp, popupType: "menu", ref, ...others, children: import_react186.cloneElement(children, {
+  return /* @__PURE__ */ import_jsx_runtime150.jsx(Popover.Target, { refProp, popupType: "menu", ref, ...others, children: import_react187.cloneElement(children, {
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -36514,7 +36874,7 @@ MenuTarget.displayName = "@mantine/core/MenuTarget";
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.mjs
 "use client";
-var defaultProps67 = {
+var defaultProps68 = {
   trapFocus: true,
   closeOnItemClick: true,
   withInitialFocusPlaceholder: true,
@@ -36526,7 +36886,7 @@ var defaultProps67 = {
   menuItemTabIndex: -1
 };
 function Menu(_props) {
-  const props = useProps("Menu", defaultProps67, _props);
+  const props = useProps("Menu", defaultProps68, _props);
   const {
     children,
     onOpen,
@@ -36553,7 +36913,7 @@ function Menu(_props) {
   } = props;
   const getStyles2 = useStyles({
     name: "Menu",
-    classes: classes26,
+    classes: classes27,
     props,
     classNames,
     styles,
@@ -36566,7 +36926,7 @@ function Menu(_props) {
     finalValue: false,
     onChange
   });
-  const [openedViaClick, setOpenedViaClick] = import_react187.useState(false);
+  const [openedViaClick, setOpenedViaClick] = import_react188.useState(false);
   const close = () => {
     setOpened(false);
     setOpenedViaClick(false);
@@ -36589,7 +36949,7 @@ function Menu(_props) {
   useDidUpdate(() => {
     resetHovered();
   }, [_opened]);
-  return /* @__PURE__ */ import_jsx_runtime150.jsx(MenuContextProvider, {
+  return /* @__PURE__ */ import_jsx_runtime151.jsx(MenuContextProvider, {
     value: {
       getStyles: getStyles2,
       opened: _opened,
@@ -36609,7 +36969,7 @@ function Menu(_props) {
       menuItemTabIndex,
       withInitialFocusPlaceholder
     },
-    children: /* @__PURE__ */ import_jsx_runtime150.jsx(Popover, {
+    children: /* @__PURE__ */ import_jsx_runtime151.jsx(Popover, {
       ...others,
       opened: _opened,
       onChange: toggleDropdown,
@@ -36628,7 +36988,7 @@ function Menu(_props) {
 }
 Menu.extend = (input) => input;
 Menu.withProps = getWithProps(Menu);
-Menu.classes = classes26;
+Menu.classes = classes27;
 Menu.displayName = "@mantine/core/Menu";
 Menu.Item = MenuItem;
 Menu.Label = MenuLabel;
@@ -36636,68 +36996,68 @@ Menu.Dropdown = MenuDropdown;
 Menu.Target = MenuTarget;
 Menu.Divider = MenuDivider;
 // node_modules/@mantine/core/esm/components/Modal/Modal.mjs
-var import_jsx_runtime160 = __toESM(require_jsx_runtime(), 1);
-var import_react197 = __toESM(require_react(), 1);
+var import_jsx_runtime161 = __toESM(require_jsx_runtime(), 1);
+var import_react198 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Modal/ModalBody.mjs
-var import_jsx_runtime152 = __toESM(require_jsx_runtime(), 1);
-var import_react189 = __toESM(require_react(), 1);
+var import_jsx_runtime153 = __toESM(require_jsx_runtime(), 1);
+var import_react190 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Modal/Modal.context.mjs
-var import_react188 = __toESM(require_react(), 1);
-var import_jsx_runtime151 = __toESM(require_jsx_runtime(), 1);
+var import_react189 = __toESM(require_react(), 1);
+var import_jsx_runtime152 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [ModalProvider, useModalContext] = createSafeContext("Modal component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Modal/Modal.module.css.mjs
 "use client";
-var classes27 = { root: "m_9df02822", content: "m_54c44539", inner: "m_1f958f16", header: "m_d0e2b9cd" };
+var classes28 = { root: "m_9df02822", content: "m_54c44539", inner: "m_1f958f16", header: "m_d0e2b9cd" };
 
 // node_modules/@mantine/core/esm/components/Modal/ModalBody.mjs
 "use client";
-var defaultProps68 = {};
+var defaultProps69 = {};
 var ModalBody = factory((_props, ref) => {
-  const props = useProps("ModalBody", defaultProps68, _props);
+  const props = useProps("ModalBody", defaultProps69, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime152.jsx(ModalBaseBody, {
+  return /* @__PURE__ */ import_jsx_runtime153.jsx(ModalBaseBody, {
     ref,
     ...ctx.getStyles("body", { classNames, style, styles, className }),
     ...others
   });
 });
-ModalBody.classes = classes27;
+ModalBody.classes = classes28;
 ModalBody.displayName = "@mantine/core/ModalBody";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalCloseButton.mjs
-var import_jsx_runtime153 = __toESM(require_jsx_runtime(), 1);
-var import_react190 = __toESM(require_react(), 1);
+var import_jsx_runtime154 = __toESM(require_jsx_runtime(), 1);
+var import_react191 = __toESM(require_react(), 1);
 "use client";
-var defaultProps69 = {};
+var defaultProps70 = {};
 var ModalCloseButton = factory((_props, ref) => {
-  const props = useProps("ModalCloseButton", defaultProps69, _props);
+  const props = useProps("ModalCloseButton", defaultProps70, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime153.jsx(ModalBaseCloseButton, {
+  return /* @__PURE__ */ import_jsx_runtime154.jsx(ModalBaseCloseButton, {
     ref,
     ...ctx.getStyles("close", { classNames, style, styles, className }),
     ...others
   });
 });
-ModalCloseButton.classes = classes27;
+ModalCloseButton.classes = classes28;
 ModalCloseButton.displayName = "@mantine/core/ModalCloseButton";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalContent.mjs
-var import_jsx_runtime154 = __toESM(require_jsx_runtime(), 1);
-var import_react191 = __toESM(require_react(), 1);
+var import_jsx_runtime155 = __toESM(require_jsx_runtime(), 1);
+var import_react192 = __toESM(require_react(), 1);
 "use client";
-var defaultProps70 = {};
+var defaultProps71 = {};
 var ModalContent = factory((_props, ref) => {
-  const props = useProps("ModalContent", defaultProps70, _props);
+  const props = useProps("ModalContent", defaultProps71, _props);
   const { classNames, className, style, styles, vars, children, __hidden, ...others } = props;
   const ctx = useModalContext();
   const Scroll = ctx.scrollAreaComponent || NativeScrollArea;
-  return /* @__PURE__ */ import_jsx_runtime154.jsx(ModalBaseContent, {
+  return /* @__PURE__ */ import_jsx_runtime155.jsx(ModalBaseContent, {
     ...ctx.getStyles("content", { className, style, styles, classNames }),
     innerProps: ctx.getStyles("inner", { className, style, styles, classNames }),
     "data-full-screen": ctx.fullScreen || undefined,
@@ -36705,7 +37065,7 @@ var ModalContent = factory((_props, ref) => {
     "data-hidden": __hidden || undefined,
     ref,
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime154.jsx(Scroll, {
+    children: /* @__PURE__ */ import_jsx_runtime155.jsx(Scroll, {
       style: {
         maxHeight: ctx.fullScreen ? "100dvh" : `calc(100dvh - (${rem(ctx.yOffset)} * 2))`
       },
@@ -36713,50 +37073,50 @@ var ModalContent = factory((_props, ref) => {
     })
   });
 });
-ModalContent.classes = classes27;
+ModalContent.classes = classes28;
 ModalContent.displayName = "@mantine/core/ModalContent";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalHeader.mjs
-var import_jsx_runtime155 = __toESM(require_jsx_runtime(), 1);
-var import_react192 = __toESM(require_react(), 1);
+var import_jsx_runtime156 = __toESM(require_jsx_runtime(), 1);
+var import_react193 = __toESM(require_react(), 1);
 "use client";
-var defaultProps71 = {};
+var defaultProps72 = {};
 var ModalHeader = factory((_props, ref) => {
-  const props = useProps("ModalHeader", defaultProps71, _props);
+  const props = useProps("ModalHeader", defaultProps72, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime155.jsx(ModalBaseHeader, {
+  return /* @__PURE__ */ import_jsx_runtime156.jsx(ModalBaseHeader, {
     ref,
     ...ctx.getStyles("header", { classNames, style, styles, className }),
     ...others
   });
 });
-ModalHeader.classes = classes27;
+ModalHeader.classes = classes28;
 ModalHeader.displayName = "@mantine/core/ModalHeader";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalOverlay.mjs
-var import_jsx_runtime156 = __toESM(require_jsx_runtime(), 1);
-var import_react193 = __toESM(require_react(), 1);
+var import_jsx_runtime157 = __toESM(require_jsx_runtime(), 1);
+var import_react194 = __toESM(require_react(), 1);
 "use client";
-var defaultProps72 = {};
+var defaultProps73 = {};
 var ModalOverlay = factory((_props, ref) => {
-  const props = useProps("ModalOverlay", defaultProps72, _props);
+  const props = useProps("ModalOverlay", defaultProps73, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime156.jsx(ModalBaseOverlay, {
+  return /* @__PURE__ */ import_jsx_runtime157.jsx(ModalBaseOverlay, {
     ref,
     ...ctx.getStyles("overlay", { classNames, style, styles, className }),
     ...others
   });
 });
-ModalOverlay.classes = classes27;
+ModalOverlay.classes = classes28;
 ModalOverlay.displayName = "@mantine/core/ModalOverlay";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalRoot.mjs
-var import_jsx_runtime157 = __toESM(require_jsx_runtime(), 1);
-var import_react194 = __toESM(require_react(), 1);
+var import_jsx_runtime158 = __toESM(require_jsx_runtime(), 1);
+var import_react195 = __toESM(require_react(), 1);
 "use client";
-var defaultProps73 = {
+var defaultProps74 = {
   __staticSelector: "Modal",
   closeOnClickOutside: true,
   withinPortal: true,
@@ -36778,7 +37138,7 @@ var varsResolver31 = createVarsResolver((_2, { radius, size: size4, yOffset, xOf
   }
 }));
 var ModalRoot = factory((_props, ref) => {
-  const props = useProps("ModalRoot", defaultProps73, _props);
+  const props = useProps("ModalRoot", defaultProps74, _props);
   const {
     classNames,
     className,
@@ -36797,7 +37157,7 @@ var ModalRoot = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: __staticSelector,
-    classes: classes27,
+    classes: classes28,
     props,
     className,
     style,
@@ -36807,7 +37167,7 @@ var ModalRoot = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver31
   });
-  return /* @__PURE__ */ import_jsx_runtime157.jsx(ModalProvider, { value: { yOffset, scrollAreaComponent, getStyles: getStyles2, fullScreen }, children: /* @__PURE__ */ import_jsx_runtime157.jsx(ModalBase, {
+  return /* @__PURE__ */ import_jsx_runtime158.jsx(ModalProvider, { value: { yOffset, scrollAreaComponent, getStyles: getStyles2, fullScreen }, children: /* @__PURE__ */ import_jsx_runtime158.jsx(ModalBase, {
     ref,
     ...getStyles2("root"),
     "data-full-screen": fullScreen || undefined,
@@ -36816,18 +37176,18 @@ var ModalRoot = factory((_props, ref) => {
     ...others
   }) });
 });
-ModalRoot.classes = classes27;
+ModalRoot.classes = classes28;
 ModalRoot.displayName = "@mantine/core/ModalRoot";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalStack.mjs
-var import_jsx_runtime158 = __toESM(require_jsx_runtime(), 1);
-var import_react195 = __toESM(require_react(), 1);
+var import_jsx_runtime159 = __toESM(require_jsx_runtime(), 1);
+var import_react196 = __toESM(require_react(), 1);
 "use client";
 var [ModalStackProvider, useModalStackContext] = createOptionalContext();
 function ModalStack({ children }) {
-  const [stack, setStack] = import_react195.useState([]);
-  const [maxZIndex, setMaxZIndex] = import_react195.useState(getDefaultZIndex("modal"));
-  return /* @__PURE__ */ import_jsx_runtime158.jsx(ModalStackProvider, {
+  const [stack, setStack] = import_react196.useState([]);
+  const [maxZIndex, setMaxZIndex] = import_react196.useState(getDefaultZIndex("modal"));
+  return /* @__PURE__ */ import_jsx_runtime159.jsx(ModalStackProvider, {
     value: {
       stack,
       addModal: (id, zIndex) => {
@@ -36845,26 +37205,26 @@ function ModalStack({ children }) {
 ModalStack.displayName = "@mantine/core/ModalStack";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalTitle.mjs
-var import_jsx_runtime159 = __toESM(require_jsx_runtime(), 1);
-var import_react196 = __toESM(require_react(), 1);
+var import_jsx_runtime160 = __toESM(require_jsx_runtime(), 1);
+var import_react197 = __toESM(require_react(), 1);
 "use client";
-var defaultProps74 = {};
+var defaultProps75 = {};
 var ModalTitle = factory((_props, ref) => {
-  const props = useProps("ModalTitle", defaultProps74, _props);
+  const props = useProps("ModalTitle", defaultProps75, _props);
   const { classNames, className, style, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime159.jsx(ModalBaseTitle, {
+  return /* @__PURE__ */ import_jsx_runtime160.jsx(ModalBaseTitle, {
     ref,
     ...ctx.getStyles("title", { classNames, style, styles, className }),
     ...others
   });
 });
-ModalTitle.classes = classes27;
+ModalTitle.classes = classes28;
 ModalTitle.displayName = "@mantine/core/ModalTitle";
 
 // node_modules/@mantine/core/esm/components/Modal/Modal.mjs
 "use client";
-var defaultProps75 = {
+var defaultProps76 = {
   closeOnClickOutside: true,
   withinPortal: true,
   lockScroll: true,
@@ -36890,7 +37250,7 @@ var Modal = factory((_props, ref) => {
     stackId,
     zIndex,
     ...others
-  } = useProps("Modal", defaultProps75, _props);
+  } = useProps("Modal", defaultProps76, _props);
   const ctx = useModalStackContext();
   const hasHeader = !!title || withCloseButton;
   const stackProps = ctx && stackId ? {
@@ -36899,12 +37259,12 @@ var Modal = factory((_props, ref) => {
     zIndex: ctx.getZIndex(stackId)
   } : {};
   const overlayVisible = withOverlay === false ? false : stackId && ctx ? ctx.currentId === stackId : opened;
-  import_react197.useEffect(() => {
+  import_react198.useEffect(() => {
     if (ctx && stackId) {
       opened ? ctx.addModal(stackId, zIndex || getDefaultZIndex("modal")) : ctx.removeModal(stackId);
     }
   }, [opened, stackId, zIndex]);
-  return /* @__PURE__ */ import_jsx_runtime160.jsxs(ModalRoot, {
+  return /* @__PURE__ */ import_jsx_runtime161.jsxs(ModalRoot, {
     ref,
     radius,
     opened,
@@ -36912,26 +37272,26 @@ var Modal = factory((_props, ref) => {
     ...others,
     ...stackProps,
     children: [
-      withOverlay && /* @__PURE__ */ import_jsx_runtime160.jsx(ModalOverlay, {
+      withOverlay && /* @__PURE__ */ import_jsx_runtime161.jsx(ModalOverlay, {
         visible: overlayVisible,
         transitionProps: ctx && stackId ? { duration: 0 } : undefined,
         ...overlayProps
       }),
-      /* @__PURE__ */ import_jsx_runtime160.jsxs(ModalContent, {
+      /* @__PURE__ */ import_jsx_runtime161.jsxs(ModalContent, {
         radius,
         __hidden: ctx && stackId && opened ? stackId !== ctx.currentId : false,
         children: [
-          hasHeader && /* @__PURE__ */ import_jsx_runtime160.jsxs(ModalHeader, { children: [
-            title && /* @__PURE__ */ import_jsx_runtime160.jsx(ModalTitle, { children: title }),
-            withCloseButton && /* @__PURE__ */ import_jsx_runtime160.jsx(ModalCloseButton, { ...closeButtonProps })
+          hasHeader && /* @__PURE__ */ import_jsx_runtime161.jsxs(ModalHeader, { children: [
+            title && /* @__PURE__ */ import_jsx_runtime161.jsx(ModalTitle, { children: title }),
+            withCloseButton && /* @__PURE__ */ import_jsx_runtime161.jsx(ModalCloseButton, { ...closeButtonProps })
           ] }),
-          /* @__PURE__ */ import_jsx_runtime160.jsx(ModalBody, { children })
+          /* @__PURE__ */ import_jsx_runtime161.jsx(ModalBody, { children })
         ]
       })
     ]
   });
 });
-Modal.classes = classes27;
+Modal.classes = classes28;
 Modal.displayName = "@mantine/core/Modal";
 Modal.Root = ModalRoot;
 Modal.Overlay = ModalOverlay;
@@ -36942,49 +37302,49 @@ Modal.Title = ModalTitle;
 Modal.CloseButton = ModalCloseButton;
 Modal.Stack = ModalStack;
 // node_modules/@mantine/core/esm/components/MultiSelect/MultiSelect.mjs
-var import_jsx_runtime168 = __toESM(require_jsx_runtime(), 1);
-var import_react205 = __toESM(require_react(), 1);
+var import_jsx_runtime169 = __toESM(require_jsx_runtime(), 1);
+var import_react206 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.mjs
-var import_jsx_runtime164 = __toESM(require_jsx_runtime(), 1);
-var import_react201 = __toESM(require_react(), 1);
+var import_jsx_runtime165 = __toESM(require_jsx_runtime(), 1);
+var import_react202 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.context.mjs
-var import_react198 = __toESM(require_react(), 1);
-var import_jsx_runtime161 = __toESM(require_jsx_runtime(), 1);
+var import_react199 = __toESM(require_react(), 1);
+var import_jsx_runtime162 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [PillsInputProvider, usePillsInputContext] = createOptionalContext();
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup.context.mjs
-var import_react199 = __toESM(require_react(), 1);
-var import_jsx_runtime162 = __toESM(require_jsx_runtime(), 1);
+var import_react200 = __toESM(require_react(), 1);
+var import_jsx_runtime163 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [PillGroupProvider, usePillGroupContext] = createOptionalContext();
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup/PillGroup.mjs
-var import_jsx_runtime163 = __toESM(require_jsx_runtime(), 1);
-var import_react200 = __toESM(require_react(), 1);
+var import_jsx_runtime164 = __toESM(require_jsx_runtime(), 1);
+var import_react201 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.module.css.mjs
 "use client";
-var classes28 = { root: "m_7cda1cd6", "root--default": "m_44da308b", "root--contrast": "m_e3a01f8", label: "m_1e0e6180", remove: "m_ae386778", group: "m_1dcfd90b" };
+var classes29 = { root: "m_7cda1cd6", "root--default": "m_44da308b", "root--contrast": "m_e3a01f8", label: "m_1e0e6180", remove: "m_ae386778", group: "m_1dcfd90b" };
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup/PillGroup.mjs
 "use client";
-var defaultProps76 = {};
+var defaultProps77 = {};
 var varsResolver32 = createVarsResolver((_2, { gap }, { size: size4 }) => ({
   group: {
     "--pg-gap": gap !== undefined ? getSize(gap) : getSize(size4, "pg-gap")
   }
 }));
 var PillGroup = factory((_props, ref) => {
-  const props = useProps("PillGroup", defaultProps76, _props);
+  const props = useProps("PillGroup", defaultProps77, _props);
   const { classNames, className, style, styles, unstyled, vars, size: size4, disabled, ...others } = props;
   const pillsInputCtx = usePillsInputContext();
   const _size = pillsInputCtx?.size || size4 || undefined;
   const getStyles2 = useStyles({
     name: "PillGroup",
-    classes: classes28,
+    classes: classes29,
     props,
     className,
     style,
@@ -36996,14 +37356,14 @@ var PillGroup = factory((_props, ref) => {
     stylesCtx: { size: _size },
     rootSelector: "group"
   });
-  return /* @__PURE__ */ import_jsx_runtime163.jsx(PillGroupProvider, { value: { size: _size, disabled }, children: /* @__PURE__ */ import_jsx_runtime163.jsx(Box, { ref, size: _size, ...getStyles2("group"), ...others }) });
+  return /* @__PURE__ */ import_jsx_runtime164.jsx(PillGroupProvider, { value: { size: _size, disabled }, children: /* @__PURE__ */ import_jsx_runtime164.jsx(Box, { ref, size: _size, ...getStyles2("group"), ...others }) });
 });
-PillGroup.classes = classes28;
+PillGroup.classes = classes29;
 PillGroup.displayName = "@mantine/core/PillGroup";
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.mjs
 "use client";
-var defaultProps77 = {
+var defaultProps78 = {
   variant: "default"
 };
 var varsResolver33 = createVarsResolver((_2, { radius }, { size: size4 }) => ({
@@ -37014,7 +37374,7 @@ var varsResolver33 = createVarsResolver((_2, { radius }, { size: size4 }) => ({
   }
 }));
 var Pill = factory((_props, ref) => {
-  const props = useProps("Pill", defaultProps77, _props);
+  const props = useProps("Pill", defaultProps78, _props);
   const {
     classNames,
     className,
@@ -37039,7 +37399,7 @@ var Pill = factory((_props, ref) => {
   const _variant = pillsInputCtx?.variant === "filled" ? "contrast" : variant || "default";
   const getStyles2 = useStyles({
     name: "Pill",
-    classes: classes28,
+    classes: classes29,
     props,
     className,
     style,
@@ -37050,7 +37410,7 @@ var Pill = factory((_props, ref) => {
     varsResolver: varsResolver33,
     stylesCtx: { size: _size }
   });
-  return /* @__PURE__ */ import_jsx_runtime164.jsxs(Box, {
+  return /* @__PURE__ */ import_jsx_runtime165.jsxs(Box, {
     component: "span",
     ref,
     variant: _variant,
@@ -37062,8 +37422,8 @@ var Pill = factory((_props, ref) => {
     ],
     ...others,
     children: [
-      /* @__PURE__ */ import_jsx_runtime164.jsx("span", { ...getStyles2("label"), children }),
-      withRemoveButton && /* @__PURE__ */ import_jsx_runtime164.jsx(CloseButton, {
+      /* @__PURE__ */ import_jsx_runtime165.jsx("span", { ...getStyles2("label"), children }),
+      withRemoveButton && /* @__PURE__ */ import_jsx_runtime165.jsx(CloseButton, {
         variant: "transparent",
         radius,
         tabIndex: -1,
@@ -37088,29 +37448,29 @@ var Pill = factory((_props, ref) => {
     ]
   });
 });
-Pill.classes = classes28;
+Pill.classes = classes29;
 Pill.displayName = "@mantine/core/Pill";
 Pill.Group = PillGroup;
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.mjs
+var import_jsx_runtime167 = __toESM(require_jsx_runtime(), 1);
+var import_react204 = __toESM(require_react(), 1);
+
+// node_modules/@mantine/core/esm/components/PillsInput/PillsInputField/PillsInputField.mjs
 var import_jsx_runtime166 = __toESM(require_jsx_runtime(), 1);
 var import_react203 = __toESM(require_react(), 1);
 
-// node_modules/@mantine/core/esm/components/PillsInput/PillsInputField/PillsInputField.mjs
-var import_jsx_runtime165 = __toESM(require_jsx_runtime(), 1);
-var import_react202 = __toESM(require_react(), 1);
-
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.module.css.mjs
 "use client";
-var classes29 = { field: "m_45c4369d" };
+var classes30 = { field: "m_45c4369d" };
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInputField/PillsInputField.mjs
 "use client";
-var defaultProps78 = {
+var defaultProps79 = {
   type: "visible"
 };
 var PillsInputField = factory((_props, ref) => {
-  const props = useProps("PillsInputField", defaultProps78, _props);
+  const props = useProps("PillsInputField", defaultProps79, _props);
   const {
     classNames,
     className,
@@ -37129,7 +37489,7 @@ var PillsInputField = factory((_props, ref) => {
   const inputWrapperCtx = useInputWrapperContext();
   const getStyles2 = useStyles({
     name: "PillsInputField",
-    classes: classes29,
+    classes: classes30,
     props,
     className,
     style,
@@ -37139,7 +37499,7 @@ var PillsInputField = factory((_props, ref) => {
     rootSelector: "field"
   });
   const _disabled = disabled || ctx?.disabled;
-  return /* @__PURE__ */ import_jsx_runtime165.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime166.jsx(Box, {
     component: "input",
     ref: useMergedRef(ref, ctx?.fieldRef),
     "data-type": type,
@@ -37154,14 +37514,14 @@ var PillsInputField = factory((_props, ref) => {
     onMouseDown: (event) => !pointer && event.stopPropagation()
   });
 });
-PillsInputField.classes = classes29;
+PillsInputField.classes = classes30;
 PillsInputField.displayName = "@mantine/core/PillsInputField";
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.mjs
 "use client";
-var defaultProps79 = {};
+var defaultProps80 = {};
 var PillsInput = factory((_props, ref) => {
-  const props = useProps("PillsInput", defaultProps79, _props);
+  const props = useProps("PillsInput", defaultProps80, _props);
   const {
     children,
     onMouseDown,
@@ -37173,8 +37533,8 @@ var PillsInput = factory((_props, ref) => {
     variant,
     ...others
   } = props;
-  const fieldRef = import_react203.useRef(null);
-  return /* @__PURE__ */ import_jsx_runtime166.jsx(PillsInputProvider, { value: { fieldRef, size: size4, disabled, hasError: !!error2, variant }, children: /* @__PURE__ */ import_jsx_runtime166.jsx(InputBase, {
+  const fieldRef = import_react204.useRef(null);
+  return /* @__PURE__ */ import_jsx_runtime167.jsx(PillsInputProvider, { value: { fieldRef, size: size4, disabled, hasError: !!error2, variant }, children: /* @__PURE__ */ import_jsx_runtime167.jsx(InputBase, {
     size: size4,
     error: error2,
     variant,
@@ -37205,8 +37565,8 @@ PillsInput.displayName = "@mantine/core/PillsInput";
 PillsInput.Field = PillsInputField;
 
 // node_modules/@mantine/core/esm/components/MultiSelect/filter-picked-values.mjs
-var import_jsx_runtime167 = __toESM(require_jsx_runtime(), 1);
-var import_react204 = __toESM(require_react(), 1);
+var import_jsx_runtime168 = __toESM(require_jsx_runtime(), 1);
+var import_react205 = __toESM(require_react(), 1);
 "use client";
 function filterPickedValues({ data, value }) {
   const normalizedValue = value.map((item) => item.trim().toLowerCase());
@@ -37226,14 +37586,14 @@ function filterPickedValues({ data, value }) {
 
 // node_modules/@mantine/core/esm/components/MultiSelect/MultiSelect.mjs
 "use client";
-var defaultProps80 = {
+var defaultProps81 = {
   maxValues: Infinity,
   withCheckIcon: true,
   checkIconPosition: "left",
   hiddenInputValuesDivider: ","
 };
 var MultiSelect = factory((_props, ref) => {
-  const props = useProps("MultiSelect", defaultProps80, _props);
+  const props = useProps("MultiSelect", defaultProps81, _props);
   const {
     classNames,
     className,
@@ -37366,7 +37726,7 @@ var MultiSelect = factory((_props, ref) => {
       setValue(_value.slice(0, _value.length - 1));
     }
   };
-  const values2 = _value.map((item, index3) => /* @__PURE__ */ import_jsx_runtime168.jsx(Pill, {
+  const values2 = _value.map((item, index3) => /* @__PURE__ */ import_jsx_runtime169.jsx(Pill, {
     withRemoveButton: !readOnly && !optionsLockup[item]?.disabled,
     onRemove: () => {
       setValue(_value.filter((i2) => item !== i2));
@@ -37377,12 +37737,12 @@ var MultiSelect = factory((_props, ref) => {
     ...getStyles2("pill"),
     children: optionsLockup[item]?.label || item
   }, `${item}-${index3}`));
-  import_react205.useEffect(() => {
+  import_react206.useEffect(() => {
     if (selectFirstOptionOnChange) {
       combobox.selectFirstOption();
     }
   }, [selectFirstOptionOnChange, _value]);
-  const clearButton = /* @__PURE__ */ import_jsx_runtime168.jsx(Combobox.ClearButton, {
+  const clearButton = /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.ClearButton, {
     ...clearButtonProps,
     onClear: () => {
       onClear?.();
@@ -37392,8 +37752,8 @@ var MultiSelect = factory((_props, ref) => {
   });
   const filteredData = filterPickedValues({ data: parsedData, value: _value });
   const _clearable = clearable && _value.length > 0 && !disabled && !readOnly;
-  return /* @__PURE__ */ import_jsx_runtime168.jsxs(import_jsx_runtime168.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime168.jsxs(Combobox, {
+  return /* @__PURE__ */ import_jsx_runtime169.jsxs(import_jsx_runtime169.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime169.jsxs(Combobox, {
       store: combobox,
       classNames: resolvedClassNames,
       styles: resolvedStyles,
@@ -37414,7 +37774,7 @@ var MultiSelect = factory((_props, ref) => {
       },
       ...comboboxProps,
       children: [
-        /* @__PURE__ */ import_jsx_runtime168.jsx(Combobox.DropdownTarget, { children: /* @__PURE__ */ import_jsx_runtime168.jsx(PillsInput, {
+        /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.DropdownTarget, { children: /* @__PURE__ */ import_jsx_runtime169.jsx(PillsInput, {
           ...styleProps,
           __staticSelector: "MultiSelect",
           classNames: resolvedClassNames,
@@ -37426,7 +37786,7 @@ var MultiSelect = factory((_props, ref) => {
           variant,
           disabled,
           radius,
-          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime168.jsx(Combobox.Chevron, {
+          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.Chevron, {
             size: size4,
             error: error2,
             unstyled,
@@ -37465,9 +37825,9 @@ var MultiSelect = factory((_props, ref) => {
           id: _id,
           required,
           mod,
-          children: /* @__PURE__ */ import_jsx_runtime168.jsxs(Pill.Group, { disabled, unstyled, ...getStyles2("pillsList"), children: [
+          children: /* @__PURE__ */ import_jsx_runtime169.jsxs(Pill.Group, { disabled, unstyled, ...getStyles2("pillsList"), children: [
             values2,
-            /* @__PURE__ */ import_jsx_runtime168.jsx(Combobox.EventsTarget, { autoComplete, children: /* @__PURE__ */ import_jsx_runtime168.jsx(PillsInput.Field, {
+            /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.EventsTarget, { autoComplete, children: /* @__PURE__ */ import_jsx_runtime169.jsx(PillsInput.Field, {
               ...rest,
               ref,
               id: _id,
@@ -37497,7 +37857,7 @@ var MultiSelect = factory((_props, ref) => {
             }) })
           ] })
         }) }),
-        /* @__PURE__ */ import_jsx_runtime168.jsx(OptionsDropdown, {
+        /* @__PURE__ */ import_jsx_runtime169.jsx(OptionsDropdown, {
           data: hidePickedOptions ? filteredData : parsedData,
           hidden: readOnly || disabled,
           filter: filter2,
@@ -37519,7 +37879,7 @@ var MultiSelect = factory((_props, ref) => {
         })
       ]
     }),
-    /* @__PURE__ */ import_jsx_runtime168.jsx(Combobox.HiddenInput, {
+    /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.HiddenInput, {
       name,
       valuesDivider: hiddenInputValuesDivider,
       value: _value,
@@ -37531,9 +37891,1402 @@ var MultiSelect = factory((_props, ref) => {
 });
 MultiSelect.classes = { ...InputBase.classes, ...Combobox.classes };
 MultiSelect.displayName = "@mantine/core/MultiSelect";
-// node_modules/@mantine/core/esm/components/Tooltip/Tooltip.mjs
+// node_modules/react-number-format/dist/react-number-format.es.js
+var import_react207 = __toESM(require_react(), 1);
+function __rest2(s2, e) {
+  var t = {};
+  for (var p2 in s2) {
+    if (Object.prototype.hasOwnProperty.call(s2, p2) && e.indexOf(p2) < 0) {
+      t[p2] = s2[p2];
+    }
+  }
+  if (s2 != null && typeof Object.getOwnPropertySymbols === "function") {
+    for (var i2 = 0, p2 = Object.getOwnPropertySymbols(s2);i2 < p2.length; i2++) {
+      if (e.indexOf(p2[i2]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p2[i2])) {
+        t[p2[i2]] = s2[p2[i2]];
+      }
+    }
+  }
+  return t;
+}
+var SourceType;
+(function(SourceType2) {
+  SourceType2["event"] = "event";
+  SourceType2["props"] = "prop";
+})(SourceType || (SourceType = {}));
+function noop3() {
+}
+function memoizeOnce(cb) {
+  var lastArgs;
+  var lastValue = undefined;
+  return function() {
+    var args = [], len = arguments.length;
+    while (len--)
+      args[len] = arguments[len];
+    if (lastArgs && args.length === lastArgs.length && args.every(function(value, index3) {
+      return value === lastArgs[index3];
+    })) {
+      return lastValue;
+    }
+    lastArgs = args;
+    lastValue = cb.apply(undefined, args);
+    return lastValue;
+  };
+}
+function charIsNumber(char2) {
+  return !!(char2 || "").match(/\d/);
+}
+function isNil(val) {
+  return val === null || val === undefined;
+}
+function isNanValue(val) {
+  return typeof val === "number" && isNaN(val);
+}
+function isNotValidValue(val) {
+  return isNil(val) || isNanValue(val) || typeof val === "number" && !isFinite(val);
+}
+function escapeRegExp(str) {
+  return str.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&");
+}
+function getThousandsGroupRegex(thousandsGroupStyle) {
+  switch (thousandsGroupStyle) {
+    case "lakh":
+      return /(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/g;
+    case "wan":
+      return /(\d)(?=(\d{4})+(?!\d))/g;
+    case "thousand":
+    default:
+      return /(\d)(?=(\d{3})+(?!\d))/g;
+  }
+}
+function applyThousandSeparator(str, thousandSeparator, thousandsGroupStyle) {
+  var thousandsGroupRegex = getThousandsGroupRegex(thousandsGroupStyle);
+  var index3 = str.search(/[1-9]/);
+  index3 = index3 === -1 ? str.length : index3;
+  return str.substring(0, index3) + str.substring(index3, str.length).replace(thousandsGroupRegex, "$1" + thousandSeparator);
+}
+function usePersistentCallback(cb) {
+  var callbackRef = import_react207.useRef(cb);
+  callbackRef.current = cb;
+  var persistentCbRef = import_react207.useRef(function() {
+    var args = [], len = arguments.length;
+    while (len--)
+      args[len] = arguments[len];
+    return callbackRef.current.apply(callbackRef, args);
+  });
+  return persistentCbRef.current;
+}
+function splitDecimal(numStr, allowNegative) {
+  if (allowNegative === undefined)
+    allowNegative = true;
+  var hasNegation = numStr[0] === "-";
+  var addNegation = hasNegation && allowNegative;
+  numStr = numStr.replace("-", "");
+  var parts = numStr.split(".");
+  var beforeDecimal = parts[0];
+  var afterDecimal = parts[1] || "";
+  return {
+    beforeDecimal,
+    afterDecimal,
+    hasNegation,
+    addNegation
+  };
+}
+function fixLeadingZero(numStr) {
+  if (!numStr) {
+    return numStr;
+  }
+  var isNegative = numStr[0] === "-";
+  if (isNegative) {
+    numStr = numStr.substring(1, numStr.length);
+  }
+  var parts = numStr.split(".");
+  var beforeDecimal = parts[0].replace(/^0+/, "") || "0";
+  var afterDecimal = parts[1] || "";
+  return "" + (isNegative ? "-" : "") + beforeDecimal + (afterDecimal ? "." + afterDecimal : "");
+}
+function limitToScale(numStr, scale, fixedDecimalScale) {
+  var str = "";
+  var filler = fixedDecimalScale ? "0" : "";
+  for (var i2 = 0;i2 <= scale - 1; i2++) {
+    str += numStr[i2] || filler;
+  }
+  return str;
+}
+function repeat(str, count2) {
+  return Array(count2 + 1).join(str);
+}
+function toNumericString(num) {
+  var _num = num + "";
+  var sign = _num[0] === "-" ? "-" : "";
+  if (sign) {
+    _num = _num.substring(1);
+  }
+  var ref = _num.split(/[eE]/g);
+  var coefficient = ref[0];
+  var exponent = ref[1];
+  exponent = Number(exponent);
+  if (!exponent) {
+    return sign + coefficient;
+  }
+  coefficient = coefficient.replace(".", "");
+  var decimalIndex = 1 + exponent;
+  var coffiecientLn = coefficient.length;
+  if (decimalIndex < 0) {
+    coefficient = "0." + repeat("0", Math.abs(decimalIndex)) + coefficient;
+  } else if (decimalIndex >= coffiecientLn) {
+    coefficient = coefficient + repeat("0", decimalIndex - coffiecientLn);
+  } else {
+    coefficient = (coefficient.substring(0, decimalIndex) || "0") + "." + coefficient.substring(decimalIndex);
+  }
+  return sign + coefficient;
+}
+function roundToPrecision(numStr, scale, fixedDecimalScale) {
+  if (["", "-"].indexOf(numStr) !== -1) {
+    return numStr;
+  }
+  var shouldHaveDecimalSeparator = (numStr.indexOf(".") !== -1 || fixedDecimalScale) && scale;
+  var ref = splitDecimal(numStr);
+  var beforeDecimal = ref.beforeDecimal;
+  var afterDecimal = ref.afterDecimal;
+  var hasNegation = ref.hasNegation;
+  var floatValue = parseFloat("0." + (afterDecimal || "0"));
+  var floatValueStr = afterDecimal.length <= scale ? "0." + afterDecimal : floatValue.toFixed(scale);
+  var roundedDecimalParts = floatValueStr.split(".");
+  var intPart = beforeDecimal;
+  if (beforeDecimal && Number(roundedDecimalParts[0])) {
+    intPart = beforeDecimal.split("").reverse().reduce(function(roundedStr, current2, idx) {
+      if (roundedStr.length > idx) {
+        return (Number(roundedStr[0]) + Number(current2)).toString() + roundedStr.substring(1, roundedStr.length);
+      }
+      return current2 + roundedStr;
+    }, roundedDecimalParts[0]);
+  }
+  var decimalPart = limitToScale(roundedDecimalParts[1] || "", scale, fixedDecimalScale);
+  var negation = hasNegation ? "-" : "";
+  var decimalSeparator = shouldHaveDecimalSeparator ? "." : "";
+  return "" + negation + intPart + decimalSeparator + decimalPart;
+}
+function setCaretPosition(el, caretPos) {
+  el.value = el.value;
+  if (el !== null) {
+    if (el.createTextRange) {
+      var range = el.createTextRange();
+      range.move("character", caretPos);
+      range.select();
+      return true;
+    }
+    if (el.selectionStart || el.selectionStart === 0) {
+      el.focus();
+      el.setSelectionRange(caretPos, caretPos);
+      return true;
+    }
+    el.focus();
+    return false;
+  }
+}
+var findChangeRange = memoizeOnce(function(prevValue, newValue) {
+  var i2 = 0, j2 = 0;
+  var prevLength = prevValue.length;
+  var newLength = newValue.length;
+  while (prevValue[i2] === newValue[i2] && i2 < prevLength) {
+    i2++;
+  }
+  while (prevValue[prevLength - 1 - j2] === newValue[newLength - 1 - j2] && newLength - j2 > i2 && prevLength - j2 > i2) {
+    j2++;
+  }
+  return {
+    from: { start: i2, end: prevLength - j2 },
+    to: { start: i2, end: newLength - j2 }
+  };
+});
+var findChangedRangeFromCaretPositions = function(lastCaretPositions, currentCaretPosition) {
+  var startPosition = Math.min(lastCaretPositions.selectionStart, currentCaretPosition);
+  return {
+    from: { start: startPosition, end: lastCaretPositions.selectionEnd },
+    to: { start: startPosition, end: currentCaretPosition }
+  };
+};
+function clamp4(num, min2, max2) {
+  return Math.min(Math.max(num, min2), max2);
+}
+function geInputCaretPosition(el) {
+  return Math.max(el.selectionStart, el.selectionEnd);
+}
+function addInputMode() {
+  return typeof navigator !== "undefined" && !(navigator.platform && /iPhone|iPod/.test(navigator.platform));
+}
+function getDefaultChangeMeta(value) {
+  return {
+    from: {
+      start: 0,
+      end: 0
+    },
+    to: {
+      start: 0,
+      end: value.length
+    },
+    lastValue: ""
+  };
+}
+function defaultIsCharacterSame(ref) {
+  var currentValue = ref.currentValue;
+  var formattedValue = ref.formattedValue;
+  var currentValueIndex = ref.currentValueIndex;
+  var formattedValueIndex = ref.formattedValueIndex;
+  return currentValue[currentValueIndex] === formattedValue[formattedValueIndex];
+}
+function getCaretPosition(newFormattedValue, lastFormattedValue, curValue, curCaretPos, boundary, isValidInputCharacter, isCharacterSame) {
+  if (isCharacterSame === undefined)
+    isCharacterSame = defaultIsCharacterSame;
+  var firstAllowedPosition = boundary.findIndex(function(b) {
+    return b;
+  });
+  var prefixFormat = newFormattedValue.slice(0, firstAllowedPosition);
+  if (!lastFormattedValue && !curValue.startsWith(prefixFormat)) {
+    lastFormattedValue = prefixFormat;
+    curValue = prefixFormat + curValue;
+    curCaretPos = curCaretPos + prefixFormat.length;
+  }
+  var curValLn = curValue.length;
+  var formattedValueLn = newFormattedValue.length;
+  var addedIndexMap = {};
+  var indexMap = new Array(curValLn);
+  for (var i2 = 0;i2 < curValLn; i2++) {
+    indexMap[i2] = -1;
+    for (var j2 = 0, jLn = formattedValueLn;j2 < jLn; j2++) {
+      var isCharSame = isCharacterSame({
+        currentValue: curValue,
+        lastValue: lastFormattedValue,
+        formattedValue: newFormattedValue,
+        currentValueIndex: i2,
+        formattedValueIndex: j2
+      });
+      if (isCharSame && addedIndexMap[j2] !== true) {
+        indexMap[i2] = j2;
+        addedIndexMap[j2] = true;
+        break;
+      }
+    }
+  }
+  var pos = curCaretPos;
+  while (pos < curValLn && (indexMap[pos] === -1 || !isValidInputCharacter(curValue[pos]))) {
+    pos++;
+  }
+  var endIndex = pos === curValLn || indexMap[pos] === -1 ? formattedValueLn : indexMap[pos];
+  pos = curCaretPos - 1;
+  while (pos > 0 && indexMap[pos] === -1) {
+    pos--;
+  }
+  var startIndex = pos === -1 || indexMap[pos] === -1 ? 0 : indexMap[pos] + 1;
+  if (startIndex > endIndex) {
+    return endIndex;
+  }
+  return curCaretPos - startIndex < endIndex - curCaretPos ? startIndex : endIndex;
+}
+function getCaretPosInBoundary(value, caretPos, boundary, direction) {
+  var valLn = value.length;
+  caretPos = clamp4(caretPos, 0, valLn);
+  if (direction === "left") {
+    while (caretPos >= 0 && !boundary[caretPos]) {
+      caretPos--;
+    }
+    if (caretPos === -1) {
+      caretPos = boundary.indexOf(true);
+    }
+  } else {
+    while (caretPos <= valLn && !boundary[caretPos]) {
+      caretPos++;
+    }
+    if (caretPos > valLn) {
+      caretPos = boundary.lastIndexOf(true);
+    }
+  }
+  if (caretPos === -1) {
+    caretPos = valLn;
+  }
+  return caretPos;
+}
+function caretUnknownFormatBoundary(formattedValue) {
+  var boundaryAry = Array.from({ length: formattedValue.length + 1 }).map(function() {
+    return true;
+  });
+  for (var i2 = 0, ln = boundaryAry.length;i2 < ln; i2++) {
+    boundaryAry[i2] = Boolean(charIsNumber(formattedValue[i2]) || charIsNumber(formattedValue[i2 - 1]));
+  }
+  return boundaryAry;
+}
+function useInternalValues(value, defaultValue, valueIsNumericString, format, removeFormatting, onValueChange) {
+  if (onValueChange === undefined)
+    onValueChange = noop3;
+  var getValues = usePersistentCallback(function(value2, valueIsNumericString2) {
+    var formattedValue, numAsString;
+    if (isNotValidValue(value2)) {
+      numAsString = "";
+      formattedValue = "";
+    } else if (typeof value2 === "number" || valueIsNumericString2) {
+      numAsString = typeof value2 === "number" ? toNumericString(value2) : value2;
+      formattedValue = format(numAsString);
+    } else {
+      numAsString = removeFormatting(value2, undefined);
+      formattedValue = format(numAsString);
+    }
+    return { formattedValue, numAsString };
+  });
+  var ref = import_react207.useState(function() {
+    return getValues(isNil(value) ? defaultValue : value, valueIsNumericString);
+  });
+  var values2 = ref[0];
+  var setValues = ref[1];
+  var _onValueChange = function(newValues2, sourceInfo) {
+    if (newValues2.formattedValue !== values2.formattedValue) {
+      setValues({
+        formattedValue: newValues2.formattedValue,
+        numAsString: newValues2.value
+      });
+    }
+    onValueChange(newValues2, sourceInfo);
+  };
+  var _value = value;
+  var _valueIsNumericString = valueIsNumericString;
+  if (isNil(value)) {
+    _value = values2.numAsString;
+    _valueIsNumericString = true;
+  }
+  var newValues = getValues(_value, _valueIsNumericString);
+  import_react207.useMemo(function() {
+    setValues(newValues);
+  }, [newValues.formattedValue]);
+  return [values2, _onValueChange];
+}
+function defaultRemoveFormatting(value) {
+  return value.replace(/[^0-9]/g, "");
+}
+function defaultFormat(value) {
+  return value;
+}
+function NumberFormatBase(props) {
+  var type = props.type;
+  if (type === undefined)
+    type = "text";
+  var displayType = props.displayType;
+  if (displayType === undefined)
+    displayType = "input";
+  var customInput = props.customInput;
+  var renderText = props.renderText;
+  var getInputRef = props.getInputRef;
+  var format = props.format;
+  if (format === undefined)
+    format = defaultFormat;
+  var removeFormatting = props.removeFormatting;
+  if (removeFormatting === undefined)
+    removeFormatting = defaultRemoveFormatting;
+  var defaultValue = props.defaultValue;
+  var valueIsNumericString = props.valueIsNumericString;
+  var onValueChange = props.onValueChange;
+  var isAllowed = props.isAllowed;
+  var onChange = props.onChange;
+  if (onChange === undefined)
+    onChange = noop3;
+  var onKeyDown = props.onKeyDown;
+  if (onKeyDown === undefined)
+    onKeyDown = noop3;
+  var onMouseUp = props.onMouseUp;
+  if (onMouseUp === undefined)
+    onMouseUp = noop3;
+  var onFocus = props.onFocus;
+  if (onFocus === undefined)
+    onFocus = noop3;
+  var onBlur = props.onBlur;
+  if (onBlur === undefined)
+    onBlur = noop3;
+  var propValue = props.value;
+  var getCaretBoundary = props.getCaretBoundary;
+  if (getCaretBoundary === undefined)
+    getCaretBoundary = caretUnknownFormatBoundary;
+  var isValidInputCharacter = props.isValidInputCharacter;
+  if (isValidInputCharacter === undefined)
+    isValidInputCharacter = charIsNumber;
+  var isCharacterSame = props.isCharacterSame;
+  var otherProps = __rest2(props, ["type", "displayType", "customInput", "renderText", "getInputRef", "format", "removeFormatting", "defaultValue", "valueIsNumericString", "onValueChange", "isAllowed", "onChange", "onKeyDown", "onMouseUp", "onFocus", "onBlur", "value", "getCaretBoundary", "isValidInputCharacter", "isCharacterSame"]);
+  var ref = useInternalValues(propValue, defaultValue, Boolean(valueIsNumericString), format, removeFormatting, onValueChange);
+  var ref_0 = ref[0];
+  var formattedValue = ref_0.formattedValue;
+  var numAsString = ref_0.numAsString;
+  var onFormattedValueChange = ref[1];
+  var caretPositionBeforeChange = import_react207.useRef();
+  var lastUpdatedValue = import_react207.useRef({ formattedValue, numAsString });
+  var _onValueChange = function(values2, source) {
+    lastUpdatedValue.current = { formattedValue: values2.formattedValue, numAsString: values2.value };
+    onFormattedValueChange(values2, source);
+  };
+  var ref$1 = import_react207.useState(false);
+  var mounted = ref$1[0];
+  var setMounted = ref$1[1];
+  var focusedElm = import_react207.useRef(null);
+  var timeout = import_react207.useRef({
+    setCaretTimeout: null,
+    focusTimeout: null
+  });
+  import_react207.useEffect(function() {
+    setMounted(true);
+    return function() {
+      clearTimeout(timeout.current.setCaretTimeout);
+      clearTimeout(timeout.current.focusTimeout);
+    };
+  }, []);
+  var _format = format;
+  var getValueObject = function(formattedValue2, numAsString2) {
+    var floatValue = parseFloat(numAsString2);
+    return {
+      formattedValue: formattedValue2,
+      value: numAsString2,
+      floatValue: isNaN(floatValue) ? undefined : floatValue
+    };
+  };
+  var setPatchedCaretPosition = function(el, caretPos, currentValue) {
+    if (el.selectionStart === 0 && el.selectionEnd === el.value.length) {
+      return;
+    }
+    setCaretPosition(el, caretPos);
+    timeout.current.setCaretTimeout = setTimeout(function() {
+      if (el.value === currentValue && el.selectionStart !== caretPos) {
+        setCaretPosition(el, caretPos);
+      }
+    }, 0);
+  };
+  var correctCaretPosition = function(value, caretPos, direction) {
+    return getCaretPosInBoundary(value, caretPos, getCaretBoundary(value), direction);
+  };
+  var getNewCaretPosition = function(inputValue, newFormattedValue, caretPos) {
+    var caretBoundary = getCaretBoundary(newFormattedValue);
+    var updatedCaretPos = getCaretPosition(newFormattedValue, formattedValue, inputValue, caretPos, caretBoundary, isValidInputCharacter, isCharacterSame);
+    updatedCaretPos = getCaretPosInBoundary(newFormattedValue, updatedCaretPos, caretBoundary);
+    return updatedCaretPos;
+  };
+  var updateValueAndCaretPosition = function(params) {
+    var newFormattedValue = params.formattedValue;
+    if (newFormattedValue === undefined)
+      newFormattedValue = "";
+    var input = params.input;
+    var source = params.source;
+    var event = params.event;
+    var numAsString2 = params.numAsString;
+    var caretPos;
+    if (input) {
+      var inputValue = params.inputValue || input.value;
+      var currentCaretPosition2 = geInputCaretPosition(input);
+      input.value = newFormattedValue;
+      caretPos = getNewCaretPosition(inputValue, newFormattedValue, currentCaretPosition2);
+      if (caretPos !== undefined) {
+        setPatchedCaretPosition(input, caretPos, newFormattedValue);
+      }
+    }
+    if (newFormattedValue !== formattedValue) {
+      _onValueChange(getValueObject(newFormattedValue, numAsString2), { event, source });
+    }
+  };
+  import_react207.useEffect(function() {
+    var ref2 = lastUpdatedValue.current;
+    var lastFormattedValue = ref2.formattedValue;
+    var lastNumAsString = ref2.numAsString;
+    if (formattedValue !== lastFormattedValue || numAsString !== lastNumAsString) {
+      _onValueChange(getValueObject(formattedValue, numAsString), {
+        event: undefined,
+        source: SourceType.props
+      });
+    }
+  }, [formattedValue, numAsString]);
+  var currentCaretPosition = focusedElm.current ? geInputCaretPosition(focusedElm.current) : undefined;
+  var useIsomorphicLayoutEffect2 = typeof window !== "undefined" ? import_react207.useLayoutEffect : import_react207.useEffect;
+  useIsomorphicLayoutEffect2(function() {
+    var input = focusedElm.current;
+    if (formattedValue !== lastUpdatedValue.current.formattedValue && input) {
+      var caretPos = getNewCaretPosition(lastUpdatedValue.current.formattedValue, formattedValue, currentCaretPosition);
+      input.value = formattedValue;
+      setPatchedCaretPosition(input, caretPos, formattedValue);
+    }
+  }, [formattedValue]);
+  var formatInputValue = function(inputValue, event, source) {
+    var input = event.target;
+    var changeRange = caretPositionBeforeChange.current ? findChangedRangeFromCaretPositions(caretPositionBeforeChange.current, input.selectionEnd) : findChangeRange(formattedValue, inputValue);
+    var changeMeta = Object.assign(Object.assign({}, changeRange), { lastValue: formattedValue });
+    var _numAsString = removeFormatting(inputValue, changeMeta);
+    var _formattedValue = _format(_numAsString);
+    _numAsString = removeFormatting(_formattedValue, undefined);
+    if (isAllowed && !isAllowed(getValueObject(_formattedValue, _numAsString))) {
+      var input$1 = event.target;
+      var currentCaretPosition2 = geInputCaretPosition(input$1);
+      var caretPos = getNewCaretPosition(inputValue, formattedValue, currentCaretPosition2);
+      input$1.value = formattedValue;
+      setPatchedCaretPosition(input$1, caretPos, formattedValue);
+      return false;
+    }
+    updateValueAndCaretPosition({
+      formattedValue: _formattedValue,
+      numAsString: _numAsString,
+      inputValue,
+      event,
+      source,
+      input: event.target
+    });
+    return true;
+  };
+  var setCaretPositionInfoBeforeChange = function(el, endOffset) {
+    if (endOffset === undefined)
+      endOffset = 0;
+    var selectionStart = el.selectionStart;
+    var selectionEnd = el.selectionEnd;
+    caretPositionBeforeChange.current = { selectionStart, selectionEnd: selectionEnd + endOffset };
+  };
+  var _onChange = function(e) {
+    var el = e.target;
+    var inputValue = el.value;
+    var changed = formatInputValue(inputValue, e, SourceType.event);
+    if (changed) {
+      onChange(e);
+    }
+    caretPositionBeforeChange.current = undefined;
+  };
+  var _onKeyDown = function(e) {
+    var el = e.target;
+    var key = e.key;
+    var selectionStart = el.selectionStart;
+    var selectionEnd = el.selectionEnd;
+    var value = el.value;
+    if (value === undefined)
+      value = "";
+    var expectedCaretPosition;
+    if (key === "ArrowLeft" || key === "Backspace") {
+      expectedCaretPosition = Math.max(selectionStart - 1, 0);
+    } else if (key === "ArrowRight") {
+      expectedCaretPosition = Math.min(selectionStart + 1, value.length);
+    } else if (key === "Delete") {
+      expectedCaretPosition = selectionStart;
+    }
+    var endOffset = 0;
+    if (key === "Delete" && selectionStart === selectionEnd) {
+      endOffset = 1;
+    }
+    var isArrowKey = key === "ArrowLeft" || key === "ArrowRight";
+    if (expectedCaretPosition === undefined || selectionStart !== selectionEnd && !isArrowKey) {
+      onKeyDown(e);
+      setCaretPositionInfoBeforeChange(el, endOffset);
+      return;
+    }
+    var newCaretPosition = expectedCaretPosition;
+    if (isArrowKey) {
+      var direction = key === "ArrowLeft" ? "left" : "right";
+      newCaretPosition = correctCaretPosition(value, expectedCaretPosition, direction);
+      if (newCaretPosition !== expectedCaretPosition) {
+        e.preventDefault();
+      }
+    } else if (key === "Delete" && !isValidInputCharacter(value[expectedCaretPosition])) {
+      newCaretPosition = correctCaretPosition(value, expectedCaretPosition, "right");
+    } else if (key === "Backspace" && !isValidInputCharacter(value[expectedCaretPosition])) {
+      newCaretPosition = correctCaretPosition(value, expectedCaretPosition, "left");
+    }
+    if (newCaretPosition !== expectedCaretPosition) {
+      setPatchedCaretPosition(el, newCaretPosition, value);
+    }
+    onKeyDown(e);
+    setCaretPositionInfoBeforeChange(el, endOffset);
+  };
+  var _onMouseUp = function(e) {
+    var el = e.target;
+    var correctCaretPositionIfRequired = function() {
+      var selectionStart = el.selectionStart;
+      var selectionEnd = el.selectionEnd;
+      var value = el.value;
+      if (value === undefined)
+        value = "";
+      if (selectionStart === selectionEnd) {
+        var caretPosition = correctCaretPosition(value, selectionStart);
+        if (caretPosition !== selectionStart) {
+          setPatchedCaretPosition(el, caretPosition, value);
+        }
+      }
+    };
+    correctCaretPositionIfRequired();
+    requestAnimationFrame(function() {
+      correctCaretPositionIfRequired();
+    });
+    onMouseUp(e);
+    setCaretPositionInfoBeforeChange(el);
+  };
+  var _onFocus = function(e) {
+    if (e.persist) {
+      e.persist();
+    }
+    var el = e.target;
+    var currentTarget = e.currentTarget;
+    focusedElm.current = el;
+    timeout.current.focusTimeout = setTimeout(function() {
+      var selectionStart = el.selectionStart;
+      var selectionEnd = el.selectionEnd;
+      var value = el.value;
+      if (value === undefined)
+        value = "";
+      var caretPosition = correctCaretPosition(value, selectionStart);
+      if (caretPosition !== selectionStart && !(selectionStart === 0 && selectionEnd === value.length)) {
+        setPatchedCaretPosition(el, caretPosition, value);
+      }
+      onFocus(Object.assign(Object.assign({}, e), { currentTarget }));
+    }, 0);
+  };
+  var _onBlur = function(e) {
+    focusedElm.current = null;
+    clearTimeout(timeout.current.focusTimeout);
+    clearTimeout(timeout.current.setCaretTimeout);
+    onBlur(e);
+  };
+  var inputMode = mounted && addInputMode() ? "numeric" : undefined;
+  var inputProps = Object.assign({ inputMode }, otherProps, {
+    type,
+    value: formattedValue,
+    onChange: _onChange,
+    onKeyDown: _onKeyDown,
+    onMouseUp: _onMouseUp,
+    onFocus: _onFocus,
+    onBlur: _onBlur
+  });
+  if (displayType === "text") {
+    return renderText ? import_react207.default.createElement(import_react207.default.Fragment, null, renderText(formattedValue, otherProps) || null) : import_react207.default.createElement("span", Object.assign({}, otherProps, { ref: getInputRef }), formattedValue);
+  } else if (customInput) {
+    var CustomInput = customInput;
+    return import_react207.default.createElement(CustomInput, Object.assign({}, inputProps, { ref: getInputRef }));
+  }
+  return import_react207.default.createElement("input", Object.assign({}, inputProps, { ref: getInputRef }));
+}
+function format(numStr, props) {
+  var decimalScale = props.decimalScale;
+  var fixedDecimalScale = props.fixedDecimalScale;
+  var prefix2 = props.prefix;
+  if (prefix2 === undefined)
+    prefix2 = "";
+  var suffix = props.suffix;
+  if (suffix === undefined)
+    suffix = "";
+  var allowNegative = props.allowNegative;
+  var thousandsGroupStyle = props.thousandsGroupStyle;
+  if (thousandsGroupStyle === undefined)
+    thousandsGroupStyle = "thousand";
+  if (numStr === "" || numStr === "-") {
+    return numStr;
+  }
+  var ref = getSeparators(props);
+  var thousandSeparator = ref.thousandSeparator;
+  var decimalSeparator = ref.decimalSeparator;
+  var hasDecimalSeparator = decimalScale !== 0 && numStr.indexOf(".") !== -1 || decimalScale && fixedDecimalScale;
+  var ref$1 = splitDecimal(numStr, allowNegative);
+  var beforeDecimal = ref$1.beforeDecimal;
+  var afterDecimal = ref$1.afterDecimal;
+  var addNegation = ref$1.addNegation;
+  if (decimalScale !== undefined) {
+    afterDecimal = limitToScale(afterDecimal, decimalScale, !!fixedDecimalScale);
+  }
+  if (thousandSeparator) {
+    beforeDecimal = applyThousandSeparator(beforeDecimal, thousandSeparator, thousandsGroupStyle);
+  }
+  if (prefix2) {
+    beforeDecimal = prefix2 + beforeDecimal;
+  }
+  if (suffix) {
+    afterDecimal = afterDecimal + suffix;
+  }
+  if (addNegation) {
+    beforeDecimal = "-" + beforeDecimal;
+  }
+  numStr = beforeDecimal + (hasDecimalSeparator && decimalSeparator || "") + afterDecimal;
+  return numStr;
+}
+function getSeparators(props) {
+  var decimalSeparator = props.decimalSeparator;
+  if (decimalSeparator === undefined)
+    decimalSeparator = ".";
+  var thousandSeparator = props.thousandSeparator;
+  var allowedDecimalSeparators = props.allowedDecimalSeparators;
+  if (thousandSeparator === true) {
+    thousandSeparator = ",";
+  }
+  if (!allowedDecimalSeparators) {
+    allowedDecimalSeparators = [decimalSeparator, "."];
+  }
+  return {
+    decimalSeparator,
+    thousandSeparator,
+    allowedDecimalSeparators
+  };
+}
+function handleNegation(value, allowNegative) {
+  if (value === undefined)
+    value = "";
+  var negationRegex = new RegExp("(-)");
+  var doubleNegationRegex = new RegExp("(-)(.)*(-)");
+  var hasNegation = negationRegex.test(value);
+  var removeNegation = doubleNegationRegex.test(value);
+  value = value.replace(/-/g, "");
+  if (hasNegation && !removeNegation && allowNegative) {
+    value = "-" + value;
+  }
+  return value;
+}
+function getNumberRegex(decimalSeparator, global) {
+  return new RegExp("(^-)|[0-9]|" + escapeRegExp(decimalSeparator), global ? "g" : undefined);
+}
+function isNumericString(val, prefix2, suffix) {
+  if (val === "") {
+    return true;
+  }
+  return !(prefix2 === null || prefix2 === undefined ? undefined : prefix2.match(/\d/)) && !(suffix === null || suffix === undefined ? undefined : suffix.match(/\d/)) && typeof val === "string" && !isNaN(Number(val));
+}
+function removeFormatting(value, changeMeta, props) {
+  var assign2;
+  if (changeMeta === undefined)
+    changeMeta = getDefaultChangeMeta(value);
+  var allowNegative = props.allowNegative;
+  var prefix2 = props.prefix;
+  if (prefix2 === undefined)
+    prefix2 = "";
+  var suffix = props.suffix;
+  if (suffix === undefined)
+    suffix = "";
+  var decimalScale = props.decimalScale;
+  var from2 = changeMeta.from;
+  var to = changeMeta.to;
+  var start = to.start;
+  var end = to.end;
+  var ref = getSeparators(props);
+  var allowedDecimalSeparators = ref.allowedDecimalSeparators;
+  var decimalSeparator = ref.decimalSeparator;
+  var isBeforeDecimalSeparator = value[end] === decimalSeparator;
+  if (charIsNumber(value) && (value === prefix2 || value === suffix) && changeMeta.lastValue === "") {
+    return value;
+  }
+  if (end - start === 1 && allowedDecimalSeparators.indexOf(value[start]) !== -1) {
+    var separator = decimalScale === 0 ? "" : decimalSeparator;
+    value = value.substring(0, start) + separator + value.substring(start + 1, value.length);
+  }
+  var stripNegation = function(value2, start2, end2) {
+    var hasNegation2 = false;
+    var hasDoubleNegation = false;
+    if (prefix2.startsWith("-")) {
+      hasNegation2 = false;
+    } else if (value2.startsWith("--")) {
+      hasNegation2 = false;
+      hasDoubleNegation = true;
+    } else if (suffix.startsWith("-") && value2.length === suffix.length) {
+      hasNegation2 = false;
+    } else if (value2[0] === "-") {
+      hasNegation2 = true;
+    }
+    var charsToRemove = hasNegation2 ? 1 : 0;
+    if (hasDoubleNegation) {
+      charsToRemove = 2;
+    }
+    if (charsToRemove) {
+      value2 = value2.substring(charsToRemove);
+      start2 -= charsToRemove;
+      end2 -= charsToRemove;
+    }
+    return { value: value2, start: start2, end: end2, hasNegation: hasNegation2 };
+  };
+  var toMetadata = stripNegation(value, start, end);
+  var hasNegation = toMetadata.hasNegation;
+  assign2 = toMetadata, value = assign2.value, start = assign2.start, end = assign2.end;
+  var ref$1 = stripNegation(changeMeta.lastValue, from2.start, from2.end);
+  var fromStart = ref$1.start;
+  var fromEnd = ref$1.end;
+  var lastValue = ref$1.value;
+  var updatedSuffixPart = value.substring(start, end);
+  if (value.length && lastValue.length && (fromStart > lastValue.length - suffix.length || fromEnd < prefix2.length) && !(updatedSuffixPart && suffix.startsWith(updatedSuffixPart))) {
+    value = lastValue;
+  }
+  var startIndex = 0;
+  if (value.startsWith(prefix2)) {
+    startIndex += prefix2.length;
+  } else if (start < prefix2.length) {
+    startIndex = start;
+  }
+  value = value.substring(startIndex);
+  end -= startIndex;
+  var endIndex = value.length;
+  var suffixStartIndex = value.length - suffix.length;
+  if (value.endsWith(suffix)) {
+    endIndex = suffixStartIndex;
+  } else if (end > suffixStartIndex) {
+    endIndex = end;
+  } else if (end > value.length - suffix.length) {
+    endIndex = end;
+  }
+  value = value.substring(0, endIndex);
+  value = handleNegation(hasNegation ? "-" + value : value, allowNegative);
+  value = (value.match(getNumberRegex(decimalSeparator, true)) || []).join("");
+  var firstIndex = value.indexOf(decimalSeparator);
+  value = value.replace(new RegExp(escapeRegExp(decimalSeparator), "g"), function(match2, index3) {
+    return index3 === firstIndex ? "." : "";
+  });
+  var ref$2 = splitDecimal(value, allowNegative);
+  var beforeDecimal = ref$2.beforeDecimal;
+  var afterDecimal = ref$2.afterDecimal;
+  var addNegation = ref$2.addNegation;
+  if (to.end - to.start < from2.end - from2.start && beforeDecimal === "" && isBeforeDecimalSeparator && !parseFloat(afterDecimal)) {
+    value = addNegation ? "-" : "";
+  }
+  return value;
+}
+function getCaretBoundary(formattedValue, props) {
+  var prefix2 = props.prefix;
+  if (prefix2 === undefined)
+    prefix2 = "";
+  var suffix = props.suffix;
+  if (suffix === undefined)
+    suffix = "";
+  var boundaryAry = Array.from({ length: formattedValue.length + 1 }).map(function() {
+    return true;
+  });
+  var hasNegation = formattedValue[0] === "-";
+  boundaryAry.fill(false, 0, prefix2.length + (hasNegation ? 1 : 0));
+  var valLn = formattedValue.length;
+  boundaryAry.fill(false, valLn - suffix.length + 1, valLn + 1);
+  return boundaryAry;
+}
+function validateAndUpdateProps(props) {
+  var ref = getSeparators(props);
+  var thousandSeparator = ref.thousandSeparator;
+  var decimalSeparator = ref.decimalSeparator;
+  var prefix2 = props.prefix;
+  if (prefix2 === undefined)
+    prefix2 = "";
+  var allowNegative = props.allowNegative;
+  if (allowNegative === undefined)
+    allowNegative = true;
+  if (thousandSeparator === decimalSeparator) {
+    throw new Error(`
+        Decimal separator can't be same as thousand separator.
+        thousandSeparator: ` + thousandSeparator + ` (thousandSeparator = {true} is same as thousandSeparator = ",")
+        decimalSeparator: ` + decimalSeparator + ` (default value for decimalSeparator is .)
+     `);
+  }
+  if (prefix2.startsWith("-") && allowNegative) {
+    console.error(`
+      Prefix can't start with '-' when allowNegative is true.
+      prefix: ` + prefix2 + `
+      allowNegative: ` + allowNegative + `
+    `);
+    allowNegative = false;
+  }
+  return Object.assign(Object.assign({}, props), { allowNegative });
+}
+function useNumericFormat(props) {
+  props = validateAndUpdateProps(props);
+  var _decimalSeparator = props.decimalSeparator;
+  var _allowedDecimalSeparators = props.allowedDecimalSeparators;
+  var thousandsGroupStyle = props.thousandsGroupStyle;
+  var suffix = props.suffix;
+  var allowNegative = props.allowNegative;
+  var allowLeadingZeros = props.allowLeadingZeros;
+  var onKeyDown = props.onKeyDown;
+  if (onKeyDown === undefined)
+    onKeyDown = noop3;
+  var onBlur = props.onBlur;
+  if (onBlur === undefined)
+    onBlur = noop3;
+  var thousandSeparator = props.thousandSeparator;
+  var decimalScale = props.decimalScale;
+  var fixedDecimalScale = props.fixedDecimalScale;
+  var prefix2 = props.prefix;
+  if (prefix2 === undefined)
+    prefix2 = "";
+  var defaultValue = props.defaultValue;
+  var value = props.value;
+  var valueIsNumericString = props.valueIsNumericString;
+  var onValueChange = props.onValueChange;
+  var restProps = __rest2(props, ["decimalSeparator", "allowedDecimalSeparators", "thousandsGroupStyle", "suffix", "allowNegative", "allowLeadingZeros", "onKeyDown", "onBlur", "thousandSeparator", "decimalScale", "fixedDecimalScale", "prefix", "defaultValue", "value", "valueIsNumericString", "onValueChange"]);
+  var ref = getSeparators(props);
+  var decimalSeparator = ref.decimalSeparator;
+  var allowedDecimalSeparators = ref.allowedDecimalSeparators;
+  var _format = function(numStr) {
+    return format(numStr, props);
+  };
+  var _removeFormatting = function(inputValue, changeMeta) {
+    return removeFormatting(inputValue, changeMeta, props);
+  };
+  var _value = isNil(value) ? defaultValue : value;
+  var _valueIsNumericString = valueIsNumericString !== null && valueIsNumericString !== undefined ? valueIsNumericString : isNumericString(_value, prefix2, suffix);
+  if (!isNil(value)) {
+    _valueIsNumericString = _valueIsNumericString || typeof value === "number";
+  } else if (!isNil(defaultValue)) {
+    _valueIsNumericString = _valueIsNumericString || typeof defaultValue === "number";
+  }
+  var roundIncomingValueToPrecision = function(value2) {
+    if (isNotValidValue(value2)) {
+      return value2;
+    }
+    if (typeof value2 === "number") {
+      value2 = toNumericString(value2);
+    }
+    if (_valueIsNumericString && typeof decimalScale === "number") {
+      return roundToPrecision(value2, decimalScale, Boolean(fixedDecimalScale));
+    }
+    return value2;
+  };
+  var ref$1 = useInternalValues(roundIncomingValueToPrecision(value), roundIncomingValueToPrecision(defaultValue), Boolean(_valueIsNumericString), _format, _removeFormatting, onValueChange);
+  var ref$1_0 = ref$1[0];
+  var numAsString = ref$1_0.numAsString;
+  var formattedValue = ref$1_0.formattedValue;
+  var _onValueChange = ref$1[1];
+  var _onKeyDown = function(e) {
+    var el = e.target;
+    var key = e.key;
+    var selectionStart = el.selectionStart;
+    var selectionEnd = el.selectionEnd;
+    var value2 = el.value;
+    if (value2 === undefined)
+      value2 = "";
+    if ((key === "Backspace" || key === "Delete") && selectionEnd < prefix2.length) {
+      e.preventDefault();
+      return;
+    }
+    if (selectionStart !== selectionEnd) {
+      onKeyDown(e);
+      return;
+    }
+    if (key === "Backspace" && value2[0] === "-" && selectionStart === prefix2.length + 1 && allowNegative) {
+      setCaretPosition(el, 1);
+    }
+    if (decimalScale && fixedDecimalScale) {
+      if (key === "Backspace" && value2[selectionStart - 1] === decimalSeparator) {
+        setCaretPosition(el, selectionStart - 1);
+        e.preventDefault();
+      } else if (key === "Delete" && value2[selectionStart] === decimalSeparator) {
+        e.preventDefault();
+      }
+    }
+    if ((allowedDecimalSeparators === null || allowedDecimalSeparators === undefined ? undefined : allowedDecimalSeparators.includes(key)) && value2[selectionStart] === decimalSeparator) {
+      setCaretPosition(el, selectionStart + 1);
+    }
+    var _thousandSeparator = thousandSeparator === true ? "," : thousandSeparator;
+    if (key === "Backspace" && value2[selectionStart - 1] === _thousandSeparator) {
+      setCaretPosition(el, selectionStart - 1);
+    }
+    if (key === "Delete" && value2[selectionStart] === _thousandSeparator) {
+      setCaretPosition(el, selectionStart + 1);
+    }
+    onKeyDown(e);
+  };
+  var _onBlur = function(e) {
+    var _value2 = numAsString;
+    if (!_value2.match(/\d/g)) {
+      _value2 = "";
+    }
+    if (!allowLeadingZeros) {
+      _value2 = fixLeadingZero(_value2);
+    }
+    if (fixedDecimalScale && decimalScale) {
+      _value2 = roundToPrecision(_value2, decimalScale, fixedDecimalScale);
+    }
+    if (_value2 !== numAsString) {
+      var formattedValue2 = format(_value2, props);
+      _onValueChange({
+        formattedValue: formattedValue2,
+        value: _value2,
+        floatValue: parseFloat(_value2)
+      }, {
+        event: e,
+        source: SourceType.event
+      });
+    }
+    onBlur(e);
+  };
+  var isValidInputCharacter = function(inputChar) {
+    if (inputChar === decimalSeparator) {
+      return true;
+    }
+    return charIsNumber(inputChar);
+  };
+  var isCharacterSame = function(ref2) {
+    var currentValue = ref2.currentValue;
+    var lastValue = ref2.lastValue;
+    var formattedValue2 = ref2.formattedValue;
+    var currentValueIndex = ref2.currentValueIndex;
+    var formattedValueIndex = ref2.formattedValueIndex;
+    var curChar = currentValue[currentValueIndex];
+    var newChar = formattedValue2[formattedValueIndex];
+    var typedRange = findChangeRange(lastValue, currentValue);
+    var to = typedRange.to;
+    var getDecimalSeparatorIndex = function(value2) {
+      return _removeFormatting(value2).indexOf(".") + prefix2.length;
+    };
+    if (value === 0 && fixedDecimalScale && decimalScale && currentValue[to.start] === decimalSeparator && getDecimalSeparatorIndex(currentValue) < currentValueIndex && getDecimalSeparatorIndex(formattedValue2) > formattedValueIndex) {
+      return false;
+    }
+    if (currentValueIndex >= to.start && currentValueIndex < to.end && allowedDecimalSeparators && allowedDecimalSeparators.includes(curChar) && newChar === decimalSeparator) {
+      return true;
+    }
+    return curChar === newChar;
+  };
+  return Object.assign(Object.assign({}, restProps), {
+    value: formattedValue,
+    valueIsNumericString: false,
+    isValidInputCharacter,
+    isCharacterSame,
+    onValueChange: _onValueChange,
+    format: _format,
+    removeFormatting: _removeFormatting,
+    getCaretBoundary: function(formattedValue2) {
+      return getCaretBoundary(formattedValue2, props);
+    },
+    onKeyDown: _onKeyDown,
+    onBlur: _onBlur
+  });
+}
+function NumericFormat(props) {
+  var numericFormatProps = useNumericFormat(props);
+  return import_react207.default.createElement(NumberFormatBase, Object.assign({}, numericFormatProps));
+}
+
+// node_modules/@mantine/core/esm/components/NumberInput/NumberInput.mjs
 var import_jsx_runtime171 = __toESM(require_jsx_runtime(), 1);
-var import_react214 = __toESM(require_react(), 1);
+var import_react208 = __toESM(require_react(), 1);
+
+// node_modules/@mantine/core/esm/components/NumberInput/NumberInputChevron.mjs
+var import_jsx_runtime170 = __toESM(require_jsx_runtime(), 1);
+"use client";
+function NumberInputChevron({ direction, style, ...others }) {
+  return /* @__PURE__ */ import_jsx_runtime170.jsx("svg", {
+    style: {
+      width: "var(--ni-chevron-size)",
+      height: "var(--ni-chevron-size)",
+      transform: direction === "up" ? "rotate(180deg)" : undefined,
+      ...style
+    },
+    viewBox: "0 0 15 15",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    ...others,
+    children: /* @__PURE__ */ import_jsx_runtime170.jsx("path", {
+      d: "M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z",
+      fill: "currentColor",
+      fillRule: "evenodd",
+      clipRule: "evenodd"
+    })
+  });
+}
+
+// node_modules/@mantine/core/esm/components/NumberInput/NumberInput.module.css.mjs
+"use client";
+var classes31 = { root: "m_e2f5cd4e", controls: "m_95e17d22", control: "m_80b4b171" };
+
+// node_modules/@mantine/core/esm/components/NumberInput/NumberInput.mjs
+"use client";
+var leadingDecimalZeroPattern = /^(0\.0*|-0(\.0*)?)$/;
+var leadingZerosPattern = /^-?0\d+(\.\d+)?\.?$/;
+function isNumberString(value) {
+  return typeof value === "string" && value !== "" && !Number.isNaN(Number(value));
+}
+function canIncrement(value) {
+  if (typeof value === "number") {
+    return value < Number.MAX_SAFE_INTEGER;
+  }
+  return value === "" || isNumberString(value) && Number(value) < Number.MAX_SAFE_INTEGER;
+}
+function getDecimalPlaces(inputValue) {
+  return inputValue.toString().replace(".", "").length;
+}
+function isValidNumber(floatValue, value) {
+  return (typeof floatValue === "number" ? floatValue < Number.MAX_SAFE_INTEGER : !Number.isNaN(Number(floatValue))) && !Number.isNaN(floatValue) && getDecimalPlaces(value) < 14 && value !== "";
+}
+function isInRange(value, min2, max2) {
+  if (value === undefined) {
+    return true;
+  }
+  const minValid = min2 === undefined || value >= min2;
+  const maxValid = max2 === undefined || value <= max2;
+  return minValid && maxValid;
+}
+var defaultProps82 = {
+  step: 1,
+  clampBehavior: "blur",
+  allowDecimal: true,
+  allowNegative: true,
+  withKeyboardEvents: true,
+  allowLeadingZeros: true,
+  trimLeadingZeroesOnBlur: true,
+  startValue: 0
+};
+var varsResolver34 = createVarsResolver((_2, { size: size4 }) => ({
+  controls: {
+    "--ni-chevron-size": getSize(size4, "ni-chevron-size")
+  }
+}));
+var NumberInput = factory((_props, ref) => {
+  const props = useProps("NumberInput", defaultProps82, _props);
+  const {
+    className,
+    classNames,
+    styles,
+    unstyled,
+    vars,
+    onChange,
+    onValueChange,
+    value,
+    defaultValue,
+    max: max2,
+    min: min2,
+    step,
+    hideControls,
+    rightSection,
+    isAllowed,
+    clampBehavior,
+    onBlur,
+    allowDecimal,
+    decimalScale,
+    onKeyDown,
+    onKeyDownCapture,
+    handlersRef,
+    startValue,
+    disabled,
+    rightSectionPointerEvents,
+    allowNegative,
+    readOnly,
+    size: size4,
+    rightSectionWidth,
+    stepHoldInterval,
+    stepHoldDelay,
+    allowLeadingZeros,
+    withKeyboardEvents,
+    trimLeadingZeroesOnBlur,
+    ...others
+  } = props;
+  const getStyles2 = useStyles({
+    name: "NumberInput",
+    classes: classes31,
+    props,
+    classNames,
+    styles,
+    unstyled,
+    vars,
+    varsResolver: varsResolver34
+  });
+  const { resolvedClassNames, resolvedStyles } = useResolvedStylesApi({
+    classNames,
+    styles,
+    props
+  });
+  const [_value, setValue] = useUncontrolled({
+    value,
+    defaultValue,
+    finalValue: "",
+    onChange
+  });
+  const shouldUseStepInterval = stepHoldDelay !== undefined && stepHoldInterval !== undefined;
+  const inputRef = import_react208.useRef(null);
+  const onStepTimeoutRef = import_react208.useRef(null);
+  const stepCountRef = import_react208.useRef(0);
+  const handleValueChange = (payload, event) => {
+    if (event.source === "event") {
+      setValue(isValidNumber(payload.floatValue, payload.value) && !leadingDecimalZeroPattern.test(payload.value) && !(allowLeadingZeros ? leadingZerosPattern.test(payload.value) : false) ? payload.floatValue : payload.value);
+    }
+    onValueChange?.(payload, event);
+  };
+  const getDecimalPlaces2 = (inputValue) => {
+    const match2 = String(inputValue).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+    if (!match2) {
+      return 0;
+    }
+    return Math.max(0, (match2[1] ? match2[1].length : 0) - (match2[2] ? +match2[2] : 0));
+  };
+  const adjustCursor = (position2) => {
+    if (inputRef.current && typeof position2 !== "undefined") {
+      inputRef.current.setSelectionRange(position2, position2);
+    }
+  };
+  const incrementRef = import_react208.useRef(noop);
+  incrementRef.current = () => {
+    if (!canIncrement(_value)) {
+      return;
+    }
+    let val;
+    const currentValuePrecision = getDecimalPlaces2(_value);
+    const stepPrecision = getDecimalPlaces2(step);
+    const maxPrecision = Math.max(currentValuePrecision, stepPrecision);
+    const factor = 10 ** maxPrecision;
+    if (!isNumberString(_value) && (typeof _value !== "number" || Number.isNaN(_value))) {
+      val = clamp(startValue, min2, max2);
+    } else if (max2 !== undefined) {
+      const incrementedValue = (Math.round(Number(_value) * factor) + Math.round(step * factor)) / factor;
+      val = incrementedValue <= max2 ? incrementedValue : max2;
+    } else {
+      val = (Math.round(Number(_value) * factor) + Math.round(step * factor)) / factor;
+    }
+    const formattedValue = val.toFixed(maxPrecision);
+    setValue(parseFloat(formattedValue));
+    onValueChange?.({ floatValue: parseFloat(formattedValue), formattedValue, value: formattedValue }, { source: "increment" });
+    setTimeout(() => adjustCursor(inputRef.current?.value.length), 0);
+  };
+  const decrementRef = import_react208.useRef(noop);
+  decrementRef.current = () => {
+    if (!canIncrement(_value)) {
+      return;
+    }
+    let val;
+    const minValue = min2 !== undefined ? min2 : !allowNegative ? 0 : Number.MIN_SAFE_INTEGER;
+    const currentValuePrecision = getDecimalPlaces2(_value);
+    const stepPrecision = getDecimalPlaces2(step);
+    const maxPrecision = Math.max(currentValuePrecision, stepPrecision);
+    const factor = 10 ** maxPrecision;
+    if (!isNumberString(_value) && typeof _value !== "number" || Number.isNaN(_value)) {
+      val = clamp(startValue, minValue, max2);
+    } else {
+      const decrementedValue = (Math.round(Number(_value) * factor) - Math.round(step * factor)) / factor;
+      val = minValue !== undefined && decrementedValue < minValue ? minValue : decrementedValue;
+    }
+    const formattedValue = val.toFixed(maxPrecision);
+    setValue(parseFloat(formattedValue));
+    onValueChange?.({ floatValue: parseFloat(formattedValue), formattedValue, value: formattedValue }, { source: "decrement" });
+    setTimeout(() => adjustCursor(inputRef.current?.value.length), 0);
+  };
+  const handleKeyDown = (event) => {
+    onKeyDown?.(event);
+    if (readOnly || !withKeyboardEvents) {
+      return;
+    }
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      incrementRef.current();
+    }
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      decrementRef.current();
+    }
+  };
+  const handleKeyDownCapture = (event) => {
+    onKeyDownCapture?.(event);
+    if (event.key === "Backspace") {
+      const input = inputRef.current;
+      if (input.selectionStart === 0 && input.selectionStart === input.selectionEnd) {
+        event.preventDefault();
+        window.setTimeout(() => adjustCursor(0), 0);
+      }
+    }
+  };
+  const handleBlur = (event) => {
+    let sanitizedValue = _value;
+    if (clampBehavior === "blur" && typeof sanitizedValue === "number") {
+      const clampedValue = clamp(sanitizedValue, min2, max2);
+      sanitizedValue = clampedValue;
+    }
+    if (trimLeadingZeroesOnBlur && typeof sanitizedValue === "string" && getDecimalPlaces2(sanitizedValue) < 15) {
+      const replaced = sanitizedValue.toString().replace(/^0+/, "");
+      const parsedValue = parseFloat(replaced);
+      sanitizedValue = Number.isNaN(parsedValue) || parsedValue > Number.MAX_SAFE_INTEGER ? replaced : clamp(parsedValue, min2, max2);
+    }
+    if (_value !== sanitizedValue) {
+      setValue(sanitizedValue);
+    }
+    onBlur?.(event);
+  };
+  assignRef2(handlersRef, { increment: incrementRef.current, decrement: decrementRef.current });
+  const onStepHandleChange = (isIncrement) => {
+    if (isIncrement) {
+      incrementRef.current();
+    } else {
+      decrementRef.current();
+    }
+    stepCountRef.current += 1;
+  };
+  const onStepLoop = (isIncrement) => {
+    onStepHandleChange(isIncrement);
+    if (shouldUseStepInterval) {
+      const interval = typeof stepHoldInterval === "number" ? stepHoldInterval : stepHoldInterval(stepCountRef.current);
+      onStepTimeoutRef.current = window.setTimeout(() => onStepLoop(isIncrement), interval);
+    }
+  };
+  const onStep = (event, isIncrement) => {
+    event.preventDefault();
+    inputRef.current?.focus();
+    onStepHandleChange(isIncrement);
+    if (shouldUseStepInterval) {
+      onStepTimeoutRef.current = window.setTimeout(() => onStepLoop(isIncrement), stepHoldDelay);
+    }
+  };
+  const onStepDone = () => {
+    if (onStepTimeoutRef.current) {
+      window.clearTimeout(onStepTimeoutRef.current);
+    }
+    onStepTimeoutRef.current = null;
+    stepCountRef.current = 0;
+  };
+  const controls = /* @__PURE__ */ import_jsx_runtime171.jsxs("div", { ...getStyles2("controls"), children: [
+    /* @__PURE__ */ import_jsx_runtime171.jsx(UnstyledButton, {
+      ...getStyles2("control"),
+      tabIndex: -1,
+      "aria-hidden": true,
+      disabled: disabled || typeof _value === "number" && max2 !== undefined && _value >= max2,
+      mod: { direction: "up" },
+      onMouseDown: (event) => event.preventDefault(),
+      onPointerDown: (event) => {
+        onStep(event, true);
+      },
+      onPointerUp: onStepDone,
+      onPointerLeave: onStepDone,
+      children: /* @__PURE__ */ import_jsx_runtime171.jsx(NumberInputChevron, { direction: "up" })
+    }),
+    /* @__PURE__ */ import_jsx_runtime171.jsx(UnstyledButton, {
+      ...getStyles2("control"),
+      tabIndex: -1,
+      "aria-hidden": true,
+      disabled: disabled || typeof _value === "number" && min2 !== undefined && _value <= min2,
+      mod: { direction: "down" },
+      onMouseDown: (event) => event.preventDefault(),
+      onPointerDown: (event) => {
+        onStep(event, false);
+      },
+      onPointerUp: onStepDone,
+      onPointerLeave: onStepDone,
+      children: /* @__PURE__ */ import_jsx_runtime171.jsx(NumberInputChevron, { direction: "down" })
+    })
+  ] });
+  return /* @__PURE__ */ import_jsx_runtime171.jsx(InputBase, {
+    component: NumericFormat,
+    allowNegative,
+    className: clsx_default(classes31.root, className),
+    size: size4,
+    ...others,
+    readOnly,
+    disabled,
+    value: _value,
+    getInputRef: useMergedRef(ref, inputRef),
+    onValueChange: handleValueChange,
+    rightSection: hideControls || readOnly || !canIncrement(_value) ? rightSection : rightSection || controls,
+    classNames: resolvedClassNames,
+    styles: resolvedStyles,
+    unstyled,
+    __staticSelector: "NumberInput",
+    decimalScale: allowDecimal ? decimalScale : 0,
+    onKeyDown: handleKeyDown,
+    onKeyDownCapture: handleKeyDownCapture,
+    rightSectionPointerEvents: rightSectionPointerEvents ?? (disabled ? "none" : undefined),
+    rightSectionWidth: rightSectionWidth ?? `var(--ni-right-section-width-${size4 || "sm"})`,
+    allowLeadingZeros,
+    onBlur: handleBlur,
+    isAllowed: (val) => {
+      if (clampBehavior === "strict") {
+        if (isAllowed) {
+          return isAllowed(val) && isInRange(val.floatValue, min2, max2);
+        }
+        return isInRange(val.floatValue, min2, max2);
+      }
+      return isAllowed ? isAllowed(val) : true;
+    }
+  });
+});
+NumberInput.classes = { ...InputBase.classes, ...classes31 };
+NumberInput.displayName = "@mantine/core/NumberInput";
+// node_modules/@mantine/core/esm/components/Tooltip/Tooltip.mjs
+var import_jsx_runtime174 = __toESM(require_jsx_runtime(), 1);
+var import_react217 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Transition/get-transition-props/get-transition-props.mjs
 "use client";
@@ -37546,19 +39299,19 @@ function getTransitionProps(transitionProps, componentTransition) {
 }
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/TooltipFloating.mjs
-var import_jsx_runtime169 = __toESM(require_jsx_runtime(), 1);
-var import_react208 = __toESM(require_react(), 1);
+var import_jsx_runtime172 = __toESM(require_jsx_runtime(), 1);
+var import_react211 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/use-floating-tooltip.mjs
-var import_react206 = __toESM(require_react(), 1);
+var import_react209 = __toESM(require_react(), 1);
 "use client";
 function useFloatingTooltip({
   offset: offset4,
   position: position2,
   defaultOpened
 }) {
-  const [opened, setOpened] = import_react206.useState(defaultOpened);
-  const boundaryRef = import_react206.useRef(null);
+  const [opened, setOpened] = import_react209.useState(defaultOpened);
+  const boundaryRef = import_react209.useRef(null);
   const { x: x2, y: y2, elements, refs, update, placement } = useFloating2({
     placement: position2,
     middleware: [
@@ -37571,7 +39324,7 @@ function useFloatingTooltip({
   });
   const horizontalOffset = placement.includes("right") ? offset4 : position2.includes("left") ? offset4 * -1 : 0;
   const verticalOffset = placement.includes("bottom") ? offset4 : position2.includes("top") ? offset4 * -1 : 0;
-  const handleMouseMove = import_react206.useCallback(({ clientX, clientY }) => {
+  const handleMouseMove = import_react209.useCallback(({ clientX, clientY }) => {
     refs.setPositionReference({
       getBoundingClientRect() {
         return {
@@ -37587,7 +39340,7 @@ function useFloatingTooltip({
       }
     });
   }, [elements.reference]);
-  import_react206.useEffect(() => {
+  import_react209.useEffect(() => {
     if (refs.floating.current) {
       const boundary = boundaryRef.current;
       boundary.addEventListener("mousemove", handleMouseMove);
@@ -37609,11 +39362,11 @@ function useFloatingTooltip({
 
 // node_modules/@mantine/core/esm/components/Tooltip/Tooltip.module.css.mjs
 "use client";
-var classes30 = { tooltip: "m_1b3c8819", arrow: "m_f898399f" };
+var classes32 = { tooltip: "m_1b3c8819", arrow: "m_f898399f" };
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/TooltipFloating.mjs
 "use client";
-var defaultProps81 = {
+var defaultProps83 = {
   refProp: "ref",
   withinPortal: true,
   offset: 10,
@@ -37621,7 +39374,7 @@ var defaultProps81 = {
   position: "right",
   zIndex: getDefaultZIndex("popover")
 };
-var varsResolver34 = createVarsResolver((theme, { radius, color }) => ({
+var varsResolver35 = createVarsResolver((theme, { radius, color }) => ({
   tooltip: {
     "--tooltip-radius": radius === undefined ? undefined : getRadius(radius),
     "--tooltip-bg": color ? getThemeColor(color, theme) : undefined,
@@ -37629,7 +39382,7 @@ var varsResolver34 = createVarsResolver((theme, { radius, color }) => ({
   }
 }));
 var TooltipFloating = factory((_props, ref) => {
-  const props = useProps("TooltipFloating", defaultProps81, _props);
+  const props = useProps("TooltipFloating", defaultProps83, _props);
   const {
     children,
     refProp,
@@ -37657,7 +39410,7 @@ var TooltipFloating = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "TooltipFloating",
     props,
-    classes: classes30,
+    classes: classes32,
     className,
     style,
     classNames,
@@ -37665,7 +39418,7 @@ var TooltipFloating = factory((_props, ref) => {
     unstyled,
     rootSelector: "tooltip",
     vars,
-    varsResolver: varsResolver34
+    varsResolver: varsResolver35
   });
   const { handleMouseMove, x: x2, y: y2, opened, boundaryRef, floating, setOpened } = useFloatingTooltip({
     offset: offset4,
@@ -37686,8 +39439,8 @@ var TooltipFloating = factory((_props, ref) => {
     _childrenProps.onMouseLeave?.(event);
     setOpened(false);
   };
-  return /* @__PURE__ */ import_jsx_runtime169.jsxs(import_jsx_runtime169.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime169.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime169.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime172.jsxs(import_jsx_runtime172.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime172.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime172.jsx(Box, {
       ...others,
       ...getStyles2("tooltip", {
         style: {
@@ -37703,7 +39456,7 @@ var TooltipFloating = factory((_props, ref) => {
       mod: { multiline },
       children: label
     }) }),
-    import_react208.cloneElement(children, {
+    import_react211.cloneElement(children, {
       ..._childrenProps,
       [refProp]: targetRef,
       onMouseEnter,
@@ -37711,35 +39464,35 @@ var TooltipFloating = factory((_props, ref) => {
     })
   ] });
 });
-TooltipFloating.classes = classes30;
+TooltipFloating.classes = classes32;
 TooltipFloating.displayName = "@mantine/core/TooltipFloating";
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.mjs
-var import_jsx_runtime170 = __toESM(require_jsx_runtime(), 1);
-var import_react211 = __toESM(require_react(), 1);
+var import_jsx_runtime173 = __toESM(require_jsx_runtime(), 1);
+var import_react214 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.context.mjs
-var import_react209 = __toESM(require_react(), 1);
+var import_react212 = __toESM(require_react(), 1);
 "use client";
-var TooltipGroupContext = import_react209.createContext(false);
+var TooltipGroupContext = import_react212.createContext(false);
 var TooltipGroupProvider = TooltipGroupContext.Provider;
-var useTooltipGroupContext = () => import_react209.useContext(TooltipGroupContext);
+var useTooltipGroupContext = () => import_react212.useContext(TooltipGroupContext);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.mjs
 "use client";
-var defaultProps82 = {
+var defaultProps84 = {
   openDelay: 0,
   closeDelay: 0
 };
 function TooltipGroup(props) {
-  const { openDelay, closeDelay, children } = useProps("TooltipGroup", defaultProps82, props);
-  return /* @__PURE__ */ import_jsx_runtime170.jsx(TooltipGroupProvider, { value: true, children: /* @__PURE__ */ import_jsx_runtime170.jsx(FloatingDelayGroup, { delay: { open: openDelay, close: closeDelay }, children }) });
+  const { openDelay, closeDelay, children } = useProps("TooltipGroup", defaultProps84, props);
+  return /* @__PURE__ */ import_jsx_runtime173.jsx(TooltipGroupProvider, { value: true, children: /* @__PURE__ */ import_jsx_runtime173.jsx(FloatingDelayGroup, { delay: { open: openDelay, close: closeDelay }, children }) });
 }
 TooltipGroup.displayName = "@mantine/core/TooltipGroup";
 TooltipGroup.extend = (c2) => c2;
 
 // node_modules/@mantine/core/esm/components/Tooltip/use-tooltip.mjs
-var import_react212 = __toESM(require_react(), 1);
+var import_react215 = __toESM(require_react(), 1);
 "use client";
 function getDefaultMiddlewares2(middlewares) {
   if (middlewares === undefined) {
@@ -37772,12 +39525,12 @@ function getTooltipMiddlewares(settings) {
   return middlewares;
 }
 function useTooltip(settings) {
-  const [uncontrolledOpened, setUncontrolledOpened] = import_react212.useState(settings.defaultOpened);
+  const [uncontrolledOpened, setUncontrolledOpened] = import_react215.useState(settings.defaultOpened);
   const controlled = typeof settings.opened === "boolean";
   const opened = controlled ? settings.opened : uncontrolledOpened;
   const withinGroup = useTooltipGroupContext();
   const uid = useId();
-  const onChange = import_react212.useCallback((_opened) => {
+  const onChange = import_react215.useCallback((_opened) => {
     setUncontrolledOpened(_opened);
     if (_opened) {
       setCurrentId(uid);
@@ -37836,7 +39589,7 @@ function useTooltip(settings) {
 
 // node_modules/@mantine/core/esm/components/Tooltip/Tooltip.mjs
 "use client";
-var defaultProps83 = {
+var defaultProps85 = {
   position: "top",
   refProp: "ref",
   withinPortal: true,
@@ -37853,7 +39606,7 @@ var defaultProps83 = {
   positionDependencies: [],
   middlewares: { flip: true, shift: true, inline: false }
 };
-var varsResolver35 = createVarsResolver((theme, { radius, color }) => ({
+var varsResolver36 = createVarsResolver((theme, { radius, color }) => ({
   tooltip: {
     "--tooltip-radius": radius === undefined ? undefined : getRadius(radius),
     "--tooltip-bg": color ? getThemeColor(color, theme) : undefined,
@@ -37861,7 +39614,7 @@ var varsResolver35 = createVarsResolver((theme, { radius, color }) => ({
   }
 }));
 var Tooltip = factory((_props, ref) => {
-  const props = useProps("Tooltip", defaultProps83, _props);
+  const props = useProps("Tooltip", defaultProps85, _props);
   const {
     children,
     position: position2,
@@ -37904,9 +39657,9 @@ var Tooltip = factory((_props, ref) => {
     floatingStrategy,
     middlewares,
     ...others
-  } = useProps("Tooltip", defaultProps83, props);
+  } = useProps("Tooltip", defaultProps85, props);
   const { dir } = useDirection();
-  const arrowRef = import_react214.useRef(null);
+  const arrowRef = import_react217.useRef(null);
   const tooltip = useTooltip({
     position: getFloatingPosition(dir, position2),
     closeDelay,
@@ -37926,7 +39679,7 @@ var Tooltip = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Tooltip",
     props,
-    classes: classes30,
+    classes: classes32,
     className,
     style,
     classNames,
@@ -37934,7 +39687,7 @@ var Tooltip = factory((_props, ref) => {
     unstyled,
     rootSelector: "tooltip",
     vars,
-    varsResolver: varsResolver35
+    varsResolver: varsResolver36
   });
   if (!isElement(children)) {
     throw new Error("[@mantine/core] Tooltip component children should be an element or a component that accepts ref, fragments, strings, numbers and other primitive values are not supported");
@@ -37942,13 +39695,13 @@ var Tooltip = factory((_props, ref) => {
   const targetRef = useMergedRef(tooltip.reference, getRefProp(children), ref);
   const transition = getTransitionProps(transitionProps, { duration: 100, transition: "fade" });
   const _childrenProps = children.props;
-  return /* @__PURE__ */ import_jsx_runtime171.jsxs(import_jsx_runtime171.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime171.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime171.jsx(Transition, {
+  return /* @__PURE__ */ import_jsx_runtime174.jsxs(import_jsx_runtime174.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime174.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime174.jsx(Transition, {
       ...transition,
       keepMounted,
       mounted: !disabled && !!tooltip.opened,
       duration: tooltip.isGroupPhase ? 10 : transition.duration,
-      children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime171.jsxs(Box, {
+      children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime174.jsxs(Box, {
         ...others,
         "data-fixed": floatingStrategy === "fixed" || undefined,
         variant,
@@ -37966,7 +39719,7 @@ var Tooltip = factory((_props, ref) => {
         }),
         children: [
           label,
-          /* @__PURE__ */ import_jsx_runtime171.jsx(FloatingArrow, {
+          /* @__PURE__ */ import_jsx_runtime174.jsx(FloatingArrow, {
             ref: arrowRef,
             arrowX: tooltip.arrowX,
             arrowY: tooltip.arrowY,
@@ -37981,7 +39734,7 @@ var Tooltip = factory((_props, ref) => {
         ]
       })
     }) }),
-    import_react214.cloneElement(children, tooltip.getReferenceProps({
+    import_react217.cloneElement(children, tooltip.getReferenceProps({
       onClick,
       onMouseEnter,
       onMouseLeave,
@@ -37994,23 +39747,23 @@ var Tooltip = factory((_props, ref) => {
     }))
   ] });
 });
-Tooltip.classes = classes30;
+Tooltip.classes = classes32;
 Tooltip.displayName = "@mantine/core/Tooltip";
 Tooltip.Floating = TooltipFloating;
 Tooltip.Group = TooltipGroup;
 
 // node_modules/@mantine/core/esm/components/Select/Select.mjs
-var import_jsx_runtime172 = __toESM(require_jsx_runtime(), 1);
-var import_react215 = __toESM(require_react(), 1);
+var import_jsx_runtime175 = __toESM(require_jsx_runtime(), 1);
+var import_react218 = __toESM(require_react(), 1);
 "use client";
-var defaultProps84 = {
+var defaultProps86 = {
   searchable: false,
   withCheckIcon: true,
   allowDeselect: true,
   checkIconPosition: "left"
 };
 var Select = factory((_props, ref) => {
-  const props = useProps("Select", defaultProps84, _props);
+  const props = useProps("Select", defaultProps86, _props);
   const {
     classNames,
     styles,
@@ -38064,8 +39817,8 @@ var Select = factory((_props, ref) => {
     chevronColor,
     ...others
   } = props;
-  const parsedData = import_react215.useMemo(() => getParsedComboboxData(data), [data]);
-  const optionsLockup = import_react215.useMemo(() => getOptionsLockup(parsedData), [parsedData]);
+  const parsedData = import_react218.useMemo(() => getParsedComboboxData(data), [data]);
+  const optionsLockup = import_react218.useMemo(() => getOptionsLockup(parsedData), [parsedData]);
   const _id = useId(id);
   const [_value, setValue, controlled] = useUncontrolled({
     value,
@@ -38102,12 +39855,12 @@ var Select = factory((_props, ref) => {
     styles,
     classNames
   });
-  import_react215.useEffect(() => {
+  import_react218.useEffect(() => {
     if (selectFirstOptionOnChange) {
       combobox.selectFirstOption();
     }
   }, [selectFirstOptionOnChange, _value]);
-  import_react215.useEffect(() => {
+  import_react218.useEffect(() => {
     if (value === null) {
       handleSearchChange("");
     }
@@ -38115,7 +39868,7 @@ var Select = factory((_props, ref) => {
       handleSearchChange(selectedOption.label);
     }
   }, [value, selectedOption]);
-  const clearButton = /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.ClearButton, {
+  const clearButton = /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.ClearButton, {
     ...clearButtonProps,
     onClear: () => {
       setValue(null, null);
@@ -38124,8 +39877,8 @@ var Select = factory((_props, ref) => {
     }
   });
   const _clearable = clearable && !!_value && !disabled && !readOnly;
-  return /* @__PURE__ */ import_jsx_runtime172.jsxs(import_jsx_runtime172.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime172.jsxs(Combobox, {
+  return /* @__PURE__ */ import_jsx_runtime175.jsxs(import_jsx_runtime175.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime175.jsxs(Combobox, {
       store: combobox,
       __staticSelector: "Select",
       classNames: resolvedClassNames,
@@ -38143,10 +39896,10 @@ var Select = factory((_props, ref) => {
       size: size4,
       ...comboboxProps,
       children: [
-        /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.Target, { targetType: searchable ? "input" : "button", autoComplete, children: /* @__PURE__ */ import_jsx_runtime172.jsx(InputBase, {
+        /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.Target, { targetType: searchable ? "input" : "button", autoComplete, children: /* @__PURE__ */ import_jsx_runtime175.jsx(InputBase, {
           id: _id,
           ref,
-          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.Chevron, {
+          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.Chevron, {
             size: size4,
             error: error2,
             unstyled,
@@ -38186,7 +39939,7 @@ var Select = factory((_props, ref) => {
           pointer: !searchable,
           error: error2
         }) }),
-        /* @__PURE__ */ import_jsx_runtime172.jsx(OptionsDropdown, {
+        /* @__PURE__ */ import_jsx_runtime175.jsx(OptionsDropdown, {
           data: parsedData,
           hidden: readOnly || disabled,
           filter: filter2,
@@ -38208,7 +39961,7 @@ var Select = factory((_props, ref) => {
         })
       ]
     }),
-    /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.HiddenInput, {
+    /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.HiddenInput, {
       value: _value,
       name,
       form,
@@ -38220,21 +39973,21 @@ var Select = factory((_props, ref) => {
 Select.classes = { ...InputBase.classes, ...Combobox.classes };
 Select.displayName = "@mantine/core/Select";
 // node_modules/@mantine/core/esm/components/Stack/Stack.mjs
-var import_jsx_runtime173 = __toESM(require_jsx_runtime(), 1);
-var import_react216 = __toESM(require_react(), 1);
+var import_jsx_runtime176 = __toESM(require_jsx_runtime(), 1);
+var import_react219 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Stack/Stack.module.css.mjs
 "use client";
-var classes31 = { root: "m_6d731127" };
+var classes33 = { root: "m_6d731127" };
 
 // node_modules/@mantine/core/esm/components/Stack/Stack.mjs
 "use client";
-var defaultProps85 = {
+var defaultProps87 = {
   gap: "md",
   align: "stretch",
   justify: "flex-start"
 };
-var varsResolver36 = createVarsResolver((_2, { gap, align, justify }) => ({
+var varsResolver37 = createVarsResolver((_2, { gap, align, justify }) => ({
   root: {
     "--stack-gap": getSpacing(gap),
     "--stack-align": align,
@@ -38242,7 +39995,7 @@ var varsResolver36 = createVarsResolver((_2, { gap, align, justify }) => ({
   }
 }));
 var Stack = factory((_props, ref) => {
-  const props = useProps("Stack", defaultProps85, _props);
+  const props = useProps("Stack", defaultProps87, _props);
   const {
     classNames,
     className,
@@ -38259,26 +40012,440 @@ var Stack = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Stack",
     props,
-    classes: classes31,
+    classes: classes33,
     className,
     style,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver36
+    varsResolver: varsResolver37
   });
-  return /* @__PURE__ */ import_jsx_runtime173.jsx(Box, { ref, ...getStyles2("root"), variant, ...others });
+  return /* @__PURE__ */ import_jsx_runtime176.jsx(Box, { ref, ...getStyles2("root"), variant, ...others });
 });
-Stack.classes = classes31;
+Stack.classes = classes33;
 Stack.displayName = "@mantine/core/Stack";
+// node_modules/@mantine/core/esm/components/Switch/Switch.mjs
+var import_jsx_runtime178 = __toESM(require_jsx_runtime(), 1);
+var import_react222 = __toESM(require_react(), 1);
+
+// node_modules/@mantine/core/esm/components/Switch/SwitchGroup.context.mjs
+var import_react220 = __toESM(require_react(), 1);
+"use client";
+var SwitchGroupContext = import_react220.createContext(null);
+var SwitchGroupProvider = SwitchGroupContext.Provider;
+var useSwitchGroupContext = () => import_react220.useContext(SwitchGroupContext);
+
+// node_modules/@mantine/core/esm/components/Switch/SwitchGroup/SwitchGroup.mjs
+var import_jsx_runtime177 = __toESM(require_jsx_runtime(), 1);
+var import_react221 = __toESM(require_react(), 1);
+"use client";
+var defaultProps88 = {};
+var SwitchGroup = factory((props, ref) => {
+  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("SwitchGroup", defaultProps88, props);
+  const [_value, setValue] = useUncontrolled({
+    value,
+    defaultValue,
+    finalValue: [],
+    onChange
+  });
+  const handleChange = (event) => {
+    const itemValue = event.currentTarget.value;
+    !readOnly && setValue(_value.includes(itemValue) ? _value.filter((item) => item !== itemValue) : [..._value, itemValue]);
+  };
+  return /* @__PURE__ */ import_jsx_runtime177.jsx(SwitchGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime177.jsx(Input.Wrapper, {
+    size: size4,
+    ref,
+    ...wrapperProps,
+    ...others,
+    labelElement: "div",
+    __staticSelector: "SwitchGroup",
+    children: /* @__PURE__ */ import_jsx_runtime177.jsx(InputsGroupFieldset, { role: "group", children })
+  }) });
+});
+SwitchGroup.classes = Input.Wrapper.classes;
+SwitchGroup.displayName = "@mantine/core/SwitchGroup";
+
+// node_modules/@mantine/core/esm/components/Switch/Switch.module.css.mjs
+"use client";
+var classes34 = { root: "m_5f93f3bb", input: "m_926b4011", track: "m_9307d992", thumb: "m_93039a1d", trackLabel: "m_8277e082" };
+
+// node_modules/@mantine/core/esm/components/Switch/Switch.mjs
+"use client";
+var defaultProps89 = {
+  labelPosition: "right"
+};
+var varsResolver38 = createVarsResolver((theme, { radius, color, size: size4 }) => ({
+  root: {
+    "--switch-radius": radius === undefined ? undefined : getRadius(radius),
+    "--switch-height": getSize(size4, "switch-height"),
+    "--switch-width": getSize(size4, "switch-width"),
+    "--switch-thumb-size": getSize(size4, "switch-thumb-size"),
+    "--switch-label-font-size": getSize(size4, "switch-label-font-size"),
+    "--switch-track-label-padding": getSize(size4, "switch-track-label-padding"),
+    "--switch-color": color ? getThemeColor(color, theme) : undefined
+  }
+}));
+var Switch = factory((_props, ref) => {
+  const props = useProps("Switch", defaultProps89, _props);
+  const {
+    classNames,
+    className,
+    style,
+    styles,
+    unstyled,
+    vars,
+    color,
+    label,
+    offLabel,
+    onLabel,
+    id,
+    size: size4,
+    radius,
+    wrapperProps,
+    thumbIcon,
+    checked,
+    defaultChecked,
+    onChange,
+    labelPosition,
+    description,
+    error: error2,
+    disabled,
+    variant,
+    rootRef,
+    mod,
+    ...others
+  } = props;
+  const ctx = useSwitchGroupContext();
+  const _size = size4 || ctx?.size;
+  const getStyles2 = useStyles({
+    name: "Switch",
+    props,
+    classes: classes34,
+    className,
+    style,
+    classNames,
+    styles,
+    unstyled,
+    vars,
+    varsResolver: varsResolver38
+  });
+  const { styleProps, rest } = extractStyleProps(others);
+  const uuid = useId(id);
+  const contextProps = ctx ? {
+    checked: ctx.value.includes(rest.value),
+    onChange: ctx.onChange
+  } : {};
+  const [_checked, handleChange] = useUncontrolled({
+    value: contextProps.checked ?? checked,
+    defaultValue: defaultChecked,
+    finalValue: false
+  });
+  return /* @__PURE__ */ import_jsx_runtime178.jsxs(InlineInput, {
+    ...getStyles2("root"),
+    __staticSelector: "Switch",
+    __stylesApiProps: props,
+    id: uuid,
+    size: _size,
+    labelPosition,
+    label,
+    description,
+    error: error2,
+    disabled,
+    bodyElement: "label",
+    labelElement: "span",
+    classNames,
+    styles,
+    unstyled,
+    "data-checked": contextProps.checked || checked || undefined,
+    variant,
+    ref: rootRef,
+    mod,
+    ...styleProps,
+    ...wrapperProps,
+    children: [
+      /* @__PURE__ */ import_jsx_runtime178.jsx("input", {
+        ...rest,
+        disabled,
+        checked: _checked,
+        "data-checked": contextProps.checked || checked || undefined,
+        onChange: (event) => {
+          ctx ? contextProps.onChange?.(event) : onChange?.(event);
+          handleChange(event.currentTarget.checked);
+        },
+        id: uuid,
+        ref,
+        type: "checkbox",
+        role: "switch",
+        ...getStyles2("input")
+      }),
+      /* @__PURE__ */ import_jsx_runtime178.jsxs(Box, {
+        "aria-hidden": "true",
+        mod: { error: error2, "label-position": labelPosition, "without-labels": !onLabel && !offLabel },
+        ...getStyles2("track"),
+        children: [
+          /* @__PURE__ */ import_jsx_runtime178.jsx(Box, { component: "span", mod: "reduce-motion", ...getStyles2("thumb"), children: thumbIcon }),
+          /* @__PURE__ */ import_jsx_runtime178.jsx("span", { ...getStyles2("trackLabel"), children: _checked ? onLabel : offLabel })
+        ]
+      })
+    ]
+  });
+});
+Switch.classes = { ...classes34, ...InlineInputClasses };
+Switch.displayName = "@mantine/core/Switch";
+Switch.Group = SwitchGroup;
+// node_modules/@mantine/core/esm/components/Table/Table.mjs
+var import_jsx_runtime183 = __toESM(require_jsx_runtime(), 1);
+var import_react226 = __toESM(require_react(), 1);
+
+// node_modules/@mantine/core/esm/components/Table/Table.components.mjs
+var import_jsx_runtime180 = __toESM(require_jsx_runtime(), 1);
+var import_react224 = __toESM(require_react(), 1);
+
+// node_modules/@mantine/core/esm/components/Table/Table.context.mjs
+var import_react223 = __toESM(require_react(), 1);
+var import_jsx_runtime179 = __toESM(require_jsx_runtime(), 1);
+"use client";
+var [TableProvider, useTableContext] = createSafeContext("Table component was not found in the tree");
+
+// node_modules/@mantine/core/esm/components/Table/Table.module.css.mjs
+"use client";
+var classes35 = { table: "m_b23fa0ef", th: "m_4e7aa4f3", tr: "m_4e7aa4fd", td: "m_4e7aa4ef", tbody: "m_b2404537", thead: "m_b242d975", caption: "m_9e5a3ac7", scrollContainer: "m_a100c15", scrollContainerInner: "m_62259741" };
+
+// node_modules/@mantine/core/esm/components/Table/Table.components.mjs
+"use client";
+function getDataAttributes(ctx, options) {
+  if (!options) {
+    return;
+  }
+  const data = {};
+  if (options.columnBorder && ctx.withColumnBorders) {
+    data["data-with-column-border"] = true;
+  }
+  if (options.rowBorder && ctx.withRowBorders) {
+    data["data-with-row-border"] = true;
+  }
+  if (options.striped && ctx.striped) {
+    data["data-striped"] = ctx.striped;
+  }
+  if (options.highlightOnHover && ctx.highlightOnHover) {
+    data["data-hover"] = true;
+  }
+  if (options.captionSide && ctx.captionSide) {
+    data["data-side"] = ctx.captionSide;
+  }
+  if (options.stickyHeader && ctx.stickyHeader) {
+    data["data-sticky"] = true;
+  }
+  return data;
+}
+function tableElement(element, options) {
+  const name = `Table${element.charAt(0).toUpperCase()}${element.slice(1)}`;
+  const Component = factory((_props, ref) => {
+    const props = useProps(name, {}, _props);
+    const { classNames, className, style, styles, ...others } = props;
+    const ctx = useTableContext();
+    return /* @__PURE__ */ import_jsx_runtime180.jsx(Box, {
+      component: element,
+      ref,
+      ...getDataAttributes(ctx, options),
+      ...ctx.getStyles(element, { className, classNames, style, styles, props }),
+      ...others
+    });
+  });
+  Component.displayName = `@mantine/core/${name}`;
+  Component.classes = classes35;
+  return Component;
+}
+var TableTh = tableElement("th", { columnBorder: true });
+var TableTd = tableElement("td", { columnBorder: true });
+var TableTr = tableElement("tr", {
+  rowBorder: true,
+  striped: true,
+  highlightOnHover: true
+});
+var TableThead = tableElement("thead", { stickyHeader: true });
+var TableTbody = tableElement("tbody");
+var TableTfoot = tableElement("tfoot");
+var TableCaption = tableElement("caption", { captionSide: true });
+
+// node_modules/@mantine/core/esm/components/Table/TableDataRenderer.mjs
+var import_jsx_runtime181 = __toESM(require_jsx_runtime(), 1);
+"use client";
+function TableDataRenderer({ data }) {
+  return /* @__PURE__ */ import_jsx_runtime181.jsxs(import_jsx_runtime181.Fragment, { children: [
+    data.caption && /* @__PURE__ */ import_jsx_runtime181.jsx(TableCaption, { children: data.caption }),
+    data.head && /* @__PURE__ */ import_jsx_runtime181.jsx(TableThead, { children: /* @__PURE__ */ import_jsx_runtime181.jsx(TableTr, { children: data.head.map((item, index3) => /* @__PURE__ */ import_jsx_runtime181.jsx(TableTh, { children: item }, index3)) }) }),
+    data.body && /* @__PURE__ */ import_jsx_runtime181.jsx(TableTbody, { children: data.body.map((row, rowIndex) => /* @__PURE__ */ import_jsx_runtime181.jsx(TableTr, { children: row.map((item, index3) => /* @__PURE__ */ import_jsx_runtime181.jsx(TableTd, { children: item }, index3)) }, rowIndex)) }),
+    data.foot && /* @__PURE__ */ import_jsx_runtime181.jsx(TableTfoot, { children: /* @__PURE__ */ import_jsx_runtime181.jsx(TableTr, { children: data.foot.map((item, index3) => /* @__PURE__ */ import_jsx_runtime181.jsx(TableTh, { children: item }, index3)) }) })
+  ] });
+}
+TableDataRenderer.displayName = "@mantine/core/TableDataRenderer";
+
+// node_modules/@mantine/core/esm/components/Table/TableScrollContainer.mjs
+var import_jsx_runtime182 = __toESM(require_jsx_runtime(), 1);
+var import_react225 = __toESM(require_react(), 1);
+"use client";
+var defaultProps90 = {
+  type: "scrollarea"
+};
+var varsResolver39 = createVarsResolver((_2, { minWidth, type }) => ({
+  scrollContainer: {
+    "--table-min-width": rem(minWidth),
+    "--table-overflow": type === "native" ? "auto" : undefined
+  }
+}));
+var TableScrollContainer = factory((_props, ref) => {
+  const props = useProps("TableScrollContainer", defaultProps90, _props);
+  const {
+    classNames,
+    className,
+    style,
+    styles,
+    unstyled,
+    vars,
+    children,
+    minWidth,
+    type,
+    ...others
+  } = props;
+  const getStyles2 = useStyles({
+    name: "TableScrollContainer",
+    classes: classes35,
+    props,
+    className,
+    style,
+    classNames,
+    styles,
+    unstyled,
+    vars,
+    varsResolver: varsResolver39,
+    rootSelector: "scrollContainer"
+  });
+  return /* @__PURE__ */ import_jsx_runtime182.jsx(Box, {
+    component: type === "scrollarea" ? ScrollArea : "div",
+    ...type === "scrollarea" ? { offsetScrollbars: "x" } : {},
+    ref,
+    ...getStyles2("scrollContainer"),
+    ...others,
+    children: /* @__PURE__ */ import_jsx_runtime182.jsx("div", { ...getStyles2("scrollContainerInner"), children })
+  });
+});
+TableScrollContainer.classes = classes35;
+TableScrollContainer.displayName = "@mantine/core/TableScrollContainer";
+
+// node_modules/@mantine/core/esm/components/Table/Table.mjs
+"use client";
+var defaultProps91 = {
+  withRowBorders: true,
+  verticalSpacing: 7
+};
+var varsResolver40 = createVarsResolver((theme, {
+  layout,
+  captionSide,
+  horizontalSpacing,
+  verticalSpacing,
+  borderColor,
+  stripedColor,
+  highlightOnHoverColor,
+  striped,
+  highlightOnHover,
+  stickyHeaderOffset,
+  stickyHeader
+}) => ({
+  table: {
+    "--table-layout": layout,
+    "--table-caption-side": captionSide,
+    "--table-horizontal-spacing": getSpacing(horizontalSpacing),
+    "--table-vertical-spacing": getSpacing(verticalSpacing),
+    "--table-border-color": borderColor ? getThemeColor(borderColor, theme) : undefined,
+    "--table-striped-color": striped && stripedColor ? getThemeColor(stripedColor, theme) : undefined,
+    "--table-highlight-on-hover-color": highlightOnHover && highlightOnHoverColor ? getThemeColor(highlightOnHoverColor, theme) : undefined,
+    "--table-sticky-header-offset": stickyHeader ? rem(stickyHeaderOffset) : undefined
+  }
+}));
+var Table = factory((_props, ref) => {
+  const props = useProps("Table", defaultProps91, _props);
+  const {
+    classNames,
+    className,
+    style,
+    styles,
+    unstyled,
+    vars,
+    horizontalSpacing,
+    verticalSpacing,
+    captionSide,
+    stripedColor,
+    highlightOnHoverColor,
+    striped,
+    highlightOnHover,
+    withColumnBorders,
+    withRowBorders,
+    withTableBorder,
+    borderColor,
+    layout,
+    variant,
+    data,
+    children,
+    stickyHeader,
+    stickyHeaderOffset,
+    mod,
+    tabularNums,
+    ...others
+  } = props;
+  const getStyles2 = useStyles({
+    name: "Table",
+    props,
+    className,
+    style,
+    classes: classes35,
+    classNames,
+    styles,
+    unstyled,
+    rootSelector: "table",
+    vars,
+    varsResolver: varsResolver40
+  });
+  return /* @__PURE__ */ import_jsx_runtime183.jsx(TableProvider, {
+    value: {
+      getStyles: getStyles2,
+      stickyHeader,
+      striped: striped === true ? "odd" : striped || undefined,
+      highlightOnHover,
+      withColumnBorders,
+      withRowBorders,
+      captionSide: captionSide || "bottom"
+    },
+    children: /* @__PURE__ */ import_jsx_runtime183.jsx(Box, {
+      component: "table",
+      variant,
+      ref,
+      mod: [{ "data-with-table-border": withTableBorder, "data-tabular-nums": tabularNums }, mod],
+      ...getStyles2("table"),
+      ...others,
+      children: children || !!data && /* @__PURE__ */ import_jsx_runtime183.jsx(TableDataRenderer, { data })
+    })
+  });
+});
+Table.classes = classes35;
+Table.displayName = "@mantine/core/Table";
+Table.Td = TableTd;
+Table.Th = TableTh;
+Table.Tr = TableTr;
+Table.Thead = TableThead;
+Table.Tbody = TableTbody;
+Table.Tfoot = TableTfoot;
+Table.Caption = TableCaption;
+Table.ScrollContainer = TableScrollContainer;
+Table.DataRenderer = TableDataRenderer;
 // node_modules/@mantine/core/esm/components/Title/Title.mjs
-var import_jsx_runtime175 = __toESM(require_jsx_runtime(), 1);
-var import_react218 = __toESM(require_react(), 1);
+var import_jsx_runtime185 = __toESM(require_jsx_runtime(), 1);
+var import_react228 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Title/get-title-size.mjs
-var import_react217 = __toESM(require_react(), 1);
-var import_jsx_runtime174 = __toESM(require_jsx_runtime(), 1);
+var import_react227 = __toESM(require_react(), 1);
+var import_jsx_runtime184 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var headings3 = ["h1", "h2", "h3", "h4", "h5", "h6"];
 var sizes = ["xs", "sm", "md", "lg", "xl"];
@@ -38306,14 +40473,14 @@ function getTitleSize(order, size4) {
 
 // node_modules/@mantine/core/esm/components/Title/Title.module.css.mjs
 "use client";
-var classes32 = { root: "m_8a5d1357" };
+var classes36 = { root: "m_8a5d1357" };
 
 // node_modules/@mantine/core/esm/components/Title/Title.mjs
 "use client";
-var defaultProps86 = {
+var defaultProps92 = {
   order: 1
 };
-var varsResolver37 = createVarsResolver((_2, { order, size: size4, lineClamp, textWrap }) => {
+var varsResolver41 = createVarsResolver((_2, { order, size: size4, lineClamp, textWrap }) => {
   const sizeVariables = getTitleSize(order, size4);
   return {
     root: {
@@ -38326,7 +40493,7 @@ var varsResolver37 = createVarsResolver((_2, { order, size: size4, lineClamp, te
   };
 });
 var Title = factory((_props, ref) => {
-  const props = useProps("Title", defaultProps86, _props);
+  const props = useProps("Title", defaultProps92, _props);
   const {
     classNames,
     className,
@@ -38345,19 +40512,19 @@ var Title = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Title",
     props,
-    classes: classes32,
+    classes: classes36,
     className,
     style,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver37
+    varsResolver: varsResolver41
   });
   if (![1, 2, 3, 4, 5, 6].includes(order)) {
     return null;
   }
-  return /* @__PURE__ */ import_jsx_runtime175.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime185.jsx(Box, {
     ...getStyles2("root"),
     component: `h${order}`,
     variant,
@@ -38367,15 +40534,15 @@ var Title = factory((_props, ref) => {
     ...others
   });
 });
-Title.classes = classes32;
+Title.classes = classes36;
 Title.displayName = "@mantine/core/Title";
 // node_modules/@mantine/core/esm/components/Tree/Tree.mjs
-var import_jsx_runtime179 = __toESM(require_jsx_runtime(), 1);
-var import_react223 = __toESM(require_react(), 1);
+var import_jsx_runtime189 = __toESM(require_jsx_runtime(), 1);
+var import_react233 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tree/TreeNode.mjs
-var import_jsx_runtime176 = __toESM(require_jsx_runtime(), 1);
-var import_react219 = __toESM(require_react(), 1);
+var import_jsx_runtime186 = __toESM(require_jsx_runtime(), 1);
+var import_react229 = __toESM(require_react(), 1);
 "use client";
 function getValuesRange(anchor, value, flatValues) {
   if (!anchor || !value) {
@@ -38402,8 +40569,8 @@ function TreeNode({
   expandOnSpace,
   checkOnSpace
 }) {
-  const ref = import_react219.useRef(null);
-  const nested = (node2.children || []).map((child) => /* @__PURE__ */ import_jsx_runtime176.jsx(TreeNode, {
+  const ref = import_react229.useRef(null);
+  const nested = (node2.children || []).map((child) => /* @__PURE__ */ import_jsx_runtime186.jsx(TreeNode, {
     node: child,
     flatValues,
     getStyles: getStyles2,
@@ -38490,7 +40657,7 @@ function TreeNode({
     "data-value": node2.value,
     "data-hovered": controller.hoveredNode === node2.value || undefined
   };
-  return /* @__PURE__ */ import_jsx_runtime176.jsxs("li", {
+  return /* @__PURE__ */ import_jsx_runtime186.jsxs("li", {
     ...getStyles2("node", {
       style: { "--label-offset": `calc(var(--level-offset) * ${level - 1})` }
     }),
@@ -38520,15 +40687,15 @@ function TreeNode({
         expanded: controller.expandedState[node2.value] || false,
         hasChildren: Array.isArray(node2.children) && node2.children.length > 0,
         elementProps
-      }) : /* @__PURE__ */ import_jsx_runtime176.jsx("div", { ...elementProps, children: node2.label }),
-      controller.expandedState[node2.value] && nested.length > 0 && /* @__PURE__ */ import_jsx_runtime176.jsx("ul", { role: "group", ...getStyles2("subtree"), "data-level": level, children: nested })
+      }) : /* @__PURE__ */ import_jsx_runtime186.jsx("div", { ...elementProps, children: node2.label }),
+      controller.expandedState[node2.value] && nested.length > 0 && /* @__PURE__ */ import_jsx_runtime186.jsx("ul", { role: "group", ...getStyles2("subtree"), "data-level": level, children: nested })
     ]
   });
 }
 TreeNode.displayName = "@mantine/core/TreeNode";
 
 // node_modules/@mantine/core/esm/components/Tree/use-tree.mjs
-var import_react222 = __toESM(require_react(), 1);
+var import_react232 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tree/get-all-checked-nodes/get-all-checked-nodes.mjs
 "use client";
@@ -38611,8 +40778,8 @@ function getAllChildrenNodes(data) {
 }
 
 // node_modules/@mantine/core/esm/components/Tree/is-node-checked/is-node-checked.mjs
-var import_react220 = __toESM(require_react(), 1);
-var import_jsx_runtime177 = __toESM(require_jsx_runtime(), 1);
+var import_react230 = __toESM(require_react(), 1);
+var import_jsx_runtime187 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function isNodeChecked(value, data, checkedState) {
   if (checkedState.length === 0) {
@@ -38627,8 +40794,8 @@ function isNodeChecked(value, data, checkedState) {
 var memoizedIsNodeChecked = memoize2(isNodeChecked);
 
 // node_modules/@mantine/core/esm/components/Tree/is-node-indeterminate/is-node-indeterminate.mjs
-var import_react221 = __toESM(require_react(), 1);
-var import_jsx_runtime178 = __toESM(require_jsx_runtime(), 1);
+var import_react231 = __toESM(require_react(), 1);
+var import_jsx_runtime188 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function isNodeIndeterminate(value, data, checkedState) {
   if (checkedState.length === 0) {
@@ -38663,25 +40830,25 @@ function useTree({
   onNodeCollapse,
   onNodeExpand
 } = {}) {
-  const [data, setData] = import_react222.useState([]);
-  const [expandedState, setExpandedState] = import_react222.useState(initialExpandedState);
-  const [selectedState, setSelectedState] = import_react222.useState(initialSelectedState);
-  const [checkedState, setCheckedState] = import_react222.useState(initialCheckedState);
-  const [anchorNode, setAnchorNode] = import_react222.useState(null);
-  const [hoveredNode, setHoveredNode] = import_react222.useState(null);
-  const initialize = import_react222.useCallback((_data) => {
+  const [data, setData] = import_react232.useState([]);
+  const [expandedState, setExpandedState] = import_react232.useState(initialExpandedState);
+  const [selectedState, setSelectedState] = import_react232.useState(initialSelectedState);
+  const [checkedState, setCheckedState] = import_react232.useState(initialCheckedState);
+  const [anchorNode, setAnchorNode] = import_react232.useState(null);
+  const [hoveredNode, setHoveredNode] = import_react232.useState(null);
+  const initialize = import_react232.useCallback((_data) => {
     setExpandedState((current2) => getInitialTreeExpandedState(current2, _data, selectedState));
     setCheckedState((current2) => getInitialCheckedState(current2, _data));
     setData(_data);
   }, [selectedState, checkedState]);
-  const toggleExpanded = import_react222.useCallback((value) => {
+  const toggleExpanded = import_react232.useCallback((value) => {
     setExpandedState((current2) => {
       const nextState = { ...current2, [value]: !current2[value] };
       nextState[value] ? onNodeExpand?.(value) : onNodeCollapse?.(value);
       return nextState;
     });
   }, [onNodeCollapse, onNodeExpand]);
-  const collapse = import_react222.useCallback((value) => {
+  const collapse = import_react232.useCallback((value) => {
     setExpandedState((current2) => {
       if (current2[value] !== false) {
         onNodeCollapse?.(value);
@@ -38689,7 +40856,7 @@ function useTree({
       return { ...current2, [value]: false };
     });
   }, [onNodeCollapse]);
-  const expand = import_react222.useCallback((value) => {
+  const expand = import_react232.useCallback((value) => {
     setExpandedState((current2) => {
       if (current2[value] !== true) {
         onNodeExpand?.(value);
@@ -38697,7 +40864,7 @@ function useTree({
       return { ...current2, [value]: true };
     });
   }, [onNodeExpand]);
-  const expandAllNodes = import_react222.useCallback(() => {
+  const expandAllNodes = import_react232.useCallback(() => {
     setExpandedState((current2) => {
       const next2 = { ...current2 };
       Object.keys(next2).forEach((key) => {
@@ -38706,7 +40873,7 @@ function useTree({
       return next2;
     });
   }, []);
-  const collapseAllNodes = import_react222.useCallback(() => {
+  const collapseAllNodes = import_react232.useCallback(() => {
     setExpandedState((current2) => {
       const next2 = { ...current2 };
       Object.keys(next2).forEach((key) => {
@@ -38715,7 +40882,7 @@ function useTree({
       return next2;
     });
   }, []);
-  const toggleSelected = import_react222.useCallback((value) => setSelectedState((current2) => {
+  const toggleSelected = import_react232.useCallback((value) => setSelectedState((current2) => {
     if (!multiple) {
       if (current2.includes(value)) {
         setAnchorNode(null);
@@ -38731,30 +40898,30 @@ function useTree({
     setAnchorNode(value);
     return [...current2, value];
   }), []);
-  const select = import_react222.useCallback((value) => {
+  const select = import_react232.useCallback((value) => {
     setAnchorNode(value);
     setSelectedState((current2) => multiple ? current2.includes(value) ? current2 : [...current2, value] : [value]);
   }, []);
-  const deselect = import_react222.useCallback((value) => {
+  const deselect = import_react232.useCallback((value) => {
     anchorNode === value && setAnchorNode(null);
     setSelectedState((current2) => current2.filter((item) => item !== value));
   }, []);
-  const clearSelected = import_react222.useCallback(() => {
+  const clearSelected = import_react232.useCallback(() => {
     setSelectedState([]);
     setAnchorNode(null);
   }, []);
-  const checkNode = import_react222.useCallback((value) => {
+  const checkNode = import_react232.useCallback((value) => {
     const checkedNodes = getChildrenNodesValues(value, data);
     setCheckedState((current2) => Array.from(/* @__PURE__ */ new Set([...current2, ...checkedNodes])));
   }, [data]);
-  const uncheckNode = import_react222.useCallback((value) => {
+  const uncheckNode = import_react232.useCallback((value) => {
     const checkedNodes = getChildrenNodesValues(value, data);
     setCheckedState((current2) => current2.filter((item) => !checkedNodes.includes(item)));
   }, [data]);
-  const checkAllNodes = import_react222.useCallback(() => {
+  const checkAllNodes = import_react232.useCallback(() => {
     setCheckedState(() => getAllChildrenNodes(data));
   }, [data]);
-  const uncheckAllNodes = import_react222.useCallback(() => {
+  const uncheckAllNodes = import_react232.useCallback(() => {
     setCheckedState([]);
   }, []);
   const getCheckedNodes = () => getAllCheckedNodes(data, checkedState).result;
@@ -38793,7 +40960,7 @@ function useTree({
 
 // node_modules/@mantine/core/esm/components/Tree/Tree.module.css.mjs
 "use client";
-var classes33 = { root: "m_f698e191", subtree: "m_75f3ecf", node: "m_f6970eb1", label: "m_dc283425" };
+var classes37 = { root: "m_f698e191", subtree: "m_75f3ecf", node: "m_f6970eb1", label: "m_dc283425" };
 
 // node_modules/@mantine/core/esm/components/Tree/Tree.mjs
 "use client";
@@ -38806,18 +40973,18 @@ function getFlatValues(data) {
     return acc;
   }, []);
 }
-var defaultProps87 = {
+var defaultProps93 = {
   expandOnClick: true,
   allowRangeSelection: true,
   expandOnSpace: true
 };
-var varsResolver38 = createVarsResolver((_theme, { levelOffset }) => ({
+var varsResolver42 = createVarsResolver((_theme, { levelOffset }) => ({
   root: {
     "--level-offset": getSpacing(levelOffset)
   }
 }));
 var Tree = factory((_props, ref) => {
-  const props = useProps("Tree", defaultProps87, _props);
+  const props = useProps("Tree", defaultProps93, _props);
   const {
     classNames,
     className,
@@ -38841,7 +41008,7 @@ var Tree = factory((_props, ref) => {
   const controller = tree || defaultController;
   const getStyles2 = useStyles({
     name: "Tree",
-    classes: classes33,
+    classes: classes37,
     props,
     className,
     style,
@@ -38849,15 +41016,15 @@ var Tree = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver38
+    varsResolver: varsResolver42
   });
   const clickOutsideRef = useClickOutside(() => clearSelectionOnOutsideClick && controller.clearSelected());
   const mergedRef = useMergedRef(ref, clickOutsideRef);
-  const flatValues = import_react223.useMemo(() => getFlatValues(data), [data]);
-  import_react223.useEffect(() => {
+  const flatValues = import_react233.useMemo(() => getFlatValues(data), [data]);
+  import_react233.useEffect(() => {
     controller.initialize(data);
   }, [data]);
-  const nodes = data.map((node2, index3) => /* @__PURE__ */ import_jsx_runtime179.jsx(TreeNode, {
+  const nodes = data.map((node2, index3) => /* @__PURE__ */ import_jsx_runtime189.jsx(TreeNode, {
     node: node2,
     getStyles: getStyles2,
     rootIndex: index3,
@@ -38870,7 +41037,7 @@ var Tree = factory((_props, ref) => {
     expandOnSpace,
     checkOnSpace
   }, node2.value));
-  return /* @__PURE__ */ import_jsx_runtime179.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime189.jsx(Box, {
     component: "ul",
     ref: mergedRef,
     ...getStyles2("root"),
@@ -38882,8 +41049,8 @@ var Tree = factory((_props, ref) => {
   });
 });
 Tree.displayName = "@mantine/core/Tree";
-Tree.classes = classes33;
-// src/studio-adaptor/layoutMapingValidation.ts
+Tree.classes = classes37;
+// src/studio-adapter/layoutMapingValidation.ts
 function layoutMappingValidation(layoutMap, doc) {
   const cleanLayoutMap = JSON.parse(JSON.stringify(layoutMap));
   const report = {
@@ -38949,8 +41116,10 @@ function processImageVariableDependentGroups(imageVariable, existingVariableIds,
 
 // node_modules/@tabler/icons-react/dist/esm/tabler-icons-react.mjs
 init_IconAbc();
+init_IconAlertCircle();
 init_IconArrowsTransferUpDown();
 init_IconBug();
+init_IconCameraPlus();
 init_IconChevronDown();
 init_IconCopy();
 init_IconDownload();
@@ -38959,7 +41128,9 @@ init_IconGripVertical();
 init_IconInfoCircle();
 init_IconList();
 init_IconMapBolt();
+init_IconPhotoCog();
 init_IconPlus();
+init_IconTrash();
 init_IconUpload();
 init_IconWand();
 init_IconX();
@@ -38967,13 +41138,11 @@ init_IconCaretDownFilled();
 init_IconTrashFilled();
 
 // src/components/LayoutMappingModal/AddMappingImageVariableModal.tsx
-var import_react225 = __toESM(require_react(), 1);
+var import_react235 = __toESM(require_react(), 1);
 var jsx_dev_runtime = __toESM(require_jsx_dev_runtime(), 1);
-var AddMappingImageVariableModal = ({
-  currentMapConfig
-}) => {
+var AddMappingImageVariableModal = ({ currentMapConfig }) => {
   const { state, effects } = useAppStore();
-  const possibleVariableValues = import_react225.useMemo(() => {
+  const possibleVariableValues = import_react235.useMemo(() => {
     const allImageVariables = state.studio.document.variables.filter((variable) => variable.type === "image").map((variable) => ({
       value: variable.id,
       label: variable.name,
@@ -39135,10 +41304,10 @@ var AddDependentModal = () => {
 };
 
 // src/components/LayoutMappingModal/LayoutConfigSelection.tsx
-var import_react233 = __toESM(require_react(), 1);
+var import_react243 = __toESM(require_react(), 1);
 
 // src/components/LayoutMappingModal/LayoutMultiSelect.tsx
-var import_react226 = __toESM(require_react(), 1);
+var import_react236 = __toESM(require_react(), 1);
 var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
 var buildTreeData = (documentLayouts, selectedLayoutIds, disabledLayoutIds) => {
   const layoutsByParent = {};
@@ -39165,8 +41334,8 @@ var LayoutMultiSelect = ({
   showButton
 }) => {
   const { state, effects: events } = useAppStore();
-  const [drawerOpened, setDrawerOpened] = import_react226.useState(false);
-  const [selectedLayouts, setSelectedLayouts] = import_react226.useState(state.studio.layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
+  const [drawerOpened, setDrawerOpened] = import_react236.useState(false);
+  const [selectedLayouts, setSelectedLayouts] = import_react236.useState(state.studio.layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
   const assignedToOtherMaps = state.studio.layoutImageMapping.filter((map) => map.id !== layoutConfig.id).flatMap((map) => map.layoutIds);
   const handleMultiSelectChange = (updateLayoutIds) => {
     events.studio.layoutImageMapping.setLayoutIds({
@@ -39223,7 +41392,9 @@ var LayoutMultiSelect = ({
             hasChildren && /* @__PURE__ */ jsx_dev_runtime3.jsxDEV(IconChevronDown, {
               size: 14,
               color: isDisabled ? "var(--mantine-color-gray-6)" : undefined,
-              style: { transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }
+              style: {
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)"
+              }
             }, undefined, false, undefined, this)
           ]
         }, undefined, true, undefined, this)
@@ -39323,19 +41494,19 @@ var LayoutMultiSelect = ({
 };
 
 // src/components/LayoutMappingModal/VariableCard.tsx
-var import_react232 = __toESM(require_react(), 1);
+var import_react242 = __toESM(require_react(), 1);
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var import_react229 = __toESM(require_react(), 1);
+var import_react239 = __toESM(require_react(), 1);
 var import_react_dom5 = __toESM(require_react_dom(), 1);
 
 // node_modules/@dnd-kit/utilities/dist/utilities.esm.js
-var import_react227 = __toESM(require_react(), 1);
+var import_react237 = __toESM(require_react(), 1);
 function useCombinedRefs() {
   for (var _len = arguments.length, refs = new Array(_len), _key = 0;_key < _len; _key++) {
     refs[_key] = arguments[_key];
   }
-  return import_react227.useMemo(() => (node2) => {
+  return import_react237.useMemo(() => (node2) => {
     refs.forEach((ref) => ref(node2));
   }, refs);
 }
@@ -39393,13 +41564,13 @@ function getOwnerDocument(target) {
   }
   return document;
 }
-var useIsomorphicLayoutEffect2 = canUseDOM ? import_react227.useLayoutEffect : import_react227.useEffect;
+var useIsomorphicLayoutEffect2 = canUseDOM ? import_react237.useLayoutEffect : import_react237.useEffect;
 function useEvent(handler) {
-  const handlerRef = import_react227.useRef(handler);
+  const handlerRef = import_react237.useRef(handler);
   useIsomorphicLayoutEffect2(() => {
     handlerRef.current = handler;
   });
-  return import_react227.useCallback(function() {
+  return import_react237.useCallback(function() {
     for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
       args[_key] = arguments[_key];
     }
@@ -39407,11 +41578,11 @@ function useEvent(handler) {
   }, []);
 }
 function useInterval() {
-  const intervalRef = import_react227.useRef(null);
-  const set2 = import_react227.useCallback((listener, duration) => {
+  const intervalRef = import_react237.useRef(null);
+  const set2 = import_react237.useCallback((listener, duration) => {
     intervalRef.current = setInterval(listener, duration);
   }, []);
-  const clear = import_react227.useCallback(() => {
+  const clear = import_react237.useCallback(() => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -39423,7 +41594,7 @@ function useLatestValue(value, dependencies) {
   if (dependencies === undefined) {
     dependencies = [value];
   }
-  const valueRef = import_react227.useRef(value);
+  const valueRef = import_react237.useRef(value);
   useIsomorphicLayoutEffect2(() => {
     if (valueRef.current !== value) {
       valueRef.current = value;
@@ -39432,8 +41603,8 @@ function useLatestValue(value, dependencies) {
   return valueRef;
 }
 function useLazyMemo(callback, dependencies) {
-  const valueRef = import_react227.useRef();
-  return import_react227.useMemo(() => {
+  const valueRef = import_react237.useRef();
+  return import_react237.useMemo(() => {
     const newValue = callback(valueRef.current);
     valueRef.current = newValue;
     return newValue;
@@ -39441,8 +41612,8 @@ function useLazyMemo(callback, dependencies) {
 }
 function useNodeRef(onChange) {
   const onChangeHandler = useEvent(onChange);
-  const node2 = import_react227.useRef(null);
-  const setNodeRef = import_react227.useCallback((element) => {
+  const node2 = import_react237.useRef(null);
+  const setNodeRef = import_react237.useCallback((element) => {
     if (element !== node2.current) {
       onChangeHandler == null || onChangeHandler(element, node2.current);
     }
@@ -39451,15 +41622,15 @@ function useNodeRef(onChange) {
   return [node2, setNodeRef];
 }
 function usePrevious2(value) {
-  const ref = import_react227.useRef();
-  import_react227.useEffect(() => {
+  const ref = import_react237.useRef();
+  import_react237.useEffect(() => {
     ref.current = value;
   }, [value]);
   return ref.current;
 }
 var ids = {};
 function useUniqueId(prefix2, value) {
-  return import_react227.useMemo(() => {
+  return import_react237.useMemo(() => {
     if (value) {
       return value;
     }
@@ -39593,7 +41764,7 @@ function findFirstFocusableNode(element) {
 }
 
 // node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js
-var import_react228 = __toESM(require_react(), 1);
+var import_react238 = __toESM(require_react(), 1);
 var hiddenStyles = {
   display: "none"
 };
@@ -39602,7 +41773,7 @@ function HiddenText(_ref) {
     id,
     value
   } = _ref;
-  return import_react228.default.createElement("div", {
+  return import_react238.default.createElement("div", {
     id,
     style: hiddenStyles
   }, value);
@@ -39627,7 +41798,7 @@ function LiveRegion(_ref) {
     clipPath: "inset(100%)",
     whiteSpace: "nowrap"
   };
-  return import_react228.default.createElement("div", {
+  return import_react238.default.createElement("div", {
     id,
     style: visuallyHidden,
     role: "status",
@@ -39636,8 +41807,8 @@ function LiveRegion(_ref) {
   }, announcement);
 }
 function useAnnouncement() {
-  const [announcement, setAnnouncement] = import_react228.useState("");
-  const announce = import_react228.useCallback((value) => {
+  const [announcement, setAnnouncement] = import_react238.useState("");
+  const announce = import_react238.useCallback((value) => {
     if (value != null) {
       setAnnouncement(value);
     }
@@ -39649,10 +41820,10 @@ function useAnnouncement() {
 }
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var DndMonitorContext = /* @__PURE__ */ import_react229.createContext(null);
+var DndMonitorContext = /* @__PURE__ */ import_react239.createContext(null);
 function useDndMonitor(listener) {
-  const registerListener = import_react229.useContext(DndMonitorContext);
-  import_react229.useEffect(() => {
+  const registerListener = import_react239.useContext(DndMonitorContext);
+  import_react239.useEffect(() => {
     if (!registerListener) {
       throw new Error("useDndMonitor must be used within a children of <DndContext>");
     }
@@ -39661,12 +41832,12 @@ function useDndMonitor(listener) {
   }, [listener, registerListener]);
 }
 function useDndMonitorProvider() {
-  const [listeners] = import_react229.useState(() => new Set);
-  const registerListener = import_react229.useCallback((listener) => {
+  const [listeners] = import_react239.useState(() => new Set);
+  const registerListener = import_react239.useCallback((listener) => {
     listeners.add(listener);
     return () => listeners.delete(listener);
   }, [listeners]);
-  const dispatch = import_react229.useCallback((_ref) => {
+  const dispatch = import_react239.useCallback((_ref) => {
     let {
       type,
       event
@@ -39731,11 +41902,11 @@ function Accessibility(_ref) {
     announcement
   } = useAnnouncement();
   const liveRegionId = useUniqueId("DndLiveRegion");
-  const [mounted, setMounted] = import_react229.useState(false);
-  import_react229.useEffect(() => {
+  const [mounted, setMounted] = import_react239.useState(false);
+  import_react239.useEffect(() => {
     setMounted(true);
   }, []);
-  useDndMonitor(import_react229.useMemo(() => ({
+  useDndMonitor(import_react239.useMemo(() => ({
     onDragStart(_ref2) {
       let {
         active
@@ -39790,10 +41961,10 @@ function Accessibility(_ref) {
   if (!mounted) {
     return null;
   }
-  const markup = import_react229.default.createElement(import_react229.default.Fragment, null, import_react229.default.createElement(HiddenText, {
+  const markup = import_react239.default.createElement(import_react239.default.Fragment, null, import_react239.default.createElement(HiddenText, {
     id: hiddenTextDescribedById,
     value: screenReaderInstructions.draggable
-  }), import_react229.default.createElement(LiveRegion, {
+  }), import_react239.default.createElement(LiveRegion, {
     id: liveRegionId,
     announcement
   }));
@@ -39810,10 +41981,10 @@ var Action;
   Action2["SetDroppableDisabled"] = "setDroppableDisabled";
   Action2["UnregisterDroppable"] = "unregisterDroppable";
 })(Action || (Action = {}));
-function noop3() {
+function noop4() {
 }
 function useSensor(sensor, options) {
-  return import_react229.useMemo(() => ({
+  return import_react239.useMemo(() => ({
     sensor,
     options: options != null ? options : {}
   }), [sensor, options]);
@@ -39822,7 +41993,7 @@ function useSensors() {
   for (var _len = arguments.length, sensors = new Array(_len), _key = 0;_key < _len; _key++) {
     sensors[_key] = arguments[_key];
   }
-  return import_react229.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
+  return import_react239.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
 }
 var defaultCoordinates = /* @__PURE__ */ Object.freeze({
   x: 0,
@@ -41005,14 +43176,14 @@ class TouchSensor extends AbstractPointerSensor {
     super(props, events$2);
   }
   static setup() {
-    window.addEventListener(events$2.move.name, noop4, {
+    window.addEventListener(events$2.move.name, noop5, {
       capture: false,
       passive: false
     });
     return function teardown() {
-      window.removeEventListener(events$2.move.name, noop4);
+      window.removeEventListener(events$2.move.name, noop5);
     };
-    function noop4() {
+    function noop5() {
     }
   }
 }
@@ -41067,15 +43238,15 @@ function useAutoScroller(_ref) {
     disabled: !enabled
   });
   const [setAutoScrollInterval, clearAutoScrollInterval] = useInterval();
-  const scrollSpeed = import_react229.useRef({
+  const scrollSpeed = import_react239.useRef({
     x: 0,
     y: 0
   });
-  const scrollDirection = import_react229.useRef({
+  const scrollDirection = import_react239.useRef({
     x: 0,
     y: 0
   });
-  const rect = import_react229.useMemo(() => {
+  const rect = import_react239.useMemo(() => {
     switch (activator) {
       case AutoScrollActivator.Pointer:
         return pointerCoordinates ? {
@@ -41088,8 +43259,8 @@ function useAutoScroller(_ref) {
         return draggingRect;
     }
   }, [activator, draggingRect, pointerCoordinates]);
-  const scrollContainerRef = import_react229.useRef(null);
-  const autoScroll = import_react229.useCallback(() => {
+  const scrollContainerRef = import_react239.useRef(null);
+  const autoScroll = import_react239.useCallback(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) {
       return;
@@ -41098,8 +43269,8 @@ function useAutoScroller(_ref) {
     const scrollTop = scrollSpeed.current.y * scrollDirection.current.y;
     scrollContainer.scrollBy(scrollLeft, scrollTop);
   }, []);
-  const sortedScrollableAncestors = import_react229.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
-  import_react229.useEffect(() => {
+  const sortedScrollableAncestors = import_react239.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
+  import_react239.useEffect(() => {
     if (!enabled || !scrollableAncestors.length || !rect) {
       clearAutoScrollInterval();
       return;
@@ -41205,7 +43376,7 @@ function useCachedNode(draggableNodes, id) {
   }, [node2, id]);
 }
 function useCombineActivators(sensors, getSyntheticHandler) {
-  return import_react229.useMemo(() => sensors.reduce((accumulator, sensor) => {
+  return import_react239.useMemo(() => sensors.reduce((accumulator, sensor) => {
     const {
       sensor: Sensor
     } = sensor;
@@ -41233,16 +43404,16 @@ function useDroppableMeasuring(containers, _ref) {
     dependencies,
     config
   } = _ref;
-  const [queue, setQueue] = import_react229.useState(null);
+  const [queue, setQueue] = import_react239.useState(null);
   const {
     frequency,
     measure,
     strategy
   } = config;
-  const containersRef = import_react229.useRef(containers);
+  const containersRef = import_react239.useRef(containers);
   const disabled = isDisabled();
   const disabledRef = useLatestValue(disabled);
-  const measureDroppableContainers = import_react229.useCallback(function(ids2) {
+  const measureDroppableContainers = import_react239.useCallback(function(ids2) {
     if (ids2 === undefined) {
       ids2 = [];
     }
@@ -41256,7 +43427,7 @@ function useDroppableMeasuring(containers, _ref) {
       return value.concat(ids2.filter((id) => !value.includes(id)));
     });
   }, [disabledRef]);
-  const timeoutId = import_react229.useRef(null);
+  const timeoutId = import_react239.useRef(null);
   const droppableRects = useLazyMemo((previousValue) => {
     if (disabled && !dragging) {
       return defaultValue;
@@ -41282,21 +43453,21 @@ function useDroppableMeasuring(containers, _ref) {
     }
     return previousValue;
   }, [containers, queue, dragging, disabled, measure]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     containersRef.current = containers;
   }, [containers]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     if (disabled) {
       return;
     }
     measureDroppableContainers();
   }, [dragging, disabled]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     if (queue && queue.length > 0) {
       setQueue(null);
     }
   }, [JSON.stringify(queue)]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     if (disabled || typeof frequency !== "number" || timeoutId.current !== null) {
       return;
     }
@@ -41341,7 +43512,7 @@ function useMutationObserver(_ref) {
     disabled
   } = _ref;
   const handleMutations = useEvent(callback);
-  const mutationObserver = import_react229.useMemo(() => {
+  const mutationObserver = import_react239.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.MutationObserver === "undefined") {
       return;
     }
@@ -41350,7 +43521,7 @@ function useMutationObserver(_ref) {
     } = window;
     return new MutationObserver2(handleMutations);
   }, [handleMutations, disabled]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     return () => mutationObserver == null ? undefined : mutationObserver.disconnect();
   }, [mutationObserver]);
   return mutationObserver;
@@ -41361,7 +43532,7 @@ function useResizeObserver2(_ref) {
     disabled
   } = _ref;
   const handleResize = useEvent(callback);
-  const resizeObserver = import_react229.useMemo(() => {
+  const resizeObserver = import_react239.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.ResizeObserver === "undefined") {
       return;
     }
@@ -41370,7 +43541,7 @@ function useResizeObserver2(_ref) {
     } = window;
     return new ResizeObserver2(handleResize);
   }, [disabled]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     return () => resizeObserver == null ? undefined : resizeObserver.disconnect();
   }, [resizeObserver]);
   return resizeObserver;
@@ -41382,7 +43553,7 @@ function useRect(element, measure, fallbackRect) {
   if (measure === undefined) {
     measure = defaultMeasure;
   }
-  const [rect, setRect] = import_react229.useState(null);
+  const [rect, setRect] = import_react239.useState(null);
   function measureRect() {
     setRect((currentRect) => {
       if (!element) {
@@ -41440,7 +43611,7 @@ function useRectDelta(rect) {
 }
 var defaultValue$1 = [];
 function useScrollableAncestors(node2) {
-  const previousNode = import_react229.useRef(node2);
+  const previousNode = import_react239.useRef(node2);
   const ancestors = useLazyMemo((previousValue) => {
     if (!node2) {
       return defaultValue$1;
@@ -41450,15 +43621,15 @@ function useScrollableAncestors(node2) {
     }
     return getScrollableAncestors(node2);
   }, [node2]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     previousNode.current = node2;
   }, [node2]);
   return ancestors;
 }
 function useScrollOffsets(elements) {
-  const [scrollCoordinates, setScrollCoordinates] = import_react229.useState(null);
-  const prevElements = import_react229.useRef(elements);
-  const handleScroll2 = import_react229.useCallback((event) => {
+  const [scrollCoordinates, setScrollCoordinates] = import_react239.useState(null);
+  const prevElements = import_react239.useRef(elements);
+  const handleScroll2 = import_react239.useCallback((event) => {
     const scrollingElement = getScrollableElement(event.target);
     if (!scrollingElement) {
       return;
@@ -41471,7 +43642,7 @@ function useScrollOffsets(elements) {
       return new Map(scrollCoordinates2);
     });
   }, []);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     const previousElements = prevElements.current;
     if (elements !== previousElements) {
       cleanup(previousElements);
@@ -41499,7 +43670,7 @@ function useScrollOffsets(elements) {
       });
     }
   }, [handleScroll2, elements]);
-  return import_react229.useMemo(() => {
+  return import_react239.useMemo(() => {
     if (elements.length) {
       return scrollCoordinates ? Array.from(scrollCoordinates.values()).reduce((acc, coordinates) => add(acc, coordinates), defaultCoordinates) : getScrollOffsets(elements);
     }
@@ -41510,11 +43681,11 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   if (dependencies === undefined) {
     dependencies = [];
   }
-  const initialScrollOffsets = import_react229.useRef(null);
-  import_react229.useEffect(() => {
+  const initialScrollOffsets = import_react239.useRef(null);
+  import_react239.useEffect(() => {
     initialScrollOffsets.current = null;
   }, dependencies);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     const hasScrollOffsets = scrollOffsets !== defaultCoordinates;
     if (hasScrollOffsets && !initialScrollOffsets.current) {
       initialScrollOffsets.current = scrollOffsets;
@@ -41526,7 +43697,7 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   return initialScrollOffsets.current ? subtract(scrollOffsets, initialScrollOffsets.current) : defaultCoordinates;
 }
 function useSensorSetup(sensors) {
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     if (!canUseDOM) {
       return;
     }
@@ -41549,7 +43720,7 @@ function useSensorSetup(sensors) {
   }));
 }
 function useSyntheticListeners(listeners, id) {
-  return import_react229.useMemo(() => {
+  return import_react239.useMemo(() => {
     return listeners.reduce((acc, _ref) => {
       let {
         eventName,
@@ -41563,7 +43734,7 @@ function useSyntheticListeners(listeners, id) {
   }, [listeners, id]);
 }
 function useWindowRect(element) {
-  return import_react229.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
+  return import_react239.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
 }
 var defaultValue$2 = [];
 function useRects(elements, measure) {
@@ -41572,7 +43743,7 @@ function useRects(elements, measure) {
   }
   const [firstElement] = elements;
   const windowRect = useWindowRect(firstElement ? getWindow2(firstElement) : null);
-  const [rects, setRects] = import_react229.useState(defaultValue$2);
+  const [rects, setRects] = import_react239.useState(defaultValue$2);
   function measureRects() {
     setRects(() => {
       if (!elements.length) {
@@ -41605,8 +43776,8 @@ function useDragOverlayMeasuring(_ref) {
   let {
     measure
   } = _ref;
-  const [rect, setRect] = import_react229.useState(null);
-  const handleResize = import_react229.useCallback((entries) => {
+  const [rect, setRect] = import_react239.useState(null);
+  const handleResize = import_react239.useCallback((entries) => {
     for (const {
       target
     } of entries) {
@@ -41626,7 +43797,7 @@ function useDragOverlayMeasuring(_ref) {
   const resizeObserver = useResizeObserver2({
     callback: handleResize
   });
-  const handleNodeChange = import_react229.useCallback((element) => {
+  const handleNodeChange = import_react239.useCallback((element) => {
     const node2 = getMeasurableNode(element);
     resizeObserver == null || resizeObserver.disconnect();
     if (node2) {
@@ -41635,7 +43806,7 @@ function useDragOverlayMeasuring(_ref) {
     setRect(node2 ? measure(node2) : null);
   }, [measure, resizeObserver]);
   const [nodeRef, setRef] = useNodeRef(handleNodeChange);
-  return import_react229.useMemo(() => ({
+  return import_react239.useMemo(() => ({
     nodeRef,
     rect,
     setRef
@@ -41702,12 +43873,12 @@ var defaultPublicContext = {
       current: null
     },
     rect: null,
-    setRef: noop3
+    setRef: noop4
   },
   scrollableAncestors: [],
   scrollableAncestorRects: [],
   measuringConfiguration: defaultMeasuringConfiguration,
-  measureDroppableContainers: noop3,
+  measureDroppableContainers: noop4,
   windowRect: null,
   measuringScheduled: false
 };
@@ -41719,13 +43890,13 @@ var defaultInternalContext = {
   ariaDescribedById: {
     draggable: ""
   },
-  dispatch: noop3,
+  dispatch: noop4,
   draggableNodes: /* @__PURE__ */ new Map,
   over: null,
-  measureDroppableContainers: noop3
+  measureDroppableContainers: noop4
 };
-var InternalContext = /* @__PURE__ */ import_react229.createContext(defaultInternalContext);
-var PublicContext = /* @__PURE__ */ import_react229.createContext(defaultPublicContext);
+var InternalContext = /* @__PURE__ */ import_react239.createContext(defaultInternalContext);
+var PublicContext = /* @__PURE__ */ import_react239.createContext(defaultPublicContext);
 function getInitialState() {
   return {
     draggable: {
@@ -41859,10 +44030,10 @@ function RestoreFocus(_ref) {
     active,
     activatorEvent,
     draggableNodes
-  } = import_react229.useContext(InternalContext);
+  } = import_react239.useContext(InternalContext);
   const previousActivatorEvent = usePrevious2(activatorEvent);
   const previousActiveId = usePrevious2(active == null ? undefined : active.id);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     if (disabled) {
       return;
     }
@@ -41913,7 +44084,7 @@ function applyModifiers(modifiers, _ref) {
   }, transform) : transform;
 }
 function useMeasuringConfiguration(config) {
-  return import_react229.useMemo(() => ({
+  return import_react239.useMemo(() => ({
     draggable: {
       ...defaultMeasuringConfiguration.draggable,
       ...config == null ? undefined : config.draggable
@@ -41935,7 +44106,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     initialRect,
     config = true
   } = _ref;
-  const initialized = import_react229.useRef(false);
+  const initialized = import_react239.useRef(false);
   const {
     x: x2,
     y: y2
@@ -41976,7 +44147,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     }
   }, [activeNode, x2, y2, initialRect, measure]);
 }
-var ActiveDraggableContext = /* @__PURE__ */ import_react229.createContext({
+var ActiveDraggableContext = /* @__PURE__ */ import_react239.createContext({
   ...defaultCoordinates,
   scaleX: 1,
   scaleY: 1
@@ -41987,7 +44158,7 @@ var Status;
   Status2[Status2["Initializing"] = 1] = "Initializing";
   Status2[Status2["Initialized"] = 2] = "Initialized";
 })(Status || (Status = {}));
-var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref) {
+var DndContext = /* @__PURE__ */ import_react239.memo(function DndContext2(_ref) {
   var _sensorContext$curren, _dragOverlay$nodeRef$, _dragOverlay$rect, _over$rect;
   let {
     id,
@@ -42000,10 +44171,10 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
     modifiers,
     ...props
   } = _ref;
-  const store = import_react229.useReducer(reducer, undefined, getInitialState);
+  const store = import_react239.useReducer(reducer, undefined, getInitialState);
   const [state, dispatch] = store;
   const [dispatchMonitorEvent, registerMonitorListener] = useDndMonitorProvider();
-  const [status, setStatus] = import_react229.useState(Status.Uninitialized);
+  const [status, setStatus] = import_react239.useState(Status.Uninitialized);
   const isInitialized = status === Status.Initialized;
   const {
     draggable: {
@@ -42016,11 +44187,11 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
     }
   } = state;
   const node2 = activeId != null ? draggableNodes.get(activeId) : null;
-  const activeRects = import_react229.useRef({
+  const activeRects = import_react239.useRef({
     initial: null,
     translated: null
   });
-  const active = import_react229.useMemo(() => {
+  const active = import_react239.useMemo(() => {
     var _node$data;
     return activeId != null ? {
       id: activeId,
@@ -42028,12 +44199,12 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
       rect: activeRects
     } : null;
   }, [activeId, node2]);
-  const activeRef = import_react229.useRef(null);
-  const [activeSensor, setActiveSensor] = import_react229.useState(null);
-  const [activatorEvent, setActivatorEvent] = import_react229.useState(null);
+  const activeRef = import_react239.useRef(null);
+  const [activeSensor, setActiveSensor] = import_react239.useState(null);
+  const [activatorEvent, setActivatorEvent] = import_react239.useState(null);
   const latestProps = useLatestValue(props, Object.values(props));
   const draggableDescribedById = useUniqueId("DndDescribedBy", id);
-  const enabledDroppableContainers = import_react229.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
+  const enabledDroppableContainers = import_react239.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
   const measuringConfiguration = useMeasuringConfiguration(measuring);
   const {
     droppableRects,
@@ -42045,7 +44216,7 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
     config: measuringConfiguration.droppable
   });
   const activeNode = useCachedNode(draggableNodes, activeId);
-  const activationCoordinates = import_react229.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
+  const activationCoordinates = import_react239.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
   const autoScrollOptions = getAutoScrollerOptions();
   const initialActiveNodeRect = useInitialRect(activeNode, measuringConfiguration.draggable.measure);
   useLayoutShiftScrollCompensation({
@@ -42056,7 +44227,7 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
   });
   const activeNodeRect = useRect(activeNode, measuringConfiguration.draggable.measure, initialActiveNodeRect);
   const containerNodeRect = useRect(activeNode ? activeNode.parentElement : null);
-  const sensorContext = import_react229.useRef({
+  const sensorContext = import_react239.useRef({
     activatorEvent: null,
     active: null,
     activeNode,
@@ -42114,11 +44285,11 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
     pointerCoordinates
   }) : null;
   const overId = getFirstCollision(collisions, "id");
-  const [over, setOver] = import_react229.useState(null);
+  const [over, setOver] = import_react239.useState(null);
   const appliedTranslate = usesDragOverlay ? modifiedTranslate : add(modifiedTranslate, activeNodeScrollDelta);
   const transform = adjustScale(appliedTranslate, (_over$rect = over == null ? undefined : over.rect) != null ? _over$rect : null, activeNodeRect);
-  const activeSensorRef = import_react229.useRef(null);
-  const instantiateSensor = import_react229.useCallback((event, _ref2) => {
+  const activeSensorRef = import_react239.useRef(null);
+  const instantiateSensor = import_react239.useCallback((event, _ref2) => {
     let {
       sensor: Sensor,
       options
@@ -42270,7 +44441,7 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
       };
     }
   }, [draggableNodes]);
-  const bindActivatorToSensorInstantiator = import_react229.useCallback((handler, sensor) => {
+  const bindActivatorToSensorInstantiator = import_react239.useCallback((handler, sensor) => {
     return (event, active2) => {
       const nativeEvent = event.nativeEvent;
       const activeDraggableNode = draggableNodes.get(active2);
@@ -42297,7 +44468,7 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
       setStatus(Status.Initialized);
     }
   }, [activeNodeRect, status]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     const {
       onDragMove
     } = latestProps.current;
@@ -42328,7 +44499,7 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
       });
     });
   }, [scrollAdjustedTranslate.x, scrollAdjustedTranslate.y]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     const {
       active: active2,
       activatorEvent: activatorEvent2,
@@ -42397,7 +44568,7 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
     scrollableAncestors,
     scrollableAncestorRects
   });
-  const publicContext = import_react229.useMemo(() => {
+  const publicContext = import_react239.useMemo(() => {
     const context = {
       active,
       activeNode,
@@ -42419,7 +44590,7 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
     };
     return context;
   }, [active, activeNode, activeNodeRect, activatorEvent, collisions, containerNodeRect, dragOverlay, draggableNodes, droppableContainers, droppableRects, over, measureDroppableContainers, scrollableAncestors, scrollableAncestorRects, measuringConfiguration, measuringScheduled, windowRect]);
-  const internalContext = import_react229.useMemo(() => {
+  const internalContext = import_react239.useMemo(() => {
     const context = {
       activatorEvent,
       activators,
@@ -42435,17 +44606,17 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
     };
     return context;
   }, [activatorEvent, activators, active, activeNodeRect, dispatch, draggableDescribedById, draggableNodes, over, measureDroppableContainers]);
-  return import_react229.default.createElement(DndMonitorContext.Provider, {
+  return import_react239.default.createElement(DndMonitorContext.Provider, {
     value: registerMonitorListener
-  }, import_react229.default.createElement(InternalContext.Provider, {
+  }, import_react239.default.createElement(InternalContext.Provider, {
     value: internalContext
-  }, import_react229.default.createElement(PublicContext.Provider, {
+  }, import_react239.default.createElement(PublicContext.Provider, {
     value: publicContext
-  }, import_react229.default.createElement(ActiveDraggableContext.Provider, {
+  }, import_react239.default.createElement(ActiveDraggableContext.Provider, {
     value: transform
-  }, children)), import_react229.default.createElement(RestoreFocus, {
+  }, children)), import_react239.default.createElement(RestoreFocus, {
     disabled: (accessibility == null ? undefined : accessibility.restoreFocus) === false
-  })), import_react229.default.createElement(Accessibility, {
+  })), import_react239.default.createElement(Accessibility, {
     ...accessibility,
     hiddenTextDescribedById: draggableDescribedById
   }));
@@ -42464,7 +44635,7 @@ var DndContext = /* @__PURE__ */ import_react229.memo(function DndContext2(_ref)
     };
   }
 });
-var NullContext = /* @__PURE__ */ import_react229.createContext(null);
+var NullContext = /* @__PURE__ */ import_react239.createContext(null);
 var defaultRole = "button";
 var ID_PREFIX = "Draggable";
 function useDraggable(_ref) {
@@ -42483,14 +44654,14 @@ function useDraggable(_ref) {
     ariaDescribedById,
     draggableNodes,
     over
-  } = import_react229.useContext(InternalContext);
+  } = import_react239.useContext(InternalContext);
   const {
     role = defaultRole,
     roleDescription = "draggable",
     tabIndex = 0
   } = attributes != null ? attributes : {};
   const isDragging = (active == null ? undefined : active.id) === id;
-  const transform = import_react229.useContext(isDragging ? ActiveDraggableContext : NullContext);
+  const transform = import_react239.useContext(isDragging ? ActiveDraggableContext : NullContext);
   const [node2, setNodeRef] = useNodeRef();
   const [activatorNode, setActivatorNodeRef] = useNodeRef();
   const listeners = useSyntheticListeners(activators, id);
@@ -42510,7 +44681,7 @@ function useDraggable(_ref) {
       }
     };
   }, [draggableNodes, id]);
-  const memoizedAttributes = import_react229.useMemo(() => ({
+  const memoizedAttributes = import_react239.useMemo(() => ({
     role,
     tabIndex,
     "aria-disabled": disabled,
@@ -42533,7 +44704,7 @@ function useDraggable(_ref) {
   };
 }
 function useDndContext() {
-  return import_react229.useContext(PublicContext);
+  return import_react239.useContext(PublicContext);
 }
 var ID_PREFIX$1 = "Droppable";
 var defaultResizeObserverConfig = {
@@ -42552,13 +44723,13 @@ function useDroppable(_ref) {
     dispatch,
     over,
     measureDroppableContainers
-  } = import_react229.useContext(InternalContext);
-  const previous = import_react229.useRef({
+  } = import_react239.useContext(InternalContext);
+  const previous = import_react239.useRef({
     disabled
   });
-  const resizeObserverConnected = import_react229.useRef(false);
-  const rect = import_react229.useRef(null);
-  const callbackId = import_react229.useRef(null);
+  const resizeObserverConnected = import_react239.useRef(false);
+  const rect = import_react239.useRef(null);
+  const callbackId = import_react239.useRef(null);
   const {
     disabled: resizeObserverDisabled,
     updateMeasurementsFor,
@@ -42568,7 +44739,7 @@ function useDroppable(_ref) {
     ...resizeObserverConfig
   };
   const ids2 = useLatestValue(updateMeasurementsFor != null ? updateMeasurementsFor : id);
-  const handleResize = import_react229.useCallback(() => {
+  const handleResize = import_react239.useCallback(() => {
     if (!resizeObserverConnected.current) {
       resizeObserverConnected.current = true;
       return;
@@ -42585,7 +44756,7 @@ function useDroppable(_ref) {
     callback: handleResize,
     disabled: resizeObserverDisabled || !active
   });
-  const handleNodeChange = import_react229.useCallback((newElement, previousElement) => {
+  const handleNodeChange = import_react239.useCallback((newElement, previousElement) => {
     if (!resizeObserver) {
       return;
     }
@@ -42599,7 +44770,7 @@ function useDroppable(_ref) {
   }, [resizeObserver]);
   const [nodeRef, setNodeRef] = useNodeRef(handleNodeChange);
   const dataRef = useLatestValue(data);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     if (!resizeObserver || !nodeRef.current) {
       return;
     }
@@ -42607,7 +44778,7 @@ function useDroppable(_ref) {
     resizeObserverConnected.current = false;
     resizeObserver.observe(nodeRef.current);
   }, [nodeRef, resizeObserver]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     dispatch({
       type: Action.RegisterDroppable,
       element: {
@@ -42625,7 +44796,7 @@ function useDroppable(_ref) {
       id
     });
   }, [id]);
-  import_react229.useEffect(() => {
+  import_react239.useEffect(() => {
     if (disabled !== previous.current.disabled) {
       dispatch({
         type: Action.SetDroppableDisabled,
@@ -42647,7 +44818,7 @@ function useDroppable(_ref) {
 }
 
 // node_modules/@dnd-kit/sortable/dist/sortable.esm.js
-var import_react230 = __toESM(require_react(), 1);
+var import_react240 = __toESM(require_react(), 1);
 function arrayMove(array, from2, to) {
   const newArray = array.slice();
   newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from2, 1)[0]);
@@ -42770,7 +44941,7 @@ var rectSortingStrategy = (_ref) => {
   };
 };
 var ID_PREFIX2 = "Sortable";
-var Context = /* @__PURE__ */ import_react230.default.createContext({
+var Context = /* @__PURE__ */ import_react240.default.createContext({
   activeIndex: -1,
   containerId: ID_PREFIX2,
   disableTransforms: false,
@@ -42801,11 +44972,11 @@ function SortableContext(_ref) {
   } = useDndContext();
   const containerId = useUniqueId(ID_PREFIX2, id);
   const useDragOverlay = Boolean(dragOverlay.rect !== null);
-  const items = import_react230.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
+  const items = import_react240.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
   const isDragging = active != null;
   const activeIndex = active ? items.indexOf(active.id) : -1;
   const overIndex = over ? items.indexOf(over.id) : -1;
-  const previousItemsRef = import_react230.useRef(items);
+  const previousItemsRef = import_react240.useRef(items);
   const itemsHaveChanged = !itemsEqual(items, previousItemsRef.current);
   const disableTransforms = overIndex !== -1 && activeIndex === -1 || itemsHaveChanged;
   const disabled = normalizeDisabled(disabledProp);
@@ -42814,10 +44985,10 @@ function SortableContext(_ref) {
       measureDroppableContainers(items);
     }
   }, [itemsHaveChanged, items, isDragging, measureDroppableContainers]);
-  import_react230.useEffect(() => {
+  import_react240.useEffect(() => {
     previousItemsRef.current = items;
   }, [items]);
-  const contextValue = import_react230.useMemo(() => ({
+  const contextValue = import_react240.useMemo(() => ({
     activeIndex,
     containerId,
     disabled,
@@ -42828,7 +44999,7 @@ function SortableContext(_ref) {
     sortedRects: getSortedRects(items, droppableRects),
     strategy
   }), [activeIndex, containerId, disabled.draggable, disabled.droppable, disableTransforms, items, overIndex, droppableRects, useDragOverlay, strategy]);
-  return import_react230.default.createElement(Context.Provider, {
+  return import_react240.default.createElement(Context.Provider, {
     value: contextValue
   }, children);
 }
@@ -42884,8 +45055,8 @@ function useDerivedTransform(_ref) {
     node: node2,
     rect
   } = _ref;
-  const [derivedTransform, setDerivedtransform] = import_react230.useState(null);
-  const previousIndex = import_react230.useRef(index3);
+  const [derivedTransform, setDerivedtransform] = import_react240.useState(null);
+  const previousIndex = import_react240.useRef(index3);
   useIsomorphicLayoutEffect2(() => {
     if (!disabled && index3 !== previousIndex.current && node2.current) {
       const initial = rect.current;
@@ -42908,7 +45079,7 @@ function useDerivedTransform(_ref) {
       previousIndex.current = index3;
     }
   }, [disabled, index3, node2, rect]);
-  import_react230.useEffect(() => {
+  import_react240.useEffect(() => {
     if (derivedTransform) {
       setDerivedtransform(null);
     }
@@ -42937,10 +45108,10 @@ function useSortable(_ref) {
     overIndex,
     useDragOverlay,
     strategy: globalStrategy
-  } = import_react230.useContext(Context);
+  } = import_react240.useContext(Context);
   const disabled = normalizeLocalDisabled(localDisabled, globalDisabled);
   const index3 = items.indexOf(id);
-  const data = import_react230.useMemo(() => ({
+  const data = import_react240.useMemo(() => ({
     sortable: {
       containerId,
       index: index3,
@@ -42948,7 +45119,7 @@ function useSortable(_ref) {
     },
     ...customData
   }), [containerId, customData, index3, items]);
-  const itemsAfterCurrentSortable = import_react230.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
+  const itemsAfterCurrentSortable = import_react240.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
   const {
     rect,
     node: node2,
@@ -43003,7 +45174,7 @@ function useSortable(_ref) {
     overIndex
   }) : index3;
   const activeId = active == null ? undefined : active.id;
-  const previous = import_react230.useRef({
+  const previous = import_react240.useRef({
     activeId,
     items,
     newIndex,
@@ -43030,7 +45201,7 @@ function useSortable(_ref) {
     node: node2,
     rect
   });
-  import_react230.useEffect(() => {
+  import_react240.useEffect(() => {
     if (isSorting && previous.current.newIndex !== newIndex) {
       previous.current.newIndex = newIndex;
     }
@@ -43041,7 +45212,7 @@ function useSortable(_ref) {
       previous.current.items = items;
     }
   }, [isSorting, newIndex, containerId, items]);
-  import_react230.useEffect(() => {
+  import_react240.useEffect(() => {
     if (activeId === previous.current.activeId) {
       return;
     }
@@ -43221,7 +45392,7 @@ function isAfter(a2, b) {
 }
 
 // src/components/LayoutMappingModal/DependentGroupSortableCard.tsx
-var import_react231 = __toESM(require_react(), 1);
+var import_react241 = __toESM(require_react(), 1);
 var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
 var TransformCommandCard = ({
   transform,
@@ -43292,8 +45463,8 @@ var DependentGroupValueSortableCard = ({
   getDisplayValue
 }) => {
   const { state, effects, raiseError: raiseError2 } = useAppStore();
-  const [transformModalOpen, setTransformModalOpen] = import_react231.useState(false);
-  const [transforms, setTransforms] = import_react231.useState([]);
+  const [transformModalOpen, setTransformModalOpen] = import_react241.useState(false);
+  const [transforms, setTransforms] = import_react241.useState([]);
   const {
     attributes,
     listeners,
@@ -43880,7 +46051,7 @@ var VariableCard = ({
   layoutMap
 }) => {
   const { state, raiseError: raiseError2, effects } = useAppStore();
-  const [isOpen, setIsOpen] = import_react232.useState(false);
+  const [isOpen, setIsOpen] = import_react242.useState(false);
   const variableImageConfig = state.studio.document.variables.find((v2) => v2.id === variableConfig.id);
   if (variableImageConfig == null) {
     raiseError2(Result.error(new Error("variableDocument is null")));
@@ -43994,9 +46165,9 @@ var LayoutConfigSection = ({
   mapConfig,
   index: index3
 }) => {
-  const [isOpen, setIsOpen] = import_react233.useState(false);
-  const [menuOpened, setMenuOpened] = import_react233.useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = import_react233.useState(false);
+  const [isOpen, setIsOpen] = import_react243.useState(false);
+  const [menuOpened, setMenuOpened] = import_react243.useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = import_react243.useState(false);
   const { effects: events2 } = useAppStore();
   return /* @__PURE__ */ jsx_dev_runtime8.jsxDEV(Paper, {
     p: "md",
@@ -44126,18 +46297,18 @@ var LayoutConfigSection = ({
 var jsx_dev_runtime9 = __toESM(require_jsx_dev_runtime(), 1);
 var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV clicked") }) => {
   const { state, effects: events2, raiseError: raiseError2, enableToolbar } = useAppStore();
-  const [validationReport, setValidationReport] = import_react234.useState(null);
-  const [isValidationModalOpen, setIsValidationModalOpen] = import_react234.useState(false);
-  const imageVariables = import_react234.useMemo(() => {
+  const [validationReport, setValidationReport] = import_react244.useState(null);
+  const [isValidationModalOpen, setIsValidationModalOpen] = import_react244.useState(false);
+  const imageVariables = import_react244.useMemo(() => {
     return state.studio.document.variables.filter((variable) => variable.type === "image");
   }, [state.studio.document.variables]);
-  const imageVariableOptions = import_react234.useMemo(() => {
+  const imageVariableOptions = import_react244.useMemo(() => {
     return imageVariables.map((variable) => ({
       value: variable.id,
       label: variable.name
     }));
   }, [imageVariables]);
-  import_react234.useEffect(() => {
+  import_react244.useEffect(() => {
     const loadConfig = async () => {
       if (!state.studio.isLayoutConfigLoaded && !state.studio.isDocumentLoaded) {
         const resultDoc = await loadDocFromDoc();
@@ -44436,7 +46607,575 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react235 = __toESM(require_react(), 1);
+var import_react248 = __toESM(require_react(), 1);
+
+// src/components/FrameSnapshotLayoutModal.tsx
+var import_react245 = __toESM(require_react(), 1);
+var jsx_dev_runtime10 = __toESM(require_jsx_dev_runtime(), 1);
+function FrameSnapshotLayoutModal({
+  opened,
+  onClose
+}) {
+  const [frameLayoutMaps, setFrameLayoutMaps] = import_react245.useState([]);
+  const [isLoading, setIsLoading] = import_react245.useState(false);
+  const [isRemoving, setIsRemoving] = import_react245.useState(false);
+  const { raiseError: raiseError2 } = useAppStore();
+  const loadFrameLayouts = async () => {
+    setIsLoading(true);
+    try {
+      const frameLayoutsResult = await loadFrameLayoutMapsFromDoc();
+      if (!frameLayoutsResult.isOk()) {
+        raiseError2(new Error(frameLayoutsResult.error?.message || "Failed to load frame layouts"));
+        return;
+      }
+      const layoutsResult = await getAllLayouts(window.SDK);
+      if (!layoutsResult.isOk()) {
+        raiseError2(new Error(layoutsResult.error?.message || "Failed to load layouts"));
+        return;
+      }
+      const layoutMap = new Map;
+      layoutsResult.value.forEach((layout) => {
+        layoutMap.set(layout.id, layout.name || "Unnamed Layout");
+      });
+      const enhancedFrameLayoutMaps = frameLayoutsResult.value.map((frameLayoutMap) => ({
+        ...frameLayoutMap,
+        layoutName: layoutMap.get(frameLayoutMap.layoutId) || "Unknown Layout"
+      }));
+      setFrameLayoutMaps(enhancedFrameLayoutMaps);
+    } catch (error2) {
+      raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  import_react245.useEffect(() => {
+    if (opened) {
+      loadFrameLayouts();
+    }
+  }, [opened]);
+  const handleRemoveFrameLayout = async (frameId, layoutId) => {
+    try {
+      setIsRemoving(true);
+      await removeFrameLayouyMap(frameId, layoutId);
+      await loadFrameLayouts();
+    } catch (error2) {
+      raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
+    } finally {
+      setIsRemoving(false);
+    }
+  };
+  const handleUpdateActions = async () => {
+    setIsLoading(true);
+    const result = await saveImageSizingMappingToAction(frameLayoutMaps);
+    if (result.isError()) {
+      raiseError2(result.error);
+    }
+    setIsLoading(false);
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Modal, {
+    opened,
+    onClose,
+    title: "Frame Position Viewer",
+    fullScreen: true,
+    centered: true,
+    children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV("div", {
+      style: { display: "flex", flexDirection: "column", height: "calc(100vh - 120px)" },
+      children: [
+        /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(ScrollArea, {
+          style: { flex: 1 },
+          children: isLoading ? /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Center, {
+            style: { height: "100%", width: "100%" },
+            children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Loader, {
+              size: "lg"
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this) : /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Stack, {
+            children: frameLayoutMaps.length === 0 ? /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Text, {
+              children: "No frame layouts found."
+            }, undefined, false, undefined, this) : frameLayoutMaps.map((frameLayoutMap) => /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Card, {
+              shadow: "sm",
+              padding: "md",
+              radius: "md",
+              withBorder: true,
+              children: [
+                /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Card.Section, {
+                  withBorder: true,
+                  inheritPadding: true,
+                  py: "xs",
+                  children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Title, {
+                    order: 4,
+                    children: frameLayoutMap.layoutName || `Layout ID: ${frameLayoutMap.layoutId}`
+                  }, undefined, false, undefined, this)
+                }, undefined, false, undefined, this),
+                frameLayoutMap.frameSnapshots.length === 0 ? /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Text, {
+                  mt: "md",
+                  children: "No frame snapshots for this layout."
+                }, undefined, false, undefined, this) : /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table, {
+                  mt: "md",
+                  striped: true,
+                  highlightOnHover: true,
+                  children: [
+                    /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Thead, {
+                      children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Tr, {
+                        children: [
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Th, {
+                            children: "Image Name"
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Th, {
+                            children: "X"
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Th, {
+                            children: "Y"
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Th, {
+                            children: "Width"
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Th, {
+                            children: "Height"
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Th, {
+                            children: "Actions"
+                          }, undefined, false, undefined, this)
+                        ]
+                      }, undefined, true, undefined, this)
+                    }, undefined, false, undefined, this),
+                    /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Tbody, {
+                      children: frameLayoutMap.frameSnapshots.map((snapshot) => /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Tr, {
+                        children: [
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Td, {
+                            children: snapshot.imageName
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Td, {
+                            children: snapshot.x
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Td, {
+                            children: snapshot.y
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Td, {
+                            children: snapshot.width
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Td, {
+                            children: snapshot.height
+                          }, undefined, false, undefined, this),
+                          /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Table.Td, {
+                            children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Group, {
+                              children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(ActionIcon, {
+                                color: "red",
+                                variant: "subtle",
+                                onClick: () => handleRemoveFrameLayout(snapshot.frameId, frameLayoutMap.layoutId),
+                                disabled: isRemoving || isLoading,
+                                children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(IconTrash, {
+                                  size: 16
+                                }, undefined, false, undefined, this)
+                              }, undefined, false, undefined, this)
+                            }, undefined, false, undefined, this)
+                          }, undefined, false, undefined, this)
+                        ]
+                      }, snapshot.frameId, true, undefined, this))
+                    }, undefined, false, undefined, this)
+                  ]
+                }, undefined, true, undefined, this)
+              ]
+            }, frameLayoutMap.layoutId, true, undefined, this))
+          }, undefined, false, undefined, this)
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Group, {
+          justify: "flex-end",
+          mt: "md",
+          children: [
+            /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Button, {
+              onClick: handleUpdateActions,
+              color: "blue",
+              disabled: isLoading || isRemoving,
+              loading: isLoading || isRemoving,
+              children: "Update Actions"
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Button, {
+              onClick: onClose,
+              disabled: isRemoving,
+              children: "Close"
+            }, undefined, false, undefined, this)
+          ]
+        }, undefined, true, undefined, this)
+      ]
+    }, undefined, true, undefined, this)
+  }, undefined, false, undefined, this);
+}
+
+// src/components/AddFrameSnapshotModal.tsx
+var import_react246 = __toESM(require_react(), 1);
+var jsx_dev_runtime11 = __toESM(require_jsx_dev_runtime(), 1);
+function AddFrameSnapshotModal({
+  opened,
+  onClose,
+  raiseError: raiseError2
+}) {
+  const [status, setStatus] = import_react246.useState("idle");
+  const [message, setMessage] = import_react246.useState(null);
+  const [positionData, setPositionData] = import_react246.useState(null);
+  import_react246.useEffect(() => {
+    if (!opened) {
+      setStatus("idle");
+      setMessage(null);
+      setPositionData(null);
+      return;
+    }
+    const fetchAndValidateFrame = async () => {
+      setStatus("loading");
+      setMessage(null);
+      try {
+        const studioResult = await getStudio();
+        if (!studioResult.isOk()) {
+          throw studioResult.error;
+        }
+        const studio2 = studioResult.value;
+        const selectedResult = await getSelected2(studio2);
+        if (!selectedResult.isOk()) {
+          throw selectedResult.error;
+        }
+        const selectedFrames = selectedResult.value;
+        if (selectedFrames.length === 0) {
+          setStatus("error");
+          setMessage("Please select an image frame.");
+          return;
+        }
+        if (selectedFrames.length > 1) {
+          setStatus("error");
+          setMessage(`Please select only one frame - ${selectedFrames.length} were selected.`);
+          return;
+        }
+        const selectedFrameType = selectedFrames[0];
+        if (selectedFrameType.type !== "image") {
+          setStatus("error");
+          setMessage(`Please select an image frame, you selected a ${selectedFrameType.type || "non-image"} frame.`);
+          return;
+        }
+        const frameResult = await getById2(studio2, selectedFrameType.id);
+        if (!frameResult.isOk()) {
+          throw frameResult.error;
+        }
+        const frame = frameResult.value;
+        const frameVariableId = frame.src?.id;
+        if (!frameVariableId) {
+          throw new Error("Image frame is not tied to image variable");
+        }
+        const variableResult = await getById(studio2, frameVariableId);
+        if (!variableResult.isOk()) {
+          throw variableResult.error;
+        }
+        const linkedVariable = variableResult.value;
+        const variableValue = linkedVariable.value?.assetId;
+        if (!variableValue) {
+          throw new Error("assetId not found on linked variable");
+        }
+        const propertiesResult = await getPropertiesOnSelectedLayout(studio2);
+        if (!propertiesResult.isOk()) {
+          throw propertiesResult.error;
+        }
+        const allProperties = propertiesResult.value;
+        const frameProperties = Array.isArray(allProperties) ? allProperties.find((prop) => prop.id === selectedFrameType.id) : null;
+        if (!frameProperties) {
+          throw new Error(`Could not find properties for selected frame ${selectedFrameType.name} with ID: ${selectedFrameType.id}`);
+        }
+        const { x: x2, y: y2, width, height } = frameProperties;
+        if (x2?.value === undefined || y2?.value === undefined || width?.value === undefined || height?.value === undefined) {
+          throw new Error("Selected image frame is missing position properties (x, y, width, or height values).");
+        }
+        const extractedPosition = { x: x2.value, y: y2.value, width: width.value, height: height.value };
+        setPositionData(extractedPosition);
+        const updateResult = await updateFrameLayoutMaps({
+          frameId: selectedFrameType.id,
+          assetId: variableValue,
+          x: extractedPosition.x,
+          y: extractedPosition.y,
+          width: extractedPosition.width,
+          height: extractedPosition.height
+        });
+        if (!updateResult.isOk()) {
+          throw updateResult.error;
+        }
+        setStatus("success");
+        setMessage("Image position successfully saved to layout mapping");
+      } catch (error2) {
+        const err = error2 instanceof Error ? error2 : new Error(String(error2));
+        setStatus("error");
+        setMessage(err.message);
+        raiseError2(err);
+      }
+    };
+    fetchAndValidateFrame();
+  }, [opened, raiseError2]);
+  return /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Modal, {
+    opened,
+    onClose: status === "loading" ? () => {
+    } : onClose,
+    title: "Snapshot Image Position",
+    centered: true,
+    closeOnClickOutside: status !== "loading",
+    closeOnEscape: status !== "loading",
+    children: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Stack, {
+      children: [
+        status === "loading" && /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Stack, {
+          align: "center",
+          children: [
+            /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Loader, {}, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Text, {
+              children: "Processing frame snapshot..."
+            }, undefined, false, undefined, this)
+          ]
+        }, undefined, true, undefined, this),
+        status === "error" && message && /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Alert, {
+          icon: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(IconAlertCircle, {
+            size: "1rem"
+          }, undefined, false, undefined, this),
+          title: "Error",
+          color: "red",
+          children: message
+        }, undefined, false, undefined, this),
+        status === "success" && message && /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Alert, {
+          color: "green",
+          title: "Success",
+          children: message
+        }, undefined, false, undefined, this),
+        status === "idle" && /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Text, {
+          size: "sm",
+          c: "dimmed",
+          children: "Initializing..."
+        }, undefined, false, undefined, this)
+      ]
+    }, undefined, true, undefined, this)
+  }, undefined, false, undefined, this);
+}
+
+// src/components/LayoutManagerModal.tsx
+var import_react247 = __toESM(require_react(), 1);
+var jsx_dev_runtime12 = __toESM(require_jsx_dev_runtime(), 1);
+function LayoutManagerModal({ opened, onClose }) {
+  const [layouts, setLayouts] = import_react247.useState([]);
+  const [treeData, setTreeData] = import_react247.useState([]);
+  const [selectedLayout, setSelectedLayout] = import_react247.useState(null);
+  const [studio2, setStudio] = import_react247.useState(null);
+  const { raiseError: raiseError2 } = useAppStore();
+  import_react247.useEffect(() => {
+    const fetchLayouts = async () => {
+      try {
+        const studioResult = await getStudio();
+        if (!studioResult.isOk()) {
+          raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+          return;
+        }
+        setStudio(studioResult.value);
+        const layoutsResult = await getAllLayouts(studioResult.value);
+        if (!layoutsResult.isOk()) {
+          raiseError2(new Error(layoutsResult.error?.message || "Failed to get layouts"));
+          return;
+        }
+        const layoutNodes = layoutsResult.value.map((layout) => ({
+          id: layout.id,
+          name: layout.name,
+          parentId: layout.parentId,
+          available: true,
+          resizable: layout.resizableByUser.enabled,
+          minWidth: layout.resizableByUser.minWidth,
+          maxWidth: layout.resizableByUser.maxWidth,
+          minHeight: layout.resizableByUser.minHeight,
+          maxHeight: layout.resizableByUser.maxHeight,
+          lockAspectRatio: false,
+          percentage: 100
+        }));
+        setLayouts(layoutNodes);
+        const tree = buildLayoutTree(layoutNodes);
+        setTreeData(tree);
+      } catch (error2) {
+        raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
+      }
+    };
+    if (opened) {
+      fetchLayouts();
+    }
+  }, [opened, raiseError2]);
+  const buildLayoutTree = (layoutNodes) => {
+    const nodeMap = new Map;
+    layoutNodes.forEach((node2) => {
+      nodeMap.set(node2.id, { ...node2, children: [] });
+    });
+    const rootNodes = [];
+    nodeMap.forEach((node2) => {
+      if (!node2.parentId) {
+        rootNodes.push(node2);
+      } else {
+        const parent = nodeMap.get(node2.parentId);
+        if (parent) {
+          if (!parent.children) {
+            parent.children = [];
+          }
+          parent.children.push(node2);
+        }
+      }
+    });
+    return rootNodes.map(convertToTreeNode);
+  };
+  const convertToTreeNode = (node2) => {
+    return {
+      value: node2.id,
+      label: node2.name,
+      children: node2.children ? node2.children.map(convertToTreeNode) : undefined
+    };
+  };
+  const handleNodeSelect = (event) => {
+    const target = event.target;
+    const nodeElement = target.closest("[data-tree-value]");
+    if (nodeElement) {
+      const nodeValue = nodeElement.getAttribute("data-tree-value");
+      if (nodeValue) {
+        const layout = layouts.find((l2) => l2.id === nodeValue);
+        if (layout) {
+          setSelectedLayout(layout);
+        }
+      }
+    }
+  };
+  const handleSaveLayout = async () => {
+    if (!selectedLayout || !studio2)
+      return;
+    try {
+      const update = {
+        enabled: { value: selectedLayout.resizable },
+        minWidth: selectedLayout.minWidth !== undefined ? { value: String(selectedLayout.minWidth) } : undefined,
+        maxWidth: selectedLayout.maxWidth !== undefined ? { value: String(selectedLayout.maxWidth) } : undefined,
+        minHeight: selectedLayout.minHeight !== undefined ? { value: String(selectedLayout.minHeight) } : undefined,
+        maxHeight: selectedLayout.maxHeight !== undefined ? { value: String(selectedLayout.maxHeight) } : undefined
+      };
+      const result = await updateLayoutResizable(studio2, selectedLayout.id, update);
+      if (!result.isOk()) {
+        raiseError2(new Error(result.error?.message || "Failed to update layout"));
+        return;
+      }
+      setLayouts(layouts.map((layout) => layout.id === selectedLayout.id ? selectedLayout : layout));
+    } catch (error2) {
+      raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
+    }
+  };
+  const handleLayoutChange = (property, value) => {
+    if (!selectedLayout)
+      return;
+    setSelectedLayout({
+      ...selectedLayout,
+      [property]: value
+    });
+  };
+  return /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Modal, {
+    opened,
+    onClose,
+    title: "Layout Manager",
+    size: "xl",
+    fullScreen: true,
+    children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+      align: "flex-start",
+      style: { height: "calc(100vh - 120px)" },
+      children: [
+        /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Box, {
+          style: { width: "30%", height: "100%", overflowY: "auto" },
+          children: [
+            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Title, {
+              order: 4,
+              mb: "md",
+              children: "Layouts"
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Tree, {
+              data: treeData,
+              onSelect: handleNodeSelect
+            }, undefined, false, undefined, this)
+          ]
+        }, undefined, true, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Box, {
+          style: { width: "70%", height: "100%", overflowY: "auto" },
+          children: selectedLayout ? /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Stack, {
+            children: [
+              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Title, {
+                order: 4,
+                children: selectedLayout.name
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+                children: [
+                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Switch, {
+                    label: "Available",
+                    checked: selectedLayout.available,
+                    onChange: (event) => handleLayoutChange("available", event.currentTarget.checked)
+                  }, undefined, false, undefined, this),
+                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Switch, {
+                    label: "Resizable",
+                    checked: selectedLayout.resizable,
+                    onChange: (event) => handleLayoutChange("resizable", event.currentTarget.checked)
+                  }, undefined, false, undefined, this)
+                ]
+              }, undefined, true, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+                grow: true,
+                children: [
+                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                    label: "Min Width",
+                    value: selectedLayout.minWidth !== null ? selectedLayout.minWidth : undefined,
+                    onChange: (value) => handleLayoutChange("minWidth", value),
+                    disabled: !selectedLayout.resizable
+                  }, undefined, false, undefined, this),
+                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                    label: "Max Width",
+                    value: selectedLayout.maxWidth !== null ? selectedLayout.maxWidth : undefined,
+                    onChange: (value) => handleLayoutChange("maxWidth", value),
+                    disabled: !selectedLayout.resizable
+                  }, undefined, false, undefined, this)
+                ]
+              }, undefined, true, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+                grow: true,
+                children: [
+                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                    label: "Min Height",
+                    value: selectedLayout.minHeight !== null ? selectedLayout.minHeight : undefined,
+                    onChange: (value) => handleLayoutChange("minHeight", value),
+                    disabled: !selectedLayout.resizable
+                  }, undefined, false, undefined, this),
+                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                    label: "Max Height",
+                    value: selectedLayout.maxHeight !== null ? selectedLayout.maxHeight : undefined,
+                    onChange: (value) => handleLayoutChange("maxHeight", value),
+                    disabled: !selectedLayout.resizable
+                  }, undefined, false, undefined, this)
+                ]
+              }, undefined, true, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Checkbox, {
+                label: "Lock Aspect Ratio",
+                checked: selectedLayout.lockAspectRatio,
+                onChange: (event) => handleLayoutChange("lockAspectRatio", event.currentTarget.checked),
+                disabled: !selectedLayout.resizable
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                label: "Percentage",
+                value: selectedLayout.percentage,
+                onChange: (value) => handleLayoutChange("percentage", value),
+                min: 1,
+                max: 100,
+                step: 1
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+                justify: "flex-end",
+                mt: "xl",
+                children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Button, {
+                  onClick: handleSaveLayout,
+                  color: "blue",
+                  children: "Save Changes"
+                }, undefined, false, undefined, this)
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this) : /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Text, {
+            children: "Select a layout to view and edit its properties"
+          }, undefined, false, undefined, this)
+        }, undefined, false, undefined, this)
+      ]
+    }, undefined, true, undefined, this)
+  }, undefined, false, undefined, this);
+}
 
 // src/studio/documentHandler.ts
 async function getCurrentDocumentState(studio2) {
@@ -44447,14 +47186,17 @@ async function loadDocumentFromJsonStr(studio2, document2) {
 }
 
 // src/components/Toolbar.tsx
-var jsx_dev_runtime10 = __toESM(require_jsx_dev_runtime(), 1);
+var jsx_dev_runtime13 = __toESM(require_jsx_dev_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react235.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react235.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react235.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react235.useState(false);
-  const [updateInfo, setUpdateInfo] = import_react235.useState(null);
-  const fileInputRef = import_react235.useRef(null);
+  const [visible2, setVisible] = import_react248.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react248.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react248.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react248.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react248.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react248.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react248.useState(false);
+  const [updateInfo, setUpdateInfo] = import_react248.useState(null);
+  const fileInputRef = import_react248.useRef(null);
   const { effects, raiseError: raiseError2, state, disableToolbar } = useAppStore();
   const handleTestError = () => {
     raiseError2(new Error("This is a test error message"));
@@ -44535,7 +47277,7 @@ function Toolbar() {
     }
     setIsUpdateModalOpen(false);
   };
-  import_react235.useEffect(() => {
+  import_react248.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -44566,14 +47308,26 @@ function Toolbar() {
     disableToolbar();
     effects.modal.showModal();
   };
-  return /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(jsx_dev_runtime10.Fragment, {
+  const handleFramePositionViewer = () => {
+    setVisible(false);
+    setIsFramePositionViewerOpen(true);
+  };
+  const handleSnapshot = () => {
+    setVisible(false);
+    setIsAddFrameSnapshotModalOpen(true);
+  };
+  const handleLayoutManager = () => {
+    setVisible(false);
+    setIsLayoutManagerOpen(true);
+  };
+  return /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(jsx_dev_runtime13.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Transition, {
+      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -44590,50 +47344,80 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Group, {
+          children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
             gap: "lg",
             children: [
-              /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Tooltip, {
+              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
+                label: "Snapshot Image Position",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Snapshot Image Position",
+                  onClick: handleSnapshot,
+                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconCameraPlus, {
+                    size: 20
+                  }, undefined, false, undefined, this)
+                }, undefined, false, undefined, this)
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
+                label: "Frame Position Viewer",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Frame Position Viewer",
+                  onClick: handleFramePositionViewer,
+                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconPhotoCog, {
+                    size: 20
+                  }, undefined, false, undefined, this)
+                }, undefined, false, undefined, this)
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
                 label: "Upload/Download Document",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(ActionIcon, {
+                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleUploadDownloadClick,
-                  children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconArrowsTransferUpDown, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Tooltip, {
+              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
                 label: "Layout Image Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(ActionIcon, {
+                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconMapBolt, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Tooltip, {
+              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(ActionIcon, {
+                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
                   variant: "filled",
                   color: "red",
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(IconBug, {
+                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconBug, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
@@ -44642,44 +47426,44 @@ function Toolbar() {
           }, undefined, true, undefined, this)
         }, undefined, false, undefined, this)
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Modal, {
+      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Modal, {
         opened: isDownloadUploadModalOpen,
         onClose: () => setIsDownloadUploadModalOpen(false),
         title: "Document Upload/Download",
         centered: true,
-        children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Stack, {
+        children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Stack, {
           children: [
-            /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Text, {
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Text, {
               size: "sm",
               children: "Uploading and downloading only transfers the JSON not assets."
             }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Group, {
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
               children: [
-                /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Button, {
+                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
                   onClick: handleDownload,
                   color: "blue",
-                  children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Group, {
+                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
                     gap: "xs",
                     children: [
-                      /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(IconDownload, {
+                      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconDownload, {
                         size: 20
                       }, undefined, false, undefined, this),
-                      /* @__PURE__ */ jsx_dev_runtime10.jsxDEV("span", {
+                      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV("span", {
                         children: "Download"
                       }, undefined, false, undefined, this)
                     ]
                   }, undefined, true, undefined, this)
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Button, {
+                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
                   onClick: handleUpload,
                   color: "green",
-                  children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Group, {
+                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
                     gap: "xs",
                     children: [
-                      /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(IconUpload, {
+                      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconUpload, {
                         size: 20
                       }, undefined, false, undefined, this),
-                      /* @__PURE__ */ jsx_dev_runtime10.jsxDEV("span", {
+                      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV("span", {
                         children: "Upload"
                       }, undefined, false, undefined, this)
                     ]
@@ -44690,41 +47474,41 @@ function Toolbar() {
           ]
         }, undefined, true, undefined, this)
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Modal, {
+      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Stack, {
+        children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Stack, {
           children: [
-            /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Text, {
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Text, {
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_dev_runtime10.jsxDEV("br", {}, undefined, false, undefined, this),
+                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV("br", {}, undefined, false, undefined, this),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }, undefined, true, undefined, this),
-            /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Group, {
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Button, {
+                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(Button, {
+                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_dev_runtime10.jsxDEV(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconExternalLink, {
                     size: 16
                   }, undefined, false, undefined, this),
                   color: "blue",
@@ -44735,23 +47519,36 @@ function Toolbar() {
           ]
         }, undefined, true, undefined, this)
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime10.jsxDEV("input", {
+      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
         accept: ".json",
         onChange: handleFileChange
+      }, undefined, false, undefined, this),
+      isFramePositionViewerOpen && /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(FrameSnapshotLayoutModal, {
+        opened: isFramePositionViewerOpen,
+        onClose: () => setIsFramePositionViewerOpen(false)
+      }, undefined, false, undefined, this),
+      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(AddFrameSnapshotModal, {
+        opened: isAddFrameSnapshotModalOpen,
+        onClose: () => setIsAddFrameSnapshotModalOpen(false),
+        raiseError: raiseError2
+      }, undefined, false, undefined, this),
+      isLayoutManagerOpen && /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(LayoutManagerModal, {
+        opened: isLayoutManagerOpen,
+        onClose: () => setIsLayoutManagerOpen(false)
       }, undefined, false, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
 
 // src/components/AlertsContainer.tsx
-var import_react236 = __toESM(require_react(), 1);
-var jsx_dev_runtime11 = __toESM(require_jsx_dev_runtime(), 1);
+var import_react249 = __toESM(require_react(), 1);
+var jsx_dev_runtime14 = __toESM(require_jsx_dev_runtime(), 1);
 function AlertsContainer() {
   const { alerts, dismissAlert } = useAppStore();
-  import_react236.useEffect(() => {
+  import_react249.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -44766,7 +47563,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Box, {
+  return /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -44774,10 +47571,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Stack, {
+    children: /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(Alert, {
-        icon: /* @__PURE__ */ jsx_dev_runtime11.jsxDEV(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Alert, {
+        icon: /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(IconInfoCircle, {
           size: "1rem"
         }, undefined, false, undefined, this),
         title: "Toolbar Error",
@@ -44797,7 +47594,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_dev_runtime12 = __toESM(require_jsx_dev_runtime(), 1);
+var jsx_dev_runtime15 = __toESM(require_jsx_dev_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -44822,16 +47619,16 @@ async function renderToolbar() {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_dev_runtime12.jsxDEV(import_react237.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_dev_runtime15.jsxDEV(import_react250.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     }, undefined, false, undefined, this)
   }, undefined, false, undefined, this));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_dev_runtime12.jsxDEV(import_react237.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_dev_runtime15.jsxDEV(import_react250.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Toolbar, {}, undefined, false, undefined, this),
-        /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(AlertsContainer, {}, undefined, false, undefined, this)
+        /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Toolbar, {}, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(AlertsContainer, {}, undefined, false, undefined, this)
       ]
     }, undefined, true, undefined, this)
   }, undefined, false, undefined, this));
@@ -44840,4 +47637,4 @@ setTimeout(() => {
   renderToolbar();
 }, 5000);
 
-//# debugId=991AE7088F38349F64756E2164756E21
+//# debugId=F88A8A777B75FBC064756E2164756E21

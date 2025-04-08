@@ -20,8 +20,14 @@ import {
   IconUpload,
   IconSquareToggle,
   IconExternalLink,
+  IconCameraPlus,
+  IconPhotoCog,
+  IconListTree,
 } from "@tabler/icons-react";
 import { useAppStore } from "../modalStore";
+import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayoutModal";
+import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
+import { LayoutManagerModal } from "./LayoutManagerModal";
 import {
   getCurrentDocumentState,
   loadDocumentFromJsonStr,
@@ -34,6 +40,9 @@ export function Toolbar() {
     useState(false);
   const [isConvertModalOpen, setIsConvertModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = useState(false);
   const [updateInfo, setUpdateInfo] = useState<{
     currentVersion: string;
     latestVersion: string;
@@ -217,6 +226,21 @@ export function Toolbar() {
     effects.modal.showModal();
   };
 
+  const handleFramePositionViewer = () => {
+    setVisible(false);
+    setIsFramePositionViewerOpen(true);
+  };
+
+  const handleSnapshot = () => {
+    setVisible(false);
+    setIsAddFrameSnapshotModalOpen(true);
+  };
+
+  const handleLayoutManager = () => {
+    setVisible(false);
+    setIsLayoutManagerOpen(true);
+  };
+
   return (
     <>
       <Transition
@@ -245,19 +269,37 @@ export function Toolbar() {
             onMouseLeave={() => setVisible(false)}
           >
             <Group gap="lg">
-              {/* <Tooltip
-                label="Convert Old JSON to Layout Map"
-                position="bottom"
-                withArrow
-              >
+              <Tooltip label="Snapshot Image Position" position="bottom" withArrow>
                 <ActionIcon
                   variant="filled"
                   color="blue"
                   size="lg"
-                  aria-label="Convert"
-                  onClick={() => setIsConvertModalOpen(true)}
+                  aria-label="Snapshot Image Position"
+                  onClick={handleSnapshot}
                 >
-                  <IconSquareToggle size={20} />
+                  <IconCameraPlus size={20} />
+                </ActionIcon>
+              </Tooltip>
+              <Tooltip label="Frame Position Viewer" position="bottom" withArrow>
+                <ActionIcon
+                  variant="filled"
+                  color="blue"
+                  size="lg"
+                  aria-label="Frame Position Viewer"
+                  onClick={handleFramePositionViewer}
+                >
+                  <IconPhotoCog size={20} />
+                </ActionIcon>
+              </Tooltip>
+              {/* <Tooltip label="Layout Manager" position="bottom" withArrow>
+                <ActionIcon
+                  variant="filled"
+                  color="blue"
+                  size="lg"
+                  aria-label="Layout Manager"
+                  onClick={handleLayoutManager}
+                >
+                  <IconListTree size={20} />
                 </ActionIcon>
               </Tooltip> */}
               <Tooltip
@@ -371,6 +413,31 @@ export function Toolbar() {
         accept=".json"
         onChange={handleFileChange}
       />
+
+      {/* Frame Position Viewer Modal */}
+      {isFramePositionViewerOpen && (
+        <FrameSnapshotLayoutModal
+          opened={isFramePositionViewerOpen}
+          onClose={() => setIsFramePositionViewerOpen(false)}
+        />
+      )}
+      
+      {/* Add Frame Snapshot Modal */}
+      {isAddFrameSnapshotModalOpen && (
+        <AddFrameSnapshotModal
+          opened={isAddFrameSnapshotModalOpen}
+          onClose={() => setIsAddFrameSnapshotModalOpen(false)}
+          raiseError={raiseError}
+        />
+      )}
+      
+      {/* Layout Manager Modal */}
+      {isLayoutManagerOpen && (
+        <LayoutManagerModal
+          opened={isLayoutManagerOpen}
+          onClose={() => setIsLayoutManagerOpen(false)}
+        />
+      )}
     </>
   );
 }

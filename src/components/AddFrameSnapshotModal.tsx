@@ -12,6 +12,7 @@ import {
 } from "../studio/variableHandler";
 import type SDK from "@chili-publish/studio-sdk";
 import { Result } from "typescript-result";
+import type { Variable } from "@chili-publish/studio-sdk";
 
 type AddFrameSnapshotModalProps = {
   opened: boolean;
@@ -110,10 +111,13 @@ export function AddFrameSnapshotModal({
             throw variableResult.error;
         }
         // We don't strictly need the variable value here, just confirming it's linked and exists.
-        const linkedVariable = variableResult.value;
+        const linkedVariable = variableResult.value as Variable & {value?: {assetId?:string}};
 
-        // AI! The value may not exist or it might exist by assetId may not exist add error checking for both - make sure it is typescript friendly and then give me result of assetId which will be a string
-        const variableValue = linkedVariable.value.assetId
+        const variableValue = linkedVariable.value?.assetId
+
+        if (!variableValue) {
+          throw new Error("assetId not found on linked variable");
+        }
 
 
         // 4. Get Frame Properties
@@ -147,7 +151,7 @@ export function AddFrameSnapshotModal({
         // Call updateFrameLayoutMaps with the extracted position and frame ID
         const updateResult = await updateFrameLayoutMaps({
           frameId: selectedFrameType.id,
-          variableId: ,
+          assetId: variableValue,
           x: extractedPosition.x,
           y: extractedPosition.y,
           width: extractedPosition.width,
