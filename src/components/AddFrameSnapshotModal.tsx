@@ -96,20 +96,24 @@ export function AddFrameSnapshotModal({
         }
 
         const frame = frameResult.value;
+        const frameVariableId = (frame as {src?: {id:string}}).src?.id
 
         // Check if the frame is connected to a variable via its src property
-        if (!frame.src?.variableId) {
+        if (!frameVariableId) {
             throw new Error("Image frame is not tied to image variable");
         }
 
         // Fetch the variable linked to the frame to ensure it exists
-        const variableResult = await getVariableById(studio, frame.src.variableId);
+        const variableResult = await getVariableById(studio, frameVariableId);
         if (!variableResult.isOk()) {
             // If the variable fetch fails, throw the specific error from getVariableById
             throw variableResult.error;
         }
         // We don't strictly need the variable value here, just confirming it's linked and exists.
-        // const linkedVariable = variableResult.value;
+        const linkedVariable = variableResult.value;
+
+        // AI! The value may not exist or it might exist by assetId may not exist add error checking for both - make sure it is typescript friendly and then give me result of assetId which will be a string
+        const variableValue = linkedVariable.value.assetId
 
 
         // 4. Get Frame Properties
@@ -143,6 +147,7 @@ export function AddFrameSnapshotModal({
         // Call updateFrameLayoutMaps with the extracted position and frame ID
         const updateResult = await updateFrameLayoutMaps({
           frameId: selectedFrameType.id,
+          variableId: ,
           x: extractedPosition.x,
           y: extractedPosition.y,
           width: extractedPosition.width,
