@@ -97,9 +97,20 @@ export function AddFrameSnapshotModal({
 
         const frame = frameResult.value;
 
-        // AI Check if src is on frame and then if no throw error "Image frame is not tied to image variable"
+        // Check if the frame is connected to a variable via its src property
+        if (!frame.src?.variableId) {
+            throw new Error("Image frame is not tied to image variable");
+        }
 
-        // If src, then call getVariableById and get the value AI!
+        // Fetch the variable linked to the frame to ensure it exists
+        const variableResult = await getVariableById(studio, frame.src.variableId);
+        if (!variableResult.isOk()) {
+            // If the variable fetch fails, throw the specific error from getVariableById
+            throw variableResult.error;
+        }
+        // We don't strictly need the variable value here, just confirming it's linked and exists.
+        // const linkedVariable = variableResult.value;
+
 
         // 4. Get Frame Properties
         const propertiesResult = await getPropertiesOnSelectedLayout(studio);
