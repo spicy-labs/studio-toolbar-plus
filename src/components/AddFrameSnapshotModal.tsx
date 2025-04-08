@@ -88,8 +88,9 @@ export function AddFrameSnapshotModal({
         }
 
         const frameResult = await getById(studio, selectedFrameType.id);
-
-        // AI! add error check
+        if (!frameResult.isOk()) {
+          throw frameResult.error;
+        }
 
         // 4. Get Frame Properties
         const propertiesResult = await getPropertiesOnSelectedLayout(studio);
@@ -118,7 +119,7 @@ export function AddFrameSnapshotModal({
 
         const extractedPosition: FramePosition = { x: x.value, y: y.value, width: width.value, height: height.value };
         setPositionData(extractedPosition);
-        
+
         // Call updateFrameLayoutMaps with the extracted position and frame ID
         const updateResult = await updateFrameLayoutMaps({
           frameId: selectedFrameType.id,
@@ -127,11 +128,11 @@ export function AddFrameSnapshotModal({
           width: extractedPosition.width,
           height: extractedPosition.height
         });
-        
+
         if (!updateResult.isOk()) {
           throw updateResult.error;
         }
-        
+
         // 7. Success
         setStatus("success");
         setMessage("Image position successfully saved to layout mapping");
