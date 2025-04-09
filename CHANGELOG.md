@@ -1,3 +1,10 @@
+## 0.4.0
+
+### ✨ Added
+
+- Add connector replacement during upload
+- Add image snapshot and resizing
+
 ## 0.3.1
 
 ### 🐛 Fixed
