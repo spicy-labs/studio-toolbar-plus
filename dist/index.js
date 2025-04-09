@@ -19531,7 +19531,7 @@ var require_jsx_dev_runtime = __commonJS((exports, module) => {
 });
 
 // src/index.tsx
-var import_react250 = __toESM(require_react(), 1);
+var import_react252 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -46607,7 +46607,7 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react248 = __toESM(require_react(), 1);
+var import_react250 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayoutModal.tsx
 var import_react245 = __toESM(require_react(), 1);
@@ -47177,6 +47177,9 @@ function LayoutManagerModal({ opened, onClose }) {
   }, undefined, false, undefined, this);
 }
 
+// src/components/DownloadModal.tsx
+var import_react249 = __toESM(require_react(), 1);
+
 // src/studio/documentHandler.ts
 async function getCurrentDocumentState(studio2) {
   return handleStudioFunc(studio2.document.getCurrentState);
@@ -47185,31 +47188,116 @@ async function loadDocumentFromJsonStr(studio2, document2) {
   return handleStudioFunc(studio2.document.load, document2);
 }
 
-// src/components/Toolbar.tsx
+// src/components/ConnectorReplacementModal.tsx
+var import_react248 = __toESM(require_react(), 1);
 var jsx_dev_runtime13 = __toESM(require_jsx_dev_runtime(), 1);
-function Toolbar() {
-  const [visible2, setVisible] = import_react248.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react248.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react248.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react248.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react248.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react248.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react248.useState(false);
-  const [updateInfo, setUpdateInfo] = import_react248.useState(null);
-  const fileInputRef = import_react248.useRef(null);
-  const { effects, raiseError: raiseError2, state, disableToolbar } = useAppStore();
-  const handleTestError = () => {
-    raiseError2(new Error("This is a test error message"));
+function ConnectorReplacementModal({
+  opened,
+  onClose,
+  missingConnectors,
+  availableConnectors,
+  onReplace
+}) {
+  const [replacements, setReplacements] = import_react248.useState({});
+  const mediaConnectors = availableConnectors.filter((c2) => c2.type === "media");
+  const allSelected = missingConnectors.every((connector) => replacements[connector.id] !== undefined);
+  const handleReplace = () => {
+    const replacementArray = Object.entries(replacements).map(([original, replacement]) => ({
+      original,
+      replacement
+    }));
+    onReplace(replacementArray);
+    onClose();
   };
-  const setVisibleIntercept = (value) => {
-    if (!state.isToolbarEnabled) {
-      setVisible(false);
-    }
-    setVisible(value);
-  };
-  const handleUploadDownloadClick = () => {
-    setIsDownloadUploadModalOpen(true);
-  };
+  return /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Modal, {
+    opened,
+    onClose,
+    title: "Missing Connectors Detected",
+    size: "lg",
+    centered: true,
+    children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Stack, {
+      children: [
+        /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Text, {
+          size: "sm",
+          children: "The following connectors in your document were not found in your current environment. Please select replacement connectors:"
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table, {
+          children: [
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Thead, {
+              children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Tr, {
+                children: [
+                  /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Th, {
+                    children: "Original Connector"
+                  }, undefined, false, undefined, this),
+                  /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Th, {
+                    children: "ID"
+                  }, undefined, false, undefined, this),
+                  /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Th, {
+                    children: "Replace With"
+                  }, undefined, false, undefined, this)
+                ]
+              }, undefined, true, undefined, this)
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Tbody, {
+              children: missingConnectors.map((connector) => /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Tr, {
+                children: [
+                  /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Td, {
+                    children: connector.name
+                  }, undefined, false, undefined, this),
+                  /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Td, {
+                    children: connector.id
+                  }, undefined, false, undefined, this),
+                  /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Table.Td, {
+                    children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Select, {
+                      data: mediaConnectors.map((c2) => ({
+                        value: c2.id,
+                        label: c2.name
+                      })),
+                      placeholder: "Select a connector",
+                      onChange: (value) => {
+                        if (value) {
+                          setReplacements((prev2) => ({
+                            ...prev2,
+                            [connector.id]: value
+                          }));
+                        }
+                      }
+                    }, undefined, false, undefined, this)
+                  }, undefined, false, undefined, this)
+                ]
+              }, connector.id, true, undefined, this))
+            }, undefined, false, undefined, this)
+          ]
+        }, undefined, true, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
+          justify: "flex-end",
+          children: [
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
+              onClick: onClose,
+              variant: "outline",
+              children: "Cancel"
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
+              onClick: handleReplace,
+              disabled: !allSelected,
+              children: "Replace Connectors"
+            }, undefined, false, undefined, this)
+          ]
+        }, undefined, true, undefined, this)
+      ]
+    }, undefined, true, undefined, this)
+  }, undefined, false, undefined, this);
+}
+
+// src/components/DownloadModal.tsx
+var jsx_dev_runtime14 = __toESM(require_jsx_dev_runtime(), 1);
+function DownloadModal({ opened, onClose }) {
+  const fileInputRef = import_react249.useRef(null);
+  const { raiseError: raiseError2 } = useAppStore();
+  const [replacementModalOpened, setReplacementModalOpened] = import_react249.useState(false);
+  const [missingConnectors, setMissingConnectors] = import_react249.useState([]);
+  const [availableConnectors, setAvailableConnectors] = import_react249.useState([]);
+  const [pendingJsonContent, setPendingJsonContent] = import_react249.useState("");
   const handleDownload = async () => {
     try {
       const studioResult = await getStudio();
@@ -47251,17 +47339,66 @@ function Toolbar() {
       const reader = new FileReader;
       reader.onload = async (e) => {
         const content = e.target?.result;
-        const studioResult = await getStudio();
-        if (!studioResult.isOk()) {
-          raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
-          return;
+        setPendingJsonContent(content);
+        try {
+          const jsonData = JSON.parse(content);
+          if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
+            const studioResult = await getStudio();
+            if (!studioResult.isOk()) {
+              raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+              return;
+            }
+            const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+            const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
+            try {
+              const response = await fetch(`${baseUrl}connectors`, {
+                headers: {
+                  Authorization: `Bearer ${token2}`,
+                  "Content-Type": "application/json"
+                }
+              });
+              if (!response.ok) {
+                throw new Error(`Failed to fetch connectors: ${response.statusText}`);
+              }
+              const connectorResponse = await response.json();
+              setAvailableConnectors(connectorResponse.data);
+              const documentConnectors = jsonData.connectors;
+              const missingConnectorsList = [];
+              for (const docConnector of documentConnectors) {
+                if (docConnector.source.source === "grafx" && docConnector.source.id) {
+                  const sourceId = docConnector.source.id;
+                  const foundConnector = connectorResponse.data.find((c2) => c2.id === sourceId);
+                  if (!foundConnector) {
+                    const nameMatch = connectorResponse.data.find((c2) => c2.name === docConnector.name);
+                    if (nameMatch) {
+                      docConnector.source.id = nameMatch.id;
+                    } else {
+                      missingConnectorsList.push(docConnector);
+                    }
+                  }
+                }
+              }
+              if (missingConnectorsList.length > 0) {
+                setMissingConnectors(missingConnectorsList);
+                setReplacementModalOpened(true);
+                return;
+              }
+              const updatedContent = JSON.stringify(jsonData);
+              await loadDocument(studioResult.value, updatedContent);
+            } catch (error2) {
+              raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
+            }
+          } else {
+            const studioResult = await getStudio();
+            if (!studioResult.isOk()) {
+              raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+              return;
+            }
+            await loadDocument(studioResult.value, content);
+          }
+        } catch (parseError) {
+          raiseError2(new Error(`Invalid JSON format: ${parseError instanceof Error ? parseError.message : String(parseError)}`));
         }
-        const loadResult = await loadDocumentFromJsonStr(studioResult.value, content);
-        if (!loadResult.isOk()) {
-          raiseError2(new Error(loadResult.error?.message || "Failed to load document"));
-          return;
-        }
-        setIsDownloadUploadModalOpen(false);
       };
       reader.readAsText(file);
     } catch (error2) {
@@ -47271,13 +47408,138 @@ function Toolbar() {
       event.target.value = "";
     }
   };
+  const loadDocument = async (studio2, content) => {
+    const loadResult = await loadDocumentFromJsonStr(studio2, content);
+    if (!loadResult.isOk()) {
+      raiseError2(new Error(loadResult.error?.message || "Failed to load document"));
+      return;
+    }
+    onClose();
+  };
+  const handleConnectorReplacements = async (replacements) => {
+    try {
+      const jsonData = JSON.parse(pendingJsonContent);
+      if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
+        const documentConnectors = jsonData.connectors;
+        for (const docConnector of documentConnectors) {
+          if (docConnector.source.source === "grafx") {
+            const replacement = replacements.find((r3) => r3.original === docConnector.id);
+            if (replacement) {
+              docConnector.source.id = replacement.replacement;
+            }
+          }
+        }
+        const studioResult = await getStudio();
+        if (!studioResult.isOk()) {
+          raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+          return;
+        }
+        const updatedContent = JSON.stringify(jsonData);
+        await loadDocument(studioResult.value, updatedContent);
+      }
+    } catch (error2) {
+      raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
+    }
+  };
+  return /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(jsx_dev_runtime14.Fragment, {
+    children: [
+      /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Modal, {
+        opened,
+        onClose,
+        title: "Document Upload/Download",
+        centered: true,
+        children: /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Stack, {
+          children: [
+            /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Text, {
+              size: "sm",
+              children: "Uploading and downloading only transfers the JSON not assets."
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Group, {
+              children: [
+                /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Button, {
+                  onClick: handleDownload,
+                  color: "blue",
+                  children: /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Group, {
+                    gap: "xs",
+                    children: [
+                      /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(IconDownload, {
+                        size: 20
+                      }, undefined, false, undefined, this),
+                      /* @__PURE__ */ jsx_dev_runtime14.jsxDEV("span", {
+                        children: "Download"
+                      }, undefined, false, undefined, this)
+                    ]
+                  }, undefined, true, undefined, this)
+                }, undefined, false, undefined, this),
+                /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Button, {
+                  onClick: handleUpload,
+                  color: "green",
+                  children: /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Group, {
+                    gap: "xs",
+                    children: [
+                      /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(IconUpload, {
+                        size: 20
+                      }, undefined, false, undefined, this),
+                      /* @__PURE__ */ jsx_dev_runtime14.jsxDEV("span", {
+                        children: "Upload"
+                      }, undefined, false, undefined, this)
+                    ]
+                  }, undefined, true, undefined, this)
+                }, undefined, false, undefined, this)
+              ]
+            }, undefined, true, undefined, this)
+          ]
+        }, undefined, true, undefined, this)
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsx_dev_runtime14.jsxDEV("input", {
+        type: "file",
+        ref: fileInputRef,
+        style: { display: "none" },
+        accept: ".json",
+        onChange: handleFileChange
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(ConnectorReplacementModal, {
+        opened: replacementModalOpened,
+        onClose: () => setReplacementModalOpened(false),
+        missingConnectors,
+        availableConnectors,
+        onReplace: handleConnectorReplacements
+      }, undefined, false, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
+}
+
+// src/components/Toolbar.tsx
+var jsx_dev_runtime15 = __toESM(require_jsx_dev_runtime(), 1);
+function Toolbar() {
+  const [visible2, setVisible] = import_react250.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react250.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react250.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react250.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react250.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react250.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react250.useState(false);
+  const [updateInfo, setUpdateInfo] = import_react250.useState(null);
+  const { effects, raiseError: raiseError2, state, disableToolbar } = useAppStore();
+  const handleTestError = () => {
+    raiseError2(new Error("This is a test error message"));
+  };
+  const setVisibleIntercept = (value) => {
+    if (!state.isToolbarEnabled) {
+      setVisible(false);
+    }
+    setVisible(value);
+  };
+  const handleUploadDownloadClick = () => {
+    setIsDownloadUploadModalOpen(true);
+  };
   const handleDismissUpdate = () => {
     if (updateInfo) {
       localStorage.setItem("toolbarplus_last_notified_version", updateInfo.latestVersion);
     }
     setIsUpdateModalOpen(false);
   };
-  import_react248.useEffect(() => {
+  import_react250.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -47320,14 +47582,14 @@ function Toolbar() {
     setVisible(false);
     setIsLayoutManagerOpen(true);
   };
-  return /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(jsx_dev_runtime13.Fragment, {
+  return /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(jsx_dev_runtime15.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Transition, {
+      /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -47344,80 +47606,80 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
+          children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Group, {
             gap: "lg",
             children: [
-              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
+              /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
+                children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(IconCameraPlus, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
+              /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
+                children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(IconPhotoCog, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
+              /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Tooltip, {
                 label: "Upload/Download Document",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
+                children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleUploadDownloadClick,
-                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(IconArrowsTransferUpDown, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
+              /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Tooltip, {
                 label: "Layout Image Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
+                children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(IconMapBolt, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Tooltip, {
+              /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(ActionIcon, {
+                children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(ActionIcon, {
                   variant: "filled",
                   color: "red",
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconBug, {
+                  children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(IconBug, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
@@ -47426,89 +47688,45 @@ function Toolbar() {
           }, undefined, true, undefined, this)
         }, undefined, false, undefined, this)
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Modal, {
+      /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(DownloadModal, {
         opened: isDownloadUploadModalOpen,
-        onClose: () => setIsDownloadUploadModalOpen(false),
-        title: "Document Upload/Download",
-        centered: true,
-        children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Stack, {
-          children: [
-            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Text, {
-              size: "sm",
-              children: "Uploading and downloading only transfers the JSON not assets."
-            }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
-              children: [
-                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
-                  onClick: handleDownload,
-                  color: "blue",
-                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
-                    gap: "xs",
-                    children: [
-                      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconDownload, {
-                        size: 20
-                      }, undefined, false, undefined, this),
-                      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV("span", {
-                        children: "Download"
-                      }, undefined, false, undefined, this)
-                    ]
-                  }, undefined, true, undefined, this)
-                }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
-                  onClick: handleUpload,
-                  color: "green",
-                  children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
-                    gap: "xs",
-                    children: [
-                      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconUpload, {
-                        size: 20
-                      }, undefined, false, undefined, this),
-                      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV("span", {
-                        children: "Upload"
-                      }, undefined, false, undefined, this)
-                    ]
-                  }, undefined, true, undefined, this)
-                }, undefined, false, undefined, this)
-              ]
-            }, undefined, true, undefined, this)
-          ]
-        }, undefined, true, undefined, this)
+        onClose: () => setIsDownloadUploadModalOpen(false)
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Modal, {
+      /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Stack, {
+        children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Stack, {
           children: [
-            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Text, {
+            /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Text, {
+            /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV("br", {}, undefined, false, undefined, this),
+                /* @__PURE__ */ jsx_dev_runtime15.jsxDEV("br", {}, undefined, false, undefined, this),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }, undefined, true, undefined, this),
-            /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Group, {
+            /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
+                /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }, undefined, false, undefined, this),
-                /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(Button, {
+                /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(IconExternalLink, {
                     size: 16
                   }, undefined, false, undefined, this),
                   color: "blue",
@@ -47519,23 +47737,16 @@ function Toolbar() {
           ]
         }, undefined, true, undefined, this)
       }, undefined, false, undefined, this),
-      /* @__PURE__ */ jsx_dev_runtime13.jsxDEV("input", {
-        type: "file",
-        ref: fileInputRef,
-        style: { display: "none" },
-        accept: ".json",
-        onChange: handleFileChange
-      }, undefined, false, undefined, this),
-      isFramePositionViewerOpen && /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }, undefined, false, undefined, this),
-      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }, undefined, false, undefined, this),
-      isLayoutManagerOpen && /* @__PURE__ */ jsx_dev_runtime13.jsxDEV(LayoutManagerModal, {
+      isLayoutManagerOpen && /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }, undefined, false, undefined, this)
@@ -47544,11 +47755,11 @@ function Toolbar() {
 }
 
 // src/components/AlertsContainer.tsx
-var import_react249 = __toESM(require_react(), 1);
-var jsx_dev_runtime14 = __toESM(require_jsx_dev_runtime(), 1);
+var import_react251 = __toESM(require_react(), 1);
+var jsx_dev_runtime16 = __toESM(require_jsx_dev_runtime(), 1);
 function AlertsContainer() {
   const { alerts, dismissAlert } = useAppStore();
-  import_react249.useEffect(() => {
+  import_react251.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -47563,7 +47774,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Box, {
+  return /* @__PURE__ */ jsx_dev_runtime16.jsxDEV(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -47571,10 +47782,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Stack, {
+    children: /* @__PURE__ */ jsx_dev_runtime16.jsxDEV(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(Alert, {
-        icon: /* @__PURE__ */ jsx_dev_runtime14.jsxDEV(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_dev_runtime16.jsxDEV(Alert, {
+        icon: /* @__PURE__ */ jsx_dev_runtime16.jsxDEV(IconInfoCircle, {
           size: "1rem"
         }, undefined, false, undefined, this),
         title: "Toolbar Error",
@@ -47594,7 +47805,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_dev_runtime15 = __toESM(require_jsx_dev_runtime(), 1);
+var jsx_dev_runtime17 = __toESM(require_jsx_dev_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -47619,16 +47830,16 @@ async function renderToolbar() {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_dev_runtime15.jsxDEV(import_react250.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_dev_runtime17.jsxDEV(import_react252.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_dev_runtime17.jsxDEV(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     }, undefined, false, undefined, this)
   }, undefined, false, undefined, this));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_dev_runtime15.jsxDEV(import_react250.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_dev_runtime17.jsxDEV(import_react252.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_dev_runtime17.jsxDEV(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Toolbar, {}, undefined, false, undefined, this),
-        /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(AlertsContainer, {}, undefined, false, undefined, this)
+        /* @__PURE__ */ jsx_dev_runtime17.jsxDEV(Toolbar, {}, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime17.jsxDEV(AlertsContainer, {}, undefined, false, undefined, this)
       ]
     }, undefined, true, undefined, this)
   }, undefined, false, undefined, this));
@@ -47637,4 +47848,4 @@ setTimeout(() => {
   renderToolbar();
 }, 5000);
 
-//# debugId=9A11F7D126DD128664756E2164756E21
+//# debugId=FAB81940B4300B0664756E2164756E21

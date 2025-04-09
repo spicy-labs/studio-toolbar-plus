@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ActionIcon,
   Box,
@@ -9,16 +9,11 @@ import {
   Modal,
   Text,
   Stack,
-  Select,
 } from "@mantine/core";
 import {
-  IconLayoutFilled,
   IconBug,
   IconMapBolt,
   IconArrowsTransferUpDown,
-  IconDownload,
-  IconUpload,
-  IconSquareToggle,
   IconExternalLink,
   IconCameraPlus,
   IconPhotoCog,
@@ -28,11 +23,7 @@ import { useAppStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayoutModal";
 import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
-import {
-  getCurrentDocumentState,
-  loadDocumentFromJsonStr,
-} from "../studio/documentHandler";
-import { getStudio } from "../studio/studioAdapter";
+import { DownloadModal } from "./DownloadModal";
 
 export function Toolbar() {
   const [visible, setVisible] = useState(false);
@@ -47,8 +38,6 @@ export function Toolbar() {
     currentVersion: string;
     latestVersion: string;
   } | null>(null);
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { effects, raiseError, state, disableToolbar } = useAppStore();
 
@@ -65,97 +54,6 @@ export function Toolbar() {
 
   const handleUploadDownloadClick = () => {
     setIsDownloadUploadModalOpen(true);
-  };
-
-  const handleDownload = async () => {
-    try {
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio"),
-        );
-        return;
-      }
-
-      const documentResult = await getCurrentDocumentState(studioResult.value);
-      if (!documentResult.isOk()) {
-        raiseError(
-          new Error(
-            documentResult.error?.message || "Failed to get document state",
-          ),
-        );
-        return;
-      }
-
-      // Create a blob from the document state
-      const jsonStr = JSON.stringify(documentResult.value, null, 2);
-      const blob = new Blob([jsonStr], { type: "application/json" });
-
-      // Create a download link and trigger it
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "document.json";
-      document.body.appendChild(a);
-      a.click();
-
-      // Clean up
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 0);
-    } catch (error) {
-      raiseError(error instanceof Error ? error : new Error(String(error)));
-    }
-  };
-
-  const handleUpload = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    try {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        const content = e.target?.result as string;
-
-        const studioResult = await getStudio();
-        if (!studioResult.isOk()) {
-          raiseError(
-            new Error(studioResult.error?.message || "Failed to get studio"),
-          );
-          return;
-        }
-
-        const loadResult = await loadDocumentFromJsonStr(
-          studioResult.value,
-          content,
-        );
-        if (!loadResult.isOk()) {
-          raiseError(
-            new Error(loadResult.error?.message || "Failed to load document"),
-          );
-          return;
-        }
-
-        setIsDownloadUploadModalOpen(false);
-      };
-      reader.readAsText(file);
-    } catch (error) {
-      raiseError(error instanceof Error ? error : new Error(String(error)));
-    }
-
-    // Reset the file input
-    if (event.target) {
-      event.target.value = "";
-    }
   };
 
   // Handle dismissing update notification
@@ -344,35 +242,11 @@ export function Toolbar() {
         )}
       </Transition>
 
-      {/* Upload/Download Modal */}
-      <Modal
+      {/* Download Modal */}
+      <DownloadModal
         opened={isDownloadUploadModalOpen}
         onClose={() => setIsDownloadUploadModalOpen(false)}
-        title="Document Upload/Download"
-        centered
-      >
-        <Stack>
-          <Text size="sm">
-            Uploading and downloading only transfers the JSON not assets.
-          </Text>
-
-          <Group>
-            <Button onClick={handleDownload} color="blue">
-              <Group gap="xs">
-                <IconDownload size={20} />
-                <span>Download</span>
-              </Group>
-            </Button>
-
-            <Button onClick={handleUpload} color="green">
-              <Group gap="xs">
-                <IconUpload size={20} />
-                <span>Upload</span>
-              </Group>
-            </Button>
-          </Group>
-        </Stack>
-      </Modal>
+      />
 
       {/* Update Available Modal */}
       <Modal
@@ -404,15 +278,6 @@ export function Toolbar() {
           </Group>
         </Stack>
       </Modal>
-
-      {/* Hidden file input for upload */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: "none" }}
-        accept=".json"
-        onChange={handleFileChange}
-      />
 
       {/* Frame Position Viewer Modal */}
       {isFramePositionViewerOpen && (
