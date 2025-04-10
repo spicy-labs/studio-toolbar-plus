@@ -17,7 +17,7 @@ export type FrameLayoutMap = {
 export type LayoutSize = {
     width:number,
     height:number,
-    aspectRatioPercentage:number,
+    aspectRatio:number,
 }
 
 export type ToolbarEnvelope = {

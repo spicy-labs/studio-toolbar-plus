@@ -18,12 +18,14 @@ import {
   IconCameraPlus,
   IconPhotoCog,
   IconListTree,
+  IconPlaystationSquare,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayoutModal";
 import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
 import { DownloadModal } from "./DownloadModal";
+import { saveLayoutSizingToAction } from "../studio/studioAdapter";
 
 export function Toolbar() {
   const [visible, setVisible] = useState(false);
@@ -34,6 +36,9 @@ export function Toolbar() {
   const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = useState(false);
   const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = useState(false);
   const [isLayoutManagerOpen, setIsLayoutManagerOpen] = useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = useState(false); // State for the confirmation modal
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = useState(false); // State for the success modal
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = useState(""); // State for the dynamic success message
   const [updateInfo, setUpdateInfo] = useState<{
     currentVersion: string;
     latestVersion: string;
@@ -141,6 +146,23 @@ const disableToolbar = appStore(store => store.disableToolbar);
     setIsLayoutManagerOpen(true);
   };
 
+  const handleAspectLock = () => {
+    setIsAspectLockConfirmModalOpen(true); // Open the confirmation modal first
+  };
+
+  const handleConfirmAspectLock = async (value: boolean) => {
+    setIsAspectLockConfirmModalOpen(false); // Close confirmation modal
+    (await saveLayoutSizingToAction(value)).fold(
+      _ => {
+        setAspectLockSuccessMessage(
+          value ? "Success in turning Aspect Ratio On" : "Success in turning Aspect Ratio Off"
+        );
+        setIsAspectLockSuccessModalOpen(true); // Open success modal on success
+      },
+      err => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
+    );
+  };
+
   return (
     <>
       <Transition
@@ -191,7 +213,7 @@ const disableToolbar = appStore(store => store.disableToolbar);
                   <IconPhotoCog size={20} />
                 </ActionIcon>
               </Tooltip>
-              <Tooltip label="Layout Manager" position="bottom" withArrow>
+              {/* <Tooltip label="Layout Manager" position="bottom" withArrow>
                 <ActionIcon
                   variant="filled"
                   color="blue"
@@ -201,7 +223,19 @@ const disableToolbar = appStore(store => store.disableToolbar);
                 >
                   <IconListTree size={20} />
                 </ActionIcon>
+              </Tooltip> */}
+              <Tooltip label="Aspect Lock" position="bottom" withArrow>
+                <ActionIcon
+                  variant="filled"
+                  color="blue"
+                  size="lg"
+                  aria-label="Aspect Lock"
+                  onClick={handleAspectLock}
+                >
+                  <IconPlaystationSquare size={20} />
+                </ActionIcon>
               </Tooltip>
+              
               <Tooltip
                 label="Upload/Download Document"
                 position="bottom"
@@ -305,6 +339,42 @@ const disableToolbar = appStore(store => store.disableToolbar);
           onClose={() => setIsLayoutManagerOpen(false)}
         />
       )}
+
+      {/* Aspect Lock Success Modal */}
+      {/* Aspect Lock Confirmation Modal */}
+      <Modal
+        opened={isAspectLockConfirmModalOpen}
+        onClose={() => setIsAspectLockConfirmModalOpen(false)}
+        title="Confirm Aspect Lock Change"
+        centered
+        size="sm"
+      >
+        <Text>Turn Aspect Lock On?</Text>
+        <Group justify="flex-end" mt="md">
+          <Button variant="default" onClick={() => handleConfirmAspectLock(false)}>No</Button>
+          <Button color="blue" onClick={() => handleConfirmAspectLock(true)}>Yes</Button>
+        </Group>
+      </Modal>
+
+      {/* Aspect Lock Success Modal */}
+      <Modal
+        opened={isAspectLockSuccessModalOpen}
+        onClose={() => {
+          setIsAspectLockSuccessModalOpen(false);
+          setAspectLockSuccessMessage(""); // Reset message on close
+        }}
+        title="Aspect Lock Status"
+        centered
+        size="sm"
+      >
+        <Text>{aspectLockSuccessMessage}</Text>
+        <Group justify="flex-end" mt="md">
+          <Button onClick={() => {
+            setIsAspectLockSuccessModalOpen(false);
+            setAspectLockSuccessMessage(""); // Reset message on close
+          }}>Close</Button>
+        </Group>
+      </Modal>
     </>
   );
 }
