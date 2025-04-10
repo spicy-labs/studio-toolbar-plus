@@ -10,8 +10,11 @@ import {
   Title,
   Checkbox,
   Button,
+  Card,
+  Paper,
+  Collapse,
 } from "@mantine/core";
-import { Tree } from "@mantine/core";
+import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { useAppStore } from "../modalStore";
 import { getAllLayouts, updateLayoutResizable } from "../studio/layoutHandler";
 import { getStudio } from "../studio/studioAdapter";
@@ -40,8 +43,7 @@ interface LayoutNode {
 
 export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps) {
   const [layouts, setLayouts] = useState<LayoutNode[]>([]);
-  const [treeData, setTreeData] = useState<{ value: string; label: string; children?: any[] }[]>([]);
-  const [selectedLayout, setSelectedLayout] = useState<LayoutNode | null>(null);
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [studio, setStudio] = useState<SDK | null>(null);
   const { raiseError } = useAppStore();
 
@@ -82,11 +84,9 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
           percentage: 100, // Default value
         }));
 
-        setLayouts(layoutNodes);
-        
         // Build tree structure
-        const tree = buildLayoutTree(layoutNodes);
-        setTreeData(tree);
+        const rootNodes = buildLayoutTree(layoutNodes);
+        setLayouts(rootNodes);
         
       } catch (error) {
         raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -99,7 +99,7 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
   }, [opened, raiseError]);
 
   // Build tree structure from flat layout list
-  const buildLayoutTree = (layoutNodes: LayoutNode[]) => {
+  const buildLayoutTree = (layoutNodes: LayoutNode[]): LayoutNode[] => {
     // First, create a map of all nodes
     const nodeMap = new Map<string, LayoutNode>();
     layoutNodes.forEach(node => {
@@ -125,50 +125,37 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
       }
     });
 
-    // Convert to the format expected by Mantine Tree
-    return rootNodes.map(convertToTreeNode);
+    return rootNodes;
   };
 
-  // Convert our layout node to Mantine Tree node format
-  const convertToTreeNode = (node: LayoutNode): { value: string; label: string; children?: any[] } => {
-    return {
-      value: node.id,
-      label: node.name,
-      children: node.children ? node.children.map(convertToTreeNode) : undefined
-    };
-  };
-
-  // Handle node selection
-  const handleNodeSelect = (event: React.SyntheticEvent<HTMLUListElement>) => {
-    // Get the selected node value from the event
-    const target = event.target as HTMLElement;
-    const nodeElement = target.closest('[data-tree-value]');
-    if (nodeElement) {
-      const nodeValue = nodeElement.getAttribute('data-tree-value');
-      if (nodeValue) {
-        const layout = layouts.find(l => l.id === nodeValue);
-        if (layout) {
-          setSelectedLayout(layout);
-        }
+  // Toggle node expansion
+  const toggleNodeExpansion = (nodeId: string) => {
+    setExpandedNodes(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(nodeId)) {
+        newSet.delete(nodeId);
+      } else {
+        newSet.add(nodeId);
       }
-    }
+      return newSet;
+    });
   };
 
   // Handle saving changes to a layout
-  const handleSaveLayout = async () => {
-    if (!selectedLayout || !studio) return;
+  const handleSaveLayout = async (layout: LayoutNode) => {
+    if (!studio) return;
 
     try {
       const update: ResizableLayoutPropertiesUpdate = {
-        enabled: { value: selectedLayout.resizable },
-        minWidth: selectedLayout.minWidth !== undefined ? { value: String(selectedLayout.minWidth) } : undefined,
-        maxWidth: selectedLayout.maxWidth !== undefined ? { value: String(selectedLayout.maxWidth) } : undefined,
-        minHeight: selectedLayout.minHeight !== undefined ? { value: String(selectedLayout.minHeight) } : undefined,
-        maxHeight: selectedLayout.maxHeight !== undefined ? { value: String(selectedLayout.maxHeight) } : undefined,
+        enabled: { value: layout.resizable },
+        minWidth: layout.minWidth !== undefined ? { value: String(layout.minWidth) } : undefined,
+        maxWidth: layout.maxWidth !== undefined ? { value: String(layout.maxWidth) } : undefined,
+        minHeight: layout.minHeight !== undefined ? { value: String(layout.minHeight) } : undefined,
+        maxHeight: layout.maxHeight !== undefined ? { value: String(layout.maxHeight) } : undefined,
         // lockAspectRatio is not in the SDK type, so we'll omit it
       };
 
-      const result = await updateLayoutResizable(studio, selectedLayout.id, update);
+      const result = await updateLayoutResizable(studio, layout.id, update);
       
       if (!result.isOk()) {
         raiseError(
@@ -177,23 +164,140 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
         return;
       }
 
-      // Update the local state
-      setLayouts(layouts.map(layout =>
-        layout.id === selectedLayout.id ? selectedLayout : layout
-      ));
+      // Success notification could be added here
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
     }
   };
 
-  // Handle changes to the selected layout properties
-  const handleLayoutChange = (property: keyof LayoutNode, value: any) => {
-    if (!selectedLayout) return;
+  // Handle changes to layout properties
+  const handleLayoutChange = (layoutId: string, property: keyof LayoutNode, value: any) => {
+    // Update the layout in the tree structure
+    const updateLayoutInTree = (nodes: LayoutNode[]): LayoutNode[] => {
+      return nodes.map(node => {
+        if (node.id === layoutId) {
+          return { ...node, [property]: value };
+        }
+        if (node.children) {
+          return { ...node, children: updateLayoutInTree(node.children) };
+        }
+        return node;
+      });
+    };
     
-    setSelectedLayout({
-      ...selectedLayout,
-      [property]: value
-    });
+    setLayouts(updateLayoutInTree(layouts));
+  };
+
+  // Recursive component to render a layout node and its children
+  const LayoutNodeCard = ({ node }: { node: LayoutNode }) => {
+    const isExpanded = expandedNodes.has(node.id);
+    const hasChildren = node.children && node.children.length > 0;
+    
+    return (
+      <Box mb="sm">
+        <Card shadow="sm" p="md" radius="md" withBorder>
+          <Stack>
+            {/* Header with expand/collapse control */}
+            <Group justify="space-between">
+              <Group>
+                {hasChildren && (
+                  <Box
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => toggleNodeExpansion(node.id)}
+                  >
+                    {isExpanded ? <IconChevronDown size={16} /> : <IconChevronRight size={16} />}
+                  </Box>
+                )}
+                <Title order={5}>{node.name}</Title>
+              </Group>
+            </Group>
+            
+            {/* Layout properties */}
+            <Group>
+              <Switch
+                label="Available"
+                checked={node.available}
+                onChange={(event) => handleLayoutChange(node.id, 'available', event.currentTarget.checked)}
+              />
+              
+              <Switch
+                label="Resizable"
+                checked={node.resizable}
+                onChange={(event) => handleLayoutChange(node.id, 'resizable', event.currentTarget.checked)}
+              />
+            </Group>
+            
+            <Group>
+              <NumberInput
+                label="Min Width"
+                value={node.minWidth !== null ? node.minWidth : undefined}
+                onChange={(value) => handleLayoutChange(node.id, 'minWidth', value)}
+                disabled={!node.resizable}
+                style={{ width: '80px' }}
+              />
+              
+              <NumberInput
+                label="Max Width"
+                value={node.maxWidth !== null ? node.maxWidth : undefined}
+                onChange={(value) => handleLayoutChange(node.id, 'maxWidth', value)}
+                disabled={!node.resizable}
+                style={{ width: '80px' }}
+              />
+            
+              <NumberInput
+                label="Min Height"
+                value={node.minHeight !== null ? node.minHeight : undefined}
+                onChange={(value) => handleLayoutChange(node.id, 'minHeight', value)}
+                disabled={!node.resizable}
+                style={{ width: '80px' }}
+              />
+              
+              <NumberInput
+                label="Max Height"
+                value={node.maxHeight !== null ? node.maxHeight : undefined}
+                onChange={(value) => handleLayoutChange(node.id, 'maxHeight', value)}
+                disabled={!node.resizable}
+                style={{ width: '80px' }}
+              />
+            </Group>
+            
+            <Checkbox
+              label="Lock Aspect Ratio"
+              checked={node.lockAspectRatio}
+              onChange={(event) => handleLayoutChange(node.id, 'lockAspectRatio', event.currentTarget.checked)}
+              disabled={!node.resizable}
+            />
+            
+            {node.lockAspectRatio && (
+              <NumberInput
+                label="Percentage"
+                value={node.percentage}
+                onChange={(value) => handleLayoutChange(node.id, 'percentage', value)}
+                min={0}
+                max={50}
+                step={1}
+                style={{ width: '60px' }}
+              />
+            )}
+            
+            <Group justify="flex-end" mt="xs">
+              <Button onClick={() => handleSaveLayout(node)} color="blue" size="sm">
+                Save Changes
+              </Button>
+            </Group>
+          </Stack>
+        </Card>
+        
+        {/* Render children if expanded */}
+        {hasChildren && isExpanded && (
+          <Box ml={30} mt="xs">
+            {node.children!.map(childNode => (
+              <LayoutNodeCard key={childNode.id} node={childNode} />
+            ))}
+          </Box>
+        )}
+      </Box>
+    );
   };
 
   return (
@@ -204,95 +308,16 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
       size="xl"
       fullScreen
     >
-      <Group align="flex-start" style={{ height: "calc(100vh - 120px)" }}>
-        {/* Left side - Tree */}
-        <Box style={{ width: "30%", height: "100%", overflowY: "auto" }}>
-          <Title order={4} mb="md">Layouts</Title>
-          <Tree
-            data={treeData}
-            onSelect={handleNodeSelect}
-          />
-        </Box>
-
-        {/* Right side - Layout properties */}
-        <Box style={{ width: "70%", height: "100%", overflowY: "auto" }}>
-          {selectedLayout ? (
-            <Stack>
-              <Title order={4}>{selectedLayout.name}</Title>
-              
-              <Group>
-                <Switch
-                  label="Available"
-                  checked={selectedLayout.available}
-                  onChange={(event) => handleLayoutChange('available', event.currentTarget.checked)}
-                />
-                
-                <Switch
-                  label="Resizable"
-                  checked={selectedLayout.resizable}
-                  onChange={(event) => handleLayoutChange('resizable', event.currentTarget.checked)}
-                />
-              </Group>
-              
-              <Group grow>
-                <NumberInput
-                  label="Min Width"
-                  value={selectedLayout.minWidth !== null ? selectedLayout.minWidth : undefined}
-                  onChange={(value) => handleLayoutChange('minWidth', value)}
-                  disabled={!selectedLayout.resizable}
-                />
-                
-                <NumberInput
-                  label="Max Width"
-                  value={selectedLayout.maxWidth !== null ? selectedLayout.maxWidth : undefined}
-                  onChange={(value) => handleLayoutChange('maxWidth', value)}
-                  disabled={!selectedLayout.resizable}
-                />
-              </Group>
-              
-              <Group grow>
-                <NumberInput
-                  label="Min Height"
-                  value={selectedLayout.minHeight !== null ? selectedLayout.minHeight : undefined}
-                  onChange={(value) => handleLayoutChange('minHeight', value)}
-                  disabled={!selectedLayout.resizable}
-                />
-                
-                <NumberInput
-                  label="Max Height"
-                  value={selectedLayout.maxHeight !== null ? selectedLayout.maxHeight : undefined}
-                  onChange={(value) => handleLayoutChange('maxHeight', value)}
-                  disabled={!selectedLayout.resizable}
-                />
-              </Group>
-              
-              <Checkbox
-                label="Lock Aspect Ratio"
-                checked={selectedLayout.lockAspectRatio}
-                onChange={(event) => handleLayoutChange('lockAspectRatio', event.currentTarget.checked)}
-                disabled={!selectedLayout.resizable}
-              />
-              
-              <NumberInput
-                label="Percentage"
-                value={selectedLayout.percentage}
-                onChange={(value) => handleLayoutChange('percentage', value)}
-                min={1}
-                max={100}
-                step={1}
-              />
-              
-              <Group justify="flex-end" mt="xl">
-                <Button onClick={handleSaveLayout} color="blue">
-                  Save Changes
-                </Button>
-              </Group>
-            </Stack>
-          ) : (
-            <Text>Select a layout to view and edit its properties</Text>
-          )}
-        </Box>
-      </Group>
+      <Box style={{ height: "calc(100vh - 120px)", overflowY: "auto", padding: "16px" }}>
+        <Title order={4} mb="md">Layouts</Title>
+        
+        {/* Render the layout tree */}
+        <Stack>
+          {layouts.map(node => (
+            <LayoutNodeCard key={node.id} node={node} />
+          ))}
+        </Stack>
+      </Box>
     </Modal>
   );
 }

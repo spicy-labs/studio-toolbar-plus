@@ -1,26 +1,44 @@
 import { Modal, Stack, MultiSelect, Group, Button } from "@mantine/core";
 import type React from "react";
-import { useAppStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 
 export const AddDependentModal: React.FC = () => {
-  const { state, effects, raiseError } = useAppStore();
+  const raiseError = appStore((state) => state.raiseError);
+  const setIsOpen = appStore((state) => state.effects.modal.dependentModal.setIsOpen);
+  const setCurrentGroupIndex = appStore((state) => state.effects.modal.dependentModal.setCurrentGroupIndex);
+  const setCurrentSelectedVariables = appStore((state) => state.effects.modal.dependentModal.setCurrentSelectedVariables);
+  const addDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.addDependentGroup);
+  const updateDependent = appStore((state) => state.effects.studio.layoutImageMapping.updateDependent);
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const currentSelectedVariables = appStore(
+    (state) => state.state.modal.dependentModal.currentSelectedVariables
+  );
+  const currentImageVariableId = appStore(
+    (state) => state.state.modal.dependentModal.currentImageVariableId
+  );
+  const currentSelectedMapId = appStore(
+    (state) => state.state.modal.currentSelectedMapId
+  );
+  const currentGroupIndex = appStore(
+    (state) => state.state.modal.dependentModal.currentGroupIndex
+  );
+  const isOpen = appStore((state) => state.state.modal.dependentModal.isOpen);
 
   const onClose = () => {
-    effects.modal.dependentModal.setIsOpen(false);
-    effects.modal.dependentModal.setCurrentGroupIndex(null);
-    effects.modal.dependentModal.setCurrentSelectedVariables([]);
+    setIsOpen(false);
+    setCurrentGroupIndex(null);
+    setCurrentSelectedVariables([]);
   };
 
   // Function to get variable details by ID
   const getVariableById = (id: string) => {
-    return state.studio.document.variables.find((v) => v.id === id);
+    return variables.find((v) => v.id === id);
   };
 
   const addDependents = () => {
-    const selectedVariables =
-      state.modal.dependentModal.currentSelectedVariables;
-    const imageVariableId = state.modal.dependentModal.currentImageVariableId;
-    const mapId = state.modal.currentSelectedMapId;
+    const selectedVariables = currentSelectedVariables;
+    const imageVariableId = currentImageVariableId;
+    const mapId = currentSelectedMapId;
     if (!mapId || !imageVariableId) {
       raiseError(
         new Error(
@@ -30,7 +48,7 @@ export const AddDependentModal: React.FC = () => {
       return;
     }
 
-    const currentGroupIndex = state.modal.dependentModal.currentGroupIndex;
+    const groupIndex = currentGroupIndex;
 
     const dependents = selectedVariables.map((variableId) => {
       const variable = getVariableById(variableId);
@@ -56,18 +74,18 @@ export const AddDependentModal: React.FC = () => {
       }
     });
 
-    if (currentGroupIndex === null) {
-      effects.studio.layoutImageMapping.addDependentGroup({
+    if (groupIndex === null) {
+      addDependentGroup({
         mapId,
         imageVariableId,
         dependents,
       });
     } else {
       dependents.forEach((dependent) => {
-        effects.studio.layoutImageMapping.updateDependent({
-          mapId: state.modal.currentSelectedMapId || "",
+        updateDependent({
+          mapId: currentSelectedMapId || "",
           imageVariableId,
-          dependentGroupIndex: currentGroupIndex,
+          dependentGroupIndex: groupIndex,
           dependent,
         });
       });
@@ -77,7 +95,7 @@ export const AddDependentModal: React.FC = () => {
 
   return (
     <Modal
-      opened={state.modal.dependentModal.isOpen}
+      opened={isOpen}
       onClose={onClose}
       title="Add Dependent Variable"
       centered
@@ -86,7 +104,7 @@ export const AddDependentModal: React.FC = () => {
         <MultiSelect
           label="Select Variable"
           placeholder="Choose a variable"
-          data={state.studio.document.variables
+          data={variables
             .filter(
               (variable) =>
                 variable.type !== "image" && variable.type !== "shortText",
@@ -95,8 +113,8 @@ export const AddDependentModal: React.FC = () => {
               value: variable.id,
               label: variable.name,
             }))}
-          value={state.modal.dependentModal.currentSelectedVariables}
-          onChange={effects.modal.dependentModal.setCurrentSelectedVariables}
+          value={currentSelectedVariables}
+          onChange={setCurrentSelectedVariables}
           searchable
         />
 
@@ -107,8 +125,7 @@ export const AddDependentModal: React.FC = () => {
           <Button
             onClick={addDependents}
             disabled={
-              effects.modal.dependentModal.setCurrentSelectedVariables.length ==
-              0
+              currentSelectedVariables.length === 0
             }
           >
             Add

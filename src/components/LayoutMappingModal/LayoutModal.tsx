@@ -1,5 +1,5 @@
 import { type LayoutMap } from "../../types/layoutConfigTypes";
-import { useAppStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 import {
   loadDocFromDoc,
   loadLayoutImageMapFromDoc,
@@ -39,17 +39,29 @@ type LayoutImageMappingModalProps = {
 export const LayoutImageMappingModal: React.FC<
   LayoutImageMappingModalProps
 > = ({ onExportCSV = () => console.log("Export CSV clicked") }) => {
-  const { state, effects: events, raiseError, enableToolbar } = useAppStore();
+  // Replace broad state access with targeted selectors
+  const events = appStore(state => state.effects);
+  const raiseError = appStore(state => state.raiseError);
+  const enableToolbar = appStore(state => state.enableToolbar);
+  
+  // Select only the specific state slices needed
+  const document = appStore(state => state.state.studio.document);
+  const variables = appStore(state => state.state.studio.document.variables);
+  const isLayoutConfigLoaded = appStore(state => state.state.studio.isLayoutConfigLoaded);
+  const isDocumentLoaded = appStore(state => state.state.studio.isDocumentLoaded);
+  const isModalVisible = appStore(state => state.state.modal.isModalVisible);
+  const layoutImageMapping = appStore(state => state.state.studio.layoutImageMapping);
+  const currentSelectedMapId = appStore(state => state.state.modal.currentSelectedMapId);
   const [validationReport, setValidationReport] =
     useState<ValidationReport | null>(null);
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
 
-  // Filter image variables from documentState
+  // Filter image variables from variables state
   const imageVariables = useMemo(() => {
-    return state.studio.document.variables.filter(
+    return variables.filter(
       (variable) => variable.type === "image",
     );
-  }, [state.studio.document.variables]);
+  }, [variables]);
 
   // Transform image variables into format required by Mantine Select
   const imageVariableOptions = useMemo(() => {
@@ -63,8 +75,8 @@ export const LayoutImageMappingModal: React.FC<
   useEffect(() => {
     const loadConfig = async () => {
       if (
-        !state.studio.isLayoutConfigLoaded &&
-        !state.studio.isDocumentLoaded
+        !isLayoutConfigLoaded &&
+        !isDocumentLoaded
       ) {
         const resultDoc = await loadDocFromDoc();
         const resultLayoutMap = await loadLayoutImageMapFromDoc();
@@ -125,10 +137,10 @@ export const LayoutImageMappingModal: React.FC<
       }
     };
 
-    if (state.modal.isModalVisible) loadConfig();
-  }, [state.modal.isModalVisible]);
+    if (isModalVisible) loadConfig();
+  }, [isModalVisible]);
 
-  if (!state.modal.isModalVisible) return null;
+  if (!isModalVisible) return null;
 
   const handleClose = () => {
     events.studio.document.unload();
@@ -141,14 +153,14 @@ export const LayoutImageMappingModal: React.FC<
   const handleSave = async () => {
     // Save the layout image mapping to the document
     const saveToDocResult = await saveLayoutImageMapToDoc(
-      state.studio.layoutImageMapping,
+      layoutImageMapping,
     );
 
     saveToDocResult
       .map(async (_) => {
         return await saveLayoutMappingToAction(
-          state.studio.layoutImageMapping,
-          state.studio.document,
+          layoutImageMapping,
+          document,
         );
       })
       .fold(handleClose, (e) => (e ? raiseError(e) : e));
@@ -220,19 +232,19 @@ export const LayoutImageMappingModal: React.FC<
         }}
         centered
         fullScreen
-        opened={state.modal.isModalVisible}
+        opened={isModalVisible}
         onClose={handleClose}
         withCloseButton={false}
       >
         <ModalHeader />
 
         <Content>
-          {!state.studio.isLayoutConfigLoaded ||
-          !state.studio.isDocumentLoaded ? (
+          {!isLayoutConfigLoaded ||
+          !isDocumentLoaded ? (
             <LoadingSpinner />
           ) : (
             <Stack h="100%" gap="md">
-              {state.studio.layoutImageMapping.map((config, index) => (
+              {layoutImageMapping.map((config, index) => (
                 <LayoutConfigSection
                   key={index}
                   mapConfig={config}
@@ -240,7 +252,7 @@ export const LayoutImageMappingModal: React.FC<
 
                   // onAddDependent={(configId, variableId) => {
                   //   setCurrentConfigIndex(
-                  //     state.studio.layoutImageMapping.findIndex(
+                  //     layoutImageMapping.findIndex(
                   //       (c) => c.id === configId,
                   //     ),
                   //   );
@@ -258,8 +270,8 @@ export const LayoutImageMappingModal: React.FC<
 
       <AddMappingImageVariableModal
         currentMapConfig={
-          state.studio.layoutImageMapping.find(
-            (config) => config.id === state.modal.currentSelectedMapId,
+          layoutImageMapping.find(
+            (config) => config.id === currentSelectedMapId,
           ) || null
         }
       />

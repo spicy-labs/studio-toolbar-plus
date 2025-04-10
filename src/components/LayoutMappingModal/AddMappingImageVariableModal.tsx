@@ -1,6 +1,6 @@
 import { Modal, Stack, MultiSelect, Group, Button } from "@mantine/core";
 import type React from "react";
-import { useAppStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 import { useMemo } from "react";
 import type { LayoutMap } from "../../types/layoutConfigTypes";
 
@@ -11,11 +11,28 @@ interface AddMappingImageVariableModalProps {
 export const AddMappingImageVariableModal: React.FC<
   AddMappingImageVariableModalProps
 > = ({ currentMapConfig }) => {
-  const { state, effects } = useAppStore();
+  // Modal effects
+  const setIsImageVariableMappingModalOpen = appStore(
+    (state) => state.effects.modal.setIsImageVariableMappingModalOpen
+  );
+  const setCurrentAddImageMappingSelectedVariables = appStore(
+    (state) => state.effects.modal.setCurrentAddImageMappingSelectedVariables
+  );
+  const addImageVariable = appStore(
+    (state) => state.effects.studio.layoutImageMapping.addImageVariable
+  );
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
+  const currentAddImageMappingSelectedVariables = appStore(
+    (state) => state.state.modal.currentAddImageMappingSelectedVariables
+  );
+  const isAddImageVariableMappingModalOpen = appStore(
+    (state) => state.state.modal.isAddImageVariableMappingModalOpen
+  );
 
   const possibleVariableValues = useMemo(() => {
     // Get all image variables
-    const allImageVariables = state.studio.document.variables
+    const allImageVariables = variables
       .filter((variable) => variable.type === "image")
       .map((variable) => ({
         value: variable.id,
@@ -27,21 +44,21 @@ export const AddMappingImageVariableModal: React.FC<
       }));
 
     return allImageVariables;
-  }, [state.studio.document.variables, currentMapConfig]);
+  }, [variables, currentMapConfig]);
 
   const onClose = () => {
-    effects.modal.setIsImageVariableMappingModalOpen(false);
-    effects.modal.setCurrentAddImageMappingSelectedVariables([]);
+    setIsImageVariableMappingModalOpen(false);
+    setCurrentAddImageMappingSelectedVariables([]);
   };
 
   const addImageVariables = () => {
-    const mapId = state.modal.currentSelectedMapId;
+    const mapId = currentSelectedMapId;
 
     if (mapId == null) return;
 
-    state.modal.currentAddImageMappingSelectedVariables.forEach(
+    currentAddImageMappingSelectedVariables.forEach(
       (variableId) => {
-        effects.studio.layoutImageMapping.addImageVariable({
+        addImageVariable({
           mapId: mapId,
           imageVariable: {
             id: variableId,
@@ -55,7 +72,7 @@ export const AddMappingImageVariableModal: React.FC<
 
   return (
     <Modal
-      opened={state.modal.isAddImageVariableMappingModalOpen}
+      opened={isAddImageVariableMappingModalOpen}
       onClose={onClose}
       title="Add Image Variables"
       centered
@@ -65,8 +82,8 @@ export const AddMappingImageVariableModal: React.FC<
           label="Select Image Variable"
           placeholder="Choose an image variable"
           data={possibleVariableValues}
-          value={state.modal.currentAddImageMappingSelectedVariables}
-          onChange={effects.modal.setCurrentAddImageMappingSelectedVariables}
+          value={currentAddImageMappingSelectedVariables}
+          onChange={setCurrentAddImageMappingSelectedVariables}
           searchable
         />
 
@@ -77,7 +94,7 @@ export const AddMappingImageVariableModal: React.FC<
           <Button
             onClick={addImageVariables}
             disabled={
-              state.modal.currentAddImageMappingSelectedVariables.length == 0
+              currentAddImageMappingSelectedVariables.length == 0
             }
           >
             Add
