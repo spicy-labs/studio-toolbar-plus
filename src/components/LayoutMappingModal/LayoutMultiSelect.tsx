@@ -13,7 +13,7 @@ import type { TreeNodeData as MantineTreeNodeData } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
 import type { LayoutMap } from "../../types/layoutConfigTypes.ts";
 import type { Layout } from "../../types/docStateTypes.ts";
-import { useAppStore, appStore } from "../../modalStore.ts";
+import { appStore } from "../../modalStore.ts";
 
 // Extended TreeNodeData with disabled property
 interface TreeNodeData extends MantineTreeNodeData {

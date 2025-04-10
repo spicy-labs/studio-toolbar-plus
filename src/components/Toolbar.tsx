@@ -19,7 +19,7 @@ import {
   IconPhotoCog,
   IconListTree,
 } from "@tabler/icons-react";
-import { useAppStore } from "../modalStore";
+import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayoutModal";
 import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
@@ -38,15 +38,17 @@ export function Toolbar() {
     currentVersion: string;
     latestVersion: string;
   } | null>(null);
-
-  const { effects, raiseError, state, disableToolbar } = useAppStore();
+const effects = appStore(store => store.effects);
+const raiseError = appStore(store => store.raiseError);
+const isToolbarEnabled = appStore(store => store.state.isToolbarEnabled);
+const disableToolbar = appStore(store => store.disableToolbar);
 
   const handleTestError = () => {
     raiseError(new Error("This is a test error message"));
   };
 
   const setVisibleIntercept = (value: boolean) => {
-    if (!state.isToolbarEnabled) {
+    if (!isToolbarEnabled) {
       setVisible(false);
     }
     setVisible(value);
@@ -189,7 +191,7 @@ export function Toolbar() {
                   <IconPhotoCog size={20} />
                 </ActionIcon>
               </Tooltip>
-              {/* <Tooltip label="Layout Manager" position="bottom" withArrow>
+              <Tooltip label="Layout Manager" position="bottom" withArrow>
                 <ActionIcon
                   variant="filled"
                   color="blue"
@@ -199,7 +201,7 @@ export function Toolbar() {
                 >
                   <IconListTree size={20} />
                 </ActionIcon>
-              </Tooltip> */}
+              </Tooltip>
               <Tooltip
                 label="Upload/Download Document"
                 position="bottom"

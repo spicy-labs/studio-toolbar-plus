@@ -10,7 +10,7 @@ import {
   IconDownload,
   IconUpload,
 } from "@tabler/icons-react";
-import { useAppStore } from "../modalStore";
+import { appStore } from "../modalStore";
 import {
   getCurrentDocumentState,
   loadDocumentFromJsonStr,
@@ -27,7 +27,7 @@ interface DownloadModalProps {
 
 export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { raiseError } = useAppStore();
+  const raiseError = appStore(store => store.raiseError);
   const [replacementModalOpened, setReplacementModalOpened] = useState(false);
   const [missingConnectors, setMissingConnectors] = useState<DocumentConnector[]>([]);
   const [availableConnectors, setAvailableConnectors] = useState<Connector[]>([]);

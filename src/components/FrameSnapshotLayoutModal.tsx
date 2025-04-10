@@ -16,7 +16,7 @@ import {
 import { IconTrash } from "@tabler/icons-react";
 import { loadFrameLayoutMapsFromDoc, removeFrameLayouyMap, saveImageSizingMappingToAction } from "../studio/studioAdapter";
 import { getAllLayouts } from "../studio/layoutHandler";
-import { useAppStore } from "../modalStore";
+import { appStore } from "../modalStore";
 import type { FrameLayoutMap } from "../types/toolbarEnvelope";
 // Enhanced type with layout name
 interface EnhancedFrameLayoutMap extends FrameLayoutMap {
@@ -35,7 +35,7 @@ export function FrameSnapshotLayoutModal({
   const [frameLayoutMaps, setFrameLayoutMaps] = useState<EnhancedFrameLayoutMap[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);
-  const { raiseError } = useAppStore();
+  const raiseError = appStore(store => store.raiseError);
 
   const loadFrameLayouts = async () => {
     setIsLoading(true);

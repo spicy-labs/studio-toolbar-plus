@@ -15,7 +15,7 @@ import {
   Collapse,
 } from "@mantine/core";
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
-import { useAppStore } from "../modalStore";
+import { appStore } from "../modalStore";
 import { getAllLayouts, updateLayoutResizable } from "../studio/layoutHandler";
 import { getStudio } from "../studio/studioAdapter";
 import type SDK from "@chili-publish/studio-sdk";
@@ -45,7 +45,7 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
   const [layouts, setLayouts] = useState<LayoutNode[]>([]);
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [studio, setStudio] = useState<SDK | null>(null);
-  const { raiseError } = useAppStore();
+  const raiseError = appStore(store => store.raiseError);
 
   // Fetch layouts when modal opens
   useEffect(() => {

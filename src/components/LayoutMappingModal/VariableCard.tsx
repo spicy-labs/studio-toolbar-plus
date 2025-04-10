@@ -22,7 +22,7 @@ import type {
   LayoutMap,
   DependentVar,
 } from "../../types/layoutConfigTypes";
-import { useAppStore, appStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 import { AddDependentModal } from "./AddDependentModal";
 import { DependentGroup } from "./DependentGroup";
 
