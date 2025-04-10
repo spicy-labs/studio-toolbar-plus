@@ -43,7 +43,6 @@ interface LayoutNode {
 
 export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps) {
   const [layouts, setLayouts] = useState<LayoutNode[]>([]);
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [studio, setStudio] = useState<SDK | null>(null);
   const raiseError = appStore(store => store.raiseError);
 
@@ -84,9 +83,9 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
           percentage: 100, // Default value
         }));
 
-        // Build tree structure
-        const rootNodes = buildLayoutTree(layoutNodes);
-        setLayouts(rootNodes);
+        // Sort layouts in a meaningful order (parent layouts first, then children)
+        const sortedLayouts = sortLayouts(layoutNodes);
+        setLayouts(sortedLayouts);
         
       } catch (error) {
         raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -98,48 +97,52 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
     }
   }, [opened, raiseError]);
 
-  // Build tree structure from flat layout list
-  const buildLayoutTree = (layoutNodes: LayoutNode[]): LayoutNode[] => {
-    // First, create a map of all nodes
+  // Sort layouts in a meaningful order (parent layouts first, then children)
+  const sortLayouts = (layoutNodes: LayoutNode[]): LayoutNode[] => {
+    // Create a map for quick parent lookup
     const nodeMap = new Map<string, LayoutNode>();
     layoutNodes.forEach(node => {
-      nodeMap.set(node.id, { ...node, children: [] });
+      nodeMap.set(node.id, node);
     });
-
-    // Then build the tree structure
-    const rootNodes: LayoutNode[] = [];
     
-    nodeMap.forEach(node => {
-      if (!node.parentId) {
-        // This is a root node
-        rootNodes.push(node);
-      } else {
-        // This is a child node
-        const parent = nodeMap.get(node.parentId);
-        if (parent) {
-          if (!parent.children) {
-            parent.children = [];
-          }
-          parent.children.push(node);
-        }
+    // Create a map to track depth of each node
+    const depthMap = new Map<string, number>();
+    
+    // Calculate depth for each node
+    const getDepth = (nodeId: string): number => {
+      if (depthMap.has(nodeId)) {
+        return depthMap.get(nodeId)!;
       }
+      
+      const node = nodeMap.get(nodeId);
+      if (!node || !node.parentId) {
+        depthMap.set(nodeId, 0);
+        return 0;
+      }
+      
+      const parentDepth = getDepth(node.parentId);
+      const depth = parentDepth + 1;
+      depthMap.set(nodeId, depth);
+      return depth;
+    };
+    
+    // Calculate depth for all nodes
+    layoutNodes.forEach(node => getDepth(node.id));
+    
+    // Sort by depth and then by name
+    return [...layoutNodes].sort((a, b) => {
+      const depthA = depthMap.get(a.id) || 0;
+      const depthB = depthMap.get(b.id) || 0;
+      
+      if (depthA !== depthB) {
+        return depthA - depthB;
+      }
+      
+      // If same depth, sort alphabetically by name
+      return a.name.localeCompare(b.name);
     });
-
-    return rootNodes;
   };
 
-  // Toggle node expansion
-  const toggleNodeExpansion = (nodeId: string) => {
-    setExpandedNodes(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(nodeId)) {
-        newSet.delete(nodeId);
-      } else {
-        newSet.add(nodeId);
-      }
-      return newSet;
-    });
-  };
 
   // Handle saving changes to a layout
   const handleSaveLayout = async (layout: LayoutNode) => {
@@ -172,44 +175,40 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
 
   // Handle changes to layout properties
   const handleLayoutChange = (layoutId: string, property: keyof LayoutNode, value: any) => {
-    // Update the layout in the tree structure
-    const updateLayoutInTree = (nodes: LayoutNode[]): LayoutNode[] => {
-      return nodes.map(node => {
-        if (node.id === layoutId) {
-          return { ...node, [property]: value };
-        }
-        if (node.children) {
-          return { ...node, children: updateLayoutInTree(node.children) };
-        }
-        return node;
-      });
-    };
-    
-    setLayouts(updateLayoutInTree(layouts));
+    // Update the layout in the flat list
+    setLayouts(layouts.map(node =>
+      node.id === layoutId ? { ...node, [property]: value } : node
+    ));
   };
 
-  // Recursive component to render a layout node and its children
-  const LayoutNodeCard = ({ node }: { node: LayoutNode }) => {
-    const isExpanded = expandedNodes.has(node.id);
-    const hasChildren = node.children && node.children.length > 0;
+  // Component to render a layout card
+  const LayoutCard = ({ node }: { node: LayoutNode }) => {
+    // Get parent name if available
+    const getParentInfo = () => {
+      if (!node.parentId) return null;
+      
+      const parent = layouts.find(layout => layout.id === node.parentId);
+      if (!parent) return null;
+      
+      return <Text size="sm" color="dimmed">Parent: {parent.name}</Text>;
+    };
+    
+    // Calculate indentation based on parent relationships
+    const getIndentation = () => {
+      const parent = layouts.find(layout => layout.id === node.parentId);
+      return parent ? 20 : 0; // Indent child layouts
+    };
     
     return (
-      <Box mb="sm">
+      <Box mb="sm" ml={getIndentation()}>
         <Card shadow="sm" p="md" radius="md" withBorder>
           <Stack>
-            {/* Header with expand/collapse control */}
+            {/* Header */}
             <Group justify="space-between">
-              <Group>
-                {hasChildren && (
-                  <Box
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => toggleNodeExpansion(node.id)}
-                  >
-                    {isExpanded ? <IconChevronDown size={16} /> : <IconChevronRight size={16} />}
-                  </Box>
-                )}
+              <Stack  gap="xs">
                 <Title order={5}>{node.name}</Title>
-              </Group>
+                {getParentInfo()}
+              </Stack>
             </Group>
             
             {/* Layout properties */}
@@ -287,15 +286,6 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
             </Group>
           </Stack>
         </Card>
-        
-        {/* Render children if expanded */}
-        {hasChildren && isExpanded && (
-          <Box ml={30} mt="xs">
-            {node.children!.map(childNode => (
-              <LayoutNodeCard key={childNode.id} node={childNode} />
-            ))}
-          </Box>
-        )}
       </Box>
     );
   };
@@ -311,10 +301,10 @@ export function LayoutManagerModal({ opened, onClose }: LayoutManagerModalProps)
       <Box style={{ height: "calc(100vh - 120px)", overflowY: "auto", padding: "16px" }}>
         <Title order={4} mb="md">Layouts</Title>
         
-        {/* Render the layout tree */}
+        {/* Render the flat layout stack */}
         <Stack>
           {layouts.map(node => (
-            <LayoutNodeCard key={node.id} node={node} />
+            <LayoutCard key={node.id} node={node} />
           ))}
         </Stack>
       </Box>
