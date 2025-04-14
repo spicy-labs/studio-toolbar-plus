@@ -1,3 +1,14 @@
+## 0.5.1
+
+### ✨ Added
+
+- Add aspect ratio lock
+
+### 🐛 Fixed
+
+- Fix issues with rounding numbers
+- Fix toolbar loading before document (resolves actions not firing)
+
 ## 0.4.0
 
 ### ✨ Added
@@ -21,4 +32,3 @@
 ### 🐛 Fixed
 
 - Issue with adding dependency groups due to invalid mapping
-

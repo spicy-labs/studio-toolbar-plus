@@ -22590,7 +22590,7 @@ var unitlessKeys = {
 var f = typeof process != "undefined" && process.env !== undefined && (process.env.REACT_APP_SC_ATTR || process.env.SC_ATTR) || "data-styled";
 var m = "active";
 var y = "data-styled-version";
-var v = "6.1.17";
+var v = "6.1.16";
 var g = `/*!sc*/
 `;
 var S = typeof window != "undefined" && "HTMLElement" in window;
@@ -22601,9 +22601,7 @@ var P = function(t, n) {
   if (true) {
     var o2 = n ? ' with the id of "'.concat(n, '"') : "", s2 = "The component ".concat(t).concat(o2, ` has been created dynamically.
 `) + `You may see this warning because you've called styled inside another component.
-To resolve this only create new StyledComponents outside of any render method and function component.
-See https://styled-components.com/docs/basics#define-styled-components-outside-of-the-render-method for more info.
-`, i2 = console.error;
+To resolve this only create new StyledComponents outside of any render method and function component.`, i2 = console.error;
     try {
       var a2 = true;
       console.error = function(t2) {
@@ -31416,7 +31414,7 @@ var ScrollArea = factory((_props, ref) => {
       (scrollbars === "xy" || scrollbars === "x") && /* @__PURE__ */ import_jsx_runtime47.jsx(ScrollAreaScrollbar, {
         ...getStyles2("scrollbar"),
         orientation: "horizontal",
-        "data-hidden": type === "never" || offsetScrollbars === "present" && !horizontalThumbVisible ? true : undefined,
+        "data-hidden": type === "never" || !horizontalThumbVisible || undefined,
         forceMount: true,
         onMouseEnter: () => setScrollbarHovered(true),
         onMouseLeave: () => setScrollbarHovered(false),
@@ -31425,7 +31423,7 @@ var ScrollArea = factory((_props, ref) => {
       (scrollbars === "xy" || scrollbars === "y") && /* @__PURE__ */ import_jsx_runtime47.jsx(ScrollAreaScrollbar, {
         ...getStyles2("scrollbar"),
         orientation: "vertical",
-        "data-hidden": type === "never" || offsetScrollbars === "present" && !verticalThumbVisible ? true : undefined,
+        "data-hidden": type === "never" || !verticalThumbVisible || undefined,
         forceMount: true,
         onMouseEnter: () => setScrollbarHovered(true),
         onMouseLeave: () => setScrollbarHovered(false),
@@ -37912,7 +37910,7 @@ var MultiSelect = factory((_props, ref) => {
     if (selectFirstOptionOnChange) {
       combobox.selectFirstOption();
     }
-  }, [selectFirstOptionOnChange, _searchValue]);
+  }, [selectFirstOptionOnChange, _value]);
   const clearButton = /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.ClearButton, {
     ...clearButtonProps,
     onClear: () => {
@@ -40030,7 +40028,7 @@ var Select = factory((_props, ref) => {
     if (selectFirstOptionOnChange) {
       combobox.selectFirstOption();
     }
-  }, [selectFirstOptionOnChange, search]);
+  }, [selectFirstOptionOnChange, _value]);
   import_react218.useEffect(() => {
     if (value === null) {
       handleSearchChange("");
@@ -48129,12 +48127,8 @@ var theme = createTheme({
   colors: {}
 });
 window.test = () => console.log(appStore.getState());
-window.customToolbar = () => {
-  renderToolbar();
-};
-async function renderToolbar() {
-  const studioResult = await getStudio();
-  studioResult.onSuccess((studio2) => setEnableActions(studio2, true));
+async function renderToolbar(studio2) {
+  console.log("Rendering toolbar...");
   if (!window.rootInstance) {
     const modalContainer = document.createElement("div");
     modalContainer.id = "config-modal-root";
@@ -48161,8 +48155,24 @@ async function renderToolbar() {
     }, undefined, true, undefined, this)
   }, undefined, false, undefined, this));
 }
-setTimeout(() => {
-  renderToolbar();
-}, 5000);
+async function checkStudioExist() {
+  const studioResult = await getStudio();
+  studioResult.fold((studio2) => {
+    studio2.config.events.onParagraphStylesChanged.registerCallback(() => {
+      console.log("Studio found, rendering toolbar...");
+      if (window.customToolbarLoaded == null) {
+        window.customToolbarLoaded = true;
+        renderToolbar(studio2);
+        setEnableActions(studio2, true);
+      }
+    });
+  }, () => {
+    console.log("Studio not found, retrying in 200ms...");
+    setTimeout(() => {
+      checkStudioExist();
+    }, 200);
+  });
+}
+checkStudioExist();
 
-//# debugId=72A004C1B9F515FF64756E2164756E21
+//# debugId=022920A2ACC2C5BA64756E2164756E21
