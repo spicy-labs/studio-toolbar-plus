@@ -1,7 +1,7 @@
 import { Group, ActionIcon, Text, Card, ScrollArea, Menu } from "@mantine/core";
 import { IconPlus, IconAbc, IconList } from "@tabler/icons-react";
 import type { Variable, StudioList } from "../../types/layoutConfigTypes";
-import { useAppStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 import {
   DndContext,
   closestCenter,
@@ -31,7 +31,16 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   mapId,
   variableValue,
 }) => {
-  const { effects } = useAppStore();
+  // Layout mapping effects
+  const removeVarValueFromDependentGroup = appStore(
+    (state) => state.effects.studio.layoutImageMapping.removeVarValueFromDependentGroup
+  );
+  const addVarValueToDependentGroup = appStore(
+    (state) => state.effects.studio.layoutImageMapping.addVarValueToDependentGroup
+  );
+  const setIndexOfVarValueFromDependentGroup = appStore(
+    (state) => state.effects.studio.layoutImageMapping.setIndexOfVarValueFromDependentGroup
+  );
 
   // Set up sensors for drag and drop
   const sensors = useSensors(
@@ -43,7 +52,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
 
   // Function to handle removing a variable value
   const handleRemoveVarValue = (valueIndex: number) => {
-    effects.studio.layoutImageMapping.removeVarValueFromDependentGroup({
+    removeVarValueFromDependentGroup({
       mapId,
       imageVariableId,
       groupIndex,
@@ -53,7 +62,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
 
   // Function to handle adding a new string value
   const handleAddStringValue = () => {
-    effects.studio.layoutImageMapping.addVarValueToDependentGroup({
+    addVarValueToDependentGroup({
       mapId,
       imageVariableId,
       groupIndex,
@@ -63,7 +72,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
 
   // Function to handle adding a new list variable
   const handleAddListVariable = () => {
-    effects.studio.layoutImageMapping.addVarValueToDependentGroup({
+    addVarValueToDependentGroup({
       mapId,
       imageVariableId,
       groupIndex,
@@ -93,7 +102,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
       const newIndex = parseInt(over.id.toString().split("-")[1]);
 
       // Call the store function to update the order
-      effects.studio.layoutImageMapping.setIndexOfVarValueFromDependentGroup({
+      setIndexOfVarValueFromDependentGroup({
         mapId,
         imageVariableId,
         groupIndex,

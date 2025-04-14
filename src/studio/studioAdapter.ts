@@ -39,6 +39,7 @@ import { imageSizingScript } from "./actions/imageSizing.js";
 import { layoutMappingToActionMap } from "./layoutMappingToActionMap.ts";
 import { frameLayoutMappingToLookup } from "../studio-adapter/frameLayoutMappingToLookup.ts";
 import { layoutManagerToLookup } from "../studio-adapter/layoutManagerToLookup.ts";
+import { layoutSizingScript } from "./actions/layoutSizing.js";
 
 declare global {
   interface Window {
@@ -351,6 +352,60 @@ export async function saveImageSizingMappingToAction(
   );
 
   return updateResult;
+
+}
+
+export async function saveLayoutSizingToAction(on:boolean) {
+
+  if (on){
+    const layoutSizingMapResult = await layoutManagerToLookup(window.SDK);
+
+    if (layoutSizingMapResult.isError() || layoutSizingMapResult.value == null) {
+      return layoutSizingMapResult;
+    }
+
+    const script =
+    layoutSizingScript
+        .toString() +
+      "\nconsole.log(layoutSizingScript(false))";
+
+    const updateResult = await updateAction(
+      {
+        name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+        studio: window.SDK,
+      },
+      {
+        name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+        triggers: [
+          { event: ActionEditorEvent.pageSizeChanged },
+        ],
+        script: script,
+      },
+    );
+
+    if (updateResult.isError()) {
+      return updateResult
+    }
+
+    const variableResult = await setOrCreateVariableValue({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      variableType: VariableType.shortText,
+      value: JSON.stringify(layoutSizingMapResult.value, null, 0)
+    });
+
+    return variableResult;
+  }
+  else {
+    const variableResult = await setOrCreateVariableValue({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      variableType: VariableType.shortText,
+      value: JSON.stringify({}, null, 0)
+    });
+
+    return variableResult;
+  }
 
 }
 

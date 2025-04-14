@@ -23,7 +23,7 @@ import type {
 } from "../../types/layoutConfigTypes";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useAppStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 import { useState } from "react";
 
 // Component for a single transform command card
@@ -111,7 +111,11 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   onRemove,
   getDisplayValue,
 }) => {
-  const { state, effects, raiseError } = useAppStore();
+  const raiseError = appStore((state) => state.raiseError);
+  const updateVarValueFromDependentGroup = appStore(
+    (state) => state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup
+  );
+  const variables = appStore((state) => state.state.studio.document.variables);
   const [transformModalOpen, setTransformModalOpen] = useState(false);
   const [transforms, setTransforms] = useState<TransformCommands[]>([]);
 
@@ -144,7 +148,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   // Function to update the variable value
   const updateVarValue = (newValue: string | Variable) => {
     if (mapId && imageVariableId !== null && groupIndex !== null) {
-      effects.studio.layoutImageMapping.updateVarValueFromDependentGroup({
+      updateVarValueFromDependentGroup({
         mapId,
         imageVariableId,
         groupIndex,
@@ -161,7 +165,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   };
 
   // Get variables for select options, filtering out image and boolean types
-  const selectOptions = state.studio.document.variables
+  const selectOptions = variables
     .filter((v) => v.type !== "image" && v.type !== "boolean")
     .map((v) => ({
       value: v.id,

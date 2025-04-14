@@ -40,12 +40,12 @@ export async function layoutManagerToLookup(studio: SDK): Promise<Result<Record<
         : (layout.height as number);
       
       // Calculate aspect ratio with type safety
-      const aspectRatioPercentage = heightValue > 0 ? (widthValue / heightValue) * 100 : 0;
+      const aspectRatio = heightValue > 0 ? (widthValue / heightValue) : 0;
       
       layoutSizes[layout.name] = {
         width: widthValue,
         height: heightValue,
-        aspectRatioPercentage
+        aspectRatio
       };
     }
     

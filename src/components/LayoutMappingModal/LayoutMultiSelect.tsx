@@ -13,7 +13,7 @@ import type { TreeNodeData as MantineTreeNodeData } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
 import type { LayoutMap } from "../../types/layoutConfigTypes.ts";
 import type { Layout } from "../../types/docStateTypes.ts";
-import { useAppStore } from "../../modalStore.ts";
+import { appStore } from "../../modalStore.ts";
 
 // Extended TreeNodeData with disabled property
 interface TreeNodeData extends MantineTreeNodeData {
@@ -63,20 +63,23 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
   showButton,
   // onChange
 }) => {
-  const { state, effects: events } = useAppStore();
+  // Use selectors to only get the specific state and effects needed
+  const documentLayouts = appStore(store => store.state.studio.document.layouts);
+  const layoutImageMapping = appStore(store => store.state.studio.layoutImageMapping);
+  const setLayoutIds = appStore(store => store.effects.studio.layoutImageMapping.setLayoutIds);
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [selectedLayouts, setSelectedLayouts] = useState<string[]>(
-    state.studio.layoutImageMapping.find((lc) => lc.id === layoutConfig.id)
+    layoutImageMapping.find((lc) => lc.id === layoutConfig.id)
       ?.layoutIds || [],
   );
 
   // Get all layout IDs that are already assigned to other LayoutMaps
-  const assignedToOtherMaps = state.studio.layoutImageMapping
+  const assignedToOtherMaps = layoutImageMapping
     .filter((map) => map.id !== layoutConfig.id) // Exclude current map
     .flatMap((map) => map.layoutIds); // Get all layout IDs from other maps
 
   const handleMultiSelectChange = (updateLayoutIds: string[]) => {
-    events.studio.layoutImageMapping.setLayoutIds({
+    setLayoutIds({
       mapId: layoutConfig.id,
       layoutIds: updateLayoutIds,
     });
@@ -99,7 +102,7 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
 
   // Build tree data from layouts
   const treeData = buildTreeData(
-    state.studio.document.layouts,
+    documentLayouts,
     selectedLayouts,
     assignedToOtherMaps,
   );
@@ -159,7 +162,7 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
     <>
       <Group>
         <MultiSelect
-          data={state.studio.document.layouts.map((layout) => {
+          data={documentLayouts.map((layout) => {
             return {
               value: layout.id,
               label: layout.name,
@@ -167,7 +170,7 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
             };
           })}
           value={
-            state.studio.layoutImageMapping.find(
+            layoutImageMapping.find(
               (lc) => lc.id === layoutConfig.id,
             )?.layoutIds
           }

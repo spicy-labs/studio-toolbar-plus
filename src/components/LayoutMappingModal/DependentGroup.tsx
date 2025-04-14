@@ -19,7 +19,7 @@ import type {
   ImageVariable,
   LayoutMap,
 } from "../../types/layoutConfigTypes";
-import { useAppStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 import { DependentGroupSetValue } from "./DependentGroupSetValue";
 
 interface DependentGroupProps {
@@ -37,19 +37,32 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
 }) => {
   const bgColor = groupIndex % 2 === 0 ? "#5b575b" : "#335760";
 
-  const { state, effects, raiseError } = useAppStore();
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const raiseError = appStore((state) => state.raiseError);
+  
+  // Modal effects
+  const setCurrentImageVariableId = appStore((state) => state.effects.modal.dependentModal.setCurrentImageVariableId);
+  const setCurrentSelectedMapId = appStore((state) => state.effects.modal.setCurrentSelectedMapId);
+  const setCurrentGroupIndex = appStore((state) => state.effects.modal.dependentModal.setCurrentGroupIndex);
+  const setIsOpen = appStore((state) => state.effects.modal.dependentModal.setIsOpen);
+  
+  // Layout mapping effects
+  const removeDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.removeDependentGroup);
+  const copyDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.copyDependentGroup);
+  const removeDependent = appStore((state) => state.effects.studio.layoutImageMapping.removeDependent);
+  const updateDependent = appStore((state) => state.effects.studio.layoutImageMapping.updateDependent);
 
   // Function to open the modal for adding variables to an existing group
   const handleAddDependentToGroup = (groupIndex: number) => {
-    effects.modal.dependentModal.setCurrentImageVariableId(variableConfig.id);
-    effects.modal.setCurrentSelectedMapId(layoutMap.id);
-    effects.modal.dependentModal.setCurrentGroupIndex(groupIndex);
-    effects.modal.dependentModal.setIsOpen(true);
+    setCurrentImageVariableId(variableConfig.id);
+    setCurrentSelectedMapId(layoutMap.id);
+    setCurrentGroupIndex(groupIndex);
+    setIsOpen(true);
   };
 
   // Function to handle removing a group
   const handleRemoveGroup = (groupIndex: number) => {
-    effects.studio.layoutImageMapping.removeDependentGroup({
+    removeDependentGroup({
       groupIndex,
       imageVariableId: variableConfig.id,
       mapId: layoutMap.id,
@@ -57,7 +70,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
   };
 
   const handleCopyGroup = (groupIndex: number) => {
-    effects.studio.layoutImageMapping.copyDependentGroup({
+    copyDependentGroup({
       groupIndex,
       imageVariableId: variableConfig.id,
       mapId: layoutMap.id,
@@ -68,7 +81,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
 
   // Function to get variable details by ID
   const getVariableById = (id: string) => {
-    return state.studio.document.variables.find((v) => v.id === id);
+    return variables.find((v) => v.id === id);
   };
   return (
     <Stack
@@ -136,7 +149,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
                     right: "5px",
                   }}
                   onClick={() => {
-                    effects.studio.layoutImageMapping.removeDependent({
+                    removeDependent({
                       imageVariableId: variableConfig.id,
                       dependentGroupIndex: groupIndex,
                       dependent,
@@ -162,7 +175,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
                     }))}
                     value={dependent.values}
                     onChange={(newValues) => {
-                      effects.studio.layoutImageMapping.updateDependent({
+                      updateDependent({
                         mapId: layoutMap.id,
                         imageVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
@@ -186,7 +199,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
                     ]}
                     value={dependent.values}
                     onChange={(newValues) => {
-                      effects.studio.layoutImageMapping.updateDependent({
+                      updateDependent({
                         mapId: layoutMap.id,
                         imageVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,

@@ -87,10 +87,10 @@ export function imageSizingScript(debug) {
 
     // Return the updated frame object
     return {
-      x: Math.round(updatedX),
-      y: Math.round(updatedY),
-      width: Math.round(updatedWidth),
-      height: Math.round(updatedHeight),
+      x: updatedX,
+      y: updatedY,
+      width: updatedWidth,
+      height: updatedHeight,
     };
   }
 }

@@ -22,7 +22,7 @@ import type {
   LayoutMap,
   DependentVar,
 } from "../../types/layoutConfigTypes";
-import { useAppStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 import { AddDependentModal } from "./AddDependentModal";
 import { DependentGroup } from "./DependentGroup";
 
@@ -36,10 +36,15 @@ export const VariableCard: React.FC<VariableCardProps> = ({
   variableConfig,
   layoutMap,
 }) => {
-  const { state, raiseError, effects } = useAppStore();
+  // Use selectors to only get the specific state and effects needed
+  const documentVariables = appStore(store => store.state.studio.document.variables);
+  const raiseError = appStore(store => store.raiseError);
+  const setCurrentImageVariableId = appStore(store => store.effects.modal.dependentModal.setCurrentImageVariableId);
+  const setDependentModalIsOpen = appStore(store => store.effects.modal.dependentModal.setIsOpen);
+  const removeImageVariable = appStore(store => store.effects.studio.layoutImageMapping.removeImageVariable);
   const [isOpen, setIsOpen] = useState(false);
 
-  const variableImageConfig = state.studio.document.variables.find(
+  const variableImageConfig = documentVariables.find(
     (v) => v.id === variableConfig.id,
   );
 
@@ -50,8 +55,8 @@ export const VariableCard: React.FC<VariableCardProps> = ({
 
   // Function to open the modal for adding a new group
   const handleAddGroup = () => {
-    effects.modal.dependentModal.setCurrentImageVariableId(variableConfig.id);
-    effects.modal.dependentModal.setIsOpen(true);
+    setCurrentImageVariableId(variableConfig.id);
+    setDependentModalIsOpen(true);
   };
 
   return (
@@ -81,7 +86,7 @@ export const VariableCard: React.FC<VariableCardProps> = ({
             color="red"
             radius="xl"
             onClick={() => {
-              effects.studio.layoutImageMapping.removeImageVariable({
+              removeImageVariable({
                 mapId: layoutMap.id,
                 imageVariableId: variableConfig.id,
               });

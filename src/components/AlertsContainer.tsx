@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { Alert, Box, Stack } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons-react";
-import { useAppStore } from "../modalStore";
+import { appStore } from "../modalStore";
 
 export function AlertsContainer() {
-  const { alerts, dismissAlert } = useAppStore();
+  const alerts = appStore(store => store.alerts);
+  const dismissAlert = appStore(store => store.dismissAlert);
 
   // Set up automatic dismissal after 10 seconds
   useEffect(() => {

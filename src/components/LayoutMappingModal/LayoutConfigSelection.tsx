@@ -19,7 +19,7 @@ import {
   IconCopy,
   IconTrashFilled,
 } from "@tabler/icons-react";
-import { useAppStore } from "../../modalStore";
+import { appStore } from "../../modalStore";
 
 // Layout Config Section Component
 interface LayoutConfigSectionProps {
@@ -36,7 +36,11 @@ export const LayoutConfigSection: React.FC<LayoutConfigSectionProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const { effects: events } = useAppStore();
+  const addLayoutMapFromCopy = appStore(store => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy);
+  const setIsImageVariableMappingModalOpen = appStore(store => store.effects.modal.setIsImageVariableMappingModalOpen);
+  const setCurrentSelectedMapId = appStore(store => store.effects.modal.setCurrentSelectedMapId);
+  const setCurrentAddImageMappingSelectedVariables = appStore(store => store.effects.modal.setCurrentAddImageMappingSelectedVariables);
+  const deleteLayoutMap = appStore(store => store.effects.studio.layoutImageMapping.deleteLayoutMap);
 
   return (
     <Paper key={index} p="md">
@@ -48,7 +52,7 @@ export const LayoutConfigSection: React.FC<LayoutConfigSectionProps> = ({
               size="lg"
               radius="xl"
               onClick={() =>
-                events.studio.layoutImageMapping.addLayoutMapFromCopy(
+                addLayoutMapFromCopy(
                   mapConfig.id,
                 )
               }
@@ -105,9 +109,10 @@ export const LayoutConfigSection: React.FC<LayoutConfigSectionProps> = ({
           {/* Add Variable button to open modal */}
           <Button
             onClick={() => {
-              events.modal.setIsImageVariableMappingModalOpen(true);
-              events.modal.setCurrentSelectedMapId(mapConfig.id);
-              events.modal.setCurrentAddImageMappingSelectedVariables([]);
+              // Using appStore for handling events
+              setIsImageVariableMappingModalOpen(true);
+              setCurrentSelectedMapId(mapConfig.id);
+              setCurrentAddImageMappingSelectedVariables([]);
             }}
           >
             <IconPlus />
@@ -133,7 +138,7 @@ export const LayoutConfigSection: React.FC<LayoutConfigSectionProps> = ({
           <Button
             color="red"
             onClick={() => {
-              events.studio.layoutImageMapping.deleteLayoutMap(mapConfig.id);
+              deleteLayoutMap(mapConfig.id);
               setDeleteModalOpen(false);
             }}
           >

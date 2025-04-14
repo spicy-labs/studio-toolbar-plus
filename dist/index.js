@@ -19257,6 +19257,13 @@ var init_IconPhotoCog = __esm(() => {
   IconPhotoCog = createReactComponent("outline", "photo-cog", "IconPhotoCog", [["path", { d: "M15 8h.01", key: "svg-0" }], ["path", { d: "M12 21h-6a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6", key: "svg-1" }], ["path", { d: "M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3", key: "svg-2" }], ["path", { d: "M14 14l1 -1c.48 -.461 1.016 -.684 1.551 -.67", key: "svg-3" }], ["path", { d: "M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-4" }], ["path", { d: "M19.001 15.5v1.5", key: "svg-5" }], ["path", { d: "M19.001 21v1.5", key: "svg-6" }], ["path", { d: "M22.032 17.25l-1.299 .75", key: "svg-7" }], ["path", { d: "M17.27 20l-1.3 .75", key: "svg-8" }], ["path", { d: "M15.97 17.25l1.3 .75", key: "svg-9" }], ["path", { d: "M20.733 20l1.3 .75", key: "svg-10" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconPlaystationSquare.mjs
+var IconPlaystationSquare;
+var init_IconPlaystationSquare = __esm(() => {
+  init_createReactComponent();
+  IconPlaystationSquare = createReactComponent("outline", "playstation-square", "IconPlaystationSquare", [["path", { d: "M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z", key: "svg-0" }], ["path", { d: "M8 8m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z", key: "svg-1" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPlus.mjs
 var IconPlus;
 var init_IconPlus = __esm(() => {
@@ -20196,7 +20203,6 @@ var immer2 = immerImpl;
 var saveLayoutConfigToJSON = (config) => {
   console.log("Saving config:", config);
 };
-var useAppStore = () => appStore();
 var unloadedDoc = { layouts: [], variables: [] };
 var appStore = create()(immer2((set2, get) => ({
   state: {
@@ -21108,6 +21114,57 @@ async function updateLayoutResizable(studio2, id, update) {
 async function getAllVariables(studio2) {
   return handleStudioFunc(studio2.next.variable.getAll);
 }
+async function setVariableValue2({
+  studio: studio2,
+  id,
+  value
+}) {
+  return handleStudioFunc(studio2.variable.setValue, id, value);
+}
+async function createVariable({
+  studio: studio2,
+  variableType,
+  name
+}) {
+  const createResult = await handleStudioFunc(studio2.variable.create, "", variableType);
+  return createResult.map(async (id) => {
+    const result = await handleStudioFunc(studio2.variable.rename, id, name);
+    if (result.isOk())
+      return id;
+    return Result.error(result.value);
+  });
+}
+async function setOrCreateVariableValue({
+  studio: studio2,
+  name,
+  value,
+  variableType
+}) {
+  const allVariablesResult = await getAllVariables(studio2);
+  return allVariablesResult.map(async (variables) => {
+    const existingVariable = variables.find((variable) => variable.name === name);
+    if (existingVariable) {
+      return await setVariableValue2({
+        studio: studio2,
+        id: existingVariable.id,
+        value
+      });
+    } else {
+      const createResult = await createVariable({
+        studio: studio2,
+        variableType,
+        name
+      });
+      return createResult.map(async (id) => {
+        return await setVariableValue2({
+          studio: studio2,
+          id,
+          value
+        });
+      });
+    }
+  });
+}
 async function getById(studio2, id) {
   return handleStudioFunc(studio2.next.variable.getById, id);
 }
@@ -21305,10 +21362,10 @@ function imageSizingScript(debug) {
     const updatedX = updatedRelativeX;
     const updatedY = updatedRelativeY;
     return {
-      x: Math.round(updatedX),
-      y: Math.round(updatedY),
-      width: Math.round(updatedWidth),
-      height: Math.round(updatedHeight)
+      x: updatedX,
+      y: updatedY,
+      width: updatedWidth,
+      height: updatedHeight
     };
   }
 }
@@ -21476,15 +21533,89 @@ async function layoutManagerToLookup(studio2) {
     for (const layout of layouts) {
       const widthValue = typeof layout.width === "object" && layout.width !== null ? layout.width.value : layout.width;
       const heightValue = typeof layout.height === "object" && layout.height !== null ? layout.height.value : layout.height;
-      const aspectRatioPercentage = heightValue > 0 ? widthValue / heightValue * 100 : 0;
+      const aspectRatio = heightValue > 0 ? widthValue / heightValue : 0;
       layoutSizes[layout.name] = {
         width: widthValue,
         height: heightValue,
-        aspectRatioPercentage
+        aspectRatio
       };
     }
     return layoutSizes;
   });
+}
+
+// src/studio/actions/layoutSizing.js
+function layoutSizingScript(debug = false) {
+  const version = 1;
+  let debugObj = {};
+  const selectedLayoutName = getSelectedLayoutName();
+  const data = JSON.parse(getTextVariableValue("AUTO_GEN_TOOLBAR_LAYOUTS"));
+  if (selectedLayoutName == null) {
+    return;
+  }
+  const { width, height, aspectRatio: layoutRatio } = data[selectedLayoutName];
+  if (debug) {
+    debugObj = JSON.parse(JSON.stringify({
+      selectedLayoutName,
+      data,
+      layoutRatio,
+      width,
+      height
+    }));
+  }
+  if (layoutRatio != null && width != null && height != null) {
+    const originalAspectRatio = layoutRatio;
+    const minAllowedRatio = originalAspectRatio * 0.8;
+    const maxAllowedRatio = originalAspectRatio * 1.2;
+    const pageWidth = getPageWidth();
+    const pageHeight = getPageHeight();
+    const currentAspectRatio = pageWidth / pageHeight;
+    if (debug) {
+      debugObj = {
+        currentAspectRatio,
+        minAllowedRatio,
+        maxAllowedRatio,
+        pageWidth,
+        pageHeight,
+        ...debugObj
+      };
+    }
+    if (currentAspectRatio < minAllowedRatio || currentAspectRatio > maxAllowedRatio) {
+      if (Math.round(width) == Math.round(pageWidth)) {
+        let newHeight;
+        if (currentAspectRatio <= minAllowedRatio) {
+          newHeight = pageWidth / minAllowedRatio;
+        } else if (currentAspectRatio >= maxAllowedRatio) {
+          newHeight = pageWidth / maxAllowedRatio;
+        } else {
+          newHeight = pageWidth / layoutRatio;
+        }
+        data.layoutSizeCache[selectedLayoutName].height = newHeight;
+        data.layoutSizeCache[selectedLayoutName].width = pageWidth;
+        setPageSize(pageWidth, newHeight);
+      }
+      if (Math.round(height) == Math.round(pageHeight)) {
+        let newWidth;
+        if (currentAspectRatio <= minAllowedRatio) {
+          newWidth = pageHeight * minAllowedRatio;
+        } else if (currentAspectRatio >= maxAllowedRatio) {
+          newWidth = pageHeight * maxAllowedRatio;
+        } else {
+          newWidth = pageHeight * layoutRatio;
+        }
+        data[selectedLayoutName].width = newWidth;
+        data[selectedLayoutName].height = pageHeight;
+      }
+      setPageSize(data[selectedLayoutName].width, data[selectedLayoutName].height);
+    } else {
+      data[selectedLayoutName].height = pageHeight;
+      data[selectedLayoutName].width = pageWidth;
+    }
+    setVariableValue("AUTO_GEN_TOOLBAR_LAYOUTS", JSON.stringify(data, null, 0));
+  }
+  if (debug) {
+    console.log(debugObj);
+  }
 }
 
 // src/studio/studioAdapter.ts
@@ -21691,6 +21822,44 @@ console.log(imageSizingScript(false))`;
     script
   });
   return updateResult;
+}
+async function saveLayoutSizingToAction(on) {
+  if (on) {
+    const layoutSizingMapResult = await layoutManagerToLookup(window.SDK);
+    if (layoutSizingMapResult.isError() || layoutSizingMapResult.value == null) {
+      return layoutSizingMapResult;
+    }
+    const script = layoutSizingScript.toString() + `
+console.log(layoutSizingScript(false))`;
+    const updateResult = await updateAction({
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      studio: window.SDK
+    }, {
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      triggers: [
+        { event: import_studio_sdk.ActionEditorEvent.pageSizeChanged }
+      ],
+      script
+    });
+    if (updateResult.isError()) {
+      return updateResult;
+    }
+    const variableResult = await setOrCreateVariableValue({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      variableType: import_studio_sdk.VariableType.shortText,
+      value: JSON.stringify(layoutSizingMapResult.value, null, 0)
+    });
+    return variableResult;
+  } else {
+    const variableResult = await setOrCreateVariableValue({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      variableType: import_studio_sdk.VariableType.shortText,
+      value: JSON.stringify({}, null, 0)
+    });
+    return variableResult;
+  }
 }
 async function removeFrameLayouyMap(frameId, imageName, layoutId) {
   try {
@@ -41129,6 +41298,7 @@ init_IconInfoCircle();
 init_IconList();
 init_IconMapBolt();
 init_IconPhotoCog();
+init_IconPlaystationSquare();
 init_IconPlus();
 init_IconTrash();
 init_IconUpload();
@@ -41141,25 +41311,31 @@ init_IconTrashFilled();
 var import_react235 = __toESM(require_react(), 1);
 var jsx_dev_runtime = __toESM(require_jsx_dev_runtime(), 1);
 var AddMappingImageVariableModal = ({ currentMapConfig }) => {
-  const { state, effects } = useAppStore();
+  const setIsImageVariableMappingModalOpen = appStore((state) => state.effects.modal.setIsImageVariableMappingModalOpen);
+  const setCurrentAddImageMappingSelectedVariables = appStore((state) => state.effects.modal.setCurrentAddImageMappingSelectedVariables);
+  const addImageVariable = appStore((state) => state.effects.studio.layoutImageMapping.addImageVariable);
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
+  const currentAddImageMappingSelectedVariables = appStore((state) => state.state.modal.currentAddImageMappingSelectedVariables);
+  const isAddImageVariableMappingModalOpen = appStore((state) => state.state.modal.isAddImageVariableMappingModalOpen);
   const possibleVariableValues = import_react235.useMemo(() => {
-    const allImageVariables = state.studio.document.variables.filter((variable) => variable.type === "image").map((variable) => ({
+    const allImageVariables = variables.filter((variable) => variable.type === "image").map((variable) => ({
       value: variable.id,
       label: variable.name,
       disabled: currentMapConfig?.variables.some((v2) => v2.id === variable.id) || false
     }));
     return allImageVariables;
-  }, [state.studio.document.variables, currentMapConfig]);
+  }, [variables, currentMapConfig]);
   const onClose = () => {
-    effects.modal.setIsImageVariableMappingModalOpen(false);
-    effects.modal.setCurrentAddImageMappingSelectedVariables([]);
+    setIsImageVariableMappingModalOpen(false);
+    setCurrentAddImageMappingSelectedVariables([]);
   };
   const addImageVariables = () => {
-    const mapId = state.modal.currentSelectedMapId;
+    const mapId = currentSelectedMapId;
     if (mapId == null)
       return;
-    state.modal.currentAddImageMappingSelectedVariables.forEach((variableId) => {
-      effects.studio.layoutImageMapping.addImageVariable({
+    currentAddImageMappingSelectedVariables.forEach((variableId) => {
+      addImageVariable({
         mapId,
         imageVariable: {
           id: variableId,
@@ -41170,7 +41346,7 @@ var AddMappingImageVariableModal = ({ currentMapConfig }) => {
     onClose();
   };
   return /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Modal, {
-    opened: state.modal.isAddImageVariableMappingModalOpen,
+    opened: isAddImageVariableMappingModalOpen,
     onClose,
     title: "Add Image Variables",
     centered: true,
@@ -41180,8 +41356,8 @@ var AddMappingImageVariableModal = ({ currentMapConfig }) => {
           label: "Select Image Variable",
           placeholder: "Choose an image variable",
           data: possibleVariableValues,
-          value: state.modal.currentAddImageMappingSelectedVariables,
-          onChange: effects.modal.setCurrentAddImageMappingSelectedVariables,
+          value: currentAddImageMappingSelectedVariables,
+          onChange: setCurrentAddImageMappingSelectedVariables,
           searchable: true
         }, undefined, false, undefined, this),
         /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Group, {
@@ -41195,7 +41371,7 @@ var AddMappingImageVariableModal = ({ currentMapConfig }) => {
             }, undefined, false, undefined, this),
             /* @__PURE__ */ jsx_dev_runtime.jsxDEV(Button, {
               onClick: addImageVariables,
-              disabled: state.modal.currentAddImageMappingSelectedVariables.length == 0,
+              disabled: currentAddImageMappingSelectedVariables.length == 0,
               children: "Add"
             }, undefined, false, undefined, this)
           ]
@@ -41208,24 +41384,35 @@ var AddMappingImageVariableModal = ({ currentMapConfig }) => {
 // src/components/LayoutMappingModal/AddDependentModal.tsx
 var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
 var AddDependentModal = () => {
-  const { state, effects, raiseError: raiseError2 } = useAppStore();
+  const raiseError2 = appStore((state) => state.raiseError);
+  const setIsOpen = appStore((state) => state.effects.modal.dependentModal.setIsOpen);
+  const setCurrentGroupIndex = appStore((state) => state.effects.modal.dependentModal.setCurrentGroupIndex);
+  const setCurrentSelectedVariables = appStore((state) => state.effects.modal.dependentModal.setCurrentSelectedVariables);
+  const addDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.addDependentGroup);
+  const updateDependent = appStore((state) => state.effects.studio.layoutImageMapping.updateDependent);
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const currentSelectedVariables = appStore((state) => state.state.modal.dependentModal.currentSelectedVariables);
+  const currentImageVariableId = appStore((state) => state.state.modal.dependentModal.currentImageVariableId);
+  const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
+  const currentGroupIndex = appStore((state) => state.state.modal.dependentModal.currentGroupIndex);
+  const isOpen = appStore((state) => state.state.modal.dependentModal.isOpen);
   const onClose = () => {
-    effects.modal.dependentModal.setIsOpen(false);
-    effects.modal.dependentModal.setCurrentGroupIndex(null);
-    effects.modal.dependentModal.setCurrentSelectedVariables([]);
+    setIsOpen(false);
+    setCurrentGroupIndex(null);
+    setCurrentSelectedVariables([]);
   };
   const getVariableById = (id) => {
-    return state.studio.document.variables.find((v2) => v2.id === id);
+    return variables.find((v2) => v2.id === id);
   };
   const addDependents = () => {
-    const selectedVariables = state.modal.dependentModal.currentSelectedVariables;
-    const imageVariableId = state.modal.dependentModal.currentImageVariableId;
-    const mapId = state.modal.currentSelectedMapId;
+    const selectedVariables = currentSelectedVariables;
+    const imageVariableId = currentImageVariableId;
+    const mapId = currentSelectedMapId;
     if (!mapId || !imageVariableId) {
       raiseError2(new Error(`One of these are null mapId:${mapId} or imageVariableId:${imageVariableId}`));
       return;
     }
-    const currentGroupIndex = state.modal.dependentModal.currentGroupIndex;
+    const groupIndex = currentGroupIndex;
     const dependents = selectedVariables.map((variableId) => {
       const variable = getVariableById(variableId);
       if (!variable) {
@@ -41246,18 +41433,18 @@ var AddDependentModal = () => {
           };
       }
     });
-    if (currentGroupIndex === null) {
-      effects.studio.layoutImageMapping.addDependentGroup({
+    if (groupIndex === null) {
+      addDependentGroup({
         mapId,
         imageVariableId,
         dependents
       });
     } else {
       dependents.forEach((dependent) => {
-        effects.studio.layoutImageMapping.updateDependent({
-          mapId: state.modal.currentSelectedMapId || "",
+        updateDependent({
+          mapId: currentSelectedMapId || "",
           imageVariableId,
-          dependentGroupIndex: currentGroupIndex,
+          dependentGroupIndex: groupIndex,
           dependent
         });
       });
@@ -41265,7 +41452,7 @@ var AddDependentModal = () => {
     onClose();
   };
   return /* @__PURE__ */ jsx_dev_runtime2.jsxDEV(Modal, {
-    opened: state.modal.dependentModal.isOpen,
+    opened: isOpen,
     onClose,
     title: "Add Dependent Variable",
     centered: true,
@@ -41274,12 +41461,12 @@ var AddDependentModal = () => {
         /* @__PURE__ */ jsx_dev_runtime2.jsxDEV(MultiSelect, {
           label: "Select Variable",
           placeholder: "Choose a variable",
-          data: state.studio.document.variables.filter((variable) => variable.type !== "image" && variable.type !== "shortText").map((variable) => ({
+          data: variables.filter((variable) => variable.type !== "image" && variable.type !== "shortText").map((variable) => ({
             value: variable.id,
             label: variable.name
           })),
-          value: state.modal.dependentModal.currentSelectedVariables,
-          onChange: effects.modal.dependentModal.setCurrentSelectedVariables,
+          value: currentSelectedVariables,
+          onChange: setCurrentSelectedVariables,
           searchable: true
         }, undefined, false, undefined, this),
         /* @__PURE__ */ jsx_dev_runtime2.jsxDEV(Group, {
@@ -41293,7 +41480,7 @@ var AddDependentModal = () => {
             }, undefined, false, undefined, this),
             /* @__PURE__ */ jsx_dev_runtime2.jsxDEV(Button, {
               onClick: addDependents,
-              disabled: effects.modal.dependentModal.setCurrentSelectedVariables.length == 0,
+              disabled: currentSelectedVariables.length === 0,
               children: "Add"
             }, undefined, false, undefined, this)
           ]
@@ -41333,12 +41520,14 @@ var LayoutMultiSelect = ({
   layoutConfig,
   showButton
 }) => {
-  const { state, effects: events } = useAppStore();
+  const documentLayouts = appStore((store) => store.state.studio.document.layouts);
+  const layoutImageMapping = appStore((store) => store.state.studio.layoutImageMapping);
+  const setLayoutIds = appStore((store) => store.effects.studio.layoutImageMapping.setLayoutIds);
   const [drawerOpened, setDrawerOpened] = import_react236.useState(false);
-  const [selectedLayouts, setSelectedLayouts] = import_react236.useState(state.studio.layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
-  const assignedToOtherMaps = state.studio.layoutImageMapping.filter((map) => map.id !== layoutConfig.id).flatMap((map) => map.layoutIds);
+  const [selectedLayouts, setSelectedLayouts] = import_react236.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
+  const assignedToOtherMaps = layoutImageMapping.filter((map) => map.id !== layoutConfig.id).flatMap((map) => map.layoutIds);
   const handleMultiSelectChange = (updateLayoutIds) => {
-    events.studio.layoutImageMapping.setLayoutIds({
+    setLayoutIds({
       mapId: layoutConfig.id,
       layoutIds: updateLayoutIds
     });
@@ -41356,7 +41545,7 @@ var LayoutMultiSelect = ({
       }
     });
   };
-  const treeData = buildTreeData(state.studio.document.layouts, selectedLayouts, assignedToOtherMaps);
+  const treeData = buildTreeData(documentLayouts, selectedLayouts, assignedToOtherMaps);
   const renderTreeNode = ({
     node: node2,
     expanded,
@@ -41406,14 +41595,14 @@ var LayoutMultiSelect = ({
       /* @__PURE__ */ jsx_dev_runtime3.jsxDEV(Group, {
         children: [
           /* @__PURE__ */ jsx_dev_runtime3.jsxDEV(MultiSelect, {
-            data: state.studio.document.layouts.map((layout) => {
+            data: documentLayouts.map((layout) => {
               return {
                 value: layout.id,
                 label: layout.name,
                 disabled: assignedToOtherMaps.includes(layout.id)
               };
             }),
-            value: state.studio.layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds,
+            value: layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds,
             onChange: handleMultiSelectChange,
             placeholder: "Select layouts",
             searchable: true,
@@ -45462,7 +45651,9 @@ var DependentGroupValueSortableCard = ({
   onRemove,
   getDisplayValue
 }) => {
-  const { state, effects, raiseError: raiseError2 } = useAppStore();
+  const raiseError2 = appStore((state) => state.raiseError);
+  const updateVarValueFromDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup);
+  const variables = appStore((state) => state.state.studio.document.variables);
   const [transformModalOpen, setTransformModalOpen] = import_react241.useState(false);
   const [transforms, setTransforms] = import_react241.useState([]);
   const {
@@ -45489,7 +45680,7 @@ var DependentGroupValueSortableCard = ({
   const variableValueIndex = parseInt(id.toString().split("-")[1]);
   const updateVarValue = (newValue) => {
     if (mapId && imageVariableId !== null && groupIndex !== null) {
-      effects.studio.layoutImageMapping.updateVarValueFromDependentGroup({
+      updateVarValueFromDependentGroup({
         mapId,
         imageVariableId,
         groupIndex,
@@ -45500,7 +45691,7 @@ var DependentGroupValueSortableCard = ({
       raiseError2(new Error(`Failed to update variable value: mapId=${mapId}, imageVariableId=${imageVariableId}, groupIndex=${groupIndex}`));
     }
   };
-  const selectOptions = state.studio.document.variables.filter((v2) => v2.type !== "image" && v2.type !== "boolean").map((v2) => ({
+  const selectOptions = variables.filter((v2) => v2.type !== "image" && v2.type !== "boolean").map((v2) => ({
     value: v2.id,
     label: v2.name
   }));
@@ -45691,12 +45882,14 @@ var DependentGroupSetValue = ({
   mapId,
   variableValue
 }) => {
-  const { effects } = useAppStore();
+  const removeVarValueFromDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.removeVarValueFromDependentGroup);
+  const addVarValueToDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.addVarValueToDependentGroup);
+  const setIndexOfVarValueFromDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.setIndexOfVarValueFromDependentGroup);
   const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor, {
     coordinateGetter: sortableKeyboardCoordinates
   }));
   const handleRemoveVarValue = (valueIndex) => {
-    effects.studio.layoutImageMapping.removeVarValueFromDependentGroup({
+    removeVarValueFromDependentGroup({
       mapId,
       imageVariableId,
       groupIndex,
@@ -45704,7 +45897,7 @@ var DependentGroupSetValue = ({
     });
   };
   const handleAddStringValue = () => {
-    effects.studio.layoutImageMapping.addVarValueToDependentGroup({
+    addVarValueToDependentGroup({
       mapId,
       imageVariableId,
       groupIndex,
@@ -45712,7 +45905,7 @@ var DependentGroupSetValue = ({
     });
   };
   const handleAddListVariable = () => {
-    effects.studio.layoutImageMapping.addVarValueToDependentGroup({
+    addVarValueToDependentGroup({
       mapId,
       imageVariableId,
       groupIndex,
@@ -45735,7 +45928,7 @@ var DependentGroupSetValue = ({
     if (over && active.id !== over.id) {
       const oldIndex = parseInt(active.id.toString().split("-")[1]);
       const newIndex = parseInt(over.id.toString().split("-")[1]);
-      effects.studio.layoutImageMapping.setIndexOfVarValueFromDependentGroup({
+      setIndexOfVarValueFromDependentGroup({
         mapId,
         imageVariableId,
         groupIndex,
@@ -45842,22 +46035,31 @@ var DependentGroup = ({
   layoutMap
 }) => {
   const bgColor = groupIndex % 2 === 0 ? "#5b575b" : "#335760";
-  const { state, effects, raiseError: raiseError2 } = useAppStore();
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const raiseError2 = appStore((state) => state.raiseError);
+  const setCurrentImageVariableId = appStore((state) => state.effects.modal.dependentModal.setCurrentImageVariableId);
+  const setCurrentSelectedMapId = appStore((state) => state.effects.modal.setCurrentSelectedMapId);
+  const setCurrentGroupIndex = appStore((state) => state.effects.modal.dependentModal.setCurrentGroupIndex);
+  const setIsOpen = appStore((state) => state.effects.modal.dependentModal.setIsOpen);
+  const removeDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.removeDependentGroup);
+  const copyDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.copyDependentGroup);
+  const removeDependent = appStore((state) => state.effects.studio.layoutImageMapping.removeDependent);
+  const updateDependent = appStore((state) => state.effects.studio.layoutImageMapping.updateDependent);
   const handleAddDependentToGroup = (groupIndex2) => {
-    effects.modal.dependentModal.setCurrentImageVariableId(variableConfig.id);
-    effects.modal.setCurrentSelectedMapId(layoutMap.id);
-    effects.modal.dependentModal.setCurrentGroupIndex(groupIndex2);
-    effects.modal.dependentModal.setIsOpen(true);
+    setCurrentImageVariableId(variableConfig.id);
+    setCurrentSelectedMapId(layoutMap.id);
+    setCurrentGroupIndex(groupIndex2);
+    setIsOpen(true);
   };
   const handleRemoveGroup = (groupIndex2) => {
-    effects.studio.layoutImageMapping.removeDependentGroup({
+    removeDependentGroup({
       groupIndex: groupIndex2,
       imageVariableId: variableConfig.id,
       mapId: layoutMap.id
     });
   };
   const handleCopyGroup = (groupIndex2) => {
-    effects.studio.layoutImageMapping.copyDependentGroup({
+    copyDependentGroup({
       groupIndex: groupIndex2,
       imageVariableId: variableConfig.id,
       mapId: layoutMap.id
@@ -45865,7 +46067,7 @@ var DependentGroup = ({
   };
   console.log(dependentGroup, groupIndex, variableConfig);
   const getVariableById = (id) => {
-    return state.studio.document.variables.find((v2) => v2.id === id);
+    return variables.find((v2) => v2.id === id);
   };
   return /* @__PURE__ */ jsx_dev_runtime6.jsxDEV(Stack, {
     style: {
@@ -45942,7 +46144,7 @@ var DependentGroup = ({
                       right: "5px"
                     },
                     onClick: () => {
-                      effects.studio.layoutImageMapping.removeDependent({
+                      removeDependent({
                         imageVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
                         dependent,
@@ -45971,7 +46173,7 @@ var DependentGroup = ({
                     })),
                     value: dependent.values,
                     onChange: (newValues) => {
-                      effects.studio.layoutImageMapping.updateDependent({
+                      updateDependent({
                         mapId: layoutMap.id,
                         imageVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
@@ -45992,7 +46194,7 @@ var DependentGroup = ({
                     ],
                     value: dependent.values,
                     onChange: (newValues) => {
-                      effects.studio.layoutImageMapping.updateDependent({
+                      updateDependent({
                         mapId: layoutMap.id,
                         imageVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
@@ -46050,16 +46252,20 @@ var VariableCard = ({
   variableConfig,
   layoutMap
 }) => {
-  const { state, raiseError: raiseError2, effects } = useAppStore();
+  const documentVariables = appStore((store) => store.state.studio.document.variables);
+  const raiseError2 = appStore((store) => store.raiseError);
+  const setCurrentImageVariableId = appStore((store) => store.effects.modal.dependentModal.setCurrentImageVariableId);
+  const setDependentModalIsOpen = appStore((store) => store.effects.modal.dependentModal.setIsOpen);
+  const removeImageVariable = appStore((store) => store.effects.studio.layoutImageMapping.removeImageVariable);
   const [isOpen, setIsOpen] = import_react242.useState(false);
-  const variableImageConfig = state.studio.document.variables.find((v2) => v2.id === variableConfig.id);
+  const variableImageConfig = documentVariables.find((v2) => v2.id === variableConfig.id);
   if (variableImageConfig == null) {
     raiseError2(Result.error(new Error("variableDocument is null")));
     throw "ERROR - DO BETTER!!!";
   }
   const handleAddGroup = () => {
-    effects.modal.dependentModal.setCurrentImageVariableId(variableConfig.id);
-    effects.modal.dependentModal.setIsOpen(true);
+    setCurrentImageVariableId(variableConfig.id);
+    setDependentModalIsOpen(true);
   };
   return /* @__PURE__ */ jsx_dev_runtime7.jsxDEV(Paper, {
     styles: { root: { margin: "15px" } },
@@ -46093,7 +46299,7 @@ var VariableCard = ({
                 color: "red",
                 radius: "xl",
                 onClick: () => {
-                  effects.studio.layoutImageMapping.removeImageVariable({
+                  removeImageVariable({
                     mapId: layoutMap.id,
                     imageVariableId: variableConfig.id
                   });
@@ -46168,7 +46374,11 @@ var LayoutConfigSection = ({
   const [isOpen, setIsOpen] = import_react243.useState(false);
   const [menuOpened, setMenuOpened] = import_react243.useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = import_react243.useState(false);
-  const { effects: events2 } = useAppStore();
+  const addLayoutMapFromCopy = appStore((store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy);
+  const setIsImageVariableMappingModalOpen = appStore((store) => store.effects.modal.setIsImageVariableMappingModalOpen);
+  const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
+  const setCurrentAddImageMappingSelectedVariables = appStore((store) => store.effects.modal.setCurrentAddImageMappingSelectedVariables);
+  const deleteLayoutMap = appStore((store) => store.effects.studio.layoutImageMapping.deleteLayoutMap);
   return /* @__PURE__ */ jsx_dev_runtime8.jsxDEV(Paper, {
     p: "md",
     children: [
@@ -46191,7 +46401,7 @@ var LayoutConfigSection = ({
                 /* @__PURE__ */ jsx_dev_runtime8.jsxDEV(ActionIcon, {
                   size: "lg",
                   radius: "xl",
-                  onClick: () => events2.studio.layoutImageMapping.addLayoutMapFromCopy(mapConfig.id),
+                  onClick: () => addLayoutMapFromCopy(mapConfig.id),
                   children: /* @__PURE__ */ jsx_dev_runtime8.jsxDEV(IconCopy, {}, undefined, false, undefined, this)
                 }, undefined, false, undefined, this),
                 /* @__PURE__ */ jsx_dev_runtime8.jsxDEV(ActionIcon, {
@@ -46243,9 +46453,9 @@ var LayoutConfigSection = ({
           }, variableConfig.id, false, undefined, this)),
           /* @__PURE__ */ jsx_dev_runtime8.jsxDEV(Button, {
             onClick: () => {
-              events2.modal.setIsImageVariableMappingModalOpen(true);
-              events2.modal.setCurrentSelectedMapId(mapConfig.id);
-              events2.modal.setCurrentAddImageMappingSelectedVariables([]);
+              setIsImageVariableMappingModalOpen(true);
+              setCurrentSelectedMapId(mapConfig.id);
+              setCurrentAddImageMappingSelectedVariables([]);
             },
             children: [
               /* @__PURE__ */ jsx_dev_runtime8.jsxDEV(IconPlus, {}, undefined, false, undefined, this),
@@ -46280,7 +46490,7 @@ var LayoutConfigSection = ({
               /* @__PURE__ */ jsx_dev_runtime8.jsxDEV(Button, {
                 color: "red",
                 onClick: () => {
-                  events2.studio.layoutImageMapping.deleteLayoutMap(mapConfig.id);
+                  deleteLayoutMap(mapConfig.id);
                   setDeleteModalOpen(false);
                 },
                 children: "Delete"
@@ -46296,12 +46506,21 @@ var LayoutConfigSection = ({
 // src/components/LayoutMappingModal/LayoutModal.tsx
 var jsx_dev_runtime9 = __toESM(require_jsx_dev_runtime(), 1);
 var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV clicked") }) => {
-  const { state, effects: events2, raiseError: raiseError2, enableToolbar } = useAppStore();
+  const events2 = appStore((state) => state.effects);
+  const raiseError2 = appStore((state) => state.raiseError);
+  const enableToolbar = appStore((state) => state.enableToolbar);
+  const document2 = appStore((state) => state.state.studio.document);
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const isLayoutConfigLoaded = appStore((state) => state.state.studio.isLayoutConfigLoaded);
+  const isDocumentLoaded = appStore((state) => state.state.studio.isDocumentLoaded);
+  const isModalVisible = appStore((state) => state.state.modal.isModalVisible);
+  const layoutImageMapping = appStore((state) => state.state.studio.layoutImageMapping);
+  const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const [validationReport, setValidationReport] = import_react244.useState(null);
   const [isValidationModalOpen, setIsValidationModalOpen] = import_react244.useState(false);
   const imageVariables = import_react244.useMemo(() => {
-    return state.studio.document.variables.filter((variable) => variable.type === "image");
-  }, [state.studio.document.variables]);
+    return variables.filter((variable) => variable.type === "image");
+  }, [variables]);
   const imageVariableOptions = import_react244.useMemo(() => {
     return imageVariables.map((variable) => ({
       value: variable.id,
@@ -46310,7 +46529,7 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
   }, [imageVariables]);
   import_react244.useEffect(() => {
     const loadConfig = async () => {
-      if (!state.studio.isLayoutConfigLoaded && !state.studio.isDocumentLoaded) {
+      if (!isLayoutConfigLoaded && !isDocumentLoaded) {
         const resultDoc = await loadDocFromDoc();
         const resultLayoutMap = await loadLayoutImageMapFromDoc();
         resultLayoutMap.fold((layoutMapArray) => {
@@ -46342,10 +46561,10 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
         }, raiseError2);
       }
     };
-    if (state.modal.isModalVisible)
+    if (isModalVisible)
       loadConfig();
-  }, [state.modal.isModalVisible]);
-  if (!state.modal.isModalVisible)
+  }, [isModalVisible]);
+  if (!isModalVisible)
     return null;
   const handleClose = () => {
     events2.studio.document.unload();
@@ -46354,9 +46573,9 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
     events2.modal.hideModal();
   };
   const handleSave = async () => {
-    const saveToDocResult = await saveLayoutImageMapToDoc(state.studio.layoutImageMapping);
+    const saveToDocResult = await saveLayoutImageMapToDoc(layoutImageMapping);
     saveToDocResult.map(async (_2) => {
-      return await saveLayoutMappingToAction(state.studio.layoutImageMapping, state.studio.document);
+      return await saveLayoutMappingToAction(layoutImageMapping, document2);
     }).fold(handleClose, (e) => e ? raiseError2(e) : e);
   };
   const handleConfigChange = (updatedConfig) => {
@@ -46434,16 +46653,16 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
         },
         centered: true,
         fullScreen: true,
-        opened: state.modal.isModalVisible,
+        opened: isModalVisible,
         onClose: handleClose,
         withCloseButton: false,
         children: [
           /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(ModalHeader2, {}, undefined, false, undefined, this),
           /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(Content, {
-            children: !state.studio.isLayoutConfigLoaded || !state.studio.isDocumentLoaded ? /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(LoadingSpinner, {}, undefined, false, undefined, this) : /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(Stack, {
+            children: !isLayoutConfigLoaded || !isDocumentLoaded ? /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(LoadingSpinner, {}, undefined, false, undefined, this) : /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(Stack, {
               h: "100%",
               gap: "md",
-              children: state.studio.layoutImageMapping.map((config, index3) => /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(LayoutConfigSection, {
+              children: layoutImageMapping.map((config, index3) => /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(LayoutConfigSection, {
                 mapConfig: config,
                 index: index3
               }, index3, false, undefined, this))
@@ -46453,7 +46672,7 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
         ]
       }, undefined, true, undefined, this),
       /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(AddMappingImageVariableModal, {
-        currentMapConfig: state.studio.layoutImageMapping.find((config) => config.id === state.modal.currentSelectedMapId) || null
+        currentMapConfig: layoutImageMapping.find((config) => config.id === currentSelectedMapId) || null
       }, undefined, false, undefined, this),
       /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(AddDependentModal, {}, undefined, false, undefined, this),
       /* @__PURE__ */ jsx_dev_runtime9.jsxDEV(Modal, {
@@ -46619,7 +46838,7 @@ function FrameSnapshotLayoutModal({
   const [frameLayoutMaps, setFrameLayoutMaps] = import_react245.useState([]);
   const [isLoading, setIsLoading] = import_react245.useState(false);
   const [isRemoving, setIsRemoving] = import_react245.useState(false);
-  const { raiseError: raiseError2 } = useAppStore();
+  const raiseError2 = appStore((store) => store.raiseError);
   const loadFrameLayouts = async () => {
     setIsLoading(true);
     try {
@@ -46952,10 +47171,8 @@ var import_react247 = __toESM(require_react(), 1);
 var jsx_dev_runtime12 = __toESM(require_jsx_dev_runtime(), 1);
 function LayoutManagerModal({ opened, onClose }) {
   const [layouts, setLayouts] = import_react247.useState([]);
-  const [treeData, setTreeData] = import_react247.useState([]);
-  const [selectedLayout, setSelectedLayout] = import_react247.useState(null);
   const [studio2, setStudio] = import_react247.useState(null);
-  const { raiseError: raiseError2 } = useAppStore();
+  const raiseError2 = appStore((store) => store.raiseError);
   import_react247.useEffect(() => {
     const fetchLayouts = async () => {
       try {
@@ -46983,9 +47200,8 @@ function LayoutManagerModal({ opened, onClose }) {
           lockAspectRatio: false,
           percentage: 100
         }));
-        setLayouts(layoutNodes);
-        const tree = buildLayoutTree(layoutNodes);
-        setTreeData(tree);
+        const sortedLayouts = sortLayouts(layoutNodes);
+        setLayouts(sortedLayouts);
       } catch (error2) {
         raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
       }
@@ -46994,75 +47210,177 @@ function LayoutManagerModal({ opened, onClose }) {
       fetchLayouts();
     }
   }, [opened, raiseError2]);
-  const buildLayoutTree = (layoutNodes) => {
+  const sortLayouts = (layoutNodes) => {
     const nodeMap = new Map;
     layoutNodes.forEach((node2) => {
-      nodeMap.set(node2.id, { ...node2, children: [] });
+      nodeMap.set(node2.id, node2);
     });
-    const rootNodes = [];
-    nodeMap.forEach((node2) => {
-      if (!node2.parentId) {
-        rootNodes.push(node2);
-      } else {
-        const parent = nodeMap.get(node2.parentId);
-        if (parent) {
-          if (!parent.children) {
-            parent.children = [];
-          }
-          parent.children.push(node2);
-        }
+    const depthMap = new Map;
+    const getDepth = (nodeId) => {
+      if (depthMap.has(nodeId)) {
+        return depthMap.get(nodeId);
       }
-    });
-    return rootNodes.map(convertToTreeNode);
-  };
-  const convertToTreeNode = (node2) => {
-    return {
-      value: node2.id,
-      label: node2.name,
-      children: node2.children ? node2.children.map(convertToTreeNode) : undefined
+      const node2 = nodeMap.get(nodeId);
+      if (!node2 || !node2.parentId) {
+        depthMap.set(nodeId, 0);
+        return 0;
+      }
+      const parentDepth = getDepth(node2.parentId);
+      const depth = parentDepth + 1;
+      depthMap.set(nodeId, depth);
+      return depth;
     };
-  };
-  const handleNodeSelect = (event) => {
-    const target = event.target;
-    const nodeElement = target.closest("[data-tree-value]");
-    if (nodeElement) {
-      const nodeValue = nodeElement.getAttribute("data-tree-value");
-      if (nodeValue) {
-        const layout = layouts.find((l2) => l2.id === nodeValue);
-        if (layout) {
-          setSelectedLayout(layout);
-        }
+    layoutNodes.forEach((node2) => getDepth(node2.id));
+    return [...layoutNodes].sort((a2, b) => {
+      const depthA = depthMap.get(a2.id) || 0;
+      const depthB = depthMap.get(b.id) || 0;
+      if (depthA !== depthB) {
+        return depthA - depthB;
       }
-    }
+      return a2.name.localeCompare(b.name);
+    });
   };
-  const handleSaveLayout = async () => {
-    if (!selectedLayout || !studio2)
+  const handleSaveLayout = async (layout) => {
+    if (!studio2)
       return;
     try {
       const update = {
-        enabled: { value: selectedLayout.resizable },
-        minWidth: selectedLayout.minWidth !== undefined ? { value: String(selectedLayout.minWidth) } : undefined,
-        maxWidth: selectedLayout.maxWidth !== undefined ? { value: String(selectedLayout.maxWidth) } : undefined,
-        minHeight: selectedLayout.minHeight !== undefined ? { value: String(selectedLayout.minHeight) } : undefined,
-        maxHeight: selectedLayout.maxHeight !== undefined ? { value: String(selectedLayout.maxHeight) } : undefined
+        enabled: { value: layout.resizable },
+        minWidth: layout.minWidth !== undefined ? { value: String(layout.minWidth) } : undefined,
+        maxWidth: layout.maxWidth !== undefined ? { value: String(layout.maxWidth) } : undefined,
+        minHeight: layout.minHeight !== undefined ? { value: String(layout.minHeight) } : undefined,
+        maxHeight: layout.maxHeight !== undefined ? { value: String(layout.maxHeight) } : undefined
       };
-      const result = await updateLayoutResizable(studio2, selectedLayout.id, update);
+      const result = await updateLayoutResizable(studio2, layout.id, update);
       if (!result.isOk()) {
         raiseError2(new Error(result.error?.message || "Failed to update layout"));
         return;
       }
-      setLayouts(layouts.map((layout) => layout.id === selectedLayout.id ? selectedLayout : layout));
     } catch (error2) {
       raiseError2(error2 instanceof Error ? error2 : new Error(String(error2)));
     }
   };
-  const handleLayoutChange = (property, value) => {
-    if (!selectedLayout)
-      return;
-    setSelectedLayout({
-      ...selectedLayout,
-      [property]: value
-    });
+  const handleLayoutChange = (layoutId, property, value) => {
+    setLayouts(layouts.map((node2) => node2.id === layoutId ? { ...node2, [property]: value } : node2));
+  };
+  const LayoutCard = ({ node: node2 }) => {
+    const getParentInfo = () => {
+      if (!node2.parentId)
+        return null;
+      const parent = layouts.find((layout) => layout.id === node2.parentId);
+      if (!parent)
+        return null;
+      return /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Text, {
+        size: "sm",
+        color: "dimmed",
+        children: [
+          "Parent: ",
+          parent.name
+        ]
+      }, undefined, true, undefined, this);
+    };
+    const getIndentation = () => {
+      const parent = layouts.find((layout) => layout.id === node2.parentId);
+      return parent ? 20 : 0;
+    };
+    return /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Box, {
+      mb: "sm",
+      ml: getIndentation(),
+      children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Card, {
+        shadow: "sm",
+        p: "md",
+        radius: "md",
+        withBorder: true,
+        children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Stack, {
+          children: [
+            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+              justify: "space-between",
+              children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Stack, {
+                gap: "xs",
+                children: [
+                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Title, {
+                    order: 5,
+                    children: node2.name
+                  }, undefined, false, undefined, this),
+                  getParentInfo()
+                ]
+              }, undefined, true, undefined, this)
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+              children: [
+                /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Switch, {
+                  label: "Available",
+                  checked: node2.available,
+                  onChange: (event) => handleLayoutChange(node2.id, "available", event.currentTarget.checked)
+                }, undefined, false, undefined, this),
+                /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Switch, {
+                  label: "Resizable",
+                  checked: node2.resizable,
+                  onChange: (event) => handleLayoutChange(node2.id, "resizable", event.currentTarget.checked)
+                }, undefined, false, undefined, this)
+              ]
+            }, undefined, true, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+              children: [
+                /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                  label: "Min Width",
+                  value: node2.minWidth !== null ? node2.minWidth : undefined,
+                  onChange: (value) => handleLayoutChange(node2.id, "minWidth", value),
+                  disabled: !node2.resizable,
+                  style: { width: "80px" }
+                }, undefined, false, undefined, this),
+                /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                  label: "Max Width",
+                  value: node2.maxWidth !== null ? node2.maxWidth : undefined,
+                  onChange: (value) => handleLayoutChange(node2.id, "maxWidth", value),
+                  disabled: !node2.resizable,
+                  style: { width: "80px" }
+                }, undefined, false, undefined, this),
+                /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                  label: "Min Height",
+                  value: node2.minHeight !== null ? node2.minHeight : undefined,
+                  onChange: (value) => handleLayoutChange(node2.id, "minHeight", value),
+                  disabled: !node2.resizable,
+                  style: { width: "80px" }
+                }, undefined, false, undefined, this),
+                /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+                  label: "Max Height",
+                  value: node2.maxHeight !== null ? node2.maxHeight : undefined,
+                  onChange: (value) => handleLayoutChange(node2.id, "maxHeight", value),
+                  disabled: !node2.resizable,
+                  style: { width: "80px" }
+                }, undefined, false, undefined, this)
+              ]
+            }, undefined, true, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Checkbox, {
+              label: "Lock Aspect Ratio",
+              checked: node2.lockAspectRatio,
+              onChange: (event) => handleLayoutChange(node2.id, "lockAspectRatio", event.currentTarget.checked),
+              disabled: !node2.resizable
+            }, undefined, false, undefined, this),
+            node2.lockAspectRatio && /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
+              label: "Percentage",
+              value: node2.percentage,
+              onChange: (value) => handleLayoutChange(node2.id, "percentage", value),
+              min: 0,
+              max: 50,
+              step: 1,
+              style: { width: "60px" }
+            }, undefined, false, undefined, this),
+            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
+              justify: "flex-end",
+              mt: "xs",
+              children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Button, {
+                onClick: () => handleSaveLayout(node2),
+                color: "blue",
+                size: "sm",
+                children: "Save Changes"
+              }, undefined, false, undefined, this)
+            }, undefined, false, undefined, this)
+          ]
+        }, undefined, true, undefined, this)
+      }, undefined, false, undefined, this)
+    }, undefined, false, undefined, this);
   };
   return /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Modal, {
     opened,
@@ -47070,107 +47388,18 @@ function LayoutManagerModal({ opened, onClose }) {
     title: "Layout Manager",
     size: "xl",
     fullScreen: true,
-    children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
-      align: "flex-start",
-      style: { height: "calc(100vh - 120px)" },
+    children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Box, {
+      style: { height: "calc(100vh - 120px)", overflowY: "auto", padding: "16px" },
       children: [
-        /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Box, {
-          style: { width: "30%", height: "100%", overflowY: "auto" },
-          children: [
-            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Title, {
-              order: 4,
-              mb: "md",
-              children: "Layouts"
-            }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Tree, {
-              data: treeData,
-              onSelect: handleNodeSelect
-            }, undefined, false, undefined, this)
-          ]
-        }, undefined, true, undefined, this),
-        /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Box, {
-          style: { width: "70%", height: "100%", overflowY: "auto" },
-          children: selectedLayout ? /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Stack, {
-            children: [
-              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Title, {
-                order: 4,
-                children: selectedLayout.name
-              }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
-                children: [
-                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Switch, {
-                    label: "Available",
-                    checked: selectedLayout.available,
-                    onChange: (event) => handleLayoutChange("available", event.currentTarget.checked)
-                  }, undefined, false, undefined, this),
-                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Switch, {
-                    label: "Resizable",
-                    checked: selectedLayout.resizable,
-                    onChange: (event) => handleLayoutChange("resizable", event.currentTarget.checked)
-                  }, undefined, false, undefined, this)
-                ]
-              }, undefined, true, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
-                grow: true,
-                children: [
-                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
-                    label: "Min Width",
-                    value: selectedLayout.minWidth !== null ? selectedLayout.minWidth : undefined,
-                    onChange: (value) => handleLayoutChange("minWidth", value),
-                    disabled: !selectedLayout.resizable
-                  }, undefined, false, undefined, this),
-                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
-                    label: "Max Width",
-                    value: selectedLayout.maxWidth !== null ? selectedLayout.maxWidth : undefined,
-                    onChange: (value) => handleLayoutChange("maxWidth", value),
-                    disabled: !selectedLayout.resizable
-                  }, undefined, false, undefined, this)
-                ]
-              }, undefined, true, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
-                grow: true,
-                children: [
-                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
-                    label: "Min Height",
-                    value: selectedLayout.minHeight !== null ? selectedLayout.minHeight : undefined,
-                    onChange: (value) => handleLayoutChange("minHeight", value),
-                    disabled: !selectedLayout.resizable
-                  }, undefined, false, undefined, this),
-                  /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
-                    label: "Max Height",
-                    value: selectedLayout.maxHeight !== null ? selectedLayout.maxHeight : undefined,
-                    onChange: (value) => handleLayoutChange("maxHeight", value),
-                    disabled: !selectedLayout.resizable
-                  }, undefined, false, undefined, this)
-                ]
-              }, undefined, true, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Checkbox, {
-                label: "Lock Aspect Ratio",
-                checked: selectedLayout.lockAspectRatio,
-                onChange: (event) => handleLayoutChange("lockAspectRatio", event.currentTarget.checked),
-                disabled: !selectedLayout.resizable
-              }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(NumberInput, {
-                label: "Percentage",
-                value: selectedLayout.percentage,
-                onChange: (value) => handleLayoutChange("percentage", value),
-                min: 1,
-                max: 100,
-                step: 1
-              }, undefined, false, undefined, this),
-              /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Group, {
-                justify: "flex-end",
-                mt: "xl",
-                children: /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Button, {
-                  onClick: handleSaveLayout,
-                  color: "blue",
-                  children: "Save Changes"
-                }, undefined, false, undefined, this)
-              }, undefined, false, undefined, this)
-            ]
-          }, undefined, true, undefined, this) : /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Text, {
-            children: "Select a layout to view and edit its properties"
-          }, undefined, false, undefined, this)
+        /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Title, {
+          order: 4,
+          mb: "md",
+          children: "Layouts"
+        }, undefined, false, undefined, this),
+        /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(Stack, {
+          children: layouts.map((node2) => /* @__PURE__ */ jsx_dev_runtime12.jsxDEV(LayoutCard, {
+            node: node2
+          }, node2.id, false, undefined, this))
         }, undefined, false, undefined, this)
       ]
     }, undefined, true, undefined, this)
@@ -47293,7 +47522,7 @@ function ConnectorReplacementModal({
 var jsx_dev_runtime14 = __toESM(require_jsx_dev_runtime(), 1);
 function DownloadModal({ opened, onClose }) {
   const fileInputRef = import_react249.useRef(null);
-  const { raiseError: raiseError2 } = useAppStore();
+  const raiseError2 = appStore((store) => store.raiseError);
   const [replacementModalOpened, setReplacementModalOpened] = import_react249.useState(false);
   const [missingConnectors, setMissingConnectors] = import_react249.useState([]);
   const [availableConnectors, setAvailableConnectors] = import_react249.useState([]);
@@ -47519,13 +47748,19 @@ function Toolbar() {
   const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react250.useState(false);
   const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react250.useState(false);
   const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react250.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react250.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react250.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react250.useState("");
   const [updateInfo, setUpdateInfo] = import_react250.useState(null);
-  const { effects, raiseError: raiseError2, state, disableToolbar } = useAppStore();
+  const effects = appStore((store) => store.effects);
+  const raiseError2 = appStore((store) => store.raiseError);
+  const isToolbarEnabled = appStore((store) => store.state.isToolbarEnabled);
+  const disableToolbar = appStore((store) => store.disableToolbar);
   const handleTestError = () => {
     raiseError2(new Error("This is a test error message"));
   };
   const setVisibleIntercept = (value) => {
-    if (!state.isToolbarEnabled) {
+    if (!isToolbarEnabled) {
       setVisible(false);
     }
     setVisible(value);
@@ -47582,6 +47817,16 @@ function Toolbar() {
     setVisible(false);
     setIsLayoutManagerOpen(true);
   };
+  const handleAspectLock = () => {
+    setIsAspectLockConfirmModalOpen(true);
+  };
+  const handleConfirmAspectLock = async (value) => {
+    setIsAspectLockConfirmModalOpen(false);
+    (await saveLayoutSizingToAction(value)).fold((_2) => {
+      setAspectLockSuccessMessage(value ? "Success in turning Aspect Ratio On" : "Success in turning Aspect Ratio Off");
+      setIsAspectLockSuccessModalOpen(true);
+    }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
+  };
   return /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(jsx_dev_runtime15.Fragment, {
     children: [
       /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Transition, {
@@ -47635,6 +47880,21 @@ function Toolbar() {
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
                   children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(IconPhotoCog, {
+                    size: 20
+                  }, undefined, false, undefined, this)
+                }, undefined, false, undefined, this)
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Tooltip, {
+                label: "Aspect Lock",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Aspect Lock",
+                  onClick: handleAspectLock,
+                  children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(IconPlaystationSquare, {
                     size: 20
                   }, undefined, false, undefined, this)
                 }, undefined, false, undefined, this)
@@ -47749,7 +48009,61 @@ function Toolbar() {
       isLayoutManagerOpen && /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
-      }, undefined, false, undefined, this)
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Modal, {
+        opened: isAspectLockConfirmModalOpen,
+        onClose: () => setIsAspectLockConfirmModalOpen(false),
+        title: "Confirm Aspect Lock Change",
+        centered: true,
+        size: "sm",
+        children: [
+          /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Text, {
+            children: "Turn Aspect Lock On?"
+          }, undefined, false, undefined, this),
+          /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Group, {
+            justify: "flex-end",
+            mt: "md",
+            children: [
+              /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Button, {
+                variant: "default",
+                onClick: () => handleConfirmAspectLock(false),
+                children: "No"
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Button, {
+                color: "blue",
+                onClick: () => handleConfirmAspectLock(true),
+                children: "Yes"
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this)
+        ]
+      }, undefined, true, undefined, this),
+      /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Modal, {
+        opened: isAspectLockSuccessModalOpen,
+        onClose: () => {
+          setIsAspectLockSuccessModalOpen(false);
+          setAspectLockSuccessMessage("");
+        },
+        title: "Aspect Lock Status",
+        centered: true,
+        size: "sm",
+        children: [
+          /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Text, {
+            children: aspectLockSuccessMessage
+          }, undefined, false, undefined, this),
+          /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Group, {
+            justify: "flex-end",
+            mt: "md",
+            children: /* @__PURE__ */ jsx_dev_runtime15.jsxDEV(Button, {
+              onClick: () => {
+                setIsAspectLockSuccessModalOpen(false);
+                setAspectLockSuccessMessage("");
+              },
+              children: "Close"
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this)
+        ]
+      }, undefined, true, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
@@ -47758,7 +48072,8 @@ function Toolbar() {
 var import_react251 = __toESM(require_react(), 1);
 var jsx_dev_runtime16 = __toESM(require_jsx_dev_runtime(), 1);
 function AlertsContainer() {
-  const { alerts, dismissAlert } = useAppStore();
+  const alerts = appStore((store) => store.alerts);
+  const dismissAlert = appStore((store) => store.dismissAlert);
   import_react251.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
@@ -47812,12 +48127,8 @@ var theme = createTheme({
   colors: {}
 });
 window.test = () => console.log(appStore.getState());
-window.customToolbar = () => {
-  renderToolbar();
-};
-async function renderToolbar() {
-  const studioResult = await getStudio();
-  studioResult.onSuccess((studio2) => setEnableActions(studio2, true));
+async function renderToolbar(studio2) {
+  console.log("Rendering toolbar...");
   if (!window.rootInstance) {
     const modalContainer = document.createElement("div");
     modalContainer.id = "config-modal-root";
@@ -47844,8 +48155,24 @@ async function renderToolbar() {
     }, undefined, true, undefined, this)
   }, undefined, false, undefined, this));
 }
-setTimeout(() => {
-  renderToolbar();
-}, 5000);
+async function checkStudioExist() {
+  const studioResult = await getStudio();
+  studioResult.fold((studio2) => {
+    studio2.config.events.onParagraphStylesChanged.registerCallback(() => {
+      console.log("Studio found, rendering toolbar...");
+      if (window.customToolbarLoaded == null) {
+        window.customToolbarLoaded = true;
+        renderToolbar(studio2);
+        setEnableActions(studio2, true);
+      }
+    });
+  }, () => {
+    console.log("Studio not found, retrying in 200ms...");
+    setTimeout(() => {
+      checkStudioExist();
+    }, 200);
+  });
+}
+checkStudioExist();
 
-//# debugId=FAB81940B4300B0664756E2164756E21
+//# debugId=022920A2ACC2C5BA64756E2164756E21
