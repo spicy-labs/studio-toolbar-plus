@@ -1,6 +1,9 @@
 // First, get the current extension version
 const currentVersion = chrome.runtime.getManifest().version;
 
+// Break currentVersion down into major, minor, patch
+const [currentMajor, currntMinor, currentPatch] = currentVersion.split(".");
+
 // Create a function to fetch the GitHub version
 async function checkForUpdates() {
   try {
@@ -15,10 +18,15 @@ async function checkForUpdates() {
     );
     const packageJson = await response.json();
     const githubVersion = packageJson.version;
+    const [githubMajor, githubMinor, githubPatch] = githubVersion.split(".");
 
     // Compare versions and check if we've already notified
     if (
-      githubVersion !== currentVersion &&
+      githubMajor > currentMajor ||
+      (githubMajor === currentMajor && githubMinor > currntMinor) ||
+      (githubMajor === currentMajor &&
+        githubMinor === currntMinor &&
+        githubPatch > currentPatch) &&
       githubVersion !== lastNotifiedVersion
     ) {
       // Create a hidden div with version information
