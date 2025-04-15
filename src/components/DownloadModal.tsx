@@ -17,7 +17,7 @@ import {
 } from "../studio/documentHandler";
 import { getStudio } from "../studio/studioAdapter";
 import { ConnectorReplacementModal } from "./ConnectorReplacementModal";
-import type { Connector, ConnectorResponse, DocumentConnector, GrafxSource } from "../types/connectorTypes";
+import type { Connector, ConnectorResponse, DocumentConnector } from "../types/connectorTypes";
 
 interface DownloadModalProps {
   opened: boolean;
@@ -32,6 +32,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   const [missingConnectors, setMissingConnectors] = useState<DocumentConnector[]>([]);
   const [availableConnectors, setAvailableConnectors] = useState<Connector[]>([]);
   const [pendingJsonContent, setPendingJsonContent] = useState<string>("");
+  const [nameMatches, setNameMatches] = useState<Record<string, string>>({});
 
   const handleDownload = async () => {
     try {
@@ -96,7 +97,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         try {
           // Parse the JSON to check for connectors
           const jsonData = JSON.parse(content);
-          
+
           if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
             const studioResult = await getStudio();
             if (!studioResult.isOk()) {
@@ -131,20 +132,25 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               // Check for missing connectors
               const documentConnectors = jsonData.connectors as DocumentConnector[];
               const missingConnectorsList: DocumentConnector[] = [];
+              const nameMatchesMap: Record<string, string> = {};
 
               // First check for exact ID matches
               for (const docConnector of documentConnectors) {
                 if (docConnector.source.source === "grafx" && docConnector.source.id) {
                   const sourceId = docConnector.source.id;
                   const foundConnector = connectorResponse.data.find(c => c.id === sourceId);
-                  
+
                   if (!foundConnector) {
                     // Try to find by name
                     const nameMatch = connectorResponse.data.find(c => c.name === docConnector.name);
-                    
+
                     if (nameMatch) {
+                      // Store the name match for auto-selection in the modal
+                      nameMatchesMap[docConnector.id] = nameMatch.id;
                       // Update the ID in the JSON
                       docConnector.source.id = nameMatch.id;
+                      // Still add to missing connectors list to show in the modal
+                      missingConnectorsList.push(docConnector);
                     } else {
                       // Add to missing connectors list
                       missingConnectorsList.push(docConnector);
@@ -153,14 +159,24 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                 }
               }
 
+              // Set the name matches for use in the replacement modal
+              setNameMatches(nameMatchesMap);
+
               if (missingConnectorsList.length > 0) {
-                // Show replacement modal
-                setMissingConnectors(missingConnectorsList);
-                setReplacementModalOpened(true);
-                return;
+                // Check if all missing connectors have name matches
+                const allHaveMatches = missingConnectorsList.every(connector =>
+                  nameMatchesMap[connector.id] !== undefined
+                );
+
+                if (!allHaveMatches) {
+                  // Show replacement modal for manual selection if not all have matches
+                  setMissingConnectors(missingConnectorsList);
+                  setReplacementModalOpened(true);
+                  return;
+                }
               }
 
-              // If no missing connectors, update the JSON and load
+              // If no missing connectors or all have matches, update the JSON and load
               const updatedContent = JSON.stringify(jsonData);
               await loadDocument(studioResult.value, updatedContent);
             } catch (error) {
@@ -175,7 +191,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               );
               return;
             }
-            
+
             await loadDocument(studioResult.value, content);
           }
         } catch (parseError) {
@@ -212,11 +228,11 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   const handleConnectorReplacements = async (replacements: { original: string; replacement: string }[]) => {
     try {
       const jsonData = JSON.parse(pendingJsonContent);
-      
+
       if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
         // Update connector IDs based on replacements
         const documentConnectors = jsonData.connectors as DocumentConnector[];
-        
+
         for (const docConnector of documentConnectors) {
           if (docConnector.source.source === "grafx") {
             const replacement = replacements.find(r => r.original === docConnector.id);
@@ -225,7 +241,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             }
           }
         }
-        
+
         // Get studio and load the updated document
         const studioResult = await getStudio();
         if (!studioResult.isOk()) {
@@ -234,7 +250,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
           );
           return;
         }
-        
+
         const updatedContent = JSON.stringify(jsonData);
         await loadDocument(studioResult.value, updatedContent);
       }
@@ -290,12 +306,9 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         missingConnectors={missingConnectors}
         availableConnectors={availableConnectors}
         onReplace={handleConnectorReplacements}
+        nameMatches={nameMatches}
       />
     </>
   );
 }
 
-// Helper function to check if a source is a GrafxSource
-function isGrafxSource(source: any): source is GrafxSource {
-  return source && typeof source === 'object' && source.source === 'grafx' && 'id' in source;
-}

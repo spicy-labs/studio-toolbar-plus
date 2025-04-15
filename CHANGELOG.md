@@ -1,3 +1,9 @@
+## 0.5.2
+
+### 🐛 Fixed
+
+- Fix automatically adding connector based on name
+
 ## 0.5.1
 
 ### ✨ Added
