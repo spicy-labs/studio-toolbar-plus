@@ -16,6 +16,7 @@ interface ConnectorReplacementModalProps {
   missingConnectors: DocumentConnector[];
   availableConnectors: Connector[];
   onReplace: (replacements: { original: string; replacement: string }[]) => void;
+  nameMatches?: Record<string, string>;
 }
 
 export function ConnectorReplacementModal({
@@ -24,9 +25,17 @@ export function ConnectorReplacementModal({
   missingConnectors,
   availableConnectors,
   onReplace,
+  nameMatches = {},
 }: ConnectorReplacementModalProps) {
   const [replacements, setReplacements] = useState<Record<string, string>>({});
   const mediaConnectors = availableConnectors.filter((c) => c.type === "media");
+
+  // Initialize replacements with name matches when the modal opens
+  useEffect(() => {
+    if (opened && Object.keys(nameMatches).length > 0) {
+      setReplacements(nameMatches);
+    }
+  }, [opened, nameMatches]);
 
   // Check if all missing connectors have replacements selected
   const allSelected = missingConnectors.every(
@@ -78,6 +87,7 @@ export function ConnectorReplacementModal({
                       label: c.name,
                     }))}
                     placeholder="Select a connector"
+                    value={replacements[connector.id]}
                     onChange={(value) => {
                       if (value) {
                         setReplacements((prev) => ({
