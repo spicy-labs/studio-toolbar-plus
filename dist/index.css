@@ -826,12 +826,16 @@ fieldset:disabled .mantine-active:active {
   background-color: var(--mantine-color-body);
 }
 
-:where([data-mantine-color-scheme="light"]) .m_1b7284a3:where([data-with-border]) {
-  border: calc(.0625rem * var(--mantine-scale)) solid var(--mantine-color-gray-3);
+[data-mantine-color-scheme="light"] .m_1b7284a3 {
+  --paper-border-color: var(--mantine-color-gray-3);
 }
 
-:where([data-mantine-color-scheme="dark"]) .m_1b7284a3:where([data-with-border]) {
-  border: calc(.0625rem * var(--mantine-scale)) solid var(--mantine-color-dark-4);
+[data-mantine-color-scheme="dark"] .m_1b7284a3 {
+  --paper-border-color: var(--mantine-color-dark-4);
+}
+
+.m_1b7284a3:where([data-with-border]) {
+  border: calc(.0625rem * var(--mantine-scale)) solid var(--paper-border-color);
 }
 
 .m_9814e45f {
@@ -7652,7 +7656,16 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
 
 .m_b242d975:where([data-sticky]) {
   position: sticky;
+}
+
+.m_b242d975:where([data-sticky]) .m_4e7aa4f3 {
+  position: sticky;
+  top: var(--table-sticky-header-offset, 0);
   background-color: var(--mantine-color-body);
+}
+
+:where([data-with-table-border]) .m_b242d975[data-sticky] .m_4e7aa4f3 {
+  top: initial;
 }
 
 .m_9e5a3ac7 {
@@ -8408,6 +8421,7 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
 .m_d6493fad :where(h1, h2, h3, h4, h5, h6) {
   margin-bottom: var(--mantine-spacing-xs);
   text-wrap: var(--mantine-heading-text-wrap);
+  font-family: var(--mantine-font-family-headings);
 }
 
 .m_d6493fad :where(h1) {
