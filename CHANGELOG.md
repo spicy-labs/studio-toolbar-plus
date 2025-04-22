@@ -1,3 +1,10 @@
+## 0.6.1
+
+### 🐛 Fixed
+
+- Fix height for aspect lock resizing not being set
+- Fix visibility of aspect lock resizing being true
+
 ## 0.6.0
 
 ### ✨ Added
