@@ -11,6 +11,8 @@ import {
   getAllVariables,
   setOrCreateVariableValue,
   setVariableValue,
+  setVariableVisblity,
+  setVariableVisblityWithName,
 } from "./variableHandler.ts";
 import {
   type PrivateData,
@@ -18,6 +20,7 @@ import {
   type default as SDKType,
   ActionEditorEvent,
   VariableType,
+  VariableVisibilityType,
 } from "@chili-publish/studio-sdk";
 import {
   createEmptyEnvelope,
@@ -394,7 +397,11 @@ export async function saveLayoutSizingToAction(on:boolean) {
       value: JSON.stringify(layoutSizingMapResult.value, null, 0)
     });
 
-    return variableResult;
+    if (variableResult.isError()) {
+      return variableResult;
+    }
+
+    return setVariableVisblityWithName({studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible:{type:VariableVisibilityType.invisible}});      
   }
   else {
     const variableResult = await setOrCreateVariableValue({
@@ -404,7 +411,11 @@ export async function saveLayoutSizingToAction(on:boolean) {
       value: JSON.stringify({}, null, 0)
     });
 
-    return variableResult;
+    if (variableResult.isError()) {
+      return variableResult;
+    }
+
+    return setVariableVisblityWithName({studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible:{type:VariableVisibilityType.invisible}});      
   }
 
 }
