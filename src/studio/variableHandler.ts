@@ -1,7 +1,8 @@
 import type SDK from "@chili-publish/studio-sdk";
 import { Result } from "typescript-result";
 import { handleStudioFunc } from "./utils";
-import type { PrivateData, VariableType } from "@chili-publish/studio-sdk";
+import type { PrivateData, VariableType, VariableVisibility } from "@chili-publish/studio-sdk";
+import type { Variable } from "../types/layoutConfigTypes";
 
 export async function getAllVariables(studio: SDK) {
   return handleStudioFunc(studio.next.variable.getAll);
@@ -19,6 +20,45 @@ export async function setVariableValue({
   value,
 }: SetVariableValueProps) {
   return handleStudioFunc(studio.variable.setValue, id, value);
+}
+
+type SetVariableVisibilityProps = {
+  studio: SDK;
+  id: string;
+  visible: VariableVisibility;
+};
+
+export async function setVariableVisblity({studio, id, visible}: SetVariableVisibilityProps) {
+  return handleStudioFunc(studio.variable.setVariableVisibility, id, visible);
+}
+
+
+type SetVariableNameVisibilityProps = {
+  studio: SDK;
+  name: string;
+  visible: VariableVisibility;
+};
+
+export async function setVariableVisblityWithName({studio, name, visible}: SetVariableNameVisibilityProps) {
+  const allVariablesResult = await getAllVariables(studio);
+
+  return allVariablesResult.map(async (variables) => {
+    // Find variable with matching name
+    const existingVariable = variables.find(
+      (variable) => variable.name === name,
+    );
+
+    if (existingVariable) {
+      // If variable exists, update its value
+      return await setVariableVisblity({
+        studio,
+        id: existingVariable.id,
+        visible,
+      });
+    } else {
+      return Result.error(new Error(`Variable with name ${name} not found`));
+    }
+  });
 }
 
 type CreateVariableValue = {
