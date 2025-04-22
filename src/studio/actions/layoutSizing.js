@@ -73,8 +73,8 @@ export function layoutSizingScript(debug = false) {
 
           //debugObj.newHeight = newHeight;
 
-          data.layoutSizeCache[selectedLayoutName].height = newHeight;
-          data.layoutSizeCache[selectedLayoutName].width = pageWidth;
+          data[selectedLayoutName].height = newHeight;
+          data[selectedLayoutName].width = pageWidth;
           setPageSize(pageWidth, newHeight);
         }
 
