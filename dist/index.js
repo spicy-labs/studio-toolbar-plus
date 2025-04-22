@@ -21149,6 +21149,24 @@ async function setVariableValue2({
 }) {
   return handleStudioFunc(studio2.variable.setValue, id, value);
 }
+async function setVariableVisblity({ studio: studio2, id, visible }) {
+  return handleStudioFunc(studio2.variable.setVariableVisibility, id, visible);
+}
+async function setVariableVisblityWithName({ studio: studio2, name, visible }) {
+  const allVariablesResult = await getAllVariables(studio2);
+  return allVariablesResult.map(async (variables) => {
+    const existingVariable = variables.find((variable) => variable.name === name);
+    if (existingVariable) {
+      return await setVariableVisblity({
+        studio: studio2,
+        id: existingVariable.id,
+        visible
+      });
+    } else {
+      return Result.error(new Error(`Variable with name ${name} not found`));
+    }
+  });
+}
 async function createVariable({
   studio: studio2,
   variableType,
@@ -21618,8 +21636,8 @@ function layoutSizingScript(debug = false) {
         } else {
           newHeight = pageWidth / layoutRatio;
         }
-        data.layoutSizeCache[selectedLayoutName].height = newHeight;
-        data.layoutSizeCache[selectedLayoutName].width = pageWidth;
+        data[selectedLayoutName].height = newHeight;
+        data[selectedLayoutName].width = pageWidth;
         setPageSize(pageWidth, newHeight);
       }
       if (Math.round(height) == Math.round(pageHeight)) {
@@ -21878,7 +21896,10 @@ console.log(layoutSizingScript(false))`;
       variableType: import_studio_sdk.VariableType.shortText,
       value: JSON.stringify(layoutSizingMapResult.value, null, 0)
     });
-    return variableResult;
+    if (variableResult.isError()) {
+      return variableResult;
+    }
+    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk.VariableVisibilityType.invisible } });
   } else {
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
@@ -21886,7 +21907,10 @@ console.log(layoutSizingScript(false))`;
       variableType: import_studio_sdk.VariableType.shortText,
       value: JSON.stringify({}, null, 0)
     });
-    return variableResult;
+    if (variableResult.isError()) {
+      return variableResult;
+    }
+    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk.VariableVisibilityType.invisible } });
   }
 }
 async function updateFrameLayoutMaps(frameSnapshot) {
@@ -49055,4 +49079,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=ACB8EC07F473627664756E2164756E21
+//# debugId=07E2E978859F108164756E2164756E21
