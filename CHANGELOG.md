@@ -1,3 +1,13 @@
+## 0.6.0
+
+### ✨ Added
+
+- Download fonts option to download template
+- Frame snapshot position bulk delete
+- Frame snapshot position copy to layer
+- Frame snapshot position copy row
+- Frame snapshot position copy and replace
+
 ## 0.5.2
 
 ### 🐛 Fixed
