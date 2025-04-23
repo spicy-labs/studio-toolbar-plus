@@ -1,4 +1,4 @@
-function layoutSizingScript(debug = false) {
+export function layoutSizingScript(debug = false) {
   const version = 2;
   let debugObj = {};
   const selectedLayoutName = getSelectedLayoutName();
@@ -33,13 +33,13 @@ function layoutSizingScript(debug = false) {
         ...debugObj
       };
     }
-    
+
     if (currentAspectRatio < minAllowedRatio || currentAspectRatio > maxAllowedRatio) {
       // Determine which ratio boundary (min or max) is closer to the current ratio
       const distToMin = Math.abs(currentAspectRatio - minAllowedRatio);
       const distToMax = Math.abs(currentAspectRatio - maxAllowedRatio);
       const targetRatio = distToMin <= distToMax ? minAllowedRatio : maxAllowedRatio;
-      
+
       if (Math.round(width) == Math.round(pageWidth)) {
         // Width was changed by user, so we adjust width to maintain ratio
         let newWidth = pageHeight * targetRatio;
@@ -65,11 +65,10 @@ function layoutSizingScript(debug = false) {
       data[selectedLayoutName].height = pageHeight;
       data[selectedLayoutName].width = pageWidth;
     }
-    
+
     setVariableValue("AUTO_GEN_TOOLBAR_LAYOUTS", JSON.stringify(data, null, 0));
   }
   if (debug) {
     console.log(debugObj);
   }
 }
-console.log(layoutSizingScript(false))
