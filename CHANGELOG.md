@@ -1,3 +1,9 @@
+## 0.6.2
+
+### ⚡️ Improved
+
+- Improve aspect ratio - layout resizing to change the other value
+
 ## 0.6.1
 
 ### 🐛 Fixed
