@@ -1,5 +1,5 @@
 export function imageSizingScript(debug) {
-  const version = 0.4;
+  const version = 1;
   const imageSizingData = "%DATA1%";
   const layoutSizingData = "%DATA2%";
 
@@ -38,9 +38,6 @@ export function imageSizingScript(debug) {
       );
       continue;
     }
-
-    console.log("HELLO");
-    console.log(JSON.stringify(imageSizeData));
 
     const newFramePos = calculateUpdatedFrame(imageSizeData, layoutSizeData, {
       width: getPageWidth(),
