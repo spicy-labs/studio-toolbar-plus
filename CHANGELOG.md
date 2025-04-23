@@ -1,10 +1,15 @@
+## 0.6.4
+
+### 🐛 Fixed
+
+- Fix issue loading data due to Studio SDK update
+
 ## 0.6.3
 
 ### 🐛 Fixed
 
 - Fix missing dist files
 - Fix export of layout resizing function
-
 
 ## 0.6.2
 
