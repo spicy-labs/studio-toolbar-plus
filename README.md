@@ -13,13 +13,13 @@ Studio Toolbar Plus is a chrome extension that transforms your GraFx Studio Desi
 
 ## 🚀 Installation (Cape Not Included)
 
-1. Clone this repository to your local machine:
+1. Donwload the latest version zip from [Release](https://github.com/spicy-labs/studio-toolbar-plus/releases/) and unzip the extension
 
 2. Open Chrome and navigate to `chrome://extensions/`
 
 3. Toggle on "Developer mode" in the top-right corner (don't worry, it doesn't actually make you a developer)
 
-4. Click "Load unpacked" and select the folder where you cloned the repository
+4. Click "Load unpacked" and select the folder where you unzipped the extension
 
 5. Voilà! The extension should now appear in your Chrome toolbar, ready to save the day
 
