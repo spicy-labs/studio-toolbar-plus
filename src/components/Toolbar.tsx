@@ -26,8 +26,13 @@ import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
 import { DownloadModal } from "./DownloadModal";
 import { saveLayoutSizingToAction } from "../studio/studioAdapter";
+import type { Config } from "../types/configType";
 
-export function Toolbar() {
+type ToolarProps = {
+  config: Config;
+};
+
+export function Toolbar({config}:ToolarProps) {
   const [visible, setVisible] = useState(false);
   const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] =
     useState(false);

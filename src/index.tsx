@@ -49,7 +49,7 @@ async function initToolbar(studio: SDKExtended, config: Config) {
     // Render the toolbar
     window.toolbarInstance.render(
       <MantineProvider>
-        <Toolbar />
+        <Toolbar config={config} />
         <AlertsContainer />
       </MantineProvider>
     );
