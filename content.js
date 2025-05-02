@@ -2,7 +2,7 @@
 const currentVersion = chrome.runtime.getManifest().version;
 
 // Break currentVersion down into major, minor, patch
-const [currentMajor, currntMinor, currentPatch] = currentVersion.split(".");
+// const [currentMajor, currentMinor, currentPatch] = currentVersion.split(".").map(Number);
 
 // // Create a function to fetch the GitHub version
 // async function checkForUpdates() {
@@ -155,12 +155,11 @@ async function loadScripts() {
   script.src = chrome.runtime.getURL("./dist/index.js");
   (document.head || document.documentElement).appendChild(script);
 
-  postMessage({ type: "TOOLBAR_READY_TO_LOAD", payload: {} });
 }
 
 window.addEventListener("message", (event) => {
   if (event.data.type === "TOOLBAR_READY_TO_LOAD") {
-    postMessage({
+    window.postMessage({
       type: "LOAD_TOOLBAR",
       payload: {
         config: {
