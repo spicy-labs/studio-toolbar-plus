@@ -1,5 +1,5 @@
 import { createRoot, type Root } from "react-dom/client";
-import { appStore } from "./modalStore";
+import { appStore } from "./modalStore.ts";
 import type { default as SDKType } from "@chili-publish/studio-sdk";
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
@@ -9,6 +9,7 @@ import { setEnableActions } from "./studio/actionHandler.ts";
 import { getStudio, type SDKExtended } from "./studio/studioAdapter.ts";
 import { parseConfig, type Config } from "./types/configType.ts";
 import { Result } from "typescript-result";
+import { createElement } from "react";
 
 // Create a theme for Mantine
 const theme = createTheme({
@@ -48,10 +49,10 @@ async function initToolbar(studio: SDKExtended, config: Config) {
 
     // Render the toolbar
     window.toolbarInstance.render(
-      <MantineProvider>
-        <Toolbar config={config} />
-        <AlertsContainer />
-      </MantineProvider>
+      createElement(MantineProvider, { theme },
+        createElement(Toolbar, { config }),
+        createElement(AlertsContainer)
+      )
     );
   }
 }
