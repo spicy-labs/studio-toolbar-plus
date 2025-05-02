@@ -2,6 +2,8 @@ import { build } from "bun";
 import fs from "fs";
 import path from "path";
 
+process.env.NODE_ENV = "production";
+
 async function buildForWeb() {
   console.log("Building for web...");
 
@@ -11,7 +13,8 @@ async function buildForWeb() {
       outdir: "./dist",
       target: "browser",
       format: "esm",
-      minify: false,
+      minify: true,
+      env: "inline",
       sourcemap: "external",
     });
 
@@ -26,11 +29,12 @@ async function buildForWeb() {
       let fileContent = fs.readFileSync(outputPath, "utf-8");
 
       // Check if the CSS rule exists
-      const cssRuleToFind = /\*,\s*\*:before,\s*\*:after\s*\{\s*box-sizing:\s*border-box;\s*\}/;
-      
+      const cssRuleToFind =
+        /\*,\s*\*:before,\s*\*:after\s*\{\s*box-sizing:\s*border-box;\s*\}/;
+
       if (cssRuleToFind.test(fileContent)) {
         console.log("Found the CSS rule, replacing it...");
-        
+
         // Replace the CSS rule
         fileContent = fileContent.replace(
           cssRuleToFind,
@@ -38,11 +42,20 @@ async function buildForWeb() {
 [class^="m_"] *::before,
 [class^="m_"] *::after {
   box-sizing: border-box;
-}`
+}`,
+        );
+      } else if (
+        fileContent.includes("*,*:before,*:after{box-sizing:border-box}")
+      ) {
+        console.log("Found the single-line CSS rule, replacing it...");
+        // Replace the single-line CSS rule
+        fileContent = fileContent.replace(
+          "*,*:before,*:after{box-sizing:border-box}",
+          `[class^="m_"] *,[class^="m_"] *::before,[class^="m_"] *::after {box-sizing: border-box;}`,
         );
       } else {
         console.error("CSS rule not found! Deleting index.css file.");
-        fs.unlinkSync(outputPath);
+        // fs.unlinkSync(outputPath);
         throw new Error("Required CSS rule not found in the output file.");
       }
 
