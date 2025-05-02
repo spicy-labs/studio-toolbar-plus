@@ -50,10 +50,14 @@ declare global {
   }
 }
 
+export type SDKExtended = SDKType & {
+  customToolbarLoaded:boolean;
+}
+
 export async function getStudio() {
   if (window.SDK == null)
     return Result.error(new Error("Studio SDK does not exist on the window"));
-  return Result.ok(window.SDK);
+  return Result.ok(window.SDK as SDKExtended);
 }
 
 async function tryAddingToolbarToData(data: PrivateData) {
