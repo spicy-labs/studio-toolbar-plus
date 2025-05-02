@@ -101,8 +101,10 @@ async function waitForStudioReady(
   });
 }
 
+// Send message to content.js so it can get the version and config
 window.postMessage({ type: "TOOLBAR_READY_TO_LOAD" });
 
+// Listen for message from content.js with the version and config
 window.addEventListener("message", (event) => {
   if (event.data.type === "LOAD_TOOLBAR") {
     console.log("Received message to load toolbar");
