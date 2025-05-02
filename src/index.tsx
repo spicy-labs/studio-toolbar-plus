@@ -1,15 +1,13 @@
-import React from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { appStore } from "./modalStore";
 import type { default as SDKType } from "@chili-publish/studio-sdk";
-import { LayoutImageMappingModal } from "./components/LayoutMappingModal/LayoutModal.tsx";
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
-import { LayoutMultiSelect } from "./components/LayoutMappingModal/LayoutMultiSelect.tsx";
 import { Toolbar } from "./components/Toolbar.tsx";
 import { AlertsContainer } from "./components/AlertsContainer.tsx";
 import { setEnableActions } from "./studio/actionHandler.ts";
-import { getStudio } from "./studio/studioAdapter.ts";
+import { getStudio, type SDKExtended } from "./studio/studioAdapter.ts";
+import { parseConfig, type Config } from "./types/configType.ts";
 
 // Create a theme for Mantine
 const theme = createTheme({
@@ -22,10 +20,8 @@ const theme = createTheme({
 
 declare global {
   interface Window {
-    rootInstance?: Root;
     toolbarInstance?: Root;
     SDK: SDKType;
-    customToolbarLoaded: boolean;
   }
 }
 
@@ -38,18 +34,8 @@ const handleExportCSV = () => {
   // Implementation will come later
 };
 
-async function renderToolbar(studio:SDKType) {
+async function initToolbar(studio: SDKExtended, config: Config) {
   console.log("Rendering toolbar...");
-  // Create our modal root if it doesn't exist
-  if (!window.rootInstance) {
-
-    // Create div on body and use in it in the createRoot
-    const modalContainer = document.createElement("div");
-    modalContainer.id = "config-modal-root";
-    document.body.appendChild(modalContainer);
-
-    window.rootInstance = createRoot(modalContainer);
-  }
 
   // Create toolbar container if it doesn't exist
   if (!window.toolbarInstance) {
@@ -60,46 +46,51 @@ async function renderToolbar(studio:SDKType) {
     window.toolbarInstance = createRoot(toolbarContainer);
   }
 
-  // Render the modal
-  window.rootInstance.render(
-    <React.StrictMode>
-      <LayoutImageMappingModal onExportCSV={() => console.log("Look")} />
-    </React.StrictMode>,
-  );
-
   // Render the toolbar
   window.toolbarInstance.render(
-    <React.StrictMode>
       <MantineProvider>
         <Toolbar />
         <AlertsContainer />
       </MantineProvider>
-    </React.StrictMode>,
   );
 }
 
-
-async function checkStudioExist () {
-
-    const studioResult = await getStudio();
-    studioResult.fold(
-      (studio) => {
-        studio.config.events.onParagraphStylesChanged.registerCallback(()=> {
-          console.log("Studio found, rendering toolbar...");
-          if (window.customToolbarLoaded == null) {
-            window.customToolbarLoaded = true;
-            renderToolbar(studio);
-            setEnableActions(studio, true);
-          }
-        });
-      },
-      () => {
-        console.log("Studio not found, retrying in 200ms...");
-        setTimeout(() => {
-          checkStudioExist();
-        }, 200);
-      },
-    )
+async function checkStudioExist(callback: (studio: SDKExtended) => void) {
+  const studioResult = await getStudio();
+  studioResult.fold(
+    (studio) => {
+      studio.config.events.onParagraphStylesChanged.registerCallback(() =>
+        callback(studio)
+      );
+    },
+    () => {
+      console.log("Studio not found, retrying in 200ms...");
+      setTimeout(() => {
+        checkStudioExist(callback);
+      }, 200);
+    }
+  );
 }
 
-checkStudioExist();
+window.postMessage({ type: "TOOLBAR_READY_TO_LOAD" });
+
+window.addEventListener("message", (event) => {
+  if (event.data.type === "LOAD_TOOLBAR") {
+    console.log("Received message to load toolbar");
+
+    parseConfig(event.data.payload).fold(
+      (config) =>
+        checkStudioExist((studio) => {
+          if (!studio.customToolbarLoaded) {
+            studio.customToolbarLoaded = true;
+            initToolbar(studio,config);
+            setEnableActions(studio, config.setEnableActions);
+          }
+        }),
+      (error) => {
+        console.log("Invalid config, not loading toolbar");
+        throw error;
+      }
+    );
+  }
+});
