@@ -1,13 +1,13 @@
 import { createRoot, type Root } from "react-dom/client";
-import { appStore } from "./modalStore.ts";
+import { appStore } from "./core/appStore/store.ts";
 import type { default as SDKType } from "@chili-publish/studio-sdk";
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
-import { Toolbar } from "./components/Toolbar.tsx";
+import { Toolbar } from "./core/toolbar/Toolbar.ts";
 import { AlertsContainer } from "./components/AlertsContainer.tsx";
 import { setEnableActions } from "./studio/actionHandler.ts";
 import { getStudio, type SDKExtended } from "./studio/studioAdapter.ts";
-import { parseConfig, type Config } from "./types/configType.ts";
+import { parseConfig, type Config } from "./core/configType.ts";
 import { Result } from "typescript-result";
 import { createElement } from "react";
 
@@ -28,13 +28,7 @@ declare global {
 }
 
 //@ts-ignore
-window.test = () => console.log(appStore.getState());
-
-// Define the exportCSV function z
-const handleExportCSV = () => {
-  console.log("Exporting CSV...");
-  // Implementation will come later
-};
+window.getToolbarStore = () => console.log(appStore.getState());
 
 async function initToolbar(studio: SDKExtended, config: Config) {
   console.log("Rendering toolbar...");
@@ -49,9 +43,8 @@ async function initToolbar(studio: SDKExtended, config: Config) {
 
     // Render the toolbar
     window.toolbarInstance.render(
-      createElement(MantineProvider, { theme },
-        createElement(Toolbar, { config }),
-        createElement(AlertsContainer)
+      createElement(MantineProvider, 
+        createElement(Toolbar, { config })
       )
     );
   }
@@ -88,12 +81,12 @@ async function waitForSDK(
 
 async function waitForStudioReady(
   studio: SDKExtended,
-  timeout = 2000
+  timeout = 25000
 ): Promise<Result<SDKExtended, Error>> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(
-        Result.error(new Error(`Studio not ready after ${timeout} seconds`))
+        Result.error(new Error(`Studio not ready after ${timeout/1000} seconds`))
       );
     }, timeout);
     studio.config.events.onParagraphStylesChanged.registerCallback(() => {
@@ -110,7 +103,7 @@ window.addEventListener("message", (event) => {
   if (event.data.type === "LOAD_TOOLBAR") {
     console.log("Received message to load toolbar");
 
-    parseConfig(event.data.payload).fold(
+    parseConfig(event.data.payload.config).fold(
       async (config) => {
         const sdkResult = await waitForSDK();
         const studioReadyResult = await sdkResult.map(async (studio) => {
