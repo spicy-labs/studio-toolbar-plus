@@ -9,7 +9,7 @@ async function buildForWeb() {
 
   try {
     const result = await build({
-      entrypoints: ["./src/index.tsx"],
+      entrypoints: ["./src/index.ts"],
       outdir: "./dist",
       target: "browser",
       format: "esm",
