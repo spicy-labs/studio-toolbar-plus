@@ -14,6 +14,7 @@ import {
   IconTrashFilled,
   IconPlus,
   IconCaretDownFilled,
+  IconExchange
 } from "@tabler/icons-react";
 import { useState } from "react";
 import { Result } from "typescript-result";
@@ -42,6 +43,9 @@ export const VariableCard: React.FC<VariableCardProps> = ({
   const setCurrentImageVariableId = appStore(store => store.effects.modal.dependentModal.setCurrentImageVariableId);
   const setDependentModalIsOpen = appStore(store => store.effects.modal.dependentModal.setIsOpen);
   const removeImageVariable = appStore(store => store.effects.studio.layoutImageMapping.removeImageVariable);
+  const setIsSwapImageVariableModalOpen = appStore(store => store.effects.modal.setIsSwapImageVariableModalOpen);
+  const setCurrentSwapImageVariableId = appStore(store => store.effects.modal.setCurrentSwapImageVariableId);
+  const setCurrentSelectedMapId = appStore(store => store.effects.modal.setCurrentSelectedMapId);
   const [isOpen, setIsOpen] = useState(false);
 
   const variableImageConfig = documentVariables.find(
@@ -59,6 +63,14 @@ export const VariableCard: React.FC<VariableCardProps> = ({
     setDependentModalIsOpen(true);
   };
 
+  // Function to open the modal for swapping image variables
+  const handleSwapImageVariable = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent the card from toggling open/close
+    setCurrentSwapImageVariableId(variableConfig.id);
+    setCurrentSelectedMapId(layoutMap.id);
+    setIsSwapImageVariableModalOpen(true);
+  };
+
   return (
     <Paper
       key={variableConfig.id}
@@ -68,12 +80,25 @@ export const VariableCard: React.FC<VariableCardProps> = ({
       p="md"
     >
       <Group justify="space-between" onClick={() => setIsOpen(!isOpen)}>
-        <Title order={5}>{variableImageConfig.name}</Title>
+        <Group>
+          <Title order={5}>{variableImageConfig.name}</Title>
+          <ActionIcon
+            size="lg"
+            radius="xl"
+            color="blue"
+            onClick={handleSwapImageVariable}
+          >
+            <IconExchange />
+          </ActionIcon>
+        </Group>
         <Group gap={"md"}>
           <ActionIcon
             size="lg"
             radius="xl"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(!isOpen);
+            }}
             style={{
               transform: isOpen ? "rotate(0deg)" : "rotate(90deg)",
               transition: "transform 0.2s ease",
@@ -85,7 +110,8 @@ export const VariableCard: React.FC<VariableCardProps> = ({
             size="lg"
             color="red"
             radius="xl"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               removeImageVariable({
                 mapId: layoutMap.id,
                 imageVariableId: variableConfig.id,
