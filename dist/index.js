@@ -10577,7 +10577,7 @@ var require_main = __commonJS((exports, module) => {
       typeof Symbol != "undefined" && Symbol.toStringTag && Object.defineProperty(exports2, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(exports2, "__esModule", { value: true });
     } }, __webpack_exports__ = {};
     __webpack_require__.r(__webpack_exports__), __webpack_require__.d(__webpack_exports__, { ActionAsyncError: () => ActionAsyncError, ActionEditorEvent: () => ActionEditorEvent, Alignment: () => Alignment, AnchorTargetEdgeType: () => AnchorTargetEdgeType, AnchorTargetType: () => AnchorTargetType, AuthCredentialsTypeEnum: () => AuthCredentialsTypeEnum, AuthRefreshTypeEnum: () => AuthRefreshTypeEnum, AutoGrowDirection: () => AutoGrowDirection, BarcodeCharacterSet: () => BarcodeCharacterSet, BarcodeErrorCorrectionLevel: () => BarcodeErrorCorrectionLevel, BarcodeSourceTypeEnum: () => BarcodeSourceTypeEnum, BarcodeType: () => BarcodeType, BarcodeValidationResult: () => BarcodeValidationResult, BasicAnimationsEmphasisStyles: () => BasicAnimationsEmphasisStyles, BlendMode: () => BlendMode, Case: () => Case, ColorType: () => ColorType, ColorUsageType: () => ColorUsageType, ConnectorConfigValueType: () => ConnectorConfigValueType, ConnectorEventType: () => ConnectorEventType, ConnectorHttpError: () => ConnectorHttpError, ConnectorMapping: () => ConnectorMapping, ConnectorMappingDirection: () => ConnectorMappingDirection, ConnectorMappingSource: () => ConnectorMappingSource, ConnectorRegistrationSource: () => ConnectorRegistrationSource, ConnectorStateType: () => ConnectorStateType, ConnectorType: () => ConnectorType, CornerRadiusType: () => CornerRadiusType, DataRowAsyncError: () => DataRowAsyncError, Day: () => Day, DeprecatedMediaConnectorDownloadType: () => DeprecatedMediaConnectorDownloadType, DeprecatedMediaType: () => DeprecatedMediaType, DocumentIssueTypeEnum: () => DocumentIssueTypeEnum, DocumentType: () => DocumentType, DownloadFormats: () => DownloadFormats, EaseTypes: () => EaseTypes, EngineEditModeType: () => EngineEditModeType, EnvironmentType: () => EnvironmentType, FitMode: () => FitMode, FitModePosition: () => FitModePosition, FlowDirection: () => FlowDirection, FontPreviewFormat: () => FontPreviewFormat, FontWeights: () => FontWeights, FrameAnchorTarget: () => FrameAnchorTarget, FrameAnchorType: () => FrameAnchorType, FramePropertyNames: () => FramePropertyNames, FrameTypeEnum: () => FrameTypeEnum, GrafxTokenAuthCredentials: () => GrafxTokenAuthCredentials, ImageSourceTypeEnum: () => ImageSourceTypeEnum, LayoutIntent: () => LayoutIntent, LayoutPropertyNames: () => LayoutPropertyNames, LayoutType: () => LayoutType, Locale: () => Locale, MeasurementUnit: () => MeasurementUnit, MediaDownloadIntent: () => MediaDownloadIntent, MediaDownloadType: () => MediaDownloadType, MediaType: () => MediaType, PageAnchorTarget: () => PageAnchorTarget, PositionEnum: () => PositionEnum, RefreshedAuthCredendentials: () => RefreshedAuthCredendentials, Scripting: () => Scripting, SelectedTextStyleSections: () => SelectedTextStyleSections, SelectedTextStyles: () => SelectedTextStyles, ShakeDirections: () => ShakeDirections, ShapeType: () => ShapeType, SlideDirections: () => SlideDirections, SortBy: () => SortBy, SortOrder: () => SortOrder, TextDirection: () => TextDirection, TextPosition: () => TextPosition, ToolType: () => ToolType, TweenTypes: () => TweenTypes, UpdateZIndexMethod: () => UpdateZIndexMethod, VariableType: () => VariableType, VariableVisibilityOperator: () => VariableVisibilityOperator, VariableVisibilityTargetType: () => VariableVisibilityTargetType, VariableVisibilityType: () => VariableVisibilityType, VerticalAlign: () => VerticalAlign, ViewMode: () => ViewMode, WellKnownConfigurationKeys: () => WellKnownConfigurationKeys, default: () => src, grafxMediaConnectorRegistration: () => grafxMediaConnectorRegistration });
-    const editor_engine_namespaceObject_V = "2.5.latest", package_namespaceObject_i8 = "1.22.0";
+    const editor_engine_namespaceObject_V = "2.6.latest", package_namespaceObject_i8 = "1.23.0";
     var enums_MessageType, Resolution, ErrorCode, NativeErrorName, enums_NativeEventType;
     (function(MessageType) {
       MessageType.Call = "call", MessageType.Reply = "reply", MessageType.Syn = "syn", MessageType.SynAck = "synAck", MessageType.Ack = "ack";
@@ -10799,7 +10799,7 @@ var require_main = __commonJS((exports, module) => {
     };
     var WellKnownConfigurationKeys;
     (function(WellKnownConfigurationKeys2) {
-      WellKnownConfigurationKeys2.GraFxStudioEnvironmentApiUrl = "ENVIRONMENT_API", WellKnownConfigurationKeys2.GraFxStudioSdkVersion = "SDK_VERSION", WellKnownConfigurationKeys2.GraFxStudioDocumentType = "DOCUMENT_TYPE", WellKnownConfigurationKeys2.GraFxStudioTemplateId = "TEMPLATE_ID", WellKnownConfigurationKeys2.GraFxStudioAuthToken = "GRAFX_AUTH_TOKEN";
+      WellKnownConfigurationKeys2.GraFxStudioEnvironmentApiUrl = "ENVIRONMENT_API", WellKnownConfigurationKeys2.GraFxStudioSdkVersion = "SDK_VERSION", WellKnownConfigurationKeys2.GraFxStudioDocumentType = "DOCUMENT_TYPE", WellKnownConfigurationKeys2.GraFxStudioTemplateId = "TEMPLATE_ID", WellKnownConfigurationKeys2.GraFxStudioAuthToken = "GRAFX_AUTH_TOKEN", WellKnownConfigurationKeys2.QueryCallCacheEnabled = "ENABLE_QUERY_CALL_CACHE";
     })(WellKnownConfigurationKeys || (WellKnownConfigurationKeys = {}));
     const defaultStudioOptions = { shortcutOptions: { debugPanel: { enabled: false }, ellipse: { enabled: false }, hand: { enabled: false }, image: { enabled: false }, polygon: { enabled: false }, rectangle: { enabled: false }, select: { enabled: false }, text: { enabled: false }, zoom: { enabled: false }, copyPaste: { enabled: false }, viewMode: { enabled: false } } };
     var DocumentIssueTypeEnum, ImageFrameSourceType, FramePropertiesType, DocumentType;
@@ -11321,7 +11321,7 @@ var require_main = __commonJS((exports, module) => {
     class ColorConversionController {
       constructor(editorAPI) {
         _ColorConversionController_editorAPI.set(this, undefined), this.convertToRgb = (color) => ColorConversionController_awaiter(this, undefined, undefined, function* () {
-          return (yield ColorConversionController_classPrivateFieldGet(this, _ColorConversionController_editorAPI, "f")).colorToRgb(color).then((result) => getEditorResponseData(result));
+          return (yield ColorConversionController_classPrivateFieldGet(this, _ColorConversionController_editorAPI, "f")).colorToRgb(JSON.stringify(color)).then((result) => getEditorResponseData(result));
         }), ColorConversionController_classPrivateFieldSet(this, _ColorConversionController_editorAPI, editorAPI, "f");
       }
     }
@@ -11541,6 +11541,12 @@ var require_main = __commonJS((exports, module) => {
             return getEditorResponseData({ data: null, success: false, error: `Error while getting connector state ${err}`, status: 50000, parsedData: undefined }, false);
           }
           return getEditorResponseData({ data: null, success: false, error: "Timed out waiting for connector", status: 50000, parsedData: undefined }, false);
+        }), this.updateMappings = (id2, mappings) => ConnectorController_awaiter(this, undefined, undefined, function* () {
+          return yield this.configure(id2, (config) => ConnectorController_awaiter(this, undefined, undefined, function* () {
+            var _a;
+            const { parsedData: existingMappings } = yield this.getMappings(id2), combinedMappings = [...(_a = existingMappings == null ? undefined : existingMappings.filter((mapping) => !mappings.some((newMapping) => newMapping.name === mapping.name && newMapping.direction === mapping.direction))) !== null && _a !== undefined ? _a : [], ...mappings.filter((i) => i.name !== "" && i.value !== "")];
+            yield config.setMappings(combinedMappings);
+          }));
         }), ConnectorController_classPrivateFieldSet(this, _ConnectorController_editorAPI, editorAPI, "f"), ConnectorController_classPrivateFieldSet(this, _ConnectorController_localConfig, localConfig, "f"), ConnectorController_classPrivateFieldSet(this, _ConnectorController_connectorCompatibilityTools, new ConnectorCompatibilityTools, "f");
       }
       getMappings(id2, direction) {
@@ -11885,6 +11891,8 @@ var require_main = __commonJS((exports, module) => {
           return (yield ExperimentController_classPrivateFieldGet(this, _ExperimentController_editorAPI, "f")).setTextByFrameId(frameId, text).then((result) => getEditorResponseData(result));
         }), this.selectText = (frameId, startIndex, length) => ExperimentController_awaiter(this, undefined, undefined, function* () {
           return (yield ExperimentController_classPrivateFieldGet(this, _ExperimentController_editorAPI, "f")).selectTextById(frameId, startIndex, length).then((result) => getEditorResponseData(result));
+        }), this.addCustomUndoData = (key, value, skipEvent) => ExperimentController_awaiter(this, undefined, undefined, function* () {
+          return (yield ExperimentController_classPrivateFieldGet(this, _ExperimentController_editorAPI, "f")).setCustomUndoData(key, value, skipEvent != null && skipEvent).then((result) => getEditorResponseData(result));
         }), ExperimentController_classPrivateFieldSet(this, _ExperimentController_editorAPI, editorAPI, "f");
       }
     }
@@ -12329,6 +12337,10 @@ var require_main = __commonJS((exports, module) => {
           return this.setAnchor(id2, true, anchorType, anchorTarget, endAnchorTarget);
         }), this.resetAnchoring = (id2) => FrameController_awaiter(this, undefined, undefined, function* () {
           return (yield FrameController_classPrivateFieldGet(this, _FrameController_editorAPI, "f")).resetFrameTransformation(id2).then((result) => getEditorResponseData(result));
+        }), this.resetVisibility = (id2) => FrameController_awaiter(this, undefined, undefined, function* () {
+          return (yield FrameController_classPrivateFieldGet(this, _FrameController_editorAPI, "f")).setFrameIsVisible(id2, null).then((result) => getEditorResponseData(result));
+        }), this.getConfiguration = (id2) => FrameController_awaiter(this, undefined, undefined, function* () {
+          return (yield FrameController_classPrivateFieldGet(this, _FrameController_editorAPI, "f")).getFrameConfiguration(id2).then((result) => getEditorResponseData(result));
         }), FrameController_classPrivateFieldSet(this, _FrameController_editorAPI, editorAPI, "f"), this.shapeController = new ShapeController(FrameController_classPrivateFieldGet(this, _FrameController_editorAPI, "f"));
       }
     }
@@ -13011,7 +13023,7 @@ var require_main = __commonJS((exports, module) => {
         }), this.redo = () => UndoManagerController_awaiter(this, undefined, undefined, function* () {
           return (yield UndoManagerController_classPrivateFieldGet(this, _UndoManagerController_editorAPI, "f")).redo().then((result) => getEditorResponseData(result));
         }), this.addCustomData = (key, value) => UndoManagerController_awaiter(this, undefined, undefined, function* () {
-          return (yield UndoManagerController_classPrivateFieldGet(this, _UndoManagerController_editorAPI, "f")).setCustomUndoData(key, value).then((result) => getEditorResponseData(result));
+          return (yield UndoManagerController_classPrivateFieldGet(this, _UndoManagerController_editorAPI, "f")).setCustomUndoData(key, value, false).then((result) => getEditorResponseData(result));
         }), this.record = (operationName, undoOperationCallback) => UndoManagerController_awaiter(this, undefined, undefined, function* () {
           try {
             yield UndoManagerController_classPrivateFieldGet(this, _UndoManagerController_advanced, "f").beginIfNoneActive(operationName), yield undoOperationCallback(UndoManagerController_classPrivateFieldGet(this, _UndoManagerController_sdk, "f"));
@@ -13671,16 +13683,17 @@ var require_main = __commonJS((exports, module) => {
     class SDK {
       constructor(config) {
         this.localConfig = new Map, this.dataItemMappingTools = new DataItemMappingTools, this.loadEditor = () => {
+          var _a;
           Connector(this.config.editorLink || FIXED_EDITOR_LINK, { onActionsChanged: this.subscriber.onActionsChanged, onStateChanged: this.subscriber.onStateChanged, onAuthExpired: this.subscriber.onAuthExpired, onViewportRequested: this.subscriber.onViewportRequested, onDocumentLoaded: this.subscriber.onDocumentLoaded, onSelectedFramesContentChanged: this.subscriber.onSelectedFramesContentChanged, onSelectedFramesLayoutChanged: this.subscriber.onSelectedFramesLayoutChanged, onFramesLayoutChanged: this.subscriber.onFramesLayoutChanged, onSelectedLayoutPropertiesChanged: this.subscriber.onSelectedLayoutPropertiesChanged, onSelectedLayoutUnitChanged: this.subscriber.onSelectedLayoutUnitChanged, onPageSelectionChanged: this.subscriber.onPageSelectionChanged, onScrubberPositionChanged: this.subscriber.onAnimationPlaybackChanged, onFrameAnimationsChanged: this.subscriber.onAnimationChanged, onVariableListChanged: (state) => {
-            var _a;
-            ((_a = this.enabledNextSubscribers) === null || _a === undefined ? undefined : _a.onVariableListChanged) ? this.next.subscriber.onVariableListChanged(state) : this.subscriber.onVariableListChanged(state);
+            var _a2;
+            ((_a2 = this.enabledNextSubscribers) === null || _a2 === undefined ? undefined : _a2.onVariableListChanged) ? this.next.subscriber.onVariableListChanged(state) : this.subscriber.onVariableListChanged(state);
           }, onSelectedToolChanged: this.subscriber.onSelectedToolChanged, onUndoStateChanged: this.subscriber.onUndoStateChanged, onSelectedLayoutFramesChanged: this.subscriber.onSelectedLayoutFramesChanged, onSelectedTextStyleChanged: this.subscriber.onSelectedTextStyleChanged, onColorsChanged: this.subscriber.onColorsChanged, onParagraphStylesChanged: this.subscriber.onParagraphStylesChanged, onCharacterStylesChanged: this.subscriber.onCharacterStylesChanged, onFontFamiliesChanged: this.subscriber.onFontFamiliesChanged, onSelectedLayoutIdChanged: this.subscriber.onSelectedLayoutIdChanged, onLayoutsChanged: this.subscriber.onLayoutsChanged, onConnectorEvent: this.subscriber.onConnectorEvent, onConnectorsChanged: (state) => {
-            var _a;
-            ((_a = this.enabledNextSubscribers) === null || _a === undefined ? undefined : _a.onConnectorsChanged) ? this.next.subscriber.onConnectorsChanged(state) : this.subscriber.onConnectorsChanged(state);
+            var _a2;
+            ((_a2 = this.enabledNextSubscribers) === null || _a2 === undefined ? undefined : _a2.onConnectorsChanged) ? this.next.subscriber.onConnectorsChanged(state) : this.subscriber.onConnectorsChanged(state);
           }, onZoomChanged: this.subscriber.onZoomChanged, onSelectedPageIdChanged: this.subscriber.onSelectedPageIdChanged, onPagesChanged: this.subscriber.onPagesChanged, onPageSnapshotInvalidated: this.subscriber.onPageSnapshotInvalidated, onPageSizeChanged: (state) => {
-            var _a;
-            ((_a = this.enabledNextSubscribers) === null || _a === undefined ? undefined : _a.onPageSizeChanged) ? this.next.subscriber.onPageSizeChanged(state) : this.subscriber.onPageSizeChanged(state);
-          }, onShapeCornerRadiusChanged: this.subscriber.onShapeCornerRadiusChanged, onCropActiveFrameIdChanged: this.subscriber.onCropActiveFrameIdChanged, onAsyncError: this.subscriber.onAsyncError, onViewModeChanged: this.subscriber.onViewModeChanged, onBarcodeValidationChanged: this.subscriber.onBarcodeValidationChanged, onDataSourceIdChanged: this.subscriber.onDataSourceIdChanged, onDocumentIssueListChanged: this.subscriber.onDocumentIssueListChanged, onCustomUndoDataChanged: this.subscriber.onCustomUndoDataChanged, onEngineEditModeChanged: this.subscriber.onEngineEditModeChanged }, this.setConnection, this.config.editorId, this.config.studioStyling), this.editorAPI = connection == null ? undefined : connection.promise.then((editorAPI) => editorAPI), this.action = new ActionController(this.editorAPI), this.layout = new LayoutController(this.editorAPI), this.frame = new FrameController(this.editorAPI), this.barcode = new BarcodeController(this.editorAPI), this.animation = new AnimationController(this.editorAPI), this.document = new DocumentController(this.editorAPI), this.configuration = new LocalConfigurationDecorator(this.editorAPI, this.localConfig), this.utils = new UtilsController, this.tool = new ToolController(this.editorAPI), this.page = new PageController(this.editorAPI), this.debug = new DebugController(this.editorAPI), this.undoManager = new UndoManagerController(this.editorAPI, this), this.textSelection = new TextStyleController(this.editorAPI), this.colorStyle = new ColorStyleController(this.editorAPI), this.paragraphStyle = new ParagraphStyleController(this.editorAPI), this.characterStyle = new CharacterStyleController(this.editorAPI), this.mediaConnector = new MediaConnectorController(this.editorAPI), this.fontConnector = new FontConnectorController(this.editorAPI), this.dataConnector = new DataConnectorController(this.editorAPI, this.dataItemMappingTools), this.dataSource = new DataSourceController(this.editorAPI, this.dataItemMappingTools), this.connector = new ConnectorController(this.editorAPI, this.localConfig), this.variable = new VariableController(this.editorAPI), this.font = new FontController(this.editorAPI), this.experiment = new ExperimentController(this.editorAPI), this.canvas = new CanvasController(this.editorAPI), this.shape = new ShapeController(this.editorAPI), this.info = new InfoController, this.clipboard = new ClipboardController(this.editorAPI), this.next = new NextInitiator(this.config, this.connection, this.editorAPI), this.configuration.setValue(WellKnownConfigurationKeys.GraFxStudioSdkVersion, package_namespaceObject_i8), this.configuration.setValue(WellKnownConfigurationKeys.GraFxStudioDocumentType, this.config.documentType || DocumentType.template), this.configuration.updateStudioOptions(this.config.studioOptions || defaultStudioOptions);
+            var _a2;
+            ((_a2 = this.enabledNextSubscribers) === null || _a2 === undefined ? undefined : _a2.onPageSizeChanged) ? this.next.subscriber.onPageSizeChanged(state) : this.subscriber.onPageSizeChanged(state);
+          }, onShapeCornerRadiusChanged: this.subscriber.onShapeCornerRadiusChanged, onCropActiveFrameIdChanged: this.subscriber.onCropActiveFrameIdChanged, onAsyncError: this.subscriber.onAsyncError, onViewModeChanged: this.subscriber.onViewModeChanged, onBarcodeValidationChanged: this.subscriber.onBarcodeValidationChanged, onDataSourceIdChanged: this.subscriber.onDataSourceIdChanged, onDocumentIssueListChanged: this.subscriber.onDocumentIssueListChanged, onCustomUndoDataChanged: this.subscriber.onCustomUndoDataChanged, onEngineEditModeChanged: this.subscriber.onEngineEditModeChanged }, this.setConnection, this.config.editorId, this.config.studioStyling), this.editorAPI = connection == null ? undefined : connection.promise.then((editorAPI) => editorAPI), this.action = new ActionController(this.editorAPI), this.layout = new LayoutController(this.editorAPI), this.frame = new FrameController(this.editorAPI), this.barcode = new BarcodeController(this.editorAPI), this.animation = new AnimationController(this.editorAPI), this.document = new DocumentController(this.editorAPI), this.configuration = new LocalConfigurationDecorator(this.editorAPI, this.localConfig), this.utils = new UtilsController, this.tool = new ToolController(this.editorAPI), this.page = new PageController(this.editorAPI), this.debug = new DebugController(this.editorAPI), this.undoManager = new UndoManagerController(this.editorAPI, this), this.textSelection = new TextStyleController(this.editorAPI), this.colorStyle = new ColorStyleController(this.editorAPI), this.paragraphStyle = new ParagraphStyleController(this.editorAPI), this.characterStyle = new CharacterStyleController(this.editorAPI), this.mediaConnector = new MediaConnectorController(this.editorAPI), this.fontConnector = new FontConnectorController(this.editorAPI), this.dataConnector = new DataConnectorController(this.editorAPI, this.dataItemMappingTools), this.dataSource = new DataSourceController(this.editorAPI, this.dataItemMappingTools), this.connector = new ConnectorController(this.editorAPI, this.localConfig), this.variable = new VariableController(this.editorAPI), this.font = new FontController(this.editorAPI), this.experiment = new ExperimentController(this.editorAPI), this.canvas = new CanvasController(this.editorAPI), this.shape = new ShapeController(this.editorAPI), this.colorConversion = new ColorConversionController(this.editorAPI), this.info = new InfoController, this.clipboard = new ClipboardController(this.editorAPI), this.next = new NextInitiator(this.config, this.connection, this.editorAPI), this.configuration.setValue(WellKnownConfigurationKeys.GraFxStudioSdkVersion, package_namespaceObject_i8), this.configuration.setValue(WellKnownConfigurationKeys.GraFxStudioDocumentType, this.config.documentType || DocumentType.template), this.configuration.updateStudioOptions(this.config.studioOptions || defaultStudioOptions), this.configuration.setValue(WellKnownConfigurationKeys.QueryCallCacheEnabled, ((_a = this.config.enableQueryCallCache) === null || _a === undefined ? undefined : _a.toString()) || "false");
         }, this.setConnection = (newConnection) => {
           connection = newConnection;
         }, this.config = ConfigHelper.createRuntimeConfig(config), this.connection = connection, this.editorAPI = connection == null ? undefined : connection.promise.then((child) => child), this.action = new ActionController(this.editorAPI), this.layout = new LayoutController(this.editorAPI), this.frame = new FrameController(this.editorAPI), this.shape = new ShapeController(this.editorAPI), this.barcode = new BarcodeController(this.editorAPI), this.undoManager = new UndoManagerController(this.editorAPI, this), this.connector = new ConnectorController(this.editorAPI, this.localConfig), this.mediaConnector = new MediaConnectorController(this.editorAPI), this.fontConnector = new FontConnectorController(this.editorAPI), this.dataConnector = new DataConnectorController(this.editorAPI, this.dataItemMappingTools), this.dataSource = new DataSourceController(this.editorAPI, this.dataItemMappingTools), this.animation = new AnimationController(this.editorAPI), this.document = new DocumentController(this.editorAPI), this.configuration = new LocalConfigurationDecorator(this.editorAPI, this.localConfig), this.variable = new VariableController(this.editorAPI), this.utils = new UtilsController, this.subscriber = new SubscriberController(this.config, this.localConfig), this.tool = new ToolController(this.editorAPI), this.page = new PageController(this.editorAPI), this.debug = new DebugController(this.editorAPI), this.textSelection = new TextStyleController(this.editorAPI), this.colorStyle = new ColorStyleController(this.editorAPI), this.paragraphStyle = new ParagraphStyleController(this.editorAPI), this.characterStyle = new CharacterStyleController(this.editorAPI), this.font = new FontController(this.editorAPI), this.experiment = new ExperimentController(this.editorAPI), this.canvas = new CanvasController(this.editorAPI), this.colorConversion = new ColorConversionController(this.editorAPI), this.info = new InfoController, this.clipboard = new ClipboardController(this.editorAPI), this.next = new NextInitiator(this.config, this.connection, this.editorAPI), this.enabledNextSubscribers = this.config.enableNextSubscribers;
@@ -13934,6 +13947,13 @@ var init_IconDownload = __esm(() => {
   IconDownload = createReactComponent("outline", "download", "IconDownload", [["path", { d: "M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2", key: "svg-0" }], ["path", { d: "M7 11l5 5l5 -5", key: "svg-1" }], ["path", { d: "M12 4l0 12", key: "svg-2" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconExchange.mjs
+var IconExchange;
+var init_IconExchange = __esm(() => {
+  init_createReactComponent();
+  IconExchange = createReactComponent("outline", "exchange", "IconExchange", [["path", { d: "M5 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-0" }], ["path", { d: "M19 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-1" }], ["path", { d: "M19 8v5a5 5 0 0 1 -5 5h-3l3 -3m0 6l-3 -3", key: "svg-2" }], ["path", { d: "M5 16v-5a5 5 0 0 1 5 -5h3l-3 -3m0 6l3 -3", key: "svg-3" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconExternalLink.mjs
 var IconExternalLink;
 var init_IconExternalLink = __esm(() => {
@@ -14047,7 +14067,7 @@ var init_IconTrashFilled = __esm(() => {
 });
 
 // src/index.tsx
-var import_react259 = __toESM(require_react(), 1);
+var import_react260 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -14669,9 +14689,9 @@ var finishDraft = immer.finishDraft.bind(immer);
 
 // node_modules/zustand/esm/middleware/immer.mjs
 var immerImpl = (initializer) => (set2, get, store) => {
-  store.setState = (updater, replace, ...a) => {
+  store.setState = (updater, replace, ...args) => {
     const nextState = typeof updater === "function" ? produce(updater) : updater;
-    return set2(nextState, replace, ...a);
+    return set2(nextState, replace, ...args);
   };
   return initializer(store.setState, get, store);
 };
@@ -14687,6 +14707,9 @@ var appStore = create()(immer2((set2, get) => ({
     modal: {
       isAddImageVariableMappingModalOpen: false,
       currentAddImageMappingSelectedVariables: [],
+      isSwapImageVariableModalOpen: false,
+      currentSwapImageVariableSelected: "",
+      currentSwapImageVariableId: null,
       isModalVisible: false,
       currentSelectedMapId: null,
       dependentModal: {
@@ -14724,6 +14747,21 @@ var appStore = create()(immer2((set2, get) => ({
       setCurrentSelectedMapId: (value) => {
         set2((store) => {
           store.state.modal.currentSelectedMapId = value;
+        });
+      },
+      setIsSwapImageVariableModalOpen: (value) => {
+        set2((store) => {
+          store.state.modal.isSwapImageVariableModalOpen = value;
+        });
+      },
+      setCurrentSwapImageVariableSelected: (value) => {
+        set2((store) => {
+          store.state.modal.currentSwapImageVariableSelected = value;
+        });
+      },
+      setCurrentSwapImageVariableId: (value) => {
+        set2((store) => {
+          store.state.modal.currentSwapImageVariableId = value;
         });
       },
       dependentModal: {
@@ -14975,6 +15013,28 @@ var appStore = create()(immer2((set2, get) => ({
             }
           } else {
             raiseError(store, new Error("For removeImageVariable layout config is not loaded"));
+          }
+        }),
+        swapImageVariable: ({ mapId, oldImageVariableId, newImageVariableId }) => set2((store) => {
+          if (store.state.studio.isLayoutConfigLoaded) {
+            const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
+            if (targetLayoutMap) {
+              const oldImageVariableIndex = targetLayoutMap.variables.findIndex((imgVar) => imgVar.id == oldImageVariableId);
+              if (oldImageVariableIndex !== -1) {
+                const oldImageVariable = targetLayoutMap.variables[oldImageVariableIndex];
+                const newImageVariable = {
+                  id: newImageVariableId,
+                  dependentGroup: [...oldImageVariable.dependentGroup]
+                };
+                targetLayoutMap.variables[oldImageVariableIndex] = newImageVariable;
+              } else {
+                raiseError(store, new Error("For swapImageVariable oldImageVariable not found"));
+              }
+            } else {
+              raiseError(store, new Error("For swapImageVariable targetLayoutMap not found"));
+            }
+          } else {
+            raiseError(store, new Error("For swapImageVariable layout config is not loaded"));
           }
         }),
         removeDependentGroup: ({ mapId, imageVariableId, groupIndex }) => set2((store) => {
@@ -16407,7 +16467,7 @@ async function updateFrameLayoutMaps(frameSnapshot) {
 }
 
 // src/components/LayoutMappingModal/LayoutModal.tsx
-var import_react245 = __toESM(require_react(), 1);
+var import_react246 = __toESM(require_react(), 1);
 
 // node_modules/styled-components/node_modules/tslib/tslib.es6.mjs
 var __assign = function() {
@@ -17037,10 +17097,10 @@ var unitlessKeys = {
 var f = typeof process != "undefined" && process.env !== undefined && (process.env.REACT_APP_SC_ATTR || process.env.SC_ATTR) || "data-styled";
 var m = "active";
 var y = "data-styled-version";
-var v = "6.1.17";
+var v = "6.1.18";
 var g = `/*!sc*/
 `;
-var S = typeof window != "undefined" && "HTMLElement" in window;
+var S = typeof window != "undefined" && typeof document != "undefined";
 var w = Boolean(typeof SC_DISABLE_SPEEDY == "boolean" ? SC_DISABLE_SPEEDY : typeof process != "undefined" && process.env !== undefined && process.env.REACT_APP_SC_DISABLE_SPEEDY !== undefined && process.env.REACT_APP_SC_DISABLE_SPEEDY !== "" ? process.env.REACT_APP_SC_DISABLE_SPEEDY !== "false" && process.env.REACT_APP_SC_DISABLE_SPEEDY : typeof process != "undefined" && process.env !== undefined && process.env.SC_DISABLE_SPEEDY !== undefined && process.env.SC_DISABLE_SPEEDY !== "" ? process.env.SC_DISABLE_SPEEDY !== "false" && process.env.SC_DISABLE_SPEEDY : false);
 var N = new Set;
 var _ = Object.freeze([]);
@@ -18853,13 +18913,13 @@ function useCallbackRef2(callback) {
 // node_modules/@mantine/hooks/esm/use-debounced-callback/use-debounced-callback.mjs
 var import_react11 = __toESM(require_react(), 1);
 "use client";
-var noop5 = () => {
-};
 function useDebouncedCallback(callback, options) {
   const delay = typeof options === "number" ? options : options.delay;
   const flushOnUnmount = typeof options === "number" ? false : options.flushOnUnmount;
   const handleCallback = useCallbackRef2(callback);
   const debounceTimerRef = import_react11.useRef(0);
+  const flushRef = import_react11.useRef(() => {
+  });
   const lastCallback = Object.assign(import_react11.useCallback((...args) => {
     window.clearTimeout(debounceTimerRef.current);
     const flush = () => {
@@ -18868,9 +18928,10 @@ function useDebouncedCallback(callback, options) {
         handleCallback(...args);
       }
     };
+    flushRef.current = flush;
     lastCallback.flush = flush;
     debounceTimerRef.current = window.setTimeout(flush, delay);
-  }, [handleCallback, delay]), { flush: noop5 });
+  }, [handleCallback, delay]), { flush: flushRef.current });
   import_react11.useEffect(() => () => {
     window.clearTimeout(debounceTimerRef.current);
     if (flushOnUnmount) {
@@ -22384,15 +22445,20 @@ var flip = function(options) {
         const nextIndex = (((_middlewareData$flip2 = middlewareData.flip) == null ? undefined : _middlewareData$flip2.index) || 0) + 1;
         const nextPlacement = placements2[nextIndex];
         if (nextPlacement) {
-          return {
-            data: {
-              index: nextIndex,
-              overflows: overflowsData
-            },
-            reset: {
-              placement: nextPlacement
-            }
-          };
+          var _overflowsData$;
+          const ignoreCrossAxisOverflow = checkCrossAxis === "alignment" ? initialSideAxis !== getSideAxis(nextPlacement) : false;
+          const hasInitialMainAxisOverflow = ((_overflowsData$ = overflowsData[0]) == null ? undefined : _overflowsData$.overflows[0]) > 0;
+          if (!ignoreCrossAxisOverflow || hasInitialMainAxisOverflow) {
+            return {
+              data: {
+                index: nextIndex,
+                overflows: overflowsData
+              },
+              reset: {
+                placement: nextPlacement
+              }
+            };
+          }
         }
         let resetPlacement = (_overflowsData$filter = overflowsData.filter((d) => d.overflows[0] <= 0).sort((a2, b) => a2.overflows[1] - b.overflows[1])[0]) == null ? undefined : _overflowsData$filter.placement;
         if (!resetPlacement) {
@@ -23163,6 +23229,9 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
     scrollTop: 0
   };
   const offsets = createCoords(0);
+  function setLeftRTLScrollbarOffset() {
+    offsets.x = getWindowScrollBarX(documentElement);
+  }
   if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
     if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) {
       scroll = getNodeScroll(offsetParent);
@@ -23172,8 +23241,11 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
       offsets.x = offsetRect.x + offsetParent.clientLeft;
       offsets.y = offsetRect.y + offsetParent.clientTop;
     } else if (documentElement) {
-      offsets.x = getWindowScrollBarX(documentElement);
+      setLeftRTLScrollbarOffset();
     }
+  }
+  if (isFixed && !isOffsetParentAnElement && documentElement) {
+    setLeftRTLScrollbarOffset();
   }
   const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll) : createCoords(0);
   const x2 = rect.left + scroll.scrollLeft - offsets.x - htmlOffset.x;
@@ -23322,7 +23394,7 @@ function observeMove(element, onMove) {
         ...options,
         root: root2.ownerDocument
       });
-    } catch (e) {
+    } catch (_e2) {
       io = new IntersectionObserver(handleObserve, options);
     }
     io.observe(element);
@@ -25632,7 +25704,7 @@ var ScrollAreaViewport = import_react72.forwardRef(({ children, style: style2, .
       overflowY: ctx.scrollbarYEnabled ? "scroll" : "hidden",
       ...style2
     },
-    children: /* @__PURE__ */ import_jsx_runtime46.jsx("div", { style: { minWidth: "100%", display: "table" }, ref: ctx.onContentChange, children })
+    children: /* @__PURE__ */ import_jsx_runtime46.jsx("div", { style: { minWidth: "100%" }, ref: ctx.onContentChange, children })
   });
 });
 ScrollAreaViewport.displayName = "@mantine/core/ScrollAreaViewport";
@@ -27535,7 +27607,7 @@ function useModal({
   const transitionDuration = typeof transitionProps?.duration === "number" ? transitionProps?.duration : 200;
   const shouldLockScroll = useLockScroll({ opened, transitionDuration });
   useWindowEvent("keydown", (event) => {
-    if (event.key === "Escape" && closeOnEscape2 && opened) {
+    if (event.key === "Escape" && closeOnEscape2 && !event.isComposing && opened) {
       const shouldTrigger = event.target?.getAttribute("data-mantine-stop-propagation") !== "true";
       shouldTrigger && onClose();
     }
@@ -30678,6 +30750,7 @@ var DrawerRoot = factory((_props, ref) => {
     ref,
     ...getStyles2("root"),
     transitionProps: { transition: drawerTransition, ...transitionProps },
+    "data-offset-scrollbars": scrollAreaComponent === ScrollArea.Autosize || undefined,
     unstyled,
     ...others
   }) });
@@ -31669,6 +31742,7 @@ var ModalRoot = factory((_props, ref) => {
     ...getStyles2("root"),
     "data-full-screen": fullScreen || undefined,
     "data-centered": centered || undefined,
+    "data-offset-scrollbars": scrollAreaComponent === ScrollArea.Autosize || undefined,
     unstyled,
     ...others
   }) });
@@ -32309,7 +32383,6 @@ var MultiSelect = factory((_props, ref) => {
           description,
           label,
           error,
-          multiline: true,
           withErrorStyles,
           __stylesApiProps: {
             ...props,
@@ -32411,7 +32484,7 @@ var SourceType;
   SourceType2["event"] = "event";
   SourceType2["props"] = "prop";
 })(SourceType || (SourceType = {}));
-function noop6() {
+function noop5() {
 }
 function memoizeOnce(cb) {
   var lastArgs;
@@ -32715,7 +32788,7 @@ function caretUnknownFormatBoundary(formattedValue) {
 }
 function useInternalValues(value, defaultValue, valueIsNumericString, format, removeFormatting, onValueChange) {
   if (onValueChange === undefined)
-    onValueChange = noop6;
+    onValueChange = noop5;
   var getValues = usePersistentCallback(function(value2, valueIsNumericString2) {
     var formattedValue, numAsString;
     if (isNotValidValue(value2)) {
@@ -32784,19 +32857,19 @@ function NumberFormatBase(props) {
   var isAllowed = props.isAllowed;
   var onChange = props.onChange;
   if (onChange === undefined)
-    onChange = noop6;
+    onChange = noop5;
   var onKeyDown = props.onKeyDown;
   if (onKeyDown === undefined)
-    onKeyDown = noop6;
+    onKeyDown = noop5;
   var onMouseUp = props.onMouseUp;
   if (onMouseUp === undefined)
-    onMouseUp = noop6;
+    onMouseUp = noop5;
   var onFocus = props.onFocus;
   if (onFocus === undefined)
-    onFocus = noop6;
+    onFocus = noop5;
   var onBlur = props.onBlur;
   if (onBlur === undefined)
-    onBlur = noop6;
+    onBlur = noop5;
   var propValue = props.value;
   var getCaretBoundary = props.getCaretBoundary;
   if (getCaretBoundary === undefined)
@@ -33285,10 +33358,10 @@ function useNumericFormat(props) {
   var allowLeadingZeros = props.allowLeadingZeros;
   var onKeyDown = props.onKeyDown;
   if (onKeyDown === undefined)
-    onKeyDown = noop6;
+    onKeyDown = noop5;
   var onBlur = props.onBlur;
   if (onBlur === undefined)
-    onBlur = noop6;
+    onBlur = noop5;
   var thousandSeparator = props.thousandSeparator;
   var decimalScale = props.decimalScale;
   var fixedDecimalScale = props.fixedDecimalScale;
@@ -33517,6 +33590,16 @@ var varsResolver34 = createVarsResolver((_2, { size: size4 }) => ({
     "--ni-chevron-size": getSize(size4, "ni-chevron-size")
   }
 }));
+function clampAndSanitizeInput(sanitizedValue, max2, min2) {
+  const replaced = sanitizedValue.toString().replace(/^0+/, "");
+  const parsedValue = parseFloat(replaced);
+  if (Number.isNaN(parsedValue)) {
+    return replaced;
+  } else if (parsedValue > Number.MAX_SAFE_INTEGER) {
+    return max2 !== undefined ? String(max2) : replaced;
+  }
+  return clamp(parsedValue, min2, max2);
+}
 var NumberInput = factory((_props, ref) => {
   const props = useProps("NumberInput", defaultProps82, _props);
   const {
@@ -33671,13 +33754,10 @@ var NumberInput = factory((_props, ref) => {
   const handleBlur = (event) => {
     let sanitizedValue = _value;
     if (clampBehavior === "blur" && typeof sanitizedValue === "number") {
-      const clampedValue = clamp(sanitizedValue, min2, max2);
-      sanitizedValue = clampedValue;
+      sanitizedValue = clamp(sanitizedValue, min2, max2);
     }
     if (trimLeadingZeroesOnBlur && typeof sanitizedValue === "string" && getDecimalPlaces2(sanitizedValue) < 15) {
-      const replaced = sanitizedValue.toString().replace(/^0+/, "");
-      const parsedValue = parseFloat(replaced);
-      sanitizedValue = Number.isNaN(parsedValue) || parsedValue > Number.MAX_SAFE_INTEGER ? replaced : clamp(parsedValue, min2, max2);
+      sanitizedValue = clampAndSanitizeInput(sanitizedValue, max2, min2);
     }
     if (_value !== sanitizedValue) {
       setValue(sanitizedValue);
@@ -34365,6 +34445,11 @@ var Select = factory((_props, ref) => {
       handleSearchChange(selectedOption.label);
     }
   }, [value, selectedOption]);
+  import_react218.useEffect(() => {
+    if (!controlled) {
+      handleSearchChange(typeof _value === "string" ? optionsLockup[_value]?.label || "" : "");
+    }
+  }, [data, _value]);
   const clearButton = /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.ClearButton, {
     ...clearButtonProps,
     onClear: () => {
@@ -34786,9 +34871,10 @@ var import_react225 = __toESM(require_react(), 1);
 var defaultProps90 = {
   type: "scrollarea"
 };
-var varsResolver39 = createVarsResolver((_2, { minWidth, type }) => ({
+var varsResolver39 = createVarsResolver((_2, { minWidth, maxHeight, type }) => ({
   scrollContainer: {
     "--table-min-width": rem(minWidth),
+    "--table-max-height": rem(maxHeight),
     "--table-overflow": type === "native" ? "auto" : undefined
   }
 }));
@@ -34803,6 +34889,7 @@ var TableScrollContainer = factory((_props, ref) => {
     vars,
     children,
     minWidth,
+    maxHeight,
     type,
     ...others
   } = props;
@@ -34821,7 +34908,7 @@ var TableScrollContainer = factory((_props, ref) => {
   });
   return /* @__PURE__ */ import_jsx_runtime182.jsx(Box, {
     component: type === "scrollarea" ? ScrollArea : "div",
-    ...type === "scrollarea" ? { offsetScrollbars: "x" } : {},
+    ...type === "scrollarea" ? maxHeight ? { offsetScrollbars: "xy" } : { offsetScrollbars: "x" } : {},
     ref,
     ...getStyles2("scrollContainer"),
     ...others,
@@ -35633,6 +35720,7 @@ init_IconCopyPlus();
 init_IconCopy();
 init_IconDeselect();
 init_IconDownload();
+init_IconExchange();
 init_IconExternalLink();
 init_IconGripVertical();
 init_IconInfoCircle();
@@ -35833,12 +35921,86 @@ var AddDependentModal = () => {
   });
 };
 
-// src/components/LayoutMappingModal/LayoutConfigSelection.tsx
-var import_react244 = __toESM(require_react(), 1);
-
-// src/components/LayoutMappingModal/LayoutMultiSelect.tsx
+// src/components/LayoutMappingModal/SwapImageVariableModal.tsx
 var import_react237 = __toESM(require_react(), 1);
 var jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+var SwapImageVariableModal = ({
+  currentMapConfig,
+  currentImageVariable
+}) => {
+  const setIsSwapImageVariableModalOpen = appStore((state) => state.effects.modal.setIsSwapImageVariableModalOpen);
+  const setCurrentSwapImageVariableSelected = appStore((state) => state.effects.modal.setCurrentSwapImageVariableSelected);
+  const swapImageVariable = appStore((state) => state.effects.studio.layoutImageMapping.swapImageVariable);
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
+  const currentSwapImageVariableSelected = appStore((state) => state.state.modal.currentSwapImageVariableSelected);
+  const isSwapImageVariableModalOpen = appStore((state) => state.state.modal.isSwapImageVariableModalOpen);
+  const possibleVariableValues = import_react237.useMemo(() => {
+    const allImageVariables = variables.filter((variable) => variable.type === "image").map((variable) => ({
+      value: variable.id,
+      label: variable.name,
+      disabled: currentImageVariable && variable.id === currentImageVariable.id || currentMapConfig?.variables.some((v2) => v2.id === variable.id && (currentImageVariable ? v2.id !== currentImageVariable.id : true)) || false
+    }));
+    return allImageVariables;
+  }, [variables, currentMapConfig, currentImageVariable]);
+  const onClose = () => {
+    setIsSwapImageVariableModalOpen(false);
+    setCurrentSwapImageVariableSelected("");
+  };
+  const handleSwapImageVariable = () => {
+    const mapId = currentSelectedMapId;
+    const newImageVariableId = currentSwapImageVariableSelected;
+    if (mapId == null || !currentImageVariable || !newImageVariableId)
+      return;
+    swapImageVariable({
+      mapId,
+      oldImageVariableId: currentImageVariable.id,
+      newImageVariableId
+    });
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime3.jsx(Modal, {
+    opened: isSwapImageVariableModalOpen,
+    onClose,
+    title: "Swap Image Variable",
+    centered: true,
+    children: /* @__PURE__ */ jsx_runtime3.jsxs(Stack, {
+      children: [
+        /* @__PURE__ */ jsx_runtime3.jsx(Select, {
+          label: "Select Image Variable",
+          placeholder: "Choose an image variable to swap with",
+          data: possibleVariableValues,
+          value: currentSwapImageVariableSelected,
+          onChange: (value) => value && setCurrentSwapImageVariableSelected(value),
+          searchable: true
+        }),
+        /* @__PURE__ */ jsx_runtime3.jsxs(Group, {
+          justify: "flex-end",
+          mt: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime3.jsx(Button, {
+              variant: "outline",
+              onClick: onClose,
+              children: "Cancel"
+            }),
+            /* @__PURE__ */ jsx_runtime3.jsx(Button, {
+              onClick: handleSwapImageVariable,
+              disabled: !currentSwapImageVariableSelected,
+              children: "Swap"
+            })
+          ]
+        })
+      ]
+    })
+  });
+};
+
+// src/components/LayoutMappingModal/LayoutConfigSelection.tsx
+var import_react245 = __toESM(require_react(), 1);
+
+// src/components/LayoutMappingModal/LayoutMultiSelect.tsx
+var import_react238 = __toESM(require_react(), 1);
+var jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
 var buildTreeData = (documentLayouts, selectedLayoutIds, disabledLayoutIds) => {
   const layoutsByParent = {};
   documentLayouts.forEach((layout) => {
@@ -35866,8 +36028,8 @@ var LayoutMultiSelect = ({
   const documentLayouts = appStore((store) => store.state.studio.document.layouts);
   const layoutImageMapping = appStore((store) => store.state.studio.layoutImageMapping);
   const setLayoutIds = appStore((store) => store.effects.studio.layoutImageMapping.setLayoutIds);
-  const [drawerOpened, setDrawerOpened] = import_react237.useState(false);
-  const [selectedLayouts, setSelectedLayouts] = import_react237.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
+  const [drawerOpened, setDrawerOpened] = import_react238.useState(false);
+  const [selectedLayouts, setSelectedLayouts] = import_react238.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
   const assignedToOtherMaps = layoutImageMapping.filter((map) => map.id !== layoutConfig.id).flatMap((map) => map.layoutIds);
   const handleMultiSelectChange = (updateLayoutIds) => {
     setLayoutIds({
@@ -35897,11 +36059,11 @@ var LayoutMultiSelect = ({
   }) => {
     const isDisabled = node2.disabled;
     const isChecked = selectedLayouts.includes(node2.value);
-    return /* @__PURE__ */ jsx_runtime3.jsxs(Group, {
+    return /* @__PURE__ */ jsx_runtime4.jsxs(Group, {
       gap: "xs",
       ...elementProps,
       children: [
-        /* @__PURE__ */ jsx_runtime3.jsx(Checkbox.Indicator, {
+        /* @__PURE__ */ jsx_runtime4.jsx(Checkbox.Indicator, {
           checked: isChecked,
           disabled: isDisabled,
           onClick: (e) => {
@@ -35911,17 +36073,17 @@ var LayoutMultiSelect = ({
             }
           }
         }),
-        /* @__PURE__ */ jsx_runtime3.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime4.jsxs(Group, {
           gap: 5,
           style: {
             color: isDisabled ? "var(--mantine-color-gray-6)" : undefined,
             cursor: isDisabled ? "not-allowed" : "pointer"
           },
           children: [
-            /* @__PURE__ */ jsx_runtime3.jsx("span", {
+            /* @__PURE__ */ jsx_runtime4.jsx("span", {
               children: node2.label
             }),
-            hasChildren && /* @__PURE__ */ jsx_runtime3.jsx(IconChevronDown, {
+            hasChildren && /* @__PURE__ */ jsx_runtime4.jsx(IconChevronDown, {
               size: 14,
               color: isDisabled ? "var(--mantine-color-gray-6)" : undefined,
               style: {
@@ -35933,11 +36095,11 @@ var LayoutMultiSelect = ({
       ]
     });
   };
-  return /* @__PURE__ */ jsx_runtime3.jsxs(jsx_runtime3.Fragment, {
+  return /* @__PURE__ */ jsx_runtime4.jsxs(jsx_runtime4.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime3.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime4.jsxs(Group, {
         children: [
-          /* @__PURE__ */ jsx_runtime3.jsx(MultiSelect, {
+          /* @__PURE__ */ jsx_runtime4.jsx(MultiSelect, {
             data: documentLayouts.map((layout) => {
               return {
                 value: layout.id,
@@ -35956,10 +36118,10 @@ var LayoutMultiSelect = ({
               }
             }
           }),
-          showButton && /* @__PURE__ */ jsx_runtime3.jsxs(Button, {
+          showButton && /* @__PURE__ */ jsx_runtime4.jsxs(Button, {
             onClick: () => setDrawerOpened(true),
             children: [
-              /* @__PURE__ */ jsx_runtime3.jsxs("svg", {
+              /* @__PURE__ */ jsx_runtime4.jsxs("svg", {
                 xmlns: "http://www.w3.org/2000/svg",
                 viewBox: "0 0 24 24",
                 fill: "none",
@@ -35970,27 +36132,27 @@ var LayoutMultiSelect = ({
                 height: "24",
                 strokeWidth: "2",
                 children: [
-                  /* @__PURE__ */ jsx_runtime3.jsx("path", {
+                  /* @__PURE__ */ jsx_runtime4.jsx("path", {
                     d: "M13 5h8"
                   }),
-                  /* @__PURE__ */ jsx_runtime3.jsx("path", {
+                  /* @__PURE__ */ jsx_runtime4.jsx("path", {
                     d: "M13 9h5"
                   }),
-                  /* @__PURE__ */ jsx_runtime3.jsx("path", {
+                  /* @__PURE__ */ jsx_runtime4.jsx("path", {
                     d: "M13 15h8"
                   }),
-                  /* @__PURE__ */ jsx_runtime3.jsx("path", {
+                  /* @__PURE__ */ jsx_runtime4.jsx("path", {
                     d: "M13 19h5"
                   }),
-                  /* @__PURE__ */ jsx_runtime3.jsx("path", {
+                  /* @__PURE__ */ jsx_runtime4.jsx("path", {
                     d: "M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
                   }),
-                  /* @__PURE__ */ jsx_runtime3.jsx("path", {
+                  /* @__PURE__ */ jsx_runtime4.jsx("path", {
                     d: "M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
                   })
                 ]
               }),
-              /* @__PURE__ */ jsx_runtime3.jsx("span", {
+              /* @__PURE__ */ jsx_runtime4.jsx("span", {
                 style: { marginLeft: "10px" },
                 children: "Open Selector"
               })
@@ -35998,7 +36160,7 @@ var LayoutMultiSelect = ({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime3.jsxs(Drawer, {
+      /* @__PURE__ */ jsx_runtime4.jsxs(Drawer, {
         opened: drawerOpened,
         onClose: () => setDrawerOpened(false),
         title: "Select Layouts",
@@ -36006,15 +36168,15 @@ var LayoutMultiSelect = ({
         size: "md",
         padding: "md",
         children: [
-          /* @__PURE__ */ jsx_runtime3.jsx("div", {
+          /* @__PURE__ */ jsx_runtime4.jsx("div", {
             style: { marginBottom: "20px" },
-            children: /* @__PURE__ */ jsx_runtime3.jsx(Tree, {
+            children: /* @__PURE__ */ jsx_runtime4.jsx(Tree, {
               data: treeData,
               renderNode: renderTreeNode,
               expandOnClick: true
             })
           }),
-          /* @__PURE__ */ jsx_runtime3.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime4.jsx(Button, {
             fullWidth: true,
             onClick: handleSave,
             children: "Save"
@@ -36026,19 +36188,19 @@ var LayoutMultiSelect = ({
 };
 
 // src/components/LayoutMappingModal/VariableCard.tsx
-var import_react243 = __toESM(require_react(), 1);
+var import_react244 = __toESM(require_react(), 1);
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var import_react240 = __toESM(require_react(), 1);
+var import_react241 = __toESM(require_react(), 1);
 var import_react_dom5 = __toESM(require_react_dom(), 1);
 
 // node_modules/@dnd-kit/utilities/dist/utilities.esm.js
-var import_react238 = __toESM(require_react(), 1);
+var import_react239 = __toESM(require_react(), 1);
 function useCombinedRefs() {
   for (var _len = arguments.length, refs = new Array(_len), _key = 0;_key < _len; _key++) {
     refs[_key] = arguments[_key];
   }
-  return import_react238.useMemo(() => (node2) => {
+  return import_react239.useMemo(() => (node2) => {
     refs.forEach((ref) => ref(node2));
   }, refs);
 }
@@ -36096,13 +36258,13 @@ function getOwnerDocument(target) {
   }
   return document;
 }
-var useIsomorphicLayoutEffect2 = canUseDOM2 ? import_react238.useLayoutEffect : import_react238.useEffect;
+var useIsomorphicLayoutEffect2 = canUseDOM2 ? import_react239.useLayoutEffect : import_react239.useEffect;
 function useEvent(handler) {
-  const handlerRef = import_react238.useRef(handler);
+  const handlerRef = import_react239.useRef(handler);
   useIsomorphicLayoutEffect2(() => {
     handlerRef.current = handler;
   });
-  return import_react238.useCallback(function() {
+  return import_react239.useCallback(function() {
     for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
       args[_key] = arguments[_key];
     }
@@ -36110,11 +36272,11 @@ function useEvent(handler) {
   }, []);
 }
 function useInterval() {
-  const intervalRef = import_react238.useRef(null);
-  const set2 = import_react238.useCallback((listener, duration) => {
+  const intervalRef = import_react239.useRef(null);
+  const set2 = import_react239.useCallback((listener, duration) => {
     intervalRef.current = setInterval(listener, duration);
   }, []);
-  const clear = import_react238.useCallback(() => {
+  const clear = import_react239.useCallback(() => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -36126,7 +36288,7 @@ function useLatestValue(value, dependencies) {
   if (dependencies === undefined) {
     dependencies = [value];
   }
-  const valueRef = import_react238.useRef(value);
+  const valueRef = import_react239.useRef(value);
   useIsomorphicLayoutEffect2(() => {
     if (valueRef.current !== value) {
       valueRef.current = value;
@@ -36135,8 +36297,8 @@ function useLatestValue(value, dependencies) {
   return valueRef;
 }
 function useLazyMemo(callback, dependencies) {
-  const valueRef = import_react238.useRef();
-  return import_react238.useMemo(() => {
+  const valueRef = import_react239.useRef();
+  return import_react239.useMemo(() => {
     const newValue = callback(valueRef.current);
     valueRef.current = newValue;
     return newValue;
@@ -36144,8 +36306,8 @@ function useLazyMemo(callback, dependencies) {
 }
 function useNodeRef(onChange) {
   const onChangeHandler = useEvent(onChange);
-  const node2 = import_react238.useRef(null);
-  const setNodeRef = import_react238.useCallback((element) => {
+  const node2 = import_react239.useRef(null);
+  const setNodeRef = import_react239.useCallback((element) => {
     if (element !== node2.current) {
       onChangeHandler == null || onChangeHandler(element, node2.current);
     }
@@ -36154,15 +36316,15 @@ function useNodeRef(onChange) {
   return [node2, setNodeRef];
 }
 function usePrevious2(value) {
-  const ref = import_react238.useRef();
-  import_react238.useEffect(() => {
+  const ref = import_react239.useRef();
+  import_react239.useEffect(() => {
     ref.current = value;
   }, [value]);
   return ref.current;
 }
 var ids = {};
 function useUniqueId(prefix3, value) {
-  return import_react238.useMemo(() => {
+  return import_react239.useMemo(() => {
     if (value) {
       return value;
     }
@@ -36296,7 +36458,7 @@ function findFirstFocusableNode(element) {
 }
 
 // node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js
-var import_react239 = __toESM(require_react(), 1);
+var import_react240 = __toESM(require_react(), 1);
 var hiddenStyles = {
   display: "none"
 };
@@ -36305,7 +36467,7 @@ function HiddenText(_ref) {
     id,
     value
   } = _ref;
-  return import_react239.default.createElement("div", {
+  return import_react240.default.createElement("div", {
     id,
     style: hiddenStyles
   }, value);
@@ -36330,7 +36492,7 @@ function LiveRegion(_ref) {
     clipPath: "inset(100%)",
     whiteSpace: "nowrap"
   };
-  return import_react239.default.createElement("div", {
+  return import_react240.default.createElement("div", {
     id,
     style: visuallyHidden,
     role: "status",
@@ -36339,8 +36501,8 @@ function LiveRegion(_ref) {
   }, announcement);
 }
 function useAnnouncement() {
-  const [announcement, setAnnouncement] = import_react239.useState("");
-  const announce = import_react239.useCallback((value) => {
+  const [announcement, setAnnouncement] = import_react240.useState("");
+  const announce = import_react240.useCallback((value) => {
     if (value != null) {
       setAnnouncement(value);
     }
@@ -36352,10 +36514,10 @@ function useAnnouncement() {
 }
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var DndMonitorContext = /* @__PURE__ */ import_react240.createContext(null);
+var DndMonitorContext = /* @__PURE__ */ import_react241.createContext(null);
 function useDndMonitor(listener) {
-  const registerListener = import_react240.useContext(DndMonitorContext);
-  import_react240.useEffect(() => {
+  const registerListener = import_react241.useContext(DndMonitorContext);
+  import_react241.useEffect(() => {
     if (!registerListener) {
       throw new Error("useDndMonitor must be used within a children of <DndContext>");
     }
@@ -36364,12 +36526,12 @@ function useDndMonitor(listener) {
   }, [listener, registerListener]);
 }
 function useDndMonitorProvider() {
-  const [listeners] = import_react240.useState(() => new Set);
-  const registerListener = import_react240.useCallback((listener) => {
+  const [listeners] = import_react241.useState(() => new Set);
+  const registerListener = import_react241.useCallback((listener) => {
     listeners.add(listener);
     return () => listeners.delete(listener);
   }, [listeners]);
-  const dispatch = import_react240.useCallback((_ref) => {
+  const dispatch = import_react241.useCallback((_ref) => {
     let {
       type,
       event
@@ -36434,11 +36596,11 @@ function Accessibility(_ref) {
     announcement
   } = useAnnouncement();
   const liveRegionId = useUniqueId("DndLiveRegion");
-  const [mounted, setMounted] = import_react240.useState(false);
-  import_react240.useEffect(() => {
+  const [mounted, setMounted] = import_react241.useState(false);
+  import_react241.useEffect(() => {
     setMounted(true);
   }, []);
-  useDndMonitor(import_react240.useMemo(() => ({
+  useDndMonitor(import_react241.useMemo(() => ({
     onDragStart(_ref2) {
       let {
         active
@@ -36493,10 +36655,10 @@ function Accessibility(_ref) {
   if (!mounted) {
     return null;
   }
-  const markup = import_react240.default.createElement(import_react240.default.Fragment, null, import_react240.default.createElement(HiddenText, {
+  const markup = import_react241.default.createElement(import_react241.default.Fragment, null, import_react241.default.createElement(HiddenText, {
     id: hiddenTextDescribedById,
     value: screenReaderInstructions.draggable
-  }), import_react240.default.createElement(LiveRegion, {
+  }), import_react241.default.createElement(LiveRegion, {
     id: liveRegionId,
     announcement
   }));
@@ -36513,10 +36675,10 @@ var Action;
   Action2["SetDroppableDisabled"] = "setDroppableDisabled";
   Action2["UnregisterDroppable"] = "unregisterDroppable";
 })(Action || (Action = {}));
-function noop7() {
+function noop6() {
 }
 function useSensor(sensor, options) {
-  return import_react240.useMemo(() => ({
+  return import_react241.useMemo(() => ({
     sensor,
     options: options != null ? options : {}
   }), [sensor, options]);
@@ -36525,7 +36687,7 @@ function useSensors() {
   for (var _len = arguments.length, sensors = new Array(_len), _key = 0;_key < _len; _key++) {
     sensors[_key] = arguments[_key];
   }
-  return import_react240.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
+  return import_react241.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
 }
 var defaultCoordinates = /* @__PURE__ */ Object.freeze({
   x: 0,
@@ -37708,14 +37870,14 @@ class TouchSensor extends AbstractPointerSensor {
     super(props, events$2);
   }
   static setup() {
-    window.addEventListener(events$2.move.name, noop8, {
+    window.addEventListener(events$2.move.name, noop7, {
       capture: false,
       passive: false
     });
     return function teardown() {
-      window.removeEventListener(events$2.move.name, noop8);
+      window.removeEventListener(events$2.move.name, noop7);
     };
-    function noop8() {
+    function noop7() {
     }
   }
 }
@@ -37770,15 +37932,15 @@ function useAutoScroller(_ref) {
     disabled: !enabled
   });
   const [setAutoScrollInterval, clearAutoScrollInterval] = useInterval();
-  const scrollSpeed = import_react240.useRef({
+  const scrollSpeed = import_react241.useRef({
     x: 0,
     y: 0
   });
-  const scrollDirection = import_react240.useRef({
+  const scrollDirection = import_react241.useRef({
     x: 0,
     y: 0
   });
-  const rect = import_react240.useMemo(() => {
+  const rect = import_react241.useMemo(() => {
     switch (activator) {
       case AutoScrollActivator.Pointer:
         return pointerCoordinates ? {
@@ -37791,8 +37953,8 @@ function useAutoScroller(_ref) {
         return draggingRect;
     }
   }, [activator, draggingRect, pointerCoordinates]);
-  const scrollContainerRef = import_react240.useRef(null);
-  const autoScroll = import_react240.useCallback(() => {
+  const scrollContainerRef = import_react241.useRef(null);
+  const autoScroll = import_react241.useCallback(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) {
       return;
@@ -37801,8 +37963,8 @@ function useAutoScroller(_ref) {
     const scrollTop = scrollSpeed.current.y * scrollDirection.current.y;
     scrollContainer.scrollBy(scrollLeft, scrollTop);
   }, []);
-  const sortedScrollableAncestors = import_react240.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
-  import_react240.useEffect(() => {
+  const sortedScrollableAncestors = import_react241.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
+  import_react241.useEffect(() => {
     if (!enabled || !scrollableAncestors.length || !rect) {
       clearAutoScrollInterval();
       return;
@@ -37908,7 +38070,7 @@ function useCachedNode(draggableNodes, id) {
   }, [node2, id]);
 }
 function useCombineActivators(sensors, getSyntheticHandler) {
-  return import_react240.useMemo(() => sensors.reduce((accumulator, sensor) => {
+  return import_react241.useMemo(() => sensors.reduce((accumulator, sensor) => {
     const {
       sensor: Sensor
     } = sensor;
@@ -37936,16 +38098,16 @@ function useDroppableMeasuring(containers, _ref) {
     dependencies,
     config
   } = _ref;
-  const [queue, setQueue] = import_react240.useState(null);
+  const [queue, setQueue] = import_react241.useState(null);
   const {
     frequency,
     measure,
     strategy
   } = config;
-  const containersRef = import_react240.useRef(containers);
+  const containersRef = import_react241.useRef(containers);
   const disabled = isDisabled();
   const disabledRef = useLatestValue(disabled);
-  const measureDroppableContainers = import_react240.useCallback(function(ids2) {
+  const measureDroppableContainers = import_react241.useCallback(function(ids2) {
     if (ids2 === undefined) {
       ids2 = [];
     }
@@ -37959,7 +38121,7 @@ function useDroppableMeasuring(containers, _ref) {
       return value.concat(ids2.filter((id) => !value.includes(id)));
     });
   }, [disabledRef]);
-  const timeoutId = import_react240.useRef(null);
+  const timeoutId = import_react241.useRef(null);
   const droppableRects = useLazyMemo((previousValue) => {
     if (disabled && !dragging) {
       return defaultValue;
@@ -37985,21 +38147,21 @@ function useDroppableMeasuring(containers, _ref) {
     }
     return previousValue;
   }, [containers, queue, dragging, disabled, measure]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     containersRef.current = containers;
   }, [containers]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     if (disabled) {
       return;
     }
     measureDroppableContainers();
   }, [dragging, disabled]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     if (queue && queue.length > 0) {
       setQueue(null);
     }
   }, [JSON.stringify(queue)]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     if (disabled || typeof frequency !== "number" || timeoutId.current !== null) {
       return;
     }
@@ -38044,7 +38206,7 @@ function useMutationObserver(_ref) {
     disabled
   } = _ref;
   const handleMutations = useEvent(callback);
-  const mutationObserver = import_react240.useMemo(() => {
+  const mutationObserver = import_react241.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.MutationObserver === "undefined") {
       return;
     }
@@ -38053,7 +38215,7 @@ function useMutationObserver(_ref) {
     } = window;
     return new MutationObserver2(handleMutations);
   }, [handleMutations, disabled]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     return () => mutationObserver == null ? undefined : mutationObserver.disconnect();
   }, [mutationObserver]);
   return mutationObserver;
@@ -38064,7 +38226,7 @@ function useResizeObserver2(_ref) {
     disabled
   } = _ref;
   const handleResize = useEvent(callback);
-  const resizeObserver = import_react240.useMemo(() => {
+  const resizeObserver = import_react241.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.ResizeObserver === "undefined") {
       return;
     }
@@ -38073,7 +38235,7 @@ function useResizeObserver2(_ref) {
     } = window;
     return new ResizeObserver2(handleResize);
   }, [disabled]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     return () => resizeObserver == null ? undefined : resizeObserver.disconnect();
   }, [resizeObserver]);
   return resizeObserver;
@@ -38085,7 +38247,7 @@ function useRect(element, measure, fallbackRect) {
   if (measure === undefined) {
     measure = defaultMeasure;
   }
-  const [rect, setRect] = import_react240.useState(null);
+  const [rect, setRect] = import_react241.useState(null);
   function measureRect() {
     setRect((currentRect) => {
       if (!element) {
@@ -38143,7 +38305,7 @@ function useRectDelta(rect) {
 }
 var defaultValue$1 = [];
 function useScrollableAncestors(node2) {
-  const previousNode = import_react240.useRef(node2);
+  const previousNode = import_react241.useRef(node2);
   const ancestors = useLazyMemo((previousValue) => {
     if (!node2) {
       return defaultValue$1;
@@ -38153,15 +38315,15 @@ function useScrollableAncestors(node2) {
     }
     return getScrollableAncestors(node2);
   }, [node2]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     previousNode.current = node2;
   }, [node2]);
   return ancestors;
 }
 function useScrollOffsets(elements) {
-  const [scrollCoordinates, setScrollCoordinates] = import_react240.useState(null);
-  const prevElements = import_react240.useRef(elements);
-  const handleScroll2 = import_react240.useCallback((event) => {
+  const [scrollCoordinates, setScrollCoordinates] = import_react241.useState(null);
+  const prevElements = import_react241.useRef(elements);
+  const handleScroll2 = import_react241.useCallback((event) => {
     const scrollingElement = getScrollableElement(event.target);
     if (!scrollingElement) {
       return;
@@ -38174,7 +38336,7 @@ function useScrollOffsets(elements) {
       return new Map(scrollCoordinates2);
     });
   }, []);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     const previousElements = prevElements.current;
     if (elements !== previousElements) {
       cleanup(previousElements);
@@ -38202,7 +38364,7 @@ function useScrollOffsets(elements) {
       });
     }
   }, [handleScroll2, elements]);
-  return import_react240.useMemo(() => {
+  return import_react241.useMemo(() => {
     if (elements.length) {
       return scrollCoordinates ? Array.from(scrollCoordinates.values()).reduce((acc, coordinates) => add(acc, coordinates), defaultCoordinates) : getScrollOffsets(elements);
     }
@@ -38213,11 +38375,11 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   if (dependencies === undefined) {
     dependencies = [];
   }
-  const initialScrollOffsets = import_react240.useRef(null);
-  import_react240.useEffect(() => {
+  const initialScrollOffsets = import_react241.useRef(null);
+  import_react241.useEffect(() => {
     initialScrollOffsets.current = null;
   }, dependencies);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     const hasScrollOffsets = scrollOffsets !== defaultCoordinates;
     if (hasScrollOffsets && !initialScrollOffsets.current) {
       initialScrollOffsets.current = scrollOffsets;
@@ -38229,7 +38391,7 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   return initialScrollOffsets.current ? subtract(scrollOffsets, initialScrollOffsets.current) : defaultCoordinates;
 }
 function useSensorSetup(sensors) {
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     if (!canUseDOM2) {
       return;
     }
@@ -38252,7 +38414,7 @@ function useSensorSetup(sensors) {
   }));
 }
 function useSyntheticListeners(listeners, id) {
-  return import_react240.useMemo(() => {
+  return import_react241.useMemo(() => {
     return listeners.reduce((acc, _ref) => {
       let {
         eventName,
@@ -38266,7 +38428,7 @@ function useSyntheticListeners(listeners, id) {
   }, [listeners, id]);
 }
 function useWindowRect(element) {
-  return import_react240.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
+  return import_react241.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
 }
 var defaultValue$2 = [];
 function useRects(elements, measure) {
@@ -38275,7 +38437,7 @@ function useRects(elements, measure) {
   }
   const [firstElement] = elements;
   const windowRect = useWindowRect(firstElement ? getWindow2(firstElement) : null);
-  const [rects, setRects] = import_react240.useState(defaultValue$2);
+  const [rects, setRects] = import_react241.useState(defaultValue$2);
   function measureRects() {
     setRects(() => {
       if (!elements.length) {
@@ -38308,8 +38470,8 @@ function useDragOverlayMeasuring(_ref) {
   let {
     measure
   } = _ref;
-  const [rect, setRect] = import_react240.useState(null);
-  const handleResize = import_react240.useCallback((entries) => {
+  const [rect, setRect] = import_react241.useState(null);
+  const handleResize = import_react241.useCallback((entries) => {
     for (const {
       target
     } of entries) {
@@ -38329,7 +38491,7 @@ function useDragOverlayMeasuring(_ref) {
   const resizeObserver = useResizeObserver2({
     callback: handleResize
   });
-  const handleNodeChange = import_react240.useCallback((element) => {
+  const handleNodeChange = import_react241.useCallback((element) => {
     const node2 = getMeasurableNode(element);
     resizeObserver == null || resizeObserver.disconnect();
     if (node2) {
@@ -38338,7 +38500,7 @@ function useDragOverlayMeasuring(_ref) {
     setRect(node2 ? measure(node2) : null);
   }, [measure, resizeObserver]);
   const [nodeRef, setRef] = useNodeRef(handleNodeChange);
-  return import_react240.useMemo(() => ({
+  return import_react241.useMemo(() => ({
     nodeRef,
     rect,
     setRef
@@ -38405,12 +38567,12 @@ var defaultPublicContext = {
       current: null
     },
     rect: null,
-    setRef: noop7
+    setRef: noop6
   },
   scrollableAncestors: [],
   scrollableAncestorRects: [],
   measuringConfiguration: defaultMeasuringConfiguration,
-  measureDroppableContainers: noop7,
+  measureDroppableContainers: noop6,
   windowRect: null,
   measuringScheduled: false
 };
@@ -38422,13 +38584,13 @@ var defaultInternalContext = {
   ariaDescribedById: {
     draggable: ""
   },
-  dispatch: noop7,
+  dispatch: noop6,
   draggableNodes: /* @__PURE__ */ new Map,
   over: null,
-  measureDroppableContainers: noop7
+  measureDroppableContainers: noop6
 };
-var InternalContext = /* @__PURE__ */ import_react240.createContext(defaultInternalContext);
-var PublicContext = /* @__PURE__ */ import_react240.createContext(defaultPublicContext);
+var InternalContext = /* @__PURE__ */ import_react241.createContext(defaultInternalContext);
+var PublicContext = /* @__PURE__ */ import_react241.createContext(defaultPublicContext);
 function getInitialState() {
   return {
     draggable: {
@@ -38562,10 +38724,10 @@ function RestoreFocus(_ref) {
     active,
     activatorEvent,
     draggableNodes
-  } = import_react240.useContext(InternalContext);
+  } = import_react241.useContext(InternalContext);
   const previousActivatorEvent = usePrevious2(activatorEvent);
   const previousActiveId = usePrevious2(active == null ? undefined : active.id);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     if (disabled) {
       return;
     }
@@ -38616,7 +38778,7 @@ function applyModifiers(modifiers, _ref) {
   }, transform) : transform;
 }
 function useMeasuringConfiguration(config) {
-  return import_react240.useMemo(() => ({
+  return import_react241.useMemo(() => ({
     draggable: {
       ...defaultMeasuringConfiguration.draggable,
       ...config == null ? undefined : config.draggable
@@ -38638,7 +38800,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     initialRect,
     config = true
   } = _ref;
-  const initialized = import_react240.useRef(false);
+  const initialized = import_react241.useRef(false);
   const {
     x: x2,
     y: y2
@@ -38679,7 +38841,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     }
   }, [activeNode, x2, y2, initialRect, measure]);
 }
-var ActiveDraggableContext = /* @__PURE__ */ import_react240.createContext({
+var ActiveDraggableContext = /* @__PURE__ */ import_react241.createContext({
   ...defaultCoordinates,
   scaleX: 1,
   scaleY: 1
@@ -38690,7 +38852,7 @@ var Status;
   Status2[Status2["Initializing"] = 1] = "Initializing";
   Status2[Status2["Initialized"] = 2] = "Initialized";
 })(Status || (Status = {}));
-var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref) {
+var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref) {
   var _sensorContext$curren, _dragOverlay$nodeRef$, _dragOverlay$rect, _over$rect;
   let {
     id,
@@ -38703,10 +38865,10 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
     modifiers,
     ...props
   } = _ref;
-  const store = import_react240.useReducer(reducer, undefined, getInitialState);
+  const store = import_react241.useReducer(reducer, undefined, getInitialState);
   const [state, dispatch] = store;
   const [dispatchMonitorEvent, registerMonitorListener] = useDndMonitorProvider();
-  const [status, setStatus] = import_react240.useState(Status.Uninitialized);
+  const [status, setStatus] = import_react241.useState(Status.Uninitialized);
   const isInitialized = status === Status.Initialized;
   const {
     draggable: {
@@ -38719,11 +38881,11 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
     }
   } = state;
   const node2 = activeId != null ? draggableNodes.get(activeId) : null;
-  const activeRects = import_react240.useRef({
+  const activeRects = import_react241.useRef({
     initial: null,
     translated: null
   });
-  const active = import_react240.useMemo(() => {
+  const active = import_react241.useMemo(() => {
     var _node$data;
     return activeId != null ? {
       id: activeId,
@@ -38731,12 +38893,12 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
       rect: activeRects
     } : null;
   }, [activeId, node2]);
-  const activeRef = import_react240.useRef(null);
-  const [activeSensor, setActiveSensor] = import_react240.useState(null);
-  const [activatorEvent, setActivatorEvent] = import_react240.useState(null);
+  const activeRef = import_react241.useRef(null);
+  const [activeSensor, setActiveSensor] = import_react241.useState(null);
+  const [activatorEvent, setActivatorEvent] = import_react241.useState(null);
   const latestProps = useLatestValue(props, Object.values(props));
   const draggableDescribedById = useUniqueId("DndDescribedBy", id);
-  const enabledDroppableContainers = import_react240.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
+  const enabledDroppableContainers = import_react241.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
   const measuringConfiguration = useMeasuringConfiguration(measuring);
   const {
     droppableRects,
@@ -38748,7 +38910,7 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
     config: measuringConfiguration.droppable
   });
   const activeNode = useCachedNode(draggableNodes, activeId);
-  const activationCoordinates = import_react240.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
+  const activationCoordinates = import_react241.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
   const autoScrollOptions = getAutoScrollerOptions();
   const initialActiveNodeRect = useInitialRect(activeNode, measuringConfiguration.draggable.measure);
   useLayoutShiftScrollCompensation({
@@ -38759,7 +38921,7 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
   });
   const activeNodeRect = useRect(activeNode, measuringConfiguration.draggable.measure, initialActiveNodeRect);
   const containerNodeRect = useRect(activeNode ? activeNode.parentElement : null);
-  const sensorContext = import_react240.useRef({
+  const sensorContext = import_react241.useRef({
     activatorEvent: null,
     active: null,
     activeNode,
@@ -38817,11 +38979,11 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
     pointerCoordinates
   }) : null;
   const overId = getFirstCollision(collisions, "id");
-  const [over, setOver] = import_react240.useState(null);
+  const [over, setOver] = import_react241.useState(null);
   const appliedTranslate = usesDragOverlay ? modifiedTranslate : add(modifiedTranslate, activeNodeScrollDelta);
   const transform = adjustScale(appliedTranslate, (_over$rect = over == null ? undefined : over.rect) != null ? _over$rect : null, activeNodeRect);
-  const activeSensorRef = import_react240.useRef(null);
-  const instantiateSensor = import_react240.useCallback((event, _ref2) => {
+  const activeSensorRef = import_react241.useRef(null);
+  const instantiateSensor = import_react241.useCallback((event, _ref2) => {
     let {
       sensor: Sensor,
       options
@@ -38973,7 +39135,7 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
       };
     }
   }, [draggableNodes]);
-  const bindActivatorToSensorInstantiator = import_react240.useCallback((handler, sensor) => {
+  const bindActivatorToSensorInstantiator = import_react241.useCallback((handler, sensor) => {
     return (event, active2) => {
       const nativeEvent = event.nativeEvent;
       const activeDraggableNode = draggableNodes.get(active2);
@@ -39000,7 +39162,7 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
       setStatus(Status.Initialized);
     }
   }, [activeNodeRect, status]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     const {
       onDragMove
     } = latestProps.current;
@@ -39031,7 +39193,7 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
       });
     });
   }, [scrollAdjustedTranslate.x, scrollAdjustedTranslate.y]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     const {
       active: active2,
       activatorEvent: activatorEvent2,
@@ -39100,7 +39262,7 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
     scrollableAncestors,
     scrollableAncestorRects
   });
-  const publicContext = import_react240.useMemo(() => {
+  const publicContext = import_react241.useMemo(() => {
     const context = {
       active,
       activeNode,
@@ -39122,7 +39284,7 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
     };
     return context;
   }, [active, activeNode, activeNodeRect, activatorEvent, collisions, containerNodeRect, dragOverlay, draggableNodes, droppableContainers, droppableRects, over, measureDroppableContainers, scrollableAncestors, scrollableAncestorRects, measuringConfiguration, measuringScheduled, windowRect]);
-  const internalContext = import_react240.useMemo(() => {
+  const internalContext = import_react241.useMemo(() => {
     const context = {
       activatorEvent,
       activators,
@@ -39138,17 +39300,17 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
     };
     return context;
   }, [activatorEvent, activators, active, activeNodeRect, dispatch, draggableDescribedById, draggableNodes, over, measureDroppableContainers]);
-  return import_react240.default.createElement(DndMonitorContext.Provider, {
+  return import_react241.default.createElement(DndMonitorContext.Provider, {
     value: registerMonitorListener
-  }, import_react240.default.createElement(InternalContext.Provider, {
+  }, import_react241.default.createElement(InternalContext.Provider, {
     value: internalContext
-  }, import_react240.default.createElement(PublicContext.Provider, {
+  }, import_react241.default.createElement(PublicContext.Provider, {
     value: publicContext
-  }, import_react240.default.createElement(ActiveDraggableContext.Provider, {
+  }, import_react241.default.createElement(ActiveDraggableContext.Provider, {
     value: transform
-  }, children)), import_react240.default.createElement(RestoreFocus, {
+  }, children)), import_react241.default.createElement(RestoreFocus, {
     disabled: (accessibility == null ? undefined : accessibility.restoreFocus) === false
-  })), import_react240.default.createElement(Accessibility, {
+  })), import_react241.default.createElement(Accessibility, {
     ...accessibility,
     hiddenTextDescribedById: draggableDescribedById
   }));
@@ -39167,7 +39329,7 @@ var DndContext = /* @__PURE__ */ import_react240.memo(function DndContext2(_ref)
     };
   }
 });
-var NullContext = /* @__PURE__ */ import_react240.createContext(null);
+var NullContext = /* @__PURE__ */ import_react241.createContext(null);
 var defaultRole = "button";
 var ID_PREFIX = "Draggable";
 function useDraggable(_ref) {
@@ -39186,14 +39348,14 @@ function useDraggable(_ref) {
     ariaDescribedById,
     draggableNodes,
     over
-  } = import_react240.useContext(InternalContext);
+  } = import_react241.useContext(InternalContext);
   const {
     role = defaultRole,
     roleDescription = "draggable",
     tabIndex = 0
   } = attributes != null ? attributes : {};
   const isDragging = (active == null ? undefined : active.id) === id;
-  const transform = import_react240.useContext(isDragging ? ActiveDraggableContext : NullContext);
+  const transform = import_react241.useContext(isDragging ? ActiveDraggableContext : NullContext);
   const [node2, setNodeRef] = useNodeRef();
   const [activatorNode, setActivatorNodeRef] = useNodeRef();
   const listeners = useSyntheticListeners(activators, id);
@@ -39213,7 +39375,7 @@ function useDraggable(_ref) {
       }
     };
   }, [draggableNodes, id]);
-  const memoizedAttributes = import_react240.useMemo(() => ({
+  const memoizedAttributes = import_react241.useMemo(() => ({
     role,
     tabIndex,
     "aria-disabled": disabled,
@@ -39236,7 +39398,7 @@ function useDraggable(_ref) {
   };
 }
 function useDndContext() {
-  return import_react240.useContext(PublicContext);
+  return import_react241.useContext(PublicContext);
 }
 var ID_PREFIX$1 = "Droppable";
 var defaultResizeObserverConfig = {
@@ -39255,13 +39417,13 @@ function useDroppable(_ref) {
     dispatch,
     over,
     measureDroppableContainers
-  } = import_react240.useContext(InternalContext);
-  const previous = import_react240.useRef({
+  } = import_react241.useContext(InternalContext);
+  const previous = import_react241.useRef({
     disabled
   });
-  const resizeObserverConnected = import_react240.useRef(false);
-  const rect = import_react240.useRef(null);
-  const callbackId = import_react240.useRef(null);
+  const resizeObserverConnected = import_react241.useRef(false);
+  const rect = import_react241.useRef(null);
+  const callbackId = import_react241.useRef(null);
   const {
     disabled: resizeObserverDisabled,
     updateMeasurementsFor,
@@ -39271,7 +39433,7 @@ function useDroppable(_ref) {
     ...resizeObserverConfig
   };
   const ids2 = useLatestValue(updateMeasurementsFor != null ? updateMeasurementsFor : id);
-  const handleResize = import_react240.useCallback(() => {
+  const handleResize = import_react241.useCallback(() => {
     if (!resizeObserverConnected.current) {
       resizeObserverConnected.current = true;
       return;
@@ -39288,7 +39450,7 @@ function useDroppable(_ref) {
     callback: handleResize,
     disabled: resizeObserverDisabled || !active
   });
-  const handleNodeChange = import_react240.useCallback((newElement, previousElement) => {
+  const handleNodeChange = import_react241.useCallback((newElement, previousElement) => {
     if (!resizeObserver) {
       return;
     }
@@ -39302,7 +39464,7 @@ function useDroppable(_ref) {
   }, [resizeObserver]);
   const [nodeRef, setNodeRef] = useNodeRef(handleNodeChange);
   const dataRef = useLatestValue(data);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     if (!resizeObserver || !nodeRef.current) {
       return;
     }
@@ -39310,7 +39472,7 @@ function useDroppable(_ref) {
     resizeObserverConnected.current = false;
     resizeObserver.observe(nodeRef.current);
   }, [nodeRef, resizeObserver]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     dispatch({
       type: Action.RegisterDroppable,
       element: {
@@ -39328,7 +39490,7 @@ function useDroppable(_ref) {
       id
     });
   }, [id]);
-  import_react240.useEffect(() => {
+  import_react241.useEffect(() => {
     if (disabled !== previous.current.disabled) {
       dispatch({
         type: Action.SetDroppableDisabled,
@@ -39350,7 +39512,7 @@ function useDroppable(_ref) {
 }
 
 // node_modules/@dnd-kit/sortable/dist/sortable.esm.js
-var import_react241 = __toESM(require_react(), 1);
+var import_react242 = __toESM(require_react(), 1);
 function arrayMove(array, from2, to) {
   const newArray = array.slice();
   newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from2, 1)[0]);
@@ -39473,7 +39635,7 @@ var rectSortingStrategy = (_ref) => {
   };
 };
 var ID_PREFIX2 = "Sortable";
-var Context = /* @__PURE__ */ import_react241.default.createContext({
+var Context = /* @__PURE__ */ import_react242.default.createContext({
   activeIndex: -1,
   containerId: ID_PREFIX2,
   disableTransforms: false,
@@ -39504,11 +39666,11 @@ function SortableContext(_ref) {
   } = useDndContext();
   const containerId = useUniqueId(ID_PREFIX2, id);
   const useDragOverlay = Boolean(dragOverlay.rect !== null);
-  const items = import_react241.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
+  const items = import_react242.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
   const isDragging = active != null;
   const activeIndex = active ? items.indexOf(active.id) : -1;
   const overIndex = over ? items.indexOf(over.id) : -1;
-  const previousItemsRef = import_react241.useRef(items);
+  const previousItemsRef = import_react242.useRef(items);
   const itemsHaveChanged = !itemsEqual(items, previousItemsRef.current);
   const disableTransforms = overIndex !== -1 && activeIndex === -1 || itemsHaveChanged;
   const disabled = normalizeDisabled(disabledProp);
@@ -39517,10 +39679,10 @@ function SortableContext(_ref) {
       measureDroppableContainers(items);
     }
   }, [itemsHaveChanged, items, isDragging, measureDroppableContainers]);
-  import_react241.useEffect(() => {
+  import_react242.useEffect(() => {
     previousItemsRef.current = items;
   }, [items]);
-  const contextValue = import_react241.useMemo(() => ({
+  const contextValue = import_react242.useMemo(() => ({
     activeIndex,
     containerId,
     disabled,
@@ -39531,7 +39693,7 @@ function SortableContext(_ref) {
     sortedRects: getSortedRects(items, droppableRects),
     strategy
   }), [activeIndex, containerId, disabled.draggable, disabled.droppable, disableTransforms, items, overIndex, droppableRects, useDragOverlay, strategy]);
-  return import_react241.default.createElement(Context.Provider, {
+  return import_react242.default.createElement(Context.Provider, {
     value: contextValue
   }, children);
 }
@@ -39587,8 +39749,8 @@ function useDerivedTransform(_ref) {
     node: node2,
     rect
   } = _ref;
-  const [derivedTransform, setDerivedtransform] = import_react241.useState(null);
-  const previousIndex = import_react241.useRef(index4);
+  const [derivedTransform, setDerivedtransform] = import_react242.useState(null);
+  const previousIndex = import_react242.useRef(index4);
   useIsomorphicLayoutEffect2(() => {
     if (!disabled && index4 !== previousIndex.current && node2.current) {
       const initial = rect.current;
@@ -39611,7 +39773,7 @@ function useDerivedTransform(_ref) {
       previousIndex.current = index4;
     }
   }, [disabled, index4, node2, rect]);
-  import_react241.useEffect(() => {
+  import_react242.useEffect(() => {
     if (derivedTransform) {
       setDerivedtransform(null);
     }
@@ -39640,10 +39802,10 @@ function useSortable(_ref) {
     overIndex,
     useDragOverlay,
     strategy: globalStrategy
-  } = import_react241.useContext(Context);
+  } = import_react242.useContext(Context);
   const disabled = normalizeLocalDisabled(localDisabled, globalDisabled);
   const index4 = items.indexOf(id);
-  const data = import_react241.useMemo(() => ({
+  const data = import_react242.useMemo(() => ({
     sortable: {
       containerId,
       index: index4,
@@ -39651,7 +39813,7 @@ function useSortable(_ref) {
     },
     ...customData
   }), [containerId, customData, index4, items]);
-  const itemsAfterCurrentSortable = import_react241.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
+  const itemsAfterCurrentSortable = import_react242.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
   const {
     rect,
     node: node2,
@@ -39706,7 +39868,7 @@ function useSortable(_ref) {
     overIndex
   }) : index4;
   const activeId = active == null ? undefined : active.id;
-  const previous = import_react241.useRef({
+  const previous = import_react242.useRef({
     activeId,
     items,
     newIndex,
@@ -39733,7 +39895,7 @@ function useSortable(_ref) {
     node: node2,
     rect
   });
-  import_react241.useEffect(() => {
+  import_react242.useEffect(() => {
     if (isSorting && previous.current.newIndex !== newIndex) {
       previous.current.newIndex = newIndex;
     }
@@ -39744,7 +39906,7 @@ function useSortable(_ref) {
       previous.current.items = items;
     }
   }, [isSorting, newIndex, containerId, items]);
-  import_react241.useEffect(() => {
+  import_react242.useEffect(() => {
     if (activeId === previous.current.activeId) {
       return;
     }
@@ -39924,59 +40086,59 @@ function isAfter(a2, b) {
 }
 
 // src/components/LayoutMappingModal/DependentGroupSortableCard.tsx
-var import_react242 = __toESM(require_react(), 1);
-var jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+var import_react243 = __toESM(require_react(), 1);
+var jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
 var TransformCommandCard = ({
   transform,
   index: index4,
   onUpdate,
   onRemove
 }) => {
-  return /* @__PURE__ */ jsx_runtime4.jsxs(Card, {
+  return /* @__PURE__ */ jsx_runtime5.jsxs(Card, {
     shadow: "sm",
     padding: "xs",
     radius: "md",
     withBorder: true,
     mb: "xs",
     children: [
-      /* @__PURE__ */ jsx_runtime4.jsx(Group, {
+      /* @__PURE__ */ jsx_runtime5.jsx(Group, {
         justify: "flex-end",
         mb: "xs",
-        children: /* @__PURE__ */ jsx_runtime4.jsx(ActionIcon, {
+        children: /* @__PURE__ */ jsx_runtime5.jsx(ActionIcon, {
           variant: "subtle",
           color: "red",
           size: "sm",
           onClick: () => onRemove(index4),
-          children: /* @__PURE__ */ jsx_runtime4.jsx(IconX, {
+          children: /* @__PURE__ */ jsx_runtime5.jsx(IconX, {
             size: 16
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime4.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime5.jsx(Text, {
         size: "xs",
         mb: "xs",
         children: "Find:"
       }),
-      /* @__PURE__ */ jsx_runtime4.jsx(Input, {
+      /* @__PURE__ */ jsx_runtime5.jsx(Input, {
         placeholder: "Text to find",
         value: transform.find,
         onChange: (e) => onUpdate(index4, { ...transform, find: e.target.value }),
         mb: "xs",
         size: "xs"
       }),
-      /* @__PURE__ */ jsx_runtime4.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime5.jsx(Text, {
         size: "xs",
         mb: "xs",
         children: "Replace:"
       }),
-      /* @__PURE__ */ jsx_runtime4.jsx(Input, {
+      /* @__PURE__ */ jsx_runtime5.jsx(Input, {
         placeholder: "Replacement text",
         value: transform.replace,
         onChange: (e) => onUpdate(index4, { ...transform, replace: e.target.value }),
         mb: "xs",
         size: "xs"
       }),
-      /* @__PURE__ */ jsx_runtime4.jsx(Checkbox, {
+      /* @__PURE__ */ jsx_runtime5.jsx(Checkbox, {
         label: "Replace All",
         checked: transform.replaceAll,
         onChange: (e) => onUpdate(index4, { ...transform, replaceAll: e.target.checked }),
@@ -39997,8 +40159,8 @@ var DependentGroupValueSortableCard = ({
   const raiseError2 = appStore((state) => state.raiseError);
   const updateVarValueFromDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup);
   const variables = appStore((state) => state.state.studio.document.variables);
-  const [transformModalOpen, setTransformModalOpen] = import_react242.useState(false);
-  const [transforms, setTransforms] = import_react242.useState([]);
+  const [transformModalOpen, setTransformModalOpen] = import_react243.useState(false);
+  const [transforms, setTransforms] = import_react243.useState([]);
   const {
     attributes,
     listeners,
@@ -40082,16 +40244,16 @@ var DependentGroupValueSortableCard = ({
     }
     return 0.5;
   };
-  return /* @__PURE__ */ jsx_runtime4.jsxs(jsx_runtime4.Fragment, {
+  return /* @__PURE__ */ jsx_runtime5.jsxs(jsx_runtime5.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime4.jsxs(Card, {
+      /* @__PURE__ */ jsx_runtime5.jsxs(Card, {
         ref: setNodeRef,
         shadow: "sm",
         padding: "xs",
         radius: "md",
         style: style2,
         children: [
-          /* @__PURE__ */ jsx_runtime4.jsx(ActionIcon, {
+          /* @__PURE__ */ jsx_runtime5.jsx(ActionIcon, {
             variant: "subtle",
             size: "sm",
             color: "red",
@@ -40102,9 +40264,9 @@ var DependentGroupValueSortableCard = ({
               right: "5px"
             },
             onClick: onRemove,
-            children: /* @__PURE__ */ jsx_runtime4.jsx(IconX, {})
+            children: /* @__PURE__ */ jsx_runtime5.jsx(IconX, {})
           }),
-          typeof value !== "string" && /* @__PURE__ */ jsx_runtime4.jsx(ActionIcon, {
+          typeof value !== "string" && /* @__PURE__ */ jsx_runtime5.jsx(ActionIcon, {
             variant: "subtle",
             size: "sm",
             opacity: getWandOpacity(),
@@ -40116,11 +40278,11 @@ var DependentGroupValueSortableCard = ({
               right: "30px"
             },
             onClick: openTransformModal,
-            children: /* @__PURE__ */ jsx_runtime4.jsx(IconWand, {
+            children: /* @__PURE__ */ jsx_runtime5.jsx(IconWand, {
               size: 14
             })
           }),
-          /* @__PURE__ */ jsx_runtime4.jsx(ActionIcon, {
+          /* @__PURE__ */ jsx_runtime5.jsx(ActionIcon, {
             ...attributes,
             ...listeners,
             variant: "subtle",
@@ -40131,18 +40293,18 @@ var DependentGroupValueSortableCard = ({
               left: "5px",
               cursor: "grab"
             },
-            children: /* @__PURE__ */ jsx_runtime4.jsx(IconGripVertical, {
+            children: /* @__PURE__ */ jsx_runtime5.jsx(IconGripVertical, {
               size: 14
             })
           }),
-          /* @__PURE__ */ jsx_runtime4.jsx("div", {
+          /* @__PURE__ */ jsx_runtime5.jsx("div", {
             style: { marginTop: "20px", marginBottom: "5px" },
-            children: typeof value === "string" ? /* @__PURE__ */ jsx_runtime4.jsx(Input, {
+            children: typeof value === "string" ? /* @__PURE__ */ jsx_runtime5.jsx(Input, {
               size: "xs",
               value,
               onChange: (e) => updateVarValue(e.target.value),
               placeholder: "Enter value"
-            }) : value.type === "StudioList" ? /* @__PURE__ */ jsx_runtime4.jsx(Select, {
+            }) : value.type === "StudioList" ? /* @__PURE__ */ jsx_runtime5.jsx(Select, {
               size: "xs",
               data: selectOptions,
               value: value.id || null,
@@ -40156,7 +40318,7 @@ var DependentGroupValueSortableCard = ({
               },
               placeholder: "Select variable",
               clearable: true
-            }) : /* @__PURE__ */ jsx_runtime4.jsx(Text, {
+            }) : /* @__PURE__ */ jsx_runtime5.jsx(Text, {
               size: "sm",
               ta: "center",
               style: { wordBreak: "break-word" },
@@ -40165,46 +40327,46 @@ var DependentGroupValueSortableCard = ({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime4.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime5.jsx(Modal, {
         opened: transformModalOpen,
         onClose: () => setTransformModalOpen(false),
         title: "Transform Commands",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime4.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime5.jsxs(Stack, {
           children: [
-            transforms.map((t, index4) => /* @__PURE__ */ jsx_runtime4.jsx(TransformCommandCard, {
+            transforms.map((t, index4) => /* @__PURE__ */ jsx_runtime5.jsx(TransformCommandCard, {
               transform: t,
               index: index4,
               onUpdate: updateTransform,
               onRemove: removeTransform
             }, index4)),
-            /* @__PURE__ */ jsx_runtime4.jsx(Card, {
+            /* @__PURE__ */ jsx_runtime5.jsx(Card, {
               shadow: "sm",
               padding: "xs",
               radius: "md",
               withBorder: true,
-              children: /* @__PURE__ */ jsx_runtime4.jsx(Group, {
+              children: /* @__PURE__ */ jsx_runtime5.jsx(Group, {
                 justify: "center",
-                children: /* @__PURE__ */ jsx_runtime4.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime5.jsx(ActionIcon, {
                   variant: "subtle",
                   color: "blue",
                   onClick: addTransform,
-                  children: /* @__PURE__ */ jsx_runtime4.jsx(IconPlus, {
+                  children: /* @__PURE__ */ jsx_runtime5.jsx(IconPlus, {
                     size: 20
                   })
                 })
               })
             }),
-            /* @__PURE__ */ jsx_runtime4.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime5.jsxs(Group, {
               justify: "flex-end",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime4.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime5.jsx(Button, {
                   variant: "outline",
                   onClick: () => setTransformModalOpen(false),
                   children: "Cancel"
                 }),
-                /* @__PURE__ */ jsx_runtime4.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime5.jsx(Button, {
                   onClick: saveTransforms,
                   children: "Save"
                 })
@@ -40218,7 +40380,7 @@ var DependentGroupValueSortableCard = ({
 };
 
 // src/components/LayoutMappingModal/DependentGroupSetValue.tsx
-var jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
 var DependentGroupSetValue = ({
   groupIndex,
   imageVariableId,
@@ -40280,30 +40442,30 @@ var DependentGroupSetValue = ({
       });
     }
   };
-  return /* @__PURE__ */ jsx_runtime5.jsxs("div", {
+  return /* @__PURE__ */ jsx_runtime6.jsxs("div", {
     style: { marginTop: "10px" },
     children: [
-      /* @__PURE__ */ jsx_runtime5.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime6.jsx(Text, {
         fw: 500,
         size: "sm",
         mb: 5,
         children: "Value ="
       }),
-      /* @__PURE__ */ jsx_runtime5.jsx(ScrollArea.Autosize, {
+      /* @__PURE__ */ jsx_runtime6.jsx(ScrollArea.Autosize, {
         maw: screen.width * 0.9,
-        children: /* @__PURE__ */ jsx_runtime5.jsx(DndContext, {
+        children: /* @__PURE__ */ jsx_runtime6.jsx(DndContext, {
           sensors,
           collisionDetection: closestCenter,
           onDragEnd: handleDragEnd,
-          children: /* @__PURE__ */ jsx_runtime5.jsx(SortableContext, {
+          children: /* @__PURE__ */ jsx_runtime6.jsx(SortableContext, {
             items: variableValue.map((_2, index4) => `item-${index4}`),
             strategy: horizontalListSortingStrategy,
-            children: /* @__PURE__ */ jsx_runtime5.jsxs(Group, {
+            children: /* @__PURE__ */ jsx_runtime6.jsxs(Group, {
               gap: "xs",
               wrap: "nowrap",
               style: { minWidth: "100%" },
               children: [
-                variableValue.map((value, index4) => /* @__PURE__ */ jsx_runtime5.jsx(DependentGroupValueSortableCard, {
+                variableValue.map((value, index4) => /* @__PURE__ */ jsx_runtime6.jsx(DependentGroupValueSortableCard, {
                   id: `item-${index4}`,
                   value,
                   mapId,
@@ -40312,12 +40474,12 @@ var DependentGroupSetValue = ({
                   onRemove: () => handleRemoveVarValue(index4),
                   getDisplayValue
                 }, `item-${index4}`)),
-                /* @__PURE__ */ jsx_runtime5.jsxs(Menu, {
+                /* @__PURE__ */ jsx_runtime6.jsxs(Menu, {
                   position: "bottom-end",
                   withArrow: true,
                   children: [
-                    /* @__PURE__ */ jsx_runtime5.jsx(Menu.Target, {
-                      children: /* @__PURE__ */ jsx_runtime5.jsx(Card, {
+                    /* @__PURE__ */ jsx_runtime6.jsx(Menu.Target, {
+                      children: /* @__PURE__ */ jsx_runtime6.jsx(Card, {
                         shadow: "sm",
                         padding: "xs",
                         radius: "md",
@@ -40330,27 +40492,27 @@ var DependentGroupSetValue = ({
                           border: "1px dashed #ccc",
                           cursor: "pointer"
                         },
-                        children: /* @__PURE__ */ jsx_runtime5.jsx(ActionIcon, {
+                        children: /* @__PURE__ */ jsx_runtime6.jsx(ActionIcon, {
                           variant: "transparent",
                           size: "lg",
-                          children: /* @__PURE__ */ jsx_runtime5.jsx(IconPlus, {})
+                          children: /* @__PURE__ */ jsx_runtime6.jsx(IconPlus, {})
                         })
                       })
                     }),
-                    /* @__PURE__ */ jsx_runtime5.jsxs(Menu.Dropdown, {
+                    /* @__PURE__ */ jsx_runtime6.jsxs(Menu.Dropdown, {
                       children: [
-                        /* @__PURE__ */ jsx_runtime5.jsx(Menu.Label, {
+                        /* @__PURE__ */ jsx_runtime6.jsx(Menu.Label, {
                           children: "Add Value Type"
                         }),
-                        /* @__PURE__ */ jsx_runtime5.jsx(Menu.Item, {
-                          leftSection: /* @__PURE__ */ jsx_runtime5.jsx(IconAbc, {
+                        /* @__PURE__ */ jsx_runtime6.jsx(Menu.Item, {
+                          leftSection: /* @__PURE__ */ jsx_runtime6.jsx(IconAbc, {
                             size: 14
                           }),
                           onClick: handleAddStringValue,
                           children: "String"
                         }),
-                        /* @__PURE__ */ jsx_runtime5.jsx(Menu.Item, {
-                          leftSection: /* @__PURE__ */ jsx_runtime5.jsx(IconList, {
+                        /* @__PURE__ */ jsx_runtime6.jsx(Menu.Item, {
+                          leftSection: /* @__PURE__ */ jsx_runtime6.jsx(IconList, {
                             size: 14
                           }),
                           onClick: handleAddListVariable,
@@ -40370,7 +40532,7 @@ var DependentGroupSetValue = ({
 };
 
 // src/components/LayoutMappingModal/DependentGroup.tsx
-var jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime7 = __toESM(require_jsx_runtime(), 1);
 var DependentGroup = ({
   dependentGroup,
   groupIndex,
@@ -40412,7 +40574,7 @@ var DependentGroup = ({
   const getVariableById = (id) => {
     return variables.find((v2) => v2.id === id);
   };
-  return /* @__PURE__ */ jsx_runtime6.jsxs(Stack, {
+  return /* @__PURE__ */ jsx_runtime7.jsxs(Stack, {
     style: {
       backgroundColor: bgColor,
       padding: "10px",
@@ -40421,11 +40583,11 @@ var DependentGroup = ({
       gap: "8px"
     },
     children: [
-      /* @__PURE__ */ jsx_runtime6.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime7.jsxs(Group, {
         align: "center",
         justify: "space-between",
         children: [
-          /* @__PURE__ */ jsx_runtime6.jsxs(Text, {
+          /* @__PURE__ */ jsx_runtime7.jsxs(Text, {
             fw: 500,
             size: "sm",
             ta: "center",
@@ -40434,36 +40596,36 @@ var DependentGroup = ({
               groupIndex + 1
             ]
           }),
-          /* @__PURE__ */ jsx_runtime6.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime7.jsxs(Group, {
             gap: "xs",
             children: [
-              /* @__PURE__ */ jsx_runtime6.jsx(ActionIcon, {
+              /* @__PURE__ */ jsx_runtime7.jsx(ActionIcon, {
                 variant: "subtle",
                 size: "lg",
                 radius: "xl",
                 onClick: () => handleCopyGroup(groupIndex),
-                children: /* @__PURE__ */ jsx_runtime6.jsx(IconCopy, {})
+                children: /* @__PURE__ */ jsx_runtime7.jsx(IconCopy, {})
               }),
-              /* @__PURE__ */ jsx_runtime6.jsx(ActionIcon, {
+              /* @__PURE__ */ jsx_runtime7.jsx(ActionIcon, {
                 variant: "subtle",
                 size: "lg",
                 color: "red",
                 radius: "xl",
                 onClick: () => handleRemoveGroup(groupIndex),
-                children: /* @__PURE__ */ jsx_runtime6.jsx(IconTrashFilled, {})
+                children: /* @__PURE__ */ jsx_runtime7.jsx(IconTrashFilled, {})
               })
             ]
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime6.jsxs(Grid, {
+      /* @__PURE__ */ jsx_runtime7.jsxs(Grid, {
         gutter: "xs",
         children: [
           dependentGroup.dependents.map((dependent, depIndex) => {
             const depVariable = getVariableById(dependent.variableId);
-            return /* @__PURE__ */ jsx_runtime6.jsx(Grid.Col, {
+            return /* @__PURE__ */ jsx_runtime7.jsx(Grid.Col, {
               span: 4,
-              children: /* @__PURE__ */ jsx_runtime6.jsxs(Card, {
+              children: /* @__PURE__ */ jsx_runtime7.jsxs(Card, {
                 shadow: "sm",
                 padding: "xs",
                 radius: "md",
@@ -40476,7 +40638,7 @@ var DependentGroup = ({
                   position: "relative"
                 },
                 children: [
-                  /* @__PURE__ */ jsx_runtime6.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime7.jsx(ActionIcon, {
                     variant: "subtle",
                     size: "sm",
                     color: "red",
@@ -40494,21 +40656,21 @@ var DependentGroup = ({
                         mapId: layoutMap.id
                       });
                     },
-                    children: /* @__PURE__ */ jsx_runtime6.jsx(IconX, {})
+                    children: /* @__PURE__ */ jsx_runtime7.jsx(IconX, {})
                   }),
-                  /* @__PURE__ */ jsx_runtime6.jsx(Text, {
+                  /* @__PURE__ */ jsx_runtime7.jsx(Text, {
                     fw: 500,
                     size: "sm",
                     ta: "center",
                     children: depVariable?.name || "Unknown"
                   }),
-                  /* @__PURE__ */ jsx_runtime6.jsx(Text, {
+                  /* @__PURE__ */ jsx_runtime7.jsx(Text, {
                     size: "xs",
                     c: "dimmed",
                     ta: "center",
                     children: depVariable?.type || "Unknown"
                   }),
-                  depVariable?.type === "list" && /* @__PURE__ */ jsx_runtime6.jsx(MultiSelect, {
+                  depVariable?.type === "list" && /* @__PURE__ */ jsx_runtime7.jsx(MultiSelect, {
                     size: "xs",
                     data: depVariable.items.map((item) => ({
                       value: item.value,
@@ -40529,7 +40691,7 @@ var DependentGroup = ({
                     placeholder: "Select values",
                     style: { marginTop: "5px" }
                   }),
-                  depVariable?.type === "boolean" && /* @__PURE__ */ jsx_runtime6.jsx(MultiSelect, {
+                  depVariable?.type === "boolean" && /* @__PURE__ */ jsx_runtime7.jsx(MultiSelect, {
                     size: "xs",
                     data: [
                       { value: "true", label: "TRUE" },
@@ -40554,9 +40716,9 @@ var DependentGroup = ({
               })
             }, depIndex);
           }),
-          /* @__PURE__ */ jsx_runtime6.jsx(Grid.Col, {
+          /* @__PURE__ */ jsx_runtime7.jsx(Grid.Col, {
             span: 4,
-            children: /* @__PURE__ */ jsx_runtime6.jsx(Card, {
+            children: /* @__PURE__ */ jsx_runtime7.jsx(Card, {
               shadow: "sm",
               padding: "xs",
               radius: "md",
@@ -40570,16 +40732,16 @@ var DependentGroup = ({
                 cursor: "pointer"
               },
               onClick: () => handleAddDependentToGroup(groupIndex),
-              children: /* @__PURE__ */ jsx_runtime6.jsx(ActionIcon, {
+              children: /* @__PURE__ */ jsx_runtime7.jsx(ActionIcon, {
                 variant: "transparent",
                 size: "xl",
-                children: /* @__PURE__ */ jsx_runtime6.jsx(IconPlus, {})
+                children: /* @__PURE__ */ jsx_runtime7.jsx(IconPlus, {})
               })
             })
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime6.jsx(DependentGroupSetValue, {
+      /* @__PURE__ */ jsx_runtime7.jsx(DependentGroupSetValue, {
         groupIndex,
         imageVariableId: variableConfig.id,
         mapId: layoutMap.id,
@@ -40590,7 +40752,7 @@ var DependentGroup = ({
 };
 
 // src/components/LayoutMappingModal/VariableCard.tsx
-var jsx_runtime7 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
 var VariableCard = ({
   variableConfig,
   layoutMap
@@ -40600,7 +40762,10 @@ var VariableCard = ({
   const setCurrentImageVariableId = appStore((store) => store.effects.modal.dependentModal.setCurrentImageVariableId);
   const setDependentModalIsOpen = appStore((store) => store.effects.modal.dependentModal.setIsOpen);
   const removeImageVariable = appStore((store) => store.effects.studio.layoutImageMapping.removeImageVariable);
-  const [isOpen, setIsOpen] = import_react243.useState(false);
+  const setIsSwapImageVariableModalOpen = appStore((store) => store.effects.modal.setIsSwapImageVariableModalOpen);
+  const setCurrentSwapImageVariableId = appStore((store) => store.effects.modal.setCurrentSwapImageVariableId);
+  const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
+  const [isOpen, setIsOpen] = import_react244.useState(false);
   const variableImageConfig = documentVariables.find((v2) => v2.id === variableConfig.id);
   if (variableImageConfig == null) {
     raiseError2(Result.error(new Error("variableDocument is null")));
@@ -40610,52 +40775,73 @@ var VariableCard = ({
     setCurrentImageVariableId(variableConfig.id);
     setDependentModalIsOpen(true);
   };
-  return /* @__PURE__ */ jsx_runtime7.jsxs(Paper, {
+  const handleSwapImageVariable = (e) => {
+    e.stopPropagation();
+    setCurrentSwapImageVariableId(variableConfig.id);
+    setCurrentSelectedMapId(layoutMap.id);
+    setIsSwapImageVariableModalOpen(true);
+  };
+  return /* @__PURE__ */ jsx_runtime8.jsxs(Paper, {
     styles: { root: { margin: "15px" } },
     shadow: "sm",
     radius: "lg",
     p: "md",
     children: [
-      /* @__PURE__ */ jsx_runtime7.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime8.jsxs(Group, {
         justify: "space-between",
         onClick: () => setIsOpen(!isOpen),
         children: [
-          /* @__PURE__ */ jsx_runtime7.jsx(Title, {
-            order: 5,
-            children: variableImageConfig.name
-          }),
-          /* @__PURE__ */ jsx_runtime7.jsxs(Group, {
-            gap: "md",
+          /* @__PURE__ */ jsx_runtime8.jsxs(Group, {
             children: [
-              /* @__PURE__ */ jsx_runtime7.jsx(ActionIcon, {
+              /* @__PURE__ */ jsx_runtime8.jsx(Title, {
+                order: 5,
+                children: variableImageConfig.name
+              }),
+              /* @__PURE__ */ jsx_runtime8.jsx(ActionIcon, {
                 size: "lg",
                 radius: "xl",
-                onClick: () => setIsOpen(!isOpen),
+                color: "blue",
+                onClick: handleSwapImageVariable,
+                children: /* @__PURE__ */ jsx_runtime8.jsx(IconExchange, {})
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime8.jsxs(Group, {
+            gap: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime8.jsx(ActionIcon, {
+                size: "lg",
+                radius: "xl",
+                onClick: (e) => {
+                  e.stopPropagation();
+                  setIsOpen(!isOpen);
+                },
                 style: {
                   transform: isOpen ? "rotate(0deg)" : "rotate(90deg)",
                   transition: "transform 0.2s ease"
                 },
-                children: /* @__PURE__ */ jsx_runtime7.jsx(IconCaretDownFilled, {})
+                children: /* @__PURE__ */ jsx_runtime8.jsx(IconCaretDownFilled, {})
               }),
-              /* @__PURE__ */ jsx_runtime7.jsx(ActionIcon, {
+              /* @__PURE__ */ jsx_runtime8.jsx(ActionIcon, {
                 size: "lg",
                 color: "red",
                 radius: "xl",
-                onClick: () => {
+                onClick: (e) => {
+                  e.stopPropagation();
                   removeImageVariable({
                     mapId: layoutMap.id,
                     imageVariableId: variableConfig.id
                   });
                 },
-                children: /* @__PURE__ */ jsx_runtime7.jsx(IconTrashFilled, {})
+                children: /* @__PURE__ */ jsx_runtime8.jsx(IconTrashFilled, {})
               })
             ]
           })
         ]
       }),
-      isOpen && /* @__PURE__ */ jsx_runtime7.jsxs(jsx_runtime7.Fragment, {
+      isOpen && /* @__PURE__ */ jsx_runtime8.jsxs(jsx_runtime8.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime7.jsxs(Text, {
+          /* @__PURE__ */ jsx_runtime8.jsxs(Text, {
             size: "small",
             c: "dimmed",
             children: [
@@ -40663,39 +40849,39 @@ var VariableCard = ({
               variableImageConfig.type
             ]
           }),
-          /* @__PURE__ */ jsx_runtime7.jsx(Title, {
+          /* @__PURE__ */ jsx_runtime8.jsx(Title, {
             order: 6,
             mt: "md",
             children: "Dependents:"
           }),
-          variableConfig.dependentGroup.length === 0 ? /* @__PURE__ */ jsx_runtime7.jsx(Text, {
+          variableConfig.dependentGroup.length === 0 ? /* @__PURE__ */ jsx_runtime8.jsx(Text, {
             size: "sm",
             c: "dimmed",
             children: "No dependents"
           }) : variableConfig.dependentGroup.map((dependentGroup, groupIndex) => {
             console.log(dependentGroup);
-            return /* @__PURE__ */ jsx_runtime7.jsx(DependentGroup, {
+            return /* @__PURE__ */ jsx_runtime8.jsx(DependentGroup, {
               dependentGroup,
               groupIndex,
               variableConfig,
               layoutMap
             }, groupIndex);
           }),
-          /* @__PURE__ */ jsx_runtime7.jsx(Group, {
+          /* @__PURE__ */ jsx_runtime8.jsx(Group, {
             mt: "md",
             justify: "flex-end",
-            children: /* @__PURE__ */ jsx_runtime7.jsx(Button, {
+            children: /* @__PURE__ */ jsx_runtime8.jsx(Button, {
               variant: "subtle",
               size: "sm",
               onClick: handleAddGroup,
-              children: /* @__PURE__ */ jsx_runtime7.jsxs(Group, {
+              children: /* @__PURE__ */ jsx_runtime8.jsxs(Group, {
                 align: "center",
                 style: { gap: "5px" },
                 children: [
-                  /* @__PURE__ */ jsx_runtime7.jsx(IconPlus, {
+                  /* @__PURE__ */ jsx_runtime8.jsx(IconPlus, {
                     size: 16
                   }),
-                  /* @__PURE__ */ jsx_runtime7.jsx(Text, {
+                  /* @__PURE__ */ jsx_runtime8.jsx(Text, {
                     children: "Add Group"
                   })
                 ]
@@ -40709,52 +40895,52 @@ var VariableCard = ({
 };
 
 // src/components/LayoutMappingModal/LayoutConfigSelection.tsx
-var jsx_runtime8 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime9 = __toESM(require_jsx_runtime(), 1);
 var LayoutConfigSection = ({
   mapConfig,
   index: index4
 }) => {
-  const [isOpen, setIsOpen] = import_react244.useState(false);
-  const [menuOpened, setMenuOpened] = import_react244.useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = import_react244.useState(false);
+  const [isOpen, setIsOpen] = import_react245.useState(false);
+  const [menuOpened, setMenuOpened] = import_react245.useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = import_react245.useState(false);
   const addLayoutMapFromCopy = appStore((store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy);
   const setIsImageVariableMappingModalOpen = appStore((store) => store.effects.modal.setIsImageVariableMappingModalOpen);
   const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
   const setCurrentAddImageMappingSelectedVariables = appStore((store) => store.effects.modal.setCurrentAddImageMappingSelectedVariables);
   const deleteLayoutMap = appStore((store) => store.effects.studio.layoutImageMapping.deleteLayoutMap);
-  return /* @__PURE__ */ jsx_runtime8.jsxs(Paper, {
+  return /* @__PURE__ */ jsx_runtime9.jsxs(Paper, {
     p: "md",
     children: [
-      /* @__PURE__ */ jsx_runtime8.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime9.jsxs(Group, {
         justify: "space-between",
         mb: 20,
         onClick: () => setIsOpen(!isOpen),
         children: [
-          /* @__PURE__ */ jsx_runtime8.jsxs(Title, {
+          /* @__PURE__ */ jsx_runtime9.jsxs(Title, {
             order: 3,
             children: [
               "Layout Mapping #",
               index4 + 1
             ]
           }),
-          /* @__PURE__ */ jsx_runtime8.jsx(Group, {
-            children: /* @__PURE__ */ jsx_runtime8.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime9.jsx(Group, {
+            children: /* @__PURE__ */ jsx_runtime9.jsxs(Group, {
               gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime8.jsx(ActionIcon, {
+                /* @__PURE__ */ jsx_runtime9.jsx(ActionIcon, {
                   size: "lg",
                   radius: "xl",
                   onClick: () => addLayoutMapFromCopy(mapConfig.id),
-                  children: /* @__PURE__ */ jsx_runtime8.jsx(IconCopy, {})
+                  children: /* @__PURE__ */ jsx_runtime9.jsx(IconCopy, {})
                 }),
-                /* @__PURE__ */ jsx_runtime8.jsx(ActionIcon, {
+                /* @__PURE__ */ jsx_runtime9.jsx(ActionIcon, {
                   size: "lg",
                   color: "red",
                   radius: "xl",
                   onClick: () => setDeleteModalOpen(true),
-                  children: /* @__PURE__ */ jsx_runtime8.jsx(IconTrashFilled, {})
+                  children: /* @__PURE__ */ jsx_runtime9.jsx(IconTrashFilled, {})
                 }),
-                /* @__PURE__ */ jsx_runtime8.jsx(ActionIcon, {
+                /* @__PURE__ */ jsx_runtime9.jsx(ActionIcon, {
                   size: "lg",
                   radius: "xl",
                   onClick: () => setIsOpen(!isOpen),
@@ -40762,47 +40948,47 @@ var LayoutConfigSection = ({
                     transform: isOpen ? "rotate(0deg)" : "rotate(90deg)",
                     transition: "transform 0.2s ease"
                   },
-                  children: /* @__PURE__ */ jsx_runtime8.jsx(IconCaretDownFilled, {})
+                  children: /* @__PURE__ */ jsx_runtime9.jsx(IconCaretDownFilled, {})
                 })
               ]
             })
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime8.jsx(Title, {
+      /* @__PURE__ */ jsx_runtime9.jsx(Title, {
         styles: { root: { marginTop: "30px" } },
         order: 5,
         mb: "md",
         children: "Layout Dependencies"
       }),
-      /* @__PURE__ */ jsx_runtime8.jsx(LayoutMultiSelect, {
+      /* @__PURE__ */ jsx_runtime9.jsx(LayoutMultiSelect, {
         showButton: isOpen,
         layoutConfig: mapConfig
       }, index4),
-      isOpen && /* @__PURE__ */ jsx_runtime8.jsxs(jsx_runtime8.Fragment, {
+      isOpen && /* @__PURE__ */ jsx_runtime9.jsxs(jsx_runtime9.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime8.jsx(Divider, {
+          /* @__PURE__ */ jsx_runtime9.jsx(Divider, {
             styles: { root: { marginTop: "30px" } }
           }),
-          /* @__PURE__ */ jsx_runtime8.jsx(Title, {
+          /* @__PURE__ */ jsx_runtime9.jsx(Title, {
             styles: { root: { marginTop: "20px" } },
             order: 5,
             mb: "md",
             children: "Set Variables"
           }),
-          mapConfig.variables.map((variableConfig) => /* @__PURE__ */ jsx_runtime8.jsx(VariableCard, {
+          mapConfig.variables.map((variableConfig) => /* @__PURE__ */ jsx_runtime9.jsx(VariableCard, {
             variableConfig,
             layoutMap: mapConfig
           }, variableConfig.id)),
-          /* @__PURE__ */ jsx_runtime8.jsxs(Button, {
+          /* @__PURE__ */ jsx_runtime9.jsxs(Button, {
             onClick: () => {
               setIsImageVariableMappingModalOpen(true);
               setCurrentSelectedMapId(mapConfig.id);
               setCurrentAddImageMappingSelectedVariables([]);
             },
             children: [
-              /* @__PURE__ */ jsx_runtime8.jsx(IconPlus, {}),
-              /* @__PURE__ */ jsx_runtime8.jsx("span", {
+              /* @__PURE__ */ jsx_runtime9.jsx(IconPlus, {}),
+              /* @__PURE__ */ jsx_runtime9.jsx("span", {
                 style: { marginLeft: "10px" },
                 children: "Add Variables"
               })
@@ -40810,27 +40996,27 @@ var LayoutConfigSection = ({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime8.jsxs(Modal, {
+      /* @__PURE__ */ jsx_runtime9.jsxs(Modal, {
         opened: deleteModalOpen,
         onClose: () => setDeleteModalOpen(false),
         title: "Confirm Deletion",
         centered: true,
         children: [
-          /* @__PURE__ */ jsx_runtime8.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime9.jsx(Text, {
             size: "sm",
             mb: "lg",
             children: "Are you sure you want to delete this mapping?"
           }),
-          /* @__PURE__ */ jsx_runtime8.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime9.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime8.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime9.jsx(Button, {
                 variant: "outline",
                 onClick: () => setDeleteModalOpen(false),
                 children: "Cancel"
               }),
-              /* @__PURE__ */ jsx_runtime8.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime9.jsx(Button, {
                 color: "red",
                 onClick: () => {
                   deleteLayoutMap(mapConfig.id);
@@ -40847,7 +41033,7 @@ var LayoutConfigSection = ({
 };
 
 // src/components/LayoutMappingModal/LayoutModal.tsx
-var jsx_runtime9 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
 var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV clicked") }) => {
   const events2 = appStore((state) => state.effects);
   const raiseError2 = appStore((state) => state.raiseError);
@@ -40859,18 +41045,19 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
   const isModalVisible = appStore((state) => state.state.modal.isModalVisible);
   const layoutImageMapping = appStore((state) => state.state.studio.layoutImageMapping);
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
-  const [validationReport, setValidationReport] = import_react245.useState(null);
-  const [isValidationModalOpen, setIsValidationModalOpen] = import_react245.useState(false);
-  const imageVariables = import_react245.useMemo(() => {
+  const currentSwapImageVariableId = appStore((state) => state.state.modal.currentSwapImageVariableId);
+  const [validationReport, setValidationReport] = import_react246.useState(null);
+  const [isValidationModalOpen, setIsValidationModalOpen] = import_react246.useState(false);
+  const imageVariables = import_react246.useMemo(() => {
     return variables.filter((variable) => variable.type === "image");
   }, [variables]);
-  const imageVariableOptions = import_react245.useMemo(() => {
+  const imageVariableOptions = import_react246.useMemo(() => {
     return imageVariables.map((variable) => ({
       value: variable.id,
       label: variable.name
     }));
   }, [imageVariables]);
-  import_react245.useEffect(() => {
+  import_react246.useEffect(() => {
     const loadConfig = async () => {
       if (!isLayoutConfigLoaded && !isDocumentLoaded) {
         const resultDoc = await loadDocFromDoc();
@@ -40925,18 +41112,18 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
     events2.studio.layoutImageMapping.load(updatedConfig);
   };
   const ModalHeader2 = () => {
-    return /* @__PURE__ */ jsx_runtime9.jsx(TopBar, {
-      children: /* @__PURE__ */ jsx_runtime9.jsxs(Group, {
+    return /* @__PURE__ */ jsx_runtime10.jsx(TopBar, {
+      children: /* @__PURE__ */ jsx_runtime10.jsxs(Group, {
         justify: "space-between",
         w: "100%",
         children: [
-          /* @__PURE__ */ jsx_runtime9.jsx(Title, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Title, {
             order: 4,
             c: "white",
             children: "Layout Image Mapping Tool"
           }),
-          /* @__PURE__ */ jsx_runtime9.jsx(Button, {
-            leftSection: /* @__PURE__ */ jsx_runtime9.jsx(IconPlus, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Button, {
+            leftSection: /* @__PURE__ */ jsx_runtime10.jsx(IconPlus, {
               size: 16
             }),
             onClick: () => events2.studio.layoutImageMapping.addLayoutMap(),
@@ -40947,21 +41134,21 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
     });
   };
   const ModalFooter = () => {
-    return /* @__PURE__ */ jsx_runtime9.jsx(BottomBar, {
-      children: /* @__PURE__ */ jsx_runtime9.jsxs(Group, {
+    return /* @__PURE__ */ jsx_runtime10.jsx(BottomBar, {
+      children: /* @__PURE__ */ jsx_runtime10.jsxs(Group, {
         justify: "flex-end",
         gap: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime9.jsx(Checkbox, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Checkbox, {
             defaultChecked: true,
             label: "Generate Action"
           }),
-          /* @__PURE__ */ jsx_runtime9.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Button, {
             color: "green",
             onClick: handleSave,
             children: "Save"
           }),
-          /* @__PURE__ */ jsx_runtime9.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Button, {
             onClick: handleClose,
             children: "Close"
           })
@@ -40969,10 +41156,10 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
       })
     });
   };
-  return /* @__PURE__ */ jsx_runtime9.jsxs(MantineProvider, {
+  return /* @__PURE__ */ jsx_runtime10.jsxs(MantineProvider, {
     defaultColorScheme: "dark",
     children: [
-      /* @__PURE__ */ jsx_runtime9.jsxs(Modal, {
+      /* @__PURE__ */ jsx_runtime10.jsxs(Modal, {
         trapFocus: false,
         styles: {
           body: {
@@ -41000,82 +41187,86 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
         onClose: handleClose,
         withCloseButton: false,
         children: [
-          /* @__PURE__ */ jsx_runtime9.jsx(ModalHeader2, {}),
-          /* @__PURE__ */ jsx_runtime9.jsx(Content, {
-            children: !isLayoutConfigLoaded || !isDocumentLoaded ? /* @__PURE__ */ jsx_runtime9.jsx(LoadingSpinner, {}) : /* @__PURE__ */ jsx_runtime9.jsx(Stack, {
+          /* @__PURE__ */ jsx_runtime10.jsx(ModalHeader2, {}),
+          /* @__PURE__ */ jsx_runtime10.jsx(Content, {
+            children: !isLayoutConfigLoaded || !isDocumentLoaded ? /* @__PURE__ */ jsx_runtime10.jsx(LoadingSpinner, {}) : /* @__PURE__ */ jsx_runtime10.jsx(Stack, {
               h: "100%",
               gap: "md",
-              children: layoutImageMapping.map((config, index4) => /* @__PURE__ */ jsx_runtime9.jsx(LayoutConfigSection, {
+              children: layoutImageMapping.map((config, index4) => /* @__PURE__ */ jsx_runtime10.jsx(LayoutConfigSection, {
                 mapConfig: config,
                 index: index4
               }, index4))
             })
           }),
-          /* @__PURE__ */ jsx_runtime9.jsx(ModalFooter, {})
+          /* @__PURE__ */ jsx_runtime10.jsx(ModalFooter, {})
         ]
       }),
-      /* @__PURE__ */ jsx_runtime9.jsx(AddMappingImageVariableModal, {
+      /* @__PURE__ */ jsx_runtime10.jsx(AddMappingImageVariableModal, {
         currentMapConfig: layoutImageMapping.find((config) => config.id === currentSelectedMapId) || null
       }),
-      /* @__PURE__ */ jsx_runtime9.jsx(AddDependentModal, {}),
-      /* @__PURE__ */ jsx_runtime9.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime10.jsx(AddDependentModal, {}),
+      /* @__PURE__ */ jsx_runtime10.jsx(SwapImageVariableModal, {
+        currentMapConfig: layoutImageMapping.find((config) => config.id === currentSelectedMapId) || null,
+        currentImageVariable: currentSelectedMapId && currentSwapImageVariableId ? layoutImageMapping.find((config) => config.id === currentSelectedMapId)?.variables.find((v2) => v2.id === currentSwapImageVariableId) || null : null
+      }),
+      /* @__PURE__ */ jsx_runtime10.jsx(Modal, {
         opened: isValidationModalOpen,
         onClose: () => setIsValidationModalOpen(false),
-        title: /* @__PURE__ */ jsx_runtime9.jsx(Title, {
+        title: /* @__PURE__ */ jsx_runtime10.jsx(Title, {
           order: 4,
           children: "Layout Mapping Validation"
         }),
         centered: true,
         size: "lg",
-        children: /* @__PURE__ */ jsx_runtime9.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
           gap: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime9.jsx(Alert, {
+            /* @__PURE__ */ jsx_runtime10.jsx(Alert, {
               color: "yellow",
               title: "Items Removed from Layout Mapping",
-              children: /* @__PURE__ */ jsx_runtime9.jsx(Text, {
+              children: /* @__PURE__ */ jsx_runtime10.jsx(Text, {
                 children: "Values were deleted from the document and thus we also removed those values from your layout mapping."
               })
             }),
-            validationReport && /* @__PURE__ */ jsx_runtime9.jsxs(jsx_runtime9.Fragment, {
+            validationReport && /* @__PURE__ */ jsx_runtime10.jsxs(jsx_runtime10.Fragment, {
               children: [
-                validationReport.removedLayoutIds.length > 0 && /* @__PURE__ */ jsx_runtime9.jsxs(Stack, {
+                validationReport.removedLayoutIds.length > 0 && /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime9.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime10.jsx(Text, {
                       fw: 600,
                       children: "Removed Layout IDs:"
                     }),
-                    /* @__PURE__ */ jsx_runtime9.jsx(List, {
-                      children: validationReport.removedLayoutIds.map((id, index4) => /* @__PURE__ */ jsx_runtime9.jsx(List.Item, {
+                    /* @__PURE__ */ jsx_runtime10.jsx(List, {
+                      children: validationReport.removedLayoutIds.map((id, index4) => /* @__PURE__ */ jsx_runtime10.jsx(List.Item, {
                         children: id
                       }, index4))
                     })
                   ]
                 }),
-                validationReport.removedVariables.length > 0 && /* @__PURE__ */ jsx_runtime9.jsxs(Stack, {
+                validationReport.removedVariables.length > 0 && /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime9.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime10.jsx(Text, {
                       fw: 600,
                       children: "Removed Variables:"
                     }),
-                    /* @__PURE__ */ jsx_runtime9.jsx(List, {
-                      children: validationReport.removedVariables.map((id, index4) => /* @__PURE__ */ jsx_runtime9.jsx(List.Item, {
+                    /* @__PURE__ */ jsx_runtime10.jsx(List, {
+                      children: validationReport.removedVariables.map((id, index4) => /* @__PURE__ */ jsx_runtime10.jsx(List.Item, {
                         children: id
                       }, index4))
                     })
                   ]
                 }),
-                validationReport.removedDependents.length > 0 && /* @__PURE__ */ jsx_runtime9.jsxs(Stack, {
+                validationReport.removedDependents.length > 0 && /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime9.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime10.jsx(Text, {
                       fw: 600,
                       children: "Removed Dependents:"
                     }),
-                    /* @__PURE__ */ jsx_runtime9.jsx(List, {
-                      children: validationReport.removedDependents.map((item, index4) => /* @__PURE__ */ jsx_runtime9.jsxs(List.Item, {
+                    /* @__PURE__ */ jsx_runtime10.jsx(List, {
+                      children: validationReport.removedDependents.map((item, index4) => /* @__PURE__ */ jsx_runtime10.jsxs(List.Item, {
                         children: [
                           "Variable ID: ",
                           item.variableId,
@@ -41088,15 +41279,15 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
                     })
                   ]
                 }),
-                validationReport.removedVariableValues.length > 0 && /* @__PURE__ */ jsx_runtime9.jsxs(Stack, {
+                validationReport.removedVariableValues.length > 0 && /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime9.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime10.jsx(Text, {
                       fw: 600,
                       children: "Removed Variable Values:"
                     }),
-                    /* @__PURE__ */ jsx_runtime9.jsx(List, {
-                      children: validationReport.removedVariableValues.map((item, index4) => /* @__PURE__ */ jsx_runtime9.jsxs(List.Item, {
+                    /* @__PURE__ */ jsx_runtime10.jsx(List, {
+                      children: validationReport.removedVariableValues.map((item, index4) => /* @__PURE__ */ jsx_runtime10.jsxs(List.Item, {
                         children: [
                           "Value: ",
                           item.value,
@@ -41114,9 +41305,9 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime9.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime10.jsx(Group, {
               justify: "flex-end",
-              children: /* @__PURE__ */ jsx_runtime9.jsx(Button, {
+              children: /* @__PURE__ */ jsx_runtime10.jsx(Button, {
                 onClick: () => setIsValidationModalOpen(false),
                 children: "OK"
               })
@@ -41169,20 +41360,20 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react257 = __toESM(require_react(), 1);
+var import_react258 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
-var import_react252 = __toESM(require_react(), 1);
+var import_react253 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameLayoutCard.tsx
-var import_react251 = __toESM(require_react(), 1);
+var import_react252 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotRow.tsx
-var import_react247 = __toESM(require_react(), 1);
+var import_react248 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/EditableCell.tsx
-var import_react246 = __toESM(require_react(), 1);
-var jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
+var import_react247 = __toESM(require_react(), 1);
+var jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
 function EditableCell({
   rowKey,
   field,
@@ -41194,15 +41385,15 @@ function EditableCell({
   onEditSave,
   onEditCancel
 }) {
-  const [isHovered, setIsHovered] = import_react246.useState(false);
-  const inputRef = import_react246.useRef(null);
+  const [isHovered, setIsHovered] = import_react247.useState(false);
+  const inputRef = import_react247.useRef(null);
   const cellKey = `${rowKey}:${field}`;
-  import_react246.useEffect(() => {
+  import_react247.useEffect(() => {
     if (isEditing) {
       setTimeout(() => inputRef.current?.focus(), 10);
     }
   }, [isEditing]);
-  import_react246.useEffect(() => {
+  import_react247.useEffect(() => {
     console.log(rowKey);
   }, []);
   const handleKeyDown = (e) => {
@@ -41211,11 +41402,11 @@ function EditableCell({
     if (e.key === "Escape")
       onEditCancel();
   };
-  return /* @__PURE__ */ jsx_runtime10.jsx("div", {
+  return /* @__PURE__ */ jsx_runtime11.jsx("div", {
     onMouseEnter: () => setIsHovered(true),
     onMouseLeave: () => setIsHovered(false),
     style: { position: "relative" },
-    children: isEditing ? field === "imageName" ? /* @__PURE__ */ jsx_runtime10.jsx(TextInput, {
+    children: isEditing ? field === "imageName" ? /* @__PURE__ */ jsx_runtime11.jsx(TextInput, {
       ref: inputRef,
       value: editValue,
       onChange: (e) => onEditChange(e.target.value),
@@ -41223,7 +41414,7 @@ function EditableCell({
       onBlur: onEditSave,
       size: "xs",
       style: { width: "100%" }
-    }) : /* @__PURE__ */ jsx_runtime10.jsx(NumberInput, {
+    }) : /* @__PURE__ */ jsx_runtime11.jsx(NumberInput, {
       ref: inputRef,
       value: Number(editValue),
       onChange: (val) => onEditChange(val || 0),
@@ -41231,16 +41422,16 @@ function EditableCell({
       onBlur: onEditSave,
       size: "xs",
       style: { width: "100%" }
-    }) : /* @__PURE__ */ jsx_runtime10.jsxs(jsx_runtime10.Fragment, {
+    }) : /* @__PURE__ */ jsx_runtime11.jsxs(jsx_runtime11.Fragment, {
       children: [
         value,
-        isHovered && /* @__PURE__ */ jsx_runtime10.jsx(ActionIcon, {
+        isHovered && /* @__PURE__ */ jsx_runtime11.jsx(ActionIcon, {
           size: "xs",
           variant: "subtle",
           color: "blue",
           style: { position: "absolute", right: "5px", top: "50%", transform: "translateY(-50%)" },
           onClick: () => onEditStart(cellKey, value),
-          children: /* @__PURE__ */ jsx_runtime10.jsx(IconPencil, {
+          children: /* @__PURE__ */ jsx_runtime11.jsx(IconPencil, {
             size: 14
           })
         })
@@ -41250,7 +41441,7 @@ function EditableCell({
 }
 
 // src/components/FrameSnapshotLayout/FrameSnapshotRow.tsx
-var jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime12 = __toESM(require_jsx_runtime(), 1);
 function FrameSnapshotRow({
   snapshot,
   layoutId,
@@ -41258,28 +41449,28 @@ function FrameSnapshotRow({
   onCheckChange,
   isChecked
 }) {
-  const [editState, setEditState] = import_react247.useState({ key: null, value: "" });
-  const handleEditStart = import_react247.useCallback((key, value) => {
+  const [editState, setEditState] = import_react248.useState({ key: null, value: "" });
+  const handleEditStart = import_react248.useCallback((key, value) => {
     setEditState({ key, value });
   }, []);
-  const handleEditChange = import_react247.useCallback((value) => {
+  const handleEditChange = import_react248.useCallback((value) => {
     setEditState((prev2) => ({ ...prev2, value }));
   }, []);
-  const handleEditSave = import_react247.useCallback(() => {
+  const handleEditSave = import_react248.useCallback(() => {
     if (editState.key && onEditCell) {
       onEditCell(layoutId, editState.key, editState.value);
     }
     setEditState({ key: null, value: "" });
   }, [editState, onEditCell]);
-  const handleEditCancel = import_react247.useCallback(() => {
+  const handleEditCancel = import_react248.useCallback(() => {
     setEditState({ key: null, value: "" });
   }, []);
   const rowStyle = isChecked ? { backgroundColor: "#e6f7ff" } : {};
-  return /* @__PURE__ */ jsx_runtime11.jsxs(Table.Tr, {
+  return /* @__PURE__ */ jsx_runtime12.jsxs(Table.Tr, {
     style: rowStyle,
     children: [
-      ["imageName", "x", "y", "width", "height"].map((field) => /* @__PURE__ */ jsx_runtime11.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime11.jsx(EditableCell, {
+      ["imageName", "x", "y", "width", "height"].map((field) => /* @__PURE__ */ jsx_runtime12.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime12.jsx(EditableCell, {
           rowKey: snapshot.uniqueId,
           field,
           value: snapshot[field],
@@ -41291,8 +41482,8 @@ function FrameSnapshotRow({
           onEditCancel: handleEditCancel
         })
       }, field)),
-      /* @__PURE__ */ jsx_runtime11.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime11.jsx(Checkbox, {
+      /* @__PURE__ */ jsx_runtime12.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime12.jsx(Checkbox, {
           checked: isChecked,
           onChange: (event) => onCheckChange(snapshot.uniqueId, event.currentTarget.checked)
         })
@@ -41302,8 +41493,8 @@ function FrameSnapshotRow({
 }
 
 // src/components/FrameSnapshotLayout/CopyToLayerModal.tsx
-var import_react248 = __toESM(require_react(), 1);
-var jsx_runtime12 = __toESM(require_jsx_runtime(), 1);
+var import_react249 = __toESM(require_react(), 1);
+var jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
 function CopyToLayerModal({
   opened,
   onClose,
@@ -41312,11 +41503,11 @@ function CopyToLayerModal({
   frameLayoutMaps,
   onUpdateFrameLayoutMaps
 }) {
-  const [layouts, setLayouts] = import_react248.useState([]);
-  const [selectedLayoutId, setSelectedLayoutId] = import_react248.useState(null);
-  const [isLoading, setIsLoading] = import_react248.useState(false);
+  const [layouts, setLayouts] = import_react249.useState([]);
+  const [selectedLayoutId, setSelectedLayoutId] = import_react249.useState(null);
+  const [isLoading, setIsLoading] = import_react249.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react248.useEffect(() => {
+  import_react249.useEffect(() => {
     if (opened) {
       loadAvailableLayouts();
     }
@@ -41391,14 +41582,14 @@ function CopyToLayerModal({
       setIsLoading(false);
     }
   };
-  return /* @__PURE__ */ jsx_runtime12.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime13.jsx(Modal, {
     opened,
     onClose,
     title: "Copy to Layer",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime12.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime13.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime12.jsxs(Text, {
+        /* @__PURE__ */ jsx_runtime13.jsxs(Text, {
           size: "sm",
           children: [
             "Select a layout to copy ",
@@ -41408,7 +41599,7 @@ function CopyToLayerModal({
             " to:"
           ]
         }),
-        /* @__PURE__ */ jsx_runtime12.jsx(Select, {
+        /* @__PURE__ */ jsx_runtime13.jsx(Select, {
           label: "Target Layout",
           placeholder: "Select a layout",
           data: layouts,
@@ -41417,16 +41608,16 @@ function CopyToLayerModal({
           searchable: true,
           required: true
         }),
-        /* @__PURE__ */ jsx_runtime12.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime13.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime12.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime13.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime12.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime13.jsx(Button, {
               onClick: handleCopy,
               loading: isLoading,
               disabled: !selectedLayoutId,
@@ -41440,8 +41631,8 @@ function CopyToLayerModal({
 }
 
 // src/components/FrameSnapshotLayout/CopyAndAddRowModal.tsx
-var import_react249 = __toESM(require_react(), 1);
-var jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
+var import_react250 = __toESM(require_react(), 1);
+var jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
 function CopyAndAddRowModal({
   opened,
   onClose,
@@ -41450,10 +41641,10 @@ function CopyAndAddRowModal({
   existingSnapshots,
   onAddCopy
 }) {
-  const [newName, setNewName] = import_react249.useState("");
-  const [error, setError] = import_react249.useState(null);
-  const [isLoading, setIsLoading] = import_react249.useState(false);
-  import_react249.default.useEffect(() => {
+  const [newName, setNewName] = import_react250.useState("");
+  const [error, setError] = import_react250.useState(null);
+  const [isLoading, setIsLoading] = import_react250.useState(false);
+  import_react250.default.useEffect(() => {
     if (opened) {
       setNewName(snapshot.imageName);
       setError(null);
@@ -41479,18 +41670,18 @@ function CopyAndAddRowModal({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime13.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime14.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Add Row",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime13.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime14.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime13.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime14.jsx(Text, {
           size: "sm",
           children: "Enter a name for the new snapshot:"
         }),
-        /* @__PURE__ */ jsx_runtime13.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime14.jsx(TextInput, {
           label: "Name",
           placeholder: "Enter name",
           value: newName,
@@ -41499,16 +41690,16 @@ function CopyAndAddRowModal({
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime13.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime14.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime13.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime14.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime13.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime14.jsx(Button, {
               onClick: handleCreate,
               loading: isLoading,
               disabled: !newName.trim(),
@@ -41522,8 +41713,8 @@ function CopyAndAddRowModal({
 }
 
 // src/components/FrameSnapshotLayout/CopyAndReplaceModal.tsx
-var import_react250 = __toESM(require_react(), 1);
-var jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
+var import_react251 = __toESM(require_react(), 1);
+var jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
 function CopyAndReplaceModal({
   opened,
   onClose,
@@ -41532,14 +41723,14 @@ function CopyAndReplaceModal({
   existingSnapshots,
   onAddCopy
 }) {
-  const [searchText, setSearchText] = import_react250.useState("");
-  const [replaceText, setReplaceText] = import_react250.useState("");
-  const [errors, setErrors] = import_react250.useState({});
-  const [isLoading, setIsLoading] = import_react250.useState(false);
-  const [previewSnapshot, setPreviewSnapshot] = import_react250.useState(null);
-  const [previewNewName, setPreviewNewName] = import_react250.useState("");
-  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react250.useState(false);
-  import_react250.useEffect(() => {
+  const [searchText, setSearchText] = import_react251.useState("");
+  const [replaceText, setReplaceText] = import_react251.useState("");
+  const [errors, setErrors] = import_react251.useState({});
+  const [isLoading, setIsLoading] = import_react251.useState(false);
+  const [previewSnapshot, setPreviewSnapshot] = import_react251.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react251.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react251.useState(false);
+  import_react251.useEffect(() => {
     if (opened) {
       setSearchText("");
       setReplaceText("");
@@ -41552,7 +41743,7 @@ function CopyAndReplaceModal({
       }
     }
   }, [opened, snapshots]);
-  import_react250.useEffect(() => {
+  import_react251.useEffect(() => {
     if (previewSnapshot) {
       const newName = previewSnapshot.imageName.replace(new RegExp(searchText, "g"), replaceText);
       setPreviewNewName(newName);
@@ -41599,18 +41790,18 @@ function CopyAndReplaceModal({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime14.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime15.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Replace",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime14.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime15.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime14.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime15.jsx(Text, {
           size: "sm",
           children: "Enter search and replace text to create copies with modified names:"
         }),
-        /* @__PURE__ */ jsx_runtime14.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime15.jsx(TextInput, {
           label: "Search",
           placeholder: "Text to search for",
           value: searchText,
@@ -41619,32 +41810,32 @@ function CopyAndReplaceModal({
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime14.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime15.jsx(TextInput, {
           label: "Replace",
           placeholder: "Text to replace with",
           value: replaceText,
           onChange: handleReplaceChange,
           required: true
         }),
-        previewSnapshot && /* @__PURE__ */ jsx_runtime14.jsxs(Alert, {
+        previewSnapshot && /* @__PURE__ */ jsx_runtime15.jsxs(Alert, {
           color: isPreviewNameDifferent ? "green" : "red",
           title: "Name Preview",
           children: [
-            /* @__PURE__ */ jsx_runtime14.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime15.jsxs(Text, {
               size: "sm",
               children: [
                 "Original: ",
                 previewSnapshot.imageName
               ]
             }),
-            /* @__PURE__ */ jsx_runtime14.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime15.jsxs(Text, {
               size: "sm",
               children: [
                 "New: ",
                 previewNewName
               ]
             }),
-            /* @__PURE__ */ jsx_runtime14.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime15.jsxs(Text, {
               size: "sm",
               fw: 700,
               children: [
@@ -41654,24 +41845,24 @@ function CopyAndReplaceModal({
             })
           ]
         }),
-        Object.keys(errors).length > 0 && Object.keys(errors).some((key) => key !== "searchText") && /* @__PURE__ */ jsx_runtime14.jsx(Alert, {
+        Object.keys(errors).length > 0 && Object.keys(errors).some((key) => key !== "searchText") && /* @__PURE__ */ jsx_runtime15.jsx(Alert, {
           color: "red",
           title: "Validation Errors",
-          children: Object.entries(errors).filter(([key]) => key !== "searchText").map(([key, error]) => /* @__PURE__ */ jsx_runtime14.jsx(Text, {
+          children: Object.entries(errors).filter(([key]) => key !== "searchText").map(([key, error]) => /* @__PURE__ */ jsx_runtime15.jsx(Text, {
             size: "sm",
             children: error
           }, key))
         }),
-        /* @__PURE__ */ jsx_runtime14.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime15.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime14.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime15.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime14.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime15.jsx(Button, {
               onClick: handleCopyAndReplace,
               loading: isLoading,
               disabled: !searchText.trim() || !isPreviewNameDifferent,
@@ -41685,7 +41876,7 @@ function CopyAndReplaceModal({
 }
 
 // src/components/FrameSnapshotLayout/FrameLayoutCard.tsx
-var jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
 function FrameLayoutCard({
   layoutMap,
   onRemoveSnapshot,
@@ -41693,10 +41884,10 @@ function FrameLayoutCard({
   frameLayoutMaps,
   onUpdateFrameLayoutMaps
 }) {
-  const [checkedSnapshots, setCheckedSnapshots] = import_react251.useState({});
-  const [copyModalOpened, setCopyModalOpened] = import_react251.useState(false);
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = import_react251.useState(false);
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = import_react251.useState(false);
+  const [checkedSnapshots, setCheckedSnapshots] = import_react252.useState({});
+  const [copyModalOpened, setCopyModalOpened] = import_react252.useState(false);
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = import_react252.useState(false);
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = import_react252.useState(false);
   const handleCheckChange = (snapshotKey, isChecked) => {
     setCheckedSnapshots((prev2) => ({
       ...prev2,
@@ -41720,7 +41911,7 @@ function FrameLayoutCard({
   };
   const hasCheckedSnapshots = Object.values(checkedSnapshots).some(Boolean);
   const checkedSnapshotsCount = Object.values(checkedSnapshots).filter(Boolean).length;
-  const singleSelectedSnapshot = import_react251.useMemo(() => {
+  const singleSelectedSnapshot = import_react252.useMemo(() => {
     if (checkedSnapshotsCount === 1) {
       const selectedKey = Object.keys(checkedSnapshots).find((key) => checkedSnapshots[key]);
       return layoutMap.snapshots.find((snapshot) => snapshot.uniqueId === selectedKey);
@@ -41749,68 +41940,68 @@ function FrameLayoutCard({
     currentLayoutMap.frameSnapshots.push(newSnapshot);
     onUpdateFrameLayoutMaps(updatedFrameLayoutMaps);
   };
-  return /* @__PURE__ */ jsx_runtime15.jsxs(Card, {
+  return /* @__PURE__ */ jsx_runtime16.jsxs(Card, {
     shadow: "sm",
     padding: "md",
     radius: "md",
     withBorder: true,
     children: [
-      /* @__PURE__ */ jsx_runtime15.jsx(Card.Section, {
+      /* @__PURE__ */ jsx_runtime16.jsx(Card.Section, {
         withBorder: true,
         inheritPadding: true,
         py: "xs",
-        children: /* @__PURE__ */ jsx_runtime15.jsxs(Group, {
+        children: /* @__PURE__ */ jsx_runtime16.jsxs(Group, {
           justify: "space-between",
           children: [
-            /* @__PURE__ */ jsx_runtime15.jsx(Title, {
+            /* @__PURE__ */ jsx_runtime16.jsx(Title, {
               order: 4,
               children: layoutMap.layoutName
             }),
-            /* @__PURE__ */ jsx_runtime15.jsx(Group, {
-              children: hasCheckedSnapshots && /* @__PURE__ */ jsx_runtime15.jsxs(jsx_runtime15.Fragment, {
+            /* @__PURE__ */ jsx_runtime16.jsx(Group, {
+              children: hasCheckedSnapshots && /* @__PURE__ */ jsx_runtime16.jsxs(jsx_runtime16.Fragment, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime15.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
                     color: "red",
                     variant: "filled",
                     onClick: deleteCheckedSnapshots,
                     title: "Delete selected",
-                    children: /* @__PURE__ */ jsx_runtime15.jsx(IconTrash, {
+                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconTrash, {
                       size: 16
                     })
                   }),
-                  /* @__PURE__ */ jsx_runtime15.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
                     color: "blue",
                     variant: "filled",
                     onClick: () => setCopyModalOpened(true),
                     title: "Copy to layer",
-                    children: /* @__PURE__ */ jsx_runtime15.jsx(IconCopy, {
+                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconCopy, {
                       size: 16
                     })
                   }),
-                  checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime15.jsx(ActionIcon, {
+                  checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
                     color: "blue",
                     variant: "filled",
                     onClick: () => setCopyAndAddRowModalOpened(true),
                     title: "Copy and add row",
-                    children: /* @__PURE__ */ jsx_runtime15.jsx(IconCopyPlus, {
+                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconCopyPlus, {
                       size: 16
                     })
                   }),
-                  /* @__PURE__ */ jsx_runtime15.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
                     color: "blue",
                     variant: "filled",
                     onClick: () => setCopyAndReplaceModalOpened(true),
                     title: "Copy and replace",
-                    children: /* @__PURE__ */ jsx_runtime15.jsx(IconReplace, {
+                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconReplace, {
                       size: 16
                     })
                   }),
-                  /* @__PURE__ */ jsx_runtime15.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
                     color: "blue",
                     variant: "filled",
                     onClick: deselectAllRows,
                     title: "Deselect all",
-                    children: /* @__PURE__ */ jsx_runtime15.jsx(IconDeselect, {
+                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconDeselect, {
                       size: 16
                     })
                   })
@@ -41820,37 +42011,37 @@ function FrameLayoutCard({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime15.jsxs(Table, {
+      /* @__PURE__ */ jsx_runtime16.jsxs(Table, {
         mt: "md",
         striped: true,
         highlightOnHover: true,
         children: [
-          /* @__PURE__ */ jsx_runtime15.jsx(Table.Thead, {
-            children: /* @__PURE__ */ jsx_runtime15.jsxs(Table.Tr, {
+          /* @__PURE__ */ jsx_runtime16.jsx(Table.Thead, {
+            children: /* @__PURE__ */ jsx_runtime16.jsxs(Table.Tr, {
               children: [
-                /* @__PURE__ */ jsx_runtime15.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
                   children: "Image Name"
                 }),
-                /* @__PURE__ */ jsx_runtime15.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
                   children: "X"
                 }),
-                /* @__PURE__ */ jsx_runtime15.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
                   children: "Y"
                 }),
-                /* @__PURE__ */ jsx_runtime15.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
                   children: "Width"
                 }),
-                /* @__PURE__ */ jsx_runtime15.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
                   children: "Height"
                 }),
-                /* @__PURE__ */ jsx_runtime15.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
                   children: "Actions"
                 })
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime15.jsx(Table.Tbody, {
-            children: layoutMap.snapshots.map((snapshot) => /* @__PURE__ */ jsx_runtime15.jsx(FrameSnapshotRow, {
+          /* @__PURE__ */ jsx_runtime16.jsx(Table.Tbody, {
+            children: layoutMap.snapshots.map((snapshot) => /* @__PURE__ */ jsx_runtime16.jsx(FrameSnapshotRow, {
               snapshot,
               layoutId: layoutMap.layoutId,
               onRemoveSnapshot,
@@ -41861,7 +42052,7 @@ function FrameLayoutCard({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime15.jsx(CopyToLayerModal, {
+      /* @__PURE__ */ jsx_runtime16.jsx(CopyToLayerModal, {
         opened: copyModalOpened,
         onClose: () => setCopyModalOpened(false),
         snapshots: getCheckedSnapshots(),
@@ -41869,7 +42060,7 @@ function FrameLayoutCard({
         frameLayoutMaps,
         onUpdateFrameLayoutMaps
       }),
-      singleSelectedSnapshot && /* @__PURE__ */ jsx_runtime15.jsx(CopyAndAddRowModal, {
+      singleSelectedSnapshot && /* @__PURE__ */ jsx_runtime16.jsx(CopyAndAddRowModal, {
         opened: copyAndAddRowModalOpened,
         onClose: () => setCopyAndAddRowModalOpened(false),
         snapshot: singleSelectedSnapshot,
@@ -41877,7 +42068,7 @@ function FrameLayoutCard({
         existingSnapshots: layoutMap.snapshots,
         onAddCopy: handleAddCopy
       }),
-      /* @__PURE__ */ jsx_runtime15.jsx(CopyAndReplaceModal, {
+      /* @__PURE__ */ jsx_runtime16.jsx(CopyAndReplaceModal, {
         opened: copyAndReplaceModalOpened,
         onClose: () => setCopyAndReplaceModalOpened(false),
         snapshots: getCheckedSnapshots(),
@@ -41890,16 +42081,16 @@ function FrameLayoutCard({
 }
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
-var jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime17 = __toESM(require_jsx_runtime(), 1);
 function FrameSnapshotLayoutModal({
   opened,
   onClose
 }) {
-  const [frameLayoutMaps, setFrameLayoutMaps] = import_react252.useState([]);
-  const [isLoading, setIsLoading] = import_react252.useState(false);
-  const [isRemoving, setIsRemoving] = import_react252.useState(false);
+  const [frameLayoutMaps, setFrameLayoutMaps] = import_react253.useState([]);
+  const [isLoading, setIsLoading] = import_react253.useState(false);
+  const [isRemoving, setIsRemoving] = import_react253.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  const tableData = import_react252.useMemo(() => {
+  const tableData = import_react253.useMemo(() => {
     return frameLayoutMaps.map((frameLayoutMap, layoutIndex) => {
       let snapshots = frameLayoutMap.frameSnapshots.map((snapshot, snapshotIndex) => {
         const uniqueId = `${snapshot.frameId}_${snapshot.imageName}`;
@@ -41921,7 +42112,7 @@ function FrameSnapshotLayoutModal({
       map.frameSnapshots = [...map.frameSnapshots].sort((a2, b) => a2.imageName.localeCompare(b.imageName));
     });
   };
-  const handleEditCell = import_react252.useCallback((layoutId, key, value) => {
+  const handleEditCell = import_react253.useCallback((layoutId, key, value) => {
     if (!key)
       return;
     const [uniqueId, field] = key.split(":");
@@ -41976,7 +42167,7 @@ function FrameSnapshotLayoutModal({
       setIsLoading(false);
     }
   };
-  import_react252.useEffect(() => {
+  import_react253.useEffect(() => {
     if (opened) {
       loadFrameLayouts();
     }
@@ -42004,7 +42195,7 @@ function FrameSnapshotLayoutModal({
       setIsRemoving(false);
     }
   };
-  const cleanupFrameLayoutMaps = import_react252.useCallback(() => {
+  const cleanupFrameLayoutMaps = import_react253.useCallback(() => {
     return frameLayoutMaps.map((map) => {
       const { layoutName, ...cleanMap } = map;
       const sortedSnapshots = [...cleanMap.frameSnapshots].sort((a2, b) => a2.imageName.localeCompare(b.imageName));
@@ -42014,7 +42205,7 @@ function FrameSnapshotLayoutModal({
       };
     });
   }, [frameLayoutMaps]);
-  const saveCleanedFrameLayoutMaps = import_react252.useCallback(async () => {
+  const saveCleanedFrameLayoutMaps = import_react253.useCallback(async () => {
     const cleanFrameLayoutMaps = cleanupFrameLayoutMaps();
     return await saveFrameLayoutMapsToDoc(cleanFrameLayoutMaps);
   }, [cleanupFrameLayoutMaps]);
@@ -42051,30 +42242,30 @@ function FrameSnapshotLayoutModal({
       onClose();
     }
   };
-  return /* @__PURE__ */ jsx_runtime16.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime17.jsx(Modal, {
     opened,
     onClose: handleCleanupAndClose,
     title: "Frame Position Viewer",
     fullScreen: true,
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime16.jsxs("div", {
+    children: /* @__PURE__ */ jsx_runtime17.jsxs("div", {
       style: { display: "flex", flexDirection: "column", height: "calc(100vh - 120px)" },
       children: [
-        /* @__PURE__ */ jsx_runtime16.jsx(Group, {
+        /* @__PURE__ */ jsx_runtime17.jsx(Group, {
           justify: "flex-end",
           mb: "md"
         }),
-        /* @__PURE__ */ jsx_runtime16.jsx(ScrollArea, {
+        /* @__PURE__ */ jsx_runtime17.jsx(ScrollArea, {
           style: { flex: 1 },
-          children: isLoading ? /* @__PURE__ */ jsx_runtime16.jsx(Center, {
+          children: isLoading ? /* @__PURE__ */ jsx_runtime17.jsx(Center, {
             style: { height: "100%", width: "100%" },
-            children: /* @__PURE__ */ jsx_runtime16.jsx(Loader, {
+            children: /* @__PURE__ */ jsx_runtime17.jsx(Loader, {
               size: "lg"
             })
-          }) : /* @__PURE__ */ jsx_runtime16.jsx(Stack, {
-            children: frameLayoutMaps.length === 0 ? /* @__PURE__ */ jsx_runtime16.jsx(Text, {
+          }) : /* @__PURE__ */ jsx_runtime17.jsx(Stack, {
+            children: frameLayoutMaps.length === 0 ? /* @__PURE__ */ jsx_runtime17.jsx(Text, {
               children: "No frame layouts found."
-            }) : tableData.map((layout) => /* @__PURE__ */ jsx_runtime16.jsx(FrameLayoutCard, {
+            }) : tableData.map((layout) => /* @__PURE__ */ jsx_runtime17.jsx(FrameLayoutCard, {
               layoutMap: layout,
               onRemoveSnapshot: handleRemoveFrameLayout,
               onEditCell: handleEditCell,
@@ -42083,18 +42274,18 @@ function FrameSnapshotLayoutModal({
             }, layout.layoutId))
           })
         }),
-        /* @__PURE__ */ jsx_runtime16.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime17.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime16.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime17.jsx(Button, {
               onClick: handleUpdateActions,
               color: "blue",
               disabled: isLoading || isRemoving,
               loading: isLoading || isRemoving,
               children: "Update Actions"
             }),
-            /* @__PURE__ */ jsx_runtime16.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime17.jsx(Button, {
               onClick: handleCleanupAndClose,
               disabled: isRemoving,
               children: "Close"
@@ -42106,17 +42297,17 @@ function FrameSnapshotLayoutModal({
   });
 }
 // src/components/AddFrameSnapshotModal.tsx
-var import_react253 = __toESM(require_react(), 1);
-var jsx_runtime17 = __toESM(require_jsx_runtime(), 1);
+var import_react254 = __toESM(require_react(), 1);
+var jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
 function AddFrameSnapshotModal({
   opened,
   onClose,
   raiseError: raiseError2
 }) {
-  const [status, setStatus] = import_react253.useState("idle");
-  const [message, setMessage] = import_react253.useState(null);
-  const [positionData, setPositionData] = import_react253.useState(null);
-  import_react253.useEffect(() => {
+  const [status, setStatus] = import_react254.useState("idle");
+  const [message, setMessage] = import_react254.useState(null);
+  const [positionData, setPositionData] = import_react254.useState(null);
+  import_react254.useEffect(() => {
     if (!opened) {
       setStatus("idle");
       setMessage(null);
@@ -42208,7 +42399,7 @@ function AddFrameSnapshotModal({
     };
     fetchAndValidateFrame();
   }, [opened, raiseError2]);
-  return /* @__PURE__ */ jsx_runtime17.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime18.jsx(Modal, {
     opened,
     onClose: status === "loading" ? () => {
     } : onClose,
@@ -42216,31 +42407,31 @@ function AddFrameSnapshotModal({
     centered: true,
     closeOnClickOutside: status !== "loading",
     closeOnEscape: status !== "loading",
-    children: /* @__PURE__ */ jsx_runtime17.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime18.jsxs(Stack, {
       children: [
-        status === "loading" && /* @__PURE__ */ jsx_runtime17.jsxs(Stack, {
+        status === "loading" && /* @__PURE__ */ jsx_runtime18.jsxs(Stack, {
           align: "center",
           children: [
-            /* @__PURE__ */ jsx_runtime17.jsx(Loader, {}),
-            /* @__PURE__ */ jsx_runtime17.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime18.jsx(Loader, {}),
+            /* @__PURE__ */ jsx_runtime18.jsx(Text, {
               children: "Processing frame snapshot..."
             })
           ]
         }),
-        status === "error" && message && /* @__PURE__ */ jsx_runtime17.jsx(Alert, {
-          icon: /* @__PURE__ */ jsx_runtime17.jsx(IconAlertCircle, {
+        status === "error" && message && /* @__PURE__ */ jsx_runtime18.jsx(Alert, {
+          icon: /* @__PURE__ */ jsx_runtime18.jsx(IconAlertCircle, {
             size: "1rem"
           }),
           title: "Error",
           color: "red",
           children: message
         }),
-        status === "success" && message && /* @__PURE__ */ jsx_runtime17.jsx(Alert, {
+        status === "success" && message && /* @__PURE__ */ jsx_runtime18.jsx(Alert, {
           color: "green",
           title: "Success",
           children: message
         }),
-        status === "idle" && /* @__PURE__ */ jsx_runtime17.jsx(Text, {
+        status === "idle" && /* @__PURE__ */ jsx_runtime18.jsx(Text, {
           size: "sm",
           c: "dimmed",
           children: "Initializing..."
@@ -42251,13 +42442,13 @@ function AddFrameSnapshotModal({
 }
 
 // src/components/LayoutManagerModal.tsx
-var import_react254 = __toESM(require_react(), 1);
-var jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
+var import_react255 = __toESM(require_react(), 1);
+var jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
 function LayoutManagerModal({ opened, onClose }) {
-  const [layouts, setLayouts] = import_react254.useState([]);
-  const [studio2, setStudio] = import_react254.useState(null);
+  const [layouts, setLayouts] = import_react255.useState([]);
+  const [studio2, setStudio] = import_react255.useState(null);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react254.useEffect(() => {
+  import_react255.useEffect(() => {
     const fetchLayouts = async () => {
       try {
         const studioResult = await getStudio();
@@ -42354,7 +42545,7 @@ function LayoutManagerModal({ opened, onClose }) {
       const parent = layouts.find((layout) => layout.id === node2.parentId);
       if (!parent)
         return null;
-      return /* @__PURE__ */ jsx_runtime18.jsxs(Text, {
+      return /* @__PURE__ */ jsx_runtime19.jsxs(Text, {
         size: "sm",
         color: "dimmed",
         children: [
@@ -42367,22 +42558,22 @@ function LayoutManagerModal({ opened, onClose }) {
       const parent = layouts.find((layout) => layout.id === node2.parentId);
       return parent ? 20 : 0;
     };
-    return /* @__PURE__ */ jsx_runtime18.jsx(Box, {
+    return /* @__PURE__ */ jsx_runtime19.jsx(Box, {
       mb: "sm",
       ml: getIndentation(),
-      children: /* @__PURE__ */ jsx_runtime18.jsx(Card, {
+      children: /* @__PURE__ */ jsx_runtime19.jsx(Card, {
         shadow: "sm",
         p: "md",
         radius: "md",
         withBorder: true,
-        children: /* @__PURE__ */ jsx_runtime18.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime19.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime18.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime19.jsx(Group, {
               justify: "space-between",
-              children: /* @__PURE__ */ jsx_runtime18.jsxs(Stack, {
+              children: /* @__PURE__ */ jsx_runtime19.jsxs(Stack, {
                 gap: "xs",
                 children: [
-                  /* @__PURE__ */ jsx_runtime18.jsx(Title, {
+                  /* @__PURE__ */ jsx_runtime19.jsx(Title, {
                     order: 5,
                     children: node2.name
                   }),
@@ -42390,44 +42581,44 @@ function LayoutManagerModal({ opened, onClose }) {
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime18.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime19.jsxs(Group, {
               children: [
-                /* @__PURE__ */ jsx_runtime18.jsx(Switch, {
+                /* @__PURE__ */ jsx_runtime19.jsx(Switch, {
                   label: "Available",
                   checked: node2.available,
                   onChange: (event) => handleLayoutChange(node2.id, "available", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime18.jsx(Switch, {
+                /* @__PURE__ */ jsx_runtime19.jsx(Switch, {
                   label: "Resizable",
                   checked: node2.resizable,
                   onChange: (event) => handleLayoutChange(node2.id, "resizable", event.currentTarget.checked)
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime18.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime19.jsxs(Group, {
               children: [
-                /* @__PURE__ */ jsx_runtime18.jsx(NumberInput, {
+                /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
                   label: "Min Width",
                   value: node2.minWidth !== null ? node2.minWidth : undefined,
                   onChange: (value) => handleLayoutChange(node2.id, "minWidth", value),
                   disabled: !node2.resizable,
                   style: { width: "80px" }
                 }),
-                /* @__PURE__ */ jsx_runtime18.jsx(NumberInput, {
+                /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
                   label: "Max Width",
                   value: node2.maxWidth !== null ? node2.maxWidth : undefined,
                   onChange: (value) => handleLayoutChange(node2.id, "maxWidth", value),
                   disabled: !node2.resizable,
                   style: { width: "80px" }
                 }),
-                /* @__PURE__ */ jsx_runtime18.jsx(NumberInput, {
+                /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
                   label: "Min Height",
                   value: node2.minHeight !== null ? node2.minHeight : undefined,
                   onChange: (value) => handleLayoutChange(node2.id, "minHeight", value),
                   disabled: !node2.resizable,
                   style: { width: "80px" }
                 }),
-                /* @__PURE__ */ jsx_runtime18.jsx(NumberInput, {
+                /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
                   label: "Max Height",
                   value: node2.maxHeight !== null ? node2.maxHeight : undefined,
                   onChange: (value) => handleLayoutChange(node2.id, "maxHeight", value),
@@ -42436,13 +42627,13 @@ function LayoutManagerModal({ opened, onClose }) {
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime18.jsx(Checkbox, {
+            /* @__PURE__ */ jsx_runtime19.jsx(Checkbox, {
               label: "Lock Aspect Ratio",
               checked: node2.lockAspectRatio,
               onChange: (event) => handleLayoutChange(node2.id, "lockAspectRatio", event.currentTarget.checked),
               disabled: !node2.resizable
             }),
-            node2.lockAspectRatio && /* @__PURE__ */ jsx_runtime18.jsx(NumberInput, {
+            node2.lockAspectRatio && /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
               label: "Percentage",
               value: node2.percentage,
               onChange: (value) => handleLayoutChange(node2.id, "percentage", value),
@@ -42451,10 +42642,10 @@ function LayoutManagerModal({ opened, onClose }) {
               step: 1,
               style: { width: "60px" }
             }),
-            /* @__PURE__ */ jsx_runtime18.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime19.jsx(Group, {
               justify: "flex-end",
               mt: "xs",
-              children: /* @__PURE__ */ jsx_runtime18.jsx(Button, {
+              children: /* @__PURE__ */ jsx_runtime19.jsx(Button, {
                 onClick: () => handleSaveLayout(node2),
                 color: "blue",
                 size: "sm",
@@ -42466,22 +42657,22 @@ function LayoutManagerModal({ opened, onClose }) {
       })
     });
   };
-  return /* @__PURE__ */ jsx_runtime18.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime19.jsx(Modal, {
     opened,
     onClose,
     title: "Layout Manager",
     size: "xl",
     fullScreen: true,
-    children: /* @__PURE__ */ jsx_runtime18.jsxs(Box, {
+    children: /* @__PURE__ */ jsx_runtime19.jsxs(Box, {
       style: { height: "calc(100vh - 120px)", overflowY: "auto", padding: "16px" },
       children: [
-        /* @__PURE__ */ jsx_runtime18.jsx(Title, {
+        /* @__PURE__ */ jsx_runtime19.jsx(Title, {
           order: 4,
           mb: "md",
           children: "Layouts"
         }),
-        /* @__PURE__ */ jsx_runtime18.jsx(Stack, {
-          children: layouts.map((node2) => /* @__PURE__ */ jsx_runtime18.jsx(LayoutCard, {
+        /* @__PURE__ */ jsx_runtime19.jsx(Stack, {
+          children: layouts.map((node2) => /* @__PURE__ */ jsx_runtime19.jsx(LayoutCard, {
             node: node2
           }, node2.id))
         })
@@ -42491,7 +42682,7 @@ function LayoutManagerModal({ opened, onClose }) {
 }
 
 // src/components/DownloadModal.tsx
-var import_react256 = __toESM(require_react(), 1);
+var import_react257 = __toESM(require_react(), 1);
 
 // src/studio/documentHandler.ts
 async function getCurrentDocumentState(studio2) {
@@ -42502,8 +42693,8 @@ async function loadDocumentFromJsonStr(studio2, document2) {
 }
 
 // src/components/ConnectorReplacementModal.tsx
-var import_react255 = __toESM(require_react(), 1);
-var jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
+var import_react256 = __toESM(require_react(), 1);
+var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
 function ConnectorReplacementModal({
   opened,
   onClose,
@@ -42512,9 +42703,9 @@ function ConnectorReplacementModal({
   onReplace,
   nameMatches = {}
 }) {
-  const [replacements, setReplacements] = import_react255.useState({});
+  const [replacements, setReplacements] = import_react256.useState({});
   const mediaConnectors = availableConnectors.filter((c2) => c2.type === "media");
-  import_react255.useEffect(() => {
+  import_react256.useEffect(() => {
     if (opened && Object.keys(nameMatches).length > 0) {
       setReplacements(nameMatches);
     }
@@ -42528,46 +42719,46 @@ function ConnectorReplacementModal({
     onReplace(replacementArray);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime19.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime20.jsx(Modal, {
     opened,
     onClose,
     title: "Missing Connectors Detected",
     size: "lg",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime19.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime19.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime20.jsx(Text, {
           size: "sm",
           children: "The following connectors in your document were not found in your current environment. Please select replacement connectors:"
         }),
-        /* @__PURE__ */ jsx_runtime19.jsxs(Table, {
+        /* @__PURE__ */ jsx_runtime20.jsxs(Table, {
           children: [
-            /* @__PURE__ */ jsx_runtime19.jsx(Table.Thead, {
-              children: /* @__PURE__ */ jsx_runtime19.jsxs(Table.Tr, {
+            /* @__PURE__ */ jsx_runtime20.jsx(Table.Thead, {
+              children: /* @__PURE__ */ jsx_runtime20.jsxs(Table.Tr, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime19.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Th, {
                     children: "Original Connector"
                   }),
-                  /* @__PURE__ */ jsx_runtime19.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Th, {
                     children: "ID"
                   }),
-                  /* @__PURE__ */ jsx_runtime19.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Th, {
                     children: "Replace With"
                   })
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime19.jsx(Table.Tbody, {
-              children: missingConnectors.map((connector) => /* @__PURE__ */ jsx_runtime19.jsxs(Table.Tr, {
+            /* @__PURE__ */ jsx_runtime20.jsx(Table.Tbody, {
+              children: missingConnectors.map((connector) => /* @__PURE__ */ jsx_runtime20.jsxs(Table.Tr, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime19.jsx(Table.Td, {
+                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Td, {
                     children: connector.name
                   }),
-                  /* @__PURE__ */ jsx_runtime19.jsx(Table.Td, {
+                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Td, {
                     children: connector.id
                   }),
-                  /* @__PURE__ */ jsx_runtime19.jsx(Table.Td, {
-                    children: /* @__PURE__ */ jsx_runtime19.jsx(Select, {
+                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Td, {
+                    children: /* @__PURE__ */ jsx_runtime20.jsx(Select, {
                       data: mediaConnectors.map((c2) => ({
                         value: c2.id,
                         label: c2.name
@@ -42589,15 +42780,15 @@ function ConnectorReplacementModal({
             })
           ]
         }),
-        /* @__PURE__ */ jsx_runtime19.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
           justify: "flex-end",
           children: [
-            /* @__PURE__ */ jsx_runtime19.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime20.jsx(Button, {
               onClick: onClose,
               variant: "outline",
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime19.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime20.jsx(Button, {
               onClick: handleReplace,
               disabled: !allSelected,
               children: "Replace Connectors"
@@ -42610,16 +42801,16 @@ function ConnectorReplacementModal({
 }
 
 // src/components/DownloadModal.tsx
-var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
 function DownloadModal({ opened, onClose }) {
-  const fileInputRef = import_react256.useRef(null);
+  const fileInputRef = import_react257.useRef(null);
   const raiseError2 = appStore((store) => store.raiseError);
-  const [replacementModalOpened, setReplacementModalOpened] = import_react256.useState(false);
-  const [missingConnectors, setMissingConnectors] = import_react256.useState([]);
-  const [availableConnectors, setAvailableConnectors] = import_react256.useState([]);
-  const [pendingJsonContent, setPendingJsonContent] = import_react256.useState("");
-  const [nameMatches, setNameMatches] = import_react256.useState({});
-  const [downloadTemplateFonts, setDownloadTemplateFonts] = import_react256.useState(false);
+  const [replacementModalOpened, setReplacementModalOpened] = import_react257.useState(false);
+  const [missingConnectors, setMissingConnectors] = import_react257.useState([]);
+  const [availableConnectors, setAvailableConnectors] = import_react257.useState([]);
+  const [pendingJsonContent, setPendingJsonContent] = import_react257.useState("");
+  const [nameMatches, setNameMatches] = import_react257.useState({});
+  const [downloadTemplateFonts, setDownloadTemplateFonts] = import_react257.useState(false);
   const handleDownload = async () => {
     try {
       const studioResult = await getStudio();
@@ -42868,49 +43059,49 @@ function DownloadModal({ opened, onClose }) {
       raiseError2(error instanceof Error ? error : new Error(String(error)));
     }
   };
-  return /* @__PURE__ */ jsx_runtime20.jsxs(jsx_runtime20.Fragment, {
+  return /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime20.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
         opened,
         onClose,
         title: "Document Upload/Download",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime21.jsx(Text, {
               size: "sm",
               children: "Uploading and downloading only transfers the JSON not assets."
             }),
-            /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+            /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
               gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
                   children: [
-                    /* @__PURE__ */ jsx_runtime20.jsx(Button, {
+                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
                       onClick: handleDownload,
                       color: "blue",
-                      children: /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
+                      children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
                         gap: "xs",
                         children: [
-                          /* @__PURE__ */ jsx_runtime20.jsx(IconDownload, {
+                          /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
                             size: 20
                           }),
-                          /* @__PURE__ */ jsx_runtime20.jsx("span", {
+                          /* @__PURE__ */ jsx_runtime21.jsx("span", {
                             children: "Download"
                           })
                         ]
                       })
                     }),
-                    /* @__PURE__ */ jsx_runtime20.jsx(Button, {
+                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
                       onClick: handleUpload,
                       color: "green",
-                      children: /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
+                      children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
                         gap: "xs",
                         children: [
-                          /* @__PURE__ */ jsx_runtime20.jsx(IconUpload, {
+                          /* @__PURE__ */ jsx_runtime21.jsx(IconUpload, {
                             size: 20
                           }),
-                          /* @__PURE__ */ jsx_runtime20.jsx("span", {
+                          /* @__PURE__ */ jsx_runtime21.jsx("span", {
                             children: "Upload"
                           })
                         ]
@@ -42918,7 +43109,7 @@ function DownloadModal({ opened, onClose }) {
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime20.jsx(Checkbox, {
+                /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
                   label: "Download template fonts",
                   checked: downloadTemplateFonts,
                   onChange: (event) => setDownloadTemplateFonts(event.currentTarget.checked)
@@ -42928,14 +43119,14 @@ function DownloadModal({ opened, onClose }) {
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime20.jsx("input", {
+      /* @__PURE__ */ jsx_runtime21.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
         accept: ".json",
         onChange: handleFileChange
       }),
-      /* @__PURE__ */ jsx_runtime20.jsx(ConnectorReplacementModal, {
+      /* @__PURE__ */ jsx_runtime21.jsx(ConnectorReplacementModal, {
         opened: replacementModalOpened,
         onClose: () => setReplacementModalOpened(false),
         missingConnectors,
@@ -42948,19 +43139,19 @@ function DownloadModal({ opened, onClose }) {
 }
 
 // src/components/Toolbar.tsx
-var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react257.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react257.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react257.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react257.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react257.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react257.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react257.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react257.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react257.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react257.useState("");
-  const [updateInfo, setUpdateInfo] = import_react257.useState(null);
+  const [visible2, setVisible] = import_react258.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react258.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react258.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react258.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react258.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react258.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react258.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react258.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react258.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react258.useState("");
+  const [updateInfo, setUpdateInfo] = import_react258.useState(null);
   const effects = appStore((store) => store.effects);
   const raiseError2 = appStore((store) => store.raiseError);
   const isToolbarEnabled = appStore((store) => store.state.isToolbarEnabled);
@@ -42983,7 +43174,7 @@ function Toolbar() {
     }
     setIsUpdateModalOpen(false);
   };
-  import_react257.useEffect(() => {
+  import_react258.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -43036,14 +43227,14 @@ function Toolbar() {
       setIsAspectLockSuccessModalOpen(true);
     }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
   };
-  return /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
+  return /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime21.jsx(Transition, {
+      /* @__PURE__ */ jsx_runtime22.jsx(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_runtime21.jsx(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_runtime22.jsx(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -43060,95 +43251,95 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+          children: /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
             gap: "lg",
             children: [
-              /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_runtime21.jsx(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconCameraPlus, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_runtime21.jsx(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconPhotoCog, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
                 label: "Aspect Lock",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Aspect Lock",
                   onClick: handleAspectLock,
-                  children: /* @__PURE__ */ jsx_runtime21.jsx(IconPlaystationSquare, {
+                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconPlaystationSquare, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
                 label: "Upload/Download Document",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleUploadDownloadClick,
-                  children: /* @__PURE__ */ jsx_runtime21.jsx(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconArrowsTransferUpDown, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
                 label: "Layout Image Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_runtime21.jsx(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconMapBolt, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
                   variant: "filled",
                   color: "red",
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_runtime21.jsx(IconBug, {
+                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconBug, {
                     size: 20
                   })
                 })
@@ -43157,45 +43348,45 @@ function Toolbar() {
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime21.jsx(DownloadModal, {
+      /* @__PURE__ */ jsx_runtime22.jsx(DownloadModal, {
         opened: isDownloadUploadModalOpen,
         onClose: () => setIsDownloadUploadModalOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime22.jsx(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }),
-            /* @__PURE__ */ jsx_runtime21.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime22.jsxs(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_runtime21.jsx("br", {}),
+                /* @__PURE__ */ jsx_runtime22.jsx("br", {}),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }),
-            /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }),
-                /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_runtime21.jsx(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_runtime22.jsx(IconExternalLink, {
                     size: 16
                   }),
                   color: "blue",
@@ -43206,39 +43397,39 @@ function Toolbar() {
           ]
         })
       }),
-      isFramePositionViewerOpen && /* @__PURE__ */ jsx_runtime21.jsx(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && /* @__PURE__ */ jsx_runtime22.jsx(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }),
-      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_runtime21.jsx(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_runtime22.jsx(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }),
-      isLayoutManagerOpen && /* @__PURE__ */ jsx_runtime21.jsx(LayoutManagerModal, {
+      isLayoutManagerOpen && /* @__PURE__ */ jsx_runtime22.jsx(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime21.jsxs(Modal, {
+      /* @__PURE__ */ jsx_runtime22.jsxs(Modal, {
         opened: isAspectLockConfirmModalOpen,
         onClose: () => setIsAspectLockConfirmModalOpen(false),
         title: "Confirm Aspect Lock Change",
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
             children: "Turn Aspect Lock On?"
           }),
-          /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                 variant: "default",
                 onClick: () => handleConfirmAspectLock(false),
                 children: "No"
               }),
-              /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                 color: "blue",
                 onClick: () => handleConfirmAspectLock(true),
                 children: "Yes"
@@ -43247,7 +43438,7 @@ function Toolbar() {
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime21.jsxs(Modal, {
+      /* @__PURE__ */ jsx_runtime22.jsxs(Modal, {
         opened: isAspectLockSuccessModalOpen,
         onClose: () => {
           setIsAspectLockSuccessModalOpen(false);
@@ -43257,13 +43448,13 @@ function Toolbar() {
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
             children: aspectLockSuccessMessage
           }),
-          /* @__PURE__ */ jsx_runtime21.jsx(Group, {
+          /* @__PURE__ */ jsx_runtime22.jsx(Group, {
             justify: "flex-end",
             mt: "md",
-            children: /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+            children: /* @__PURE__ */ jsx_runtime22.jsx(Button, {
               onClick: () => {
                 setIsAspectLockSuccessModalOpen(false);
                 setAspectLockSuccessMessage("");
@@ -43278,12 +43469,12 @@ function Toolbar() {
 }
 
 // src/components/AlertsContainer.tsx
-var import_react258 = __toESM(require_react(), 1);
-var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+var import_react259 = __toESM(require_react(), 1);
+var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react258.useEffect(() => {
+  import_react259.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -43298,7 +43489,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime22.jsx(Box, {
+  return /* @__PURE__ */ jsx_runtime23.jsx(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -43306,10 +43497,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_runtime22.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime23.jsx(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime22.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime22.jsx(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime23.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime23.jsx(IconInfoCircle, {
           size: "1rem"
         }),
         title: "Toolbar Error",
@@ -43329,7 +43520,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -43350,16 +43541,16 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime23.jsx(import_react259.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime23.jsx(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime24.jsx(import_react260.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime24.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime23.jsx(import_react259.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime23.jsxs(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime24.jsx(import_react260.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime24.jsxs(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_runtime23.jsx(Toolbar, {}),
-        /* @__PURE__ */ jsx_runtime23.jsx(AlertsContainer, {})
+        /* @__PURE__ */ jsx_runtime24.jsx(Toolbar, {}),
+        /* @__PURE__ */ jsx_runtime24.jsx(AlertsContainer, {})
       ]
     })
   }));
@@ -43384,4 +43575,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=1F97A5B28D8070C064756E2164756E21
+//# debugId=230CD81BF4579BE264756E2164756E21

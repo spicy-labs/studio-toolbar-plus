@@ -1345,7 +1345,7 @@ fieldset:disabled .mantine-active:active {
   z-index: 1001;
 }
 
-.m_fd1ab0aa:has([data-mantine-scrollbar][data-state="visible"]) .m_b5489c3c {
+[data-offset-scrollbars] .m_fd1ab0aa:has([data-mantine-scrollbar][data-state="visible"]) .m_b5489c3c {
   padding-inline-end: calc(var(--mb-padding, var(--mantine-spacing-md))  + calc(.3125rem * var(--mantine-scale)));
 }
 
@@ -7658,7 +7658,7 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
   position: sticky;
 }
 
-.m_b242d975:where([data-sticky]) .m_4e7aa4f3 {
+.m_b242d975:where([data-sticky]) :where(.m_4e7aa4f3) {
   position: sticky;
   top: var(--table-sticky-header-offset, 0);
   background-color: var(--mantine-color-body);
@@ -7686,6 +7686,7 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
 
 .m_62259741 {
   min-width: var(--table-min-width);
+  max-height: var(--table-max-height);
 }
 
 .m_bcaa9990 {
