@@ -1,3 +1,9 @@
+## 0.7.0
+
+### ✨ Added
+
+- Add ability to swap image variables within a Layout Image Mapping configuration.
+
 ## 0.6.4
 
 ### 🐛 Fixed

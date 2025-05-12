@@ -27,6 +27,7 @@ import {
 import { IconPlus } from "@tabler/icons-react";
 import { AddMappingImageVariableModal } from "./AddMappingImageVariableModal";
 import { AddDependentModal } from "./AddDependentModal";
+import { SwapImageVariableModal } from "./SwapImageVariableModal";
 import { LayoutConfigSection } from "./LayoutConfigSelection";
 import { Result } from "typescript-result";
 
@@ -43,7 +44,7 @@ export const LayoutImageMappingModal: React.FC<
   const events = appStore(state => state.effects);
   const raiseError = appStore(state => state.raiseError);
   const enableToolbar = appStore(state => state.enableToolbar);
-  
+
   // Select only the specific state slices needed
   const document = appStore(state => state.state.studio.document);
   const variables = appStore(state => state.state.studio.document.variables);
@@ -52,6 +53,7 @@ export const LayoutImageMappingModal: React.FC<
   const isModalVisible = appStore(state => state.state.modal.isModalVisible);
   const layoutImageMapping = appStore(state => state.state.studio.layoutImageMapping);
   const currentSelectedMapId = appStore(state => state.state.modal.currentSelectedMapId);
+  const currentSwapImageVariableId = appStore(state => state.state.modal.currentSwapImageVariableId);
   const [validationReport, setValidationReport] =
     useState<ValidationReport | null>(null);
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
@@ -277,6 +279,21 @@ export const LayoutImageMappingModal: React.FC<
       />
 
       <AddDependentModal />
+
+      <SwapImageVariableModal
+        currentMapConfig={
+          layoutImageMapping.find(
+            (config) => config.id === currentSelectedMapId,
+          ) || null
+        }
+        currentImageVariable={
+          currentSelectedMapId && currentSwapImageVariableId
+            ? layoutImageMapping
+                .find((config) => config.id === currentSelectedMapId)
+                ?.variables.find((v) => v.id === currentSwapImageVariableId) || null
+            : null
+        }
+      />
 
       {/* Validation Report Modal */}
       <Modal

@@ -21,6 +21,9 @@ type LayoutImageMappingModalState = {
   };
   currentAddImageMappingSelectedVariables: string[];
   isAddImageVariableMappingModalOpen: boolean;
+  isSwapImageVariableModalOpen: boolean;
+  currentSwapImageVariableSelected: string;
+  currentSwapImageVariableId: string | null;
   currentSelectedMapId: string | null;
 };
 
@@ -35,6 +38,9 @@ type LayoutImageMappingModalEffects = {
   };
   setIsImageVariableMappingModalOpen: (value: boolean) => void;
   setCurrentAddImageMappingSelectedVariables: (value: string[]) => void;
+  setIsSwapImageVariableModalOpen: (value: boolean) => void;
+  setCurrentSwapImageVariableSelected: (value: string) => void;
+  setCurrentSwapImageVariableId: (value: string | null) => void;
   setCurrentSelectedMapId: (value: string) => void;
 };
 
@@ -62,6 +68,11 @@ type StudioEffects = {
     removeImageVariable: (data: {
       mapId: string;
       imageVariableId: string;
+    }) => void;
+    swapImageVariable: (data: {
+      mapId: string;
+      oldImageVariableId: string;
+      newImageVariableId: string;
     }) => void;
     updateDependent: (data: {
       mapId: string;
@@ -168,6 +179,9 @@ export const appStore = create<AppStore>()(
       modal: {
         isAddImageVariableMappingModalOpen: false,
         currentAddImageMappingSelectedVariables: [],
+        isSwapImageVariableModalOpen: false,
+        currentSwapImageVariableSelected: "",
+        currentSwapImageVariableId: null,
         isModalVisible: false,
         currentSelectedMapId: null,
         dependentModal: {
@@ -209,6 +223,21 @@ export const appStore = create<AppStore>()(
         setCurrentSelectedMapId: (value) => {
           set((store) => {
             store.state.modal.currentSelectedMapId = value;
+          });
+        },
+        setIsSwapImageVariableModalOpen: (value) => {
+          set((store) => {
+            store.state.modal.isSwapImageVariableModalOpen = value;
+          });
+        },
+        setCurrentSwapImageVariableSelected: (value) => {
+          set((store) => {
+            store.state.modal.currentSwapImageVariableSelected = value;
+          });
+        },
+        setCurrentSwapImageVariableId: (value) => {
+          set((store) => {
+            store.state.modal.currentSwapImageVariableId = value;
           });
         },
         dependentModal: {
@@ -678,6 +707,55 @@ export const appStore = create<AppStore>()(
                   store,
                   new Error(
                     "For removeImageVariable layout config is not loaded",
+                  ),
+                );
+              }
+            }),
+          swapImageVariable: ({ mapId, oldImageVariableId, newImageVariableId }) =>
+            set((store) => {
+              if (store.state.studio.isLayoutConfigLoaded) {
+                const targetLayoutMap =
+                  store.state.studio.layoutImageMapping.find(
+                    (map) => map.id == mapId,
+                  );
+                if (targetLayoutMap) {
+                  const oldImageVariableIndex =
+                    targetLayoutMap.variables.findIndex(
+                      (imgVar) => imgVar.id == oldImageVariableId,
+                    );
+                  if (oldImageVariableIndex !== -1) {
+                    // Get the old image variable with all its dependentGroups
+                    const oldImageVariable = targetLayoutMap.variables[oldImageVariableIndex];
+
+                    // Create a new image variable with the new ID but keeping all dependentGroups
+                    const newImageVariable: ImageVariable = {
+                      id: newImageVariableId,
+                      dependentGroup: [...oldImageVariable.dependentGroup]
+                    };
+
+                    // Replace the old image variable with the new one
+                    targetLayoutMap.variables[oldImageVariableIndex] = newImageVariable;
+                  } else {
+                    raiseError(
+                      store,
+                      new Error(
+                        "For swapImageVariable oldImageVariable not found",
+                      ),
+                    );
+                  }
+                } else {
+                  raiseError(
+                    store,
+                    new Error(
+                      "For swapImageVariable targetLayoutMap not found",
+                    ),
+                  );
+                }
+              } else {
+                raiseError(
+                  store,
+                  new Error(
+                    "For swapImageVariable layout config is not loaded",
                   ),
                 );
               }
