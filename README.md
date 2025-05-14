@@ -13,7 +13,7 @@ Studio Toolbar Plus is a chrome extension that transforms your GraFx Studio Desi
 
 ## 🚀 Installation (Cape Not Included)
 
-1. Donwload the latest version zip from [Release](https://github.com/spicy-labs/studio-toolbar-plus/releases/) and unzip the extension
+1. Download the latest version zip from [Release](https://github.com/spicy-labs/studio-toolbar-plus/releases/) and unzip the extension
 
 2. Open Chrome and navigate to `chrome://extensions/`
 
