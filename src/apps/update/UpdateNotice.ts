@@ -8,7 +8,7 @@ import {
   type TextProps,
   type TextFactory,
 } from "@mantine/core";
-import { IconExternalLink } from "@tabler/icons-react";
+import { IconCircleX, IconExternalLink } from "@tabler/icons-react";
 import { appStore } from "../../core/appStore/store";
 
 export function UpdateNotice({}): ReactNode {
@@ -74,6 +74,7 @@ export function UpdateNotice({}): ReactNode {
         { justify: "space-between", mt: "md" },
         createElement(Button<"button">, {
           onClick: handleDismissUpdate,
+          leftSection: createElement(IconCircleX, { size: 16 }),
           variant: "subtle",
           color: "gray",
           children: "Dismiss",

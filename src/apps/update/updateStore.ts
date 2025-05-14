@@ -2,9 +2,9 @@ import { Result } from "typescript-result";
 import type { Set, Get, Store } from "../../core/appStore/storeTypes";
 import type { Config } from "../../core/configType";
 
+      const DISMISSED_LAST_NOTIFIED_VERSION_KEY = "toolbarplus_dismissed_last_notified_version";
+
 type UpdateState = {
-  currentVersion: string;
-  latestVersion: string;
   isModalOpen: boolean;
   versionCheckState: VersionCheckState;
 };
@@ -53,12 +53,15 @@ type ErrorState = {
   error: Error | Result<never, Error>;
 };
 
-export function initUpdateStore<T extends Store>(set: Set, get: Get, store: T): T & UpdateStore {
-  
-  if ('update' in store.state && 'update' in store.actions) {
+export function initUpdateStore<T extends Store>(
+  set: Set,
+  get: Get,
+  store: T
+): T & UpdateStore {
+  if ("update" in store.state && "update" in store.actions) {
     return store as T & UpdateStore;
   }
-  
+
   const updatedStore = {
     state: {
       ...store.state,
@@ -75,8 +78,6 @@ export function initUpdateStore<T extends Store>(set: Set, get: Get, store: T): 
 
 function initUpdateState(): UpdateState {
   return {
-    currentVersion: "",
-    latestVersion: "",
     isModalOpen: false,
     versionCheckState: { state: "not_checked" },
   };
@@ -89,10 +90,12 @@ function initUpdateActions(set: Set, get: Get): UpdateActions {
         store.state.update.isModalOpen = isOpen;
       }),
     handleDismissUpdate: () => {
-      if (get().state.update.latestVersion) {
+      const versionCheckState = get().state.update.versionCheckState;
+      if (versionCheckState.state === "available") {
+        // Add alert error as this could fail if environment doesn't support localStorage
         localStorage.setItem(
-          "toolbarplus_last_notified_version",
-          get().state.update.latestVersion
+          DISMISSED_LAST_NOTIFIED_VERSION_KEY,
+          versionCheckState.version
         );
       }
       set((store) => {
@@ -115,8 +118,7 @@ function initUpdateActions(set: Set, get: Get): UpdateActions {
                   version,
                 };
               });
-            }
-            else {
+            } else {
               set((store) => {
                 store.state.update.versionCheckState = {
                   state: "not_available",
@@ -125,16 +127,15 @@ function initUpdateActions(set: Set, get: Get): UpdateActions {
             }
           },
           (error) => {
-          set((store) => {
-            store.state.update.versionCheckState = {
-              state: "error",
-              error,
-            };
-          });
-        }
+            set((store) => {
+              store.state.update.versionCheckState = {
+                state: "error",
+                error,
+              };
+            });
+          }
         );
-      }
-      else {
+      } else {
         set((store) => {
           store.state.update.versionCheckState = {
             state: "error",
@@ -142,8 +143,7 @@ function initUpdateActions(set: Set, get: Get): UpdateActions {
           };
         });
       }
-    }
-
+    },
   };
 }
 
@@ -162,21 +162,22 @@ async function checkAndGetUpdate(
     }
 
     const dismissedLastNotifiedVersion = localStorage.getItem(
-      "toolbarplus_dissmissed_last_notified_version"
+      DISMISSED_LAST_NOTIFIED_VERSION_KEY
     );
 
+    // Maybe add a type for manifest.json
     const packageJson = await manifestResp.json();
 
     console.log("Package JSON:", packageJson);
-    
+
     const githubVersion = packageJson.version;
 
     const [githubMajor, githubMinor, githubPatch] = githubVersion
       .split(".")
-      .map(Number.parseFloat);
+      .map((versionComponent: string) => Number.parseInt(versionComponent, 10));
     const [currentMajor, currentMinor, currentPatch] = config.currentVersion
       .split(".")
-      .map(Number.parseFloat);
+      .map((versionComponent: string) => Number.parseInt(versionComponent, 10));
 
     if (
       isNaN(githubMajor) ||

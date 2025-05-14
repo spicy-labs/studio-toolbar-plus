@@ -26,7 +26,7 @@ import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
 import { DownloadModal } from "./DownloadModal";
 import { saveLayoutSizingToAction } from "../studio/studioAdapter";
-import type { Config } from "../types/configType";
+import type { Config } from "../core/configType";
 
 type ToolarProps = {
   config: Config;

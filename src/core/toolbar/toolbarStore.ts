@@ -46,7 +46,7 @@ function initToolbarState(): ToolbarState {
   };
 }
 
-function initToolbarActions(set: Set, _get: Get): ToolbarActions {
+function initToolbarActions(set: Set, get: Get): ToolbarActions {
   return {
     setConfig: (config) =>
       set((store) => {
