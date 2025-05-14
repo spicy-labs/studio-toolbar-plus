@@ -1,15 +1,17 @@
-import { createElement, useEffect, type ReactNode } from "react";
 import {
-  Modal,
-  Text,
-  Stack,
-  Group,
   Button,
-  type TextProps,
+  Group,
+  Modal,
+  Stack,
+  Text,
   type TextFactory,
+  type TextProps,
 } from "@mantine/core";
 import { IconCircleX, IconExternalLink } from "@tabler/icons-react";
+import { createElement, useEffect, type ReactNode } from "react";
 import { appStore } from "../../core/appStore/store";
+import { type VersionCheckState } from "./updateStore";
+import { type Config } from "../../core/configType";
 
 export function UpdateNotice({}): ReactNode {
   const isUpdateModalOpen = appStore((store) => store.state.update.isModalOpen);
@@ -22,8 +24,12 @@ export function UpdateNotice({}): ReactNode {
     return createElement("div");
   }
 
-  const { setIsUpdateModalOpen, handleDismissUpdate, checkForUpdate } =
-    appStore.getState().actions.update;
+  const {
+    setIsUpdateModalOpen,
+    handleDismissUpdate,
+    fetchChangelogContent: checkForChangelog,
+    fetchUpdateStatus: checkForUpdate,
+  } = appStore.getState().actions.update;
 
   useEffect(() => {
     switch (versionCheckState.state) {
@@ -31,6 +37,9 @@ export function UpdateNotice({}): ReactNode {
         checkForUpdate();
         break;
       case "available":
+        checkForChangelog();
+        break;
+      case "available_with_changelog":
         setIsUpdateModalOpen(true);
         break;
       default:
@@ -45,6 +54,7 @@ export function UpdateNotice({}): ReactNode {
       onClose: () => setIsUpdateModalOpen(false),
       title: "Update Available",
       centered: true,
+      trapFocus: false,
     },
     createElement(
       Stack,
@@ -63,33 +73,61 @@ export function UpdateNotice({}): ReactNode {
           `Current version: ${config.currentVersion}`,
           createElement("br"),
           `Latest version: ${
+            versionCheckState.state === "available_with_changelog" ||
             versionCheckState.state === "available"
               ? versionCheckState.version
-              : config.currentVersion
+              : "ERROR"
           }`,
         ]
       ),
-      createElement(
-        Group,
-        { justify: "space-between", mt: "md" },
-        createElement(Button<"button">, {
-          onClick: handleDismissUpdate,
-          leftSection: createElement(IconCircleX, { size: 16 }),
-          variant: "subtle",
-          color: "gray",
-          children: "Dismiss",
-        }),
-        createElement(Button<"a">, {
-          component: "a",
-          href: "https://github.com/spicy-labs/studio-toolbar-plus/",
-          target: "_blank",
-          rightSection: createElement(IconExternalLink, { size: 16 }),
-          color: "blue",
-          children: "Download Update",
-        })
-      )
+      ...createBodyChildrenNodes(versionCheckState, handleDismissUpdate, config)
     )
   );
+}
+
+function createBodyChildrenNodes(
+  versionCheckState: VersionCheckState,
+  handleDismissUpdate: () => void,
+  config: Config
+): ReactNode[] {
+  const nodes = [];
+
+  if (versionCheckState.state === "available_with_changelog") {
+    nodes.push(
+      createElement(Text<"div">, {
+        style: {
+          whiteSpace: "pre-wrap",
+          maxHeight: "300px",
+          overflowY: "auto",
+        },
+        children: versionCheckState.changelog,
+      })
+    );
+  }
+
+  nodes.push(
+    createElement(
+      Group,
+      { justify: "space-between", mt: "md" },
+      createElement(Button<"button">, {
+        onClick: handleDismissUpdate,
+        leftSection: createElement(IconCircleX, { size: 16 }),
+        variant: "subtle",
+        color: "gray",
+        children: "Dismiss",
+      }),
+      createElement(Button<"a">, {
+        component: "a",
+        href: config.updateDownloadUrl,
+        target: "_blank",
+        rightSection: createElement(IconExternalLink, { size: 16 }),
+        color: "blue",
+        children: "Download Update",
+      })
+    )
+  );
+
+  return nodes;
 }
 
 export default UpdateNotice;
