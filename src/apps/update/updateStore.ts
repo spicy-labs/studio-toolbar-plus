@@ -191,7 +191,7 @@ async function checkAndGetUpdate(
   config: Config
 ): Promise<Result<[boolean, string], Error>> {
   return Result.try(async () => {
-    const manifestResp = await fetch(config.updateCheckUrl);
+    const manifestResp = await fetch(config.urls.updateCheckUrl);
 
     if (!manifestResp.ok) {
       return Result.error(
@@ -247,7 +247,7 @@ async function checkAndGetUpdate(
 
 async function getChangelog(config: Config) {
   return Result.try(async () => {
-    const changelogResp = await fetch(config.changelogUrl);
+    const changelogResp = await fetch(config.urls.changelogUrl);
 
     if (!changelogResp.ok) {
       return Result.error(

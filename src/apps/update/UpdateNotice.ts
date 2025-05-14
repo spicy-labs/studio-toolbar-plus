@@ -118,7 +118,7 @@ function createBodyChildrenNodes(
       }),
       createElement(Button<"a">, {
         component: "a",
-        href: config.updateDownloadUrl,
+        href: config.urls.updateDownloadUrl,
         target: "_blank",
         rightSection: createElement(IconExternalLink, { size: 16 }),
         color: "blue",
