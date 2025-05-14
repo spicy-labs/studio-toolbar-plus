@@ -9,7 +9,11 @@ import { setEnableActions } from "./studio/actionHandler.ts";
 import { getStudio, type SDKExtended } from "./studio/studioAdapter.ts";
 import { parseConfig, type Config } from "./core/configType.ts";
 import { Result } from "typescript-result";
-import { createElement } from "react";
+import { createElement, Fragment } from "react";
+import { enableMapSet } from "immer";
+
+// Allow immer to use Map and Set
+enableMapSet();
 
 // Create a theme for Mantine
 const theme = createTheme({
@@ -24,11 +28,19 @@ declare global {
   interface Window {
     toolbarInstance?: Root;
     SDK: SDKType;
+    studioToolbar: {
+      getToolbarStore: () => void;
+      raiseToolbarAlert: (message: string) => void;
+    };
   }
 }
 
-//@ts-ignore
-window.getToolbarStore = () => console.log(appStore.getState());
+window.studioToolbar = {
+  getToolbarStore: () => console.log(appStore.getState()),
+  raiseToolbarAlert: (message: string) => {
+    appStore.getState().actions.alerts.raiseAlert(new Error(message));
+  }
+};
 
 async function initToolbar(studio: SDKExtended, config: Config) {
   console.log("Rendering toolbar...");
@@ -43,8 +55,13 @@ async function initToolbar(studio: SDKExtended, config: Config) {
 
     // Render the toolbar
     window.toolbarInstance.render(
-      createElement(MantineProvider, 
-        createElement(Toolbar, { config })
+      createElement(
+        MantineProvider,
+        { theme },
+        createElement(Fragment, {}, [
+          createElement(Toolbar, { config }),
+          createElement(AlertsContainer),
+        ])
       )
     );
   }
@@ -86,7 +103,9 @@ async function waitForStudioReady(
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(
-        Result.error(new Error(`Studio not ready after ${timeout/1000} seconds`))
+        Result.error(
+          new Error(`Studio not ready after ${timeout / 1000} seconds`)
+        )
       );
     }, timeout);
     studio.config.events.onParagraphStylesChanged.registerCallback(() => {
