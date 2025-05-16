@@ -4,6 +4,9 @@ import { Result } from "typescript-result";
 import UpdateNotice from "../../apps/update/UpdateNotice";
 import { Alerts } from "../alerts/Alerts";
 import { appStore } from "../appStore/store";
+import { VariableMapper } from "../../apps/variableMapper/VariableMapper";
+import { ActionIcon, Box, Group, Tooltip, Transition } from "@mantine/core";
+import { getIcon as getVariableMapperIcon } from "../../apps/variableMapper/VariableMapper";
 
 type ToolarProps = {
   config: Config;
@@ -18,10 +21,68 @@ export function Toolbar({ config }: ToolarProps): ReactNode {
 
   if (!configState) {
     return createElement("div", {}, "Loading...");
-  } else {
-    return createElement(Fragment, {}, [
-      createElement(UpdateNotice),
-      createElement(Alerts),
-    ]);
   }
+
+  const toolbarContent = createElement(Transition, {
+    mounted: true,
+    transition: "slide-down",
+    duration: 300,
+    timingFunction: "ease",
+    children: () =>
+      createElement(
+        Box<"div">,
+        {
+          style: {
+            position: "fixed",
+            top: 0,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            width: "60%",
+            backgroundColor: "#25262b",
+            padding: "10px",
+            display: "flex",
+            justifyContent: "center",
+            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)",
+            borderBottom: "1px solid #373A40",
+          },
+        },
+        createElement(
+          Group,
+          {
+            gap: "lg",
+          },
+          [
+            // Variable Mapper Button
+            createElement(Tooltip, {
+              label: "Variable Mapper",
+              position: "bottom",
+              children: createElement(
+                ActionIcon<"button">,
+                {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  onClick: () => {
+                    appStore
+                      .getState()
+                      .actions.variableMapper.setIsVariableMapperModalOpen(
+                        true
+                      );
+                  },
+                },
+                getVariableMapperIcon()
+              ),
+            }),
+          ]
+        )
+      ),
+  });
+
+  return createElement(Fragment, {}, [
+    toolbarContent,
+    createElement(UpdateNotice),
+    createElement(Alerts),
+    createElement(VariableMapper),
+  ]);
 }
