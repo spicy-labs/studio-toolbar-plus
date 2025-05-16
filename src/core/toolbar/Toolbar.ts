@@ -14,6 +14,12 @@ type ToolarProps = {
 
 export function Toolbar({ config }: ToolarProps): ReactNode {
   const configState = appStore((store) => store.state.toolbar.config);
+  const isToolbarVisible = appStore(
+    (store) => store.state.toolbar.isToolbarVisible,
+  );
+  const isToolbarDisabled = appStore(
+    (store) => store.state.toolbar.isToolbarDisabled,
+  );
 
   useEffect(() => {
     appStore.getState().actions.toolbar.setConfig(config);
@@ -24,7 +30,7 @@ export function Toolbar({ config }: ToolarProps): ReactNode {
   }
 
   const toolbarContent = createElement(Transition, {
-    mounted: true,
+    mounted: isToolbarVisible && !isToolbarDisabled,
     transition: "slide-down",
     duration: 300,
     timingFunction: "ease",
@@ -67,15 +73,15 @@ export function Toolbar({ config }: ToolarProps): ReactNode {
                     appStore
                       .getState()
                       .actions.variableMapper.setIsVariableMapperModalOpen(
-                        true
+                        true,
                       );
                   },
                 },
-                getVariableMapperIcon()
+                getVariableMapperIcon(),
               ),
             }),
-          ]
-        )
+          ],
+        ),
       ),
   });
 

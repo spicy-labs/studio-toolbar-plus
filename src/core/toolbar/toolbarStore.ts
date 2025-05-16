@@ -3,28 +3,34 @@ import type { Set, Get, Store } from "../appStore/storeTypes";
 
 type ToolbarState = {
   isToolbarVisible: boolean;
+  isToolbarDisabled: boolean;
   config: Config | null;
-}
+};
 
 type ToolbarActions = {
   setConfig: (config: Config) => void;
   setToolbarVisible: (isVisible: boolean) => void;
-}
+  setToolbarDisabled: (isDisabled: boolean) => void;
+};
 
 export type ToolbarStore = {
   state: {
-    toolbar: ToolbarState
+    toolbar: ToolbarState;
   };
   actions: {
-    toolbar: ToolbarActions
+    toolbar: ToolbarActions;
   };
-}
+};
 
-export function initToolbarStore<T extends Store>(set: Set, get: Get, store: T): T & ToolbarStore {
-  if ('toolbar' in store.state && 'toolbar' in store.actions) {
+export function initToolbarStore<T extends Store>(
+  set: Set,
+  get: Get,
+  store: T,
+): T & ToolbarStore {
+  if ("toolbar" in store.state && "toolbar" in store.actions) {
     return store as T & ToolbarStore;
   }
-  
+
   const updatedStore = {
     state: {
       ...store.state,
@@ -42,6 +48,7 @@ export function initToolbarStore<T extends Store>(set: Set, get: Get, store: T):
 function initToolbarState(): ToolbarState {
   return {
     isToolbarVisible: false,
+    isToolbarDisabled: false,
     config: null,
   };
 }
@@ -55,6 +62,10 @@ function initToolbarActions(set: Set, get: Get): ToolbarActions {
     setToolbarVisible: (isVisible) =>
       set((store) => {
         store.state.toolbar.isToolbarVisible = isVisible;
+      }),
+    setToolbarDisabled: (isDisabled) =>
+      set((store) => {
+        store.state.toolbar.isToolbarDisabled = isDisabled;
       }),
   };
 }
