@@ -6,19 +6,31 @@ import {
 } from "../../apps/update/updateStore";
 import { initToolbarStore, type ToolbarStore } from "../toolbar/toolbarStore";
 import { initAlertsStore, type AlertsStore } from "../alerts/alertsStore";
+import {
+  initVariableMapperStore,
+  type VariableMapperStore,
+} from "../../apps/variableMapper/variableMapperStore";
 import type { Store } from "./storeTypes";
 
-export type AppStore = Store & UpdateStore & ToolbarStore & AlertsStore;
+export type AppStore = Store &
+  UpdateStore &
+  ToolbarStore &
+  AlertsStore &
+  VariableMapperStore;
 
 export const appStore = create<AppStore>()(
   immer((set, get) =>
     initAlertsStore(
       set,
       get,
-      initUpdateStore(
+      initVariableMapperStore(
         set,
         get,
-        initToolbarStore(set, get, { state: {}, actions: {} })
+        initUpdateStore(
+          set,
+          get,
+          initToolbarStore(set, get, { state: {}, actions: {} })
+        )
       )
     )
   )
