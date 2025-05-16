@@ -67,4 +67,3 @@ export function setEnableActions(studio: SDK, value: boolean) {
     studio.action.disable();
   }
 }
-

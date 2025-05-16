@@ -57,23 +57,20 @@ function initAlertsState(): AlertsState {
 function initAlertsActions(set: Set, get: Get): AlertsActions {
   // During hot-reloading (which we don't use) this could lead to orphaned timeouts
   const timeoutMap = new Map<string, number>();
-  
+
   return {
     raiseAlert: (errorOrResult) => {
       const id = generateRandomId();
       const message = extractErrorMessage(errorOrResult);
       const timestamp = Date.now();
-      
+
       // Set the alert in the store
       set((store) => {
         store.state.alerts.alerts.set(id, { id, message, timestamp });
       });
 
-      console.log("ARASIE")
-      
       // Create a single timeout for this alert
       const timeout = window.setTimeout(() => {
-        console.log("TIMEY")
         if (get().state.alerts.alerts.has(id)) {
           set((store) => {
             store.state.alerts.alerts.delete(id);
@@ -82,7 +79,7 @@ function initAlertsActions(set: Set, get: Get): AlertsActions {
         // Clean up the timeout reference
         timeoutMap.delete(id);
       }, 9000);
-      
+
       // Store the timeout reference
       timeoutMap.set(id, timeout);
     },
@@ -92,7 +89,7 @@ function initAlertsActions(set: Set, get: Get): AlertsActions {
         window.clearTimeout(timeoutMap.get(id));
         timeoutMap.delete(id);
       }
-      
+
       set((store) => {
         store.state.alerts.alerts.delete(id);
       });

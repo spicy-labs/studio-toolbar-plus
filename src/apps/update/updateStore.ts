@@ -208,8 +208,6 @@ async function checkAndGetUpdate(
     // Maybe add a type for manifest.json
     const packageJson = await manifestResp.json();
 
-    console.log("Package JSON:", packageJson);
-
     const githubVersion = packageJson.version;
 
     const [githubMajor, githubMinor, githubPatch] = githubVersion

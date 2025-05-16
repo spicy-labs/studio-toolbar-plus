@@ -16,7 +16,7 @@ import { type Config } from "../../core/configType";
 export function UpdateNotice({}): ReactNode {
   const isUpdateModalOpen = appStore((store) => store.state.update.isModalOpen);
   const versionCheckState = appStore(
-    (store) => store.state.update.versionCheckState
+    (store) => store.state.update.versionCheckState,
   );
   const config = appStore((store) => store.state.toolbar.config);
 
@@ -78,17 +78,21 @@ export function UpdateNotice({}): ReactNode {
               ? versionCheckState.version
               : "ERROR"
           }`,
-        ]
+        ],
       ),
-      ...createBodyChildrenNodes(versionCheckState, handleDismissUpdate, config)
-    )
+      ...createBodyChildrenNodes(
+        versionCheckState,
+        handleDismissUpdate,
+        config,
+      ),
+    ),
   );
 }
 
 function createBodyChildrenNodes(
   versionCheckState: VersionCheckState,
   handleDismissUpdate: () => void,
-  config: Config
+  config: Config,
 ): ReactNode[] {
   const nodes = [];
 
@@ -101,7 +105,7 @@ function createBodyChildrenNodes(
           overflowY: "auto",
         },
         children: versionCheckState.changelog,
-      })
+      }),
     );
   }
 
@@ -123,8 +127,8 @@ function createBodyChildrenNodes(
         rightSection: createElement(IconExternalLink, { size: 16 }),
         color: "blue",
         children: "Download Update",
-      })
-    )
+      }),
+    ),
   );
 
   return nodes;

@@ -39,9 +39,9 @@ export function Alerts(): ReactNode {
             withCloseButton: true,
             onClose: () => dismissAlert(alert.id),
           },
-          alert.message
-        )
-      )
-    )
+          alert.message,
+        ),
+      ),
+    ),
   );
 }

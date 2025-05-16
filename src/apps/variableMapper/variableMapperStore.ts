@@ -20,7 +20,7 @@ export type VariableMapperStore = {
 export function initVariableMapperStore<T extends Store>(
   set: Set,
   get: Get,
-  store: T
+  store: T,
 ): T & VariableMapperStore {
   if ("variableMapper" in store.state && "variableMapper" in store.actions) {
     return store as T & VariableMapperStore;

@@ -10,13 +10,12 @@ export type Store = {
   };
 };
 
-
 export type Set = (
   nextStateOrUpdater:
     | AppStore
     | Partial<AppStore>
     | ((state: WritableDraft<AppStore>) => void),
-  shouldReplace?: false
+  shouldReplace?: false,
 ) => void;
 
 export type Get = () => AppStore;
