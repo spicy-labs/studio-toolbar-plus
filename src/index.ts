@@ -3,14 +3,13 @@ import { appStore } from "./core/appStore/store.ts";
 import type { default as SDKType } from "@chili-publish/studio-sdk";
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme } from "@mantine/core";
-import { Toolbar } from "./core/toolbar/Toolbar.ts";
-import { AlertsContainer } from "./components/AlertsContainer.tsx";
-import { setEnableActions } from "./studio/actionHandler.ts";
-import { getStudio, type SDKExtended } from "./studio/studioAdapter.ts";
 import { parseConfig, type Config } from "./core/configType.ts";
 import { Result } from "typescript-result";
 import { createElement, Fragment } from "react";
 import { enableMapSet } from "immer";
+import { getStudio, type SDKExtended } from "./studio/studioAdapter.ts";
+import { Toolbar } from "./core/toolbar/Toolbar.ts";
+import { setEnableActions } from "./studio/actionHandler.ts";
 
 // Allow immer to use Map and Set
 enableMapSet();
@@ -60,7 +59,6 @@ async function initToolbar(studio: SDKExtended, config: Config) {
         { theme },
         createElement(Fragment, {}, [
           createElement(Toolbar, { config }),
-          createElement(AlertsContainer),
         ])
       )
     );
