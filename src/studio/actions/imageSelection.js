@@ -11,7 +11,10 @@ export function imageSelectionScript(debug) {
 
     const layoutName = getSelectedLayoutName();
 
-    const layoutImageMapping = imageSelectionData[layoutName];
+    let layoutImageMapping = imageSelectionData[layoutName];
+    if (layoutImageMapping.ref == true) {
+      layoutImageMapping = imageSelectionData[layoutImageMapping.refTo];
+    }
 
     if (debug) {
       debugData.imageVars = imageVars;

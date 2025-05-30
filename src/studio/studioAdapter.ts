@@ -282,7 +282,13 @@ export async function saveLayoutMappingToAction(
   layoutMaps: LayoutMap[],
   doc: Doc,
 ) {
-  const actionMap = layoutMappingToActionMap(layoutMaps, doc);
+  const actionMapResult = layoutMappingToActionMap(layoutMaps, doc);
+ 
+  if (actionMapResult.isError()) {
+    return actionMapResult;
+  }
+
+  const actionMap = actionMapResult.value;
 
   const script =
     imageSelectionScript
