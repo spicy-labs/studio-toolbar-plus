@@ -6,11 +6,10 @@ import {
   Group,
   Button,
   Checkbox,
+  Loader,
+  Alert,
 } from "@mantine/core";
-import {
-  IconDownload,
-  IconUpload,
-} from "@tabler/icons-react";
+import { IconDownload, IconUpload, IconAlertCircle } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import {
   getCurrentDocumentState,
@@ -18,30 +17,48 @@ import {
 } from "../studio/documentHandler";
 import { getStudio } from "../studio/studioAdapter";
 import { ConnectorReplacementModal } from "./ConnectorReplacementModal";
-import type { Connector, ConnectorResponse, DocumentConnector } from "../types/connectorTypes";
+import type {
+  Connector,
+  ConnectorResponse,
+  DocumentConnector,
+} from "../types/connectorTypes";
+import type {
+  FontFamily,
+  FontMigrationProgress,
+  FontToMigrate,
+  FontFamiliesResponse,
+  FontStylesResponse,
+  FontUploadResponse,
+} from "../types/fontTypes";
 
 interface DownloadModalProps {
   opened: boolean;
   onClose: () => void;
 }
 
-
 export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const raiseError = appStore(store => store.raiseError);
+  const raiseError = appStore((store) => store.raiseError);
   const [replacementModalOpened, setReplacementModalOpened] = useState(false);
-  const [missingConnectors, setMissingConnectors] = useState<DocumentConnector[]>([]);
-  const [availableConnectors, setAvailableConnectors] = useState<Connector[]>([]);
+  const [missingConnectors, setMissingConnectors] = useState<
+    DocumentConnector[]
+  >([]);
+  const [availableConnectors, setAvailableConnectors] = useState<Connector[]>(
+    []
+  );
   const [pendingJsonContent, setPendingJsonContent] = useState<string>("");
   const [nameMatches, setNameMatches] = useState<Record<string, string>>({});
-  const [downloadTemplateFonts, setDownloadTemplateFonts] = useState(false);
+  const [useTemplatePackage, setUseTemplatePackage] = useState(false);
+  const [fontMigrationProgress, setFontMigrationProgress] =
+    useState<FontMigrationProgress | null>(null);
+  const [showPackageWarning, setShowPackageWarning] = useState(false);
 
   const handleDownload = async () => {
     try {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio"),
+          new Error(studioResult.error?.message || "Failed to get studio")
         );
         return;
       }
@@ -50,41 +67,48 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       if (!documentResult.isOk()) {
         raiseError(
           new Error(
-            documentResult.error?.message || "Failed to get document state",
-          ),
+            documentResult.error?.message || "Failed to get document state"
+          )
         );
         return;
       }
 
       // Get token and baseUrl from configuration - we'll need these for multiple operations
-      const token = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN"))
-        .parsedData;
-      const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API"))
-        .parsedData;
+      const token = (
+        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
+      ).parsedData;
+      const baseUrl = (
+        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
+      ).parsedData;
 
       // Get template ID from URL
       const urlPath = window.location.href;
       const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
-      let templateId = '';
-      let templateName = 'document';
+      let templateId = "";
+      let templateName = "document";
 
       if (templateIdMatch && templateIdMatch[1]) {
         templateId = templateIdMatch[1];
 
         // Get token and baseUrl from configuration
-        const token = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN"))
-          .parsedData;
-        const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API"))
-          .parsedData;
+        const token = (
+          await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
+        ).parsedData;
+        const baseUrl = (
+          await studioResult.value.configuration.getValue("ENVIRONMENT_API")
+        ).parsedData;
 
         try {
           // Fetch template details to get the name
-          const templateResponse = await fetch(`${baseUrl}templates/${templateId}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
+          const templateResponse = await fetch(
+            `${baseUrl}templates/${templateId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
             }
-          });
+          );
 
           if (templateResponse.ok) {
             const templateData = await templateResponse.json();
@@ -93,20 +117,42 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             }
           }
         } catch (error) {
-          console.warn('Failed to fetch template name:', error);
+          console.warn("Failed to fetch template name:", error);
           // Continue with default name if template fetch fails
         }
       }
 
+      // Prepare document data
+      let documentData = { ...documentResult.value } as any;
+      let fileName = `${templateName}.json`;
+
+      // If using template package, store token and baseUrl in properties and change file extension
+      if (useTemplatePackage) {
+        // Ensure properties object exists
+        if (!documentData.properties) {
+          documentData.properties = {};
+        }
+
+        // Store token and baseUrl in document properties
+        documentData.properties.token = token;
+        documentData.properties.baseUrl = baseUrl;
+
+        fileName = `${templateName}.packageJson`;
+
+        // Show package warning
+        setShowPackageWarning(true);
+        setTimeout(() => setShowPackageWarning(false), 5000); // Hide after 5 seconds
+      }
+
       // Create a blob from the document state
-      const jsonStr = JSON.stringify(documentResult.value, null, 2);
+      const jsonStr = JSON.stringify(documentData, null, 2);
       const blob = new Blob([jsonStr], { type: "application/json" });
 
       // Create a download link and trigger it
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${templateName}.json`;
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
 
@@ -116,113 +162,233 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         URL.revokeObjectURL(url);
       }, 0);
 
-      // Additional step for template fonts if checkbox is checked
-      if (downloadTemplateFonts) {
-        try {
-          // Extract font families from the document
-          // Using type assertion since we don't have exact type information
-          const docValue = documentResult.value as any;
-
-          if (docValue && docValue.stylekit && Array.isArray(docValue.stylekit.fontFamilies)) {
-            const fontFamilies = docValue.stylekit.fontFamilies;
-
-            // Prepare all font downloads first
-            const fontDownloads = [];
-
-            // Process each font family
-            for (const fontFamily of fontFamilies) {
-              // Process each font style in the font family
-              if (fontFamily && Array.isArray(fontFamily.fontStyles) && fontFamily.fontStyles.length > 0) {
-                for (const fontStyle of fontFamily.fontStyles) {
-                  // Get the font style ID
-                  const fontStyleId = fontStyle.fontStyleId;
-                  if (!fontStyleId) {
-                    console.warn('Font style ID is missing', fontStyle);
-                    continue;
-                  }
-
-                  // Add this font to the download queue
-                  fontDownloads.push({ fontStyleId, fontFamily: fontFamily.name });
-                }
-              }
-            }
-
-            // Close the modal after we've gathered all the font information
-            onClose();
-
-            // Now process all the downloads
-            for (const download of fontDownloads) {
-              try {
-                // Fetch font style details
-                const fontStyleResponse = await fetch(`${baseUrl}font-styles/${download.fontStyleId}`, {
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                  }
-                });
-
-                if (!fontStyleResponse.ok) {
-                  console.warn(`Failed to fetch font style details for ${download.fontStyleId}: ${fontStyleResponse.statusText}`);
-                  continue;
-                }
-
-                const fontStyleDetails = await fontStyleResponse.json();
-
-                // Download the font file
-                const fontDownloadResponse = await fetch(`${baseUrl}font-styles/${download.fontStyleId}/download`, {
-                  headers: {
-                    Authorization: `Bearer ${token}`
-                  }
-                });
-
-                if (!fontDownloadResponse.ok) {
-                  console.warn(`Failed to download font ${fontStyleDetails.fileName}: ${fontDownloadResponse.statusText}`);
-                  continue;
-                }
-
-                // Create a blob from the font file
-                const fontBlob = await fontDownloadResponse.blob();
-
-                // Create a download link and trigger it
-                const fontUrl = URL.createObjectURL(fontBlob);
-                const fontLink = document.createElement("a");
-                fontLink.href = fontUrl;
-                // Find the last dot and insert the font name before it
-                const lastDotIndex = fontStyleDetails.fileName.lastIndexOf('.');
-                const fileName = fontStyleDetails.fileName.slice(0, lastDotIndex) + "_" + fontStyleDetails.name + fontStyleDetails.fileName.slice(lastDotIndex);
-                fontLink.download = fileName;
-                document.body.appendChild(fontLink);
-                fontLink.click();
-
-                // Clean up
-                setTimeout(() => {
-                  document.body.removeChild(fontLink);
-                  URL.revokeObjectURL(fontUrl);
-                }, 100); // Slightly longer timeout to handle multiple downloads
-
-                // Add a small delay between downloads to prevent overwhelming the browser
-                await new Promise(resolve => setTimeout(resolve, 300));
-              } catch (error) {
-                console.warn(`Error downloading font ${download.fontStyleId} from family ${download.fontFamily}:`, error);
-              }
-            }
-          } else {
-            console.warn('No font families found in the document');
-            // Close the modal even if no fonts were found
-            onClose();
-          }
-        } catch (fontError) {
-          console.error("Error downloading template fonts:", fontError);
-          raiseError(new Error(`Error downloading template fonts: ${fontError instanceof Error ? fontError.message : String(fontError)}`));
-          // Close the modal even if there was an error
-          onClose();
-        }
-      } else {
-        // Close the modal if we're not downloading fonts
-        onClose();
-      }
+      // Close the modal
+      onClose();
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
+    }
+  };
+
+  // Font migration function
+  const migrateFonts = async (
+    sourceFontFamilies: FontFamily[],
+    sourceToken: string,
+    sourceBaseUrl: string,
+    targetToken: string,
+    targetBaseUrl: string
+  ) => {
+    try {
+      setFontMigrationProgress({
+        total: 0,
+        completed: 0,
+        status: "checking",
+      });
+
+      // Step 1: Get target font families
+      const targetFontsResponse = await fetch(
+        `${targetBaseUrl}font-families?sortBy=Name&sortOrder=asc`,
+        {
+          headers: {
+            Authorization: `Bearer ${targetToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!targetFontsResponse.ok) {
+        throw new Error(
+          `Failed to fetch target fonts: ${targetFontsResponse.statusText}`
+        );
+      }
+
+      const targetFontsData: FontFamiliesResponse =
+        await targetFontsResponse.json();
+      const fontsToMigrate: FontToMigrate[] = [];
+
+      // Step 2: Compare source and target fonts
+      for (const sourceFamily of sourceFontFamilies) {
+        const targetFamily = targetFontsData.data.find(
+          (tf) => tf.name === sourceFamily.name
+        );
+
+        if (targetFamily) {
+          // Family exists, check styles
+          const targetStylesResponse = await fetch(
+            `${targetBaseUrl}font-families/${targetFamily.id}/styles`,
+            {
+              headers: {
+                Authorization: `Bearer ${targetToken}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (targetStylesResponse.ok) {
+            const targetStylesData: FontStylesResponse =
+              await targetStylesResponse.json();
+
+            for (const sourceStyle of sourceFamily.fontStyles) {
+              const targetStyle = targetStylesData.data.find(
+                (ts) => ts.name === sourceStyle.name
+              );
+
+              if (!targetStyle) {
+                fontsToMigrate.push({
+                  sourceFamily,
+                  sourceStyle,
+                  targetExists: false,
+                });
+              }
+            }
+          }
+        } else {
+          // Family doesn't exist, add all styles
+          for (const sourceStyle of sourceFamily.fontStyles) {
+            fontsToMigrate.push({
+              sourceFamily,
+              sourceStyle,
+              targetExists: false,
+            });
+          }
+        }
+      }
+
+      // Step 3: Update progress with total count
+      setFontMigrationProgress({
+        total: fontsToMigrate.length,
+        completed: 0,
+        status: "downloading",
+      });
+
+      // Step 4: Migrate fonts
+      for (let i = 0; i < fontsToMigrate.length; i++) {
+        const fontToMigrate = fontsToMigrate[i];
+
+        setFontMigrationProgress({
+          total: fontsToMigrate.length,
+          completed: i,
+          status: "downloading",
+          current: `${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`,
+        });
+
+        try {
+          // Download font from source
+          const fontDownloadResponse = await fetch(
+            `${sourceBaseUrl}font-styles/${fontToMigrate.sourceStyle.fontStyleId}/download`,
+            {
+              headers: {
+                Authorization: `Bearer ${sourceToken}`,
+              },
+            }
+          );
+
+          if (!fontDownloadResponse.ok) {
+            console.warn(
+              `Failed to download font: ${fontDownloadResponse.statusText}`
+            );
+            continue;
+          }
+
+          const fontBlob = await fontDownloadResponse.blob();
+
+          // Upload font to target
+          const formData = new FormData();
+          formData.append(
+            "file",
+            fontBlob,
+            `${fontToMigrate.sourceFamily.name}-${fontToMigrate.sourceStyle.name}.ttf`
+          );
+
+          const uploadResponse = await fetch(
+            `${targetBaseUrl}font-styles/temp`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${targetToken}`,
+              },
+              body: formData,
+            }
+          );
+
+          if (!uploadResponse.ok) {
+            console.warn(`Failed to upload font: ${uploadResponse.statusText}`);
+            continue;
+          }
+
+          const uploadData: FontUploadResponse = await uploadResponse.json();
+
+          if (uploadData.data.preloadedData.length > 0) {
+            const preloadedFont = uploadData.data.preloadedData[0];
+
+            // Patch the font
+            const patchResponse = await fetch(
+              `${targetBaseUrl}font-styles/temp/${uploadData.batchId}`,
+              {
+                method: "PATCH",
+                headers: {
+                  Authorization: `Bearer ${targetToken}`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify([
+                  {
+                    fontStyleId: preloadedFont.id,
+                    familyName: fontToMigrate.sourceFamily.name,
+                    styleName: fontToMigrate.sourceStyle.name,
+                  },
+                ]),
+              }
+            );
+
+            if (patchResponse.ok) {
+              // Confirm the upload
+              const confirmResponse = await fetch(
+                `${targetBaseUrl}font-styles/temp/${uploadData.batchId}/confirm`,
+                {
+                  method: "POST",
+                  headers: {
+                    Authorization: `Bearer ${targetToken}`,
+                  },
+                }
+              );
+
+              if (!confirmResponse.ok) {
+                console.warn(
+                  `Failed to confirm font upload: ${confirmResponse.statusText}`
+                );
+              }
+            }
+          }
+        } catch (error) {
+          console.warn(
+            `Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}:`,
+            error
+          );
+        }
+      }
+
+      // Step 5: Complete
+      setFontMigrationProgress({
+        total: fontsToMigrate.length,
+        completed: fontsToMigrate.length,
+        status: "complete",
+      });
+
+      // Hide progress after 3 seconds
+      setTimeout(() => {
+        setFontMigrationProgress(null);
+      }, 3000);
+    } catch (error) {
+      setFontMigrationProgress({
+        total: 0,
+        completed: 0,
+        status: "error",
+        error: error instanceof Error ? error.message : String(error),
+      });
+
+      // Hide error after 5 seconds
+      setTimeout(() => {
+        setFontMigrationProgress(null);
+      }, 5000);
     }
   };
 
@@ -233,7 +399,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   };
 
   const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -248,51 +414,71 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
           // Parse the JSON to check for connectors
           const jsonData = JSON.parse(content);
 
+          // Check if this is a package file and has stored token/baseUrl
+          const isPackageFile = file.name.endsWith(".packageJson");
+          const hasStoredCredentials =
+            jsonData.properties?.token && jsonData.properties?.baseUrl;
+
           if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
             const studioResult = await getStudio();
             if (!studioResult.isOk()) {
               raiseError(
-                new Error(studioResult.error?.message || "Failed to get studio"),
+                new Error(studioResult.error?.message || "Failed to get studio")
               );
               return;
             }
 
             // Get token and baseUrl from configuration
-            const token = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN"))
-              .parsedData;
-            const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API"))
-              .parsedData;
+            const token = (
+              await studioResult.value.configuration.getValue(
+                "GRAFX_AUTH_TOKEN"
+              )
+            ).parsedData;
+            const baseUrl = (
+              await studioResult.value.configuration.getValue("ENVIRONMENT_API")
+            ).parsedData;
 
             // Fetch connectors from API
             try {
               const response = await fetch(`${baseUrl}connectors`, {
                 headers: {
                   Authorization: `Bearer ${token}`,
-                  'Content-Type': 'application/json'
-                }
+                  "Content-Type": "application/json",
+                },
               });
 
               if (!response.ok) {
-                throw new Error(`Failed to fetch connectors: ${response.statusText}`);
+                throw new Error(
+                  `Failed to fetch connectors: ${response.statusText}`
+                );
               }
 
-              const connectorResponse: ConnectorResponse = await response.json();
+              const connectorResponse: ConnectorResponse =
+                await response.json();
               setAvailableConnectors(connectorResponse.data);
 
               // Check for missing connectors
-              const documentConnectors = jsonData.connectors as DocumentConnector[];
+              const documentConnectors =
+                jsonData.connectors as DocumentConnector[];
               const missingConnectorsList: DocumentConnector[] = [];
               const nameMatchesMap: Record<string, string> = {};
 
               // First check for exact ID matches
               for (const docConnector of documentConnectors) {
-                if (docConnector.source.source === "grafx" && docConnector.source.id) {
+                if (
+                  docConnector.source.source === "grafx" &&
+                  docConnector.source.id
+                ) {
                   const sourceId = docConnector.source.id;
-                  const foundConnector = connectorResponse.data.find(c => c.id === sourceId);
+                  const foundConnector = connectorResponse.data.find(
+                    (c) => c.id === sourceId
+                  );
 
                   if (!foundConnector) {
                     // Try to find by name
-                    const nameMatch = connectorResponse.data.find(c => c.name === docConnector.name);
+                    const nameMatch = connectorResponse.data.find(
+                      (c) => c.name === docConnector.name
+                    );
 
                     if (nameMatch) {
                       // Store the name match for auto-selection in the modal
@@ -314,8 +500,8 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
 
               if (missingConnectorsList.length > 0) {
                 // Check if all missing connectors have name matches
-                const allHaveMatches = missingConnectorsList.every(connector =>
-                  nameMatchesMap[connector.id] !== undefined
+                const allHaveMatches = missingConnectorsList.every(
+                  (connector) => nameMatchesMap[connector.id] !== undefined
                 );
 
                 if (!allHaveMatches) {
@@ -328,25 +514,41 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
 
               // If no missing connectors or all have matches, update the JSON and load
               const updatedContent = JSON.stringify(jsonData);
-              await loadDocument(studioResult.value, updatedContent);
+              await loadDocument(
+                studioResult.value,
+                updatedContent,
+                isPackageFile && hasStoredCredentials
+              );
             } catch (error) {
-              raiseError(error instanceof Error ? error : new Error(String(error)));
+              raiseError(
+                error instanceof Error ? error : new Error(String(error))
+              );
             }
           } else {
             // No connectors in the JSON, proceed with normal loading
             const studioResult = await getStudio();
             if (!studioResult.isOk()) {
               raiseError(
-                new Error(studioResult.error?.message || "Failed to get studio"),
+                new Error(studioResult.error?.message || "Failed to get studio")
               );
               return;
             }
 
-            await loadDocument(studioResult.value, content);
+            await loadDocument(
+              studioResult.value,
+              content,
+              isPackageFile && hasStoredCredentials
+            );
           }
         } catch (parseError) {
           raiseError(
-            new Error(`Invalid JSON format: ${parseError instanceof Error ? parseError.message : String(parseError)}`)
+            new Error(
+              `Invalid JSON format: ${
+                parseError instanceof Error
+                  ? parseError.message
+                  : String(parseError)
+              }`
+            )
           );
         }
       };
@@ -360,22 +562,75 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       event.target.value = "";
     }
   };
-  const loadDocument = async (studio: any, content: string) => {
-    const loadResult = await loadDocumentFromJsonStr(
-      studio,
-      content,
-    );
-    if (!loadResult.isOk()) {
-      raiseError(
-        new Error(loadResult.error?.message || "Failed to load document"),
-      );
-      return;
-    }
+  const loadDocument = async (
+    studio: any,
+    content: string,
+    isPackageFile = false
+  ) => {
+    try {
+      const jsonData = JSON.parse(content);
 
-    onClose();
+      // Check if this is a package file with font migration needed
+      if (
+        isPackageFile &&
+        jsonData.properties?.token &&
+        jsonData.properties?.baseUrl
+      ) {
+        // Get current environment token and baseUrl
+        const targetToken = (
+          await studio.configuration.getValue("GRAFX_AUTH_TOKEN")
+        ).parsedData;
+        const targetBaseUrl = (
+          await studio.configuration.getValue("ENVIRONMENT_API")
+        ).parsedData;
+
+        // Extract source credentials
+        const sourceToken = jsonData.properties.token;
+        const sourceBaseUrl = jsonData.properties.baseUrl;
+
+        // Check if we have font families to migrate
+        if (
+          jsonData.stylekit?.fontFamilies &&
+          Array.isArray(jsonData.stylekit.fontFamilies)
+        ) {
+          const sourceFontFamilies = jsonData.stylekit
+            .fontFamilies as FontFamily[];
+
+          if (sourceFontFamilies.length > 0) {
+            // Start font migration
+            await migrateFonts(
+              sourceFontFamilies,
+              sourceToken,
+              sourceBaseUrl,
+              targetToken,
+              targetBaseUrl
+            );
+          }
+        }
+
+        // Remove the stored credentials before loading
+        delete jsonData.properties.token;
+        delete jsonData.properties.baseUrl;
+        content = JSON.stringify(jsonData);
+      }
+
+      const loadResult = await loadDocumentFromJsonStr(studio, content);
+      if (!loadResult.isOk()) {
+        raiseError(
+          new Error(loadResult.error?.message || "Failed to load document")
+        );
+        return;
+      }
+
+      onClose();
+    } catch (error) {
+      raiseError(error instanceof Error ? error : new Error(String(error)));
+    }
   };
 
-  const handleConnectorReplacements = async (replacements: { original: string; replacement: string }[]) => {
+  const handleConnectorReplacements = async (
+    replacements: { original: string; replacement: string }[]
+  ) => {
     try {
       const jsonData = JSON.parse(pendingJsonContent);
 
@@ -385,7 +640,9 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
 
         for (const docConnector of documentConnectors) {
           if (docConnector.source.source === "grafx") {
-            const replacement = replacements.find(r => r.original === docConnector.id);
+            const replacement = replacements.find(
+              (r) => r.original === docConnector.id
+            );
             if (replacement) {
               docConnector.source.id = replacement.replacement;
             }
@@ -396,13 +653,17 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         const studioResult = await getStudio();
         if (!studioResult.isOk()) {
           raiseError(
-            new Error(studioResult.error?.message || "Failed to get studio"),
+            new Error(studioResult.error?.message || "Failed to get studio")
           );
           return;
         }
 
         const updatedContent = JSON.stringify(jsonData);
-        await loadDocument(studioResult.value, updatedContent);
+        // Check if original file was a package file
+        const isPackageFile =
+          pendingJsonContent.includes('"token"') &&
+          pendingJsonContent.includes('"baseUrl"');
+        await loadDocument(studioResult.value, updatedContent, isPackageFile);
       }
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -439,12 +700,66 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               </Button>
             </Group>
             <Checkbox
-              label="Download template fonts"
-              checked={downloadTemplateFonts}
-              onChange={(event) => setDownloadTemplateFonts(event.currentTarget.checked)}
+              label="Use Template Package"
+              checked={useTemplatePackage}
+              onChange={(event) =>
+                setUseTemplatePackage(event.currentTarget.checked)
+              }
             />
           </Stack>
         </Stack>
+
+        {/* Package Warning */}
+        {showPackageWarning && (
+          <Alert
+            icon={<IconAlertCircle size="1rem" />}
+            title="Package Warning"
+            color="orange"
+            style={{ marginTop: "1rem" }}
+          >
+            Package is only active for a short-period.
+          </Alert>
+        )}
+
+        {/* Font Migration Progress */}
+        {fontMigrationProgress && (
+          <Alert
+            icon={
+              fontMigrationProgress.status === "error" ? (
+                <IconAlertCircle size="1rem" />
+              ) : (
+                <Loader size="sm" />
+              )
+            }
+            title={
+              fontMigrationProgress.status === "checking"
+                ? "Checking Fonts"
+                : fontMigrationProgress.status === "downloading" ||
+                  fontMigrationProgress.status === "uploading"
+                ? `Number of Fonts To Move: ${fontMigrationProgress.completed}/${fontMigrationProgress.total}`
+                : fontMigrationProgress.status === "complete"
+                ? "Font Migration Complete"
+                : "Font Migration Error"
+            }
+            color={
+              fontMigrationProgress.status === "error"
+                ? "red"
+                : fontMigrationProgress.status === "complete"
+                ? "green"
+                : "blue"
+            }
+            style={{ marginTop: "1rem" }}
+          >
+            {fontMigrationProgress.current && (
+              <Text size="sm">Current: {fontMigrationProgress.current}</Text>
+            )}
+            {fontMigrationProgress.error && (
+              <Text size="sm" style={{ color: "red" }}>
+                {fontMigrationProgress.error}
+              </Text>
+            )}
+          </Alert>
+        )}
       </Modal>
 
       {/* Hidden file input for upload */}
@@ -452,7 +767,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         type="file"
         ref={fileInputRef}
         style={{ display: "none" }}
-        accept=".json"
+        accept=".json,.packageJson"
         onChange={handleFileChange}
       />
 
@@ -468,4 +783,3 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
     </>
   );
 }
-
