@@ -1,165 +1,171 @@
 import type { Doc } from "../types/docStateTypes";
 import type { LayoutMap, ImageVariable } from "../types/layoutConfigTypes";
+import { Result } from "typescript-result";
 
-export function layoutMappingToActionMap(layoutMaps: LayoutMap[], doc: Doc) {
+export function layoutMappingToActionMap(
+  layoutMaps: LayoutMap[],
+  doc: Doc
+): Result<Record<string, Record<string, any>>, Error> {
   const actionMap: Record<string, Record<string, any>> = {};
 
   // Process each layout map
   layoutMaps.forEach((layoutMap) => {
-    // For each layout ID in the layout map
-    layoutMap.layoutIds.forEach((layoutId) => {
-      // Find the layout in the document by ID
-      const layout = doc.layouts.find((l) => l.id === layoutId);
+    const firstLayoutId = layoutMap.layoutIds[0];
 
-      if (layout) {
-        // Use the layout name as the key in the action map
-        const layoutName = layout.name;
+    const firstLayout = doc.layouts.find((l) => l.id === firstLayoutId);
 
-        // Initialize the layout entry if it doesn't exist
-        if (!actionMap[layoutName]) {
-          actionMap[layoutName] = {};
-        }
+    if (firstLayout == null) {
+      return Result.error(new Error(`Layout ${firstLayoutId} not found`));
+    }
 
-        // Process each image variable in the layout map
-        layoutMap.variables.forEach((imageVar: ImageVariable) => {
-          // Find the corresponding variable in the document
-          const docVariable = doc.variables.find((v) => v.id === imageVar.id);
+    // Use the layout name as the key in the action map
+    const layoutName = firstLayout.name;
 
-          if (docVariable) {
-            actionMap[layoutName][docVariable.name] = {};
+    // Initialize the layout entry if it doesn't exist
+    if (!actionMap[layoutName]) {
+      actionMap[layoutName] = {ref:false};
+    }
 
-            // Process each dependent group for this image variable
-            imageVar.dependentGroup.forEach((group) => {
-              // Get the names of all dependent variables
-              const dependentNames: string[] = [];
+    // Process each image variable in the layout map
+    layoutMap.variables.forEach((imageVar: ImageVariable) => {
+      // Find the corresponding variable in the document
+      const docVariable = doc.variables.find((v) => v.id === imageVar.id);
 
-              // Map to store variable names by their IDs for later use
-              const variableNamesById: Record<string, string> = {};
+      if (docVariable) {
+        actionMap[layoutName][docVariable.name] = {};
 
-              // Process each dependent in the group
-              group.dependents.forEach((dependent) => {
-                // Find the variable in the document by ID
-                const dependentVar = doc.variables.find(
-                  (v) => v.id === dependent.variableId,
-                );
+        // Process each dependent group for this image variable
+        imageVar.dependentGroup.forEach((group) => {
+          // Get the names of all dependent variables
+          const dependentNames: string[] = [];
 
-                if (dependentVar) {
-                  // Add the variable name to our list
-                  dependentNames.push(dependentVar.name);
+          // Map to store variable names by their IDs for later use
+          const variableNamesById: Record<string, string> = {};
 
-                  // Store the variable name by ID for later reference
-                  variableNamesById[dependent.variableId] = dependentVar.name;
-                }
-              });
+          // Process each dependent in the group
+          group.dependents.forEach((dependent) => {
+            // Find the variable in the document by ID
+            const dependentVar = doc.variables.find(
+              (v) => v.id === dependent.variableId
+            );
 
-              // Skip if no dependent names were found
-              if (dependentNames.length === 0) return;
+            if (dependentVar) {
+              // Add the variable name to our list
+              dependentNames.push(dependentVar.name);
 
-              // Create a key by joining dependent names with "|"
-              const dependentKey = dependentNames.join("|");
+              // Store the variable name by ID for later reference
+              variableNamesById[dependent.variableId] = dependentVar.name;
+            }
+          });
 
-              // Initialize the dependent key entry if it doesn't exist
-              if (!actionMap[layoutName][docVariable.name][dependentKey]) {
-                actionMap[layoutName][docVariable.name][dependentKey] = {};
-              }
+          // Skip if no dependent names were found
+          if (dependentNames.length === 0) return;
 
-              // Generate all possible combinations of dependent values
-              // First, create an array of arrays containing all possible values for each dependent
-              const allPossibleValues = group.dependents.map((dependent) => {
-                return dependent.values;
-              });
+          // Create a key by joining dependent names with "|"
+          const dependentKey = dependentNames.join("|");
 
-              // Generate all combinations of these values
-              const generateCombinations = (
-                arrays: string[][],
-                current: string[] = [],
-                index: number = 0,
-              ): string[][] => {
-                if (index === arrays.length) {
-                  return [current];
-                }
-
-                const result: string[][] = [];
-                for (const value of arrays[index]) {
-                  result.push(
-                    ...generateCombinations(
-                      arrays,
-                      [...current, value],
-                      index + 1,
-                    ),
-                  );
-                }
-                return result;
-              };
-
-              const valueCombinations = generateCombinations(allPossibleValues);
-
-              // For each combination of values
-              valueCombinations.forEach((combination) => {
-                // Create a key by joining the values with "|"
-                const valueKey = combination.join("|");
-
-                // Initialize the value key entry if it doesn't exist
-                if (
-                  !actionMap[layoutName][docVariable.name][dependentKey][
-                    valueKey
-                  ]
-                ) {
-                  actionMap[layoutName][docVariable.name][dependentKey][
-                    valueKey
-                  ] = { value: "" };
-                }
-
-                // Process the variable values to create the concatenated string
-                const valueString = group.variableValue
-                  .map((varValue) => {
-                    if (typeof varValue === "string") {
-                      return varValue;
-                    } else if (varValue.id) {
-                      // Find the variable in the document by ID
-                      const valueVar = doc.variables.find(
-                        (v) => v.id === varValue.id,
-                      );
-                      if (valueVar) {
-                        return `\${${valueVar.name}}`;
-                      }
-                    }
-                    return "";
-                  })
-                  .join("");
-
-                console.log("VALUES", group.variableValue);
-
-                const transforms = group.variableValue
-                  .filter((varValue) => typeof varValue != "string")
-                  .reduce((obj: Record<string, any>, varValue) => {
-                    if (varValue.id) {
-                      // Find the variable in the document by ID
-                      const valueVar = doc.variables.find(
-                        (v) => v.id === varValue.id,
-                      );
-                      if (valueVar) {
-                        obj[valueVar.name] = varValue.transform;
-                      }
-                    }
-                    return obj;
-                  }, {});
-
-                // Set the value property
-                actionMap[layoutName][docVariable.name][dependentKey][
-                  valueKey
-                ].value = valueString;
-
-                actionMap[layoutName][docVariable.name][dependentKey][
-                  valueKey
-                ].transforms = transforms;
-              });
-            });
+          // Initialize the dependent key entry if it doesn't exist
+          if (!actionMap[layoutName][docVariable.name][dependentKey]) {
+            actionMap[layoutName][docVariable.name][dependentKey] = {};
           }
+
+          // Generate all possible combinations of dependent values
+          // First, create an array of arrays containing all possible values for each dependent
+          const allPossibleValues = group.dependents.map((dependent) => {
+            return dependent.values;
+          });
+
+          // Generate all combinations of these values
+          const generateCombinations = (
+            arrays: string[][],
+            current: string[] = [],
+            index: number = 0
+          ): string[][] => {
+            if (index === arrays.length) {
+              return [current];
+            }
+
+            const result: string[][] = [];
+            for (const value of arrays[index]) {
+              result.push(
+                ...generateCombinations(arrays, [...current, value], index + 1)
+              );
+            }
+            return result;
+          };
+
+          const valueCombinations = generateCombinations(allPossibleValues);
+
+          // For each combination of values
+          valueCombinations.forEach((combination) => {
+            // Create a key by joining the values with "|"
+            const valueKey = combination.join("|");
+
+            // Initialize the value key entry if it doesn't exist
+            if (
+              !actionMap[layoutName][docVariable.name][dependentKey][valueKey]
+            ) {
+              actionMap[layoutName][docVariable.name][dependentKey][valueKey] =
+                { value: "" };
+            }
+
+            // Process the variable values to create the concatenated string
+            const valueString = group.variableValue
+              .map((varValue) => {
+                if (typeof varValue === "string") {
+                  return varValue;
+                } else if (varValue.id) {
+                  // Find the variable in the document by ID
+                  const valueVar = doc.variables.find(
+                    (v) => v.id === varValue.id
+                  );
+                  if (valueVar) {
+                    return `\${${valueVar.name}}`;
+                  }
+                }
+                return "";
+              })
+              .join("");
+
+            console.log("VALUES", group.variableValue);
+
+            const transforms = group.variableValue
+              .filter((varValue) => typeof varValue != "string")
+              .reduce((obj: Record<string, any>, varValue) => {
+                if (varValue.id) {
+                  // Find the variable in the document by ID
+                  const valueVar = doc.variables.find(
+                    (v) => v.id === varValue.id
+                  );
+                  if (valueVar) {
+                    obj[valueVar.name] = varValue.transform;
+                  }
+                }
+                return obj;
+              }, {});
+
+            // Set the value property
+            actionMap[layoutName][docVariable.name][dependentKey][
+              valueKey
+            ].value = valueString;
+
+            actionMap[layoutName][docVariable.name][dependentKey][
+              valueKey
+            ].transforms = transforms;
+          });
         });
       }
     });
+    for (let i = 1; i < layoutMap.layoutIds.length; i++) {
+      const layoutId = layoutMap.layoutIds[i];
+      const layout = doc.layouts.find((l) => l.id === layoutId);
+      if (layout == null) {
+        return Result.error(new Error(`Layout ${layoutId} not found`));
+      }
+      
+      actionMap[layout.name] = { ref: true, refTo: layoutName };
+    }
   });
 
-  return actionMap;
+  return Result.ok(actionMap);
 }
