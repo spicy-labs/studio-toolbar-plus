@@ -19,12 +19,14 @@ import {
   IconPhotoCog,
   IconListTree,
   IconPlaystationSquare,
+  IconSparkles,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayoutModal";
 import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
 import { DownloadModal } from "./DownloadModal";
+import { MagicLayoutsModal } from "./MagicLayoutsModal";
 import { saveLayoutSizingToAction } from "../studio/studioAdapter";
 
 export function Toolbar() {
@@ -33,20 +35,25 @@ export function Toolbar() {
     useState(false);
   const [isConvertModalOpen, setIsConvertModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] =
+    useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] =
+    useState(false);
   const [isLayoutManagerOpen, setIsLayoutManagerOpen] = useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = useState(false); // State for the confirmation modal
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = useState(false); // State for the success modal
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] =
+    useState(false); // State for the confirmation modal
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] =
+    useState(false); // State for the success modal
   const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = useState(""); // State for the dynamic success message
   const [updateInfo, setUpdateInfo] = useState<{
     currentVersion: string;
     latestVersion: string;
   } | null>(null);
-const effects = appStore(store => store.effects);
-const raiseError = appStore(store => store.raiseError);
-const isToolbarEnabled = appStore(store => store.state.isToolbarEnabled);
-const disableToolbar = appStore(store => store.disableToolbar);
+  const effects = appStore((store) => store.effects);
+  const raiseError = appStore((store) => store.raiseError);
+  const isToolbarEnabled = appStore((store) => store.state.isToolbarEnabled);
+  const disableToolbar = appStore((store) => store.disableToolbar);
 
   const handleTestError = () => {
     raiseError(new Error("This is a test error message"));
@@ -69,7 +76,7 @@ const disableToolbar = appStore(store => store.disableToolbar);
       // Fallback for local storage if chrome API isn't available
       localStorage.setItem(
         "toolbarplus_last_notified_version",
-        updateInfo.latestVersion,
+        updateInfo.latestVersion
       );
     }
     setIsUpdateModalOpen(false);
@@ -146,6 +153,11 @@ const disableToolbar = appStore(store => store.disableToolbar);
     setIsLayoutManagerOpen(true);
   };
 
+  const handleMagicLayouts = () => {
+    setVisible(false);
+    setIsMagicLayoutsModalOpen(true);
+  };
+
   const handleAspectLock = () => {
     setIsAspectLockConfirmModalOpen(true); // Open the confirmation modal first
   };
@@ -153,13 +165,15 @@ const disableToolbar = appStore(store => store.disableToolbar);
   const handleConfirmAspectLock = async (value: boolean) => {
     setIsAspectLockConfirmModalOpen(false); // Close confirmation modal
     (await saveLayoutSizingToAction(value)).fold(
-      _ => {
+      (_) => {
         setAspectLockSuccessMessage(
-          value ? "Success in turning Aspect Ratio On" : "Success in turning Aspect Ratio Off"
+          value
+            ? "Success in turning Aspect Ratio On"
+            : "Success in turning Aspect Ratio Off"
         );
         setIsAspectLockSuccessModalOpen(true); // Open success modal on success
       },
-      err => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
+      (err) => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
     );
   };
 
@@ -191,7 +205,11 @@ const disableToolbar = appStore(store => store.disableToolbar);
             onMouseLeave={() => setVisible(false)}
           >
             <Group gap="lg">
-              <Tooltip label="Snapshot Image Position" position="bottom" withArrow>
+              <Tooltip
+                label="Snapshot Image Position"
+                position="bottom"
+                withArrow
+              >
                 <ActionIcon
                   variant="filled"
                   color="blue"
@@ -202,7 +220,11 @@ const disableToolbar = appStore(store => store.disableToolbar);
                   <IconCameraPlus size={20} />
                 </ActionIcon>
               </Tooltip>
-              <Tooltip label="Frame Position Viewer" position="bottom" withArrow>
+              <Tooltip
+                label="Frame Position Viewer"
+                position="bottom"
+                withArrow
+              >
                 <ActionIcon
                   variant="filled"
                   color="blue"
@@ -211,6 +233,17 @@ const disableToolbar = appStore(store => store.disableToolbar);
                   onClick={handleFramePositionViewer}
                 >
                   <IconPhotoCog size={20} />
+                </ActionIcon>
+              </Tooltip>
+              <Tooltip label="Magic Layouts" position="bottom" withArrow>
+                <ActionIcon
+                  variant="filled"
+                  color="purple"
+                  size="lg"
+                  aria-label="Magic Layouts"
+                  onClick={handleMagicLayouts}
+                >
+                  <IconSparkles size={20} />
                 </ActionIcon>
               </Tooltip>
               {/* <Tooltip label="Layout Manager" position="bottom" withArrow>
@@ -235,7 +268,7 @@ const disableToolbar = appStore(store => store.disableToolbar);
                   <IconPlaystationSquare size={20} />
                 </ActionIcon>
               </Tooltip>
-              
+
               <Tooltip
                 label="Upload/Download Document"
                 position="bottom"
@@ -322,7 +355,7 @@ const disableToolbar = appStore(store => store.disableToolbar);
           onClose={() => setIsFramePositionViewerOpen(false)}
         />
       )}
-      
+
       {/* Add Frame Snapshot Modal */}
       {isAddFrameSnapshotModalOpen && (
         <AddFrameSnapshotModal
@@ -331,12 +364,20 @@ const disableToolbar = appStore(store => store.disableToolbar);
           raiseError={raiseError}
         />
       )}
-      
+
       {/* Layout Manager Modal */}
       {isLayoutManagerOpen && (
         <LayoutManagerModal
           opened={isLayoutManagerOpen}
           onClose={() => setIsLayoutManagerOpen(false)}
+        />
+      )}
+
+      {/* Magic Layouts Modal */}
+      {isMagicLayoutsModalOpen && (
+        <MagicLayoutsModal
+          opened={isMagicLayoutsModalOpen}
+          onClose={() => setIsMagicLayoutsModalOpen(false)}
         />
       )}
 
@@ -351,8 +392,15 @@ const disableToolbar = appStore(store => store.disableToolbar);
       >
         <Text>Turn Aspect Lock On?</Text>
         <Group justify="flex-end" mt="md">
-          <Button variant="default" onClick={() => handleConfirmAspectLock(false)}>No</Button>
-          <Button color="blue" onClick={() => handleConfirmAspectLock(true)}>Yes</Button>
+          <Button
+            variant="default"
+            onClick={() => handleConfirmAspectLock(false)}
+          >
+            No
+          </Button>
+          <Button color="blue" onClick={() => handleConfirmAspectLock(true)}>
+            Yes
+          </Button>
         </Group>
       </Modal>
 
@@ -369,10 +417,14 @@ const disableToolbar = appStore(store => store.disableToolbar);
       >
         <Text>{aspectLockSuccessMessage}</Text>
         <Group justify="flex-end" mt="md">
-          <Button onClick={() => {
-            setIsAspectLockSuccessModalOpen(false);
-            setAspectLockSuccessMessage(""); // Reset message on close
-          }}>Close</Button>
+          <Button
+            onClick={() => {
+              setIsAspectLockSuccessModalOpen(false);
+              setAspectLockSuccessMessage(""); // Reset message on close
+            }}
+          >
+            Close
+          </Button>
         </Group>
       </Modal>
     </>

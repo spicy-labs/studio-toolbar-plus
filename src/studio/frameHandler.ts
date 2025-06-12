@@ -17,3 +17,7 @@ export async function getAll(studio:SDK) {
 export async function getPropertiesOnSelectedLayout(studio:SDK) {
     return handleStudioFunc(studio.frame.getPropertiesOnSelectedLayout);
 }
+
+export async function getPropertiesOnLayout(studio:SDK, layoutId:string) {
+    return handleStudioFunc(studio.frame.getAllLayoutProperties, layoutId);
+}
