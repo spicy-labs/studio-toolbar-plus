@@ -14024,6 +14024,13 @@ var init_IconReplace = __esm(() => {
   IconReplace = createReactComponent("outline", "replace", "IconReplace", [["path", { d: "M3 3m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-0" }], ["path", { d: "M15 15m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-1" }], ["path", { d: "M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3", key: "svg-2" }], ["path", { d: "M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3", key: "svg-3" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconSparkles.mjs
+var IconSparkles;
+var init_IconSparkles = __esm(() => {
+  init_createReactComponent();
+  IconSparkles = createReactComponent("outline", "sparkles", "IconSparkles", [["path", { d: "M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTrash.mjs
 var IconTrash;
 var init_IconTrash = __esm(() => {
@@ -14067,7 +14074,7 @@ var init_IconTrashFilled = __esm(() => {
 });
 
 // src/index.tsx
-var import_react260 = __toESM(require_react(), 1);
+var import_react261 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -15641,6 +15648,12 @@ async function setPrivateData({
 async function getAllLayouts(studio2) {
   return await handleStudioFunc(studio2.layout.getAll);
 }
+async function getLayoutById(studio2, id) {
+  return await handleStudioFunc(studio2.layout.getById, id);
+}
+async function setLayoutAvailable(studio2, id, available) {
+  return await handleStudioFunc(studio2.layout.setAvailableForUser, id, available);
+}
 async function getSelected(studio2) {
   return await handleStudioFunc(studio2.layout.getSelected);
 }
@@ -15649,6 +15662,7 @@ async function updateLayoutResizable(studio2, id, update) {
 }
 
 // src/studio/variableHandler.ts
+var import_studio_sdk = __toESM(require_main(), 1);
 async function getAllVariables(studio2) {
   return handleStudioFunc(studio2.next.variable.getAll);
 }
@@ -15659,10 +15673,18 @@ async function setVariableValue2({
 }) {
   return handleStudioFunc(studio2.variable.setValue, id, value);
 }
-async function setVariableVisblity({ studio: studio2, id, visible }) {
+async function setVariableVisblity({
+  studio: studio2,
+  id,
+  visible
+}) {
   return handleStudioFunc(studio2.variable.setVariableVisibility, id, visible);
 }
-async function setVariableVisblityWithName({ studio: studio2, name, visible }) {
+async function setVariableVisblityWithName({
+  studio: studio2,
+  name,
+  visible
+}) {
   const allVariablesResult = await getAllVariables(studio2);
   return allVariablesResult.map(async (variables) => {
     const existingVariable = variables.find((variable) => variable.name === name);
@@ -15690,6 +15712,35 @@ async function createVariable({
     return Result.error(result.value);
   });
 }
+async function groupVariables({
+  studio: studio2,
+  name,
+  variableIds
+}) {
+  return handleStudioFunc(studio2.variable.groupVariables, name, variableIds);
+}
+async function moveVariable({
+  studio: studio2,
+  id,
+  order = 0,
+  newParentId
+}) {
+  return handleStudioFunc(studio2.variable.move, order, id, newParentId);
+}
+async function setVariableType({
+  studio: studio2,
+  id,
+  variableType
+}) {
+  return handleStudioFunc(studio2.variable.setType, id, variableType);
+}
+async function setListVariableItems({
+  studio: studio2,
+  id,
+  items
+}) {
+  return handleStudioFunc(studio2.variable.setListVariable, id, items);
+}
 async function setOrCreateVariableValue({
   studio: studio2,
   name,
@@ -15700,6 +15751,20 @@ async function setOrCreateVariableValue({
   return allVariablesResult.map(async (variables) => {
     const existingVariable = variables.find((variable) => variable.name === name);
     if (existingVariable) {
+      if (existingVariable.type !== variableType) {
+        await setVariableType({
+          studio: studio2,
+          id: existingVariable.id,
+          variableType
+        });
+      }
+      if (variableType === import_studio_sdk.VariableType.list) {
+        return await setListVariableItems({
+          studio: studio2,
+          id: existingVariable.id,
+          items: value
+        });
+      }
       return await setVariableValue2({
         studio: studio2,
         id: existingVariable.id,
@@ -15712,6 +15777,9 @@ async function setOrCreateVariableValue({
         name
       });
       return createResult.map(async (id) => {
+        if (variableType === import_studio_sdk.VariableType.list) {
+          return await setListVariableItems({ studio: studio2, id, items: value });
+        }
         return await setVariableValue2({
           studio: studio2,
           id,
@@ -15724,9 +15792,12 @@ async function setOrCreateVariableValue({
 async function getById(studio2, id) {
   return handleStudioFunc(studio2.next.variable.getById, id);
 }
+function getByName(studio2, name) {
+  return handleStudioFunc(studio2.next.variable.getByName, name);
+}
 
 // src/studio/studioAdapter.ts
-var import_studio_sdk = __toESM(require_main(), 1);
+var import_studio_sdk2 = __toESM(require_main(), 1);
 
 // src/types/toolbarEnvelope.ts
 function createEmptyEnvelope() {
@@ -16019,6 +16090,9 @@ async function getAll(studio2) {
 }
 async function getPropertiesOnSelectedLayout(studio2) {
   return handleStudioFunc(studio2.frame.getPropertiesOnSelectedLayout);
+}
+async function getPropertiesOnLayout(studio2, layoutId) {
+  return handleStudioFunc(studio2.frame.getAllLayoutProperties, layoutId);
 }
 
 // src/studio-adapter/frameLayoutMappingToLookup.ts
@@ -16339,8 +16413,8 @@ console.log(imageSelectionScript(false))`;
   }, {
     name: "AUTO_GEN_TOOLBAR",
     triggers: [
-      { event: import_studio_sdk.ActionEditorEvent.selectedLayoutChanged },
-      { event: import_studio_sdk.ActionEditorEvent.variableValueChanged }
+      { event: import_studio_sdk2.ActionEditorEvent.selectedLayoutChanged },
+      { event: import_studio_sdk2.ActionEditorEvent.variableValueChanged }
     ],
     script
   });
@@ -16362,8 +16436,8 @@ console.log(imageSizingScript(false))`;
   }, {
     name: "AUTO_GEN_TOOLBAR_IR",
     triggers: [
-      { event: import_studio_sdk.ActionEditorEvent.selectedLayoutChanged },
-      { event: import_studio_sdk.ActionEditorEvent.variableValueChanged }
+      { event: import_studio_sdk2.ActionEditorEvent.selectedLayoutChanged },
+      { event: import_studio_sdk2.ActionEditorEvent.variableValueChanged }
     ],
     script
   });
@@ -16383,7 +16457,7 @@ console.log(layoutSizingScript(false))`;
     }, {
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
       triggers: [
-        { event: import_studio_sdk.ActionEditorEvent.pageSizeChanged }
+        { event: import_studio_sdk2.ActionEditorEvent.pageSizeChanged }
       ],
       script
     });
@@ -16393,24 +16467,24 @@ console.log(layoutSizingScript(false))`;
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      variableType: import_studio_sdk.VariableType.shortText,
+      variableType: import_studio_sdk2.VariableType.shortText,
       value: JSON.stringify(layoutSizingMapResult.value, null, 0)
     });
     if (variableResult.isError()) {
       return variableResult;
     }
-    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk.VariableVisibilityType.invisible } });
+    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk2.VariableVisibilityType.invisible } });
   } else {
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      variableType: import_studio_sdk.VariableType.shortText,
+      variableType: import_studio_sdk2.VariableType.shortText,
       value: JSON.stringify({}, null, 0)
     });
     if (variableResult.isError()) {
       return variableResult;
     }
-    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk.VariableVisibilityType.invisible } });
+    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk2.VariableVisibilityType.invisible } });
   }
 }
 async function updateFrameLayoutMaps(frameSnapshot) {
@@ -35731,6 +35805,7 @@ init_IconPhotoCog();
 init_IconPlaystationSquare();
 init_IconPlus();
 init_IconReplace();
+init_IconSparkles();
 init_IconTrash();
 init_IconUpload();
 init_IconWand();
@@ -41360,7 +41435,7 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react258 = __toESM(require_react(), 1);
+var import_react259 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
 var import_react253 = __toESM(require_react(), 1);
@@ -42810,7 +42885,9 @@ function DownloadModal({ opened, onClose }) {
   const [availableConnectors, setAvailableConnectors] = import_react257.useState([]);
   const [pendingJsonContent, setPendingJsonContent] = import_react257.useState("");
   const [nameMatches, setNameMatches] = import_react257.useState({});
-  const [downloadTemplateFonts, setDownloadTemplateFonts] = import_react257.useState(false);
+  const [useTemplatePackage, setUseTemplatePackage] = import_react257.useState(false);
+  const [fontMigrationProgress, setFontMigrationProgress] = import_react257.useState(null);
+  const [showPackageWarning, setShowPackageWarning] = import_react257.useState(false);
   const handleDownload = async () => {
     try {
       const studioResult = await getStudio();
@@ -42850,91 +42927,173 @@ function DownloadModal({ opened, onClose }) {
           console.warn("Failed to fetch template name:", error);
         }
       }
-      const jsonStr = JSON.stringify(documentResult.value, null, 2);
+      let documentData = { ...documentResult.value };
+      let fileName = `${templateName}.json`;
+      if (useTemplatePackage) {
+        if (!documentData.properties) {
+          documentData.properties = {};
+        }
+        documentData.properties.token = token2;
+        documentData.properties.baseUrl = baseUrl;
+        fileName = `${templateName}.packageJson`;
+        setShowPackageWarning(true);
+        setTimeout(() => setShowPackageWarning(false), 5000);
+      }
+      const jsonStr = JSON.stringify(documentData, null, 2);
       const blob = new Blob([jsonStr], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a2 = document.createElement("a");
       a2.href = url;
-      a2.download = `${templateName}.json`;
+      a2.download = fileName;
       document.body.appendChild(a2);
       a2.click();
       setTimeout(() => {
         document.body.removeChild(a2);
         URL.revokeObjectURL(url);
       }, 0);
-      if (downloadTemplateFonts) {
-        try {
-          const docValue = documentResult.value;
-          if (docValue && docValue.stylekit && Array.isArray(docValue.stylekit.fontFamilies)) {
-            const fontFamilies = docValue.stylekit.fontFamilies;
-            const fontDownloads = [];
-            for (const fontFamily of fontFamilies) {
-              if (fontFamily && Array.isArray(fontFamily.fontStyles) && fontFamily.fontStyles.length > 0) {
-                for (const fontStyle of fontFamily.fontStyles) {
-                  const fontStyleId = fontStyle.fontStyleId;
-                  if (!fontStyleId) {
-                    console.warn("Font style ID is missing", fontStyle);
-                    continue;
-                  }
-                  fontDownloads.push({ fontStyleId, fontFamily: fontFamily.name });
-                }
-              }
-            }
-            onClose();
-            for (const download of fontDownloads) {
-              try {
-                const fontStyleResponse = await fetch(`${baseUrl}font-styles/${download.fontStyleId}`, {
-                  headers: {
-                    Authorization: `Bearer ${token2}`,
-                    "Content-Type": "application/json"
-                  }
-                });
-                if (!fontStyleResponse.ok) {
-                  console.warn(`Failed to fetch font style details for ${download.fontStyleId}: ${fontStyleResponse.statusText}`);
-                  continue;
-                }
-                const fontStyleDetails = await fontStyleResponse.json();
-                const fontDownloadResponse = await fetch(`${baseUrl}font-styles/${download.fontStyleId}/download`, {
-                  headers: {
-                    Authorization: `Bearer ${token2}`
-                  }
-                });
-                if (!fontDownloadResponse.ok) {
-                  console.warn(`Failed to download font ${fontStyleDetails.fileName}: ${fontDownloadResponse.statusText}`);
-                  continue;
-                }
-                const fontBlob = await fontDownloadResponse.blob();
-                const fontUrl = URL.createObjectURL(fontBlob);
-                const fontLink = document.createElement("a");
-                fontLink.href = fontUrl;
-                const lastDotIndex = fontStyleDetails.fileName.lastIndexOf(".");
-                const fileName = fontStyleDetails.fileName.slice(0, lastDotIndex) + "_" + fontStyleDetails.name + fontStyleDetails.fileName.slice(lastDotIndex);
-                fontLink.download = fileName;
-                document.body.appendChild(fontLink);
-                fontLink.click();
-                setTimeout(() => {
-                  document.body.removeChild(fontLink);
-                  URL.revokeObjectURL(fontUrl);
-                }, 100);
-                await new Promise((resolve) => setTimeout(resolve, 300));
-              } catch (error) {
-                console.warn(`Error downloading font ${download.fontStyleId} from family ${download.fontFamily}:`, error);
-              }
-            }
-          } else {
-            console.warn("No font families found in the document");
-            onClose();
-          }
-        } catch (fontError) {
-          console.error("Error downloading template fonts:", fontError);
-          raiseError2(new Error(`Error downloading template fonts: ${fontError instanceof Error ? fontError.message : String(fontError)}`));
-          onClose();
-        }
-      } else {
-        onClose();
-      }
+      onClose();
     } catch (error) {
       raiseError2(error instanceof Error ? error : new Error(String(error)));
+    }
+  };
+  const migrateFonts = async (sourceFontFamilies, sourceToken, sourceBaseUrl, targetToken, targetBaseUrl) => {
+    try {
+      setFontMigrationProgress({
+        total: 0,
+        completed: 0,
+        status: "checking"
+      });
+      const targetFontsResponse = await fetch(`${targetBaseUrl}font-families?sortBy=Name&sortOrder=asc`, {
+        headers: {
+          Authorization: `Bearer ${targetToken}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (!targetFontsResponse.ok) {
+        throw new Error(`Failed to fetch target fonts: ${targetFontsResponse.statusText}`);
+      }
+      const targetFontsData = await targetFontsResponse.json();
+      const fontsToMigrate = [];
+      for (const sourceFamily of sourceFontFamilies) {
+        const targetFamily = targetFontsData.data.find((tf) => tf.name === sourceFamily.name);
+        if (targetFamily) {
+          const targetStylesResponse = await fetch(`${targetBaseUrl}font-families/${targetFamily.id}/styles`, {
+            headers: {
+              Authorization: `Bearer ${targetToken}`,
+              "Content-Type": "application/json"
+            }
+          });
+          if (targetStylesResponse.ok) {
+            const targetStylesData = await targetStylesResponse.json();
+            for (const sourceStyle of sourceFamily.fontStyles) {
+              const targetStyle = targetStylesData.data.find((ts) => ts.name === sourceStyle.name);
+              if (!targetStyle) {
+                fontsToMigrate.push({
+                  sourceFamily,
+                  sourceStyle,
+                  targetExists: false
+                });
+              }
+            }
+          }
+        } else {
+          for (const sourceStyle of sourceFamily.fontStyles) {
+            fontsToMigrate.push({
+              sourceFamily,
+              sourceStyle,
+              targetExists: false
+            });
+          }
+        }
+      }
+      setFontMigrationProgress({
+        total: fontsToMigrate.length,
+        completed: 0,
+        status: "downloading"
+      });
+      for (let i2 = 0;i2 < fontsToMigrate.length; i2++) {
+        const fontToMigrate = fontsToMigrate[i2];
+        setFontMigrationProgress({
+          total: fontsToMigrate.length,
+          completed: i2,
+          status: "downloading",
+          current: `${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`
+        });
+        try {
+          const fontDownloadResponse = await fetch(`${sourceBaseUrl}font-styles/${fontToMigrate.sourceStyle.fontStyleId}/download`, {
+            headers: {
+              Authorization: `Bearer ${sourceToken}`
+            }
+          });
+          if (!fontDownloadResponse.ok) {
+            console.warn(`Failed to download font: ${fontDownloadResponse.statusText}`);
+            continue;
+          }
+          const fontBlob = await fontDownloadResponse.blob();
+          const formData = new FormData;
+          formData.append("file", fontBlob, `${fontToMigrate.sourceFamily.name}-${fontToMigrate.sourceStyle.name}.ttf`);
+          const uploadResponse = await fetch(`${targetBaseUrl}font-styles/temp`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${targetToken}`
+            },
+            body: formData
+          });
+          if (!uploadResponse.ok) {
+            console.warn(`Failed to upload font: ${uploadResponse.statusText}`);
+            continue;
+          }
+          const uploadData = await uploadResponse.json();
+          if (uploadData.data.preloadedData.length > 0) {
+            const preloadedFont = uploadData.data.preloadedData[0];
+            const patchResponse = await fetch(`${targetBaseUrl}font-styles/temp/${uploadData.batchId}`, {
+              method: "PATCH",
+              headers: {
+                Authorization: `Bearer ${targetToken}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify([
+                {
+                  fontStyleId: preloadedFont.id,
+                  familyName: fontToMigrate.sourceFamily.name,
+                  styleName: fontToMigrate.sourceStyle.name
+                }
+              ])
+            });
+            if (patchResponse.ok) {
+              const confirmResponse = await fetch(`${targetBaseUrl}font-styles/temp/${uploadData.batchId}/confirm`, {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${targetToken}`
+                }
+              });
+              if (!confirmResponse.ok) {
+                console.warn(`Failed to confirm font upload: ${confirmResponse.statusText}`);
+              }
+            }
+          }
+        } catch (error) {
+          console.warn(`Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}:`, error);
+        }
+      }
+      setFontMigrationProgress({
+        total: fontsToMigrate.length,
+        completed: fontsToMigrate.length,
+        status: "complete"
+      });
+      setTimeout(() => {
+        setFontMigrationProgress(null);
+      }, 3000);
+    } catch (error) {
+      setFontMigrationProgress({
+        total: 0,
+        completed: 0,
+        status: "error",
+        error: error instanceof Error ? error.message : String(error)
+      });
+      setTimeout(() => {
+        setFontMigrationProgress(null);
+      }, 5000);
     }
   };
   const handleUpload = () => {
@@ -42953,6 +43112,8 @@ function DownloadModal({ opened, onClose }) {
         setPendingJsonContent(content);
         try {
           const jsonData = JSON.parse(content);
+          const isPackageFile = file.name.endsWith(".packageJson");
+          const hasStoredCredentials = jsonData.properties?.token && jsonData.properties?.baseUrl;
           if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
             const studioResult = await getStudio();
             if (!studioResult.isOk()) {
@@ -43002,7 +43163,7 @@ function DownloadModal({ opened, onClose }) {
                 }
               }
               const updatedContent = JSON.stringify(jsonData);
-              await loadDocument(studioResult.value, updatedContent);
+              await loadDocument(studioResult.value, updatedContent, isPackageFile && hasStoredCredentials);
             } catch (error) {
               raiseError2(error instanceof Error ? error : new Error(String(error)));
             }
@@ -43012,7 +43173,7 @@ function DownloadModal({ opened, onClose }) {
               raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
               return;
             }
-            await loadDocument(studioResult.value, content);
+            await loadDocument(studioResult.value, content, isPackageFile && hasStoredCredentials);
           }
         } catch (parseError) {
           raiseError2(new Error(`Invalid JSON format: ${parseError instanceof Error ? parseError.message : String(parseError)}`));
@@ -43026,13 +43187,33 @@ function DownloadModal({ opened, onClose }) {
       event.target.value = "";
     }
   };
-  const loadDocument = async (studio2, content) => {
-    const loadResult = await loadDocumentFromJsonStr(studio2, content);
-    if (!loadResult.isOk()) {
-      raiseError2(new Error(loadResult.error?.message || "Failed to load document"));
-      return;
+  const loadDocument = async (studio2, content, isPackageFile = false) => {
+    try {
+      const jsonData = JSON.parse(content);
+      if (isPackageFile && jsonData.properties?.token && jsonData.properties?.baseUrl) {
+        const targetToken = (await studio2.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+        const targetBaseUrl = (await studio2.configuration.getValue("ENVIRONMENT_API")).parsedData;
+        const sourceToken = jsonData.properties.token;
+        const sourceBaseUrl = jsonData.properties.baseUrl;
+        if (jsonData.stylekit?.fontFamilies && Array.isArray(jsonData.stylekit.fontFamilies)) {
+          const sourceFontFamilies = jsonData.stylekit.fontFamilies;
+          if (sourceFontFamilies.length > 0) {
+            await migrateFonts(sourceFontFamilies, sourceToken, sourceBaseUrl, targetToken, targetBaseUrl);
+          }
+        }
+        delete jsonData.properties.token;
+        delete jsonData.properties.baseUrl;
+        content = JSON.stringify(jsonData);
+      }
+      const loadResult = await loadDocumentFromJsonStr(studio2, content);
+      if (!loadResult.isOk()) {
+        raiseError2(new Error(loadResult.error?.message || "Failed to load document"));
+        return;
+      }
+      onClose();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
     }
-    onClose();
   };
   const handleConnectorReplacements = async (replacements) => {
     try {
@@ -43053,7 +43234,8 @@ function DownloadModal({ opened, onClose }) {
           return;
         }
         const updatedContent = JSON.stringify(jsonData);
-        await loadDocument(studioResult.value, updatedContent);
+        const isPackageFile = pendingJsonContent.includes('"token"') && pendingJsonContent.includes('"baseUrl"');
+        await loadDocument(studioResult.value, updatedContent, isPackageFile);
       }
     } catch (error) {
       raiseError2(error instanceof Error ? error : new Error(String(error)));
@@ -43061,69 +43243,104 @@ function DownloadModal({ opened, onClose }) {
   };
   return /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime21.jsxs(Modal, {
         opened,
         onClose,
         title: "Document Upload/Download",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
-          children: [
-            /* @__PURE__ */ jsx_runtime21.jsx(Text, {
-              size: "sm",
-              children: "Uploading and downloading only transfers the JSON not assets."
+        children: [
+          /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+            children: [
+              /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                size: "sm",
+                children: "Uploading and downloading only transfers the JSON not assets."
+              }),
+              /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                gap: "xs",
+                children: [
+                  /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                    children: [
+                      /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                        onClick: handleDownload,
+                        color: "blue",
+                        children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                          gap: "xs",
+                          children: [
+                            /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
+                              size: 20
+                            }),
+                            /* @__PURE__ */ jsx_runtime21.jsx("span", {
+                              children: "Download"
+                            })
+                          ]
+                        })
+                      }),
+                      /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                        onClick: handleUpload,
+                        color: "green",
+                        children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                          gap: "xs",
+                          children: [
+                            /* @__PURE__ */ jsx_runtime21.jsx(IconUpload, {
+                              size: 20
+                            }),
+                            /* @__PURE__ */ jsx_runtime21.jsx("span", {
+                              children: "Upload"
+                            })
+                          ]
+                        })
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+                    label: "Use Template Package",
+                    checked: useTemplatePackage,
+                    onChange: (event) => setUseTemplatePackage(event.currentTarget.checked)
+                  })
+                ]
+              })
+            ]
+          }),
+          showPackageWarning && /* @__PURE__ */ jsx_runtime21.jsx(Alert, {
+            icon: /* @__PURE__ */ jsx_runtime21.jsx(IconAlertCircle, {
+              size: "1rem"
             }),
-            /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
-              gap: "xs",
-              children: [
-                /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                  children: [
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                      onClick: handleDownload,
-                      color: "blue",
-                      children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                        gap: "xs",
-                        children: [
-                          /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
-                            size: 20
-                          }),
-                          /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                            children: "Download"
-                          })
-                        ]
-                      })
-                    }),
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                      onClick: handleUpload,
-                      color: "green",
-                      children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                        gap: "xs",
-                        children: [
-                          /* @__PURE__ */ jsx_runtime21.jsx(IconUpload, {
-                            size: 20
-                          }),
-                          /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                            children: "Upload"
-                          })
-                        ]
-                      })
-                    })
-                  ]
-                }),
-                /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
-                  label: "Download template fonts",
-                  checked: downloadTemplateFonts,
-                  onChange: (event) => setDownloadTemplateFonts(event.currentTarget.checked)
-                })
-              ]
-            })
-          ]
-        })
+            title: "Package Warning",
+            color: "orange",
+            style: { marginTop: "1rem" },
+            children: "Package is only active for a short-period."
+          }),
+          fontMigrationProgress && /* @__PURE__ */ jsx_runtime21.jsxs(Alert, {
+            icon: fontMigrationProgress.status === "error" ? /* @__PURE__ */ jsx_runtime21.jsx(IconAlertCircle, {
+              size: "1rem"
+            }) : /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+              size: "sm"
+            }),
+            title: fontMigrationProgress.status === "checking" ? "Checking Fonts" : fontMigrationProgress.status === "downloading" || fontMigrationProgress.status === "uploading" ? `Number of Fonts To Move: ${fontMigrationProgress.completed}/${fontMigrationProgress.total}` : fontMigrationProgress.status === "complete" ? "Font Migration Complete" : "Font Migration Error",
+            color: fontMigrationProgress.status === "error" ? "red" : fontMigrationProgress.status === "complete" ? "green" : "blue",
+            style: { marginTop: "1rem" },
+            children: [
+              fontMigrationProgress.current && /* @__PURE__ */ jsx_runtime21.jsxs(Text, {
+                size: "sm",
+                children: [
+                  "Current: ",
+                  fontMigrationProgress.current
+                ]
+              }),
+              fontMigrationProgress.error && /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                size: "sm",
+                style: { color: "red" },
+                children: fontMigrationProgress.error
+              })
+            ]
+          })
+        ]
       }),
       /* @__PURE__ */ jsx_runtime21.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
-        accept: ".json",
+        accept: ".json,.packageJson",
         onChange: handleFileChange
       }),
       /* @__PURE__ */ jsx_runtime21.jsx(ConnectorReplacementModal, {
@@ -43138,20 +43355,384 @@ function DownloadModal({ opened, onClose }) {
   });
 }
 
-// src/components/Toolbar.tsx
+// src/components/MagicLayoutsModal.tsx
+var import_react258 = __toESM(require_react(), 1);
+var import_studio_sdk3 = __toESM(require_main(), 1);
+
+// src/studio/actions/magicLayout.js
+function magicLayoutScript(debug = false) {
+  const version2 = 1;
+  const layoutSizingData = "%DATA1%";
+  const layoutFramesData = "%DATA2%";
+  const muggleToVariableMagic = "%DATA3%";
+  const currentLayoutName = getSelectedLayoutName();
+  const variableMagicName = muggleToVariableMagic[currentLayoutName];
+  if (!variableMagicName)
+    return;
+  const magicLayoutName = getSelectedItemFromListVariable(variableMagicName);
+  const magicLayoutSize = layoutSizingData[magicLayoutName];
+  const magicLayoutFrames = layoutFramesData[magicLayoutName];
+  if (!magicLayoutSize || !magicLayoutFrames)
+    return;
+  const currentLayout = {
+    name: getSelectedLayoutName(),
+    height: getPageHeight(),
+    width: getPageWidth()
+  };
+  setPageSize(magicLayoutSize.w, magicLayoutSize.h);
+  studio.frames.all().forEach((frame) => {
+    frame.setVisible(false);
+  });
+  magicLayoutFrames.forEach((frameData) => {
+    const name = frameData.name;
+    setFrameVisible(name, true);
+    setFrameX(name, frameData.x);
+    setFrameY(name, frameData.y);
+    setFrameWidth(name, frameData.width);
+    setFrameHeight(name, frameData.height);
+    setFrameRotation(name, frameData.rotationDegrees);
+  });
+  setPageSize(currentLayout.width, currentLayout.height);
+}
+
+// src/components/MagicLayoutsModal.tsx
 var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+function MagicLayoutsModal({ opened, onClose }) {
+  const [isProcessing, setIsProcessing] = import_react258.useState(true);
+  const [isComplete, setIsComplete] = import_react258.useState(false);
+  const raiseError2 = appStore((store) => store.raiseError);
+  const gatherAllChildren = async (childrenLayoutIds, onlyLeafs, skipUnavailable = true, recur = 0) => {
+    const leafNames = [];
+    const leafIds = [];
+    if (childrenLayoutIds.length === 0) {
+      return { names: [], ids: [] };
+    }
+    const childLayouts = await Promise.all(childrenLayoutIds.map(async (id) => {
+      const layoutResult = await getLayoutById(window.SDK, id);
+      if (layoutResult.isError()) {
+        raiseError2(new Error(`Failed to get layout with id ${id}`));
+        throw new Error(`Failed to get layout with id ${id}`);
+      }
+      return layoutResult.value;
+    }));
+    console.log({
+      recur,
+      childrenIds: childrenLayoutIds,
+      children: childLayouts
+    });
+    for (const child of childLayouts) {
+      if (onlyLeafs) {
+        const hasChildren = child.childLayouts.length > 0;
+        if (!hasChildren) {
+          if (!skipUnavailable || child.availableForUser) {
+            leafNames.push(child.name);
+            leafIds.push(child.id);
+            console.log({
+              skipping: false,
+              child: child.name,
+              childLeaves: []
+            });
+          }
+        } else {
+          const childLeaves = await gatherAllChildren(child.childLayouts, onlyLeafs, skipUnavailable, recur + 1);
+          console.log({
+            skipping: true,
+            child: child.name,
+            childLeaves
+          });
+          leafNames.push(...childLeaves.names);
+          leafIds.push(...childLeaves.ids);
+        }
+        console.log("afterPush", leafNames, leafIds);
+      } else {
+        if (!skipUnavailable || child.availableForUser) {
+          leafNames.push(child.name);
+          leafIds.push(child.id);
+        }
+        const childLeaves = await gatherAllChildren(child.childLayouts, onlyLeafs, skipUnavailable, recur + 1);
+        leafNames.push(...childLeaves.names);
+        leafIds.push(...childLeaves.ids);
+      }
+    }
+    console.log("FINAL", { names: leafNames, ids: leafIds, recur });
+    return { names: leafNames, ids: leafIds };
+  };
+  const runMagicProcess = async () => {
+    const layoutsResult = await getAllLayouts(window.SDK);
+    if (layoutsResult.isError()) {
+      raiseError2(new Error("Failed to get layouts"));
+      throw new Error("Failed to get layouts");
+    }
+    const layouts = layoutsResult.value;
+    if (!layouts) {
+      raiseError2(new Error("Layouts data is undefined"));
+      throw new Error("Layouts data is undefined");
+    }
+    const magicLayouts = layouts.filter((layout) => layout.name.startsWith("✨"));
+    const muggleToMagicLayouts = magicLayouts.reduce((acc, magicLayout) => {
+      const normalLayoutName = magicLayout.name.replace("✨", "");
+      const normalLayout = layouts.find((layout) => layout.name === normalLayoutName);
+      if (normalLayout) {
+        acc[normalLayout.name] = magicLayout.name;
+      }
+      return acc;
+    }, {});
+    for (const [normalLayoutName, magicLayoutName] of Object.entries(muggleToMagicLayouts)) {
+      const normalLayout = layouts.find((layout) => layout.name === normalLayoutName);
+      if (normalLayout) {
+        const allChildren = await gatherAllChildren(normalLayout.childLayouts, false);
+        allChildren.names.forEach((childName) => {
+          muggleToMagicLayouts[childName] = magicLayoutName;
+        });
+      }
+    }
+    const childrenIds = [];
+    for (const magicLayout of magicLayouts) {
+      const leafChildren = await gatherAllChildren(magicLayout.childLayouts, true, false);
+      console.log("LEAF CHILDREN", leafChildren);
+      const childrenNames = leafChildren.names;
+      childrenIds.push(...leafChildren.ids);
+      (await gatherAllChildren(magicLayout.childLayouts, false)).ids.forEach((id) => setLayoutAvailable(window.SDK, id, false));
+      setLayoutAvailable(window.SDK, magicLayout.id, false);
+      await setOrCreateVariableValue({
+        studio: window.SDK,
+        name: magicLayout.name,
+        variableType: import_studio_sdk3.VariableType.list,
+        value: childrenNames
+      });
+      const visibilityResult = await setVariableVisblityWithName({
+        studio: window.SDK,
+        name: magicLayout.name,
+        visible: { type: import_studio_sdk3.VariableVisibilityType.invisible }
+      });
+      if (visibilityResult.isError()) {
+        raiseError2(new Error(`Failed to set visibility for variable ${magicLayout.name}`));
+      }
+    }
+    const allVariablesResult = await getAllVariables(window.SDK);
+    if (allVariablesResult.isError()) {
+      raiseError2(new Error("Failed to get all variables"));
+      throw new Error("Failed to get all variables");
+    }
+    const allVariables = allVariablesResult.value;
+    if (!allVariables) {
+      raiseError2(new Error("Variables data is undefined"));
+      throw new Error("Variables data is undefined");
+    }
+    let autoGenMagicId;
+    const existingAutoGenMagic = allVariables.find((variable) => variable.name === "AUTO_GEN_MAGIC");
+    if (existingAutoGenMagic) {
+      autoGenMagicId = existingAutoGenMagic.id;
+    } else {
+      const createGroupResult = await groupVariables({
+        studio: window.SDK,
+        name: "AUTO_GEN_MAGIC",
+        variableIds: []
+      });
+      if (createGroupResult.isError()) {
+        raiseError2(new Error("Failed to create AUTO_GEN_MAGIC group"));
+        throw new Error("Failed to create AUTO_GEN_MAGIC group");
+      }
+      const getByNameResult = await getByName(window.SDK, "AUTO_GEN_MAGIC");
+      if (getByNameResult.isError()) {
+        raiseError2(new Error("Failed to get AUTO_GEN_MAGIC by name"));
+        throw new Error("Failed to get AUTO_GEN_MAGIC by name");
+      }
+      if (!getByNameResult.value) {
+        raiseError2(new Error("AUTO_GEN_MAGIC variable not found after creation"));
+        throw new Error("AUTO_GEN_MAGIC variable not found after creation");
+      }
+      autoGenMagicId = getByNameResult.value.id;
+    }
+    const magicVariableNames = magicLayouts.map((layout) => layout.name);
+    const magicVariables = allVariables.filter((variable) => magicVariableNames.includes(variable.name));
+    for (const magicVariable of magicVariables) {
+      if (magicVariable.parentId !== autoGenMagicId) {
+        const moveResult = await moveVariable({
+          studio: window.SDK,
+          id: magicVariable.id,
+          newParentId: autoGenMagicId,
+          order: 0
+        });
+        if (moveResult.isError()) {
+          raiseError2(new Error(`Failed to move variable ${magicVariable.name}`));
+          throw new Error(`Failed to move variable ${magicVariable.name}`);
+        }
+      }
+    }
+    const allLayoutsResult = await getAllLayouts(window.SDK);
+    if (allLayoutsResult.isError()) {
+      raiseError2(new Error("Failed to get layouts for child filtering"));
+      throw new Error("Failed to get layouts for child filtering");
+    }
+    const allLayouts = allLayoutsResult.value;
+    if (!allLayouts) {
+      raiseError2(new Error("All layouts data is undefined"));
+      throw new Error("All layouts data is undefined");
+    }
+    const childLayouts = allLayouts.filter((layout) => childrenIds.includes(layout.id));
+    const childLayoutSizes = {};
+    for (const layout of childLayouts) {
+      childLayoutSizes[layout.name] = {
+        w: layout.width.value,
+        h: layout.height.value
+      };
+    }
+    const allFramesResult = await getAll(window.SDK);
+    if (allFramesResult.isError()) {
+      raiseError2(new Error("Failed to get all frames"));
+      throw new Error("Failed to get all frames");
+    }
+    const allFrames = allFramesResult.value;
+    if (!allFrames) {
+      raiseError2(new Error("All frames data is undefined"));
+      throw new Error("All frames data is undefined");
+    }
+    const frameIdToNameMap = new Map;
+    allFrames.forEach((frame) => {
+      frameIdToNameMap.set(frame.id, frame.name);
+    });
+    const layoutFramesData = {};
+    for (const layout of childLayouts) {
+      const framePropertiesResult = await getPropertiesOnLayout(window.SDK, layout.id);
+      if (framePropertiesResult.isError()) {
+        raiseError2(new Error(`Failed to get frame properties for layout ${layout.name}`));
+        throw new Error(`Failed to get frame properties for layout ${layout.name}`);
+      }
+      const frameProperties = framePropertiesResult.value;
+      if (!frameProperties || !Array.isArray(frameProperties)) {
+        raiseError2(new Error(`Frame properties is not an array for layout ${layout.name}`));
+        throw new Error(`Frame properties is not an array for layout ${layout.name}`);
+      }
+      const visibleFramesWithOverrides = [];
+      for (const frameProps of frameProperties) {
+        if (!frameProps) {
+          raiseError2(new Error(`Frame properties is null or undefined for layout ${layout.name}`));
+          throw new Error(`Frame properties is null or undefined for layout ${layout.name}`);
+        }
+        const isVisible = frameProps.isVisible?.value === true;
+        if (isVisible) {
+          const frameName = frameIdToNameMap.get(frameProps.id) || null;
+          if (!frameName) {
+            raiseError2(new Error(`Failed to get frame name for frame ID ${frameProps.id}`));
+            throw new Error(`Failed to get frame name for frame ID ${frameProps.id}`);
+          }
+          visibleFramesWithOverrides.push({
+            id: frameProps.id,
+            x: frameProps.x.value,
+            y: frameProps.y.value,
+            width: frameProps.width.value,
+            height: frameProps.height.value,
+            isVisible: frameProps.isVisible,
+            rotationDegrees: frameProps.rotationDegrees.value,
+            name: frameName
+          });
+        }
+      }
+      if (visibleFramesWithOverrides.length > 0) {
+        layoutFramesData[layout.name] = visibleFramesWithOverrides;
+      }
+    }
+    const script = magicLayoutScript.toString().replace('"%DATA1%"', JSON.stringify(childLayoutSizes)).replace('"%DATA2%"', JSON.stringify(layoutFramesData)).replace('"%DATA3%"', JSON.stringify(muggleToMagicLayouts)) + `
+magicLayoutScript(false)`;
+    const updateResult = await updateAction({
+      name: "AUTO_GEN_MAGIC_LAYOUT",
+      studio: window.SDK
+    }, {
+      name: "AUTO_GEN_MAGIC_LAYOUT",
+      triggers: [
+        ...magicVariables.map((variable) => ({
+          event: import_studio_sdk3.ActionEditorEvent.variableValueChanged,
+          triggers: [variable.id]
+        })),
+        { event: import_studio_sdk3.ActionEditorEvent.selectedLayoutChanged },
+        { event: import_studio_sdk3.ActionEditorEvent.documentLoaded }
+      ],
+      script
+    });
+    return updateResult;
+  };
+  import_react258.useEffect(() => {
+    if (!opened) {
+      setIsProcessing(true);
+      setIsComplete(false);
+      return;
+    }
+    const executeMagic = async () => {
+      try {
+        await runMagicProcess();
+        setIsProcessing(false);
+        setIsComplete(true);
+      } catch (error) {
+        console.error("Magic process failed:", error);
+        setIsProcessing(false);
+      }
+    };
+    executeMagic();
+  }, [opened]);
+  const handleClose = () => {
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
+    opened,
+    onClose: handleClose,
+    title: "Magic Layouts",
+    centered: true,
+    size: "md",
+    closeOnClickOutside: false,
+    closeOnEscape: false,
+    children: /* @__PURE__ */ jsx_runtime22.jsx(Stack, {
+      align: "center",
+      gap: "lg",
+      p: "lg",
+      children: isProcessing ? /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
+        children: [
+          /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
+            size: "lg",
+            color: "purple"
+          }),
+          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+            size: "lg",
+            fw: 500,
+            children: "Creating Magic ✨"
+          })
+        ]
+      }) : /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
+        children: [
+          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+            size: "lg",
+            fw: 500,
+            c: "green",
+            children: "Magic Created ✨"
+          }),
+          /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+            onClick: handleClose,
+            color: "purple",
+            size: "md",
+            disabled: !isComplete,
+            children: "Close"
+          })
+        ]
+      })
+    })
+  });
+}
+
+// src/components/Toolbar.tsx
+var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react258.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react258.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react258.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react258.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react258.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react258.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react258.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react258.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react258.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react258.useState("");
-  const [updateInfo, setUpdateInfo] = import_react258.useState(null);
+  const [visible2, setVisible] = import_react259.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react259.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react259.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react259.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react259.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react259.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react259.useState(false);
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react259.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react259.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react259.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react259.useState("");
+  const [updateInfo, setUpdateInfo] = import_react259.useState(null);
   const effects = appStore((store) => store.effects);
   const raiseError2 = appStore((store) => store.raiseError);
   const isToolbarEnabled = appStore((store) => store.state.isToolbarEnabled);
@@ -43174,7 +43755,7 @@ function Toolbar() {
     }
     setIsUpdateModalOpen(false);
   };
-  import_react258.useEffect(() => {
+  import_react259.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -43217,6 +43798,10 @@ function Toolbar() {
     setVisible(false);
     setIsLayoutManagerOpen(true);
   };
+  const handleMagicLayouts = () => {
+    setVisible(false);
+    setIsMagicLayoutsModalOpen(true);
+  };
   const handleAspectLock = () => {
     setIsAspectLockConfirmModalOpen(true);
   };
@@ -43227,14 +43812,14 @@ function Toolbar() {
       setIsAspectLockSuccessModalOpen(true);
     }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
   };
-  return /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
+  return /* @__PURE__ */ jsx_runtime23.jsxs(jsx_runtime23.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime22.jsx(Transition, {
+      /* @__PURE__ */ jsx_runtime23.jsx(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_runtime22.jsx(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_runtime23.jsx(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -43251,95 +43836,110 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+          children: /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
             gap: "lg",
             children: [
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconCameraPlus, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconPhotoCog, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+                label: "Magic Layouts",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "purple",
+                  size: "lg",
+                  "aria-label": "Magic Layouts",
+                  onClick: handleMagicLayouts,
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconSparkles, {
+                    size: 20
+                  })
+                })
+              }),
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
                 label: "Aspect Lock",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Aspect Lock",
                   onClick: handleAspectLock,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconPlaystationSquare, {
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconPlaystationSquare, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
                 label: "Upload/Download Document",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleUploadDownloadClick,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconArrowsTransferUpDown, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
                 label: "Layout Image Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconMapBolt, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
                   variant: "filled",
                   color: "red",
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconBug, {
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconBug, {
                     size: 20
                   })
                 })
@@ -43348,45 +43948,45 @@ function Toolbar() {
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime22.jsx(DownloadModal, {
+      /* @__PURE__ */ jsx_runtime23.jsx(DownloadModal, {
         opened: isDownloadUploadModalOpen,
         onClose: () => setIsDownloadUploadModalOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime23.jsx(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }),
-            /* @__PURE__ */ jsx_runtime22.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime23.jsxs(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_runtime22.jsx("br", {}),
+                /* @__PURE__ */ jsx_runtime23.jsx("br", {}),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }),
-            /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }),
-                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_runtime22.jsx(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_runtime23.jsx(IconExternalLink, {
                     size: 16
                   }),
                   color: "blue",
@@ -43397,39 +43997,43 @@ function Toolbar() {
           ]
         })
       }),
-      isFramePositionViewerOpen && /* @__PURE__ */ jsx_runtime22.jsx(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && /* @__PURE__ */ jsx_runtime23.jsx(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }),
-      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_runtime22.jsx(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_runtime23.jsx(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }),
-      isLayoutManagerOpen && /* @__PURE__ */ jsx_runtime22.jsx(LayoutManagerModal, {
+      isLayoutManagerOpen && /* @__PURE__ */ jsx_runtime23.jsx(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime22.jsxs(Modal, {
+      isMagicLayoutsModalOpen && /* @__PURE__ */ jsx_runtime23.jsx(MagicLayoutsModal, {
+        opened: isMagicLayoutsModalOpen,
+        onClose: () => setIsMagicLayoutsModalOpen(false)
+      }),
+      /* @__PURE__ */ jsx_runtime23.jsxs(Modal, {
         opened: isAspectLockConfirmModalOpen,
         onClose: () => setIsAspectLockConfirmModalOpen(false),
         title: "Confirm Aspect Lock Change",
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime23.jsx(Text, {
             children: "Turn Aspect Lock On?"
           }),
-          /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime23.jsx(Button, {
                 variant: "default",
                 onClick: () => handleConfirmAspectLock(false),
                 children: "No"
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime23.jsx(Button, {
                 color: "blue",
                 onClick: () => handleConfirmAspectLock(true),
                 children: "Yes"
@@ -43438,7 +44042,7 @@ function Toolbar() {
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime22.jsxs(Modal, {
+      /* @__PURE__ */ jsx_runtime23.jsxs(Modal, {
         opened: isAspectLockSuccessModalOpen,
         onClose: () => {
           setIsAspectLockSuccessModalOpen(false);
@@ -43448,13 +44052,13 @@ function Toolbar() {
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime23.jsx(Text, {
             children: aspectLockSuccessMessage
           }),
-          /* @__PURE__ */ jsx_runtime22.jsx(Group, {
+          /* @__PURE__ */ jsx_runtime23.jsx(Group, {
             justify: "flex-end",
             mt: "md",
-            children: /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+            children: /* @__PURE__ */ jsx_runtime23.jsx(Button, {
               onClick: () => {
                 setIsAspectLockSuccessModalOpen(false);
                 setAspectLockSuccessMessage("");
@@ -43469,12 +44073,12 @@ function Toolbar() {
 }
 
 // src/components/AlertsContainer.tsx
-var import_react259 = __toESM(require_react(), 1);
-var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+var import_react260 = __toESM(require_react(), 1);
+var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react259.useEffect(() => {
+  import_react260.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -43489,7 +44093,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime23.jsx(Box, {
+  return /* @__PURE__ */ jsx_runtime24.jsx(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -43497,10 +44101,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_runtime23.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime24.jsx(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime23.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime23.jsx(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime24.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime24.jsx(IconInfoCircle, {
           size: "1rem"
         }),
         title: "Toolbar Error",
@@ -43520,7 +44124,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -43541,16 +44145,16 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime24.jsx(import_react260.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime24.jsx(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime25.jsx(import_react261.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime25.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime24.jsx(import_react260.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime24.jsxs(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime25.jsx(import_react261.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime25.jsxs(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_runtime24.jsx(Toolbar, {}),
-        /* @__PURE__ */ jsx_runtime24.jsx(AlertsContainer, {})
+        /* @__PURE__ */ jsx_runtime25.jsx(Toolbar, {}),
+        /* @__PURE__ */ jsx_runtime25.jsx(AlertsContainer, {})
       ]
     })
   }));
@@ -43575,4 +44179,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=230CD81BF4579BE264756E2164756E21
+//# debugId=5EB90155516DF12D64756E2164756E21
