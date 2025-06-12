@@ -151,6 +151,10 @@ export async function setListVariableItems({
   return handleStudioFunc(studio.variable.setListVariable, id, items);
 }
 
+export async function deleteVariables(studio: SDK, ids: string[]) {
+  return handleStudioFunc(studio.variable.remove, ids);
+}
+
 type SetOrCreateVariableValuePropsBase = {
   studio: SDK;
   name: string;

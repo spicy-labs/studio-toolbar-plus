@@ -22,6 +22,7 @@ import {
   moveVariable,
   setVariableVisblityWithName,
   groupVariables,
+  deleteVariables,
 } from "../studio/variableHandler";
 import { updateAction } from "../studio/actionHandler";
 import { magicLayoutScript } from "../studio/actions/magicLayout";
@@ -185,6 +186,15 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
     }
 
     const childrenIds: string[] = [];
+
+   const result = await getAllVariables(window.SDK);
+   if (result.isOk()) {
+     const variables = result.value;
+     const idsToDelete = variables
+       .filter((variable) => variable.name.startsWith("✨"))
+       .map((variable) => variable.id);
+     await deleteVariables(window.SDK, idsToDelete);
+   }
 
     // For each magic layout, create a variable with its children layout names
     for (const magicLayout of magicLayouts) {
