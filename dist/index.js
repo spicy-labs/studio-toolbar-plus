@@ -15741,6 +15741,9 @@ async function setListVariableItems({
 }) {
   return handleStudioFunc(studio2.variable.setListVariable, id, items);
 }
+async function deleteVariables(studio2, ids) {
+  return handleStudioFunc(studio2.variable.remove, ids);
+}
 async function setOrCreateVariableValue({
   studio: studio2,
   name,
@@ -43487,6 +43490,12 @@ function MagicLayoutsModal({ opened, onClose }) {
       }
     }
     const childrenIds = [];
+    const result = await getAllVariables(window.SDK);
+    if (result.isOk()) {
+      const variables = result.value;
+      const idsToDelete = variables.filter((variable) => variable.name.startsWith("✨")).map((variable) => variable.id);
+      await deleteVariables(window.SDK, idsToDelete);
+    }
     for (const magicLayout of magicLayouts) {
       const leafChildren = await gatherAllChildren(magicLayout.childLayouts, true, false);
       console.log("LEAF CHILDREN", leafChildren);
@@ -44179,4 +44188,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=5EB90155516DF12D64756E2164756E21
+//# debugId=41AB43D6F2135B9C64756E2164756E21
