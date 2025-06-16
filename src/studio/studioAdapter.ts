@@ -43,6 +43,12 @@ import { layoutMappingToActionMap } from "./layoutMappingToActionMap.ts";
 import { frameLayoutMappingToLookup } from "../studio-adapter/frameLayoutMappingToLookup.ts";
 import { layoutManagerToLookup } from "../studio-adapter/layoutManagerToLookup.ts";
 import { layoutSizingScript } from "./actions/layoutSizing.js";
+import { getCurrentDocumentState } from "./documentHandler.ts";
+import { getConnectorsByType } from "./connectorAdapter.ts";
+import type {
+  DocumentConnector,
+  DocumentConnectorWithUsage,
+} from "../types/connectorTypes.ts";
 
 declare global {
   interface Window {
@@ -598,5 +604,109 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
     return Result.ok(undefined);
   } catch (error) {
     return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}}}}/**
+
+/**
+ * Get all connectors in the current document with their usage information
+ */
+export async function getCurrentConnectors(
+  studio: SDKType
+): Promise<Result<DocumentConnectorWithUsage[], Error>> {
+  try {
+    // 1. Get connectors by type from the SDK
+    const connectorsResult = await getConnectorsByType(studio, "media");
+    if (!connectorsResult.isOk()) {
+      return Result.error(
+        new Error(
+          "Failed to get connectors: " + connectorsResult.error?.message
+        )
+      );
+    }
+
+    const connectorInstances = connectorsResult.value;
+
+    // 2. Get current document state
+    const documentStateResult = await getCurrentDocumentState(studio);
+    if (!documentStateResult.isOk()) {
+      return Result.error(
+        new Error(
+          "Failed to get document state: " + documentStateResult.error?.message
+        )
+      );
+    }
+
+    const documentState = documentStateResult.value as any; // Raw JSON document
+
+    // 3. Filter document connectors that have source "grafx" and are in the connector instances
+    const documentConnectors = (documentState.connectors ||
+      []) as DocumentConnector[];
+    const grafxConnectors = documentConnectors.filter(
+      (docConnector) =>
+        docConnector.source.source === "grafx" &&
+        connectorInstances.some(
+          (instance) => instance.id === (docConnector.source as any).id
+        )
+    );
+
+    // 4. Search for usage in the document
+    const result: DocumentConnectorWithUsage[] = [];
+
+    for (const connector of grafxConnectors) {
+      const usage: DocumentConnectorWithUsage = {
+        id: connector.id,
+        name: connector.name,
+        type: "media", // Assuming media type since we're getting media connectors
+        usesInTemplate: {
+          images: [],
+          variables: [],
+        },
+      };
+
+      // Search in pages.frames for images with this connector ID
+      if (documentState.pages && Array.isArray(documentState.pages)) {
+        for (const page of documentState.pages) {
+          if (page.frames && Array.isArray(page.frames)) {
+            for (const frame of page.frames) {
+              if (
+                frame.type === "image" &&
+                (frame as any).src &&
+                (frame as any).src.id === connector.id
+              ) {
+                usage.usesInTemplate.images.push({
+                  id: frame.id,
+                  name: frame.name || frame.id,
+                });
+              }
+            }
+          }
+        }
+      }
+
+      // Search in variables for image variables with this connector ID
+      if (documentState.variables && Array.isArray(documentState.variables)) {
+        for (const variable of documentState.variables) {
+          if (
+            variable.type === "image" &&
+            variable.value &&
+            typeof variable.value === "object" &&
+            (variable.value as any).connectorId === connector.id
+          ) {
+            usage.usesInTemplate.variables.push({
+              id: variable.id,
+              name: variable.name || variable.id,
+            });
+          }
+        }
+      }
+
+      result.push(usage);
+    }
+
+    return Result.ok(result);
+  } catch (error) {
+    return Result.error(
+      error instanceof Error ? error : new Error(String(error))
+    );
   }
 }
