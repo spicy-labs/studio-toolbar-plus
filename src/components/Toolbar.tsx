@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   ActionIcon,
   Box,
@@ -21,6 +21,8 @@ import {
   IconPlaystationSquare,
   IconSparkles,
   IconSettings,
+  IconPlug,
+  IconCrop,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
@@ -28,6 +30,8 @@ import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
 import { DownloadModal } from "./DownloadModal";
 import { MagicLayoutsModal } from "./MagicLayoutsModal";
+import { ConnectorCleanupModal } from "./ConnectorCleanupModal";
+import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerModal";
 import {
   ToolbarSettingsModal,
   type AppConfig,
@@ -47,6 +51,10 @@ export function Toolbar() {
     useState(false);
   const [isLayoutManagerOpen, setIsLayoutManagerOpen] = useState(false);
   const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] =
+    useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] =
+    useState(false);
   const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] =
     useState(false); // State for the confirmation modal
   const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] =
@@ -60,7 +68,6 @@ export function Toolbar() {
   } | null>(null);
   const effects = appStore((store) => store.effects);
   const raiseError = appStore((store) => store.raiseError);
-  const isToolbarEnabled = appStore((store) => store.state.isToolbarEnabled);
   const disableToolbar = appStore((store) => store.disableToolbar);
 
   const handleTestError = () => {
@@ -72,10 +79,14 @@ export function Toolbar() {
   };
 
   const setVisibleIntercept = (value: boolean) => {
+
+    const isToolbarEnabled = appStore.getState().state.isToolbarEnabled;
     if (!isToolbarEnabled) {
       setVisible(false);
     }
-    setVisible(value);
+    else {
+      setVisible(value);
+    }
   };
 
   const handleUploadDownloadClick = () => {
@@ -189,6 +200,16 @@ export function Toolbar() {
   const handleMagicLayouts = () => {
     setVisible(false);
     setIsMagicLayoutsModalOpen(true);
+  };
+
+  const handleConnectorCleanup = () => {
+    setVisible(false);
+    setIsConnectorCleanupModalOpen(true);
+  };
+
+  const handleManualCropManager = () => {
+    setVisible(false);
+    setIsManualCropManagerModalOpen(true);
   };
 
   const handleAspectLock = () => {
@@ -359,6 +380,36 @@ export function Toolbar() {
                   </ActionIcon>
                 </Tooltip>
               )}
+              {appConfig.showConnectorCleanup && (
+                <Tooltip label="Connector Cleanup" position="bottom" withArrow>
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Connector Cleanup"
+                    onClick={handleConnectorCleanup}
+                  >
+                    <IconPlug size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showManualCropManager && (
+                <Tooltip
+                  label="Manual Crop Manager"
+                  position="bottom"
+                  withArrow
+                >
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Manual Crop Manager"
+                    onClick={handleManualCropManager}
+                  >
+                    <IconCrop size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
               <Tooltip label="Settings" position="bottom" withArrow>
                 <ActionIcon
                   variant="filled"
@@ -444,6 +495,22 @@ export function Toolbar() {
         <MagicLayoutsModal
           opened={isMagicLayoutsModalOpen}
           onClose={() => setIsMagicLayoutsModalOpen(false)}
+        />
+      )}
+
+      {/* Connector Cleanup Modal */}
+      {appConfig.showConnectorCleanup && (
+        <ConnectorCleanupModal
+          opened={isConnectorCleanupModalOpen}
+          onClose={() => setIsConnectorCleanupModalOpen(false)}
+        />
+      )}
+
+      {/* Manual Crop Manager Modal */}
+      {appConfig.showManualCropManager && (
+        <ManualCropManagerModal
+          opened={isManualCropManagerModalOpen}
+          onClose={() => setIsManualCropManagerModalOpen(false)}
         />
       )}
 
