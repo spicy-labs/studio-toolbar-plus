@@ -13919,6 +13919,20 @@ var init_IconChevronDown = __esm(() => {
   IconChevronDown = createReactComponent("outline", "chevron-down", "IconChevronDown", [["path", { d: "M6 9l6 6l6 -6", key: "svg-0" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconChevronLeft.mjs
+var IconChevronLeft;
+var init_IconChevronLeft = __esm(() => {
+  init_createReactComponent();
+  IconChevronLeft = createReactComponent("outline", "chevron-left", "IconChevronLeft", [["path", { d: "M15 6l-6 6l6 6", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconChevronRight.mjs
+var IconChevronRight;
+var init_IconChevronRight = __esm(() => {
+  init_createReactComponent();
+  IconChevronRight = createReactComponent("outline", "chevron-right", "IconChevronRight", [["path", { d: "M9 6l6 6l-6 6", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconCopyPlus.mjs
 var IconCopyPlus;
 var init_IconCopyPlus = __esm(() => {
@@ -13931,6 +13945,13 @@ var IconCopy;
 var init_IconCopy = __esm(() => {
   init_createReactComponent();
   IconCopy = createReactComponent("outline", "copy", "IconCopy", [["path", { d: "M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z", key: "svg-0" }], ["path", { d: "M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1", key: "svg-1" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconCrop.mjs
+var IconCrop;
+var init_IconCrop = __esm(() => {
+  init_createReactComponent();
+  IconCrop = createReactComponent("outline", "crop", "IconCrop", [["path", { d: "M8 5v10a1 1 0 0 0 1 1h10", key: "svg-0" }], ["path", { d: "M5 8h10a1 1 0 0 1 1 1v10", key: "svg-1" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconDeselect.mjs
@@ -13975,6 +13996,13 @@ var init_IconInfoCircle = __esm(() => {
   IconInfoCircle = createReactComponent("outline", "info-circle", "IconInfoCircle", [["path", { d: "M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0", key: "svg-0" }], ["path", { d: "M12 9h.01", key: "svg-1" }], ["path", { d: "M11 12h1v4h1", key: "svg-2" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconListTree.mjs
+var IconListTree;
+var init_IconListTree = __esm(() => {
+  init_createReactComponent();
+  IconListTree = createReactComponent("outline", "list-tree", "IconListTree", [["path", { d: "M9 6h11", key: "svg-0" }], ["path", { d: "M12 12h8", key: "svg-1" }], ["path", { d: "M15 18h5", key: "svg-2" }], ["path", { d: "M5 6v.01", key: "svg-3" }], ["path", { d: "M8 12v.01", key: "svg-4" }], ["path", { d: "M11 18v.01", key: "svg-5" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconList.mjs
 var IconList;
 var init_IconList = __esm(() => {
@@ -14010,6 +14038,13 @@ var init_IconPlaystationSquare = __esm(() => {
   IconPlaystationSquare = createReactComponent("outline", "playstation-square", "IconPlaystationSquare", [["path", { d: "M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z", key: "svg-0" }], ["path", { d: "M8 8m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z", key: "svg-1" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconPlug.mjs
+var IconPlug;
+var init_IconPlug = __esm(() => {
+  init_createReactComponent();
+  IconPlug = createReactComponent("outline", "plug", "IconPlug", [["path", { d: "M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054z", key: "svg-0" }], ["path", { d: "M4 20l3.5 -3.5", key: "svg-1" }], ["path", { d: "M15 4l-3.5 3.5", key: "svg-2" }], ["path", { d: "M20 9l-3.5 3.5", key: "svg-3" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPlus.mjs
 var IconPlus;
 var init_IconPlus = __esm(() => {
@@ -14022,6 +14057,20 @@ var IconReplace;
 var init_IconReplace = __esm(() => {
   init_createReactComponent();
   IconReplace = createReactComponent("outline", "replace", "IconReplace", [["path", { d: "M3 3m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-0" }], ["path", { d: "M15 15m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-1" }], ["path", { d: "M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3", key: "svg-2" }], ["path", { d: "M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3", key: "svg-3" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconSearch.mjs
+var IconSearch;
+var init_IconSearch = __esm(() => {
+  init_createReactComponent();
+  IconSearch = createReactComponent("outline", "search", "IconSearch", [["path", { d: "M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0", key: "svg-0" }], ["path", { d: "M21 21l-6 -6", key: "svg-1" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconSettings.mjs
+var IconSettings;
+var init_IconSettings = __esm(() => {
+  init_createReactComponent();
+  IconSettings = createReactComponent("outline", "settings", "IconSettings", [["path", { d: "M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z", key: "svg-0" }], ["path", { d: "M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0", key: "svg-1" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconSparkles.mjs
@@ -14074,7 +14123,7 @@ var init_IconTrashFilled = __esm(() => {
 });
 
 // src/index.tsx
-var import_react261 = __toESM(require_react(), 1);
+var import_react268 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -14708,6 +14757,7 @@ var immer2 = immerImpl;
 var saveLayoutConfigToJSON = (config) => {
   console.log("Saving config:", config);
 };
+var useAppStore = () => appStore();
 var unloadedDoc = { layouts: [], variables: [] };
 var appStore = create()(immer2((set2, get) => ({
   state: {
@@ -15202,9 +15252,11 @@ var appStore = create()(immer2((set2, get) => ({
     state.state.isToolbarVisible = false;
   }),
   enableToolbar: () => set2((state) => {
+    console.log("ENABLE TOOLBAR");
     state.state.isToolbarEnabled = true;
   }),
   disableToolbar: () => set2((state) => {
+    console.log("DISABLE TOOLBAR");
     state.state.isToolbarEnabled = false;
   }),
   raiseError: (error) => {
@@ -16241,6 +16293,22 @@ function layoutSizingScript(debug = false) {
   }
 }
 
+// src/studio/documentHandler.ts
+async function getCurrentDocumentState(studio2) {
+  return handleStudioFunc(studio2.document.getCurrentState);
+}
+async function loadDocumentFromJsonStr(studio2, document2) {
+  return handleStudioFunc(studio2.document.load, document2);
+}
+
+// src/studio/connectorAdapter.ts
+async function getConnectorsByType(studio2, type) {
+  return handleStudioFunc(studio2.connector.getAllByType, type);
+}
+async function unregisterConnector(studio2, connectorId) {
+  return handleStudioFunc(studio2.connector.unregister, connectorId);
+}
+
 // src/studio/studioAdapter.ts
 async function getStudio() {
   if (window.SDK == null)
@@ -16459,9 +16527,7 @@ console.log(layoutSizingScript(false))`;
       studio: window.SDK
     }, {
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      triggers: [
-        { event: import_studio_sdk2.ActionEditorEvent.pageSizeChanged }
-      ],
+      triggers: [{ event: import_studio_sdk2.ActionEditorEvent.pageSizeChanged }],
       script
     });
     if (updateResult.isError()) {
@@ -16476,7 +16542,11 @@ console.log(layoutSizingScript(false))`;
     if (variableResult.isError()) {
       return variableResult;
     }
-    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk2.VariableVisibilityType.invisible } });
+    return setVariableVisblityWithName({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      visible: { type: import_studio_sdk2.VariableVisibilityType.invisible }
+    });
   } else {
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
@@ -16487,7 +16557,11 @@ console.log(layoutSizingScript(false))`;
     if (variableResult.isError()) {
       return variableResult;
     }
-    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk2.VariableVisibilityType.invisible } });
+    return setVariableVisblityWithName({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      visible: { type: import_studio_sdk2.VariableVisibilityType.invisible }
+    });
   }
 }
 async function updateFrameLayoutMaps(frameSnapshot) {
@@ -16536,6 +16610,91 @@ async function updateFrameLayoutMaps(frameSnapshot) {
     const saveResult = await saveFrameLayoutMapsToDoc(frameLayoutMaps);
     if (!saveResult.isOk()) {
       return Result.error(new Error("Failed to save frame layout maps: " + saveResult.error?.message));
+    }
+    return Result.ok(undefined);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+async function getCurrentConnectors(studio2) {
+  try {
+    const connectorsResult = await getConnectorsByType(studio2, import_studio_sdk2.ConnectorType.media);
+    if (!connectorsResult.isOk()) {
+      return Result.error(new Error("Failed to get connectors: " + connectorsResult.error?.message));
+    }
+    const connectorInstances = connectorsResult.value;
+    console.log("connectorInstances", connectorInstances);
+    const documentStateResult = await getCurrentDocumentState(studio2);
+    if (!documentStateResult.isOk()) {
+      return Result.error(new Error("Failed to get document state: " + documentStateResult.error?.message));
+    }
+    const documentState = documentStateResult.value;
+    const documentConnectors = documentState.connectors || [];
+    console.log("documentConnectors", documentConnectors);
+    const grafxConnectors = documentConnectors.filter((docConnector) => docConnector.source.source === "grafx" && connectorInstances.some((instance) => instance.id === docConnector.id));
+    const result = [];
+    for (const connector of grafxConnectors) {
+      const usage = {
+        id: connector.id,
+        name: connector.name,
+        type: "media",
+        usesInTemplate: {
+          images: [],
+          variables: []
+        }
+      };
+      if (documentState.pages && Array.isArray(documentState.pages)) {
+        for (const page of documentState.pages) {
+          if (page.frames && Array.isArray(page.frames)) {
+            for (const frame of page.frames) {
+              if (frame.type === "image" && frame.src && frame.src.id === connector.id) {
+                usage.usesInTemplate.images.push({
+                  id: frame.id,
+                  name: frame.name || frame.id
+                });
+              }
+            }
+          }
+        }
+      }
+      if (documentState.variables && Array.isArray(documentState.variables)) {
+        for (const variable of documentState.variables) {
+          if (variable.type === "image" && variable.value && typeof variable.value === "object" && variable.value.connectorId === connector.id) {
+            usage.usesInTemplate.variables.push({
+              id: variable.id,
+              name: variable.name || variable.id
+            });
+          }
+        }
+      }
+      result.push(usage);
+    }
+    return Result.ok(result);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+async function mergeConnectors(studio2, targetConnectorId, selectedConnectorIds) {
+  try {
+    const connectorsToUnregister = selectedConnectorIds.filter((id) => id !== targetConnectorId);
+    for (const connectorId of connectorsToUnregister) {
+      const unregisterResult = await unregisterConnector(studio2, connectorId);
+      if (!unregisterResult.isOk()) {
+        return Result.error(new Error(`Failed to unregister connector ${connectorId}: ${unregisterResult.error?.message}`));
+      }
+    }
+    const documentStateResult = await getCurrentDocumentState(studio2);
+    if (!documentStateResult.isOk()) {
+      return Result.error(new Error(`Failed to get document state: ${documentStateResult.error?.message}`));
+    }
+    let documentJson = JSON.stringify(documentStateResult.value);
+    for (const connectorId of connectorsToUnregister) {
+      const regex = new RegExp(connectorId, "g");
+      documentJson = documentJson.replace(regex, targetConnectorId);
+    }
+    const loadResult = await loadDocumentFromJsonStr(studio2, documentJson);
+    if (!loadResult.isOk()) {
+      return Result.error(new Error(`Failed to load updated document: ${loadResult.error?.message}`));
     }
     return Result.ok(undefined);
   } catch (error) {
@@ -35793,21 +35952,28 @@ init_IconArrowsTransferUpDown();
 init_IconBug();
 init_IconCameraPlus();
 init_IconChevronDown();
+init_IconChevronLeft();
+init_IconChevronRight();
 init_IconCopyPlus();
 init_IconCopy();
+init_IconCrop();
 init_IconDeselect();
 init_IconDownload();
 init_IconExchange();
 init_IconExternalLink();
 init_IconGripVertical();
 init_IconInfoCircle();
+init_IconListTree();
 init_IconList();
 init_IconMapBolt();
 init_IconPencil();
 init_IconPhotoCog();
 init_IconPlaystationSquare();
+init_IconPlug();
 init_IconPlus();
 init_IconReplace();
+init_IconSearch();
+init_IconSettings();
 init_IconSparkles();
 init_IconTrash();
 init_IconUpload();
@@ -41438,7 +41604,7 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react259 = __toESM(require_react(), 1);
+var import_react266 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
 var import_react253 = __toESM(require_react(), 1);
@@ -42374,6 +42540,7 @@ function FrameSnapshotLayoutModal({
     })
   });
 }
+
 // src/components/AddFrameSnapshotModal.tsx
 var import_react254 = __toESM(require_react(), 1);
 var jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
@@ -42762,14 +42929,6 @@ function LayoutManagerModal({ opened, onClose }) {
 // src/components/DownloadModal.tsx
 var import_react257 = __toESM(require_react(), 1);
 
-// src/studio/documentHandler.ts
-async function getCurrentDocumentState(studio2) {
-  return handleStudioFunc(studio2.document.getCurrentState);
-}
-async function loadDocumentFromJsonStr(studio2, document2) {
-  return handleStudioFunc(studio2.document.load, document2);
-}
-
 // src/components/ConnectorReplacementModal.tsx
 var import_react256 = __toESM(require_react(), 1);
 var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
@@ -42927,7 +43086,7 @@ function DownloadModal({ opened, onClose }) {
             }
           }
         } catch (error) {
-          console.warn("Failed to fetch template name:", error);
+          raiseError2(error instanceof Error ? error : new Error("Failed to fetch template name"));
         }
       }
       let documentData = { ...documentResult.value };
@@ -43029,7 +43188,7 @@ function DownloadModal({ opened, onClose }) {
             }
           });
           if (!fontDownloadResponse.ok) {
-            console.warn(`Failed to download font: ${fontDownloadResponse.statusText}`);
+            raiseError2(new Error(`Failed to download font: ${fontDownloadResponse.statusText}`));
             continue;
           }
           const fontBlob = await fontDownloadResponse.blob();
@@ -43043,7 +43202,7 @@ function DownloadModal({ opened, onClose }) {
             body: formData
           });
           if (!uploadResponse.ok) {
-            console.warn(`Failed to upload font: ${uploadResponse.statusText}`);
+            raiseError2(new Error(`Failed to upload font: ${uploadResponse.statusText}`));
             continue;
           }
           const uploadData = await uploadResponse.json();
@@ -43071,12 +43230,12 @@ function DownloadModal({ opened, onClose }) {
                 }
               });
               if (!confirmResponse.ok) {
-                console.warn(`Failed to confirm font upload: ${confirmResponse.statusText}`);
+                raiseError2(new Error(`Failed to confirm font upload: ${confirmResponse.statusText}`));
               }
             }
           }
         } catch (error) {
-          console.warn(`Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}:`, error);
+          raiseError2(error instanceof Error ? error : new Error(`Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`));
         }
       }
       setFontMigrationProgress({
@@ -43727,33 +43886,2641 @@ magicLayoutScript(false)`;
   });
 }
 
-// src/components/Toolbar.tsx
+// src/components/ConnectorCleanupModal.tsx
+var import_react259 = __toESM(require_react(), 1);
 var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+function ConnectorCleanupModal({
+  opened,
+  onClose
+}) {
+  const [connectors, setConnectors] = import_react259.useState([]);
+  const [selectedConnectors, setSelectedConnectors] = import_react259.useState(new Set);
+  const [isLoading, setIsLoading] = import_react259.useState(false);
+  const [isDeleting, setIsDeleting] = import_react259.useState(false);
+  const [isMergeModalOpen, setIsMergeModalOpen] = import_react259.useState(false);
+  const [mergeTargetId, setMergeTargetId] = import_react259.useState(null);
+  const [isMerging, setIsMerging] = import_react259.useState(false);
+  const { raiseError: raiseError2 } = useAppStore();
+  import_react259.useEffect(() => {
+    if (opened) {
+      loadConnectors();
+    }
+  }, [opened]);
+  const loadConnectors = async () => {
+    setIsLoading(true);
+    setSelectedConnectors(new Set);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const connectorsResult = await getCurrentConnectors(studioResult.value);
+      if (!connectorsResult.isOk()) {
+        raiseError2(new Error(connectorsResult.error?.message || "Failed to load connectors"));
+        return;
+      }
+      setConnectors(connectorsResult.value);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleConnectorToggle = (connectorId) => {
+    const newSelected = new Set(selectedConnectors);
+    if (newSelected.has(connectorId)) {
+      newSelected.delete(connectorId);
+    } else {
+      newSelected.add(connectorId);
+    }
+    setSelectedConnectors(newSelected);
+  };
+  const handleSelectAll = () => {
+    if (selectedConnectors.size === connectors.length) {
+      setSelectedConnectors(new Set);
+    } else {
+      setSelectedConnectors(new Set(connectors.map((c2) => c2.id)));
+    }
+  };
+  const handleDeleteSelected = async () => {
+    if (selectedConnectors.size === 0)
+      return;
+    setIsDeleting(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const selectedIds = Array.from(selectedConnectors);
+      for (const connectorId of selectedIds) {
+        const result = await unregisterConnector(studio2, connectorId);
+        if (!result.isOk()) {
+          raiseError2(new Error(`Failed to delete connector ${connectorId}: ${result.error?.message}`));
+        }
+      }
+      await loadConnectors();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+  const handleMergeConnectors = () => {
+    if (selectedConnectors.size < 2)
+      return;
+    setMergeTargetId(null);
+    setIsMergeModalOpen(true);
+  };
+  const handleMergeCancel = () => {
+    setIsMergeModalOpen(false);
+    setMergeTargetId(null);
+  };
+  const handleMergeConfirm = async () => {
+    if (!mergeTargetId || selectedConnectors.size < 2)
+      return;
+    setIsMerging(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const selectedIds = Array.from(selectedConnectors);
+      const result = await mergeConnectors(studio2, mergeTargetId, selectedIds);
+      if (!result.isOk()) {
+        raiseError2(new Error(result.error?.message || "Failed to merge connectors"));
+        return;
+      }
+      setIsMergeModalOpen(false);
+      setMergeTargetId(null);
+      await loadConnectors();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsMerging(false);
+    }
+  };
+  const formatUsageCount = (usage) => {
+    const imageCount = usage.images.length;
+    const variableCount = usage.variables.length;
+    if (imageCount === 0 && variableCount === 0) {
+      return "None";
+    }
+    const parts = [];
+    if (imageCount > 0)
+      parts.push(`${imageCount} frame${imageCount !== 1 ? "s" : ""}`);
+    if (variableCount > 0)
+      parts.push(`${variableCount} variable${variableCount !== 1 ? "s" : ""}`);
+    return parts.join(", ");
+  };
+  const hasSelectedConnectors = selectedConnectors.size > 0;
+  const isAllSelected = selectedConnectors.size === connectors.length && connectors.length > 0;
+  return /* @__PURE__ */ jsx_runtime23.jsxs(jsx_runtime23.Fragment, {
+    children: [
+      /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
+        opened,
+        onClose,
+        title: "Connector Cleanup",
+        size: "xl",
+        centered: true,
+        children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+          children: [
+            /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+              size: "sm",
+              c: "dimmed",
+              children: "Manage and remove unused connectors from your document."
+            }),
+            isLoading ? /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+              justify: "center",
+              p: "xl",
+              children: [
+                /* @__PURE__ */ jsx_runtime23.jsx(Loader, {
+                  size: "md"
+                }),
+                /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                  children: "Loading connectors..."
+                })
+              ]
+            }) : /* @__PURE__ */ jsx_runtime23.jsx(jsx_runtime23.Fragment, {
+              children: connectors.length === 0 ? /* @__PURE__ */ jsx_runtime23.jsx(Alert, {
+                icon: /* @__PURE__ */ jsx_runtime23.jsx(IconAlertCircle, {
+                  size: 16
+                }),
+                color: "blue",
+                children: "No connectors found in this document."
+              }) : /* @__PURE__ */ jsx_runtime23.jsxs(jsx_runtime23.Fragment, {
+                children: [
+                  /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+                    justify: "space-between",
+                    children: [
+                      /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+                        children: [
+                          /* @__PURE__ */ jsx_runtime23.jsxs(Button, {
+                            onClick: handleDeleteSelected,
+                            disabled: !hasSelectedConnectors || isDeleting || isMerging,
+                            color: "red",
+                            loading: isDeleting,
+                            children: [
+                              "Delete Selected (",
+                              selectedConnectors.size,
+                              ")"
+                            ]
+                          }),
+                          /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                            onClick: handleMergeConnectors,
+                            disabled: selectedConnectors.size < 2 || isDeleting || isMerging,
+                            color: "blue",
+                            variant: "outline",
+                            children: "Merge Connectors"
+                          })
+                        ]
+                      }),
+                      /* @__PURE__ */ jsx_runtime23.jsx(Checkbox, {
+                        label: `Select All (${connectors.length})`,
+                        checked: isAllSelected,
+                        indeterminate: hasSelectedConnectors && !isAllSelected,
+                        onChange: handleSelectAll,
+                        disabled: isDeleting || isMerging
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsx_runtime23.jsx(ScrollArea, {
+                    h: 400,
+                    children: /* @__PURE__ */ jsx_runtime23.jsxs(Table, {
+                      striped: true,
+                      highlightOnHover: true,
+                      children: [
+                        /* @__PURE__ */ jsx_runtime23.jsx(Table.Thead, {
+                          children: /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
+                            children: [
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                w: 50
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                children: "Name"
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                children: "Type"
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                children: "ID"
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                children: "Usage"
+                              })
+                            ]
+                          })
+                        }),
+                        /* @__PURE__ */ jsx_runtime23.jsx(Table.Tbody, {
+                          children: connectors.map((connector) => /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
+                            children: [
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime23.jsx(Checkbox, {
+                                  checked: selectedConnectors.has(connector.id),
+                                  onChange: () => handleConnectorToggle(connector.id),
+                                  disabled: isDeleting
+                                })
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: connector.name
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                                  tt: "capitalize",
+                                  children: connector.type
+                                })
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                                  size: "xs",
+                                  c: "dimmed",
+                                  ff: "monospace",
+                                  children: connector.id
+                                })
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                                  size: "sm",
+                                  children: formatUsageCount(connector.usesInTemplate)
+                                })
+                              })
+                            ]
+                          }, connector.id))
+                        })
+                      ]
+                    })
+                  })
+                ]
+              })
+            }),
+            /* @__PURE__ */ jsx_runtime23.jsx(Group, {
+              justify: "flex-end",
+              children: /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                onClick: onClose,
+                variant: "outline",
+                children: "Close"
+              })
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
+        opened: isMergeModalOpen,
+        onClose: handleMergeCancel,
+        title: "Merge All Connectors together",
+        centered: true,
+        size: "md",
+        children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+          children: [
+            /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+              size: "sm",
+              c: "dimmed",
+              children: "Select the connector to merge all selected connectors into. The other connectors will be removed and all references will be updated."
+            }),
+            /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+              gap: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                  fw: 500,
+                  children: "Merge into:"
+                }),
+                /* @__PURE__ */ jsx_runtime23.jsx(Select, {
+                  placeholder: "Select target connector",
+                  data: Array.from(selectedConnectors).map((id) => {
+                    const connector = connectors.find((c2) => c2.id === id);
+                    return {
+                      value: id,
+                      label: connector ? `${connector.name} (${id})` : id
+                    };
+                  }),
+                  value: mergeTargetId,
+                  onChange: setMergeTargetId,
+                  disabled: isMerging
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+              justify: "flex-end",
+              mt: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                  onClick: handleMergeCancel,
+                  variant: "outline",
+                  disabled: isMerging,
+                  children: "Cancel"
+                }),
+                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                  onClick: handleMergeConfirm,
+                  disabled: !mergeTargetId || isMerging,
+                  loading: isMerging,
+                  color: "blue",
+                  children: "Merge"
+                })
+              ]
+            })
+          ]
+        })
+      })
+    ]
+  });
+}
+
+// src/components/ManualCropManager/ManualCropManagerModal.tsx
+var import_react265 = __toESM(require_react(), 1);
+
+// src/components/ManualCropManager/LayoutViewer.tsx
+var import_react260 = __toESM(require_react(), 1);
+
+// src/studio-adapter/getManualCropsFromDocByConnector.ts
+async function getManualCropsFromDocByConnector(studio2, connectorId) {
+  try {
+    const documentStateResult = await getCurrentDocumentState(studio2);
+    if (!documentStateResult.isOk()) {
+      return Result.error(new Error("Failed to get document state: " + documentStateResult.error?.message));
+    }
+    const documentState = documentStateResult.value;
+    const frameIdToNameMap = new Map;
+    if (documentState.pages && Array.isArray(documentState.pages)) {
+      for (const page of documentState.pages) {
+        if (page.frames && Array.isArray(page.frames)) {
+          for (const frame of page.frames) {
+            frameIdToNameMap.set(frame.id, frame.name);
+          }
+        }
+      }
+    }
+    const result = {
+      layouts: [],
+      connectorId
+    };
+    if (documentState.layouts && Array.isArray(documentState.layouts)) {
+      for (const layout of documentState.layouts) {
+        const manualCrops = [];
+        if (layout.frameProperties && Array.isArray(layout.frameProperties)) {
+          for (const frameProperty of layout.frameProperties) {
+            if (frameProperty.perAssetCrop && frameProperty.perAssetCrop[connectorId]) {
+              const connectorCrops = frameProperty.perAssetCrop[connectorId];
+              for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
+                const frameName = frameIdToNameMap.get(frameProperty.id) || frameProperty.id;
+                const manualCrop = {
+                  frameId: frameProperty.id,
+                  frameName,
+                  name: assetPath,
+                  top: cropData.top,
+                  left: cropData.left,
+                  width: cropData.width,
+                  height: cropData.height,
+                  rotationDegrees: cropData.rotationDegrees ?? 0,
+                  originalParentWidth: cropData.originalParentWidth ?? 283464,
+                  originalParentHeight: cropData.originalParentHeight ?? 283464
+                };
+                manualCrops.push(manualCrop);
+              }
+            }
+          }
+        }
+        if (manualCrops.length > 0) {
+          const layoutWithCrops = {
+            id: layout.id,
+            name: layout.name,
+            parentId: layout.parentId || "",
+            manualCrops
+          };
+          result.layouts.push(layoutWithCrops);
+        }
+      }
+    }
+    return Result.ok(result);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+
+// src/components/ManualCropManager/LayoutViewer.tsx
+var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+function LayoutViewer({
+  selectedLayoutIds,
+  onSelectionChange,
+  selectedConnectorId
+}) {
+  const [layouts, setLayouts] = import_react260.useState([]);
+  const [searchQuery, setSearchQuery] = import_react260.useState("");
+  const [isLoading, setIsLoading] = import_react260.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react260.useState(new Set);
+  const raiseError2 = appStore((store) => store.raiseError);
+  import_react260.useEffect(() => {
+    loadLayouts();
+  }, []);
+  import_react260.useEffect(() => {
+    if (selectedConnectorId) {
+      updateManualCropIndicators();
+    }
+  }, [selectedConnectorId]);
+  const loadLayouts = async () => {
+    try {
+      setIsLoading(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const layoutsResult = await getAllLayouts(studioResult.value);
+      if (!layoutsResult.isOk()) {
+        raiseError2(new Error("Failed to load layouts: " + layoutsResult.error?.message));
+        return;
+      }
+      const layoutsData = layoutsResult.value;
+      const layoutNodes = buildLayoutTree(layoutsData);
+      setLayouts(layoutNodes);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load layouts"));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const updateManualCropIndicators = async () => {
+    if (!selectedConnectorId)
+      return;
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const cropsResult = await getManualCropsFromDocByConnector(studioResult.value, selectedConnectorId);
+      if (cropsResult.isError()) {
+        raiseError2(new Error(`Failed to load manual crops: ${cropsResult.error?.message}`));
+        return;
+      }
+      if (!cropsResult.isOk()) {
+        raiseError2(new Error("Failed to load manual crops: Invalid result"));
+        return;
+      }
+      const cropsData = cropsResult.value;
+      const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
+      setLayouts((prevLayouts) => updateLayoutCropIndicators(prevLayouts, layoutsWithCrops));
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to update manual crop indicators"));
+    }
+  };
+  const updateLayoutCropIndicators = (layouts2, layoutsWithCrops) => {
+    return layouts2.map((layout) => ({
+      ...layout,
+      hasManualCrops: layoutsWithCrops.has(layout.id),
+      children: updateLayoutCropIndicators(layout.children, layoutsWithCrops)
+    }));
+  };
+  const buildLayoutTree = (layouts2) => {
+    const layoutMap = new Map;
+    const rootLayouts = [];
+    layouts2.forEach((layout) => {
+      layoutMap.set(layout.id, {
+        id: layout.id,
+        name: layout.name,
+        parentId: layout.parentId,
+        children: [],
+        isExpanded: false,
+        hasManualCrops: false,
+        level: 0
+      });
+    });
+    layouts2.forEach((layout) => {
+      const node2 = layoutMap.get(layout.id);
+      if (layout.parentId) {
+        const parent = layoutMap.get(layout.parentId);
+        if (parent) {
+          parent.children.push(node2);
+          node2.level = parent.level + 1;
+        }
+      } else {
+        rootLayouts.push(node2);
+      }
+    });
+    return rootLayouts;
+  };
+  const filteredLayouts = import_react260.useMemo(() => {
+    if (!searchQuery.trim())
+      return layouts;
+    const filterLayouts = (layouts2) => {
+      return layouts2.reduce((acc, layout) => {
+        const matchesSearch = layout.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const filteredChildren = filterLayouts(layout.children);
+        if (matchesSearch || filteredChildren.length > 0) {
+          acc.push({
+            ...layout,
+            children: filteredChildren,
+            isExpanded: filteredChildren.length > 0 ? true : layout.isExpanded
+          });
+        }
+        return acc;
+      }, []);
+    };
+    return filterLayouts(layouts);
+  }, [layouts, searchQuery]);
+  const toggleLayoutExpanded = (layoutId) => {
+    setExpandedLayouts((prev2) => {
+      const newSet = new Set(prev2);
+      if (newSet.has(layoutId)) {
+        newSet.delete(layoutId);
+      } else {
+        newSet.add(layoutId);
+      }
+      return newSet;
+    });
+  };
+  const expandAll = () => {
+    const allLayoutIds = new Set;
+    const collectIds = (layouts2) => {
+      layouts2.forEach((layout) => {
+        if (layout.children.length > 0) {
+          allLayoutIds.add(layout.id);
+        }
+        collectIds(layout.children);
+      });
+    };
+    collectIds(layouts);
+    setExpandedLayouts(allLayoutIds);
+  };
+  const collapseAll = () => {
+    setExpandedLayouts(new Set);
+  };
+  const deselectAll = () => {
+    onSelectionChange([]);
+  };
+  const toggleLayoutSelection = (layoutId) => {
+    const newSelection = selectedLayoutIds.includes(layoutId) ? selectedLayoutIds.filter((id) => id !== layoutId) : [...selectedLayoutIds, layoutId];
+    onSelectionChange(newSelection);
+  };
+  const toggleChildrenSelection = (layout) => {
+    const allChildIds = getAllChildIds(layout);
+    const allChildrenSelected = allChildIds.every((id) => selectedLayoutIds.includes(id));
+    if (allChildrenSelected) {
+      const newSelection = selectedLayoutIds.filter((id) => !allChildIds.includes(id));
+      onSelectionChange(newSelection);
+    } else {
+      const newSelection = [...new Set([...selectedLayoutIds, ...allChildIds])];
+      onSelectionChange(newSelection);
+    }
+  };
+  const getAllChildIds = (layout) => {
+    const childIds = [];
+    const collectIds = (node2) => {
+      childIds.push(node2.id);
+      node2.children.forEach(collectIds);
+    };
+    layout.children.forEach(collectIds);
+    return childIds;
+  };
+  const getCheckboxState = (layout) => {
+    if (layout.children.length === 0)
+      return "unchecked";
+    const allChildIds = getAllChildIds(layout);
+    const selectedChildIds = allChildIds.filter((id) => selectedLayoutIds.includes(id));
+    if (selectedChildIds.length === 0)
+      return "unchecked";
+    if (selectedChildIds.length === allChildIds.length)
+      return "checked";
+    return "indeterminate";
+  };
+  if (isLoading) {
+    return /* @__PURE__ */ jsx_runtime24.jsx(Center, {
+      style: { height: "100%" },
+      children: /* @__PURE__ */ jsx_runtime24.jsx(Loader, {
+        size: "sm"
+      })
+    });
+  }
+  return /* @__PURE__ */ jsx_runtime24.jsxs(Box, {
+    style: { height: "100%", display: "flex", flexDirection: "column" },
+    children: [
+      /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+        p: "md",
+        style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
+        children: /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+          gap: "xs",
+          children: [
+            /* @__PURE__ */ jsx_runtime24.jsx(TextInput, {
+              placeholder: "Search layouts...",
+              value: searchQuery,
+              onChange: (e) => setSearchQuery(e.target.value),
+              leftSection: /* @__PURE__ */ jsx_runtime24.jsx(IconSearch, {
+                size: 16
+              }),
+              size: "sm"
+            }),
+            /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+              gap: "xs",
+              children: [
+                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  variant: "subtle",
+                  size: "xs",
+                  onClick: expandAll,
+                  children: "Expand All"
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  variant: "subtle",
+                  size: "xs",
+                  onClick: collapseAll,
+                  children: "Collapse All"
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  variant: "subtle",
+                  size: "xs",
+                  onClick: deselectAll,
+                  children: "Deselect All"
+                })
+              ]
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime24.jsx(ScrollArea, {
+        style: { flex: 1 },
+        children: /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+          p: "md",
+          children: /* @__PURE__ */ jsx_runtime24.jsx(LayoutTree, {
+            layouts: filteredLayouts,
+            selectedLayoutIds,
+            expandedLayouts,
+            onToggleExpanded: toggleLayoutExpanded,
+            onToggleSelection: toggleLayoutSelection,
+            onToggleChildrenSelection: toggleChildrenSelection,
+            getCheckboxState
+          })
+        })
+      })
+    ]
+  });
+}
+function LayoutTree({
+  layouts,
+  selectedLayoutIds,
+  expandedLayouts,
+  onToggleExpanded,
+  onToggleSelection,
+  onToggleChildrenSelection,
+  getCheckboxState
+}) {
+  return /* @__PURE__ */ jsx_runtime24.jsx(Stack, {
+    gap: "xs",
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime24.jsx(LayoutTreeItem, {
+      layout,
+      selectedLayoutIds,
+      expandedLayouts,
+      onToggleExpanded,
+      onToggleSelection,
+      onToggleChildrenSelection,
+      getCheckboxState
+    }, layout.id))
+  });
+}
+function LayoutTreeItem({
+  layout,
+  selectedLayoutIds,
+  expandedLayouts,
+  onToggleExpanded,
+  onToggleSelection,
+  onToggleChildrenSelection,
+  getCheckboxState
+}) {
+  const hasChildren = layout.children.length > 0;
+  const isExpanded = expandedLayouts.has(layout.id);
+  const isSelected = selectedLayoutIds.includes(layout.id);
+  const checkboxState = getCheckboxState(layout);
+  return /* @__PURE__ */ jsx_runtime24.jsxs(Box, {
+    children: [
+      /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+        gap: "xs",
+        style: {
+          paddingLeft: layout.level * 20,
+          padding: "4px 8px",
+          borderRadius: "4px",
+          backgroundColor: isSelected ? "var(--mantine-color-blue-1)" : "transparent"
+        },
+        children: [
+          hasChildren ? /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+            variant: "subtle",
+            size: "xs",
+            onClick: (e) => {
+              e.stopPropagation();
+              onToggleExpanded(layout.id);
+            },
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime24.jsx(IconChevronDown, {
+              size: 12
+            }) : /* @__PURE__ */ jsx_runtime24.jsx(IconChevronRight, {
+              size: 12
+            })
+          }) : /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+            style: { width: 20 }
+          }),
+          hasChildren && /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+            checked: checkboxState === "checked",
+            indeterminate: checkboxState === "indeterminate",
+            onChange: () => onToggleChildrenSelection(layout),
+            size: "sm",
+            onClick: (e) => e.stopPropagation()
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsx(IconCrop, {
+            size: 14,
+            color: layout.hasManualCrops ? "orange" : "gray"
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+            size: "sm",
+            style: {
+              flex: 1,
+              cursor: "pointer",
+              color: layout.hasManualCrops ? "orange" : undefined
+            },
+            onClick: () => onToggleSelection(layout.id),
+            children: layout.name
+          })
+        ]
+      }),
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime24.jsx(LayoutTree, {
+        layouts: layout.children,
+        selectedLayoutIds,
+        expandedLayouts,
+        onToggleExpanded,
+        onToggleSelection,
+        onToggleChildrenSelection,
+        getCheckboxState
+      })
+    ]
+  });
+}
+
+// src/components/ManualCropManager/ManualCropEditor.tsx
+var import_react264 = __toESM(require_react(), 1);
+
+// src/studio-adapter/setManualCropsForLayout.ts
+function setManualCropsForLayout(documentState, layoutId, connectorId, manualCrops) {
+  try {
+    const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
+    console.log("Updated document state:", updatedDocumentState);
+    const layout = updatedDocumentState.layouts?.find((l2) => l2.id === layoutId);
+    if (!layout) {
+      return Result.error(new Error(`Layout with ID ${layoutId} not found`));
+    }
+    if (!layout.frameProperties) {
+      layout.frameProperties = [];
+    }
+    for (const manualCrop of manualCrops) {
+      let frameProperty = layout.frameProperties.find((fp) => fp.id === manualCrop.frameId);
+      if (!frameProperty) {
+        frameProperty = {
+          id: manualCrop.frameId,
+          type: "child",
+          perAssetCrop: {}
+        };
+        layout.frameProperties.push(frameProperty);
+      }
+      if (!frameProperty.perAssetCrop) {
+        frameProperty.perAssetCrop = {};
+      }
+      if (!frameProperty.perAssetCrop[connectorId]) {
+        frameProperty.perAssetCrop[connectorId] = {};
+      }
+      frameProperty.perAssetCrop[connectorId][manualCrop.name] = {
+        left: manualCrop.left,
+        top: manualCrop.top,
+        width: manualCrop.width,
+        height: manualCrop.height,
+        rotationDegrees: manualCrop.rotationDegrees,
+        originalParentWidth: manualCrop.originalParentWidth,
+        originalParentHeight: manualCrop.originalParentHeight
+      };
+    }
+    return Result.ok(updatedDocumentState);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error("Failed to set manual crops for layout"));
+  }
+}
+
+// src/studio-adapter/deleteManualCropsForLayout.ts
+function deleteManualCropsForLayout(documentState, layoutId, connectorId) {
+  try {
+    const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
+    const layout = updatedDocumentState.layouts?.find((l2) => l2.id === layoutId);
+    if (!layout) {
+      return Result.error(new Error(`Layout with ID ${layoutId} not found`));
+    }
+    for (const frameProperty of layout.frameProperties) {
+      if (frameProperty.perAssetCrop && frameProperty.perAssetCrop[connectorId]) {
+        delete frameProperty.perAssetCrop[connectorId];
+        if (Object.keys(frameProperty.perAssetCrop).length === 0) {
+          delete frameProperty.perAssetCrop;
+        }
+      }
+    }
+    return Result.ok(updatedDocumentState);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error("Failed to delete manual crops for layout"));
+  }
+}
+
+// src/components/ManualCropManager/CopyCropToLayerModal.tsx
+var import_react261 = __toESM(require_react(), 1);
+var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
+function CopyCropToLayerModal({
+  opened,
+  onClose,
+  sourceLayoutId,
+  checkedCrops,
+  selectedConnectorId,
+  onCopy
+}) {
+  const [layouts, setLayouts] = import_react261.useState([]);
+  const [searchQuery, setSearchQuery] = import_react261.useState("");
+  const [isLoading, setIsLoading] = import_react261.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react261.useState(new Set);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react261.useState([]);
+  const raiseError2 = appStore((store) => store.raiseError);
+  import_react261.useEffect(() => {
+    if (opened) {
+      loadLayouts();
+      setSelectedLayoutIds([]);
+      setSearchQuery("");
+    }
+  }, [opened]);
+  import_react261.useEffect(() => {
+    if (selectedConnectorId && opened) {
+      updateManualCropIndicators();
+    }
+  }, [selectedConnectorId, opened]);
+  const loadLayouts = async () => {
+    try {
+      setIsLoading(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const layoutsResult = await getAllLayouts(studioResult.value);
+      if (!layoutsResult.isOk()) {
+        raiseError2(new Error("Failed to load layouts: " + layoutsResult.error?.message));
+        return;
+      }
+      const layoutsData = layoutsResult.value;
+      const layoutNodes = buildLayoutTree(layoutsData);
+      setLayouts(layoutNodes);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load layouts"));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const updateManualCropIndicators = async () => {
+    if (!selectedConnectorId)
+      return;
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const cropsResult = await getManualCropsFromDocByConnector(studioResult.value, selectedConnectorId);
+      if (cropsResult.isError()) {
+        raiseError2(new Error(`Failed to load manual crops: ${cropsResult.error?.message}`));
+        return;
+      }
+      if (!cropsResult.isOk()) {
+        raiseError2(new Error("Failed to load manual crops: Invalid result"));
+        return;
+      }
+      const cropsData = cropsResult.value;
+      const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
+      setLayouts((prevLayouts) => updateLayoutCropIndicators(prevLayouts, layoutsWithCrops));
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to update manual crop indicators"));
+    }
+  };
+  const updateLayoutCropIndicators = (layouts2, layoutsWithCrops) => {
+    return layouts2.map((layout) => ({
+      ...layout,
+      hasManualCrops: layoutsWithCrops.has(layout.id),
+      children: updateLayoutCropIndicators(layout.children, layoutsWithCrops)
+    }));
+  };
+  const buildLayoutTree = (layouts2) => {
+    const layoutMap = new Map;
+    const rootLayouts = [];
+    layouts2.forEach((layout) => {
+      layoutMap.set(layout.id, {
+        id: layout.id,
+        name: layout.name,
+        parentId: layout.parentId,
+        children: [],
+        isExpanded: false,
+        hasManualCrops: false,
+        level: 0
+      });
+    });
+    layouts2.forEach((layout) => {
+      const node2 = layoutMap.get(layout.id);
+      if (layout.parentId) {
+        const parent = layoutMap.get(layout.parentId);
+        if (parent) {
+          parent.children.push(node2);
+          node2.level = parent.level + 1;
+        }
+      } else {
+        rootLayouts.push(node2);
+      }
+    });
+    return rootLayouts;
+  };
+  const filteredLayouts = import_react261.useMemo(() => {
+    if (!searchQuery.trim())
+      return layouts;
+    const filterLayouts = (layouts2) => {
+      return layouts2.reduce((acc, layout) => {
+        const matchesSearch = layout.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const filteredChildren = filterLayouts(layout.children);
+        if (matchesSearch || filteredChildren.length > 0) {
+          acc.push({
+            ...layout,
+            children: filteredChildren,
+            isExpanded: filteredChildren.length > 0 ? true : layout.isExpanded
+          });
+        }
+        return acc;
+      }, []);
+    };
+    return filterLayouts(layouts);
+  }, [layouts, searchQuery]);
+  const toggleLayoutExpanded = (layoutId) => {
+    setExpandedLayouts((prev2) => {
+      const newSet = new Set(prev2);
+      if (newSet.has(layoutId)) {
+        newSet.delete(layoutId);
+      } else {
+        newSet.add(layoutId);
+      }
+      return newSet;
+    });
+  };
+  const expandAll = () => {
+    const allLayoutIds = new Set;
+    const collectIds = (layouts2) => {
+      layouts2.forEach((layout) => {
+        if (layout.children.length > 0) {
+          allLayoutIds.add(layout.id);
+        }
+        collectIds(layout.children);
+      });
+    };
+    collectIds(layouts);
+    setExpandedLayouts(allLayoutIds);
+  };
+  const collapseAll = () => {
+    setExpandedLayouts(new Set);
+  };
+  const deselectAll = () => {
+    setSelectedLayoutIds([]);
+  };
+  const toggleLayoutSelection = (layoutId) => {
+    if (layoutId === sourceLayoutId)
+      return;
+    const newSelection = selectedLayoutIds.includes(layoutId) ? selectedLayoutIds.filter((id) => id !== layoutId) : [...selectedLayoutIds, layoutId];
+    setSelectedLayoutIds(newSelection);
+  };
+  const handleCopy = () => {
+    onCopy(selectedLayoutIds, checkedCrops);
+    onClose();
+  };
+  if (isLoading) {
+    return /* @__PURE__ */ jsx_runtime25.jsx(Modal, {
+      opened,
+      onClose,
+      title: "Copy Crops to Layouts",
+      size: "lg",
+      children: /* @__PURE__ */ jsx_runtime25.jsx(Center, {
+        style: { height: 400 },
+        children: /* @__PURE__ */ jsx_runtime25.jsx(Loader, {
+          size: "sm"
+        })
+      })
+    });
+  }
+  return /* @__PURE__ */ jsx_runtime25.jsx(Modal, {
+    opened,
+    onClose,
+    title: "Copy Crops to Layouts",
+    size: "lg",
+    children: /* @__PURE__ */ jsx_runtime25.jsxs(Box, {
+      style: { height: 500, display: "flex", flexDirection: "column" },
+      children: [
+        /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+          p: "md",
+          style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
+          children: /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
+            gap: "xs",
+            children: [
+              /* @__PURE__ */ jsx_runtime25.jsx(TextInput, {
+                placeholder: "Search layouts...",
+                value: searchQuery,
+                onChange: (e) => setSearchQuery(e.target.value),
+                leftSection: /* @__PURE__ */ jsx_runtime25.jsx(IconSearch, {
+                  size: 16
+                }),
+                size: "sm"
+              }),
+              /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+                gap: "xs",
+                children: [
+                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                    variant: "subtle",
+                    size: "xs",
+                    onClick: expandAll,
+                    children: "Expand All"
+                  }),
+                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                    variant: "subtle",
+                    size: "xs",
+                    onClick: collapseAll,
+                    children: "Collapse All"
+                  }),
+                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                    variant: "subtle",
+                    size: "xs",
+                    onClick: deselectAll,
+                    children: "Deselect All"
+                  })
+                ]
+              })
+            ]
+          })
+        }),
+        /* @__PURE__ */ jsx_runtime25.jsx(ScrollArea, {
+          style: { flex: 1 },
+          children: /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+            p: "md",
+            children: /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTree, {
+              layouts: filteredLayouts,
+              selectedLayoutIds,
+              expandedLayouts,
+              sourceLayoutId,
+              onToggleExpanded: toggleLayoutExpanded,
+              onToggleSelection: toggleLayoutSelection
+            })
+          })
+        }),
+        /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+          justify: "space-between",
+          p: "md",
+          style: { borderTop: "1px solid var(--mantine-color-gray-3)" },
+          children: [
+            /* @__PURE__ */ jsx_runtime25.jsxs(Text, {
+              size: "sm",
+              children: [
+                "Layouts Selected: ",
+                selectedLayoutIds.length
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+              gap: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                  variant: "outline",
+                  onClick: onClose,
+                  children: "Close"
+                }),
+                /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                  onClick: handleCopy,
+                  disabled: selectedLayoutIds.length === 0,
+                  color: "blue",
+                  children: "Copy"
+                })
+              ]
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+function CopyLayoutTree({
+  layouts,
+  selectedLayoutIds,
+  expandedLayouts,
+  sourceLayoutId,
+  onToggleExpanded,
+  onToggleSelection
+}) {
+  return /* @__PURE__ */ jsx_runtime25.jsx(Stack, {
+    gap: "xs",
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTreeItem, {
+      layout,
+      selectedLayoutIds,
+      expandedLayouts,
+      sourceLayoutId,
+      onToggleExpanded,
+      onToggleSelection
+    }, layout.id))
+  });
+}
+function CopyLayoutTreeItem({
+  layout,
+  selectedLayoutIds,
+  expandedLayouts,
+  sourceLayoutId,
+  onToggleExpanded,
+  onToggleSelection
+}) {
+  const hasChildren = layout.children.length > 0;
+  const isExpanded = expandedLayouts.has(layout.id);
+  const isSelected = selectedLayoutIds.includes(layout.id);
+  const isSourceLayout = layout.id === sourceLayoutId;
+  return /* @__PURE__ */ jsx_runtime25.jsxs(Box, {
+    children: [
+      /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+        gap: "xs",
+        style: {
+          paddingLeft: layout.level * 20,
+          padding: "4px 8px",
+          borderRadius: "4px",
+          backgroundColor: isSelected ? "var(--mantine-color-blue-1)" : isSourceLayout ? "var(--mantine-color-gray-2)" : "transparent",
+          opacity: isSourceLayout ? 0.5 : 1
+        },
+        children: [
+          hasChildren ? /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+            variant: "subtle",
+            size: "xs",
+            onClick: (e) => {
+              e.stopPropagation();
+              onToggleExpanded(layout.id);
+            },
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime25.jsx(IconChevronDown, {
+              size: 12
+            }) : /* @__PURE__ */ jsx_runtime25.jsx(IconChevronRight, {
+              size: 12
+            })
+          }) : /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+            style: { width: 20 }
+          }),
+          /* @__PURE__ */ jsx_runtime25.jsx(IconCrop, {
+            size: 14,
+            color: layout.hasManualCrops ? "orange" : "gray"
+          }),
+          /* @__PURE__ */ jsx_runtime25.jsxs(Text, {
+            size: "sm",
+            style: {
+              flex: 1,
+              cursor: isSourceLayout ? "not-allowed" : "pointer",
+              color: layout.hasManualCrops ? "orange" : undefined
+            },
+            onClick: () => onToggleSelection(layout.id),
+            children: [
+              layout.name,
+              " ",
+              isSourceLayout && "(Source - Cannot Select)"
+            ]
+          })
+        ]
+      }),
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTree, {
+        layouts: layout.children,
+        selectedLayoutIds,
+        expandedLayouts,
+        sourceLayoutId,
+        onToggleExpanded,
+        onToggleSelection
+      })
+    ]
+  });
+}
+
+// src/components/ManualCropManager/CopyAndAddRowModal.tsx
+var import_react262 = __toESM(require_react(), 1);
+var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
+function CopyAndAddRowModal2({
+  opened,
+  onClose,
+  crop,
+  layoutId,
+  existingCrops,
+  onAddCopy
+}) {
+  const [newName, setNewName] = import_react262.useState("");
+  const [error, setError] = import_react262.useState(null);
+  const [isLoading, setIsLoading] = import_react262.useState(false);
+  import_react262.default.useEffect(() => {
+    if (opened) {
+      setNewName(crop.name);
+      setError(null);
+      setIsLoading(false);
+    }
+  }, [opened, crop]);
+  const handleNameChange = (e) => {
+    setNewName(e.target.value);
+    setError(null);
+  };
+  const handleCreate = () => {
+    if (!newName.trim()) {
+      setError("Name cannot be empty");
+      return;
+    }
+    const nameExists = existingCrops.some((c2) => c2.frameId === crop.frameId && c2.name === newName.trim());
+    if (nameExists) {
+      setError("Name already exists for this frame");
+      return;
+    }
+    setIsLoading(true);
+    onAddCopy(crop, newName.trim());
+    setIsLoading(false);
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime26.jsx(Modal, {
+    opened,
+    onClose,
+    title: "Copy and Add Row",
+    centered: true,
+    children: /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
+      children: [
+        /* @__PURE__ */ jsx_runtime26.jsx(Text, {
+          size: "sm",
+          children: "Enter a name for the new manual crop:"
+        }),
+        /* @__PURE__ */ jsx_runtime26.jsx(TextInput, {
+          label: "Asset Name",
+          placeholder: "Enter asset name",
+          value: newName,
+          onChange: handleNameChange,
+          error,
+          required: true,
+          autoFocus: true
+        }),
+        /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
+          justify: "flex-end",
+          mt: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+              variant: "outline",
+              onClick: onClose,
+              children: "Cancel"
+            }),
+            /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+              onClick: handleCreate,
+              loading: isLoading,
+              disabled: !newName.trim(),
+              children: "Create"
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+
+// src/components/ManualCropManager/CopyAndReplaceModal.tsx
+var import_react263 = __toESM(require_react(), 1);
+var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
+function CopyAndReplaceModal2({
+  opened,
+  onClose,
+  crops,
+  layoutId,
+  existingCrops,
+  onAddCopy
+}) {
+  const [searchText, setSearchText] = import_react263.useState("");
+  const [replaceText, setReplaceText] = import_react263.useState("");
+  const [errors, setErrors] = import_react263.useState({});
+  const [isLoading, setIsLoading] = import_react263.useState(false);
+  const [previewCrop, setPreviewCrop] = import_react263.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react263.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react263.useState(false);
+  import_react263.useEffect(() => {
+    if (opened) {
+      setSearchText("");
+      setReplaceText("");
+      setErrors({});
+      setIsLoading(false);
+      if (crops.length > 0) {
+        setPreviewCrop(crops[0]);
+        setPreviewNewName(crops[0].name);
+        setIsPreviewNameDifferent(false);
+      }
+    }
+  }, [opened, crops]);
+  import_react263.useEffect(() => {
+    if (previewCrop) {
+      const newName = previewCrop.name.replace(new RegExp(searchText, "g"), replaceText);
+      setPreviewNewName(newName);
+      setIsPreviewNameDifferent(newName !== previewCrop.name);
+    }
+  }, [searchText, replaceText, previewCrop]);
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+    setErrors({});
+  };
+  const handleReplaceChange = (e) => {
+    setReplaceText(e.target.value);
+    setErrors({});
+  };
+  const handleCopyAndReplace = () => {
+    if (!searchText.trim()) {
+      setErrors({ searchText: "Search text cannot be empty" });
+      return;
+    }
+    setIsLoading(true);
+    const newErrors = {};
+    let hasErrors = false;
+    crops.forEach((crop) => {
+      const newName = crop.name.replace(new RegExp(searchText, "g"), replaceText);
+      if (newName === crop.name) {
+        return;
+      }
+      const nameExists = existingCrops.some((c2) => c2.frameId === crop.frameId && c2.name === newName);
+      if (nameExists) {
+        newErrors[`${crop.frameId}-${crop.name}`] = `Name "${newName}" already exists for frame ${crop.frameName}`;
+        hasErrors = true;
+      }
+    });
+    if (hasErrors) {
+      setErrors(newErrors);
+      setIsLoading(false);
+      return;
+    }
+    crops.forEach((crop) => {
+      const newName = crop.name.replace(new RegExp(searchText, "g"), replaceText);
+      if (newName === crop.name) {
+        return;
+      }
+      onAddCopy(crop, newName);
+    });
+    setIsLoading(false);
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime27.jsx(Modal, {
+    opened,
+    onClose,
+    title: "Copy and Replace",
+    centered: true,
+    children: /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+      children: [
+        /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+          size: "sm",
+          children: "Enter search and replace text to create copies with modified names:"
+        }),
+        /* @__PURE__ */ jsx_runtime27.jsx(TextInput, {
+          label: "Search",
+          placeholder: "Text to search for",
+          value: searchText,
+          onChange: handleSearchChange,
+          error: errors.searchText,
+          required: true,
+          autoFocus: true
+        }),
+        /* @__PURE__ */ jsx_runtime27.jsx(TextInput, {
+          label: "Replace",
+          placeholder: "Text to replace with",
+          value: replaceText,
+          onChange: handleReplaceChange,
+          required: true
+        }),
+        previewCrop && /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+          gap: "xs",
+          children: [
+            /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+              size: "sm",
+              fw: 500,
+              children: "Preview:"
+            }),
+            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+              size: "sm",
+              c: "dimmed",
+              children: [
+                "Frame: ",
+                previewCrop.frameName
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+              size: "sm",
+              children: [
+                "Original:",
+                " ",
+                /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                  span: true,
+                  c: "blue",
+                  children: previewCrop.name
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+              size: "sm",
+              children: [
+                "New:",
+                " ",
+                /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                  span: true,
+                  c: isPreviewNameDifferent ? "green" : "dimmed",
+                  children: previewNewName
+                })
+              ]
+            })
+          ]
+        }),
+        Object.keys(errors).length > 0 && /* @__PURE__ */ jsx_runtime27.jsx(Alert, {
+          color: "red",
+          title: "Validation Errors",
+          children: /* @__PURE__ */ jsx_runtime27.jsx(Stack, {
+            gap: "xs",
+            children: Object.entries(errors).map(([key, message]) => /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+              size: "sm",
+              children: message
+            }, key))
+          })
+        }),
+        /* @__PURE__ */ jsx_runtime27.jsxs(Group, {
+          justify: "flex-end",
+          mt: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+              variant: "outline",
+              onClick: onClose,
+              children: "Cancel"
+            }),
+            /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+              onClick: handleCopyAndReplace,
+              loading: isLoading,
+              disabled: !searchText.trim() || !isPreviewNameDifferent,
+              children: "Copy and Replace"
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+
+// src/components/ManualCropManager/ManualCropEditor.tsx
+var jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
+function CropRow({
+  crop,
+  layoutId,
+  cropIndex,
+  onCropChange,
+  isChecked,
+  onCheckChange,
+  isDeleted
+}) {
+  const [localCrop, setLocalCrop] = import_react264.useState(crop);
+  import_react264.useEffect(() => {
+    setLocalCrop(crop);
+  }, [crop]);
+  const handleFieldChange = (field, value) => {
+    let processedValue = value;
+    if (field !== "frameName" && field !== "name" && field !== "frameId") {
+      if (value === "" || value === "." || value === "-" || value === "-.") {
+        processedValue = 0;
+      } else if (/^-?\d*\.?\d*$/.test(value)) {
+        const numValue = parseFloat(value);
+        processedValue = isNaN(numValue) ? 0 : numValue;
+      } else {
+        processedValue = localCrop[field];
+        return;
+      }
+    }
+    const updatedCrop = {
+      ...localCrop,
+      [field]: processedValue
+    };
+    setLocalCrop(updatedCrop);
+    onCropChange(layoutId, cropIndex, updatedCrop);
+  };
+  if (isDeleted) {
+    return null;
+  }
+  return /* @__PURE__ */ jsx_runtime28.jsxs(Table.Tr, {
+    children: [
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(Checkbox, {
+          checked: isChecked,
+          onChange: (event) => onCheckChange(layoutId, cropIndex, event.currentTarget.checked)
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+          size: "sm",
+          children: localCrop.frameName
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.name,
+          onChange: (e) => handleFieldChange("name", e.target.value),
+          size: "xs",
+          style: { width: "100%" }
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.left.toString(),
+          onChange: (e) => handleFieldChange("left", e.target.value),
+          size: "xs",
+          style: { width: 80 },
+          type: "text",
+          inputMode: "decimal"
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.top.toString(),
+          onChange: (e) => handleFieldChange("top", e.target.value),
+          size: "xs",
+          style: { width: 80 },
+          type: "text",
+          inputMode: "decimal"
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.width.toString(),
+          onChange: (e) => handleFieldChange("width", e.target.value),
+          size: "xs",
+          style: { width: 80 },
+          type: "text",
+          inputMode: "decimal"
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.height.toString(),
+          onChange: (e) => handleFieldChange("height", e.target.value),
+          size: "xs",
+          style: { width: 80 },
+          type: "text",
+          inputMode: "decimal"
+        })
+      })
+    ]
+  });
+}
+function ManualCropEditor({
+  selectedLayoutIds,
+  selectedConnectorId,
+  onModalClose
+}) {
+  const [layoutCrops, setLayoutCrops] = import_react264.useState(new Map);
+  const [isLoading, setIsLoading] = import_react264.useState(false);
+  const [saveState, setSaveState] = import_react264.useState("idle");
+  const [saveMessage, setSaveMessage] = import_react264.useState("");
+  const [originalDocumentState, setOriginalDocumentState] = import_react264.useState(null);
+  const [changedRows, setChangedRows] = import_react264.useState(new Map);
+  const [checkedRows, setCheckedRows] = import_react264.useState(new Set);
+  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react264.useState(false);
+  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react264.useState("");
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react264.useState(false);
+  const [currentCropForCopy, setCurrentCropForCopy] = import_react264.useState(null);
+  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react264.useState("");
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react264.useState(false);
+  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react264.useState([]);
+  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react264.useState("");
+  const raiseError2 = appStore((store) => store.raiseError);
+  import_react264.useEffect(() => {
+    if (selectedConnectorId && selectedLayoutIds.length > 0) {
+      loadCropsForSelectedLayouts();
+    } else {
+      setLayoutCrops(new Map);
+    }
+    setChangedRows(new Map);
+    setCheckedRows(new Set);
+  }, [selectedConnectorId, selectedLayoutIds]);
+  const handleCropChange = import_react264.useCallback((layoutId, cropIndex, updatedCrop) => {
+    const rowKey = `${layoutId}-${cropIndex}`;
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      newMap.set(rowKey, updatedCrop);
+      return newMap;
+    });
+  }, []);
+  const handleCheckChange = import_react264.useCallback((layoutId, cropIndex, checked) => {
+    const rowKey = `${layoutId}-${cropIndex}`;
+    setCheckedRows((prev2) => {
+      const newSet = new Set(prev2);
+      if (checked) {
+        newSet.add(rowKey);
+      } else {
+        newSet.delete(rowKey);
+      }
+      return newSet;
+    });
+  }, []);
+  const getCheckedSnapshotsCountForLayout = import_react264.useCallback((layoutId) => {
+    return Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`)).length;
+  }, [checkedRows]);
+  const getCheckedCropsForLayout = import_react264.useCallback((layoutId) => {
+    const layoutCrop = layoutCrops.get(layoutId);
+    if (!layoutCrop)
+      return [];
+    const checkedCrops = [];
+    Array.from(checkedRows).forEach((rowKey) => {
+      if (rowKey.startsWith(`${layoutId}-`)) {
+        const [, cropIndexStr] = rowKey.split("-");
+        const cropIndex = parseInt(cropIndexStr, 10);
+        const crop = layoutCrop.crops[cropIndex];
+        if (crop) {
+          checkedCrops.push(crop);
+        }
+      }
+    });
+    return checkedCrops;
+  }, [checkedRows, layoutCrops]);
+  const deleteCheckedSnapshots = import_react264.useCallback((layoutId) => {
+    const checkedRowsForLayout = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`));
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      checkedRowsForLayout.forEach((rowKey) => {
+        const [, cropIndexStr] = rowKey.split("-");
+        const cropIndex = parseInt(cropIndexStr, 10);
+        const deleteEntry = {
+          layoutId,
+          cropIndex
+        };
+        newMap.set(rowKey, deleteEntry);
+      });
+      return newMap;
+    });
+    setCheckedRows((prev2) => {
+      const newSet = new Set(prev2);
+      checkedRowsForLayout.forEach((rowKey) => {
+        newSet.delete(rowKey);
+      });
+      return newSet;
+    });
+  }, [checkedRows]);
+  const setCopyModalOpened = import_react264.useCallback((opened, layoutId) => {
+    if (opened && layoutId) {
+      setCurrentCopySourceLayoutId(layoutId);
+    }
+    setCopyCropToLayerModalOpened(opened);
+  }, []);
+  const setCopyAndAddRowModalOpened = import_react264.useCallback((opened, layoutId) => {
+    if (opened && layoutId) {
+      const checkedCrops = getCheckedCropsForLayout(layoutId);
+      if (checkedCrops.length === 1) {
+        setCurrentCropForCopy(checkedCrops[0]);
+        setCurrentLayoutIdForCopy(layoutId);
+        setCopyAndAddRowModalOpenedState(true);
+      }
+    } else {
+      setCopyAndAddRowModalOpenedState(false);
+      setCurrentCropForCopy(null);
+      setCurrentLayoutIdForCopy("");
+    }
+  }, [getCheckedCropsForLayout]);
+  const setCopyAndReplaceModalOpened = import_react264.useCallback((opened, layoutId) => {
+    if (opened && layoutId) {
+      const checkedCrops = getCheckedCropsForLayout(layoutId);
+      if (checkedCrops.length > 0) {
+        setCurrentCropsForReplace(checkedCrops);
+        setCurrentLayoutIdForReplace(layoutId);
+        setCopyAndReplaceModalOpenedState(true);
+      }
+    } else {
+      setCopyAndReplaceModalOpenedState(false);
+      setCurrentCropsForReplace([]);
+      setCurrentLayoutIdForReplace("");
+    }
+  }, [getCheckedCropsForLayout]);
+  const deselectAllRows = import_react264.useCallback((layoutId) => {
+    setCheckedRows((prev2) => {
+      const newSet = new Set(prev2);
+      Array.from(prev2).forEach((rowKey) => {
+        if (rowKey.startsWith(`${layoutId}-`)) {
+          newSet.delete(rowKey);
+        }
+      });
+      return newSet;
+    });
+  }, []);
+  const copyCropsToLayers = import_react264.useCallback((targetLayoutIds, checkedCrops) => {
+    setLayoutCrops((prevLayoutCrops) => {
+      const newLayoutCrops = new Map(prevLayoutCrops);
+      targetLayoutIds.forEach((targetLayoutId) => {
+        const existingLayoutCrop = newLayoutCrops.get(targetLayoutId);
+        if (existingLayoutCrop) {
+          const newCrops = [...existingLayoutCrop.crops, ...checkedCrops];
+          newLayoutCrops.set(targetLayoutId, {
+            ...existingLayoutCrop,
+            crops: newCrops
+          });
+        } else {
+          newLayoutCrops.set(targetLayoutId, {
+            layoutId: targetLayoutId,
+            layoutName: `Layout ${targetLayoutId}`,
+            crops: [...checkedCrops]
+          });
+        }
+      });
+      return newLayoutCrops;
+    });
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      targetLayoutIds.forEach((targetLayoutId) => {
+        const existingLayoutCrop = layoutCrops.get(targetLayoutId);
+        const startIndex = existingLayoutCrop ? existingLayoutCrop.crops.length : 0;
+        checkedCrops.forEach((crop, index4) => {
+          const rowKey = `${targetLayoutId}-${startIndex + index4}`;
+          newMap.set(rowKey, crop);
+        });
+      });
+      return newMap;
+    });
+  }, [layoutCrops]);
+  const addCopyOfCrop = import_react264.useCallback((originalCrop, newName) => {
+    const layoutId = currentLayoutIdForCopy;
+    if (!layoutId)
+      return;
+    const newCrop = {
+      ...originalCrop,
+      name: newName
+    };
+    setLayoutCrops((prevLayoutCrops) => {
+      const newLayoutCrops = new Map(prevLayoutCrops);
+      const existingLayoutCrop = newLayoutCrops.get(layoutId);
+      if (existingLayoutCrop) {
+        const newCrops = [...existingLayoutCrop.crops, newCrop];
+        newLayoutCrops.set(layoutId, {
+          ...existingLayoutCrop,
+          crops: newCrops
+        });
+      }
+      return newLayoutCrops;
+    });
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      const existingLayoutCrop = layoutCrops.get(layoutId);
+      const newIndex = existingLayoutCrop ? existingLayoutCrop.crops.length : 0;
+      const rowKey = `${layoutId}-${newIndex}`;
+      newMap.set(rowKey, newCrop);
+      return newMap;
+    });
+  }, [currentLayoutIdForCopy, layoutCrops]);
+  const addCopyOfCropForReplace = import_react264.useCallback((originalCrop, newName) => {
+    const layoutId = currentLayoutIdForReplace;
+    if (!layoutId)
+      return;
+    const newCrop = {
+      ...originalCrop,
+      name: newName
+    };
+    setLayoutCrops((prevLayoutCrops) => {
+      const newLayoutCrops = new Map(prevLayoutCrops);
+      const existingLayoutCrop = newLayoutCrops.get(layoutId);
+      if (existingLayoutCrop) {
+        const newCrops = [...existingLayoutCrop.crops, newCrop];
+        newLayoutCrops.set(layoutId, {
+          ...existingLayoutCrop,
+          crops: newCrops
+        });
+      }
+      return newLayoutCrops;
+    });
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      const existingLayoutCrop = layoutCrops.get(layoutId);
+      const newIndex = existingLayoutCrop ? existingLayoutCrop.crops.length : 0;
+      const rowKey = `${layoutId}-${newIndex}`;
+      newMap.set(rowKey, newCrop);
+      return newMap;
+    });
+  }, [currentLayoutIdForReplace, layoutCrops]);
+  const loadCropsForSelectedLayouts = async () => {
+    if (!selectedConnectorId)
+      return;
+    try {
+      setIsLoading(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const cropsResult = await getManualCropsFromDocByConnector(studio2, selectedConnectorId);
+      if (!cropsResult.isOk()) {
+        raiseError2(new Error("Failed to load manual crops: " + cropsResult.error?.message));
+        return;
+      }
+      const cropsData = cropsResult.value;
+      const layoutCropsMap = new Map;
+      selectedLayoutIds.forEach((layoutId) => {
+        const layoutData = cropsData.layouts.find((l2) => l2.id === layoutId);
+        if (layoutData) {
+          layoutCropsMap.set(layoutId, {
+            layoutId: layoutData.id,
+            layoutName: layoutData.name,
+            crops: layoutData.manualCrops
+          });
+        }
+      });
+      setLayoutCrops(layoutCropsMap);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load manual crops"));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const saveCropChanges = async () => {
+    if (changedRows.size === 0)
+      return;
+    try {
+      setSaveState("saving");
+      setSaveMessage("Saving Crop Changes...");
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        setSaveState("error");
+        setSaveMessage("Error saving changes...");
+        return;
+      }
+      const studio2 = studioResult.value;
+      const originalDocStateResult = await getCurrentDocumentState(studio2);
+      if (!originalDocStateResult.isOk()) {
+        raiseError2(new Error("Failed to get original document state: " + originalDocStateResult.error?.message));
+        setSaveState("error");
+        setSaveMessage("Error saving changes...");
+        return;
+      }
+      const originalDocumentState2 = originalDocStateResult.value;
+      setOriginalDocumentState(originalDocumentState2);
+      const layoutChanges = new Map;
+      const layoutDeletes = new Map;
+      changedRows.forEach((entry, rowKey) => {
+        const [layoutId, cropIndexStr] = rowKey.split("-");
+        const cropIndex = parseInt(cropIndexStr, 10);
+        if ("frameId" in entry) {
+          if (!layoutChanges.has(layoutId)) {
+            layoutChanges.set(layoutId, new Map);
+          }
+          layoutChanges.get(layoutId).set(cropIndex, entry);
+        } else {
+          if (!layoutDeletes.has(layoutId)) {
+            layoutDeletes.set(layoutId, new Set);
+          }
+          layoutDeletes.get(layoutId).add(cropIndex);
+        }
+      });
+      let currentDocumentState = originalDocumentState2;
+      for (const [layoutId, deleteIndices] of layoutDeletes) {
+        if (deleteIndices.size > 0) {
+          const result = deleteManualCropsForLayout(currentDocumentState, layoutId, selectedConnectorId);
+          if (result.isError()) {
+            raiseError2(new Error("Failed to delete manual crops: " + result.error?.message));
+            setSaveState("error");
+            setSaveMessage("Error reverting changes...");
+            if (originalDocumentState2) {
+              const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+              if (revertResult.isError()) {
+                raiseError2(new Error("Failed to revert changes after error"));
+              }
+            }
+            return;
+          }
+          currentDocumentState = result.value;
+        }
+      }
+      for (const [layoutId, cropChanges] of layoutChanges) {
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (!layoutCrop)
+          continue;
+        const updatedCrops = layoutCrop.crops.map((crop, index4) => {
+          const changedCrop = cropChanges.get(index4);
+          return changedCrop || crop;
+        });
+        const manualCrops = updatedCrops.map((crop) => ({
+          frameId: crop.frameId,
+          frameName: crop.frameName,
+          name: crop.name,
+          left: crop.left,
+          top: crop.top,
+          width: crop.width,
+          height: crop.height,
+          rotationDegrees: crop.rotationDegrees,
+          originalParentWidth: crop.originalParentWidth,
+          originalParentHeight: crop.originalParentHeight
+        }));
+        console.log("Current document state:", currentDocumentState);
+        const result = setManualCropsForLayout(currentDocumentState, layoutId, selectedConnectorId, manualCrops);
+        if (result.isError()) {
+          raiseError2(new Error("Failed to set manual crops: " + result.error?.message));
+          setSaveState("error");
+          setSaveMessage("Error reverting changes...");
+          if (originalDocumentState2) {
+            const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+            if (revertResult.isError()) {
+              raiseError2(new Error("Failed to revert changes after error"));
+            }
+          }
+          return;
+        }
+        currentDocumentState = result.value;
+      }
+      const finalResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(currentDocumentState));
+      if (finalResult.isError()) {
+        raiseError2(new Error("Failed to load final document state: " + finalResult.error?.message));
+        setSaveState("error");
+        setSaveMessage("Error reverting changes...");
+        if (originalDocumentState2) {
+          const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+          if (revertResult.isError()) {
+            raiseError2(new Error("Failed to revert changes after error"));
+          }
+        }
+        return;
+      }
+      setSaveState("success");
+      setSaveMessage("Changes Saved!");
+      setChangedRows(new Map);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to save crop changes"));
+      setSaveState("error");
+      setSaveMessage("Error reverting changes...");
+      if (originalDocumentState) {
+        try {
+          const studioResult = await getStudio();
+          if (studioResult.isOk()) {
+            await loadDocumentFromJsonStr(studioResult.value, JSON.stringify(originalDocumentState));
+          }
+        } catch (revertError) {
+          raiseError2(new Error("Failed to revert changes after error"));
+        }
+      }
+    }
+  };
+  const handleOkayClick = async () => {
+    setSaveState("idle");
+    setSaveMessage("");
+    await loadCropsForSelectedLayouts();
+  };
+  const handleCloseClick = () => {
+    if (onModalClose) {
+      onModalClose();
+    } else {
+      setSaveState("idle");
+      setSaveMessage("");
+    }
+  };
+  if (saveState !== "idle") {
+    return /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+      style: { height: "100%" },
+      children: /* @__PURE__ */ jsx_runtime28.jsxs(Stack, {
+        align: "center",
+        gap: "md",
+        children: [
+          saveState === "saving" && /* @__PURE__ */ jsx_runtime28.jsx(Loader, {
+            size: "lg"
+          }),
+          /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+            size: "lg",
+            fw: 500,
+            children: saveMessage
+          }),
+          saveState === "success" && /* @__PURE__ */ jsx_runtime28.jsxs(Group, {
+            gap: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+                onClick: handleOkayClick,
+                color: "blue",
+                children: "Okay"
+              }),
+              /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+                onClick: handleCloseClick,
+                variant: "outline",
+                children: "Close"
+              })
+            ]
+          })
+        ]
+      })
+    });
+  }
+  if (selectedLayoutIds.length === 0) {
+    return /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+      style: { height: "100%" },
+      children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+        c: "dimmed",
+        children: "Select layouts from the Layout Viewer to view their manual crops"
+      })
+    });
+  }
+  return /* @__PURE__ */ jsx_runtime28.jsxs(Box, {
+    style: { height: "100%", display: "flex", flexDirection: "column" },
+    children: [
+      /* @__PURE__ */ jsx_runtime28.jsx(Box, {
+        p: "md",
+        style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
+        children: /* @__PURE__ */ jsx_runtime28.jsx(Group, {
+          justify: "flex-end",
+          align: "center",
+          children: /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+            onClick: saveCropChanges,
+            disabled: changedRows.size === 0,
+            color: "blue",
+            size: "sm",
+            children: "Save Crop Changes"
+          })
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(ScrollArea, {
+        style: { flex: 1 },
+        children: /* @__PURE__ */ jsx_runtime28.jsx(Box, {
+          p: "md",
+          children: isLoading ? /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+            style: { height: 200 },
+            children: /* @__PURE__ */ jsx_runtime28.jsx(Loader, {
+              size: "sm"
+            })
+          }) : layoutCrops.size === 0 ? /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+            style: { height: 200 },
+            children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+              c: "dimmed",
+              children: selectedConnectorId ? "No manual crops found for the selected layouts and connector" : "Select a connector to view manual crops"
+            })
+          }) : /* @__PURE__ */ jsx_runtime28.jsx(Stack, {
+            gap: "lg",
+            children: Array.from(layoutCrops.values()).map((layoutCrop) => {
+              const checkedSnapshotsCount = getCheckedSnapshotsCountForLayout(layoutCrop.layoutId);
+              return /* @__PURE__ */ jsx_runtime28.jsxs(Paper, {
+                p: "md",
+                withBorder: true,
+                children: [
+                  /* @__PURE__ */ jsx_runtime28.jsxs(Group, {
+                    justify: "space-between",
+                    align: "center",
+                    mb: "md",
+                    children: [
+                      /* @__PURE__ */ jsx_runtime28.jsx(Title, {
+                        order: 4,
+                        children: layoutCrop.layoutName
+                      }),
+                      /* @__PURE__ */ jsx_runtime28.jsx(Group, {
+                        gap: "xs",
+                        children: checkedSnapshotsCount > 0 && /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
+                          children: [
+                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "red",
+                              variant: "filled",
+                              onClick: () => deleteCheckedSnapshots(layoutCrop.layoutId),
+                              title: "Delete selected",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconTrash, {
+                                size: 16
+                              })
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "blue",
+                              variant: "filled",
+                              onClick: () => setCopyModalOpened(true, layoutCrop.layoutId),
+                              title: "Copy to layer",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconCopy, {
+                                size: 16
+                              })
+                            }),
+                            checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "blue",
+                              variant: "filled",
+                              onClick: () => setCopyAndAddRowModalOpened(true, layoutCrop.layoutId),
+                              title: "Copy and add row",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconCopyPlus, {
+                                size: 16
+                              })
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "blue",
+                              variant: "filled",
+                              onClick: () => setCopyAndReplaceModalOpened(true, layoutCrop.layoutId),
+                              title: "Copy and replace",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconReplace, {
+                                size: 16
+                              })
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "blue",
+                              variant: "filled",
+                              onClick: () => deselectAllRows(layoutCrop.layoutId),
+                              title: "Deselect all",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconDeselect, {
+                                size: 16
+                              })
+                            })
+                          ]
+                        })
+                      })
+                    ]
+                  }),
+                  layoutCrop.crops.length === 0 ? /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+                    c: "dimmed",
+                    size: "sm",
+                    children: "No manual crops for this layout"
+                  }) : /* @__PURE__ */ jsx_runtime28.jsxs(Table, {
+                    striped: true,
+                    highlightOnHover: true,
+                    children: [
+                      /* @__PURE__ */ jsx_runtime28.jsx(Table.Thead, {
+                        children: /* @__PURE__ */ jsx_runtime28.jsxs(Table.Tr, {
+                          children: [
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              style: { width: 40 }
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Frame Name"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Asset Name"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Left"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Top"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Width"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Height"
+                            })
+                          ]
+                        })
+                      }),
+                      /* @__PURE__ */ jsx_runtime28.jsx(Table.Tbody, {
+                        children: layoutCrop.crops.map((crop, index4) => {
+                          const rowKey = `${layoutCrop.layoutId}-${index4}`;
+                          const changedRow = changedRows.get(rowKey);
+                          const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
+                          return /* @__PURE__ */ jsx_runtime28.jsx(CropRow, {
+                            crop,
+                            layoutId: layoutCrop.layoutId,
+                            cropIndex: index4,
+                            onCropChange: handleCropChange,
+                            isChecked: checkedRows.has(rowKey),
+                            onCheckChange: handleCheckChange,
+                            isDeleted: !!isDeleted
+                          }, `${crop.frameId}-${crop.name}`);
+                        })
+                      })
+                    ]
+                  })
+                ]
+              }, layoutCrop.layoutId);
+            })
+          })
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(CopyCropToLayerModal, {
+        opened: copyCropToLayerModalOpened,
+        onClose: () => setCopyCropToLayerModalOpened(false),
+        sourceLayoutId: currentCopySourceLayoutId,
+        checkedCrops: getCheckedCropsForLayout(currentCopySourceLayoutId),
+        selectedConnectorId,
+        onCopy: copyCropsToLayers
+      }),
+      currentCropForCopy && /* @__PURE__ */ jsx_runtime28.jsx(CopyAndAddRowModal2, {
+        opened: copyAndAddRowModalOpened,
+        onClose: () => setCopyAndAddRowModalOpened(false),
+        crop: currentCropForCopy,
+        layoutId: currentLayoutIdForCopy,
+        existingCrops: layoutCrops.get(currentLayoutIdForCopy)?.crops || [],
+        onAddCopy: addCopyOfCrop
+      }),
+      currentCropsForReplace.length > 0 && /* @__PURE__ */ jsx_runtime28.jsx(CopyAndReplaceModal2, {
+        opened: copyAndReplaceModalOpened,
+        onClose: () => setCopyAndReplaceModalOpened(false),
+        crops: currentCropsForReplace,
+        layoutId: currentLayoutIdForReplace,
+        existingCrops: layoutCrops.get(currentLayoutIdForReplace)?.crops || [],
+        onAddCopy: addCopyOfCropForReplace
+      })
+    ]
+  });
+}
+
+// src/components/ManualCropManager/ManualCropManagerModal.tsx
+var jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
+function ManualCropManagerModal({
+  opened,
+  onClose
+}) {
+  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react265.useState(false);
+  const [layoutViewerWidth, setLayoutViewerWidth] = import_react265.useState(400);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react265.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react265.useState("");
+  const [isResizing, setIsResizing] = import_react265.useState(false);
+  const [connectors, setConnectors] = import_react265.useState([]);
+  const enableToolbar = appStore((state) => state.enableToolbar);
+  const disableToolbar = appStore((state) => state.disableToolbar);
+  const raiseError2 = appStore((state) => state.raiseError);
+  const loadConnectors = async () => {
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const connectorsResult = await getCurrentConnectors(studio2);
+      if (!connectorsResult.isOk()) {
+        raiseError2(new Error("Failed to load connectors: " + connectorsResult.error?.message));
+        return;
+      }
+      const connectorsData = connectorsResult.value;
+      setConnectors(connectorsData);
+      if (!selectedConnectorId && connectorsData.length > 0) {
+        setSelectedConnectorId(connectorsData[0].id);
+      }
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load connectors"));
+    }
+  };
+  import_react265.useEffect(() => {
+    if (opened) {
+      setSelectedLayoutIds([]);
+      setSelectedConnectorId("");
+      disableToolbar();
+      loadConnectors();
+    } else {
+      enableToolbar();
+    }
+  }, [opened]);
+  const handleMouseDown = (e) => {
+    setIsResizing(true);
+    e.preventDefault();
+  };
+  const handleMouseMove = (e) => {
+    if (!isResizing)
+      return;
+    const newWidth = e.clientX;
+    if (newWidth >= 200 && newWidth <= 600) {
+      setLayoutViewerWidth(newWidth);
+    }
+  };
+  const handleMouseUp = () => {
+    setIsResizing(false);
+  };
+  import_react265.useEffect(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+    }
+  }, [isResizing]);
+  const toggleLayoutViewer = () => {
+    setIsLayoutViewerCollapsed(!isLayoutViewerCollapsed);
+  };
+  const handleClose = () => {
+    enableToolbar();
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime29.jsxs(Modal, {
+    opened,
+    onClose: handleClose,
+    fullScreen: true,
+    padding: 0,
+    withCloseButton: false,
+    children: [
+      /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+        style: {
+          padding: "16px 24px",
+          borderBottom: "1px solid var(--mantine-color-gray-3)",
+          backgroundColor: "var(--mantine-color-gray-0)"
+        },
+        children: /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+          justify: "space-between",
+          align: "center",
+          children: [
+            /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+              gap: "lg",
+              align: "center",
+              children: [
+                /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                  size: "lg",
+                  fw: 600,
+                  children: "Manual Crop Manager"
+                }),
+                /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+                  gap: "md",
+                  align: "center",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                      size: "sm",
+                      fw: 500,
+                      children: "Show crops for connector:"
+                    }),
+                    /* @__PURE__ */ jsx_runtime29.jsx(Select, {
+                      placeholder: "Select connector",
+                      data: connectors.map((connector) => ({
+                        value: connector.id,
+                        label: connector.name + " (" + connector.usesInTemplate.images.reduce((acc, image) => acc + `SFrame:${image.name}, `, "") + connector.usesInTemplate.variables.reduce((acc, variable) => acc + `Var:${variable.name}, `, "") + ")"
+                      })),
+                      value: selectedConnectorId,
+                      onChange: (value) => setSelectedConnectorId(value || ""),
+                      style: { minWidth: 200 },
+                      size: "sm"
+                    })
+                  ]
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime29.jsx(Button, {
+              variant: "subtle",
+              color: "gray",
+              size: "sm",
+              leftSection: /* @__PURE__ */ jsx_runtime29.jsx(IconX, {
+                size: 16
+              }),
+              onClick: handleClose,
+              children: "Close"
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime29.jsxs(Box, {
+        style: { display: "flex", height: "calc(100vh - 120px)" },
+        children: [
+          /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+            style: {
+              width: isLayoutViewerCollapsed ? 40 : layoutViewerWidth,
+              minWidth: isLayoutViewerCollapsed ? 40 : 200,
+              maxWidth: isLayoutViewerCollapsed ? 40 : 600,
+              borderRight: "1px solid var(--mantine-color-gray-3)",
+              display: "flex",
+              flexDirection: "column",
+              transition: isLayoutViewerCollapsed ? "width 0.2s ease" : "none"
+            },
+            children: isLayoutViewerCollapsed ? /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+              style: {
+                padding: "8px",
+                display: "flex",
+                justifyContent: "center"
+              },
+              children: /* @__PURE__ */ jsx_runtime29.jsx(Tooltip, {
+                label: "Expand Layout Viewer",
+                position: "right",
+                children: /* @__PURE__ */ jsx_runtime29.jsx(ActionIcon, {
+                  variant: "subtle",
+                  onClick: toggleLayoutViewer,
+                  size: "sm",
+                  children: /* @__PURE__ */ jsx_runtime29.jsx(IconChevronRight, {
+                    size: 16
+                  })
+                })
+              })
+            }) : /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
+              children: [
+                /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+                  justify: "space-between",
+                  p: "md",
+                  style: {
+                    borderBottom: "1px solid var(--mantine-color-gray-3)"
+                  },
+                  children: [
+                    /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+                      style: { fontSize: "14px", fontWeight: 500 },
+                      children: "Layout Viewer"
+                    }),
+                    /* @__PURE__ */ jsx_runtime29.jsx(Tooltip, {
+                      label: "Collapse Layout Viewer",
+                      position: "left",
+                      children: /* @__PURE__ */ jsx_runtime29.jsx(ActionIcon, {
+                        variant: "subtle",
+                        onClick: toggleLayoutViewer,
+                        size: "sm",
+                        children: /* @__PURE__ */ jsx_runtime29.jsx(IconChevronLeft, {
+                          size: 16
+                        })
+                      })
+                    })
+                  ]
+                }),
+                /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+                  style: { flex: 1, overflow: "hidden" },
+                  children: /* @__PURE__ */ jsx_runtime29.jsx(LayoutViewer, {
+                    selectedLayoutIds,
+                    onSelectionChange: setSelectedLayoutIds,
+                    selectedConnectorId
+                  })
+                })
+              ]
+            })
+          }),
+          !isLayoutViewerCollapsed && /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+            style: {
+              width: 4,
+              cursor: "col-resize",
+              backgroundColor: isResizing ? "var(--mantine-color-blue-5)" : "transparent",
+              transition: "background-color 0.2s ease"
+            },
+            onMouseDown: handleMouseDown
+          }),
+          /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+            style: { flex: 1, display: "flex", flexDirection: "column" },
+            children: /* @__PURE__ */ jsx_runtime29.jsx(ManualCropEditor, {
+              selectedLayoutIds,
+              selectedConnectorId,
+              onModalClose: handleClose
+            })
+          })
+        ]
+      })
+    ]
+  });
+}
+
+// src/components/ToolbarSettingsModal.tsx
+var jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
+var defaultConfig = {
+  showSnapshot: false,
+  showFramePositionViewer: false,
+  showLayoutManager: false,
+  showMagicLayouts: true,
+  showAspectLock: true,
+  showLayoutImageMapper: true,
+  showUploadDownload: true,
+  showTestError: false,
+  showConnectorCleanup: false,
+  showManualCropManager: true
+};
+function ToolbarSettingsModal({
+  opened,
+  onClose,
+  config,
+  onConfigChange,
+  onReloadConfig
+}) {
+  const handleToggle = (key, value) => {
+    const newConfig = { ...config, [key]: value };
+    onConfigChange(newConfig);
+  };
+  const handleSave = () => {
+    localStorage.setItem("tempUserConfig", JSON.stringify(config));
+    onClose();
+    onReloadConfig();
+  };
+  const handleReset = () => {
+    onConfigChange(defaultConfig);
+  };
+  return /* @__PURE__ */ jsx_runtime30.jsx(Modal, {
+    opened,
+    onClose,
+    title: "Toolbar Settings",
+    centered: true,
+    size: "md",
+    children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+      children: [
+        /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+          size: "sm",
+          c: "dimmed",
+          children: "Configure which tools are visible in the toolbar."
+        }),
+        /* @__PURE__ */ jsx_runtime30.jsx(ScrollArea.Autosize, {
+          mah: 400,
+          children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+            gap: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime30.jsx(Title, {
+                order: 5,
+                children: "Available Tools"
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Snapshot Image Position",
+                description: "Tool for capturing frame snapshots",
+                checked: config.showSnapshot,
+                onChange: (event) => handleToggle("showSnapshot", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Frame Position Viewer",
+                description: "View and analyze frame positions",
+                checked: config.showFramePositionViewer,
+                onChange: (event) => handleToggle("showFramePositionViewer", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Layout Manager",
+                description: "Manage layout properties and hierarchy",
+                checked: config.showLayoutManager,
+                onChange: (event) => handleToggle("showLayoutManager", false)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Magic Layouts",
+                description: "Automated layout generation and management",
+                checked: config.showMagicLayouts,
+                onChange: (event) => handleToggle("showMagicLayouts", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Aspect Lock",
+                description: "Lock aspect ratios for layouts",
+                checked: config.showAspectLock,
+                onChange: (event) => handleToggle("showAspectLock", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Layout Image Mapper",
+                description: "Map images to layout variables",
+                checked: config.showLayoutImageMapper,
+                onChange: (event) => handleToggle("showLayoutImageMapper", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Upload/Download Document",
+                description: "Upload and download document JSON",
+                checked: config.showUploadDownload,
+                onChange: (event) => handleToggle("showUploadDownload", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Test Error",
+                description: "Test error handling functionality",
+                checked: config.showTestError,
+                onChange: (event) => handleToggle("showTestError", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Connector Cleanup",
+                description: "Manage and remove unused connectors",
+                checked: config.showConnectorCleanup,
+                onChange: (event) => handleToggle("showConnectorCleanup", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Manual Crop Manager",
+                description: "Manage manual crops for layouts and connectors",
+                checked: config.showManualCropManager,
+                onChange: (event) => handleToggle("showManualCropManager", event.currentTarget.checked)
+              })
+            ]
+          })
+        }),
+        /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+          justify: "space-between",
+          mt: "xl",
+          children: [
+            /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+              variant: "subtle",
+              onClick: handleReset,
+              children: "Reset to Default"
+            }),
+            /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+              children: [
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                  variant: "default",
+                  onClick: onClose,
+                  children: "Cancel"
+                }),
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                  onClick: handleSave,
+                  children: "Save & Apply"
+                })
+              ]
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+
+// src/components/Toolbar.tsx
+var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react259.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react259.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react259.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react259.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react259.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react259.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react259.useState(false);
-  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react259.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react259.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react259.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react259.useState("");
-  const [updateInfo, setUpdateInfo] = import_react259.useState(null);
+  const [visible2, setVisible] = import_react266.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react266.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react266.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react266.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react266.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react266.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react266.useState(false);
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react266.useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react266.useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react266.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react266.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react266.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react266.useState("");
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react266.useState(false);
+  const [appConfig, setAppConfig] = import_react266.useState(defaultConfig);
+  const [updateInfo, setUpdateInfo] = import_react266.useState(null);
   const effects = appStore((store) => store.effects);
   const raiseError2 = appStore((store) => store.raiseError);
-  const isToolbarEnabled = appStore((store) => store.state.isToolbarEnabled);
   const disableToolbar = appStore((store) => store.disableToolbar);
   const handleTestError = () => {
     raiseError2(new Error("This is a test error message"));
   };
+  const handleSettings = () => {
+    setIsSettingsModalOpen(true);
+  };
   const setVisibleIntercept = (value) => {
+    const isToolbarEnabled = appStore.getState().state.isToolbarEnabled;
     if (!isToolbarEnabled) {
       setVisible(false);
+    } else {
+      setVisible(value);
     }
-    setVisible(value);
   };
   const handleUploadDownloadClick = () => {
     setIsDownloadUploadModalOpen(true);
@@ -43764,7 +46531,24 @@ function Toolbar() {
     }
     setIsUpdateModalOpen(false);
   };
-  import_react259.useEffect(() => {
+  const reloadConfig = () => {
+    const savedConfig = localStorage.getItem("tempUserConfig");
+    if (savedConfig) {
+      try {
+        const parsedConfig = JSON.parse(savedConfig);
+        setAppConfig({ ...defaultConfig, ...parsedConfig });
+      } catch (error) {
+        console.error("Failed to parse saved config:", error);
+        setAppConfig(defaultConfig);
+      }
+    } else {
+      setAppConfig(defaultConfig);
+    }
+  };
+  import_react266.useEffect(() => {
+    reloadConfig();
+  }, []);
+  import_react266.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -43811,6 +46595,14 @@ function Toolbar() {
     setVisible(false);
     setIsMagicLayoutsModalOpen(true);
   };
+  const handleConnectorCleanup = () => {
+    setVisible(false);
+    setIsConnectorCleanupModalOpen(true);
+  };
+  const handleManualCropManager = () => {
+    setVisible(false);
+    setIsManualCropManagerModalOpen(true);
+  };
   const handleAspectLock = () => {
     setIsAspectLockConfirmModalOpen(true);
   };
@@ -43821,14 +46613,14 @@ function Toolbar() {
       setIsAspectLockSuccessModalOpen(true);
     }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
   };
-  return /* @__PURE__ */ jsx_runtime23.jsxs(jsx_runtime23.Fragment, {
+  return /* @__PURE__ */ jsx_runtime31.jsxs(jsx_runtime31.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime23.jsx(Transition, {
+      /* @__PURE__ */ jsx_runtime31.jsx(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_runtime23.jsx(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_runtime31.jsx(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -43845,110 +46637,170 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+          children: /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
             gap: "lg",
             children: [
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconCameraPlus, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconPhotoCog, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Magic Layouts",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "purple",
                   size: "lg",
                   "aria-label": "Magic Layouts",
                   onClick: handleMagicLayouts,
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconSparkles, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconSparkles, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Layout Manager",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Layout Manager",
+                  onClick: handleLayoutManager,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconListTree, {
+                    size: 20
+                  })
+                })
+              }),
+              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Aspect Lock",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Aspect Lock",
                   onClick: handleAspectLock,
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconPlaystationSquare, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconPlaystationSquare, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Upload/Download Document",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleUploadDownloadClick,
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconArrowsTransferUpDown, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Layout Image Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconMapBolt, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+              appConfig.showTestError && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "red",
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconBug, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconBug, {
+                    size: 20
+                  })
+                })
+              }),
+              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Connector Cleanup",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Connector Cleanup",
+                  onClick: handleConnectorCleanup,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconPlug, {
+                    size: 20
+                  })
+                })
+              }),
+              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Manual Crop Manager",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Manual Crop Manager",
+                  onClick: handleManualCropManager,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconCrop, {
+                    size: 20
+                  })
+                })
+              }),
+              /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Settings",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "gray",
+                  size: "lg",
+                  "aria-label": "Settings",
+                  onClick: handleSettings,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconSettings, {
                     size: 20
                   })
                 })
@@ -43957,45 +46809,45 @@ function Toolbar() {
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime23.jsx(DownloadModal, {
+      appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime31.jsx(DownloadModal, {
         opened: isDownloadUploadModalOpen,
         onClose: () => setIsDownloadUploadModalOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime31.jsx(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }),
-            /* @__PURE__ */ jsx_runtime23.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_runtime23.jsx("br", {}),
+                /* @__PURE__ */ jsx_runtime31.jsx("br", {}),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }),
-            /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }),
-                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_runtime23.jsx(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_runtime31.jsx(IconExternalLink, {
                     size: 16
                   }),
                   color: "blue",
@@ -44006,43 +46858,51 @@ function Toolbar() {
           ]
         })
       }),
-      isFramePositionViewerOpen && /* @__PURE__ */ jsx_runtime23.jsx(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime31.jsx(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }),
-      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_runtime23.jsx(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime31.jsx(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }),
-      isLayoutManagerOpen && /* @__PURE__ */ jsx_runtime23.jsx(LayoutManagerModal, {
+      isLayoutManagerOpen && appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime31.jsx(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }),
-      isMagicLayoutsModalOpen && /* @__PURE__ */ jsx_runtime23.jsx(MagicLayoutsModal, {
+      isMagicLayoutsModalOpen && appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime31.jsx(MagicLayoutsModal, {
         opened: isMagicLayoutsModalOpen,
         onClose: () => setIsMagicLayoutsModalOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime23.jsxs(Modal, {
+      appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime31.jsx(ConnectorCleanupModal, {
+        opened: isConnectorCleanupModalOpen,
+        onClose: () => setIsConnectorCleanupModalOpen(false)
+      }),
+      appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime31.jsx(ManualCropManagerModal, {
+        opened: isManualCropManagerModalOpen,
+        onClose: () => setIsManualCropManagerModalOpen(false)
+      }),
+      appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime31.jsxs(Modal, {
         opened: isAspectLockConfirmModalOpen,
         onClose: () => setIsAspectLockConfirmModalOpen(false),
         title: "Confirm Aspect Lock Change",
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime31.jsx(Text, {
             children: "Turn Aspect Lock On?"
           }),
-          /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                 variant: "default",
                 onClick: () => handleConfirmAspectLock(false),
                 children: "No"
               }),
-              /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                 color: "blue",
                 onClick: () => handleConfirmAspectLock(true),
                 children: "Yes"
@@ -44051,7 +46911,7 @@ function Toolbar() {
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime23.jsxs(Modal, {
+      appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime31.jsxs(Modal, {
         opened: isAspectLockSuccessModalOpen,
         onClose: () => {
           setIsAspectLockSuccessModalOpen(false);
@@ -44061,13 +46921,13 @@ function Toolbar() {
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime31.jsx(Text, {
             children: aspectLockSuccessMessage
           }),
-          /* @__PURE__ */ jsx_runtime23.jsx(Group, {
+          /* @__PURE__ */ jsx_runtime31.jsx(Group, {
             justify: "flex-end",
             mt: "md",
-            children: /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+            children: /* @__PURE__ */ jsx_runtime31.jsx(Button, {
               onClick: () => {
                 setIsAspectLockSuccessModalOpen(false);
                 setAspectLockSuccessMessage("");
@@ -44076,18 +46936,25 @@ function Toolbar() {
             })
           })
         ]
+      }),
+      /* @__PURE__ */ jsx_runtime31.jsx(ToolbarSettingsModal, {
+        opened: isSettingsModalOpen,
+        onClose: () => setIsSettingsModalOpen(false),
+        config: appConfig,
+        onConfigChange: setAppConfig,
+        onReloadConfig: reloadConfig
       })
     ]
   });
 }
 
 // src/components/AlertsContainer.tsx
-var import_react260 = __toESM(require_react(), 1);
-var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+var import_react267 = __toESM(require_react(), 1);
+var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react260.useEffect(() => {
+  import_react267.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -44102,7 +46969,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+  return /* @__PURE__ */ jsx_runtime32.jsx(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -44110,10 +46977,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_runtime24.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime32.jsx(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime24.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime24.jsx(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime32.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime32.jsx(IconInfoCircle, {
           size: "1rem"
         }),
         title: "Toolbar Error",
@@ -44133,7 +47000,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime33 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -44154,16 +47021,16 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime25.jsx(import_react261.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime25.jsx(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime33.jsx(import_react268.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime33.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime25.jsx(import_react261.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime25.jsxs(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime33.jsx(import_react268.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime33.jsxs(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_runtime25.jsx(Toolbar, {}),
-        /* @__PURE__ */ jsx_runtime25.jsx(AlertsContainer, {})
+        /* @__PURE__ */ jsx_runtime33.jsx(Toolbar, {}),
+        /* @__PURE__ */ jsx_runtime33.jsx(AlertsContainer, {})
       ]
     })
   }));
@@ -44188,4 +47055,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=41AB43D6F2135B9C64756E2164756E21
+//# debugId=D0AAC3B9DEF82F4664756E2164756E21

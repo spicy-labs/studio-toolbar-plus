@@ -1,3 +1,11 @@
+## 0.10.1
+
+### ✨ Added
+
+- Manual crop manager to manage crops for a connector
+- Toolbar settings to enable/disable apps
+- Connector cleanup to remove unused connectors
+
 ## 0.9.2
 
 ### ✨ Added
