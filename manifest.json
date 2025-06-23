@@ -20,11 +20,12 @@
   ],
   "host_permissions": [
     "*://*.chiligrafx.com/*",
-    "*://*.chili-publish.online/*"
+    "*://*.chili-publish.online/*",
+    "*://*.chiligrafx-dev.com/*"
   ],
   "content_scripts": [
     {
-      "matches": ["*://chiligrafx.com/environments/*/studio/templates/*"],
+      "matches": ["*://chiligrafx.com/environments/*/studio/templates/*", "*://chiligrafx-dev.com/environments/*/studio/templates/*"],
       "js": ["content.js"],
       "all_frames": true
     }
@@ -32,7 +33,7 @@
   "web_accessible_resources": [
     {
       "resources": ["dist/index.js", "dist/index.css"],
-      "matches": ["*://*.chiligrafx.com/*"]
+      "matches": ["*://*.chiligrafx.com/*", "*://*.chiligrafx-dev.com/*"]
     }
   ]
 }
