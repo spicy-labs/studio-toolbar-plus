@@ -8,18 +8,21 @@ import {
   ScrollArea,
   Text,
   Checkbox,
-  Collapse,
   Stack,
   Loader,
   Center,
+  Popover,
+  MultiSelect,
+  Tooltip,
 } from "@mantine/core";
 import {
   IconSearch,
   IconChevronDown,
   IconChevronRight,
   IconCrop,
-  IconFolderOpen,
-  IconFolder,
+  IconFilter,
+  IconFilterFilled,
+  IconEyeClosed,
 } from "@tabler/icons-react";
 import { appStore } from "../../modalStore";
 import { getStudio } from "../../studio/studioAdapter";
@@ -35,6 +38,8 @@ interface LayoutNode {
   isExpanded: boolean;
   hasManualCrops: boolean;
   level: number;
+  isVisible?: boolean;
+  isFilteredParent?: boolean; // Parent shown only because it has filtered children
 }
 
 interface LayoutViewerProps {
@@ -55,6 +60,8 @@ export function LayoutViewer({
     new Set()
   );
   const [isInitialized, setIsInitialized] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = useState(false);
   const raiseError = appStore((store) => store.raiseError);
 
   // Load expanded layouts from sessionStorage on component mount
@@ -74,6 +81,22 @@ export function LayoutViewer({
     setIsInitialized(true);
   }, []);
 
+  // Load filters from localStorage on component mount
+  useEffect(() => {
+    const storedFilters = localStorage.getItem(
+      "tempManualCropManager_layoutViewerFilters"
+    );
+    if (storedFilters) {
+      try {
+        const filters = JSON.parse(storedFilters) as string[];
+        setActiveFilters(filters);
+      } catch (error) {
+        // If parsing fails, just use empty array
+        setActiveFilters([]);
+      }
+    }
+  }, []);
+
   // Load layouts on component mount
   useEffect(() => {
     loadLayouts();
@@ -89,6 +112,14 @@ export function LayoutViewer({
       );
     }
   }, [expandedLayouts, isInitialized]);
+
+  // Save filters to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem(
+      "tempManualCropManager_layoutViewerFilters",
+      JSON.stringify(activeFilters)
+    );
+  }, [activeFilters]);
 
   // Update manual crop indicators when connector changes
   useEffect(() => {
@@ -200,6 +231,9 @@ export function LayoutViewer({
         isExpanded: false,
         hasManualCrops: false,
         level: 0,
+        // Use availableForUser property to determine visibility
+        isVisible: (layout as any).availableForUser !== false,
+        isFilteredParent: false,
       });
     });
 
@@ -220,8 +254,55 @@ export function LayoutViewer({
     return rootLayouts;
   };
 
+  const applyFilters = (
+    layouts: LayoutNode[],
+    filters: string[]
+  ): LayoutNode[] => {
+    const hasVisibleFilter = filters.includes("Visible");
+    const hasManualCropsFilter = filters.includes("With Manual Crops");
+
+    const filterLayouts = (layouts: LayoutNode[]): LayoutNode[] => {
+      return layouts.reduce((acc: LayoutNode[], layout) => {
+        const filteredChildren = filterLayouts(layout.children);
+
+        // Check if layout matches filters
+        let matchesFilters = true;
+
+        if (hasVisibleFilter && !layout.isVisible) {
+          matchesFilters = false;
+        }
+
+        if (hasManualCropsFilter && !layout.hasManualCrops) {
+          matchesFilters = false;
+        }
+
+        // Include layout if it matches filters OR if it has children that match
+        if (matchesFilters || filteredChildren.length > 0) {
+          acc.push({
+            ...layout,
+            children: filteredChildren,
+            // Mark as filtered parent if it doesn't match filters but has filtered children
+            isFilteredParent: !matchesFilters && filteredChildren.length > 0,
+          });
+        }
+
+        return acc;
+      }, []);
+    };
+
+    return filterLayouts(layouts);
+  };
+
   const filteredLayouts = useMemo(() => {
-    if (!searchQuery.trim()) return layouts;
+    let processedLayouts = layouts;
+
+    // Apply active filters
+    if (activeFilters.length > 0) {
+      processedLayouts = applyFilters(layouts, activeFilters);
+    }
+
+    // Apply search filter
+    if (!searchQuery.trim()) return processedLayouts;
 
     const filterLayouts = (layouts: LayoutNode[]): LayoutNode[] => {
       return layouts.reduce((acc: LayoutNode[], layout) => {
@@ -242,8 +323,8 @@ export function LayoutViewer({
       }, []);
     };
 
-    return filterLayouts(layouts);
-  }, [layouts, searchQuery]);
+    return filterLayouts(processedLayouts);
+  }, [layouts, searchQuery, activeFilters]);
 
   const toggleLayoutExpanded = (layoutId: string) => {
     setExpandedLayouts((prev) => {
@@ -363,6 +444,44 @@ export function LayoutViewer({
             <Button variant="subtle" size="xs" onClick={deselectAll}>
               Deselect All
             </Button>
+
+            <Popover
+              opened={isFilterPopoverOpen}
+              onClose={() => setIsFilterPopoverOpen(false)}
+              position="bottom-start"
+              withArrow
+            >
+              <Popover.Target>
+                <Tooltip label="Filter" position="top">
+                  <ActionIcon
+                    variant="subtle"
+                    size="xs"
+                    onClick={() => setIsFilterPopoverOpen(!isFilterPopoverOpen)}
+                    color={activeFilters.length > 0 ? "yellow" : "gray"}
+                  >
+                    {activeFilters.length > 0 ? (
+                      <IconFilterFilled size={14} />
+                    ) : (
+                      <IconFilter size={14} />
+                    )}
+                  </ActionIcon>
+                </Tooltip>
+              </Popover.Target>
+              <Popover.Dropdown>
+                <MultiSelect
+                  label="Filter layouts"
+                  placeholder="Select filters"
+                  data={[
+                    { value: "Visible", label: "Visible" },
+                    { value: "With Manual Crops", label: "With Manual Crops" },
+                  ]}
+                  value={activeFilters}
+                  onChange={setActiveFilters}
+                  size="sm"
+                  style={{ minWidth: 200 }}
+                />
+              </Popover.Dropdown>
+            </Popover>
           </Group>
         </Stack>
       </Box>
@@ -449,6 +568,7 @@ function LayoutTreeItem({
   const isExpanded = expandedLayouts.has(layout.id);
   const isSelected = selectedLayoutIds.includes(layout.id);
   const checkboxState = getCheckboxState(layout);
+  const isFilteredParent = layout.isFilteredParent || false;
 
   return (
     <Box>
@@ -461,6 +581,7 @@ function LayoutTreeItem({
           backgroundColor: isSelected
             ? "var(--mantine-color-blue-1)"
             : "transparent",
+          opacity: isFilteredParent ? 0.5 : 1,
         }}
       >
         {hasChildren ? (
@@ -489,19 +610,29 @@ function LayoutTreeItem({
             onChange={() => onToggleChildrenSelection(layout)}
             size="sm"
             onClick={(e) => e.stopPropagation()}
+            disabled={isFilteredParent}
           />
         )}
 
-        <IconCrop size={14} color={layout.hasManualCrops ? "orange" : "gray"} />
+        {isFilteredParent ? (
+          <IconEyeClosed size={14} color="gray" />
+        ) : (
+          <IconCrop
+            size={14}
+            color={layout.hasManualCrops ? "orange" : "gray"}
+          />
+        )}
 
         <Text
           size="sm"
           style={{
             flex: 1,
-            cursor: "pointer",
+            cursor: isFilteredParent ? "default" : "pointer",
             color: layout.hasManualCrops ? "orange" : undefined,
           }}
-          onClick={() => onToggleSelection(layout.id)}
+          onClick={
+            isFilteredParent ? undefined : () => onToggleSelection(layout.id)
+          }
         >
           {layout.name}
         </Text>
