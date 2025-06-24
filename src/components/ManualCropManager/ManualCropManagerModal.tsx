@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Modal,
   Box,
@@ -33,6 +33,9 @@ export function ManualCropManagerModal({
   const [connectors, setConnectors] = useState<DocumentConnectorWithUsage[]>(
     []
   );
+  const [layoutViewerRefresh, setLayoutViewerRefresh] = useState<
+    (() => void) | null
+  >(null);
 
   const enableToolbar = appStore((state) => state.enableToolbar);
   const disableToolbar = appStore((state) => state.disableToolbar);
@@ -178,6 +181,55 @@ export function ManualCropManagerModal({
     onClose();
   };
 
+  const handleLayoutViewerRefreshReady = useCallback(
+    (refreshFn: () => void) => {
+      setLayoutViewerRefresh(() => refreshFn);
+    },
+    []
+  );
+
+  const handleCropsSaved = useCallback(async () => {
+    // Refresh the layout viewer crop indicators when crops are saved
+    if (layoutViewerRefresh) {
+      layoutViewerRefresh();
+    }
+
+    // Check if any new layouts now have crops and should be added to selection
+    if (selectedConnectorId) {
+      try {
+        const studioResult = await getStudio();
+        if (studioResult.isOk()) {
+          const { getManualCropsFromDocByConnector } = await import(
+            "../../studio-adapter/getManualCropsFromDocByConnector"
+          );
+          const cropsResult = await getManualCropsFromDocByConnector(
+            studioResult.value,
+            selectedConnectorId
+          );
+
+          if (cropsResult.isOk()) {
+            const cropsData = cropsResult.value;
+            const layoutsWithCrops = new Set(
+              cropsData.layouts.map((l) => l.id)
+            );
+
+            // Add any layouts that now have crops but aren't selected
+            const newLayoutsWithCrops = Array.from(layoutsWithCrops).filter(
+              (layoutId) => !selectedLayoutIds.includes(layoutId)
+            );
+
+            if (newLayoutsWithCrops.length > 0) {
+              setSelectedLayoutIds((prev) => [...prev, ...newLayoutsWithCrops]);
+            }
+          }
+        }
+      } catch (error) {
+        // Silently fail - this is just a convenience feature
+        console.warn("Failed to auto-select layouts with new crops:", error);
+      }
+    }
+  }, [layoutViewerRefresh, selectedConnectorId, selectedLayoutIds]);
+
   return (
     <Modal
       opened={opened}
@@ -297,6 +349,7 @@ export function ManualCropManagerModal({
                   selectedLayoutIds={selectedLayoutIds}
                   onSelectionChange={setSelectedLayoutIds}
                   selectedConnectorId={selectedConnectorId}
+                  onRefreshFunctionReady={handleLayoutViewerRefreshReady}
                 />
               </Box>
             </>
@@ -324,6 +377,7 @@ export function ManualCropManagerModal({
             selectedLayoutIds={selectedLayoutIds}
             selectedConnectorId={selectedConnectorId}
             onModalClose={handleClose}
+            onCropsSaved={handleCropsSaved}
           />
         </Box>
       </Box>

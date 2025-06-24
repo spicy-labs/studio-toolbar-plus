@@ -43,7 +43,10 @@ interface CopyCropToLayerModalProps {
   sourceLayoutId: string;
   checkedCrops: ManualCrop[];
   selectedConnectorId: string;
-  onCopy: (targetLayoutIds: string[], checkedCrops: ManualCrop[]) => void;
+  onCopy: (
+    targetLayoutIds: string[],
+    checkedCrops: ManualCrop[]
+  ) => Promise<void>;
 }
 
 export function CopyCropToLayerModal({
@@ -271,9 +274,15 @@ export function CopyCropToLayerModal({
     setSelectedLayoutIds(newSelection);
   };
 
-  const handleCopy = () => {
-    onCopy(selectedLayoutIds, checkedCrops);
-    onClose();
+  const handleCopy = async () => {
+    try {
+      await onCopy(selectedLayoutIds, checkedCrops);
+      onClose();
+    } catch (error) {
+      raiseError(
+        error instanceof Error ? error : new Error("Failed to copy crops")
+      );
+    }
   };
 
   if (isLoading) {

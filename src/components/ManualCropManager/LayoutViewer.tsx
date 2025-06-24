@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
   TextInput,
@@ -46,12 +46,14 @@ interface LayoutViewerProps {
   selectedLayoutIds: string[];
   onSelectionChange: (layoutIds: string[]) => void;
   selectedConnectorId: string;
+  onRefreshFunctionReady?: (refreshFn: () => void) => void;
 }
 
 export function LayoutViewer({
   selectedLayoutIds,
   onSelectionChange,
   selectedConnectorId,
+  onRefreshFunctionReady,
 }: LayoutViewerProps) {
   const [layouts, setLayouts] = useState<LayoutNode[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -160,7 +162,7 @@ export function LayoutViewer({
     }
   };
 
-  const updateManualCropIndicators = async () => {
+  const updateManualCropIndicators = useCallback(async () => {
     if (!selectedConnectorId) return;
 
     try {
@@ -204,7 +206,14 @@ export function LayoutViewer({
           : new Error("Failed to update manual crop indicators")
       );
     }
-  };
+  }, [selectedConnectorId, raiseError]);
+
+  // Expose refresh function to parent component
+  useEffect(() => {
+    if (onRefreshFunctionReady) {
+      onRefreshFunctionReady(updateManualCropIndicators);
+    }
+  }, [onRefreshFunctionReady, updateManualCropIndicators]);
 
   const updateLayoutCropIndicators = (
     layouts: LayoutNode[],

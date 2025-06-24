@@ -28,6 +28,7 @@ import {
   getCurrentDocumentState,
   loadDocumentFromJsonStr,
 } from "../../studio/documentHandler";
+import { getAllLayouts } from "../../studio/layoutHandler";
 import { getManualCropsFromDocByConnector } from "../../studio-adapter/getManualCropsFromDocByConnector";
 import { setManualCropsForLayout } from "../../studio-adapter/setManualCropsForLayout";
 import { deleteManualCropsForLayout } from "../../studio-adapter/deleteManualCropsForLayout";
@@ -35,6 +36,7 @@ import { CopyCropToLayerModal } from "./CopyCropToLayerModal";
 import { CopyAndAddRowModal } from "./CopyAndAddRowModal";
 import { CopyAndReplaceModal } from "./CopyAndReplaceModal";
 import type { ManualCrop } from "../../studio-adapter/manualCropTypes";
+import type { Layout } from "@chili-publish/studio-sdk";
 
 interface ManualCropToDelete {
   layoutId: string;
@@ -182,6 +184,7 @@ interface ManualCropEditorProps {
   selectedLayoutIds: string[];
   selectedConnectorId: string;
   onModalClose?: () => void;
+  onCropsSaved?: () => void;
 }
 
 type SaveState = "idle" | "saving" | "error" | "success";
@@ -190,6 +193,7 @@ export function ManualCropEditor({
   selectedLayoutIds,
   selectedConnectorId,
   onModalClose,
+  onCropsSaved,
 }: ManualCropEditorProps) {
   const [layoutCrops, setLayoutCrops] = useState<Map<string, LayoutCrops>>(
     new Map()
@@ -221,6 +225,76 @@ export function ManualCropEditor({
     useState<string>("");
   const raiseError = appStore((store) => store.raiseError);
 
+  const loadCropsForSelectedLayouts = useCallback(async () => {
+    if (!selectedConnectorId) return;
+
+    try {
+      setIsLoading(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError(
+          new Error(studioResult.error?.message || "Failed to get studio")
+        );
+        return;
+      }
+      const studio = studioResult.value;
+
+      // Get all layouts to have access to layout names
+      const allLayoutsResult = await getAllLayouts(studio);
+      if (!allLayoutsResult.isOk()) {
+        raiseError(
+          new Error(
+            "Failed to load layouts: " + allLayoutsResult.error?.message
+          )
+        );
+        return;
+      }
+      const allLayouts = allLayoutsResult.value as Layout[];
+
+      const cropsResult = await getManualCropsFromDocByConnector(
+        studio,
+        selectedConnectorId
+      );
+
+      if (!cropsResult.isOk()) {
+        raiseError(
+          new Error(
+            "Failed to load manual crops: " + cropsResult.error?.message
+          )
+        );
+        return;
+      }
+
+      const cropsData = cropsResult.value;
+
+      // Filter crops to only include selected layouts and convert to Map
+      const layoutCropsMap = new Map<string, LayoutCrops>();
+      selectedLayoutIds.forEach((layoutId) => {
+        // Find layout in all layouts to get the name
+        const layout = allLayouts.find((l) => l.id === layoutId);
+        if (layout) {
+          // Check if this layout has crops
+          const layoutData = cropsData.layouts.find((l) => l.id === layoutId);
+          layoutCropsMap.set(layoutId, {
+            layoutId: layout.id,
+            layoutName: layout.name,
+            crops: layoutData ? layoutData.manualCrops : [], // Empty array if no crops
+          });
+        }
+      });
+
+      setLayoutCrops(layoutCropsMap);
+    } catch (error) {
+      raiseError(
+        error instanceof Error
+          ? error
+          : new Error("Failed to load manual crops")
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }, [selectedConnectorId, selectedLayoutIds, raiseError]);
+
   // Load crops when connector or selected layouts change
   useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
@@ -231,7 +305,7 @@ export function ManualCropEditor({
     // Clear changed rows and checked rows when layouts change
     setChangedRows(new Map());
     setCheckedRows(new Set());
-  }, [selectedConnectorId, selectedLayoutIds]);
+  }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
 
   // Handle crop changes from individual row components
   const handleCropChange = useCallback(
@@ -404,7 +478,39 @@ export function ManualCropEditor({
   }, []);
 
   const copyCropsToLayers = useCallback(
-    (targetLayoutIds: string[], checkedCrops: ManualCrop[]) => {
+    async (targetLayoutIds: string[], checkedCrops: ManualCrop[]) => {
+      // Get layout names for target layouts that aren't already loaded
+      const missingLayoutIds = targetLayoutIds.filter(
+        (id) => !layoutCrops.has(id)
+      );
+
+      let layoutNamesMap = new Map<string, string>();
+
+      if (missingLayoutIds.length > 0) {
+        try {
+          const studioResult = await getStudio();
+          if (studioResult.isOk()) {
+            const allLayoutsResult = await getAllLayouts(studioResult.value);
+            if (allLayoutsResult.isOk()) {
+              const allLayouts = allLayoutsResult.value as Layout[];
+              missingLayoutIds.forEach((layoutId) => {
+                const layout = allLayouts.find((l) => l.id === layoutId);
+                if (layout) {
+                  layoutNamesMap.set(layoutId, layout.name);
+                }
+              });
+            }
+          }
+        } catch (error) {
+          // If we can't get layout names, we'll use fallback names
+          raiseError(
+            error instanceof Error
+              ? error
+              : new Error("Failed to load layout names")
+          );
+        }
+      }
+
       // For each target layout, replace existing crops or add new ones
       setLayoutCrops((prevLayoutCrops) => {
         const newLayoutCrops = new Map(prevLayoutCrops);
@@ -437,10 +543,12 @@ export function ManualCropEditor({
             });
           } else {
             // Create a new layout crop entry if it doesn't exist
-            // We need to get the layout name somehow - for now use the ID
+            // Use the actual layout name if available, otherwise fallback to ID
+            const layoutName =
+              layoutNamesMap.get(targetLayoutId) || `Layout ${targetLayoutId}`;
             newLayoutCrops.set(targetLayoutId, {
               layoutId: targetLayoutId,
-              layoutName: `Layout ${targetLayoutId}`, // This should be improved to get actual name
+              layoutName: layoutName,
               crops: [...checkedCrops],
             });
           }
@@ -485,7 +593,7 @@ export function ManualCropEditor({
         return newMap;
       });
     },
-    [layoutCrops]
+    [layoutCrops, raiseError]
   );
 
   const addCopyOfCrop = useCallback(
@@ -631,60 +739,6 @@ export function ManualCropEditor({
     },
     [currentLayoutIdForReplace, layoutCrops]
   );
-
-  const loadCropsForSelectedLayouts = async () => {
-    if (!selectedConnectorId) return;
-
-    try {
-      setIsLoading(true);
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
-        );
-        return;
-      }
-      const studio = studioResult.value;
-      const cropsResult = await getManualCropsFromDocByConnector(
-        studio,
-        selectedConnectorId
-      );
-
-      if (!cropsResult.isOk()) {
-        raiseError(
-          new Error(
-            "Failed to load manual crops: " + cropsResult.error?.message
-          )
-        );
-        return;
-      }
-
-      const cropsData = cropsResult.value;
-
-      // Filter crops to only include selected layouts and convert to Map
-      const layoutCropsMap = new Map<string, LayoutCrops>();
-      selectedLayoutIds.forEach((layoutId) => {
-        const layoutData = cropsData.layouts.find((l) => l.id === layoutId);
-        if (layoutData) {
-          layoutCropsMap.set(layoutId, {
-            layoutId: layoutData.id,
-            layoutName: layoutData.name,
-            crops: layoutData.manualCrops,
-          });
-        }
-      });
-
-      setLayoutCrops(layoutCropsMap);
-    } catch (error) {
-      raiseError(
-        error instanceof Error
-          ? error
-          : new Error("Failed to load manual crops")
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const saveCropChanges = async () => {
     if (changedRows.size === 0) return;
@@ -873,6 +927,11 @@ export function ManualCropEditor({
       setSaveState("success");
       setSaveMessage("Changes Saved!");
       setChangedRows(new Map());
+
+      // Notify parent that crops were saved
+      if (onCropsSaved) {
+        onCropsSaved();
+      }
     } catch (error) {
       raiseError(
         error instanceof Error
