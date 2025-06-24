@@ -54,12 +54,41 @@ export function LayoutViewer({
   const [expandedLayouts, setExpandedLayouts] = useState<Set<string>>(
     new Set()
   );
+  const [isInitialized, setIsInitialized] = useState(false);
   const raiseError = appStore((store) => store.raiseError);
+
+  // Load expanded layouts from sessionStorage on component mount
+  useEffect(() => {
+    const storedExpanded = sessionStorage.getItem(
+      "tempManualCropManager_layoutsExpanded"
+    );
+    if (storedExpanded) {
+      try {
+        const expandedIds = JSON.parse(storedExpanded) as string[];
+        setExpandedLayouts(new Set(expandedIds));
+      } catch (error) {
+        // If parsing fails, just use empty set
+        setExpandedLayouts(new Set());
+      }
+    }
+    setIsInitialized(true);
+  }, []);
 
   // Load layouts on component mount
   useEffect(() => {
     loadLayouts();
   }, []);
+
+  // Save expanded layouts to sessionStorage whenever they change (only after initialization)
+  useEffect(() => {
+    if (isInitialized) {
+      const expandedIds = Array.from(expandedLayouts);
+      sessionStorage.setItem(
+        "tempManualCropManager_layoutsExpanded",
+        JSON.stringify(expandedIds)
+      );
+    }
+  }, [expandedLayouts, isInitialized]);
 
   // Update manual crop indicators when connector changes
   useEffect(() => {
@@ -426,7 +455,7 @@ function LayoutTreeItem({
       <Group
         gap="xs"
         style={{
-          paddingLeft: layout.level * 20,
+          marginLeft: layout.level * 10,
           padding: "4px 8px",
           borderRadius: "4px",
           backgroundColor: isSelected

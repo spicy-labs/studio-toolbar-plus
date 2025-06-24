@@ -63,9 +63,9 @@ export function ManualCropManagerModal({
       const connectorsData = connectorsResult.value;
       setConnectors(connectorsData);
 
-      // Load selected connector from localStorage or auto-select first connector
-      const storedConnectorId = localStorage.getItem(
-        "manualCropManager_selectedConnectorId"
+      // Load selected connector from sessionStorage or auto-select first connector
+      const storedConnectorId = sessionStorage.getItem(
+        "tempManualCropManager_selectedConnectorId"
       );
 
       if (
@@ -78,8 +78,8 @@ export function ManualCropManagerModal({
         // Auto-select first connector if none selected and no valid stored connector
         const firstConnectorId = connectorsData[0].id;
         setSelectedConnectorId(firstConnectorId);
-        localStorage.setItem(
-          "manualCropManager_selectedConnectorId",
+        sessionStorage.setItem(
+          "tempManualCropManager_selectedConnectorId",
           firstConnectorId
         );
       }
@@ -93,7 +93,22 @@ export function ManualCropManagerModal({
   // Reset state when modal opens and handle toolbar visibility
   useEffect(() => {
     if (opened) {
-      setSelectedLayoutIds([]);
+      // Load selected layouts from sessionStorage
+      const storedSelected = sessionStorage.getItem(
+        "tempManualCropManager_layoutsSelected"
+      );
+      if (storedSelected) {
+        try {
+          const selectedIds = JSON.parse(storedSelected) as string[];
+          setSelectedLayoutIds(selectedIds);
+        } catch (error) {
+          // If parsing fails, just use empty array
+          setSelectedLayoutIds([]);
+        }
+      } else {
+        setSelectedLayoutIds([]);
+      }
+
       setSelectedConnectorId("");
       disableToolbar(); // Hide toolbar when modal opens
       loadConnectors(); // Load connectors when modal opens
@@ -101,6 +116,14 @@ export function ManualCropManagerModal({
       enableToolbar(); // Show toolbar when modal closes
     }
   }, [opened]);
+
+  // Save selected layouts to sessionStorage whenever they change
+  useEffect(() => {
+    sessionStorage.setItem(
+      "tempManualCropManager_layoutsSelected",
+      JSON.stringify(selectedLayoutIds)
+    );
+  }, [selectedLayoutIds]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsResizing(true);
@@ -139,14 +162,14 @@ export function ManualCropManagerModal({
     const connectorId = value || "";
     setSelectedConnectorId(connectorId);
 
-    // Save to localStorage
+    // Save to sessionStorage
     if (connectorId) {
-      localStorage.setItem(
-        "manualCropManager_selectedConnectorId",
+      sessionStorage.setItem(
+        "tempManualCropManager_selectedConnectorId",
         connectorId
       );
     } else {
-      localStorage.removeItem("manualCropManager_selectedConnectorId");
+      sessionStorage.removeItem("tempManualCropManager_selectedConnectorId");
     }
   };
 
