@@ -284,7 +284,19 @@ export function ManualCropEditor({
         if (rowKey.startsWith(`${layoutId}-`)) {
           const [, cropIndexStr] = rowKey.split("-");
           const cropIndex = parseInt(cropIndexStr, 10);
-          const crop = layoutCrop.crops[cropIndex];
+
+          // First try to get crop from changedRows, then fallback to layoutCrops
+          const changedCrop = changedRows.get(rowKey);
+          let crop: ManualCrop | undefined;
+
+          if (changedCrop && "frameId" in changedCrop) {
+            // Use the changed crop data
+            crop = changedCrop;
+          } else {
+            // Fallback to original crop from layoutCrops
+            crop = layoutCrop.crops[cropIndex];
+          }
+
           if (crop) {
             checkedCrops.push(crop);
           }
@@ -292,7 +304,7 @@ export function ManualCropEditor({
       });
       return checkedCrops;
     },
-    [checkedRows, layoutCrops]
+    [checkedRows, layoutCrops, changedRows]
   );
 
   // Action button handlers
@@ -393,18 +405,35 @@ export function ManualCropEditor({
 
   const copyCropsToLayers = useCallback(
     (targetLayoutIds: string[], checkedCrops: ManualCrop[]) => {
-      // For each target layout, add the checked crops as new rows
+      // For each target layout, replace existing crops or add new ones
       setLayoutCrops((prevLayoutCrops) => {
         const newLayoutCrops = new Map(prevLayoutCrops);
 
         targetLayoutIds.forEach((targetLayoutId) => {
           const existingLayoutCrop = newLayoutCrops.get(targetLayoutId);
           if (existingLayoutCrop) {
-            // Create a new array with existing crops plus the new ones
-            const newCrops = [...existingLayoutCrop.crops, ...checkedCrops];
+            // Create a new array with existing crops, replacing or adding as needed
+            const updatedCrops = [...existingLayoutCrop.crops];
+
+            checkedCrops.forEach((newCrop) => {
+              // Find existing crop with same frameId and name
+              const existingIndex = updatedCrops.findIndex(
+                (crop) =>
+                  crop.frameId === newCrop.frameId && crop.name === newCrop.name
+              );
+
+              if (existingIndex !== -1) {
+                // Replace existing crop
+                updatedCrops[existingIndex] = newCrop;
+              } else {
+                // Add new crop
+                updatedCrops.push(newCrop);
+              }
+            });
+
             newLayoutCrops.set(targetLayoutId, {
               ...existingLayoutCrop,
-              crops: newCrops,
+              crops: updatedCrops,
             });
           } else {
             // Create a new layout crop entry if it doesn't exist
@@ -420,19 +449,36 @@ export function ManualCropEditor({
         return newLayoutCrops;
       });
 
-      // Add the new crops to changedRows so they get saved
+      // Add the crops to changedRows so they get saved
       setChangedRows((prev) => {
         const newMap = new Map(prev);
 
         targetLayoutIds.forEach((targetLayoutId) => {
           const existingLayoutCrop = layoutCrops.get(targetLayoutId);
-          const startIndex = existingLayoutCrop
-            ? existingLayoutCrop.crops.length
-            : 0;
 
-          checkedCrops.forEach((crop, index) => {
-            const rowKey = `${targetLayoutId}-${startIndex + index}`;
-            newMap.set(rowKey, crop);
+          checkedCrops.forEach((crop) => {
+            if (existingLayoutCrop) {
+              // Find existing crop with same frameId and name
+              const existingIndex = existingLayoutCrop.crops.findIndex(
+                (c) => c.frameId === crop.frameId && c.name === crop.name
+              );
+
+              if (existingIndex !== -1) {
+                // Replace existing crop
+                const rowKey = `${targetLayoutId}-${existingIndex}`;
+                newMap.set(rowKey, crop);
+              } else {
+                // Add new crop at the end
+                const newIndex = existingLayoutCrop.crops.length;
+                const rowKey = `${targetLayoutId}-${newIndex}`;
+                newMap.set(rowKey, crop);
+              }
+            } else {
+              // New layout, add all crops starting from index 0
+              const newIndex = checkedCrops.indexOf(crop);
+              const rowKey = `${targetLayoutId}-${newIndex}`;
+              newMap.set(rowKey, crop);
+            }
           });
         });
 
@@ -453,31 +499,61 @@ export function ManualCropEditor({
         name: newName,
       };
 
-      // Add the new crop to the layout
+      // Replace existing crop or add new crop to the layout
       setLayoutCrops((prevLayoutCrops) => {
         const newLayoutCrops = new Map(prevLayoutCrops);
         const existingLayoutCrop = newLayoutCrops.get(layoutId);
 
         if (existingLayoutCrop) {
-          const newCrops = [...existingLayoutCrop.crops, newCrop];
+          const updatedCrops = [...existingLayoutCrop.crops];
+
+          // Find existing crop with same frameId and name
+          const existingIndex = updatedCrops.findIndex(
+            (crop) =>
+              crop.frameId === newCrop.frameId && crop.name === newCrop.name
+          );
+
+          if (existingIndex !== -1) {
+            // Replace existing crop
+            updatedCrops[existingIndex] = newCrop;
+          } else {
+            // Add new crop
+            updatedCrops.push(newCrop);
+          }
+
           newLayoutCrops.set(layoutId, {
             ...existingLayoutCrop,
-            crops: newCrops,
+            crops: updatedCrops,
           });
         }
 
         return newLayoutCrops;
       });
 
-      // Add the new crop to changedRows so it gets saved
+      // Add the crop to changedRows so it gets saved
       setChangedRows((prev) => {
         const newMap = new Map(prev);
         const existingLayoutCrop = layoutCrops.get(layoutId);
-        const newIndex = existingLayoutCrop
-          ? existingLayoutCrop.crops.length
-          : 0;
-        const rowKey = `${layoutId}-${newIndex}`;
-        newMap.set(rowKey, newCrop);
+
+        if (existingLayoutCrop) {
+          // Find existing crop with same frameId and name
+          const existingIndex = existingLayoutCrop.crops.findIndex(
+            (crop) =>
+              crop.frameId === newCrop.frameId && crop.name === newCrop.name
+          );
+
+          if (existingIndex !== -1) {
+            // Replace existing crop
+            const rowKey = `${layoutId}-${existingIndex}`;
+            newMap.set(rowKey, newCrop);
+          } else {
+            // Add new crop at the end
+            const newIndex = existingLayoutCrop.crops.length;
+            const rowKey = `${layoutId}-${newIndex}`;
+            newMap.set(rowKey, newCrop);
+          }
+        }
+
         return newMap;
       });
     },
@@ -495,31 +571,61 @@ export function ManualCropEditor({
         name: newName,
       };
 
-      // Add the new crop to the layout
+      // Replace existing crop or add new crop to the layout
       setLayoutCrops((prevLayoutCrops) => {
         const newLayoutCrops = new Map(prevLayoutCrops);
         const existingLayoutCrop = newLayoutCrops.get(layoutId);
 
         if (existingLayoutCrop) {
-          const newCrops = [...existingLayoutCrop.crops, newCrop];
+          const updatedCrops = [...existingLayoutCrop.crops];
+
+          // Find existing crop with same frameId and name
+          const existingIndex = updatedCrops.findIndex(
+            (crop) =>
+              crop.frameId === newCrop.frameId && crop.name === newCrop.name
+          );
+
+          if (existingIndex !== -1) {
+            // Replace existing crop
+            updatedCrops[existingIndex] = newCrop;
+          } else {
+            // Add new crop
+            updatedCrops.push(newCrop);
+          }
+
           newLayoutCrops.set(layoutId, {
             ...existingLayoutCrop,
-            crops: newCrops,
+            crops: updatedCrops,
           });
         }
 
         return newLayoutCrops;
       });
 
-      // Add the new crop to changedRows so it gets saved
+      // Add the crop to changedRows so it gets saved
       setChangedRows((prev) => {
         const newMap = new Map(prev);
         const existingLayoutCrop = layoutCrops.get(layoutId);
-        const newIndex = existingLayoutCrop
-          ? existingLayoutCrop.crops.length
-          : 0;
-        const rowKey = `${layoutId}-${newIndex}`;
-        newMap.set(rowKey, newCrop);
+
+        if (existingLayoutCrop) {
+          // Find existing crop with same frameId and name
+          const existingIndex = existingLayoutCrop.crops.findIndex(
+            (crop) =>
+              crop.frameId === newCrop.frameId && crop.name === newCrop.name
+          );
+
+          if (existingIndex !== -1) {
+            // Replace existing crop
+            const rowKey = `${layoutId}-${existingIndex}`;
+            newMap.set(rowKey, newCrop);
+          } else {
+            // Add new crop at the end
+            const newIndex = existingLayoutCrop.crops.length;
+            const rowKey = `${layoutId}-${newIndex}`;
+            newMap.set(rowKey, newCrop);
+          }
+        }
+
         return newMap;
       });
     },

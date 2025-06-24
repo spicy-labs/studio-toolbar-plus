@@ -63,9 +63,25 @@ export function ManualCropManagerModal({
       const connectorsData = connectorsResult.value;
       setConnectors(connectorsData);
 
-      // Auto-select first connector if none selected
-      if (!selectedConnectorId && connectorsData.length > 0) {
-        setSelectedConnectorId(connectorsData[0].id);
+      // Load selected connector from localStorage or auto-select first connector
+      const storedConnectorId = localStorage.getItem(
+        "manualCropManager_selectedConnectorId"
+      );
+
+      if (
+        storedConnectorId &&
+        connectorsData.some((c) => c.id === storedConnectorId)
+      ) {
+        // Use stored connector if it exists in the current connectors
+        setSelectedConnectorId(storedConnectorId);
+      } else if (!selectedConnectorId && connectorsData.length > 0) {
+        // Auto-select first connector if none selected and no valid stored connector
+        const firstConnectorId = connectorsData[0].id;
+        setSelectedConnectorId(firstConnectorId);
+        localStorage.setItem(
+          "manualCropManager_selectedConnectorId",
+          firstConnectorId
+        );
       }
     } catch (error) {
       raiseError(
@@ -119,6 +135,21 @@ export function ManualCropManagerModal({
     setIsLayoutViewerCollapsed(!isLayoutViewerCollapsed);
   };
 
+  const handleConnectorChange = (value: string | null) => {
+    const connectorId = value || "";
+    setSelectedConnectorId(connectorId);
+
+    // Save to localStorage
+    if (connectorId) {
+      localStorage.setItem(
+        "manualCropManager_selectedConnectorId",
+        connectorId
+      );
+    } else {
+      localStorage.removeItem("manualCropManager_selectedConnectorId");
+    }
+  };
+
   const handleClose = () => {
     enableToolbar(); // Ensure toolbar is enabled when closing
     onClose();
@@ -153,10 +184,21 @@ export function ManualCropManagerModal({
                 placeholder="Select connector"
                 data={connectors.map((connector) => ({
                   value: connector.id,
-                  label: connector.name + " (" + connector.usesInTemplate.images.reduce((acc, image) => acc + `SFrame:${image.name}, `, "") + connector.usesInTemplate.variables.reduce((acc, variable) => acc + `Var:${variable.name}, `, "") + ")",
+                  label:
+                    connector.name +
+                    " (" +
+                    connector.usesInTemplate.images.reduce(
+                      (acc, image) => acc + `SFrame:${image.name}, `,
+                      ""
+                    ) +
+                    connector.usesInTemplate.variables.reduce(
+                      (acc, variable) => acc + `Var:${variable.name}, `,
+                      ""
+                    ) +
+                    ")",
                 }))}
                 value={selectedConnectorId}
-                onChange={(value) => setSelectedConnectorId(value || "")}
+                onChange={handleConnectorChange}
                 style={{ minWidth: 200 }}
                 size="sm"
               />
