@@ -1,3 +1,26 @@
+## 0.10.3
+
+### 🐛 Fixed
+
+- Issue with version checking
+
+## 0.10.2
+
+### ✨ Added
+
+- Filters for LayoutViewer to filter by visibility and manual crops
+- Session persistence for selected Connector and open layout tree
+- Persistence for layout filters
+
+### 🐛 Fixed
+
+- Issue with showing layouts without crops
+- Layout names when copied to display the ID
+- Refresh LayoutViewer on save
+- Indentation for LayoutViewer at different levels
+- Copying crops not overriding existing crops (avoid duplication)
+- Copying crops not using current unsaved changes
+
 ## 0.10.1
 
 ### ✨ Added

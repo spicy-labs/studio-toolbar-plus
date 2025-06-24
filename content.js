@@ -2,7 +2,7 @@
 const currentVersion = chrome.runtime.getManifest().version;
 
 // Break currentVersion down into major, minor, patch
-const [currentMajor, currntMinor, currentPatch] = currentVersion.split(".");
+const [currentMajor, currntMinor, currentPatch] = currentVersion.split(".").map(Number);
 
 // Create a function to fetch the GitHub version
 async function checkForUpdates() {
