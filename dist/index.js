@@ -10565,6 +10565,411 @@ var require_client = __commonJS((exports, module) => {
   }
 });
 
+// node_modules/typescript-result/dist/index.js
+function isPromise(value) {
+  if (value === null || value === undefined) {
+    return false;
+  }
+  if (typeof value !== "object") {
+    return false;
+  }
+  return value instanceof Promise || "then" in value;
+}
+function isFunction(value) {
+  return typeof value === "function";
+}
+function isAsyncFn(fn) {
+  return fn.constructor.name === "AsyncFunction";
+}
+var AsyncResult, Result = class _Result {
+  constructor(_value, _error) {
+    this._value = _value;
+    this._error = _error;
+  }
+  get isResult() {
+    return true;
+  }
+  get value() {
+    return this._value;
+  }
+  get error() {
+    return this._error;
+  }
+  get success() {
+    return this.error === undefined;
+  }
+  get failure() {
+    return this.error !== undefined;
+  }
+  isOk() {
+    return this.success;
+  }
+  isError() {
+    return this.failure;
+  }
+  toTuple() {
+    return [this._value ?? null, this._error ?? null];
+  }
+  errorOrNull() {
+    return this.failure ? this._error : null;
+  }
+  getOrNull() {
+    return this.success ? this._value : null;
+  }
+  getOrDefault(defaultValue) {
+    return this.success ? this._value : defaultValue;
+  }
+  getOrElse(onFailure) {
+    if (isAsyncFn(onFailure)) {
+      return this.success ? Promise.resolve(this._value) : onFailure(this._error);
+    }
+    return this.success ? this._value : onFailure(this._error);
+  }
+  getOrThrow() {
+    if (this.success) {
+      return this._value;
+    }
+    throw this._error;
+  }
+  fold(onSuccess, onFailure) {
+    const isAsync = isAsyncFn(onSuccess) || isAsyncFn(onFailure);
+    const outcome = this.success ? onSuccess(this._value) : onFailure(this._error);
+    return isAsync && !isPromise(outcome) ? Promise.resolve(outcome) : outcome;
+  }
+  onFailure(action) {
+    const isAsync = isAsyncFn(action);
+    if (this.failure) {
+      const outcome = action(this._error);
+      if (isAsync) {
+        return new AsyncResult((resolve) => {
+          outcome.then(() => resolve(_Result.error(this._error)));
+        });
+      }
+      return this;
+    }
+    return isAsync ? AsyncResult.ok(this._value) : this;
+  }
+  onSuccess(action) {
+    const isAsync = isAsyncFn(action);
+    if (this.success) {
+      const outcome = action(this._value);
+      if (isAsync) {
+        return new AsyncResult((resolve) => {
+          outcome.then(() => resolve(_Result.ok(this._value)));
+        });
+      }
+      return this;
+    }
+    return isAsync ? AsyncResult.error(this._error) : this;
+  }
+  map(transform) {
+    return this.success ? _Result.run(() => transform(this._value)) : isAsyncFn(transform) ? AsyncResult.error(this._error) : this;
+  }
+  mapCatching(transformValue, transformError) {
+    return this.success ? _Result.try(() => transformValue(this._value), transformError) : this;
+  }
+  mapError(transform) {
+    if (this.success) {
+      return this;
+    }
+    return _Result.error(transform(this._error));
+  }
+  recover(onFailure) {
+    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : _Result.run(() => onFailure(this._error));
+  }
+  recoverCatching(onFailure) {
+    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : _Result.try(() => onFailure(this._error));
+  }
+  toString() {
+    if (this.success) {
+      return `Result.ok(${this._value})`;
+    }
+    return `Result.error(${this.error})`;
+  }
+  static ok(value) {
+    return new _Result(value, undefined);
+  }
+  static error(error) {
+    return new _Result(undefined, error);
+  }
+  static isResult(possibleResult) {
+    return possibleResult instanceof _Result;
+  }
+  static isAsyncResult(possibleAsyncResult) {
+    return possibleAsyncResult instanceof AsyncResult;
+  }
+  static run(fn) {
+    const returnValue = fn();
+    if (isPromise(returnValue)) {
+      return AsyncResult.fromPromise(returnValue);
+    }
+    return _Result.isResult(returnValue) ? returnValue : _Result.ok(returnValue);
+  }
+  static allInternal(items, opts) {
+    const runner = opts.catching ? _Result.try : _Result.run;
+    const flattened = [];
+    let isAsync = items.some(isPromise);
+    let hasFailure = false;
+    for (const item of items) {
+      if (isFunction(item)) {
+        if (hasFailure) {
+          continue;
+        }
+        const returnValue = runner(item);
+        if (_Result.isResult(returnValue) && returnValue.isError()) {
+          hasFailure = true;
+          if (!isAsync) {
+            return returnValue;
+          }
+        }
+        if (_Result.isAsyncResult(returnValue)) {
+          isAsync = true;
+        }
+        flattened.push(returnValue);
+      } else if (_Result.isResult(item)) {
+        if (item.isError()) {
+          hasFailure = true;
+          if (!isAsync) {
+            return item;
+          }
+        }
+        flattened.push(item);
+      } else if (_Result.isAsyncResult(item)) {
+        isAsync = true;
+        flattened.push(item);
+      } else if (isPromise(item)) {
+        isAsync = true;
+        flattened.push(opts.catching ? AsyncResult.fromPromiseCatching(item) : AsyncResult.fromPromise(item));
+      } else {
+        flattened.push(_Result.ok(item));
+      }
+    }
+    if (isAsync) {
+      return new AsyncResult((resolve, reject) => {
+        const asyncResults = [];
+        const asyncIndexes = [];
+        for (let i = 0;i < flattened.length; i++) {
+          const item = flattened[i];
+          if (_Result.isAsyncResult(item)) {
+            asyncResults.push(item);
+            asyncIndexes.push(i);
+          }
+        }
+        Promise.all(asyncResults).then((resolvedResults) => {
+          const merged = [...flattened];
+          for (let i = 0;i < resolvedResults.length; i++) {
+            merged[asyncIndexes[i]] = resolvedResults[i];
+          }
+          const firstFailedResult = merged.find((resolvedResult) => resolvedResult.isError());
+          if (firstFailedResult) {
+            resolve(firstFailedResult);
+            return;
+          }
+          resolve(_Result.ok(merged.map((result) => result.getOrNull())));
+        }).catch((reason) => {
+          reject(reason);
+        });
+      });
+    }
+    return _Result.ok(flattened.map((result) => result.getOrNull()));
+  }
+  static all(...items) {
+    return _Result.allInternal(items, {
+      catching: false
+    });
+  }
+  static allCatching(...items) {
+    return _Result.allInternal(items, {
+      catching: true
+    });
+  }
+  static wrap(fn) {
+    return function wrapped(...args) {
+      return _Result.try(() => fn(...args));
+    };
+  }
+  static try(fn, transform) {
+    try {
+      const returnValue = fn();
+      if (isPromise(returnValue)) {
+        return AsyncResult.fromPromiseCatching(returnValue, transform);
+      }
+      return _Result.isResult(returnValue) ? returnValue : _Result.ok(returnValue);
+    } catch (caughtError) {
+      return _Result.error(transform?.(caughtError) ?? caughtError);
+    }
+  }
+  static fromAsync(value) {
+    return _Result.run(() => value);
+  }
+  static fromAsyncCatching(value) {
+    return _Result.try(() => value);
+  }
+  static assertOk(result) {
+    if (result.isError()) {
+      throw new Error("Expected a successful result, but got an error instead");
+    }
+  }
+  static assertError(result) {
+    if (result.isOk()) {
+      throw new Error("Expected a failed result, but got a value instead");
+    }
+  }
+};
+var init_dist = __esm(() => {
+  AsyncResult = class _AsyncResult extends Promise {
+    get isAsyncResult() {
+      return true;
+    }
+    async toTuple() {
+      const result = await this;
+      return result.toTuple();
+    }
+    async errorOrNull() {
+      const result = await this;
+      return result.errorOrNull();
+    }
+    async getOrNull() {
+      const result = await this;
+      return result.getOrNull();
+    }
+    async getOrDefault(defaultValue) {
+      const result = await this;
+      return result.getOrDefault(defaultValue);
+    }
+    async getOrElse(onFailure) {
+      const result = await this;
+      return result.getOrElse(onFailure);
+    }
+    async getOrThrow() {
+      const result = await this;
+      return result.getOrThrow();
+    }
+    async fold(onSuccess, onFailure) {
+      const result = await this;
+      return result.fold(onSuccess, onFailure);
+    }
+    onFailure(action) {
+      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+        try {
+          if (result.isError()) {
+            await action(result.error);
+          }
+          resolve(result);
+        } catch (e) {
+          reject(e);
+        }
+      }).catch(reject));
+    }
+    onSuccess(action) {
+      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+        try {
+          if (result.isOk()) {
+            await action(result.value);
+          }
+          resolve(result);
+        } catch (error) {
+          reject(error);
+        }
+      }).catch(reject));
+    }
+    map(transform) {
+      return new _AsyncResult((resolve, reject) => this.then((result) => {
+        if (result.isOk()) {
+          try {
+            const returnValue = transform(result.value);
+            if (isPromise(returnValue)) {
+              returnValue.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch(reject);
+            } else {
+              resolve(Result.isResult(returnValue) ? returnValue : Result.ok(returnValue));
+            }
+          } catch (error) {
+            reject(error);
+          }
+        } else {
+          resolve(result);
+        }
+      }).catch(reject));
+    }
+    mapCatching(transformValue, transformError) {
+      return new _AsyncResult((resolve, reject) => {
+        this.map(transformValue).then((result) => resolve(result)).catch((error) => {
+          try {
+            resolve(Result.error(transformError ? transformError(error) : error));
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
+    }
+    mapError(transform) {
+      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+        try {
+          resolve(result.mapError(transform));
+        } catch (error) {
+          reject(error);
+        }
+      }).catch(reject));
+    }
+    recover(onFailure) {
+      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+        try {
+          const outcome = await result.recover(onFailure);
+          resolve(outcome);
+        } catch (error) {
+          reject(error);
+        }
+      }).catch(reject));
+    }
+    recoverCatching(onFailure) {
+      return new _AsyncResult((resolve, reject) => this.then((result) => {
+        resolve(result.recoverCatching(onFailure));
+      }).catch(reject));
+    }
+    toString() {
+      return "AsyncResult";
+    }
+    static error(error) {
+      return new _AsyncResult((resolve) => resolve(Result.error(error)));
+    }
+    static ok(value) {
+      return new _AsyncResult((resolve) => resolve(Result.ok(value)));
+    }
+    static fromPromise(promise) {
+      return new _AsyncResult((resolve, reject) => {
+        promise.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch(reject);
+      });
+    }
+    static fromPromiseCatching(promise, transform) {
+      return new _AsyncResult((resolve) => {
+        promise.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch((caughtError) => {
+          resolve(Result.error(transform?.(caughtError) ?? caughtError));
+        });
+      });
+    }
+  };
+});
+
+// src/studio/utils.ts
+async function handleStudioFunc(studioFunction, ...functionArgs) {
+  const result = await Result.wrap(studioFunction)(...functionArgs);
+  return result.map((er) => {
+    if (er.success) {
+      const data = er.parsedData;
+      if (data == null) {
+        return Result.error(Error(`parsedData is null`));
+      } else {
+        return data;
+      }
+    } else {
+      return Result.error(Error(`Studio Returned Error ${er.status}:${er.error}`));
+    }
+  });
+}
+var init_utils = __esm(() => {
+  init_dist();
+});
+
 // node_modules/@chili-publish/studio-sdk/_bundles/main.js
 var require_main = __commonJS((exports, module) => {
   (function(root2, factory) {
@@ -13744,6 +14149,17 @@ var require_main = __commonJS((exports, module) => {
   })());
 });
 
+// src/studio/documentHandler.ts
+async function getCurrentDocumentState(studio2) {
+  return handleStudioFunc(studio2.document.getCurrentState);
+}
+async function loadDocumentFromJsonStr(studio2, document2) {
+  return handleStudioFunc(studio2.document.load, document2);
+}
+var init_documentHandler = __esm(() => {
+  init_utils();
+});
+
 // node_modules/shallowequal/index.js
 var require_shallowequal = __commonJS((exports, module) => {
   module.exports = function shallowEqual(objA, objB, compare2, compareContext) {
@@ -13982,6 +14398,20 @@ var init_IconExternalLink = __esm(() => {
   IconExternalLink = createReactComponent("outline", "external-link", "IconExternalLink", [["path", { d: "M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6", key: "svg-0" }], ["path", { d: "M11 13l9 -9", key: "svg-1" }], ["path", { d: "M15 4h5v5", key: "svg-2" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconEyeClosed.mjs
+var IconEyeClosed;
+var init_IconEyeClosed = __esm(() => {
+  init_createReactComponent();
+  IconEyeClosed = createReactComponent("outline", "eye-closed", "IconEyeClosed", [["path", { d: "M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4", key: "svg-0" }], ["path", { d: "M3 15l2.5 -3.8", key: "svg-1" }], ["path", { d: "M21 14.976l-2.492 -3.776", key: "svg-2" }], ["path", { d: "M9 17l.5 -4", key: "svg-3" }], ["path", { d: "M15 17l-.5 -4", key: "svg-4" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFilter.mjs
+var IconFilter;
+var init_IconFilter = __esm(() => {
+  init_createReactComponent();
+  IconFilter = createReactComponent("outline", "filter", "IconFilter", [["path", { d: "M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconGripVertical.mjs
 var IconGripVertical;
 var init_IconGripVertical = __esm(() => {
@@ -14115,11 +14545,91 @@ var init_IconCaretDownFilled = __esm(() => {
   IconCaretDownFilled = createReactComponent("filled", "caret-down-filled", "IconCaretDownFilled", [["path", { d: "M18 9c.852 0 1.297 .986 .783 1.623l-.076 .084l-6 6a1 1 0 0 1 -1.32 .083l-.094 -.083l-6 -6l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057v-.118l.005 -.058l.009 -.06l.01 -.052l.032 -.108l.027 -.067l.07 -.132l.065 -.09l.073 -.081l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01l.057 -.004l12.059 -.002z", key: "svg-0" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFilterFilled.mjs
+var IconFilterFilled;
+var init_IconFilterFilled = __esm(() => {
+  init_createReactComponent();
+  IconFilterFilled = createReactComponent("filled", "filter-filled", "IconFilterFilled", [["path", { d: "M20 3h-16a1 1 0 0 0 -1 1v2.227l.008 .223a3 3 0 0 0 .772 1.795l4.22 4.641v8.114a1 1 0 0 0 1.316 .949l6 -2l.108 -.043a1 1 0 0 0 .576 -.906v-6.586l4.121 -4.12a3 3 0 0 0 .879 -2.123v-2.171a1 1 0 0 0 -1 -1z", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTrashFilled.mjs
 var IconTrashFilled;
 var init_IconTrashFilled = __esm(() => {
   init_createReactComponent();
   IconTrashFilled = createReactComponent("filled", "trash-filled", "IconTrashFilled", [["path", { d: "M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z", key: "svg-0" }], ["path", { d: "M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z", key: "svg-1" }]]);
+});
+
+// src/studio-adapter/getManualCropsFromDocByConnector.ts
+var exports_getManualCropsFromDocByConnector = {};
+__export(exports_getManualCropsFromDocByConnector, {
+  getManualCropsFromDocByConnector: () => getManualCropsFromDocByConnector
+});
+async function getManualCropsFromDocByConnector(studio2, connectorId) {
+  try {
+    const documentStateResult = await getCurrentDocumentState(studio2);
+    if (!documentStateResult.isOk()) {
+      return Result.error(new Error("Failed to get document state: " + documentStateResult.error?.message));
+    }
+    const documentState = documentStateResult.value;
+    const frameIdToNameMap = new Map;
+    if (documentState.pages && Array.isArray(documentState.pages)) {
+      for (const page of documentState.pages) {
+        if (page.frames && Array.isArray(page.frames)) {
+          for (const frame of page.frames) {
+            frameIdToNameMap.set(frame.id, frame.name);
+          }
+        }
+      }
+    }
+    const result = {
+      layouts: [],
+      connectorId
+    };
+    if (documentState.layouts && Array.isArray(documentState.layouts)) {
+      for (const layout of documentState.layouts) {
+        const manualCrops = [];
+        if (layout.frameProperties && Array.isArray(layout.frameProperties)) {
+          for (const frameProperty of layout.frameProperties) {
+            if (frameProperty.perAssetCrop && frameProperty.perAssetCrop[connectorId]) {
+              const connectorCrops = frameProperty.perAssetCrop[connectorId];
+              for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
+                const frameName = frameIdToNameMap.get(frameProperty.id) || frameProperty.id;
+                const manualCrop = {
+                  frameId: frameProperty.id,
+                  frameName,
+                  name: assetPath,
+                  top: cropData.top,
+                  left: cropData.left,
+                  width: cropData.width,
+                  height: cropData.height,
+                  rotationDegrees: cropData.rotationDegrees ?? 0,
+                  originalParentWidth: cropData.originalParentWidth ?? 283464,
+                  originalParentHeight: cropData.originalParentHeight ?? 283464
+                };
+                manualCrops.push(manualCrop);
+              }
+            }
+          }
+        }
+        if (manualCrops.length > 0) {
+          const layoutWithCrops = {
+            id: layout.id,
+            name: layout.name,
+            parentId: layout.parentId || "",
+            manualCrops
+          };
+          result.layouts.push(layoutWithCrops);
+        }
+      }
+    }
+    return Result.ok(result);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+var init_getManualCropsFromDocByConnector = __esm(() => {
+  init_dist();
+  init_documentHandler();
 });
 
 // src/index.tsx
@@ -15282,407 +15792,12 @@ function raiseError(store, error) {
   console.error(error);
 }
 
-// node_modules/typescript-result/dist/index.js
-function isPromise(value) {
-  if (value === null || value === undefined) {
-    return false;
-  }
-  if (typeof value !== "object") {
-    return false;
-  }
-  return value instanceof Promise || "then" in value;
-}
-function isFunction(value) {
-  return typeof value === "function";
-}
-function isAsyncFn(fn) {
-  return fn.constructor.name === "AsyncFunction";
-}
-var AsyncResult = class _AsyncResult extends Promise {
-  get isAsyncResult() {
-    return true;
-  }
-  async toTuple() {
-    const result = await this;
-    return result.toTuple();
-  }
-  async errorOrNull() {
-    const result = await this;
-    return result.errorOrNull();
-  }
-  async getOrNull() {
-    const result = await this;
-    return result.getOrNull();
-  }
-  async getOrDefault(defaultValue) {
-    const result = await this;
-    return result.getOrDefault(defaultValue);
-  }
-  async getOrElse(onFailure) {
-    const result = await this;
-    return result.getOrElse(onFailure);
-  }
-  async getOrThrow() {
-    const result = await this;
-    return result.getOrThrow();
-  }
-  async fold(onSuccess, onFailure) {
-    const result = await this;
-    return result.fold(onSuccess, onFailure);
-  }
-  onFailure(action) {
-    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-      try {
-        if (result.isError()) {
-          await action(result.error);
-        }
-        resolve(result);
-      } catch (e) {
-        reject(e);
-      }
-    }).catch(reject));
-  }
-  onSuccess(action) {
-    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-      try {
-        if (result.isOk()) {
-          await action(result.value);
-        }
-        resolve(result);
-      } catch (error) {
-        reject(error);
-      }
-    }).catch(reject));
-  }
-  map(transform) {
-    return new _AsyncResult((resolve, reject) => this.then((result) => {
-      if (result.isOk()) {
-        try {
-          const returnValue = transform(result.value);
-          if (isPromise(returnValue)) {
-            returnValue.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch(reject);
-          } else {
-            resolve(Result.isResult(returnValue) ? returnValue : Result.ok(returnValue));
-          }
-        } catch (error) {
-          reject(error);
-        }
-      } else {
-        resolve(result);
-      }
-    }).catch(reject));
-  }
-  mapCatching(transformValue, transformError) {
-    return new _AsyncResult((resolve, reject) => {
-      this.map(transformValue).then((result) => resolve(result)).catch((error) => {
-        try {
-          resolve(Result.error(transformError ? transformError(error) : error));
-        } catch (err) {
-          reject(err);
-        }
-      });
-    });
-  }
-  mapError(transform) {
-    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-      try {
-        resolve(result.mapError(transform));
-      } catch (error) {
-        reject(error);
-      }
-    }).catch(reject));
-  }
-  recover(onFailure) {
-    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-      try {
-        const outcome = await result.recover(onFailure);
-        resolve(outcome);
-      } catch (error) {
-        reject(error);
-      }
-    }).catch(reject));
-  }
-  recoverCatching(onFailure) {
-    return new _AsyncResult((resolve, reject) => this.then((result) => {
-      resolve(result.recoverCatching(onFailure));
-    }).catch(reject));
-  }
-  toString() {
-    return "AsyncResult";
-  }
-  static error(error) {
-    return new _AsyncResult((resolve) => resolve(Result.error(error)));
-  }
-  static ok(value) {
-    return new _AsyncResult((resolve) => resolve(Result.ok(value)));
-  }
-  static fromPromise(promise) {
-    return new _AsyncResult((resolve, reject) => {
-      promise.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch(reject);
-    });
-  }
-  static fromPromiseCatching(promise, transform) {
-    return new _AsyncResult((resolve) => {
-      promise.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch((caughtError) => {
-        resolve(Result.error(transform?.(caughtError) ?? caughtError));
-      });
-    });
-  }
-};
-var Result = class _Result {
-  constructor(_value, _error) {
-    this._value = _value;
-    this._error = _error;
-  }
-  get isResult() {
-    return true;
-  }
-  get value() {
-    return this._value;
-  }
-  get error() {
-    return this._error;
-  }
-  get success() {
-    return this.error === undefined;
-  }
-  get failure() {
-    return this.error !== undefined;
-  }
-  isOk() {
-    return this.success;
-  }
-  isError() {
-    return this.failure;
-  }
-  toTuple() {
-    return [this._value ?? null, this._error ?? null];
-  }
-  errorOrNull() {
-    return this.failure ? this._error : null;
-  }
-  getOrNull() {
-    return this.success ? this._value : null;
-  }
-  getOrDefault(defaultValue) {
-    return this.success ? this._value : defaultValue;
-  }
-  getOrElse(onFailure) {
-    if (isAsyncFn(onFailure)) {
-      return this.success ? Promise.resolve(this._value) : onFailure(this._error);
-    }
-    return this.success ? this._value : onFailure(this._error);
-  }
-  getOrThrow() {
-    if (this.success) {
-      return this._value;
-    }
-    throw this._error;
-  }
-  fold(onSuccess, onFailure) {
-    const isAsync = isAsyncFn(onSuccess) || isAsyncFn(onFailure);
-    const outcome = this.success ? onSuccess(this._value) : onFailure(this._error);
-    return isAsync && !isPromise(outcome) ? Promise.resolve(outcome) : outcome;
-  }
-  onFailure(action) {
-    const isAsync = isAsyncFn(action);
-    if (this.failure) {
-      const outcome = action(this._error);
-      if (isAsync) {
-        return new AsyncResult((resolve) => {
-          outcome.then(() => resolve(_Result.error(this._error)));
-        });
-      }
-      return this;
-    }
-    return isAsync ? AsyncResult.ok(this._value) : this;
-  }
-  onSuccess(action) {
-    const isAsync = isAsyncFn(action);
-    if (this.success) {
-      const outcome = action(this._value);
-      if (isAsync) {
-        return new AsyncResult((resolve) => {
-          outcome.then(() => resolve(_Result.ok(this._value)));
-        });
-      }
-      return this;
-    }
-    return isAsync ? AsyncResult.error(this._error) : this;
-  }
-  map(transform) {
-    return this.success ? _Result.run(() => transform(this._value)) : isAsyncFn(transform) ? AsyncResult.error(this._error) : this;
-  }
-  mapCatching(transformValue, transformError) {
-    return this.success ? _Result.try(() => transformValue(this._value), transformError) : this;
-  }
-  mapError(transform) {
-    if (this.success) {
-      return this;
-    }
-    return _Result.error(transform(this._error));
-  }
-  recover(onFailure) {
-    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : _Result.run(() => onFailure(this._error));
-  }
-  recoverCatching(onFailure) {
-    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : _Result.try(() => onFailure(this._error));
-  }
-  toString() {
-    if (this.success) {
-      return `Result.ok(${this._value})`;
-    }
-    return `Result.error(${this.error})`;
-  }
-  static ok(value) {
-    return new _Result(value, undefined);
-  }
-  static error(error) {
-    return new _Result(undefined, error);
-  }
-  static isResult(possibleResult) {
-    return possibleResult instanceof _Result;
-  }
-  static isAsyncResult(possibleAsyncResult) {
-    return possibleAsyncResult instanceof AsyncResult;
-  }
-  static run(fn) {
-    const returnValue = fn();
-    if (isPromise(returnValue)) {
-      return AsyncResult.fromPromise(returnValue);
-    }
-    return _Result.isResult(returnValue) ? returnValue : _Result.ok(returnValue);
-  }
-  static allInternal(items, opts) {
-    const runner = opts.catching ? _Result.try : _Result.run;
-    const flattened = [];
-    let isAsync = items.some(isPromise);
-    let hasFailure = false;
-    for (const item of items) {
-      if (isFunction(item)) {
-        if (hasFailure) {
-          continue;
-        }
-        const returnValue = runner(item);
-        if (_Result.isResult(returnValue) && returnValue.isError()) {
-          hasFailure = true;
-          if (!isAsync) {
-            return returnValue;
-          }
-        }
-        if (_Result.isAsyncResult(returnValue)) {
-          isAsync = true;
-        }
-        flattened.push(returnValue);
-      } else if (_Result.isResult(item)) {
-        if (item.isError()) {
-          hasFailure = true;
-          if (!isAsync) {
-            return item;
-          }
-        }
-        flattened.push(item);
-      } else if (_Result.isAsyncResult(item)) {
-        isAsync = true;
-        flattened.push(item);
-      } else if (isPromise(item)) {
-        isAsync = true;
-        flattened.push(opts.catching ? AsyncResult.fromPromiseCatching(item) : AsyncResult.fromPromise(item));
-      } else {
-        flattened.push(_Result.ok(item));
-      }
-    }
-    if (isAsync) {
-      return new AsyncResult((resolve, reject) => {
-        const asyncResults = [];
-        const asyncIndexes = [];
-        for (let i = 0;i < flattened.length; i++) {
-          const item = flattened[i];
-          if (_Result.isAsyncResult(item)) {
-            asyncResults.push(item);
-            asyncIndexes.push(i);
-          }
-        }
-        Promise.all(asyncResults).then((resolvedResults) => {
-          const merged = [...flattened];
-          for (let i = 0;i < resolvedResults.length; i++) {
-            merged[asyncIndexes[i]] = resolvedResults[i];
-          }
-          const firstFailedResult = merged.find((resolvedResult) => resolvedResult.isError());
-          if (firstFailedResult) {
-            resolve(firstFailedResult);
-            return;
-          }
-          resolve(_Result.ok(merged.map((result) => result.getOrNull())));
-        }).catch((reason) => {
-          reject(reason);
-        });
-      });
-    }
-    return _Result.ok(flattened.map((result) => result.getOrNull()));
-  }
-  static all(...items) {
-    return _Result.allInternal(items, {
-      catching: false
-    });
-  }
-  static allCatching(...items) {
-    return _Result.allInternal(items, {
-      catching: true
-    });
-  }
-  static wrap(fn) {
-    return function wrapped(...args) {
-      return _Result.try(() => fn(...args));
-    };
-  }
-  static try(fn, transform) {
-    try {
-      const returnValue = fn();
-      if (isPromise(returnValue)) {
-        return AsyncResult.fromPromiseCatching(returnValue, transform);
-      }
-      return _Result.isResult(returnValue) ? returnValue : _Result.ok(returnValue);
-    } catch (caughtError) {
-      return _Result.error(transform?.(caughtError) ?? caughtError);
-    }
-  }
-  static fromAsync(value) {
-    return _Result.run(() => value);
-  }
-  static fromAsyncCatching(value) {
-    return _Result.try(() => value);
-  }
-  static assertOk(result) {
-    if (result.isError()) {
-      throw new Error("Expected a successful result, but got an error instead");
-    }
-  }
-  static assertError(result) {
-    if (result.isOk()) {
-      throw new Error("Expected a failed result, but got a value instead");
-    }
-  }
-};
-
-// src/studio/utils.ts
-async function handleStudioFunc(studioFunction, ...functionArgs) {
-  const result = await Result.wrap(studioFunction)(...functionArgs);
-  return result.map((er) => {
-    if (er.success) {
-      const data = er.parsedData;
-      if (data == null) {
-        return Result.error(Error(`parsedData is null`));
-      } else {
-        return data;
-      }
-    } else {
-      return Result.error(Error(`Studio Returned Error ${er.status}:${er.error}`));
-    }
-  });
-}
+// src/studio/studioAdapter.ts
+init_dist();
 
 // src/studio/layoutHandler.ts
+init_dist();
+init_utils();
 async function getPrivateData({ studio: studio2, id }) {
   const result = await handleStudioFunc(studio2.layout.getPrivateData, id);
   console.log(result);
@@ -15714,6 +15829,8 @@ async function updateLayoutResizable(studio2, id, update) {
 }
 
 // src/studio/variableHandler.ts
+init_dist();
+init_utils();
 var import_studio_sdk = __toESM(require_main(), 1);
 async function getAllVariables(studio2) {
   return handleStudioFunc(studio2.next.variable.getAll);
@@ -15864,6 +15981,9 @@ function createEmptyEnvelope() {
 }
 
 // src/studio/actionHandler.ts
+init_dist();
+init_utils();
+
 class ActionNotFoundError extends Error {
   _tag = "ActionNotFoundError";
 }
@@ -16133,7 +16253,11 @@ function layoutMappingToActionMap(layoutMaps, doc) {
   return actionMap;
 }
 
+// src/studio-adapter/frameLayoutMappingToLookup.ts
+init_dist();
+
 // src/studio/frameHandler.ts
+init_utils();
 async function getSelected2(studio2) {
   return handleStudioFunc(studio2.frame.getSelected);
 }
@@ -16201,6 +16325,7 @@ async function frameLayoutMappingToLookup(frameMaps, studio2) {
 }
 
 // src/studio-adapter/layoutManagerToLookup.ts
+init_dist();
 async function layoutManagerToLookup(studio2) {
   const layoutsResult = await getAllLayouts(studio2);
   if (layoutsResult.isError()) {
@@ -16293,15 +16418,11 @@ function layoutSizingScript(debug = false) {
   }
 }
 
-// src/studio/documentHandler.ts
-async function getCurrentDocumentState(studio2) {
-  return handleStudioFunc(studio2.document.getCurrentState);
-}
-async function loadDocumentFromJsonStr(studio2, document2) {
-  return handleStudioFunc(studio2.document.load, document2);
-}
+// src/studio/studioAdapter.ts
+init_documentHandler();
 
 // src/studio/connectorAdapter.ts
+init_utils();
 async function getConnectorsByType(studio2, type) {
   return handleStudioFunc(studio2.connector.getAllByType, type);
 }
@@ -27320,7 +27441,6 @@ Popover.Target = PopoverTarget;
 Popover.Dropdown = PopoverDropdown;
 Popover.displayName = "@mantine/core/Popover";
 Popover.extend = (input) => input;
-
 // node_modules/@mantine/core/esm/components/ActionIcon/ActionIcon.mjs
 var import_jsx_runtime68 = __toESM(require_jsx_runtime(), 1);
 var import_react99 = __toESM(require_react(), 1);
@@ -35961,6 +36081,8 @@ init_IconDeselect();
 init_IconDownload();
 init_IconExchange();
 init_IconExternalLink();
+init_IconEyeClosed();
+init_IconFilter();
 init_IconGripVertical();
 init_IconInfoCircle();
 init_IconListTree();
@@ -35980,6 +36102,7 @@ init_IconUpload();
 init_IconWand();
 init_IconX();
 init_IconCaretDownFilled();
+init_IconFilterFilled();
 init_IconTrashFilled();
 
 // src/components/LayoutMappingModal/AddMappingImageVariableModal.tsx
@@ -36433,6 +36556,7 @@ var LayoutMultiSelect = ({
 
 // src/components/LayoutMappingModal/VariableCard.tsx
 var import_react244 = __toESM(require_react(), 1);
+init_dist();
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
 var import_react241 = __toESM(require_react(), 1);
@@ -42928,6 +43052,7 @@ function LayoutManagerModal({ opened, onClose }) {
 
 // src/components/DownloadModal.tsx
 var import_react257 = __toESM(require_react(), 1);
+init_documentHandler();
 
 // src/components/ConnectorReplacementModal.tsx
 var import_react256 = __toESM(require_react(), 1);
@@ -44234,87 +44359,57 @@ var import_react265 = __toESM(require_react(), 1);
 
 // src/components/ManualCropManager/LayoutViewer.tsx
 var import_react260 = __toESM(require_react(), 1);
-
-// src/studio-adapter/getManualCropsFromDocByConnector.ts
-async function getManualCropsFromDocByConnector(studio2, connectorId) {
-  try {
-    const documentStateResult = await getCurrentDocumentState(studio2);
-    if (!documentStateResult.isOk()) {
-      return Result.error(new Error("Failed to get document state: " + documentStateResult.error?.message));
-    }
-    const documentState = documentStateResult.value;
-    const frameIdToNameMap = new Map;
-    if (documentState.pages && Array.isArray(documentState.pages)) {
-      for (const page of documentState.pages) {
-        if (page.frames && Array.isArray(page.frames)) {
-          for (const frame of page.frames) {
-            frameIdToNameMap.set(frame.id, frame.name);
-          }
-        }
-      }
-    }
-    const result = {
-      layouts: [],
-      connectorId
-    };
-    if (documentState.layouts && Array.isArray(documentState.layouts)) {
-      for (const layout of documentState.layouts) {
-        const manualCrops = [];
-        if (layout.frameProperties && Array.isArray(layout.frameProperties)) {
-          for (const frameProperty of layout.frameProperties) {
-            if (frameProperty.perAssetCrop && frameProperty.perAssetCrop[connectorId]) {
-              const connectorCrops = frameProperty.perAssetCrop[connectorId];
-              for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
-                const frameName = frameIdToNameMap.get(frameProperty.id) || frameProperty.id;
-                const manualCrop = {
-                  frameId: frameProperty.id,
-                  frameName,
-                  name: assetPath,
-                  top: cropData.top,
-                  left: cropData.left,
-                  width: cropData.width,
-                  height: cropData.height,
-                  rotationDegrees: cropData.rotationDegrees ?? 0,
-                  originalParentWidth: cropData.originalParentWidth ?? 283464,
-                  originalParentHeight: cropData.originalParentHeight ?? 283464
-                };
-                manualCrops.push(manualCrop);
-              }
-            }
-          }
-        }
-        if (manualCrops.length > 0) {
-          const layoutWithCrops = {
-            id: layout.id,
-            name: layout.name,
-            parentId: layout.parentId || "",
-            manualCrops
-          };
-          result.layouts.push(layoutWithCrops);
-        }
-      }
-    }
-    return Result.ok(result);
-  } catch (error) {
-    return Result.error(error instanceof Error ? error : new Error(String(error)));
-  }
-}
-
-// src/components/ManualCropManager/LayoutViewer.tsx
+init_getManualCropsFromDocByConnector();
 var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
 function LayoutViewer({
   selectedLayoutIds,
   onSelectionChange,
-  selectedConnectorId
+  selectedConnectorId,
+  onRefreshFunctionReady
 }) {
   const [layouts, setLayouts] = import_react260.useState([]);
   const [searchQuery, setSearchQuery] = import_react260.useState("");
   const [isLoading, setIsLoading] = import_react260.useState(true);
   const [expandedLayouts, setExpandedLayouts] = import_react260.useState(new Set);
+  const [isInitialized, setIsInitialized] = import_react260.useState(false);
+  const [activeFilters, setActiveFilters] = import_react260.useState([]);
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react260.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
+  import_react260.useEffect(() => {
+    const storedExpanded = sessionStorage.getItem("tempManualCropManager_layoutsExpanded");
+    if (storedExpanded) {
+      try {
+        const expandedIds = JSON.parse(storedExpanded);
+        setExpandedLayouts(new Set(expandedIds));
+      } catch (error) {
+        setExpandedLayouts(new Set);
+      }
+    }
+    setIsInitialized(true);
+  }, []);
+  import_react260.useEffect(() => {
+    const storedFilters = localStorage.getItem("tempManualCropManager_layoutViewerFilters");
+    if (storedFilters) {
+      try {
+        const filters = JSON.parse(storedFilters);
+        setActiveFilters(filters);
+      } catch (error) {
+        setActiveFilters([]);
+      }
+    }
+  }, []);
   import_react260.useEffect(() => {
     loadLayouts();
   }, []);
+  import_react260.useEffect(() => {
+    if (isInitialized) {
+      const expandedIds = Array.from(expandedLayouts);
+      sessionStorage.setItem("tempManualCropManager_layoutsExpanded", JSON.stringify(expandedIds));
+    }
+  }, [expandedLayouts, isInitialized]);
+  import_react260.useEffect(() => {
+    localStorage.setItem("tempManualCropManager_layoutViewerFilters", JSON.stringify(activeFilters));
+  }, [activeFilters]);
   import_react260.useEffect(() => {
     if (selectedConnectorId) {
       updateManualCropIndicators();
@@ -44342,7 +44437,7 @@ function LayoutViewer({
       setIsLoading(false);
     }
   };
-  const updateManualCropIndicators = async () => {
+  const updateManualCropIndicators = import_react260.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -44366,7 +44461,12 @@ function LayoutViewer({
     } catch (error) {
       raiseError2(error instanceof Error ? error : new Error("Failed to update manual crop indicators"));
     }
-  };
+  }, [selectedConnectorId, raiseError2]);
+  import_react260.useEffect(() => {
+    if (onRefreshFunctionReady) {
+      onRefreshFunctionReady(updateManualCropIndicators);
+    }
+  }, [onRefreshFunctionReady, updateManualCropIndicators]);
   const updateLayoutCropIndicators = (layouts2, layoutsWithCrops) => {
     return layouts2.map((layout) => ({
       ...layout,
@@ -44385,7 +44485,9 @@ function LayoutViewer({
         children: [],
         isExpanded: false,
         hasManualCrops: false,
-        level: 0
+        level: 0,
+        isVisible: layout.availableForUser !== false,
+        isFilteredParent: false
       });
     });
     layouts2.forEach((layout) => {
@@ -44402,9 +44504,38 @@ function LayoutViewer({
     });
     return rootLayouts;
   };
+  const applyFilters = (layouts2, filters) => {
+    const hasVisibleFilter = filters.includes("Visible");
+    const hasManualCropsFilter = filters.includes("With Manual Crops");
+    const filterLayouts = (layouts3) => {
+      return layouts3.reduce((acc, layout) => {
+        const filteredChildren = filterLayouts(layout.children);
+        let matchesFilters = true;
+        if (hasVisibleFilter && !layout.isVisible) {
+          matchesFilters = false;
+        }
+        if (hasManualCropsFilter && !layout.hasManualCrops) {
+          matchesFilters = false;
+        }
+        if (matchesFilters || filteredChildren.length > 0) {
+          acc.push({
+            ...layout,
+            children: filteredChildren,
+            isFilteredParent: !matchesFilters && filteredChildren.length > 0
+          });
+        }
+        return acc;
+      }, []);
+    };
+    return filterLayouts(layouts2);
+  };
   const filteredLayouts = import_react260.useMemo(() => {
+    let processedLayouts = layouts;
+    if (activeFilters.length > 0) {
+      processedLayouts = applyFilters(layouts, activeFilters);
+    }
     if (!searchQuery.trim())
-      return layouts;
+      return processedLayouts;
     const filterLayouts = (layouts2) => {
       return layouts2.reduce((acc, layout) => {
         const matchesSearch = layout.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -44419,8 +44550,8 @@ function LayoutViewer({
         return acc;
       }, []);
     };
-    return filterLayouts(layouts);
-  }, [layouts, searchQuery]);
+    return filterLayouts(processedLayouts);
+  }, [layouts, searchQuery, activeFilters]);
   const toggleLayoutExpanded = (layoutId) => {
     setExpandedLayouts((prev2) => {
       const newSet = new Set(prev2);
@@ -44532,6 +44663,45 @@ function LayoutViewer({
                   size: "xs",
                   onClick: deselectAll,
                   children: "Deselect All"
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsxs(Popover, {
+                  opened: isFilterPopoverOpen,
+                  onClose: () => setIsFilterPopoverOpen(false),
+                  position: "bottom-start",
+                  withArrow: true,
+                  children: [
+                    /* @__PURE__ */ jsx_runtime24.jsx(Popover.Target, {
+                      children: /* @__PURE__ */ jsx_runtime24.jsx(Tooltip, {
+                        label: "Filter",
+                        position: "top",
+                        children: /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+                          variant: "subtle",
+                          size: "xs",
+                          onClick: () => setIsFilterPopoverOpen(!isFilterPopoverOpen),
+                          color: activeFilters.length > 0 ? "yellow" : "gray",
+                          children: activeFilters.length > 0 ? /* @__PURE__ */ jsx_runtime24.jsx(IconFilterFilled, {
+                            size: 14
+                          }) : /* @__PURE__ */ jsx_runtime24.jsx(IconFilter, {
+                            size: 14
+                          })
+                        })
+                      })
+                    }),
+                    /* @__PURE__ */ jsx_runtime24.jsx(Popover.Dropdown, {
+                      children: /* @__PURE__ */ jsx_runtime24.jsx(MultiSelect, {
+                        label: "Filter layouts",
+                        placeholder: "Select filters",
+                        data: [
+                          { value: "Visible", label: "Visible" },
+                          { value: "With Manual Crops", label: "With Manual Crops" }
+                        ],
+                        value: activeFilters,
+                        onChange: setActiveFilters,
+                        size: "sm",
+                        style: { minWidth: 200 }
+                      })
+                    })
+                  ]
                 })
               ]
             })
@@ -44591,15 +44761,17 @@ function LayoutTreeItem({
   const isExpanded = expandedLayouts.has(layout.id);
   const isSelected = selectedLayoutIds.includes(layout.id);
   const checkboxState = getCheckboxState(layout);
+  const isFilteredParent = layout.isFilteredParent || false;
   return /* @__PURE__ */ jsx_runtime24.jsxs(Box, {
     children: [
       /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
         gap: "xs",
         style: {
-          paddingLeft: layout.level * 20,
+          marginLeft: layout.level * 10,
           padding: "4px 8px",
           borderRadius: "4px",
-          backgroundColor: isSelected ? "var(--mantine-color-blue-1)" : "transparent"
+          backgroundColor: isSelected ? "var(--mantine-color-blue-1)" : "transparent",
+          opacity: isFilteredParent ? 0.5 : 1
         },
         children: [
           hasChildren ? /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
@@ -44622,9 +44794,13 @@ function LayoutTreeItem({
             indeterminate: checkboxState === "indeterminate",
             onChange: () => onToggleChildrenSelection(layout),
             size: "sm",
-            onClick: (e) => e.stopPropagation()
+            onClick: (e) => e.stopPropagation(),
+            disabled: isFilteredParent
           }),
-          /* @__PURE__ */ jsx_runtime24.jsx(IconCrop, {
+          isFilteredParent ? /* @__PURE__ */ jsx_runtime24.jsx(IconEyeClosed, {
+            size: 14,
+            color: "gray"
+          }) : /* @__PURE__ */ jsx_runtime24.jsx(IconCrop, {
             size: 14,
             color: layout.hasManualCrops ? "orange" : "gray"
           }),
@@ -44632,10 +44808,10 @@ function LayoutTreeItem({
             size: "sm",
             style: {
               flex: 1,
-              cursor: "pointer",
+              cursor: isFilteredParent ? "default" : "pointer",
               color: layout.hasManualCrops ? "orange" : undefined
             },
-            onClick: () => onToggleSelection(layout.id),
+            onClick: isFilteredParent ? undefined : () => onToggleSelection(layout.id),
             children: layout.name
           })
         ]
@@ -44655,8 +44831,11 @@ function LayoutTreeItem({
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
 var import_react264 = __toESM(require_react(), 1);
+init_documentHandler();
+init_getManualCropsFromDocByConnector();
 
 // src/studio-adapter/setManualCropsForLayout.ts
+init_dist();
 function setManualCropsForLayout(documentState, layoutId, connectorId, manualCrops) {
   try {
     const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
@@ -44701,6 +44880,7 @@ function setManualCropsForLayout(documentState, layoutId, connectorId, manualCro
 }
 
 // src/studio-adapter/deleteManualCropsForLayout.ts
+init_dist();
 function deleteManualCropsForLayout(documentState, layoutId, connectorId) {
   try {
     const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
@@ -44724,6 +44904,7 @@ function deleteManualCropsForLayout(documentState, layoutId, connectorId) {
 
 // src/components/ManualCropManager/CopyCropToLayerModal.tsx
 var import_react261 = __toESM(require_react(), 1);
+init_getManualCropsFromDocByConnector();
 var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
 function CopyCropToLayerModal({
   opened,
@@ -44888,9 +45069,13 @@ function CopyCropToLayerModal({
     const newSelection = selectedLayoutIds.includes(layoutId) ? selectedLayoutIds.filter((id) => id !== layoutId) : [...selectedLayoutIds, layoutId];
     setSelectedLayoutIds(newSelection);
   };
-  const handleCopy = () => {
-    onCopy(selectedLayoutIds, checkedCrops);
-    onClose();
+  const handleCopy = async () => {
+    try {
+      await onCopy(selectedLayoutIds, checkedCrops);
+      onClose();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to copy crops"));
+    }
   };
   if (isLoading) {
     return /* @__PURE__ */ jsx_runtime25.jsx(Modal, {
@@ -45464,7 +45649,8 @@ function CropRow({
 function ManualCropEditor({
   selectedLayoutIds,
   selectedConnectorId,
-  onModalClose
+  onModalClose,
+  onCropsSaved
 }) {
   const [layoutCrops, setLayoutCrops] = import_react264.useState(new Map);
   const [isLoading, setIsLoading] = import_react264.useState(false);
@@ -45482,6 +45668,48 @@ function ManualCropEditor({
   const [currentCropsForReplace, setCurrentCropsForReplace] = import_react264.useState([]);
   const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react264.useState("");
   const raiseError2 = appStore((store) => store.raiseError);
+  const loadCropsForSelectedLayouts = import_react264.useCallback(async () => {
+    if (!selectedConnectorId)
+      return;
+    try {
+      setIsLoading(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const allLayoutsResult = await getAllLayouts(studio2);
+      if (!allLayoutsResult.isOk()) {
+        raiseError2(new Error("Failed to load layouts: " + allLayoutsResult.error?.message));
+        return;
+      }
+      const allLayouts = allLayoutsResult.value;
+      const cropsResult = await getManualCropsFromDocByConnector(studio2, selectedConnectorId);
+      if (!cropsResult.isOk()) {
+        raiseError2(new Error("Failed to load manual crops: " + cropsResult.error?.message));
+        return;
+      }
+      const cropsData = cropsResult.value;
+      const layoutCropsMap = new Map;
+      selectedLayoutIds.forEach((layoutId) => {
+        const layout = allLayouts.find((l2) => l2.id === layoutId);
+        if (layout) {
+          const layoutData = cropsData.layouts.find((l2) => l2.id === layoutId);
+          layoutCropsMap.set(layoutId, {
+            layoutId: layout.id,
+            layoutName: layout.name,
+            crops: layoutData ? layoutData.manualCrops : []
+          });
+        }
+      });
+      setLayoutCrops(layoutCropsMap);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load manual crops"));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [selectedConnectorId, selectedLayoutIds, raiseError2]);
   import_react264.useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
       loadCropsForSelectedLayouts();
@@ -45490,7 +45718,7 @@ function ManualCropEditor({
     }
     setChangedRows(new Map);
     setCheckedRows(new Set);
-  }, [selectedConnectorId, selectedLayoutIds]);
+  }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
   const handleCropChange = import_react264.useCallback((layoutId, cropIndex, updatedCrop) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setChangedRows((prev2) => {
@@ -45523,14 +45751,20 @@ function ManualCropEditor({
       if (rowKey.startsWith(`${layoutId}-`)) {
         const [, cropIndexStr] = rowKey.split("-");
         const cropIndex = parseInt(cropIndexStr, 10);
-        const crop = layoutCrop.crops[cropIndex];
+        const changedCrop = changedRows.get(rowKey);
+        let crop;
+        if (changedCrop && "frameId" in changedCrop) {
+          crop = changedCrop;
+        } else {
+          crop = layoutCrop.crops[cropIndex];
+        }
         if (crop) {
           checkedCrops.push(crop);
         }
       }
     });
     return checkedCrops;
-  }, [checkedRows, layoutCrops]);
+  }, [checkedRows, layoutCrops, changedRows]);
   const deleteCheckedSnapshots = import_react264.useCallback((layoutId) => {
     const checkedRowsForLayout = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`));
     setChangedRows((prev2) => {
@@ -45599,21 +45833,51 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const copyCropsToLayers = import_react264.useCallback((targetLayoutIds, checkedCrops) => {
+  const copyCropsToLayers = import_react264.useCallback(async (targetLayoutIds, checkedCrops) => {
+    const missingLayoutIds = targetLayoutIds.filter((id) => !layoutCrops.has(id));
+    let layoutNamesMap = new Map;
+    if (missingLayoutIds.length > 0) {
+      try {
+        const studioResult = await getStudio();
+        if (studioResult.isOk()) {
+          const allLayoutsResult = await getAllLayouts(studioResult.value);
+          if (allLayoutsResult.isOk()) {
+            const allLayouts = allLayoutsResult.value;
+            missingLayoutIds.forEach((layoutId) => {
+              const layout = allLayouts.find((l2) => l2.id === layoutId);
+              if (layout) {
+                layoutNamesMap.set(layoutId, layout.name);
+              }
+            });
+          }
+        }
+      } catch (error) {
+        raiseError2(error instanceof Error ? error : new Error("Failed to load layout names"));
+      }
+    }
     setLayoutCrops((prevLayoutCrops) => {
       const newLayoutCrops = new Map(prevLayoutCrops);
       targetLayoutIds.forEach((targetLayoutId) => {
         const existingLayoutCrop = newLayoutCrops.get(targetLayoutId);
         if (existingLayoutCrop) {
-          const newCrops = [...existingLayoutCrop.crops, ...checkedCrops];
+          const updatedCrops = [...existingLayoutCrop.crops];
+          checkedCrops.forEach((newCrop) => {
+            const existingIndex = updatedCrops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+            if (existingIndex !== -1) {
+              updatedCrops[existingIndex] = newCrop;
+            } else {
+              updatedCrops.push(newCrop);
+            }
+          });
           newLayoutCrops.set(targetLayoutId, {
             ...existingLayoutCrop,
-            crops: newCrops
+            crops: updatedCrops
           });
         } else {
+          const layoutName = layoutNamesMap.get(targetLayoutId) || `Layout ${targetLayoutId}`;
           newLayoutCrops.set(targetLayoutId, {
             layoutId: targetLayoutId,
-            layoutName: `Layout ${targetLayoutId}`,
+            layoutName,
             crops: [...checkedCrops]
           });
         }
@@ -45624,15 +45888,27 @@ function ManualCropEditor({
       const newMap = new Map(prev2);
       targetLayoutIds.forEach((targetLayoutId) => {
         const existingLayoutCrop = layoutCrops.get(targetLayoutId);
-        const startIndex = existingLayoutCrop ? existingLayoutCrop.crops.length : 0;
-        checkedCrops.forEach((crop, index4) => {
-          const rowKey = `${targetLayoutId}-${startIndex + index4}`;
-          newMap.set(rowKey, crop);
+        checkedCrops.forEach((crop) => {
+          if (existingLayoutCrop) {
+            const existingIndex = existingLayoutCrop.crops.findIndex((c2) => c2.frameId === crop.frameId && c2.name === crop.name);
+            if (existingIndex !== -1) {
+              const rowKey = `${targetLayoutId}-${existingIndex}`;
+              newMap.set(rowKey, crop);
+            } else {
+              const newIndex = existingLayoutCrop.crops.length;
+              const rowKey = `${targetLayoutId}-${newIndex}`;
+              newMap.set(rowKey, crop);
+            }
+          } else {
+            const newIndex = checkedCrops.indexOf(crop);
+            const rowKey = `${targetLayoutId}-${newIndex}`;
+            newMap.set(rowKey, crop);
+          }
         });
       });
       return newMap;
     });
-  }, [layoutCrops]);
+  }, [layoutCrops, raiseError2]);
   const addCopyOfCrop = import_react264.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForCopy;
     if (!layoutId)
@@ -45645,10 +45921,16 @@ function ManualCropEditor({
       const newLayoutCrops = new Map(prevLayoutCrops);
       const existingLayoutCrop = newLayoutCrops.get(layoutId);
       if (existingLayoutCrop) {
-        const newCrops = [...existingLayoutCrop.crops, newCrop];
+        const updatedCrops = [...existingLayoutCrop.crops];
+        const existingIndex = updatedCrops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+        if (existingIndex !== -1) {
+          updatedCrops[existingIndex] = newCrop;
+        } else {
+          updatedCrops.push(newCrop);
+        }
         newLayoutCrops.set(layoutId, {
           ...existingLayoutCrop,
-          crops: newCrops
+          crops: updatedCrops
         });
       }
       return newLayoutCrops;
@@ -45656,9 +45938,17 @@ function ManualCropEditor({
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
       const existingLayoutCrop = layoutCrops.get(layoutId);
-      const newIndex = existingLayoutCrop ? existingLayoutCrop.crops.length : 0;
-      const rowKey = `${layoutId}-${newIndex}`;
-      newMap.set(rowKey, newCrop);
+      if (existingLayoutCrop) {
+        const existingIndex = existingLayoutCrop.crops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+        if (existingIndex !== -1) {
+          const rowKey = `${layoutId}-${existingIndex}`;
+          newMap.set(rowKey, newCrop);
+        } else {
+          const newIndex = existingLayoutCrop.crops.length;
+          const rowKey = `${layoutId}-${newIndex}`;
+          newMap.set(rowKey, newCrop);
+        }
+      }
       return newMap;
     });
   }, [currentLayoutIdForCopy, layoutCrops]);
@@ -45674,10 +45964,16 @@ function ManualCropEditor({
       const newLayoutCrops = new Map(prevLayoutCrops);
       const existingLayoutCrop = newLayoutCrops.get(layoutId);
       if (existingLayoutCrop) {
-        const newCrops = [...existingLayoutCrop.crops, newCrop];
+        const updatedCrops = [...existingLayoutCrop.crops];
+        const existingIndex = updatedCrops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+        if (existingIndex !== -1) {
+          updatedCrops[existingIndex] = newCrop;
+        } else {
+          updatedCrops.push(newCrop);
+        }
         newLayoutCrops.set(layoutId, {
           ...existingLayoutCrop,
-          crops: newCrops
+          crops: updatedCrops
         });
       }
       return newLayoutCrops;
@@ -45685,47 +45981,20 @@ function ManualCropEditor({
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
       const existingLayoutCrop = layoutCrops.get(layoutId);
-      const newIndex = existingLayoutCrop ? existingLayoutCrop.crops.length : 0;
-      const rowKey = `${layoutId}-${newIndex}`;
-      newMap.set(rowKey, newCrop);
+      if (existingLayoutCrop) {
+        const existingIndex = existingLayoutCrop.crops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+        if (existingIndex !== -1) {
+          const rowKey = `${layoutId}-${existingIndex}`;
+          newMap.set(rowKey, newCrop);
+        } else {
+          const newIndex = existingLayoutCrop.crops.length;
+          const rowKey = `${layoutId}-${newIndex}`;
+          newMap.set(rowKey, newCrop);
+        }
+      }
       return newMap;
     });
   }, [currentLayoutIdForReplace, layoutCrops]);
-  const loadCropsForSelectedLayouts = async () => {
-    if (!selectedConnectorId)
-      return;
-    try {
-      setIsLoading(true);
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
-        return;
-      }
-      const studio2 = studioResult.value;
-      const cropsResult = await getManualCropsFromDocByConnector(studio2, selectedConnectorId);
-      if (!cropsResult.isOk()) {
-        raiseError2(new Error("Failed to load manual crops: " + cropsResult.error?.message));
-        return;
-      }
-      const cropsData = cropsResult.value;
-      const layoutCropsMap = new Map;
-      selectedLayoutIds.forEach((layoutId) => {
-        const layoutData = cropsData.layouts.find((l2) => l2.id === layoutId);
-        if (layoutData) {
-          layoutCropsMap.set(layoutId, {
-            layoutId: layoutData.id,
-            layoutName: layoutData.name,
-            crops: layoutData.manualCrops
-          });
-        }
-      });
-      setLayoutCrops(layoutCropsMap);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to load manual crops"));
-    } finally {
-      setIsLoading(false);
-    }
-  };
   const saveCropChanges = async () => {
     if (changedRows.size === 0)
       return;
@@ -45837,6 +46106,9 @@ function ManualCropEditor({
       setSaveState("success");
       setSaveMessage("Changes Saved!");
       setChangedRows(new Map);
+      if (onCropsSaved) {
+        onCropsSaved();
+      }
     } catch (error) {
       raiseError2(error instanceof Error ? error : new Error("Failed to save crop changes"));
       setSaveState("error");
@@ -46117,6 +46389,7 @@ function ManualCropManagerModal({
   const [selectedConnectorId, setSelectedConnectorId] = import_react265.useState("");
   const [isResizing, setIsResizing] = import_react265.useState(false);
   const [connectors, setConnectors] = import_react265.useState([]);
+  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react265.useState(null);
   const enableToolbar = appStore((state) => state.enableToolbar);
   const disableToolbar = appStore((state) => state.disableToolbar);
   const raiseError2 = appStore((state) => state.raiseError);
@@ -46135,8 +46408,13 @@ function ManualCropManagerModal({
       }
       const connectorsData = connectorsResult.value;
       setConnectors(connectorsData);
-      if (!selectedConnectorId && connectorsData.length > 0) {
-        setSelectedConnectorId(connectorsData[0].id);
+      const storedConnectorId = sessionStorage.getItem("tempManualCropManager_selectedConnectorId");
+      if (storedConnectorId && connectorsData.some((c2) => c2.id === storedConnectorId)) {
+        setSelectedConnectorId(storedConnectorId);
+      } else if (!selectedConnectorId && connectorsData.length > 0) {
+        const firstConnectorId = connectorsData[0].id;
+        setSelectedConnectorId(firstConnectorId);
+        sessionStorage.setItem("tempManualCropManager_selectedConnectorId", firstConnectorId);
       }
     } catch (error) {
       raiseError2(error instanceof Error ? error : new Error("Failed to load connectors"));
@@ -46144,7 +46422,17 @@ function ManualCropManagerModal({
   };
   import_react265.useEffect(() => {
     if (opened) {
-      setSelectedLayoutIds([]);
+      const storedSelected = sessionStorage.getItem("tempManualCropManager_layoutsSelected");
+      if (storedSelected) {
+        try {
+          const selectedIds = JSON.parse(storedSelected);
+          setSelectedLayoutIds(selectedIds);
+        } catch (error) {
+          setSelectedLayoutIds([]);
+        }
+      } else {
+        setSelectedLayoutIds([]);
+      }
       setSelectedConnectorId("");
       disableToolbar();
       loadConnectors();
@@ -46152,6 +46440,9 @@ function ManualCropManagerModal({
       enableToolbar();
     }
   }, [opened]);
+  import_react265.useEffect(() => {
+    sessionStorage.setItem("tempManualCropManager_layoutsSelected", JSON.stringify(selectedLayoutIds));
+  }, [selectedLayoutIds]);
   const handleMouseDown = (e) => {
     setIsResizing(true);
     e.preventDefault();
@@ -46180,10 +46471,46 @@ function ManualCropManagerModal({
   const toggleLayoutViewer = () => {
     setIsLayoutViewerCollapsed(!isLayoutViewerCollapsed);
   };
+  const handleConnectorChange = (value) => {
+    const connectorId = value || "";
+    setSelectedConnectorId(connectorId);
+    if (connectorId) {
+      sessionStorage.setItem("tempManualCropManager_selectedConnectorId", connectorId);
+    } else {
+      sessionStorage.removeItem("tempManualCropManager_selectedConnectorId");
+    }
+  };
   const handleClose = () => {
     enableToolbar();
     onClose();
   };
+  const handleLayoutViewerRefreshReady = import_react265.useCallback((refreshFn) => {
+    setLayoutViewerRefresh(() => refreshFn);
+  }, []);
+  const handleCropsSaved = import_react265.useCallback(async () => {
+    if (layoutViewerRefresh) {
+      layoutViewerRefresh();
+    }
+    if (selectedConnectorId) {
+      try {
+        const studioResult = await getStudio();
+        if (studioResult.isOk()) {
+          const { getManualCropsFromDocByConnector: getManualCropsFromDocByConnector2 } = await Promise.resolve().then(() => (init_getManualCropsFromDocByConnector(), exports_getManualCropsFromDocByConnector));
+          const cropsResult = await getManualCropsFromDocByConnector2(studioResult.value, selectedConnectorId);
+          if (cropsResult.isOk()) {
+            const cropsData = cropsResult.value;
+            const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
+            const newLayoutsWithCrops = Array.from(layoutsWithCrops).filter((layoutId) => !selectedLayoutIds.includes(layoutId));
+            if (newLayoutsWithCrops.length > 0) {
+              setSelectedLayoutIds((prev2) => [...prev2, ...newLayoutsWithCrops]);
+            }
+          }
+        }
+      } catch (error) {
+        console.warn("Failed to auto-select layouts with new crops:", error);
+      }
+    }
+  }, [layoutViewerRefresh, selectedConnectorId, selectedLayoutIds]);
   return /* @__PURE__ */ jsx_runtime29.jsxs(Modal, {
     opened,
     onClose: handleClose,
@@ -46226,7 +46553,7 @@ function ManualCropManagerModal({
                         label: connector.name + " (" + connector.usesInTemplate.images.reduce((acc, image) => acc + `SFrame:${image.name}, `, "") + connector.usesInTemplate.variables.reduce((acc, variable) => acc + `Var:${variable.name}, `, "") + ")"
                       })),
                       value: selectedConnectorId,
-                      onChange: (value) => setSelectedConnectorId(value || ""),
+                      onChange: handleConnectorChange,
                       style: { minWidth: 200 },
                       size: "sm"
                     })
@@ -46310,7 +46637,8 @@ function ManualCropManagerModal({
                   children: /* @__PURE__ */ jsx_runtime29.jsx(LayoutViewer, {
                     selectedLayoutIds,
                     onSelectionChange: setSelectedLayoutIds,
-                    selectedConnectorId
+                    selectedConnectorId,
+                    onRefreshFunctionReady: handleLayoutViewerRefreshReady
                   })
                 })
               ]
@@ -46330,7 +46658,8 @@ function ManualCropManagerModal({
             children: /* @__PURE__ */ jsx_runtime29.jsx(ManualCropEditor, {
               selectedLayoutIds,
               selectedConnectorId,
-              onModalClose: handleClose
+              onModalClose: handleClose,
+              onCropsSaved: handleCropsSaved
             })
           })
         ]
@@ -47055,4 +47384,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=D0AAC3B9DEF82F4664756E2164756E21
+//# debugId=EC81D71833088CE764756E2164756E21
