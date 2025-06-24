@@ -18,7 +18,7 @@ async function checkForUpdates() {
     );
     const packageJson = await response.json();
     const githubVersion = packageJson.version;
-    const [githubMajor, githubMinor, githubPatch] = githubVersion.split(".");
+    const [githubMajor, githubMinor, githubPatch] = githubVersion.split(".").map(Number);
 
     // Compare versions and check if we've already notified
     if (

@@ -37,6 +37,14 @@ export async function getAllLayouts(studio: SDK) {
   return await handleStudioFunc(studio.layout.getAll);
 }
 
+export async function getLayoutById(studio: SDK, id: string) {
+  return await handleStudioFunc(studio.layout.getById, id);
+}
+
+export async function setLayoutAvailable(studio: SDK, id: string, available: boolean) {
+  return await handleStudioFunc(studio.layout.setAvailableForUser, id, available);
+}
+
 export async function getSelected(studio: SDK) {
   return await handleStudioFunc(studio.layout.getSelected);
 }

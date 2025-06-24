@@ -41,3 +41,14 @@ export type DocumentConnector = {
   options: Record<string, any>;
   mappings: any[];
 };
+
+// Type for the getCurrentConnectors function return value
+export type DocumentConnectorWithUsage = {
+  id: string;
+  name: string;
+  type: "media" | "fonts";
+  usesInTemplate: {
+    images: { id: string; name: string }[];
+    variables: { id: string; name: string }[];
+  };
+};

@@ -1,3 +1,22 @@
+## 0.10.1
+
+### ✨ Added
+
+- Manual crop manager to manage crops for a connector
+- Toolbar settings to enable/disable apps
+- Connector cleanup to remove unused connectors
+
+## 0.9.2
+
+### ✨ Added
+
+- Magic layouts, which act as virtual layouts where you can copy the position and visibility changes from one layout to another.
+- Experimental font download method using a package system. It needs improvement.
+
+### ⚡ Improved
+
+- Image mapping is better compressed which means smaller file sizes
+
 ## 0.7.0
 
 ### ✨ Added
@@ -19,7 +38,7 @@
 
 ## 0.6.2
 
-### ⚡️ Improved
+### ⚡ Improved
 
 - Improve aspect ratio - layout resizing to change the other value
 

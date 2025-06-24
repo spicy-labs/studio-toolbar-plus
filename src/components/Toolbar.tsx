@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   ActionIcon,
   Box,
@@ -19,12 +19,24 @@ import {
   IconPhotoCog,
   IconListTree,
   IconPlaystationSquare,
+  IconSparkles,
+  IconSettings,
+  IconPlug,
+  IconCrop,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
-import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayoutModal";
+import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
 import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
 import { DownloadModal } from "./DownloadModal";
+import { MagicLayoutsModal } from "./MagicLayoutsModal";
+import { ConnectorCleanupModal } from "./ConnectorCleanupModal";
+import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerModal";
+import {
+  ToolbarSettingsModal,
+  type AppConfig,
+  defaultConfig,
+} from "./ToolbarSettingsModal";
 import { saveLayoutSizingToAction } from "../studio/studioAdapter";
 
 export function Toolbar() {
@@ -33,30 +45,48 @@ export function Toolbar() {
     useState(false);
   const [isConvertModalOpen, setIsConvertModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] =
+    useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] =
+    useState(false);
   const [isLayoutManagerOpen, setIsLayoutManagerOpen] = useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = useState(false); // State for the confirmation modal
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = useState(false); // State for the success modal
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] =
+    useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] =
+    useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] =
+    useState(false); // State for the confirmation modal
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] =
+    useState(false); // State for the success modal
   const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = useState(""); // State for the dynamic success message
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [appConfig, setAppConfig] = useState<AppConfig>(defaultConfig);
   const [updateInfo, setUpdateInfo] = useState<{
     currentVersion: string;
     latestVersion: string;
   } | null>(null);
-const effects = appStore(store => store.effects);
-const raiseError = appStore(store => store.raiseError);
-const isToolbarEnabled = appStore(store => store.state.isToolbarEnabled);
-const disableToolbar = appStore(store => store.disableToolbar);
+  const effects = appStore((store) => store.effects);
+  const raiseError = appStore((store) => store.raiseError);
+  const disableToolbar = appStore((store) => store.disableToolbar);
 
   const handleTestError = () => {
     raiseError(new Error("This is a test error message"));
   };
 
+  const handleSettings = () => {
+    setIsSettingsModalOpen(true);
+  };
+
   const setVisibleIntercept = (value: boolean) => {
+
+    const isToolbarEnabled = appStore.getState().state.isToolbarEnabled;
     if (!isToolbarEnabled) {
       setVisible(false);
     }
-    setVisible(value);
+    else {
+      setVisible(value);
+    }
   };
 
   const handleUploadDownloadClick = () => {
@@ -69,11 +99,32 @@ const disableToolbar = appStore(store => store.disableToolbar);
       // Fallback for local storage if chrome API isn't available
       localStorage.setItem(
         "toolbarplus_last_notified_version",
-        updateInfo.latestVersion,
+        updateInfo.latestVersion
       );
     }
     setIsUpdateModalOpen(false);
   };
+
+  // Function to reload configuration from localStorage
+  const reloadConfig = () => {
+    const savedConfig = localStorage.getItem("tempUserConfig");
+    if (savedConfig) {
+      try {
+        const parsedConfig = JSON.parse(savedConfig);
+        setAppConfig({ ...defaultConfig, ...parsedConfig });
+      } catch (error) {
+        console.error("Failed to parse saved config:", error);
+        setAppConfig(defaultConfig);
+      }
+    } else {
+      setAppConfig(defaultConfig);
+    }
+  };
+
+  // Load configuration from localStorage on component mount
+  useEffect(() => {
+    reloadConfig();
+  }, []);
 
   // Listen for update notifications
   useEffect(() => {
@@ -146,6 +197,21 @@ const disableToolbar = appStore(store => store.disableToolbar);
     setIsLayoutManagerOpen(true);
   };
 
+  const handleMagicLayouts = () => {
+    setVisible(false);
+    setIsMagicLayoutsModalOpen(true);
+  };
+
+  const handleConnectorCleanup = () => {
+    setVisible(false);
+    setIsConnectorCleanupModalOpen(true);
+  };
+
+  const handleManualCropManager = () => {
+    setVisible(false);
+    setIsManualCropManagerModalOpen(true);
+  };
+
   const handleAspectLock = () => {
     setIsAspectLockConfirmModalOpen(true); // Open the confirmation modal first
   };
@@ -153,13 +219,15 @@ const disableToolbar = appStore(store => store.disableToolbar);
   const handleConfirmAspectLock = async (value: boolean) => {
     setIsAspectLockConfirmModalOpen(false); // Close confirmation modal
     (await saveLayoutSizingToAction(value)).fold(
-      _ => {
+      (_) => {
         setAspectLockSuccessMessage(
-          value ? "Success in turning Aspect Ratio On" : "Success in turning Aspect Ratio Off"
+          value
+            ? "Success in turning Aspect Ratio On"
+            : "Success in turning Aspect Ratio Off"
         );
         setIsAspectLockSuccessModalOpen(true); // Open success modal on success
       },
-      err => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
+      (err) => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
     );
   };
 
@@ -191,86 +259,166 @@ const disableToolbar = appStore(store => store.disableToolbar);
             onMouseLeave={() => setVisible(false)}
           >
             <Group gap="lg">
-              <Tooltip label="Snapshot Image Position" position="bottom" withArrow>
+              {appConfig.showSnapshot && (
+                <Tooltip
+                  label="Snapshot Image Position"
+                  position="bottom"
+                  withArrow
+                >
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Snapshot Image Position"
+                    onClick={handleSnapshot}
+                  >
+                    <IconCameraPlus size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showFramePositionViewer && (
+                <Tooltip
+                  label="Frame Position Viewer"
+                  position="bottom"
+                  withArrow
+                >
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Frame Position Viewer"
+                    onClick={handleFramePositionViewer}
+                  >
+                    <IconPhotoCog size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showMagicLayouts && (
+                <Tooltip label="Magic Layouts" position="bottom" withArrow>
+                  <ActionIcon
+                    variant="filled"
+                    color="purple"
+                    size="lg"
+                    aria-label="Magic Layouts"
+                    onClick={handleMagicLayouts}
+                  >
+                    <IconSparkles size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showLayoutManager && (
+                <Tooltip label="Layout Manager" position="bottom" withArrow>
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Layout Manager"
+                    onClick={handleLayoutManager}
+                  >
+                    <IconListTree size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showAspectLock && (
+                <Tooltip label="Aspect Lock" position="bottom" withArrow>
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Aspect Lock"
+                    onClick={handleAspectLock}
+                  >
+                    <IconPlaystationSquare size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+
+              {appConfig.showUploadDownload && (
+                <Tooltip
+                  label="Upload/Download Document"
+                  position="bottom"
+                  withArrow
+                >
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Upload/Download"
+                    onClick={handleUploadDownloadClick}
+                  >
+                    <IconArrowsTransferUpDown size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showLayoutImageMapper && (
+                <Tooltip
+                  label="Layout Image Mapper"
+                  position="bottom"
+                  withArrow
+                >
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Layout"
+                    onClick={handleLayoutClick}
+                  >
+                    <IconMapBolt size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showTestError && (
+                <Tooltip label="Test Error" position="bottom" withArrow>
+                  <ActionIcon
+                    variant="filled"
+                    color="red"
+                    size="lg"
+                    aria-label="Test Error"
+                    onClick={handleTestError}
+                  >
+                    <IconBug size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showConnectorCleanup && (
+                <Tooltip label="Connector Cleanup" position="bottom" withArrow>
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Connector Cleanup"
+                    onClick={handleConnectorCleanup}
+                  >
+                    <IconPlug size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              {appConfig.showManualCropManager && (
+                <Tooltip
+                  label="Manual Crop Manager"
+                  position="bottom"
+                  withArrow
+                >
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Manual Crop Manager"
+                    onClick={handleManualCropManager}
+                  >
+                    <IconCrop size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
+              <Tooltip label="Settings" position="bottom" withArrow>
                 <ActionIcon
                   variant="filled"
-                  color="blue"
+                  color="gray"
                   size="lg"
-                  aria-label="Snapshot Image Position"
-                  onClick={handleSnapshot}
+                  aria-label="Settings"
+                  onClick={handleSettings}
                 >
-                  <IconCameraPlus size={20} />
-                </ActionIcon>
-              </Tooltip>
-              <Tooltip label="Frame Position Viewer" position="bottom" withArrow>
-                <ActionIcon
-                  variant="filled"
-                  color="blue"
-                  size="lg"
-                  aria-label="Frame Position Viewer"
-                  onClick={handleFramePositionViewer}
-                >
-                  <IconPhotoCog size={20} />
-                </ActionIcon>
-              </Tooltip>
-              {/* <Tooltip label="Layout Manager" position="bottom" withArrow>
-                <ActionIcon
-                  variant="filled"
-                  color="blue"
-                  size="lg"
-                  aria-label="Layout Manager"
-                  onClick={handleLayoutManager}
-                >
-                  <IconListTree size={20} />
-                </ActionIcon>
-              </Tooltip> */}
-              <Tooltip label="Aspect Lock" position="bottom" withArrow>
-                <ActionIcon
-                  variant="filled"
-                  color="blue"
-                  size="lg"
-                  aria-label="Aspect Lock"
-                  onClick={handleAspectLock}
-                >
-                  <IconPlaystationSquare size={20} />
-                </ActionIcon>
-              </Tooltip>
-              
-              <Tooltip
-                label="Upload/Download Document"
-                position="bottom"
-                withArrow
-              >
-                <ActionIcon
-                  variant="filled"
-                  color="blue"
-                  size="lg"
-                  aria-label="Upload/Download"
-                  onClick={handleUploadDownloadClick}
-                >
-                  <IconArrowsTransferUpDown size={20} />
-                </ActionIcon>
-              </Tooltip>
-              <Tooltip label="Layout Image Mapper" position="bottom" withArrow>
-                <ActionIcon
-                  variant="filled"
-                  color="blue"
-                  size="lg"
-                  aria-label="Layout"
-                  onClick={handleLayoutClick}
-                >
-                  <IconMapBolt size={20} />
-                </ActionIcon>
-              </Tooltip>
-              <Tooltip label="Test Error" position="bottom" withArrow>
-                <ActionIcon
-                  variant="filled"
-                  color="red"
-                  size="lg"
-                  aria-label="Test Error"
-                  onClick={handleTestError}
-                >
-                  <IconBug size={20} />
+                  <IconSettings size={20} />
                 </ActionIcon>
               </Tooltip>
             </Group>
@@ -279,10 +427,12 @@ const disableToolbar = appStore(store => store.disableToolbar);
       </Transition>
 
       {/* Download Modal */}
-      <DownloadModal
-        opened={isDownloadUploadModalOpen}
-        onClose={() => setIsDownloadUploadModalOpen(false)}
-      />
+      {appConfig.showUploadDownload && (
+        <DownloadModal
+          opened={isDownloadUploadModalOpen}
+          onClose={() => setIsDownloadUploadModalOpen(false)}
+        />
+      )}
 
       {/* Update Available Modal */}
       <Modal
@@ -316,65 +466,113 @@ const disableToolbar = appStore(store => store.disableToolbar);
       </Modal>
 
       {/* Frame Position Viewer Modal */}
-      {isFramePositionViewerOpen && (
+      {isFramePositionViewerOpen && appConfig.showFramePositionViewer && (
         <FrameSnapshotLayoutModal
           opened={isFramePositionViewerOpen}
           onClose={() => setIsFramePositionViewerOpen(false)}
         />
       )}
-      
+
       {/* Add Frame Snapshot Modal */}
-      {isAddFrameSnapshotModalOpen && (
+      {isAddFrameSnapshotModalOpen && appConfig.showSnapshot && (
         <AddFrameSnapshotModal
           opened={isAddFrameSnapshotModalOpen}
           onClose={() => setIsAddFrameSnapshotModalOpen(false)}
           raiseError={raiseError}
         />
       )}
-      
+
       {/* Layout Manager Modal */}
-      {isLayoutManagerOpen && (
+      {isLayoutManagerOpen && appConfig.showLayoutManager && (
         <LayoutManagerModal
           opened={isLayoutManagerOpen}
           onClose={() => setIsLayoutManagerOpen(false)}
         />
       )}
 
-      {/* Aspect Lock Success Modal */}
-      {/* Aspect Lock Confirmation Modal */}
-      <Modal
-        opened={isAspectLockConfirmModalOpen}
-        onClose={() => setIsAspectLockConfirmModalOpen(false)}
-        title="Confirm Aspect Lock Change"
-        centered
-        size="sm"
-      >
-        <Text>Turn Aspect Lock On?</Text>
-        <Group justify="flex-end" mt="md">
-          <Button variant="default" onClick={() => handleConfirmAspectLock(false)}>No</Button>
-          <Button color="blue" onClick={() => handleConfirmAspectLock(true)}>Yes</Button>
-        </Group>
-      </Modal>
+      {/* Magic Layouts Modal */}
+      {isMagicLayoutsModalOpen && appConfig.showMagicLayouts && (
+        <MagicLayoutsModal
+          opened={isMagicLayoutsModalOpen}
+          onClose={() => setIsMagicLayoutsModalOpen(false)}
+        />
+      )}
+
+      {/* Connector Cleanup Modal */}
+      {appConfig.showConnectorCleanup && (
+        <ConnectorCleanupModal
+          opened={isConnectorCleanupModalOpen}
+          onClose={() => setIsConnectorCleanupModalOpen(false)}
+        />
+      )}
+
+      {/* Manual Crop Manager Modal */}
+      {appConfig.showManualCropManager && (
+        <ManualCropManagerModal
+          opened={isManualCropManagerModalOpen}
+          onClose={() => setIsManualCropManagerModalOpen(false)}
+        />
+      )}
 
       {/* Aspect Lock Success Modal */}
-      <Modal
-        opened={isAspectLockSuccessModalOpen}
-        onClose={() => {
-          setIsAspectLockSuccessModalOpen(false);
-          setAspectLockSuccessMessage(""); // Reset message on close
-        }}
-        title="Aspect Lock Status"
-        centered
-        size="sm"
-      >
-        <Text>{aspectLockSuccessMessage}</Text>
-        <Group justify="flex-end" mt="md">
-          <Button onClick={() => {
+      {/* Aspect Lock Confirmation Modal */}
+      {appConfig.showAspectLock && (
+        <Modal
+          opened={isAspectLockConfirmModalOpen}
+          onClose={() => setIsAspectLockConfirmModalOpen(false)}
+          title="Confirm Aspect Lock Change"
+          centered
+          size="sm"
+        >
+          <Text>Turn Aspect Lock On?</Text>
+          <Group justify="flex-end" mt="md">
+            <Button
+              variant="default"
+              onClick={() => handleConfirmAspectLock(false)}
+            >
+              No
+            </Button>
+            <Button color="blue" onClick={() => handleConfirmAspectLock(true)}>
+              Yes
+            </Button>
+          </Group>
+        </Modal>
+      )}
+
+      {/* Aspect Lock Success Modal */}
+      {appConfig.showAspectLock && (
+        <Modal
+          opened={isAspectLockSuccessModalOpen}
+          onClose={() => {
             setIsAspectLockSuccessModalOpen(false);
             setAspectLockSuccessMessage(""); // Reset message on close
-          }}>Close</Button>
-        </Group>
-      </Modal>
+          }}
+          title="Aspect Lock Status"
+          centered
+          size="sm"
+        >
+          <Text>{aspectLockSuccessMessage}</Text>
+          <Group justify="flex-end" mt="md">
+            <Button
+              onClick={() => {
+                setIsAspectLockSuccessModalOpen(false);
+                setAspectLockSuccessMessage(""); // Reset message on close
+              }}
+            >
+              Close
+            </Button>
+          </Group>
+        </Modal>
+      )}
+
+      {/* Toolbar Settings Modal */}
+      <ToolbarSettingsModal
+        opened={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+        config={appConfig}
+        onConfigChange={setAppConfig}
+        onReloadConfig={reloadConfig}
+      />
     </>
   );
 }

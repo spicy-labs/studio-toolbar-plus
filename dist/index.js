@@ -10565,6 +10565,411 @@ var require_client = __commonJS((exports, module) => {
   }
 });
 
+// node_modules/typescript-result/dist/index.js
+function isPromise(value) {
+  if (value === null || value === undefined) {
+    return false;
+  }
+  if (typeof value !== "object") {
+    return false;
+  }
+  return value instanceof Promise || "then" in value;
+}
+function isFunction(value) {
+  return typeof value === "function";
+}
+function isAsyncFn(fn) {
+  return fn.constructor.name === "AsyncFunction";
+}
+var AsyncResult, Result = class _Result {
+  constructor(_value, _error) {
+    this._value = _value;
+    this._error = _error;
+  }
+  get isResult() {
+    return true;
+  }
+  get value() {
+    return this._value;
+  }
+  get error() {
+    return this._error;
+  }
+  get success() {
+    return this.error === undefined;
+  }
+  get failure() {
+    return this.error !== undefined;
+  }
+  isOk() {
+    return this.success;
+  }
+  isError() {
+    return this.failure;
+  }
+  toTuple() {
+    return [this._value ?? null, this._error ?? null];
+  }
+  errorOrNull() {
+    return this.failure ? this._error : null;
+  }
+  getOrNull() {
+    return this.success ? this._value : null;
+  }
+  getOrDefault(defaultValue) {
+    return this.success ? this._value : defaultValue;
+  }
+  getOrElse(onFailure) {
+    if (isAsyncFn(onFailure)) {
+      return this.success ? Promise.resolve(this._value) : onFailure(this._error);
+    }
+    return this.success ? this._value : onFailure(this._error);
+  }
+  getOrThrow() {
+    if (this.success) {
+      return this._value;
+    }
+    throw this._error;
+  }
+  fold(onSuccess, onFailure) {
+    const isAsync = isAsyncFn(onSuccess) || isAsyncFn(onFailure);
+    const outcome = this.success ? onSuccess(this._value) : onFailure(this._error);
+    return isAsync && !isPromise(outcome) ? Promise.resolve(outcome) : outcome;
+  }
+  onFailure(action) {
+    const isAsync = isAsyncFn(action);
+    if (this.failure) {
+      const outcome = action(this._error);
+      if (isAsync) {
+        return new AsyncResult((resolve) => {
+          outcome.then(() => resolve(_Result.error(this._error)));
+        });
+      }
+      return this;
+    }
+    return isAsync ? AsyncResult.ok(this._value) : this;
+  }
+  onSuccess(action) {
+    const isAsync = isAsyncFn(action);
+    if (this.success) {
+      const outcome = action(this._value);
+      if (isAsync) {
+        return new AsyncResult((resolve) => {
+          outcome.then(() => resolve(_Result.ok(this._value)));
+        });
+      }
+      return this;
+    }
+    return isAsync ? AsyncResult.error(this._error) : this;
+  }
+  map(transform) {
+    return this.success ? _Result.run(() => transform(this._value)) : isAsyncFn(transform) ? AsyncResult.error(this._error) : this;
+  }
+  mapCatching(transformValue, transformError) {
+    return this.success ? _Result.try(() => transformValue(this._value), transformError) : this;
+  }
+  mapError(transform) {
+    if (this.success) {
+      return this;
+    }
+    return _Result.error(transform(this._error));
+  }
+  recover(onFailure) {
+    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : _Result.run(() => onFailure(this._error));
+  }
+  recoverCatching(onFailure) {
+    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : _Result.try(() => onFailure(this._error));
+  }
+  toString() {
+    if (this.success) {
+      return `Result.ok(${this._value})`;
+    }
+    return `Result.error(${this.error})`;
+  }
+  static ok(value) {
+    return new _Result(value, undefined);
+  }
+  static error(error) {
+    return new _Result(undefined, error);
+  }
+  static isResult(possibleResult) {
+    return possibleResult instanceof _Result;
+  }
+  static isAsyncResult(possibleAsyncResult) {
+    return possibleAsyncResult instanceof AsyncResult;
+  }
+  static run(fn) {
+    const returnValue = fn();
+    if (isPromise(returnValue)) {
+      return AsyncResult.fromPromise(returnValue);
+    }
+    return _Result.isResult(returnValue) ? returnValue : _Result.ok(returnValue);
+  }
+  static allInternal(items, opts) {
+    const runner = opts.catching ? _Result.try : _Result.run;
+    const flattened = [];
+    let isAsync = items.some(isPromise);
+    let hasFailure = false;
+    for (const item of items) {
+      if (isFunction(item)) {
+        if (hasFailure) {
+          continue;
+        }
+        const returnValue = runner(item);
+        if (_Result.isResult(returnValue) && returnValue.isError()) {
+          hasFailure = true;
+          if (!isAsync) {
+            return returnValue;
+          }
+        }
+        if (_Result.isAsyncResult(returnValue)) {
+          isAsync = true;
+        }
+        flattened.push(returnValue);
+      } else if (_Result.isResult(item)) {
+        if (item.isError()) {
+          hasFailure = true;
+          if (!isAsync) {
+            return item;
+          }
+        }
+        flattened.push(item);
+      } else if (_Result.isAsyncResult(item)) {
+        isAsync = true;
+        flattened.push(item);
+      } else if (isPromise(item)) {
+        isAsync = true;
+        flattened.push(opts.catching ? AsyncResult.fromPromiseCatching(item) : AsyncResult.fromPromise(item));
+      } else {
+        flattened.push(_Result.ok(item));
+      }
+    }
+    if (isAsync) {
+      return new AsyncResult((resolve, reject) => {
+        const asyncResults = [];
+        const asyncIndexes = [];
+        for (let i = 0;i < flattened.length; i++) {
+          const item = flattened[i];
+          if (_Result.isAsyncResult(item)) {
+            asyncResults.push(item);
+            asyncIndexes.push(i);
+          }
+        }
+        Promise.all(asyncResults).then((resolvedResults) => {
+          const merged = [...flattened];
+          for (let i = 0;i < resolvedResults.length; i++) {
+            merged[asyncIndexes[i]] = resolvedResults[i];
+          }
+          const firstFailedResult = merged.find((resolvedResult) => resolvedResult.isError());
+          if (firstFailedResult) {
+            resolve(firstFailedResult);
+            return;
+          }
+          resolve(_Result.ok(merged.map((result) => result.getOrNull())));
+        }).catch((reason) => {
+          reject(reason);
+        });
+      });
+    }
+    return _Result.ok(flattened.map((result) => result.getOrNull()));
+  }
+  static all(...items) {
+    return _Result.allInternal(items, {
+      catching: false
+    });
+  }
+  static allCatching(...items) {
+    return _Result.allInternal(items, {
+      catching: true
+    });
+  }
+  static wrap(fn) {
+    return function wrapped(...args) {
+      return _Result.try(() => fn(...args));
+    };
+  }
+  static try(fn, transform) {
+    try {
+      const returnValue = fn();
+      if (isPromise(returnValue)) {
+        return AsyncResult.fromPromiseCatching(returnValue, transform);
+      }
+      return _Result.isResult(returnValue) ? returnValue : _Result.ok(returnValue);
+    } catch (caughtError) {
+      return _Result.error(transform?.(caughtError) ?? caughtError);
+    }
+  }
+  static fromAsync(value) {
+    return _Result.run(() => value);
+  }
+  static fromAsyncCatching(value) {
+    return _Result.try(() => value);
+  }
+  static assertOk(result) {
+    if (result.isError()) {
+      throw new Error("Expected a successful result, but got an error instead");
+    }
+  }
+  static assertError(result) {
+    if (result.isOk()) {
+      throw new Error("Expected a failed result, but got a value instead");
+    }
+  }
+};
+var init_dist = __esm(() => {
+  AsyncResult = class _AsyncResult extends Promise {
+    get isAsyncResult() {
+      return true;
+    }
+    async toTuple() {
+      const result = await this;
+      return result.toTuple();
+    }
+    async errorOrNull() {
+      const result = await this;
+      return result.errorOrNull();
+    }
+    async getOrNull() {
+      const result = await this;
+      return result.getOrNull();
+    }
+    async getOrDefault(defaultValue) {
+      const result = await this;
+      return result.getOrDefault(defaultValue);
+    }
+    async getOrElse(onFailure) {
+      const result = await this;
+      return result.getOrElse(onFailure);
+    }
+    async getOrThrow() {
+      const result = await this;
+      return result.getOrThrow();
+    }
+    async fold(onSuccess, onFailure) {
+      const result = await this;
+      return result.fold(onSuccess, onFailure);
+    }
+    onFailure(action) {
+      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+        try {
+          if (result.isError()) {
+            await action(result.error);
+          }
+          resolve(result);
+        } catch (e) {
+          reject(e);
+        }
+      }).catch(reject));
+    }
+    onSuccess(action) {
+      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+        try {
+          if (result.isOk()) {
+            await action(result.value);
+          }
+          resolve(result);
+        } catch (error) {
+          reject(error);
+        }
+      }).catch(reject));
+    }
+    map(transform) {
+      return new _AsyncResult((resolve, reject) => this.then((result) => {
+        if (result.isOk()) {
+          try {
+            const returnValue = transform(result.value);
+            if (isPromise(returnValue)) {
+              returnValue.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch(reject);
+            } else {
+              resolve(Result.isResult(returnValue) ? returnValue : Result.ok(returnValue));
+            }
+          } catch (error) {
+            reject(error);
+          }
+        } else {
+          resolve(result);
+        }
+      }).catch(reject));
+    }
+    mapCatching(transformValue, transformError) {
+      return new _AsyncResult((resolve, reject) => {
+        this.map(transformValue).then((result) => resolve(result)).catch((error) => {
+          try {
+            resolve(Result.error(transformError ? transformError(error) : error));
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
+    }
+    mapError(transform) {
+      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+        try {
+          resolve(result.mapError(transform));
+        } catch (error) {
+          reject(error);
+        }
+      }).catch(reject));
+    }
+    recover(onFailure) {
+      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+        try {
+          const outcome = await result.recover(onFailure);
+          resolve(outcome);
+        } catch (error) {
+          reject(error);
+        }
+      }).catch(reject));
+    }
+    recoverCatching(onFailure) {
+      return new _AsyncResult((resolve, reject) => this.then((result) => {
+        resolve(result.recoverCatching(onFailure));
+      }).catch(reject));
+    }
+    toString() {
+      return "AsyncResult";
+    }
+    static error(error) {
+      return new _AsyncResult((resolve) => resolve(Result.error(error)));
+    }
+    static ok(value) {
+      return new _AsyncResult((resolve) => resolve(Result.ok(value)));
+    }
+    static fromPromise(promise) {
+      return new _AsyncResult((resolve, reject) => {
+        promise.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch(reject);
+      });
+    }
+    static fromPromiseCatching(promise, transform) {
+      return new _AsyncResult((resolve) => {
+        promise.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch((caughtError) => {
+          resolve(Result.error(transform?.(caughtError) ?? caughtError));
+        });
+      });
+    }
+  };
+});
+
+// src/studio/utils.ts
+async function handleStudioFunc(studioFunction, ...functionArgs) {
+  const result = await Result.wrap(studioFunction)(...functionArgs);
+  return result.map((er) => {
+    if (er.success) {
+      const data = er.parsedData;
+      if (data == null) {
+        return Result.error(Error(`parsedData is null`));
+      } else {
+        return data;
+      }
+    } else {
+      return Result.error(Error(`Studio Returned Error ${er.status}:${er.error}`));
+    }
+  });
+}
+var init_utils = __esm(() => {
+  init_dist();
+});
+
 // node_modules/@chili-publish/studio-sdk/_bundles/main.js
 var require_main = __commonJS((exports, module) => {
   (function(root2, factory) {
@@ -13744,6 +14149,17 @@ var require_main = __commonJS((exports, module) => {
   })());
 });
 
+// src/studio/documentHandler.ts
+async function getCurrentDocumentState(studio2) {
+  return handleStudioFunc(studio2.document.getCurrentState);
+}
+async function loadDocumentFromJsonStr(studio2, document2) {
+  return handleStudioFunc(studio2.document.load, document2);
+}
+var init_documentHandler = __esm(() => {
+  init_utils();
+});
+
 // node_modules/shallowequal/index.js
 var require_shallowequal = __commonJS((exports, module) => {
   module.exports = function shallowEqual(objA, objB, compare2, compareContext) {
@@ -13919,6 +14335,20 @@ var init_IconChevronDown = __esm(() => {
   IconChevronDown = createReactComponent("outline", "chevron-down", "IconChevronDown", [["path", { d: "M6 9l6 6l6 -6", key: "svg-0" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconChevronLeft.mjs
+var IconChevronLeft;
+var init_IconChevronLeft = __esm(() => {
+  init_createReactComponent();
+  IconChevronLeft = createReactComponent("outline", "chevron-left", "IconChevronLeft", [["path", { d: "M15 6l-6 6l6 6", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconChevronRight.mjs
+var IconChevronRight;
+var init_IconChevronRight = __esm(() => {
+  init_createReactComponent();
+  IconChevronRight = createReactComponent("outline", "chevron-right", "IconChevronRight", [["path", { d: "M9 6l6 6l-6 6", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconCopyPlus.mjs
 var IconCopyPlus;
 var init_IconCopyPlus = __esm(() => {
@@ -13931,6 +14361,13 @@ var IconCopy;
 var init_IconCopy = __esm(() => {
   init_createReactComponent();
   IconCopy = createReactComponent("outline", "copy", "IconCopy", [["path", { d: "M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z", key: "svg-0" }], ["path", { d: "M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1", key: "svg-1" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconCrop.mjs
+var IconCrop;
+var init_IconCrop = __esm(() => {
+  init_createReactComponent();
+  IconCrop = createReactComponent("outline", "crop", "IconCrop", [["path", { d: "M8 5v10a1 1 0 0 0 1 1h10", key: "svg-0" }], ["path", { d: "M5 8h10a1 1 0 0 1 1 1v10", key: "svg-1" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconDeselect.mjs
@@ -13961,6 +14398,20 @@ var init_IconExternalLink = __esm(() => {
   IconExternalLink = createReactComponent("outline", "external-link", "IconExternalLink", [["path", { d: "M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6", key: "svg-0" }], ["path", { d: "M11 13l9 -9", key: "svg-1" }], ["path", { d: "M15 4h5v5", key: "svg-2" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconEyeClosed.mjs
+var IconEyeClosed;
+var init_IconEyeClosed = __esm(() => {
+  init_createReactComponent();
+  IconEyeClosed = createReactComponent("outline", "eye-closed", "IconEyeClosed", [["path", { d: "M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4", key: "svg-0" }], ["path", { d: "M3 15l2.5 -3.8", key: "svg-1" }], ["path", { d: "M21 14.976l-2.492 -3.776", key: "svg-2" }], ["path", { d: "M9 17l.5 -4", key: "svg-3" }], ["path", { d: "M15 17l-.5 -4", key: "svg-4" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFilter.mjs
+var IconFilter;
+var init_IconFilter = __esm(() => {
+  init_createReactComponent();
+  IconFilter = createReactComponent("outline", "filter", "IconFilter", [["path", { d: "M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconGripVertical.mjs
 var IconGripVertical;
 var init_IconGripVertical = __esm(() => {
@@ -13973,6 +14424,13 @@ var IconInfoCircle;
 var init_IconInfoCircle = __esm(() => {
   init_createReactComponent();
   IconInfoCircle = createReactComponent("outline", "info-circle", "IconInfoCircle", [["path", { d: "M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0", key: "svg-0" }], ["path", { d: "M12 9h.01", key: "svg-1" }], ["path", { d: "M11 12h1v4h1", key: "svg-2" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconListTree.mjs
+var IconListTree;
+var init_IconListTree = __esm(() => {
+  init_createReactComponent();
+  IconListTree = createReactComponent("outline", "list-tree", "IconListTree", [["path", { d: "M9 6h11", key: "svg-0" }], ["path", { d: "M12 12h8", key: "svg-1" }], ["path", { d: "M15 18h5", key: "svg-2" }], ["path", { d: "M5 6v.01", key: "svg-3" }], ["path", { d: "M8 12v.01", key: "svg-4" }], ["path", { d: "M11 18v.01", key: "svg-5" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconList.mjs
@@ -14010,6 +14468,13 @@ var init_IconPlaystationSquare = __esm(() => {
   IconPlaystationSquare = createReactComponent("outline", "playstation-square", "IconPlaystationSquare", [["path", { d: "M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z", key: "svg-0" }], ["path", { d: "M8 8m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z", key: "svg-1" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconPlug.mjs
+var IconPlug;
+var init_IconPlug = __esm(() => {
+  init_createReactComponent();
+  IconPlug = createReactComponent("outline", "plug", "IconPlug", [["path", { d: "M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054z", key: "svg-0" }], ["path", { d: "M4 20l3.5 -3.5", key: "svg-1" }], ["path", { d: "M15 4l-3.5 3.5", key: "svg-2" }], ["path", { d: "M20 9l-3.5 3.5", key: "svg-3" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPlus.mjs
 var IconPlus;
 var init_IconPlus = __esm(() => {
@@ -14022,6 +14487,27 @@ var IconReplace;
 var init_IconReplace = __esm(() => {
   init_createReactComponent();
   IconReplace = createReactComponent("outline", "replace", "IconReplace", [["path", { d: "M3 3m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-0" }], ["path", { d: "M15 15m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-1" }], ["path", { d: "M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3", key: "svg-2" }], ["path", { d: "M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3", key: "svg-3" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconSearch.mjs
+var IconSearch;
+var init_IconSearch = __esm(() => {
+  init_createReactComponent();
+  IconSearch = createReactComponent("outline", "search", "IconSearch", [["path", { d: "M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0", key: "svg-0" }], ["path", { d: "M21 21l-6 -6", key: "svg-1" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconSettings.mjs
+var IconSettings;
+var init_IconSettings = __esm(() => {
+  init_createReactComponent();
+  IconSettings = createReactComponent("outline", "settings", "IconSettings", [["path", { d: "M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z", key: "svg-0" }], ["path", { d: "M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0", key: "svg-1" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconSparkles.mjs
+var IconSparkles;
+var init_IconSparkles = __esm(() => {
+  init_createReactComponent();
+  IconSparkles = createReactComponent("outline", "sparkles", "IconSparkles", [["path", { d: "M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z", key: "svg-0" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTrash.mjs
@@ -14059,6 +14545,13 @@ var init_IconCaretDownFilled = __esm(() => {
   IconCaretDownFilled = createReactComponent("filled", "caret-down-filled", "IconCaretDownFilled", [["path", { d: "M18 9c.852 0 1.297 .986 .783 1.623l-.076 .084l-6 6a1 1 0 0 1 -1.32 .083l-.094 -.083l-6 -6l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057v-.118l.005 -.058l.009 -.06l.01 -.052l.032 -.108l.027 -.067l.07 -.132l.065 -.09l.073 -.081l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01l.057 -.004l12.059 -.002z", key: "svg-0" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFilterFilled.mjs
+var IconFilterFilled;
+var init_IconFilterFilled = __esm(() => {
+  init_createReactComponent();
+  IconFilterFilled = createReactComponent("filled", "filter-filled", "IconFilterFilled", [["path", { d: "M20 3h-16a1 1 0 0 0 -1 1v2.227l.008 .223a3 3 0 0 0 .772 1.795l4.22 4.641v8.114a1 1 0 0 0 1.316 .949l6 -2l.108 -.043a1 1 0 0 0 .576 -.906v-6.586l4.121 -4.12a3 3 0 0 0 .879 -2.123v-2.171a1 1 0 0 0 -1 -1z", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTrashFilled.mjs
 var IconTrashFilled;
 var init_IconTrashFilled = __esm(() => {
@@ -14066,8 +14559,81 @@ var init_IconTrashFilled = __esm(() => {
   IconTrashFilled = createReactComponent("filled", "trash-filled", "IconTrashFilled", [["path", { d: "M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z", key: "svg-0" }], ["path", { d: "M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z", key: "svg-1" }]]);
 });
 
+// src/studio-adapter/getManualCropsFromDocByConnector.ts
+var exports_getManualCropsFromDocByConnector = {};
+__export(exports_getManualCropsFromDocByConnector, {
+  getManualCropsFromDocByConnector: () => getManualCropsFromDocByConnector
+});
+async function getManualCropsFromDocByConnector(studio2, connectorId) {
+  try {
+    const documentStateResult = await getCurrentDocumentState(studio2);
+    if (!documentStateResult.isOk()) {
+      return Result.error(new Error("Failed to get document state: " + documentStateResult.error?.message));
+    }
+    const documentState = documentStateResult.value;
+    const frameIdToNameMap = new Map;
+    if (documentState.pages && Array.isArray(documentState.pages)) {
+      for (const page of documentState.pages) {
+        if (page.frames && Array.isArray(page.frames)) {
+          for (const frame of page.frames) {
+            frameIdToNameMap.set(frame.id, frame.name);
+          }
+        }
+      }
+    }
+    const result = {
+      layouts: [],
+      connectorId
+    };
+    if (documentState.layouts && Array.isArray(documentState.layouts)) {
+      for (const layout of documentState.layouts) {
+        const manualCrops = [];
+        if (layout.frameProperties && Array.isArray(layout.frameProperties)) {
+          for (const frameProperty of layout.frameProperties) {
+            if (frameProperty.perAssetCrop && frameProperty.perAssetCrop[connectorId]) {
+              const connectorCrops = frameProperty.perAssetCrop[connectorId];
+              for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
+                const frameName = frameIdToNameMap.get(frameProperty.id) || frameProperty.id;
+                const manualCrop = {
+                  frameId: frameProperty.id,
+                  frameName,
+                  name: assetPath,
+                  top: cropData.top,
+                  left: cropData.left,
+                  width: cropData.width,
+                  height: cropData.height,
+                  rotationDegrees: cropData.rotationDegrees ?? 0,
+                  originalParentWidth: cropData.originalParentWidth ?? 283464,
+                  originalParentHeight: cropData.originalParentHeight ?? 283464
+                };
+                manualCrops.push(manualCrop);
+              }
+            }
+          }
+        }
+        if (manualCrops.length > 0) {
+          const layoutWithCrops = {
+            id: layout.id,
+            name: layout.name,
+            parentId: layout.parentId || "",
+            manualCrops
+          };
+          result.layouts.push(layoutWithCrops);
+        }
+      }
+    }
+    return Result.ok(result);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+var init_getManualCropsFromDocByConnector = __esm(() => {
+  init_dist();
+  init_documentHandler();
+});
+
 // src/index.tsx
-var import_react260 = __toESM(require_react(), 1);
+var import_react268 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -14701,6 +15267,7 @@ var immer2 = immerImpl;
 var saveLayoutConfigToJSON = (config) => {
   console.log("Saving config:", config);
 };
+var useAppStore = () => appStore();
 var unloadedDoc = { layouts: [], variables: [] };
 var appStore = create()(immer2((set2, get) => ({
   state: {
@@ -15195,9 +15762,11 @@ var appStore = create()(immer2((set2, get) => ({
     state.state.isToolbarVisible = false;
   }),
   enableToolbar: () => set2((state) => {
+    console.log("ENABLE TOOLBAR");
     state.state.isToolbarEnabled = true;
   }),
   disableToolbar: () => set2((state) => {
+    console.log("DISABLE TOOLBAR");
     state.state.isToolbarEnabled = false;
   }),
   raiseError: (error) => {
@@ -15223,407 +15792,12 @@ function raiseError(store, error) {
   console.error(error);
 }
 
-// node_modules/typescript-result/dist/index.js
-function isPromise(value) {
-  if (value === null || value === undefined) {
-    return false;
-  }
-  if (typeof value !== "object") {
-    return false;
-  }
-  return value instanceof Promise || "then" in value;
-}
-function isFunction(value) {
-  return typeof value === "function";
-}
-function isAsyncFn(fn) {
-  return fn.constructor.name === "AsyncFunction";
-}
-var AsyncResult = class _AsyncResult extends Promise {
-  get isAsyncResult() {
-    return true;
-  }
-  async toTuple() {
-    const result = await this;
-    return result.toTuple();
-  }
-  async errorOrNull() {
-    const result = await this;
-    return result.errorOrNull();
-  }
-  async getOrNull() {
-    const result = await this;
-    return result.getOrNull();
-  }
-  async getOrDefault(defaultValue) {
-    const result = await this;
-    return result.getOrDefault(defaultValue);
-  }
-  async getOrElse(onFailure) {
-    const result = await this;
-    return result.getOrElse(onFailure);
-  }
-  async getOrThrow() {
-    const result = await this;
-    return result.getOrThrow();
-  }
-  async fold(onSuccess, onFailure) {
-    const result = await this;
-    return result.fold(onSuccess, onFailure);
-  }
-  onFailure(action) {
-    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-      try {
-        if (result.isError()) {
-          await action(result.error);
-        }
-        resolve(result);
-      } catch (e) {
-        reject(e);
-      }
-    }).catch(reject));
-  }
-  onSuccess(action) {
-    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-      try {
-        if (result.isOk()) {
-          await action(result.value);
-        }
-        resolve(result);
-      } catch (error) {
-        reject(error);
-      }
-    }).catch(reject));
-  }
-  map(transform) {
-    return new _AsyncResult((resolve, reject) => this.then((result) => {
-      if (result.isOk()) {
-        try {
-          const returnValue = transform(result.value);
-          if (isPromise(returnValue)) {
-            returnValue.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch(reject);
-          } else {
-            resolve(Result.isResult(returnValue) ? returnValue : Result.ok(returnValue));
-          }
-        } catch (error) {
-          reject(error);
-        }
-      } else {
-        resolve(result);
-      }
-    }).catch(reject));
-  }
-  mapCatching(transformValue, transformError) {
-    return new _AsyncResult((resolve, reject) => {
-      this.map(transformValue).then((result) => resolve(result)).catch((error) => {
-        try {
-          resolve(Result.error(transformError ? transformError(error) : error));
-        } catch (err) {
-          reject(err);
-        }
-      });
-    });
-  }
-  mapError(transform) {
-    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-      try {
-        resolve(result.mapError(transform));
-      } catch (error) {
-        reject(error);
-      }
-    }).catch(reject));
-  }
-  recover(onFailure) {
-    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-      try {
-        const outcome = await result.recover(onFailure);
-        resolve(outcome);
-      } catch (error) {
-        reject(error);
-      }
-    }).catch(reject));
-  }
-  recoverCatching(onFailure) {
-    return new _AsyncResult((resolve, reject) => this.then((result) => {
-      resolve(result.recoverCatching(onFailure));
-    }).catch(reject));
-  }
-  toString() {
-    return "AsyncResult";
-  }
-  static error(error) {
-    return new _AsyncResult((resolve) => resolve(Result.error(error)));
-  }
-  static ok(value) {
-    return new _AsyncResult((resolve) => resolve(Result.ok(value)));
-  }
-  static fromPromise(promise) {
-    return new _AsyncResult((resolve, reject) => {
-      promise.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch(reject);
-    });
-  }
-  static fromPromiseCatching(promise, transform) {
-    return new _AsyncResult((resolve) => {
-      promise.then((value) => resolve(Result.isResult(value) ? value : Result.ok(value))).catch((caughtError) => {
-        resolve(Result.error(transform?.(caughtError) ?? caughtError));
-      });
-    });
-  }
-};
-var Result = class _Result {
-  constructor(_value, _error) {
-    this._value = _value;
-    this._error = _error;
-  }
-  get isResult() {
-    return true;
-  }
-  get value() {
-    return this._value;
-  }
-  get error() {
-    return this._error;
-  }
-  get success() {
-    return this.error === undefined;
-  }
-  get failure() {
-    return this.error !== undefined;
-  }
-  isOk() {
-    return this.success;
-  }
-  isError() {
-    return this.failure;
-  }
-  toTuple() {
-    return [this._value ?? null, this._error ?? null];
-  }
-  errorOrNull() {
-    return this.failure ? this._error : null;
-  }
-  getOrNull() {
-    return this.success ? this._value : null;
-  }
-  getOrDefault(defaultValue) {
-    return this.success ? this._value : defaultValue;
-  }
-  getOrElse(onFailure) {
-    if (isAsyncFn(onFailure)) {
-      return this.success ? Promise.resolve(this._value) : onFailure(this._error);
-    }
-    return this.success ? this._value : onFailure(this._error);
-  }
-  getOrThrow() {
-    if (this.success) {
-      return this._value;
-    }
-    throw this._error;
-  }
-  fold(onSuccess, onFailure) {
-    const isAsync = isAsyncFn(onSuccess) || isAsyncFn(onFailure);
-    const outcome = this.success ? onSuccess(this._value) : onFailure(this._error);
-    return isAsync && !isPromise(outcome) ? Promise.resolve(outcome) : outcome;
-  }
-  onFailure(action) {
-    const isAsync = isAsyncFn(action);
-    if (this.failure) {
-      const outcome = action(this._error);
-      if (isAsync) {
-        return new AsyncResult((resolve) => {
-          outcome.then(() => resolve(_Result.error(this._error)));
-        });
-      }
-      return this;
-    }
-    return isAsync ? AsyncResult.ok(this._value) : this;
-  }
-  onSuccess(action) {
-    const isAsync = isAsyncFn(action);
-    if (this.success) {
-      const outcome = action(this._value);
-      if (isAsync) {
-        return new AsyncResult((resolve) => {
-          outcome.then(() => resolve(_Result.ok(this._value)));
-        });
-      }
-      return this;
-    }
-    return isAsync ? AsyncResult.error(this._error) : this;
-  }
-  map(transform) {
-    return this.success ? _Result.run(() => transform(this._value)) : isAsyncFn(transform) ? AsyncResult.error(this._error) : this;
-  }
-  mapCatching(transformValue, transformError) {
-    return this.success ? _Result.try(() => transformValue(this._value), transformError) : this;
-  }
-  mapError(transform) {
-    if (this.success) {
-      return this;
-    }
-    return _Result.error(transform(this._error));
-  }
-  recover(onFailure) {
-    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : _Result.run(() => onFailure(this._error));
-  }
-  recoverCatching(onFailure) {
-    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : _Result.try(() => onFailure(this._error));
-  }
-  toString() {
-    if (this.success) {
-      return `Result.ok(${this._value})`;
-    }
-    return `Result.error(${this.error})`;
-  }
-  static ok(value) {
-    return new _Result(value, undefined);
-  }
-  static error(error) {
-    return new _Result(undefined, error);
-  }
-  static isResult(possibleResult) {
-    return possibleResult instanceof _Result;
-  }
-  static isAsyncResult(possibleAsyncResult) {
-    return possibleAsyncResult instanceof AsyncResult;
-  }
-  static run(fn) {
-    const returnValue = fn();
-    if (isPromise(returnValue)) {
-      return AsyncResult.fromPromise(returnValue);
-    }
-    return _Result.isResult(returnValue) ? returnValue : _Result.ok(returnValue);
-  }
-  static allInternal(items, opts) {
-    const runner = opts.catching ? _Result.try : _Result.run;
-    const flattened = [];
-    let isAsync = items.some(isPromise);
-    let hasFailure = false;
-    for (const item of items) {
-      if (isFunction(item)) {
-        if (hasFailure) {
-          continue;
-        }
-        const returnValue = runner(item);
-        if (_Result.isResult(returnValue) && returnValue.isError()) {
-          hasFailure = true;
-          if (!isAsync) {
-            return returnValue;
-          }
-        }
-        if (_Result.isAsyncResult(returnValue)) {
-          isAsync = true;
-        }
-        flattened.push(returnValue);
-      } else if (_Result.isResult(item)) {
-        if (item.isError()) {
-          hasFailure = true;
-          if (!isAsync) {
-            return item;
-          }
-        }
-        flattened.push(item);
-      } else if (_Result.isAsyncResult(item)) {
-        isAsync = true;
-        flattened.push(item);
-      } else if (isPromise(item)) {
-        isAsync = true;
-        flattened.push(opts.catching ? AsyncResult.fromPromiseCatching(item) : AsyncResult.fromPromise(item));
-      } else {
-        flattened.push(_Result.ok(item));
-      }
-    }
-    if (isAsync) {
-      return new AsyncResult((resolve, reject) => {
-        const asyncResults = [];
-        const asyncIndexes = [];
-        for (let i = 0;i < flattened.length; i++) {
-          const item = flattened[i];
-          if (_Result.isAsyncResult(item)) {
-            asyncResults.push(item);
-            asyncIndexes.push(i);
-          }
-        }
-        Promise.all(asyncResults).then((resolvedResults) => {
-          const merged = [...flattened];
-          for (let i = 0;i < resolvedResults.length; i++) {
-            merged[asyncIndexes[i]] = resolvedResults[i];
-          }
-          const firstFailedResult = merged.find((resolvedResult) => resolvedResult.isError());
-          if (firstFailedResult) {
-            resolve(firstFailedResult);
-            return;
-          }
-          resolve(_Result.ok(merged.map((result) => result.getOrNull())));
-        }).catch((reason) => {
-          reject(reason);
-        });
-      });
-    }
-    return _Result.ok(flattened.map((result) => result.getOrNull()));
-  }
-  static all(...items) {
-    return _Result.allInternal(items, {
-      catching: false
-    });
-  }
-  static allCatching(...items) {
-    return _Result.allInternal(items, {
-      catching: true
-    });
-  }
-  static wrap(fn) {
-    return function wrapped(...args) {
-      return _Result.try(() => fn(...args));
-    };
-  }
-  static try(fn, transform) {
-    try {
-      const returnValue = fn();
-      if (isPromise(returnValue)) {
-        return AsyncResult.fromPromiseCatching(returnValue, transform);
-      }
-      return _Result.isResult(returnValue) ? returnValue : _Result.ok(returnValue);
-    } catch (caughtError) {
-      return _Result.error(transform?.(caughtError) ?? caughtError);
-    }
-  }
-  static fromAsync(value) {
-    return _Result.run(() => value);
-  }
-  static fromAsyncCatching(value) {
-    return _Result.try(() => value);
-  }
-  static assertOk(result) {
-    if (result.isError()) {
-      throw new Error("Expected a successful result, but got an error instead");
-    }
-  }
-  static assertError(result) {
-    if (result.isOk()) {
-      throw new Error("Expected a failed result, but got a value instead");
-    }
-  }
-};
-
-// src/studio/utils.ts
-async function handleStudioFunc(studioFunction, ...functionArgs) {
-  const result = await Result.wrap(studioFunction)(...functionArgs);
-  return result.map((er) => {
-    if (er.success) {
-      const data = er.parsedData;
-      if (data == null) {
-        return Result.error(Error(`parsedData is null`));
-      } else {
-        return data;
-      }
-    } else {
-      return Result.error(Error(`Studio Returned Error ${er.status}:${er.error}`));
-    }
-  });
-}
+// src/studio/studioAdapter.ts
+init_dist();
 
 // src/studio/layoutHandler.ts
+init_dist();
+init_utils();
 async function getPrivateData({ studio: studio2, id }) {
   const result = await handleStudioFunc(studio2.layout.getPrivateData, id);
   console.log(result);
@@ -15641,6 +15815,12 @@ async function setPrivateData({
 async function getAllLayouts(studio2) {
   return await handleStudioFunc(studio2.layout.getAll);
 }
+async function getLayoutById(studio2, id) {
+  return await handleStudioFunc(studio2.layout.getById, id);
+}
+async function setLayoutAvailable(studio2, id, available) {
+  return await handleStudioFunc(studio2.layout.setAvailableForUser, id, available);
+}
 async function getSelected(studio2) {
   return await handleStudioFunc(studio2.layout.getSelected);
 }
@@ -15649,6 +15829,9 @@ async function updateLayoutResizable(studio2, id, update) {
 }
 
 // src/studio/variableHandler.ts
+init_dist();
+init_utils();
+var import_studio_sdk = __toESM(require_main(), 1);
 async function getAllVariables(studio2) {
   return handleStudioFunc(studio2.next.variable.getAll);
 }
@@ -15659,10 +15842,18 @@ async function setVariableValue2({
 }) {
   return handleStudioFunc(studio2.variable.setValue, id, value);
 }
-async function setVariableVisblity({ studio: studio2, id, visible }) {
+async function setVariableVisblity({
+  studio: studio2,
+  id,
+  visible
+}) {
   return handleStudioFunc(studio2.variable.setVariableVisibility, id, visible);
 }
-async function setVariableVisblityWithName({ studio: studio2, name, visible }) {
+async function setVariableVisblityWithName({
+  studio: studio2,
+  name,
+  visible
+}) {
   const allVariablesResult = await getAllVariables(studio2);
   return allVariablesResult.map(async (variables) => {
     const existingVariable = variables.find((variable) => variable.name === name);
@@ -15690,6 +15881,38 @@ async function createVariable({
     return Result.error(result.value);
   });
 }
+async function groupVariables({
+  studio: studio2,
+  name,
+  variableIds
+}) {
+  return handleStudioFunc(studio2.variable.groupVariables, name, variableIds);
+}
+async function moveVariable({
+  studio: studio2,
+  id,
+  order = 0,
+  newParentId
+}) {
+  return handleStudioFunc(studio2.variable.move, order, id, newParentId);
+}
+async function setVariableType({
+  studio: studio2,
+  id,
+  variableType
+}) {
+  return handleStudioFunc(studio2.variable.setType, id, variableType);
+}
+async function setListVariableItems({
+  studio: studio2,
+  id,
+  items
+}) {
+  return handleStudioFunc(studio2.variable.setListVariable, id, items);
+}
+async function deleteVariables(studio2, ids) {
+  return handleStudioFunc(studio2.variable.remove, ids);
+}
 async function setOrCreateVariableValue({
   studio: studio2,
   name,
@@ -15700,6 +15923,20 @@ async function setOrCreateVariableValue({
   return allVariablesResult.map(async (variables) => {
     const existingVariable = variables.find((variable) => variable.name === name);
     if (existingVariable) {
+      if (existingVariable.type !== variableType) {
+        await setVariableType({
+          studio: studio2,
+          id: existingVariable.id,
+          variableType
+        });
+      }
+      if (variableType === import_studio_sdk.VariableType.list) {
+        return await setListVariableItems({
+          studio: studio2,
+          id: existingVariable.id,
+          items: value
+        });
+      }
       return await setVariableValue2({
         studio: studio2,
         id: existingVariable.id,
@@ -15712,6 +15949,9 @@ async function setOrCreateVariableValue({
         name
       });
       return createResult.map(async (id) => {
+        if (variableType === import_studio_sdk.VariableType.list) {
+          return await setListVariableItems({ studio: studio2, id, items: value });
+        }
         return await setVariableValue2({
           studio: studio2,
           id,
@@ -15724,9 +15964,12 @@ async function setOrCreateVariableValue({
 async function getById(studio2, id) {
   return handleStudioFunc(studio2.next.variable.getById, id);
 }
+function getByName(studio2, name) {
+  return handleStudioFunc(studio2.next.variable.getByName, name);
+}
 
 // src/studio/studioAdapter.ts
-var import_studio_sdk = __toESM(require_main(), 1);
+var import_studio_sdk2 = __toESM(require_main(), 1);
 
 // src/types/toolbarEnvelope.ts
 function createEmptyEnvelope() {
@@ -15738,6 +15981,9 @@ function createEmptyEnvelope() {
 }
 
 // src/studio/actionHandler.ts
+init_dist();
+init_utils();
+
 class ActionNotFoundError extends Error {
   _tag = "ActionNotFoundError";
 }
@@ -16007,7 +16253,11 @@ function layoutMappingToActionMap(layoutMaps, doc) {
   return actionMap;
 }
 
+// src/studio-adapter/frameLayoutMappingToLookup.ts
+init_dist();
+
 // src/studio/frameHandler.ts
+init_utils();
 async function getSelected2(studio2) {
   return handleStudioFunc(studio2.frame.getSelected);
 }
@@ -16019,6 +16269,9 @@ async function getAll(studio2) {
 }
 async function getPropertiesOnSelectedLayout(studio2) {
   return handleStudioFunc(studio2.frame.getPropertiesOnSelectedLayout);
+}
+async function getPropertiesOnLayout(studio2, layoutId) {
+  return handleStudioFunc(studio2.frame.getAllLayoutProperties, layoutId);
 }
 
 // src/studio-adapter/frameLayoutMappingToLookup.ts
@@ -16072,6 +16325,7 @@ async function frameLayoutMappingToLookup(frameMaps, studio2) {
 }
 
 // src/studio-adapter/layoutManagerToLookup.ts
+init_dist();
 async function layoutManagerToLookup(studio2) {
   const layoutsResult = await getAllLayouts(studio2);
   if (layoutsResult.isError()) {
@@ -16162,6 +16416,18 @@ function layoutSizingScript(debug = false) {
   if (debug) {
     console.log(debugObj);
   }
+}
+
+// src/studio/studioAdapter.ts
+init_documentHandler();
+
+// src/studio/connectorAdapter.ts
+init_utils();
+async function getConnectorsByType(studio2, type) {
+  return handleStudioFunc(studio2.connector.getAllByType, type);
+}
+async function unregisterConnector(studio2, connectorId) {
+  return handleStudioFunc(studio2.connector.unregister, connectorId);
 }
 
 // src/studio/studioAdapter.ts
@@ -16339,8 +16605,8 @@ console.log(imageSelectionScript(false))`;
   }, {
     name: "AUTO_GEN_TOOLBAR",
     triggers: [
-      { event: import_studio_sdk.ActionEditorEvent.selectedLayoutChanged },
-      { event: import_studio_sdk.ActionEditorEvent.variableValueChanged }
+      { event: import_studio_sdk2.ActionEditorEvent.selectedLayoutChanged },
+      { event: import_studio_sdk2.ActionEditorEvent.variableValueChanged }
     ],
     script
   });
@@ -16362,8 +16628,8 @@ console.log(imageSizingScript(false))`;
   }, {
     name: "AUTO_GEN_TOOLBAR_IR",
     triggers: [
-      { event: import_studio_sdk.ActionEditorEvent.selectedLayoutChanged },
-      { event: import_studio_sdk.ActionEditorEvent.variableValueChanged }
+      { event: import_studio_sdk2.ActionEditorEvent.selectedLayoutChanged },
+      { event: import_studio_sdk2.ActionEditorEvent.variableValueChanged }
     ],
     script
   });
@@ -16382,9 +16648,7 @@ console.log(layoutSizingScript(false))`;
       studio: window.SDK
     }, {
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      triggers: [
-        { event: import_studio_sdk.ActionEditorEvent.pageSizeChanged }
-      ],
+      triggers: [{ event: import_studio_sdk2.ActionEditorEvent.pageSizeChanged }],
       script
     });
     if (updateResult.isError()) {
@@ -16393,24 +16657,32 @@ console.log(layoutSizingScript(false))`;
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      variableType: import_studio_sdk.VariableType.shortText,
+      variableType: import_studio_sdk2.VariableType.shortText,
       value: JSON.stringify(layoutSizingMapResult.value, null, 0)
     });
     if (variableResult.isError()) {
       return variableResult;
     }
-    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk.VariableVisibilityType.invisible } });
+    return setVariableVisblityWithName({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      visible: { type: import_studio_sdk2.VariableVisibilityType.invisible }
+    });
   } else {
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      variableType: import_studio_sdk.VariableType.shortText,
+      variableType: import_studio_sdk2.VariableType.shortText,
       value: JSON.stringify({}, null, 0)
     });
     if (variableResult.isError()) {
       return variableResult;
     }
-    return setVariableVisblityWithName({ studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible: { type: import_studio_sdk.VariableVisibilityType.invisible } });
+    return setVariableVisblityWithName({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      visible: { type: import_studio_sdk2.VariableVisibilityType.invisible }
+    });
   }
 }
 async function updateFrameLayoutMaps(frameSnapshot) {
@@ -16459,6 +16731,91 @@ async function updateFrameLayoutMaps(frameSnapshot) {
     const saveResult = await saveFrameLayoutMapsToDoc(frameLayoutMaps);
     if (!saveResult.isOk()) {
       return Result.error(new Error("Failed to save frame layout maps: " + saveResult.error?.message));
+    }
+    return Result.ok(undefined);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+async function getCurrentConnectors(studio2) {
+  try {
+    const connectorsResult = await getConnectorsByType(studio2, import_studio_sdk2.ConnectorType.media);
+    if (!connectorsResult.isOk()) {
+      return Result.error(new Error("Failed to get connectors: " + connectorsResult.error?.message));
+    }
+    const connectorInstances = connectorsResult.value;
+    console.log("connectorInstances", connectorInstances);
+    const documentStateResult = await getCurrentDocumentState(studio2);
+    if (!documentStateResult.isOk()) {
+      return Result.error(new Error("Failed to get document state: " + documentStateResult.error?.message));
+    }
+    const documentState = documentStateResult.value;
+    const documentConnectors = documentState.connectors || [];
+    console.log("documentConnectors", documentConnectors);
+    const grafxConnectors = documentConnectors.filter((docConnector) => docConnector.source.source === "grafx" && connectorInstances.some((instance) => instance.id === docConnector.id));
+    const result = [];
+    for (const connector of grafxConnectors) {
+      const usage = {
+        id: connector.id,
+        name: connector.name,
+        type: "media",
+        usesInTemplate: {
+          images: [],
+          variables: []
+        }
+      };
+      if (documentState.pages && Array.isArray(documentState.pages)) {
+        for (const page of documentState.pages) {
+          if (page.frames && Array.isArray(page.frames)) {
+            for (const frame of page.frames) {
+              if (frame.type === "image" && frame.src && frame.src.id === connector.id) {
+                usage.usesInTemplate.images.push({
+                  id: frame.id,
+                  name: frame.name || frame.id
+                });
+              }
+            }
+          }
+        }
+      }
+      if (documentState.variables && Array.isArray(documentState.variables)) {
+        for (const variable of documentState.variables) {
+          if (variable.type === "image" && variable.value && typeof variable.value === "object" && variable.value.connectorId === connector.id) {
+            usage.usesInTemplate.variables.push({
+              id: variable.id,
+              name: variable.name || variable.id
+            });
+          }
+        }
+      }
+      result.push(usage);
+    }
+    return Result.ok(result);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  }
+}
+async function mergeConnectors(studio2, targetConnectorId, selectedConnectorIds) {
+  try {
+    const connectorsToUnregister = selectedConnectorIds.filter((id) => id !== targetConnectorId);
+    for (const connectorId of connectorsToUnregister) {
+      const unregisterResult = await unregisterConnector(studio2, connectorId);
+      if (!unregisterResult.isOk()) {
+        return Result.error(new Error(`Failed to unregister connector ${connectorId}: ${unregisterResult.error?.message}`));
+      }
+    }
+    const documentStateResult = await getCurrentDocumentState(studio2);
+    if (!documentStateResult.isOk()) {
+      return Result.error(new Error(`Failed to get document state: ${documentStateResult.error?.message}`));
+    }
+    let documentJson = JSON.stringify(documentStateResult.value);
+    for (const connectorId of connectorsToUnregister) {
+      const regex = new RegExp(connectorId, "g");
+      documentJson = documentJson.replace(regex, targetConnectorId);
+    }
+    const loadResult = await loadDocumentFromJsonStr(studio2, documentJson);
+    if (!loadResult.isOk()) {
+      return Result.error(new Error(`Failed to load updated document: ${loadResult.error?.message}`));
     }
     return Result.ok(undefined);
   } catch (error) {
@@ -27084,7 +27441,6 @@ Popover.Target = PopoverTarget;
 Popover.Dropdown = PopoverDropdown;
 Popover.displayName = "@mantine/core/Popover";
 Popover.extend = (input) => input;
-
 // node_modules/@mantine/core/esm/components/ActionIcon/ActionIcon.mjs
 var import_jsx_runtime68 = __toESM(require_jsx_runtime(), 1);
 var import_react99 = __toESM(require_react(), 1);
@@ -35716,26 +36072,37 @@ init_IconArrowsTransferUpDown();
 init_IconBug();
 init_IconCameraPlus();
 init_IconChevronDown();
+init_IconChevronLeft();
+init_IconChevronRight();
 init_IconCopyPlus();
 init_IconCopy();
+init_IconCrop();
 init_IconDeselect();
 init_IconDownload();
 init_IconExchange();
 init_IconExternalLink();
+init_IconEyeClosed();
+init_IconFilter();
 init_IconGripVertical();
 init_IconInfoCircle();
+init_IconListTree();
 init_IconList();
 init_IconMapBolt();
 init_IconPencil();
 init_IconPhotoCog();
 init_IconPlaystationSquare();
+init_IconPlug();
 init_IconPlus();
 init_IconReplace();
+init_IconSearch();
+init_IconSettings();
+init_IconSparkles();
 init_IconTrash();
 init_IconUpload();
 init_IconWand();
 init_IconX();
 init_IconCaretDownFilled();
+init_IconFilterFilled();
 init_IconTrashFilled();
 
 // src/components/LayoutMappingModal/AddMappingImageVariableModal.tsx
@@ -36189,6 +36556,7 @@ var LayoutMultiSelect = ({
 
 // src/components/LayoutMappingModal/VariableCard.tsx
 var import_react244 = __toESM(require_react(), 1);
+init_dist();
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
 var import_react241 = __toESM(require_react(), 1);
@@ -41360,7 +41728,7 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react258 = __toESM(require_react(), 1);
+var import_react266 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
 var import_react253 = __toESM(require_react(), 1);
@@ -42296,6 +42664,7 @@ function FrameSnapshotLayoutModal({
     })
   });
 }
+
 // src/components/AddFrameSnapshotModal.tsx
 var import_react254 = __toESM(require_react(), 1);
 var jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
@@ -42683,14 +43052,7 @@ function LayoutManagerModal({ opened, onClose }) {
 
 // src/components/DownloadModal.tsx
 var import_react257 = __toESM(require_react(), 1);
-
-// src/studio/documentHandler.ts
-async function getCurrentDocumentState(studio2) {
-  return handleStudioFunc(studio2.document.getCurrentState);
-}
-async function loadDocumentFromJsonStr(studio2, document2) {
-  return handleStudioFunc(studio2.document.load, document2);
-}
+init_documentHandler();
 
 // src/components/ConnectorReplacementModal.tsx
 var import_react256 = __toESM(require_react(), 1);
@@ -42810,7 +43172,9 @@ function DownloadModal({ opened, onClose }) {
   const [availableConnectors, setAvailableConnectors] = import_react257.useState([]);
   const [pendingJsonContent, setPendingJsonContent] = import_react257.useState("");
   const [nameMatches, setNameMatches] = import_react257.useState({});
-  const [downloadTemplateFonts, setDownloadTemplateFonts] = import_react257.useState(false);
+  const [useTemplatePackage, setUseTemplatePackage] = import_react257.useState(false);
+  const [fontMigrationProgress, setFontMigrationProgress] = import_react257.useState(null);
+  const [showPackageWarning, setShowPackageWarning] = import_react257.useState(false);
   const handleDownload = async () => {
     try {
       const studioResult = await getStudio();
@@ -42847,94 +43211,176 @@ function DownloadModal({ opened, onClose }) {
             }
           }
         } catch (error) {
-          console.warn("Failed to fetch template name:", error);
+          raiseError2(error instanceof Error ? error : new Error("Failed to fetch template name"));
         }
       }
-      const jsonStr = JSON.stringify(documentResult.value, null, 2);
+      let documentData = { ...documentResult.value };
+      let fileName = `${templateName}.json`;
+      if (useTemplatePackage) {
+        if (!documentData.properties) {
+          documentData.properties = {};
+        }
+        documentData.properties.token = token2;
+        documentData.properties.baseUrl = baseUrl;
+        fileName = `${templateName}.packageJson`;
+        setShowPackageWarning(true);
+        setTimeout(() => setShowPackageWarning(false), 5000);
+      }
+      const jsonStr = JSON.stringify(documentData, null, 2);
       const blob = new Blob([jsonStr], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a2 = document.createElement("a");
       a2.href = url;
-      a2.download = `${templateName}.json`;
+      a2.download = fileName;
       document.body.appendChild(a2);
       a2.click();
       setTimeout(() => {
         document.body.removeChild(a2);
         URL.revokeObjectURL(url);
       }, 0);
-      if (downloadTemplateFonts) {
-        try {
-          const docValue = documentResult.value;
-          if (docValue && docValue.stylekit && Array.isArray(docValue.stylekit.fontFamilies)) {
-            const fontFamilies = docValue.stylekit.fontFamilies;
-            const fontDownloads = [];
-            for (const fontFamily of fontFamilies) {
-              if (fontFamily && Array.isArray(fontFamily.fontStyles) && fontFamily.fontStyles.length > 0) {
-                for (const fontStyle of fontFamily.fontStyles) {
-                  const fontStyleId = fontStyle.fontStyleId;
-                  if (!fontStyleId) {
-                    console.warn("Font style ID is missing", fontStyle);
-                    continue;
-                  }
-                  fontDownloads.push({ fontStyleId, fontFamily: fontFamily.name });
-                }
-              }
-            }
-            onClose();
-            for (const download of fontDownloads) {
-              try {
-                const fontStyleResponse = await fetch(`${baseUrl}font-styles/${download.fontStyleId}`, {
-                  headers: {
-                    Authorization: `Bearer ${token2}`,
-                    "Content-Type": "application/json"
-                  }
-                });
-                if (!fontStyleResponse.ok) {
-                  console.warn(`Failed to fetch font style details for ${download.fontStyleId}: ${fontStyleResponse.statusText}`);
-                  continue;
-                }
-                const fontStyleDetails = await fontStyleResponse.json();
-                const fontDownloadResponse = await fetch(`${baseUrl}font-styles/${download.fontStyleId}/download`, {
-                  headers: {
-                    Authorization: `Bearer ${token2}`
-                  }
-                });
-                if (!fontDownloadResponse.ok) {
-                  console.warn(`Failed to download font ${fontStyleDetails.fileName}: ${fontDownloadResponse.statusText}`);
-                  continue;
-                }
-                const fontBlob = await fontDownloadResponse.blob();
-                const fontUrl = URL.createObjectURL(fontBlob);
-                const fontLink = document.createElement("a");
-                fontLink.href = fontUrl;
-                const lastDotIndex = fontStyleDetails.fileName.lastIndexOf(".");
-                const fileName = fontStyleDetails.fileName.slice(0, lastDotIndex) + "_" + fontStyleDetails.name + fontStyleDetails.fileName.slice(lastDotIndex);
-                fontLink.download = fileName;
-                document.body.appendChild(fontLink);
-                fontLink.click();
-                setTimeout(() => {
-                  document.body.removeChild(fontLink);
-                  URL.revokeObjectURL(fontUrl);
-                }, 100);
-                await new Promise((resolve) => setTimeout(resolve, 300));
-              } catch (error) {
-                console.warn(`Error downloading font ${download.fontStyleId} from family ${download.fontFamily}:`, error);
-              }
-            }
-          } else {
-            console.warn("No font families found in the document");
-            onClose();
-          }
-        } catch (fontError) {
-          console.error("Error downloading template fonts:", fontError);
-          raiseError2(new Error(`Error downloading template fonts: ${fontError instanceof Error ? fontError.message : String(fontError)}`));
-          onClose();
-        }
-      } else {
-        onClose();
-      }
+      onClose();
     } catch (error) {
       raiseError2(error instanceof Error ? error : new Error(String(error)));
+    }
+  };
+  const migrateFonts = async (sourceFontFamilies, sourceToken, sourceBaseUrl, targetToken, targetBaseUrl) => {
+    try {
+      setFontMigrationProgress({
+        total: 0,
+        completed: 0,
+        status: "checking"
+      });
+      const targetFontsResponse = await fetch(`${targetBaseUrl}font-families?sortBy=Name&sortOrder=asc`, {
+        headers: {
+          Authorization: `Bearer ${targetToken}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (!targetFontsResponse.ok) {
+        throw new Error(`Failed to fetch target fonts: ${targetFontsResponse.statusText}`);
+      }
+      const targetFontsData = await targetFontsResponse.json();
+      const fontsToMigrate = [];
+      for (const sourceFamily of sourceFontFamilies) {
+        const targetFamily = targetFontsData.data.find((tf) => tf.name === sourceFamily.name);
+        if (targetFamily) {
+          const targetStylesResponse = await fetch(`${targetBaseUrl}font-families/${targetFamily.id}/styles`, {
+            headers: {
+              Authorization: `Bearer ${targetToken}`,
+              "Content-Type": "application/json"
+            }
+          });
+          if (targetStylesResponse.ok) {
+            const targetStylesData = await targetStylesResponse.json();
+            for (const sourceStyle of sourceFamily.fontStyles) {
+              const targetStyle = targetStylesData.data.find((ts) => ts.name === sourceStyle.name);
+              if (!targetStyle) {
+                fontsToMigrate.push({
+                  sourceFamily,
+                  sourceStyle,
+                  targetExists: false
+                });
+              }
+            }
+          }
+        } else {
+          for (const sourceStyle of sourceFamily.fontStyles) {
+            fontsToMigrate.push({
+              sourceFamily,
+              sourceStyle,
+              targetExists: false
+            });
+          }
+        }
+      }
+      setFontMigrationProgress({
+        total: fontsToMigrate.length,
+        completed: 0,
+        status: "downloading"
+      });
+      for (let i2 = 0;i2 < fontsToMigrate.length; i2++) {
+        const fontToMigrate = fontsToMigrate[i2];
+        setFontMigrationProgress({
+          total: fontsToMigrate.length,
+          completed: i2,
+          status: "downloading",
+          current: `${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`
+        });
+        try {
+          const fontDownloadResponse = await fetch(`${sourceBaseUrl}font-styles/${fontToMigrate.sourceStyle.fontStyleId}/download`, {
+            headers: {
+              Authorization: `Bearer ${sourceToken}`
+            }
+          });
+          if (!fontDownloadResponse.ok) {
+            raiseError2(new Error(`Failed to download font: ${fontDownloadResponse.statusText}`));
+            continue;
+          }
+          const fontBlob = await fontDownloadResponse.blob();
+          const formData = new FormData;
+          formData.append("file", fontBlob, `${fontToMigrate.sourceFamily.name}-${fontToMigrate.sourceStyle.name}.ttf`);
+          const uploadResponse = await fetch(`${targetBaseUrl}font-styles/temp`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${targetToken}`
+            },
+            body: formData
+          });
+          if (!uploadResponse.ok) {
+            raiseError2(new Error(`Failed to upload font: ${uploadResponse.statusText}`));
+            continue;
+          }
+          const uploadData = await uploadResponse.json();
+          if (uploadData.data.preloadedData.length > 0) {
+            const preloadedFont = uploadData.data.preloadedData[0];
+            const patchResponse = await fetch(`${targetBaseUrl}font-styles/temp/${uploadData.batchId}`, {
+              method: "PATCH",
+              headers: {
+                Authorization: `Bearer ${targetToken}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify([
+                {
+                  fontStyleId: preloadedFont.id,
+                  familyName: fontToMigrate.sourceFamily.name,
+                  styleName: fontToMigrate.sourceStyle.name
+                }
+              ])
+            });
+            if (patchResponse.ok) {
+              const confirmResponse = await fetch(`${targetBaseUrl}font-styles/temp/${uploadData.batchId}/confirm`, {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${targetToken}`
+                }
+              });
+              if (!confirmResponse.ok) {
+                raiseError2(new Error(`Failed to confirm font upload: ${confirmResponse.statusText}`));
+              }
+            }
+          }
+        } catch (error) {
+          raiseError2(error instanceof Error ? error : new Error(`Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`));
+        }
+      }
+      setFontMigrationProgress({
+        total: fontsToMigrate.length,
+        completed: fontsToMigrate.length,
+        status: "complete"
+      });
+      setTimeout(() => {
+        setFontMigrationProgress(null);
+      }, 3000);
+    } catch (error) {
+      setFontMigrationProgress({
+        total: 0,
+        completed: 0,
+        status: "error",
+        error: error instanceof Error ? error.message : String(error)
+      });
+      setTimeout(() => {
+        setFontMigrationProgress(null);
+      }, 5000);
     }
   };
   const handleUpload = () => {
@@ -42953,6 +43399,8 @@ function DownloadModal({ opened, onClose }) {
         setPendingJsonContent(content);
         try {
           const jsonData = JSON.parse(content);
+          const isPackageFile = file.name.endsWith(".packageJson");
+          const hasStoredCredentials = jsonData.properties?.token && jsonData.properties?.baseUrl;
           if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
             const studioResult = await getStudio();
             if (!studioResult.isOk()) {
@@ -43002,7 +43450,7 @@ function DownloadModal({ opened, onClose }) {
                 }
               }
               const updatedContent = JSON.stringify(jsonData);
-              await loadDocument(studioResult.value, updatedContent);
+              await loadDocument(studioResult.value, updatedContent, isPackageFile && hasStoredCredentials);
             } catch (error) {
               raiseError2(error instanceof Error ? error : new Error(String(error)));
             }
@@ -43012,7 +43460,7 @@ function DownloadModal({ opened, onClose }) {
               raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
               return;
             }
-            await loadDocument(studioResult.value, content);
+            await loadDocument(studioResult.value, content, isPackageFile && hasStoredCredentials);
           }
         } catch (parseError) {
           raiseError2(new Error(`Invalid JSON format: ${parseError instanceof Error ? parseError.message : String(parseError)}`));
@@ -43026,13 +43474,33 @@ function DownloadModal({ opened, onClose }) {
       event.target.value = "";
     }
   };
-  const loadDocument = async (studio2, content) => {
-    const loadResult = await loadDocumentFromJsonStr(studio2, content);
-    if (!loadResult.isOk()) {
-      raiseError2(new Error(loadResult.error?.message || "Failed to load document"));
-      return;
+  const loadDocument = async (studio2, content, isPackageFile = false) => {
+    try {
+      const jsonData = JSON.parse(content);
+      if (isPackageFile && jsonData.properties?.token && jsonData.properties?.baseUrl) {
+        const targetToken = (await studio2.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+        const targetBaseUrl = (await studio2.configuration.getValue("ENVIRONMENT_API")).parsedData;
+        const sourceToken = jsonData.properties.token;
+        const sourceBaseUrl = jsonData.properties.baseUrl;
+        if (jsonData.stylekit?.fontFamilies && Array.isArray(jsonData.stylekit.fontFamilies)) {
+          const sourceFontFamilies = jsonData.stylekit.fontFamilies;
+          if (sourceFontFamilies.length > 0) {
+            await migrateFonts(sourceFontFamilies, sourceToken, sourceBaseUrl, targetToken, targetBaseUrl);
+          }
+        }
+        delete jsonData.properties.token;
+        delete jsonData.properties.baseUrl;
+        content = JSON.stringify(jsonData);
+      }
+      const loadResult = await loadDocumentFromJsonStr(studio2, content);
+      if (!loadResult.isOk()) {
+        raiseError2(new Error(loadResult.error?.message || "Failed to load document"));
+        return;
+      }
+      onClose();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
     }
-    onClose();
   };
   const handleConnectorReplacements = async (replacements) => {
     try {
@@ -43053,7 +43521,8 @@ function DownloadModal({ opened, onClose }) {
           return;
         }
         const updatedContent = JSON.stringify(jsonData);
-        await loadDocument(studioResult.value, updatedContent);
+        const isPackageFile = pendingJsonContent.includes('"token"') && pendingJsonContent.includes('"baseUrl"');
+        await loadDocument(studioResult.value, updatedContent, isPackageFile);
       }
     } catch (error) {
       raiseError2(error instanceof Error ? error : new Error(String(error)));
@@ -43061,69 +43530,104 @@ function DownloadModal({ opened, onClose }) {
   };
   return /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime21.jsxs(Modal, {
         opened,
         onClose,
         title: "Document Upload/Download",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
-          children: [
-            /* @__PURE__ */ jsx_runtime21.jsx(Text, {
-              size: "sm",
-              children: "Uploading and downloading only transfers the JSON not assets."
+        children: [
+          /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+            children: [
+              /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                size: "sm",
+                children: "Uploading and downloading only transfers the JSON not assets."
+              }),
+              /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                gap: "xs",
+                children: [
+                  /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                    children: [
+                      /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                        onClick: handleDownload,
+                        color: "blue",
+                        children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                          gap: "xs",
+                          children: [
+                            /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
+                              size: 20
+                            }),
+                            /* @__PURE__ */ jsx_runtime21.jsx("span", {
+                              children: "Download"
+                            })
+                          ]
+                        })
+                      }),
+                      /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                        onClick: handleUpload,
+                        color: "green",
+                        children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                          gap: "xs",
+                          children: [
+                            /* @__PURE__ */ jsx_runtime21.jsx(IconUpload, {
+                              size: 20
+                            }),
+                            /* @__PURE__ */ jsx_runtime21.jsx("span", {
+                              children: "Upload"
+                            })
+                          ]
+                        })
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+                    label: "Use Template Package",
+                    checked: useTemplatePackage,
+                    onChange: (event) => setUseTemplatePackage(event.currentTarget.checked)
+                  })
+                ]
+              })
+            ]
+          }),
+          showPackageWarning && /* @__PURE__ */ jsx_runtime21.jsx(Alert, {
+            icon: /* @__PURE__ */ jsx_runtime21.jsx(IconAlertCircle, {
+              size: "1rem"
             }),
-            /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
-              gap: "xs",
-              children: [
-                /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                  children: [
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                      onClick: handleDownload,
-                      color: "blue",
-                      children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                        gap: "xs",
-                        children: [
-                          /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
-                            size: 20
-                          }),
-                          /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                            children: "Download"
-                          })
-                        ]
-                      })
-                    }),
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                      onClick: handleUpload,
-                      color: "green",
-                      children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                        gap: "xs",
-                        children: [
-                          /* @__PURE__ */ jsx_runtime21.jsx(IconUpload, {
-                            size: 20
-                          }),
-                          /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                            children: "Upload"
-                          })
-                        ]
-                      })
-                    })
-                  ]
-                }),
-                /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
-                  label: "Download template fonts",
-                  checked: downloadTemplateFonts,
-                  onChange: (event) => setDownloadTemplateFonts(event.currentTarget.checked)
-                })
-              ]
-            })
-          ]
-        })
+            title: "Package Warning",
+            color: "orange",
+            style: { marginTop: "1rem" },
+            children: "Package is only active for a short-period."
+          }),
+          fontMigrationProgress && /* @__PURE__ */ jsx_runtime21.jsxs(Alert, {
+            icon: fontMigrationProgress.status === "error" ? /* @__PURE__ */ jsx_runtime21.jsx(IconAlertCircle, {
+              size: "1rem"
+            }) : /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+              size: "sm"
+            }),
+            title: fontMigrationProgress.status === "checking" ? "Checking Fonts" : fontMigrationProgress.status === "downloading" || fontMigrationProgress.status === "uploading" ? `Number of Fonts To Move: ${fontMigrationProgress.completed}/${fontMigrationProgress.total}` : fontMigrationProgress.status === "complete" ? "Font Migration Complete" : "Font Migration Error",
+            color: fontMigrationProgress.status === "error" ? "red" : fontMigrationProgress.status === "complete" ? "green" : "blue",
+            style: { marginTop: "1rem" },
+            children: [
+              fontMigrationProgress.current && /* @__PURE__ */ jsx_runtime21.jsxs(Text, {
+                size: "sm",
+                children: [
+                  "Current: ",
+                  fontMigrationProgress.current
+                ]
+              }),
+              fontMigrationProgress.error && /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                size: "sm",
+                style: { color: "red" },
+                children: fontMigrationProgress.error
+              })
+            ]
+          })
+        ]
       }),
       /* @__PURE__ */ jsx_runtime21.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
-        accept: ".json",
+        accept: ".json,.packageJson",
         onChange: handleFileChange
       }),
       /* @__PURE__ */ jsx_runtime21.jsx(ConnectorReplacementModal, {
@@ -43138,32 +43642,3214 @@ function DownloadModal({ opened, onClose }) {
   });
 }
 
-// src/components/Toolbar.tsx
+// src/components/MagicLayoutsModal.tsx
+var import_react258 = __toESM(require_react(), 1);
+var import_studio_sdk3 = __toESM(require_main(), 1);
+
+// src/studio/actions/magicLayout.js
+function magicLayoutScript(debug = false) {
+  const version2 = 1;
+  const layoutSizingData = "%DATA1%";
+  const layoutFramesData = "%DATA2%";
+  const muggleToVariableMagic = "%DATA3%";
+  const currentLayoutName = getSelectedLayoutName();
+  const variableMagicName = muggleToVariableMagic[currentLayoutName];
+  if (!variableMagicName)
+    return;
+  const magicLayoutName = getSelectedItemFromListVariable(variableMagicName);
+  const magicLayoutSize = layoutSizingData[magicLayoutName];
+  const magicLayoutFrames = layoutFramesData[magicLayoutName];
+  if (!magicLayoutSize || !magicLayoutFrames)
+    return;
+  const currentLayout = {
+    name: getSelectedLayoutName(),
+    height: getPageHeight(),
+    width: getPageWidth()
+  };
+  setPageSize(magicLayoutSize.w, magicLayoutSize.h);
+  studio.frames.all().forEach((frame) => {
+    frame.setVisible(false);
+  });
+  magicLayoutFrames.forEach((frameData) => {
+    const name = frameData.name;
+    setFrameVisible(name, true);
+    setFrameX(name, frameData.x);
+    setFrameY(name, frameData.y);
+    setFrameWidth(name, frameData.width);
+    setFrameHeight(name, frameData.height);
+    setFrameRotation(name, frameData.rotationDegrees);
+  });
+  setPageSize(currentLayout.width, currentLayout.height);
+}
+
+// src/components/MagicLayoutsModal.tsx
 var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+function MagicLayoutsModal({ opened, onClose }) {
+  const [isProcessing, setIsProcessing] = import_react258.useState(true);
+  const [isComplete, setIsComplete] = import_react258.useState(false);
+  const raiseError2 = appStore((store) => store.raiseError);
+  const gatherAllChildren = async (childrenLayoutIds, onlyLeafs, skipUnavailable = true, recur = 0) => {
+    const leafNames = [];
+    const leafIds = [];
+    if (childrenLayoutIds.length === 0) {
+      return { names: [], ids: [] };
+    }
+    const childLayouts = await Promise.all(childrenLayoutIds.map(async (id) => {
+      const layoutResult = await getLayoutById(window.SDK, id);
+      if (layoutResult.isError()) {
+        raiseError2(new Error(`Failed to get layout with id ${id}`));
+        throw new Error(`Failed to get layout with id ${id}`);
+      }
+      return layoutResult.value;
+    }));
+    console.log({
+      recur,
+      childrenIds: childrenLayoutIds,
+      children: childLayouts
+    });
+    for (const child of childLayouts) {
+      if (onlyLeafs) {
+        const hasChildren = child.childLayouts.length > 0;
+        if (!hasChildren) {
+          if (!skipUnavailable || child.availableForUser) {
+            leafNames.push(child.name);
+            leafIds.push(child.id);
+            console.log({
+              skipping: false,
+              child: child.name,
+              childLeaves: []
+            });
+          }
+        } else {
+          const childLeaves = await gatherAllChildren(child.childLayouts, onlyLeafs, skipUnavailable, recur + 1);
+          console.log({
+            skipping: true,
+            child: child.name,
+            childLeaves
+          });
+          leafNames.push(...childLeaves.names);
+          leafIds.push(...childLeaves.ids);
+        }
+        console.log("afterPush", leafNames, leafIds);
+      } else {
+        if (!skipUnavailable || child.availableForUser) {
+          leafNames.push(child.name);
+          leafIds.push(child.id);
+        }
+        const childLeaves = await gatherAllChildren(child.childLayouts, onlyLeafs, skipUnavailable, recur + 1);
+        leafNames.push(...childLeaves.names);
+        leafIds.push(...childLeaves.ids);
+      }
+    }
+    console.log("FINAL", { names: leafNames, ids: leafIds, recur });
+    return { names: leafNames, ids: leafIds };
+  };
+  const runMagicProcess = async () => {
+    const layoutsResult = await getAllLayouts(window.SDK);
+    if (layoutsResult.isError()) {
+      raiseError2(new Error("Failed to get layouts"));
+      throw new Error("Failed to get layouts");
+    }
+    const layouts = layoutsResult.value;
+    if (!layouts) {
+      raiseError2(new Error("Layouts data is undefined"));
+      throw new Error("Layouts data is undefined");
+    }
+    const magicLayouts = layouts.filter((layout) => layout.name.startsWith("✨"));
+    const muggleToMagicLayouts = magicLayouts.reduce((acc, magicLayout) => {
+      const normalLayoutName = magicLayout.name.replace("✨", "");
+      const normalLayout = layouts.find((layout) => layout.name === normalLayoutName);
+      if (normalLayout) {
+        acc[normalLayout.name] = magicLayout.name;
+      }
+      return acc;
+    }, {});
+    for (const [normalLayoutName, magicLayoutName] of Object.entries(muggleToMagicLayouts)) {
+      const normalLayout = layouts.find((layout) => layout.name === normalLayoutName);
+      if (normalLayout) {
+        const allChildren = await gatherAllChildren(normalLayout.childLayouts, false);
+        allChildren.names.forEach((childName) => {
+          muggleToMagicLayouts[childName] = magicLayoutName;
+        });
+      }
+    }
+    const childrenIds = [];
+    const result = await getAllVariables(window.SDK);
+    if (result.isOk()) {
+      const variables = result.value;
+      const idsToDelete = variables.filter((variable) => variable.name.startsWith("✨")).map((variable) => variable.id);
+      await deleteVariables(window.SDK, idsToDelete);
+    }
+    for (const magicLayout of magicLayouts) {
+      const leafChildren = await gatherAllChildren(magicLayout.childLayouts, true, false);
+      console.log("LEAF CHILDREN", leafChildren);
+      const childrenNames = leafChildren.names;
+      childrenIds.push(...leafChildren.ids);
+      (await gatherAllChildren(magicLayout.childLayouts, false)).ids.forEach((id) => setLayoutAvailable(window.SDK, id, false));
+      setLayoutAvailable(window.SDK, magicLayout.id, false);
+      await setOrCreateVariableValue({
+        studio: window.SDK,
+        name: magicLayout.name,
+        variableType: import_studio_sdk3.VariableType.list,
+        value: childrenNames
+      });
+      const visibilityResult = await setVariableVisblityWithName({
+        studio: window.SDK,
+        name: magicLayout.name,
+        visible: { type: import_studio_sdk3.VariableVisibilityType.invisible }
+      });
+      if (visibilityResult.isError()) {
+        raiseError2(new Error(`Failed to set visibility for variable ${magicLayout.name}`));
+      }
+    }
+    const allVariablesResult = await getAllVariables(window.SDK);
+    if (allVariablesResult.isError()) {
+      raiseError2(new Error("Failed to get all variables"));
+      throw new Error("Failed to get all variables");
+    }
+    const allVariables = allVariablesResult.value;
+    if (!allVariables) {
+      raiseError2(new Error("Variables data is undefined"));
+      throw new Error("Variables data is undefined");
+    }
+    let autoGenMagicId;
+    const existingAutoGenMagic = allVariables.find((variable) => variable.name === "AUTO_GEN_MAGIC");
+    if (existingAutoGenMagic) {
+      autoGenMagicId = existingAutoGenMagic.id;
+    } else {
+      const createGroupResult = await groupVariables({
+        studio: window.SDK,
+        name: "AUTO_GEN_MAGIC",
+        variableIds: []
+      });
+      if (createGroupResult.isError()) {
+        raiseError2(new Error("Failed to create AUTO_GEN_MAGIC group"));
+        throw new Error("Failed to create AUTO_GEN_MAGIC group");
+      }
+      const getByNameResult = await getByName(window.SDK, "AUTO_GEN_MAGIC");
+      if (getByNameResult.isError()) {
+        raiseError2(new Error("Failed to get AUTO_GEN_MAGIC by name"));
+        throw new Error("Failed to get AUTO_GEN_MAGIC by name");
+      }
+      if (!getByNameResult.value) {
+        raiseError2(new Error("AUTO_GEN_MAGIC variable not found after creation"));
+        throw new Error("AUTO_GEN_MAGIC variable not found after creation");
+      }
+      autoGenMagicId = getByNameResult.value.id;
+    }
+    const magicVariableNames = magicLayouts.map((layout) => layout.name);
+    const magicVariables = allVariables.filter((variable) => magicVariableNames.includes(variable.name));
+    for (const magicVariable of magicVariables) {
+      if (magicVariable.parentId !== autoGenMagicId) {
+        const moveResult = await moveVariable({
+          studio: window.SDK,
+          id: magicVariable.id,
+          newParentId: autoGenMagicId,
+          order: 0
+        });
+        if (moveResult.isError()) {
+          raiseError2(new Error(`Failed to move variable ${magicVariable.name}`));
+          throw new Error(`Failed to move variable ${magicVariable.name}`);
+        }
+      }
+    }
+    const allLayoutsResult = await getAllLayouts(window.SDK);
+    if (allLayoutsResult.isError()) {
+      raiseError2(new Error("Failed to get layouts for child filtering"));
+      throw new Error("Failed to get layouts for child filtering");
+    }
+    const allLayouts = allLayoutsResult.value;
+    if (!allLayouts) {
+      raiseError2(new Error("All layouts data is undefined"));
+      throw new Error("All layouts data is undefined");
+    }
+    const childLayouts = allLayouts.filter((layout) => childrenIds.includes(layout.id));
+    const childLayoutSizes = {};
+    for (const layout of childLayouts) {
+      childLayoutSizes[layout.name] = {
+        w: layout.width.value,
+        h: layout.height.value
+      };
+    }
+    const allFramesResult = await getAll(window.SDK);
+    if (allFramesResult.isError()) {
+      raiseError2(new Error("Failed to get all frames"));
+      throw new Error("Failed to get all frames");
+    }
+    const allFrames = allFramesResult.value;
+    if (!allFrames) {
+      raiseError2(new Error("All frames data is undefined"));
+      throw new Error("All frames data is undefined");
+    }
+    const frameIdToNameMap = new Map;
+    allFrames.forEach((frame) => {
+      frameIdToNameMap.set(frame.id, frame.name);
+    });
+    const layoutFramesData = {};
+    for (const layout of childLayouts) {
+      const framePropertiesResult = await getPropertiesOnLayout(window.SDK, layout.id);
+      if (framePropertiesResult.isError()) {
+        raiseError2(new Error(`Failed to get frame properties for layout ${layout.name}`));
+        throw new Error(`Failed to get frame properties for layout ${layout.name}`);
+      }
+      const frameProperties = framePropertiesResult.value;
+      if (!frameProperties || !Array.isArray(frameProperties)) {
+        raiseError2(new Error(`Frame properties is not an array for layout ${layout.name}`));
+        throw new Error(`Frame properties is not an array for layout ${layout.name}`);
+      }
+      const visibleFramesWithOverrides = [];
+      for (const frameProps of frameProperties) {
+        if (!frameProps) {
+          raiseError2(new Error(`Frame properties is null or undefined for layout ${layout.name}`));
+          throw new Error(`Frame properties is null or undefined for layout ${layout.name}`);
+        }
+        const isVisible = frameProps.isVisible?.value === true;
+        if (isVisible) {
+          const frameName = frameIdToNameMap.get(frameProps.id) || null;
+          if (!frameName) {
+            raiseError2(new Error(`Failed to get frame name for frame ID ${frameProps.id}`));
+            throw new Error(`Failed to get frame name for frame ID ${frameProps.id}`);
+          }
+          visibleFramesWithOverrides.push({
+            id: frameProps.id,
+            x: frameProps.x.value,
+            y: frameProps.y.value,
+            width: frameProps.width.value,
+            height: frameProps.height.value,
+            isVisible: frameProps.isVisible,
+            rotationDegrees: frameProps.rotationDegrees.value,
+            name: frameName
+          });
+        }
+      }
+      if (visibleFramesWithOverrides.length > 0) {
+        layoutFramesData[layout.name] = visibleFramesWithOverrides;
+      }
+    }
+    const script = magicLayoutScript.toString().replace('"%DATA1%"', JSON.stringify(childLayoutSizes)).replace('"%DATA2%"', JSON.stringify(layoutFramesData)).replace('"%DATA3%"', JSON.stringify(muggleToMagicLayouts)) + `
+magicLayoutScript(false)`;
+    const updateResult = await updateAction({
+      name: "AUTO_GEN_MAGIC_LAYOUT",
+      studio: window.SDK
+    }, {
+      name: "AUTO_GEN_MAGIC_LAYOUT",
+      triggers: [
+        ...magicVariables.map((variable) => ({
+          event: import_studio_sdk3.ActionEditorEvent.variableValueChanged,
+          triggers: [variable.id]
+        })),
+        { event: import_studio_sdk3.ActionEditorEvent.selectedLayoutChanged },
+        { event: import_studio_sdk3.ActionEditorEvent.documentLoaded }
+      ],
+      script
+    });
+    return updateResult;
+  };
+  import_react258.useEffect(() => {
+    if (!opened) {
+      setIsProcessing(true);
+      setIsComplete(false);
+      return;
+    }
+    const executeMagic = async () => {
+      try {
+        await runMagicProcess();
+        setIsProcessing(false);
+        setIsComplete(true);
+      } catch (error) {
+        console.error("Magic process failed:", error);
+        setIsProcessing(false);
+      }
+    };
+    executeMagic();
+  }, [opened]);
+  const handleClose = () => {
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
+    opened,
+    onClose: handleClose,
+    title: "Magic Layouts",
+    centered: true,
+    size: "md",
+    closeOnClickOutside: false,
+    closeOnEscape: false,
+    children: /* @__PURE__ */ jsx_runtime22.jsx(Stack, {
+      align: "center",
+      gap: "lg",
+      p: "lg",
+      children: isProcessing ? /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
+        children: [
+          /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
+            size: "lg",
+            color: "purple"
+          }),
+          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+            size: "lg",
+            fw: 500,
+            children: "Creating Magic ✨"
+          })
+        ]
+      }) : /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
+        children: [
+          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+            size: "lg",
+            fw: 500,
+            c: "green",
+            children: "Magic Created ✨"
+          }),
+          /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+            onClick: handleClose,
+            color: "purple",
+            size: "md",
+            disabled: !isComplete,
+            children: "Close"
+          })
+        ]
+      })
+    })
+  });
+}
+
+// src/components/ConnectorCleanupModal.tsx
+var import_react259 = __toESM(require_react(), 1);
+var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+function ConnectorCleanupModal({
+  opened,
+  onClose
+}) {
+  const [connectors, setConnectors] = import_react259.useState([]);
+  const [selectedConnectors, setSelectedConnectors] = import_react259.useState(new Set);
+  const [isLoading, setIsLoading] = import_react259.useState(false);
+  const [isDeleting, setIsDeleting] = import_react259.useState(false);
+  const [isMergeModalOpen, setIsMergeModalOpen] = import_react259.useState(false);
+  const [mergeTargetId, setMergeTargetId] = import_react259.useState(null);
+  const [isMerging, setIsMerging] = import_react259.useState(false);
+  const { raiseError: raiseError2 } = useAppStore();
+  import_react259.useEffect(() => {
+    if (opened) {
+      loadConnectors();
+    }
+  }, [opened]);
+  const loadConnectors = async () => {
+    setIsLoading(true);
+    setSelectedConnectors(new Set);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const connectorsResult = await getCurrentConnectors(studioResult.value);
+      if (!connectorsResult.isOk()) {
+        raiseError2(new Error(connectorsResult.error?.message || "Failed to load connectors"));
+        return;
+      }
+      setConnectors(connectorsResult.value);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleConnectorToggle = (connectorId) => {
+    const newSelected = new Set(selectedConnectors);
+    if (newSelected.has(connectorId)) {
+      newSelected.delete(connectorId);
+    } else {
+      newSelected.add(connectorId);
+    }
+    setSelectedConnectors(newSelected);
+  };
+  const handleSelectAll = () => {
+    if (selectedConnectors.size === connectors.length) {
+      setSelectedConnectors(new Set);
+    } else {
+      setSelectedConnectors(new Set(connectors.map((c2) => c2.id)));
+    }
+  };
+  const handleDeleteSelected = async () => {
+    if (selectedConnectors.size === 0)
+      return;
+    setIsDeleting(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const selectedIds = Array.from(selectedConnectors);
+      for (const connectorId of selectedIds) {
+        const result = await unregisterConnector(studio2, connectorId);
+        if (!result.isOk()) {
+          raiseError2(new Error(`Failed to delete connector ${connectorId}: ${result.error?.message}`));
+        }
+      }
+      await loadConnectors();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+  const handleMergeConnectors = () => {
+    if (selectedConnectors.size < 2)
+      return;
+    setMergeTargetId(null);
+    setIsMergeModalOpen(true);
+  };
+  const handleMergeCancel = () => {
+    setIsMergeModalOpen(false);
+    setMergeTargetId(null);
+  };
+  const handleMergeConfirm = async () => {
+    if (!mergeTargetId || selectedConnectors.size < 2)
+      return;
+    setIsMerging(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const selectedIds = Array.from(selectedConnectors);
+      const result = await mergeConnectors(studio2, mergeTargetId, selectedIds);
+      if (!result.isOk()) {
+        raiseError2(new Error(result.error?.message || "Failed to merge connectors"));
+        return;
+      }
+      setIsMergeModalOpen(false);
+      setMergeTargetId(null);
+      await loadConnectors();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsMerging(false);
+    }
+  };
+  const formatUsageCount = (usage) => {
+    const imageCount = usage.images.length;
+    const variableCount = usage.variables.length;
+    if (imageCount === 0 && variableCount === 0) {
+      return "None";
+    }
+    const parts = [];
+    if (imageCount > 0)
+      parts.push(`${imageCount} frame${imageCount !== 1 ? "s" : ""}`);
+    if (variableCount > 0)
+      parts.push(`${variableCount} variable${variableCount !== 1 ? "s" : ""}`);
+    return parts.join(", ");
+  };
+  const hasSelectedConnectors = selectedConnectors.size > 0;
+  const isAllSelected = selectedConnectors.size === connectors.length && connectors.length > 0;
+  return /* @__PURE__ */ jsx_runtime23.jsxs(jsx_runtime23.Fragment, {
+    children: [
+      /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
+        opened,
+        onClose,
+        title: "Connector Cleanup",
+        size: "xl",
+        centered: true,
+        children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+          children: [
+            /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+              size: "sm",
+              c: "dimmed",
+              children: "Manage and remove unused connectors from your document."
+            }),
+            isLoading ? /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+              justify: "center",
+              p: "xl",
+              children: [
+                /* @__PURE__ */ jsx_runtime23.jsx(Loader, {
+                  size: "md"
+                }),
+                /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                  children: "Loading connectors..."
+                })
+              ]
+            }) : /* @__PURE__ */ jsx_runtime23.jsx(jsx_runtime23.Fragment, {
+              children: connectors.length === 0 ? /* @__PURE__ */ jsx_runtime23.jsx(Alert, {
+                icon: /* @__PURE__ */ jsx_runtime23.jsx(IconAlertCircle, {
+                  size: 16
+                }),
+                color: "blue",
+                children: "No connectors found in this document."
+              }) : /* @__PURE__ */ jsx_runtime23.jsxs(jsx_runtime23.Fragment, {
+                children: [
+                  /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+                    justify: "space-between",
+                    children: [
+                      /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+                        children: [
+                          /* @__PURE__ */ jsx_runtime23.jsxs(Button, {
+                            onClick: handleDeleteSelected,
+                            disabled: !hasSelectedConnectors || isDeleting || isMerging,
+                            color: "red",
+                            loading: isDeleting,
+                            children: [
+                              "Delete Selected (",
+                              selectedConnectors.size,
+                              ")"
+                            ]
+                          }),
+                          /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                            onClick: handleMergeConnectors,
+                            disabled: selectedConnectors.size < 2 || isDeleting || isMerging,
+                            color: "blue",
+                            variant: "outline",
+                            children: "Merge Connectors"
+                          })
+                        ]
+                      }),
+                      /* @__PURE__ */ jsx_runtime23.jsx(Checkbox, {
+                        label: `Select All (${connectors.length})`,
+                        checked: isAllSelected,
+                        indeterminate: hasSelectedConnectors && !isAllSelected,
+                        onChange: handleSelectAll,
+                        disabled: isDeleting || isMerging
+                      })
+                    ]
+                  }),
+                  /* @__PURE__ */ jsx_runtime23.jsx(ScrollArea, {
+                    h: 400,
+                    children: /* @__PURE__ */ jsx_runtime23.jsxs(Table, {
+                      striped: true,
+                      highlightOnHover: true,
+                      children: [
+                        /* @__PURE__ */ jsx_runtime23.jsx(Table.Thead, {
+                          children: /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
+                            children: [
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                w: 50
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                children: "Name"
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                children: "Type"
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                children: "ID"
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                                children: "Usage"
+                              })
+                            ]
+                          })
+                        }),
+                        /* @__PURE__ */ jsx_runtime23.jsx(Table.Tbody, {
+                          children: connectors.map((connector) => /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
+                            children: [
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime23.jsx(Checkbox, {
+                                  checked: selectedConnectors.has(connector.id),
+                                  onChange: () => handleConnectorToggle(connector.id),
+                                  disabled: isDeleting
+                                })
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: connector.name
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                                  tt: "capitalize",
+                                  children: connector.type
+                                })
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                                  size: "xs",
+                                  c: "dimmed",
+                                  ff: "monospace",
+                                  children: connector.id
+                                })
+                              }),
+                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                                  size: "sm",
+                                  children: formatUsageCount(connector.usesInTemplate)
+                                })
+                              })
+                            ]
+                          }, connector.id))
+                        })
+                      ]
+                    })
+                  })
+                ]
+              })
+            }),
+            /* @__PURE__ */ jsx_runtime23.jsx(Group, {
+              justify: "flex-end",
+              children: /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                onClick: onClose,
+                variant: "outline",
+                children: "Close"
+              })
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
+        opened: isMergeModalOpen,
+        onClose: handleMergeCancel,
+        title: "Merge All Connectors together",
+        centered: true,
+        size: "md",
+        children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+          children: [
+            /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+              size: "sm",
+              c: "dimmed",
+              children: "Select the connector to merge all selected connectors into. The other connectors will be removed and all references will be updated."
+            }),
+            /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+              gap: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                  fw: 500,
+                  children: "Merge into:"
+                }),
+                /* @__PURE__ */ jsx_runtime23.jsx(Select, {
+                  placeholder: "Select target connector",
+                  data: Array.from(selectedConnectors).map((id) => {
+                    const connector = connectors.find((c2) => c2.id === id);
+                    return {
+                      value: id,
+                      label: connector ? `${connector.name} (${id})` : id
+                    };
+                  }),
+                  value: mergeTargetId,
+                  onChange: setMergeTargetId,
+                  disabled: isMerging
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+              justify: "flex-end",
+              mt: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                  onClick: handleMergeCancel,
+                  variant: "outline",
+                  disabled: isMerging,
+                  children: "Cancel"
+                }),
+                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                  onClick: handleMergeConfirm,
+                  disabled: !mergeTargetId || isMerging,
+                  loading: isMerging,
+                  color: "blue",
+                  children: "Merge"
+                })
+              ]
+            })
+          ]
+        })
+      })
+    ]
+  });
+}
+
+// src/components/ManualCropManager/ManualCropManagerModal.tsx
+var import_react265 = __toESM(require_react(), 1);
+
+// src/components/ManualCropManager/LayoutViewer.tsx
+var import_react260 = __toESM(require_react(), 1);
+init_getManualCropsFromDocByConnector();
+var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+function LayoutViewer({
+  selectedLayoutIds,
+  onSelectionChange,
+  selectedConnectorId,
+  onRefreshFunctionReady
+}) {
+  const [layouts, setLayouts] = import_react260.useState([]);
+  const [searchQuery, setSearchQuery] = import_react260.useState("");
+  const [isLoading, setIsLoading] = import_react260.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react260.useState(new Set);
+  const [isInitialized, setIsInitialized] = import_react260.useState(false);
+  const [activeFilters, setActiveFilters] = import_react260.useState([]);
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react260.useState(false);
+  const raiseError2 = appStore((store) => store.raiseError);
+  import_react260.useEffect(() => {
+    const storedExpanded = sessionStorage.getItem("tempManualCropManager_layoutsExpanded");
+    if (storedExpanded) {
+      try {
+        const expandedIds = JSON.parse(storedExpanded);
+        setExpandedLayouts(new Set(expandedIds));
+      } catch (error) {
+        setExpandedLayouts(new Set);
+      }
+    }
+    setIsInitialized(true);
+  }, []);
+  import_react260.useEffect(() => {
+    const storedFilters = localStorage.getItem("tempManualCropManager_layoutViewerFilters");
+    if (storedFilters) {
+      try {
+        const filters = JSON.parse(storedFilters);
+        setActiveFilters(filters);
+      } catch (error) {
+        setActiveFilters([]);
+      }
+    }
+  }, []);
+  import_react260.useEffect(() => {
+    loadLayouts();
+  }, []);
+  import_react260.useEffect(() => {
+    if (isInitialized) {
+      const expandedIds = Array.from(expandedLayouts);
+      sessionStorage.setItem("tempManualCropManager_layoutsExpanded", JSON.stringify(expandedIds));
+    }
+  }, [expandedLayouts, isInitialized]);
+  import_react260.useEffect(() => {
+    localStorage.setItem("tempManualCropManager_layoutViewerFilters", JSON.stringify(activeFilters));
+  }, [activeFilters]);
+  import_react260.useEffect(() => {
+    if (selectedConnectorId) {
+      updateManualCropIndicators();
+    }
+  }, [selectedConnectorId]);
+  const loadLayouts = async () => {
+    try {
+      setIsLoading(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const layoutsResult = await getAllLayouts(studioResult.value);
+      if (!layoutsResult.isOk()) {
+        raiseError2(new Error("Failed to load layouts: " + layoutsResult.error?.message));
+        return;
+      }
+      const layoutsData = layoutsResult.value;
+      const layoutNodes = buildLayoutTree(layoutsData);
+      setLayouts(layoutNodes);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load layouts"));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const updateManualCropIndicators = import_react260.useCallback(async () => {
+    if (!selectedConnectorId)
+      return;
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const cropsResult = await getManualCropsFromDocByConnector(studioResult.value, selectedConnectorId);
+      if (cropsResult.isError()) {
+        raiseError2(new Error(`Failed to load manual crops: ${cropsResult.error?.message}`));
+        return;
+      }
+      if (!cropsResult.isOk()) {
+        raiseError2(new Error("Failed to load manual crops: Invalid result"));
+        return;
+      }
+      const cropsData = cropsResult.value;
+      const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
+      setLayouts((prevLayouts) => updateLayoutCropIndicators(prevLayouts, layoutsWithCrops));
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to update manual crop indicators"));
+    }
+  }, [selectedConnectorId, raiseError2]);
+  import_react260.useEffect(() => {
+    if (onRefreshFunctionReady) {
+      onRefreshFunctionReady(updateManualCropIndicators);
+    }
+  }, [onRefreshFunctionReady, updateManualCropIndicators]);
+  const updateLayoutCropIndicators = (layouts2, layoutsWithCrops) => {
+    return layouts2.map((layout) => ({
+      ...layout,
+      hasManualCrops: layoutsWithCrops.has(layout.id),
+      children: updateLayoutCropIndicators(layout.children, layoutsWithCrops)
+    }));
+  };
+  const buildLayoutTree = (layouts2) => {
+    const layoutMap = new Map;
+    const rootLayouts = [];
+    layouts2.forEach((layout) => {
+      layoutMap.set(layout.id, {
+        id: layout.id,
+        name: layout.name,
+        parentId: layout.parentId,
+        children: [],
+        isExpanded: false,
+        hasManualCrops: false,
+        level: 0,
+        isVisible: layout.availableForUser !== false,
+        isFilteredParent: false
+      });
+    });
+    layouts2.forEach((layout) => {
+      const node2 = layoutMap.get(layout.id);
+      if (layout.parentId) {
+        const parent = layoutMap.get(layout.parentId);
+        if (parent) {
+          parent.children.push(node2);
+          node2.level = parent.level + 1;
+        }
+      } else {
+        rootLayouts.push(node2);
+      }
+    });
+    return rootLayouts;
+  };
+  const applyFilters = (layouts2, filters) => {
+    const hasVisibleFilter = filters.includes("Visible");
+    const hasManualCropsFilter = filters.includes("With Manual Crops");
+    const filterLayouts = (layouts3) => {
+      return layouts3.reduce((acc, layout) => {
+        const filteredChildren = filterLayouts(layout.children);
+        let matchesFilters = true;
+        if (hasVisibleFilter && !layout.isVisible) {
+          matchesFilters = false;
+        }
+        if (hasManualCropsFilter && !layout.hasManualCrops) {
+          matchesFilters = false;
+        }
+        if (matchesFilters || filteredChildren.length > 0) {
+          acc.push({
+            ...layout,
+            children: filteredChildren,
+            isFilteredParent: !matchesFilters && filteredChildren.length > 0
+          });
+        }
+        return acc;
+      }, []);
+    };
+    return filterLayouts(layouts2);
+  };
+  const filteredLayouts = import_react260.useMemo(() => {
+    let processedLayouts = layouts;
+    if (activeFilters.length > 0) {
+      processedLayouts = applyFilters(layouts, activeFilters);
+    }
+    if (!searchQuery.trim())
+      return processedLayouts;
+    const filterLayouts = (layouts2) => {
+      return layouts2.reduce((acc, layout) => {
+        const matchesSearch = layout.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const filteredChildren = filterLayouts(layout.children);
+        if (matchesSearch || filteredChildren.length > 0) {
+          acc.push({
+            ...layout,
+            children: filteredChildren,
+            isExpanded: filteredChildren.length > 0 ? true : layout.isExpanded
+          });
+        }
+        return acc;
+      }, []);
+    };
+    return filterLayouts(processedLayouts);
+  }, [layouts, searchQuery, activeFilters]);
+  const toggleLayoutExpanded = (layoutId) => {
+    setExpandedLayouts((prev2) => {
+      const newSet = new Set(prev2);
+      if (newSet.has(layoutId)) {
+        newSet.delete(layoutId);
+      } else {
+        newSet.add(layoutId);
+      }
+      return newSet;
+    });
+  };
+  const expandAll = () => {
+    const allLayoutIds = new Set;
+    const collectIds = (layouts2) => {
+      layouts2.forEach((layout) => {
+        if (layout.children.length > 0) {
+          allLayoutIds.add(layout.id);
+        }
+        collectIds(layout.children);
+      });
+    };
+    collectIds(layouts);
+    setExpandedLayouts(allLayoutIds);
+  };
+  const collapseAll = () => {
+    setExpandedLayouts(new Set);
+  };
+  const deselectAll = () => {
+    onSelectionChange([]);
+  };
+  const toggleLayoutSelection = (layoutId) => {
+    const newSelection = selectedLayoutIds.includes(layoutId) ? selectedLayoutIds.filter((id) => id !== layoutId) : [...selectedLayoutIds, layoutId];
+    onSelectionChange(newSelection);
+  };
+  const toggleChildrenSelection = (layout) => {
+    const allChildIds = getAllChildIds(layout);
+    const allChildrenSelected = allChildIds.every((id) => selectedLayoutIds.includes(id));
+    if (allChildrenSelected) {
+      const newSelection = selectedLayoutIds.filter((id) => !allChildIds.includes(id));
+      onSelectionChange(newSelection);
+    } else {
+      const newSelection = [...new Set([...selectedLayoutIds, ...allChildIds])];
+      onSelectionChange(newSelection);
+    }
+  };
+  const getAllChildIds = (layout) => {
+    const childIds = [];
+    const collectIds = (node2) => {
+      childIds.push(node2.id);
+      node2.children.forEach(collectIds);
+    };
+    layout.children.forEach(collectIds);
+    return childIds;
+  };
+  const getCheckboxState = (layout) => {
+    if (layout.children.length === 0)
+      return "unchecked";
+    const allChildIds = getAllChildIds(layout);
+    const selectedChildIds = allChildIds.filter((id) => selectedLayoutIds.includes(id));
+    if (selectedChildIds.length === 0)
+      return "unchecked";
+    if (selectedChildIds.length === allChildIds.length)
+      return "checked";
+    return "indeterminate";
+  };
+  if (isLoading) {
+    return /* @__PURE__ */ jsx_runtime24.jsx(Center, {
+      style: { height: "100%" },
+      children: /* @__PURE__ */ jsx_runtime24.jsx(Loader, {
+        size: "sm"
+      })
+    });
+  }
+  return /* @__PURE__ */ jsx_runtime24.jsxs(Box, {
+    style: { height: "100%", display: "flex", flexDirection: "column" },
+    children: [
+      /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+        p: "md",
+        style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
+        children: /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+          gap: "xs",
+          children: [
+            /* @__PURE__ */ jsx_runtime24.jsx(TextInput, {
+              placeholder: "Search layouts...",
+              value: searchQuery,
+              onChange: (e) => setSearchQuery(e.target.value),
+              leftSection: /* @__PURE__ */ jsx_runtime24.jsx(IconSearch, {
+                size: 16
+              }),
+              size: "sm"
+            }),
+            /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+              gap: "xs",
+              children: [
+                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  variant: "subtle",
+                  size: "xs",
+                  onClick: expandAll,
+                  children: "Expand All"
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  variant: "subtle",
+                  size: "xs",
+                  onClick: collapseAll,
+                  children: "Collapse All"
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  variant: "subtle",
+                  size: "xs",
+                  onClick: deselectAll,
+                  children: "Deselect All"
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsxs(Popover, {
+                  opened: isFilterPopoverOpen,
+                  onClose: () => setIsFilterPopoverOpen(false),
+                  position: "bottom-start",
+                  withArrow: true,
+                  children: [
+                    /* @__PURE__ */ jsx_runtime24.jsx(Popover.Target, {
+                      children: /* @__PURE__ */ jsx_runtime24.jsx(Tooltip, {
+                        label: "Filter",
+                        position: "top",
+                        children: /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+                          variant: "subtle",
+                          size: "xs",
+                          onClick: () => setIsFilterPopoverOpen(!isFilterPopoverOpen),
+                          color: activeFilters.length > 0 ? "yellow" : "gray",
+                          children: activeFilters.length > 0 ? /* @__PURE__ */ jsx_runtime24.jsx(IconFilterFilled, {
+                            size: 14
+                          }) : /* @__PURE__ */ jsx_runtime24.jsx(IconFilter, {
+                            size: 14
+                          })
+                        })
+                      })
+                    }),
+                    /* @__PURE__ */ jsx_runtime24.jsx(Popover.Dropdown, {
+                      children: /* @__PURE__ */ jsx_runtime24.jsx(MultiSelect, {
+                        label: "Filter layouts",
+                        placeholder: "Select filters",
+                        data: [
+                          { value: "Visible", label: "Visible" },
+                          { value: "With Manual Crops", label: "With Manual Crops" }
+                        ],
+                        value: activeFilters,
+                        onChange: setActiveFilters,
+                        size: "sm",
+                        style: { minWidth: 200 }
+                      })
+                    })
+                  ]
+                })
+              ]
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime24.jsx(ScrollArea, {
+        style: { flex: 1 },
+        children: /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+          p: "md",
+          children: /* @__PURE__ */ jsx_runtime24.jsx(LayoutTree, {
+            layouts: filteredLayouts,
+            selectedLayoutIds,
+            expandedLayouts,
+            onToggleExpanded: toggleLayoutExpanded,
+            onToggleSelection: toggleLayoutSelection,
+            onToggleChildrenSelection: toggleChildrenSelection,
+            getCheckboxState
+          })
+        })
+      })
+    ]
+  });
+}
+function LayoutTree({
+  layouts,
+  selectedLayoutIds,
+  expandedLayouts,
+  onToggleExpanded,
+  onToggleSelection,
+  onToggleChildrenSelection,
+  getCheckboxState
+}) {
+  return /* @__PURE__ */ jsx_runtime24.jsx(Stack, {
+    gap: "xs",
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime24.jsx(LayoutTreeItem, {
+      layout,
+      selectedLayoutIds,
+      expandedLayouts,
+      onToggleExpanded,
+      onToggleSelection,
+      onToggleChildrenSelection,
+      getCheckboxState
+    }, layout.id))
+  });
+}
+function LayoutTreeItem({
+  layout,
+  selectedLayoutIds,
+  expandedLayouts,
+  onToggleExpanded,
+  onToggleSelection,
+  onToggleChildrenSelection,
+  getCheckboxState
+}) {
+  const hasChildren = layout.children.length > 0;
+  const isExpanded = expandedLayouts.has(layout.id);
+  const isSelected = selectedLayoutIds.includes(layout.id);
+  const checkboxState = getCheckboxState(layout);
+  const isFilteredParent = layout.isFilteredParent || false;
+  return /* @__PURE__ */ jsx_runtime24.jsxs(Box, {
+    children: [
+      /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+        gap: "xs",
+        style: {
+          marginLeft: layout.level * 10,
+          padding: "4px 8px",
+          borderRadius: "4px",
+          backgroundColor: isSelected ? "var(--mantine-color-blue-1)" : "transparent",
+          opacity: isFilteredParent ? 0.5 : 1
+        },
+        children: [
+          hasChildren ? /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+            variant: "subtle",
+            size: "xs",
+            onClick: (e) => {
+              e.stopPropagation();
+              onToggleExpanded(layout.id);
+            },
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime24.jsx(IconChevronDown, {
+              size: 12
+            }) : /* @__PURE__ */ jsx_runtime24.jsx(IconChevronRight, {
+              size: 12
+            })
+          }) : /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+            style: { width: 20 }
+          }),
+          hasChildren && /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+            checked: checkboxState === "checked",
+            indeterminate: checkboxState === "indeterminate",
+            onChange: () => onToggleChildrenSelection(layout),
+            size: "sm",
+            onClick: (e) => e.stopPropagation(),
+            disabled: isFilteredParent
+          }),
+          isFilteredParent ? /* @__PURE__ */ jsx_runtime24.jsx(IconEyeClosed, {
+            size: 14,
+            color: "gray"
+          }) : /* @__PURE__ */ jsx_runtime24.jsx(IconCrop, {
+            size: 14,
+            color: layout.hasManualCrops ? "orange" : "gray"
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+            size: "sm",
+            style: {
+              flex: 1,
+              cursor: isFilteredParent ? "default" : "pointer",
+              color: layout.hasManualCrops ? "orange" : undefined
+            },
+            onClick: isFilteredParent ? undefined : () => onToggleSelection(layout.id),
+            children: layout.name
+          })
+        ]
+      }),
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime24.jsx(LayoutTree, {
+        layouts: layout.children,
+        selectedLayoutIds,
+        expandedLayouts,
+        onToggleExpanded,
+        onToggleSelection,
+        onToggleChildrenSelection,
+        getCheckboxState
+      })
+    ]
+  });
+}
+
+// src/components/ManualCropManager/ManualCropEditor.tsx
+var import_react264 = __toESM(require_react(), 1);
+init_documentHandler();
+init_getManualCropsFromDocByConnector();
+
+// src/studio-adapter/setManualCropsForLayout.ts
+init_dist();
+function setManualCropsForLayout(documentState, layoutId, connectorId, manualCrops) {
+  try {
+    const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
+    console.log("Updated document state:", updatedDocumentState);
+    const layout = updatedDocumentState.layouts?.find((l2) => l2.id === layoutId);
+    if (!layout) {
+      return Result.error(new Error(`Layout with ID ${layoutId} not found`));
+    }
+    if (!layout.frameProperties) {
+      layout.frameProperties = [];
+    }
+    for (const manualCrop of manualCrops) {
+      let frameProperty = layout.frameProperties.find((fp) => fp.id === manualCrop.frameId);
+      if (!frameProperty) {
+        frameProperty = {
+          id: manualCrop.frameId,
+          type: "child",
+          perAssetCrop: {}
+        };
+        layout.frameProperties.push(frameProperty);
+      }
+      if (!frameProperty.perAssetCrop) {
+        frameProperty.perAssetCrop = {};
+      }
+      if (!frameProperty.perAssetCrop[connectorId]) {
+        frameProperty.perAssetCrop[connectorId] = {};
+      }
+      frameProperty.perAssetCrop[connectorId][manualCrop.name] = {
+        left: manualCrop.left,
+        top: manualCrop.top,
+        width: manualCrop.width,
+        height: manualCrop.height,
+        rotationDegrees: manualCrop.rotationDegrees,
+        originalParentWidth: manualCrop.originalParentWidth,
+        originalParentHeight: manualCrop.originalParentHeight
+      };
+    }
+    return Result.ok(updatedDocumentState);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error("Failed to set manual crops for layout"));
+  }
+}
+
+// src/studio-adapter/deleteManualCropsForLayout.ts
+init_dist();
+function deleteManualCropsForLayout(documentState, layoutId, connectorId) {
+  try {
+    const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
+    const layout = updatedDocumentState.layouts?.find((l2) => l2.id === layoutId);
+    if (!layout) {
+      return Result.error(new Error(`Layout with ID ${layoutId} not found`));
+    }
+    for (const frameProperty of layout.frameProperties) {
+      if (frameProperty.perAssetCrop && frameProperty.perAssetCrop[connectorId]) {
+        delete frameProperty.perAssetCrop[connectorId];
+        if (Object.keys(frameProperty.perAssetCrop).length === 0) {
+          delete frameProperty.perAssetCrop;
+        }
+      }
+    }
+    return Result.ok(updatedDocumentState);
+  } catch (error) {
+    return Result.error(error instanceof Error ? error : new Error("Failed to delete manual crops for layout"));
+  }
+}
+
+// src/components/ManualCropManager/CopyCropToLayerModal.tsx
+var import_react261 = __toESM(require_react(), 1);
+init_getManualCropsFromDocByConnector();
+var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
+function CopyCropToLayerModal({
+  opened,
+  onClose,
+  sourceLayoutId,
+  checkedCrops,
+  selectedConnectorId,
+  onCopy
+}) {
+  const [layouts, setLayouts] = import_react261.useState([]);
+  const [searchQuery, setSearchQuery] = import_react261.useState("");
+  const [isLoading, setIsLoading] = import_react261.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react261.useState(new Set);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react261.useState([]);
+  const raiseError2 = appStore((store) => store.raiseError);
+  import_react261.useEffect(() => {
+    if (opened) {
+      loadLayouts();
+      setSelectedLayoutIds([]);
+      setSearchQuery("");
+    }
+  }, [opened]);
+  import_react261.useEffect(() => {
+    if (selectedConnectorId && opened) {
+      updateManualCropIndicators();
+    }
+  }, [selectedConnectorId, opened]);
+  const loadLayouts = async () => {
+    try {
+      setIsLoading(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const layoutsResult = await getAllLayouts(studioResult.value);
+      if (!layoutsResult.isOk()) {
+        raiseError2(new Error("Failed to load layouts: " + layoutsResult.error?.message));
+        return;
+      }
+      const layoutsData = layoutsResult.value;
+      const layoutNodes = buildLayoutTree(layoutsData);
+      setLayouts(layoutNodes);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load layouts"));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const updateManualCropIndicators = async () => {
+    if (!selectedConnectorId)
+      return;
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const cropsResult = await getManualCropsFromDocByConnector(studioResult.value, selectedConnectorId);
+      if (cropsResult.isError()) {
+        raiseError2(new Error(`Failed to load manual crops: ${cropsResult.error?.message}`));
+        return;
+      }
+      if (!cropsResult.isOk()) {
+        raiseError2(new Error("Failed to load manual crops: Invalid result"));
+        return;
+      }
+      const cropsData = cropsResult.value;
+      const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
+      setLayouts((prevLayouts) => updateLayoutCropIndicators(prevLayouts, layoutsWithCrops));
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to update manual crop indicators"));
+    }
+  };
+  const updateLayoutCropIndicators = (layouts2, layoutsWithCrops) => {
+    return layouts2.map((layout) => ({
+      ...layout,
+      hasManualCrops: layoutsWithCrops.has(layout.id),
+      children: updateLayoutCropIndicators(layout.children, layoutsWithCrops)
+    }));
+  };
+  const buildLayoutTree = (layouts2) => {
+    const layoutMap = new Map;
+    const rootLayouts = [];
+    layouts2.forEach((layout) => {
+      layoutMap.set(layout.id, {
+        id: layout.id,
+        name: layout.name,
+        parentId: layout.parentId,
+        children: [],
+        isExpanded: false,
+        hasManualCrops: false,
+        level: 0
+      });
+    });
+    layouts2.forEach((layout) => {
+      const node2 = layoutMap.get(layout.id);
+      if (layout.parentId) {
+        const parent = layoutMap.get(layout.parentId);
+        if (parent) {
+          parent.children.push(node2);
+          node2.level = parent.level + 1;
+        }
+      } else {
+        rootLayouts.push(node2);
+      }
+    });
+    return rootLayouts;
+  };
+  const filteredLayouts = import_react261.useMemo(() => {
+    if (!searchQuery.trim())
+      return layouts;
+    const filterLayouts = (layouts2) => {
+      return layouts2.reduce((acc, layout) => {
+        const matchesSearch = layout.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const filteredChildren = filterLayouts(layout.children);
+        if (matchesSearch || filteredChildren.length > 0) {
+          acc.push({
+            ...layout,
+            children: filteredChildren,
+            isExpanded: filteredChildren.length > 0 ? true : layout.isExpanded
+          });
+        }
+        return acc;
+      }, []);
+    };
+    return filterLayouts(layouts);
+  }, [layouts, searchQuery]);
+  const toggleLayoutExpanded = (layoutId) => {
+    setExpandedLayouts((prev2) => {
+      const newSet = new Set(prev2);
+      if (newSet.has(layoutId)) {
+        newSet.delete(layoutId);
+      } else {
+        newSet.add(layoutId);
+      }
+      return newSet;
+    });
+  };
+  const expandAll = () => {
+    const allLayoutIds = new Set;
+    const collectIds = (layouts2) => {
+      layouts2.forEach((layout) => {
+        if (layout.children.length > 0) {
+          allLayoutIds.add(layout.id);
+        }
+        collectIds(layout.children);
+      });
+    };
+    collectIds(layouts);
+    setExpandedLayouts(allLayoutIds);
+  };
+  const collapseAll = () => {
+    setExpandedLayouts(new Set);
+  };
+  const deselectAll = () => {
+    setSelectedLayoutIds([]);
+  };
+  const toggleLayoutSelection = (layoutId) => {
+    if (layoutId === sourceLayoutId)
+      return;
+    const newSelection = selectedLayoutIds.includes(layoutId) ? selectedLayoutIds.filter((id) => id !== layoutId) : [...selectedLayoutIds, layoutId];
+    setSelectedLayoutIds(newSelection);
+  };
+  const handleCopy = async () => {
+    try {
+      await onCopy(selectedLayoutIds, checkedCrops);
+      onClose();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to copy crops"));
+    }
+  };
+  if (isLoading) {
+    return /* @__PURE__ */ jsx_runtime25.jsx(Modal, {
+      opened,
+      onClose,
+      title: "Copy Crops to Layouts",
+      size: "lg",
+      children: /* @__PURE__ */ jsx_runtime25.jsx(Center, {
+        style: { height: 400 },
+        children: /* @__PURE__ */ jsx_runtime25.jsx(Loader, {
+          size: "sm"
+        })
+      })
+    });
+  }
+  return /* @__PURE__ */ jsx_runtime25.jsx(Modal, {
+    opened,
+    onClose,
+    title: "Copy Crops to Layouts",
+    size: "lg",
+    children: /* @__PURE__ */ jsx_runtime25.jsxs(Box, {
+      style: { height: 500, display: "flex", flexDirection: "column" },
+      children: [
+        /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+          p: "md",
+          style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
+          children: /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
+            gap: "xs",
+            children: [
+              /* @__PURE__ */ jsx_runtime25.jsx(TextInput, {
+                placeholder: "Search layouts...",
+                value: searchQuery,
+                onChange: (e) => setSearchQuery(e.target.value),
+                leftSection: /* @__PURE__ */ jsx_runtime25.jsx(IconSearch, {
+                  size: 16
+                }),
+                size: "sm"
+              }),
+              /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+                gap: "xs",
+                children: [
+                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                    variant: "subtle",
+                    size: "xs",
+                    onClick: expandAll,
+                    children: "Expand All"
+                  }),
+                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                    variant: "subtle",
+                    size: "xs",
+                    onClick: collapseAll,
+                    children: "Collapse All"
+                  }),
+                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                    variant: "subtle",
+                    size: "xs",
+                    onClick: deselectAll,
+                    children: "Deselect All"
+                  })
+                ]
+              })
+            ]
+          })
+        }),
+        /* @__PURE__ */ jsx_runtime25.jsx(ScrollArea, {
+          style: { flex: 1 },
+          children: /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+            p: "md",
+            children: /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTree, {
+              layouts: filteredLayouts,
+              selectedLayoutIds,
+              expandedLayouts,
+              sourceLayoutId,
+              onToggleExpanded: toggleLayoutExpanded,
+              onToggleSelection: toggleLayoutSelection
+            })
+          })
+        }),
+        /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+          justify: "space-between",
+          p: "md",
+          style: { borderTop: "1px solid var(--mantine-color-gray-3)" },
+          children: [
+            /* @__PURE__ */ jsx_runtime25.jsxs(Text, {
+              size: "sm",
+              children: [
+                "Layouts Selected: ",
+                selectedLayoutIds.length
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+              gap: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                  variant: "outline",
+                  onClick: onClose,
+                  children: "Close"
+                }),
+                /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                  onClick: handleCopy,
+                  disabled: selectedLayoutIds.length === 0,
+                  color: "blue",
+                  children: "Copy"
+                })
+              ]
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+function CopyLayoutTree({
+  layouts,
+  selectedLayoutIds,
+  expandedLayouts,
+  sourceLayoutId,
+  onToggleExpanded,
+  onToggleSelection
+}) {
+  return /* @__PURE__ */ jsx_runtime25.jsx(Stack, {
+    gap: "xs",
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTreeItem, {
+      layout,
+      selectedLayoutIds,
+      expandedLayouts,
+      sourceLayoutId,
+      onToggleExpanded,
+      onToggleSelection
+    }, layout.id))
+  });
+}
+function CopyLayoutTreeItem({
+  layout,
+  selectedLayoutIds,
+  expandedLayouts,
+  sourceLayoutId,
+  onToggleExpanded,
+  onToggleSelection
+}) {
+  const hasChildren = layout.children.length > 0;
+  const isExpanded = expandedLayouts.has(layout.id);
+  const isSelected = selectedLayoutIds.includes(layout.id);
+  const isSourceLayout = layout.id === sourceLayoutId;
+  return /* @__PURE__ */ jsx_runtime25.jsxs(Box, {
+    children: [
+      /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+        gap: "xs",
+        style: {
+          paddingLeft: layout.level * 20,
+          padding: "4px 8px",
+          borderRadius: "4px",
+          backgroundColor: isSelected ? "var(--mantine-color-blue-1)" : isSourceLayout ? "var(--mantine-color-gray-2)" : "transparent",
+          opacity: isSourceLayout ? 0.5 : 1
+        },
+        children: [
+          hasChildren ? /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+            variant: "subtle",
+            size: "xs",
+            onClick: (e) => {
+              e.stopPropagation();
+              onToggleExpanded(layout.id);
+            },
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime25.jsx(IconChevronDown, {
+              size: 12
+            }) : /* @__PURE__ */ jsx_runtime25.jsx(IconChevronRight, {
+              size: 12
+            })
+          }) : /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+            style: { width: 20 }
+          }),
+          /* @__PURE__ */ jsx_runtime25.jsx(IconCrop, {
+            size: 14,
+            color: layout.hasManualCrops ? "orange" : "gray"
+          }),
+          /* @__PURE__ */ jsx_runtime25.jsxs(Text, {
+            size: "sm",
+            style: {
+              flex: 1,
+              cursor: isSourceLayout ? "not-allowed" : "pointer",
+              color: layout.hasManualCrops ? "orange" : undefined
+            },
+            onClick: () => onToggleSelection(layout.id),
+            children: [
+              layout.name,
+              " ",
+              isSourceLayout && "(Source - Cannot Select)"
+            ]
+          })
+        ]
+      }),
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTree, {
+        layouts: layout.children,
+        selectedLayoutIds,
+        expandedLayouts,
+        sourceLayoutId,
+        onToggleExpanded,
+        onToggleSelection
+      })
+    ]
+  });
+}
+
+// src/components/ManualCropManager/CopyAndAddRowModal.tsx
+var import_react262 = __toESM(require_react(), 1);
+var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
+function CopyAndAddRowModal2({
+  opened,
+  onClose,
+  crop,
+  layoutId,
+  existingCrops,
+  onAddCopy
+}) {
+  const [newName, setNewName] = import_react262.useState("");
+  const [error, setError] = import_react262.useState(null);
+  const [isLoading, setIsLoading] = import_react262.useState(false);
+  import_react262.default.useEffect(() => {
+    if (opened) {
+      setNewName(crop.name);
+      setError(null);
+      setIsLoading(false);
+    }
+  }, [opened, crop]);
+  const handleNameChange = (e) => {
+    setNewName(e.target.value);
+    setError(null);
+  };
+  const handleCreate = () => {
+    if (!newName.trim()) {
+      setError("Name cannot be empty");
+      return;
+    }
+    const nameExists = existingCrops.some((c2) => c2.frameId === crop.frameId && c2.name === newName.trim());
+    if (nameExists) {
+      setError("Name already exists for this frame");
+      return;
+    }
+    setIsLoading(true);
+    onAddCopy(crop, newName.trim());
+    setIsLoading(false);
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime26.jsx(Modal, {
+    opened,
+    onClose,
+    title: "Copy and Add Row",
+    centered: true,
+    children: /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
+      children: [
+        /* @__PURE__ */ jsx_runtime26.jsx(Text, {
+          size: "sm",
+          children: "Enter a name for the new manual crop:"
+        }),
+        /* @__PURE__ */ jsx_runtime26.jsx(TextInput, {
+          label: "Asset Name",
+          placeholder: "Enter asset name",
+          value: newName,
+          onChange: handleNameChange,
+          error,
+          required: true,
+          autoFocus: true
+        }),
+        /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
+          justify: "flex-end",
+          mt: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+              variant: "outline",
+              onClick: onClose,
+              children: "Cancel"
+            }),
+            /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+              onClick: handleCreate,
+              loading: isLoading,
+              disabled: !newName.trim(),
+              children: "Create"
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+
+// src/components/ManualCropManager/CopyAndReplaceModal.tsx
+var import_react263 = __toESM(require_react(), 1);
+var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
+function CopyAndReplaceModal2({
+  opened,
+  onClose,
+  crops,
+  layoutId,
+  existingCrops,
+  onAddCopy
+}) {
+  const [searchText, setSearchText] = import_react263.useState("");
+  const [replaceText, setReplaceText] = import_react263.useState("");
+  const [errors, setErrors] = import_react263.useState({});
+  const [isLoading, setIsLoading] = import_react263.useState(false);
+  const [previewCrop, setPreviewCrop] = import_react263.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react263.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react263.useState(false);
+  import_react263.useEffect(() => {
+    if (opened) {
+      setSearchText("");
+      setReplaceText("");
+      setErrors({});
+      setIsLoading(false);
+      if (crops.length > 0) {
+        setPreviewCrop(crops[0]);
+        setPreviewNewName(crops[0].name);
+        setIsPreviewNameDifferent(false);
+      }
+    }
+  }, [opened, crops]);
+  import_react263.useEffect(() => {
+    if (previewCrop) {
+      const newName = previewCrop.name.replace(new RegExp(searchText, "g"), replaceText);
+      setPreviewNewName(newName);
+      setIsPreviewNameDifferent(newName !== previewCrop.name);
+    }
+  }, [searchText, replaceText, previewCrop]);
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+    setErrors({});
+  };
+  const handleReplaceChange = (e) => {
+    setReplaceText(e.target.value);
+    setErrors({});
+  };
+  const handleCopyAndReplace = () => {
+    if (!searchText.trim()) {
+      setErrors({ searchText: "Search text cannot be empty" });
+      return;
+    }
+    setIsLoading(true);
+    const newErrors = {};
+    let hasErrors = false;
+    crops.forEach((crop) => {
+      const newName = crop.name.replace(new RegExp(searchText, "g"), replaceText);
+      if (newName === crop.name) {
+        return;
+      }
+      const nameExists = existingCrops.some((c2) => c2.frameId === crop.frameId && c2.name === newName);
+      if (nameExists) {
+        newErrors[`${crop.frameId}-${crop.name}`] = `Name "${newName}" already exists for frame ${crop.frameName}`;
+        hasErrors = true;
+      }
+    });
+    if (hasErrors) {
+      setErrors(newErrors);
+      setIsLoading(false);
+      return;
+    }
+    crops.forEach((crop) => {
+      const newName = crop.name.replace(new RegExp(searchText, "g"), replaceText);
+      if (newName === crop.name) {
+        return;
+      }
+      onAddCopy(crop, newName);
+    });
+    setIsLoading(false);
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime27.jsx(Modal, {
+    opened,
+    onClose,
+    title: "Copy and Replace",
+    centered: true,
+    children: /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+      children: [
+        /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+          size: "sm",
+          children: "Enter search and replace text to create copies with modified names:"
+        }),
+        /* @__PURE__ */ jsx_runtime27.jsx(TextInput, {
+          label: "Search",
+          placeholder: "Text to search for",
+          value: searchText,
+          onChange: handleSearchChange,
+          error: errors.searchText,
+          required: true,
+          autoFocus: true
+        }),
+        /* @__PURE__ */ jsx_runtime27.jsx(TextInput, {
+          label: "Replace",
+          placeholder: "Text to replace with",
+          value: replaceText,
+          onChange: handleReplaceChange,
+          required: true
+        }),
+        previewCrop && /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+          gap: "xs",
+          children: [
+            /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+              size: "sm",
+              fw: 500,
+              children: "Preview:"
+            }),
+            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+              size: "sm",
+              c: "dimmed",
+              children: [
+                "Frame: ",
+                previewCrop.frameName
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+              size: "sm",
+              children: [
+                "Original:",
+                " ",
+                /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                  span: true,
+                  c: "blue",
+                  children: previewCrop.name
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+              size: "sm",
+              children: [
+                "New:",
+                " ",
+                /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                  span: true,
+                  c: isPreviewNameDifferent ? "green" : "dimmed",
+                  children: previewNewName
+                })
+              ]
+            })
+          ]
+        }),
+        Object.keys(errors).length > 0 && /* @__PURE__ */ jsx_runtime27.jsx(Alert, {
+          color: "red",
+          title: "Validation Errors",
+          children: /* @__PURE__ */ jsx_runtime27.jsx(Stack, {
+            gap: "xs",
+            children: Object.entries(errors).map(([key, message]) => /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+              size: "sm",
+              children: message
+            }, key))
+          })
+        }),
+        /* @__PURE__ */ jsx_runtime27.jsxs(Group, {
+          justify: "flex-end",
+          mt: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+              variant: "outline",
+              onClick: onClose,
+              children: "Cancel"
+            }),
+            /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+              onClick: handleCopyAndReplace,
+              loading: isLoading,
+              disabled: !searchText.trim() || !isPreviewNameDifferent,
+              children: "Copy and Replace"
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+
+// src/components/ManualCropManager/ManualCropEditor.tsx
+var jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
+function CropRow({
+  crop,
+  layoutId,
+  cropIndex,
+  onCropChange,
+  isChecked,
+  onCheckChange,
+  isDeleted
+}) {
+  const [localCrop, setLocalCrop] = import_react264.useState(crop);
+  import_react264.useEffect(() => {
+    setLocalCrop(crop);
+  }, [crop]);
+  const handleFieldChange = (field, value) => {
+    let processedValue = value;
+    if (field !== "frameName" && field !== "name" && field !== "frameId") {
+      if (value === "" || value === "." || value === "-" || value === "-.") {
+        processedValue = 0;
+      } else if (/^-?\d*\.?\d*$/.test(value)) {
+        const numValue = parseFloat(value);
+        processedValue = isNaN(numValue) ? 0 : numValue;
+      } else {
+        processedValue = localCrop[field];
+        return;
+      }
+    }
+    const updatedCrop = {
+      ...localCrop,
+      [field]: processedValue
+    };
+    setLocalCrop(updatedCrop);
+    onCropChange(layoutId, cropIndex, updatedCrop);
+  };
+  if (isDeleted) {
+    return null;
+  }
+  return /* @__PURE__ */ jsx_runtime28.jsxs(Table.Tr, {
+    children: [
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(Checkbox, {
+          checked: isChecked,
+          onChange: (event) => onCheckChange(layoutId, cropIndex, event.currentTarget.checked)
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+          size: "sm",
+          children: localCrop.frameName
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.name,
+          onChange: (e) => handleFieldChange("name", e.target.value),
+          size: "xs",
+          style: { width: "100%" }
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.left.toString(),
+          onChange: (e) => handleFieldChange("left", e.target.value),
+          size: "xs",
+          style: { width: 80 },
+          type: "text",
+          inputMode: "decimal"
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.top.toString(),
+          onChange: (e) => handleFieldChange("top", e.target.value),
+          size: "xs",
+          style: { width: 80 },
+          type: "text",
+          inputMode: "decimal"
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.width.toString(),
+          onChange: (e) => handleFieldChange("width", e.target.value),
+          size: "xs",
+          style: { width: 80 },
+          type: "text",
+          inputMode: "decimal"
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+          value: localCrop.height.toString(),
+          onChange: (e) => handleFieldChange("height", e.target.value),
+          size: "xs",
+          style: { width: 80 },
+          type: "text",
+          inputMode: "decimal"
+        })
+      })
+    ]
+  });
+}
+function ManualCropEditor({
+  selectedLayoutIds,
+  selectedConnectorId,
+  onModalClose,
+  onCropsSaved
+}) {
+  const [layoutCrops, setLayoutCrops] = import_react264.useState(new Map);
+  const [isLoading, setIsLoading] = import_react264.useState(false);
+  const [saveState, setSaveState] = import_react264.useState("idle");
+  const [saveMessage, setSaveMessage] = import_react264.useState("");
+  const [originalDocumentState, setOriginalDocumentState] = import_react264.useState(null);
+  const [changedRows, setChangedRows] = import_react264.useState(new Map);
+  const [checkedRows, setCheckedRows] = import_react264.useState(new Set);
+  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react264.useState(false);
+  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react264.useState("");
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react264.useState(false);
+  const [currentCropForCopy, setCurrentCropForCopy] = import_react264.useState(null);
+  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react264.useState("");
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react264.useState(false);
+  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react264.useState([]);
+  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react264.useState("");
+  const raiseError2 = appStore((store) => store.raiseError);
+  const loadCropsForSelectedLayouts = import_react264.useCallback(async () => {
+    if (!selectedConnectorId)
+      return;
+    try {
+      setIsLoading(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const allLayoutsResult = await getAllLayouts(studio2);
+      if (!allLayoutsResult.isOk()) {
+        raiseError2(new Error("Failed to load layouts: " + allLayoutsResult.error?.message));
+        return;
+      }
+      const allLayouts = allLayoutsResult.value;
+      const cropsResult = await getManualCropsFromDocByConnector(studio2, selectedConnectorId);
+      if (!cropsResult.isOk()) {
+        raiseError2(new Error("Failed to load manual crops: " + cropsResult.error?.message));
+        return;
+      }
+      const cropsData = cropsResult.value;
+      const layoutCropsMap = new Map;
+      selectedLayoutIds.forEach((layoutId) => {
+        const layout = allLayouts.find((l2) => l2.id === layoutId);
+        if (layout) {
+          const layoutData = cropsData.layouts.find((l2) => l2.id === layoutId);
+          layoutCropsMap.set(layoutId, {
+            layoutId: layout.id,
+            layoutName: layout.name,
+            crops: layoutData ? layoutData.manualCrops : []
+          });
+        }
+      });
+      setLayoutCrops(layoutCropsMap);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load manual crops"));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [selectedConnectorId, selectedLayoutIds, raiseError2]);
+  import_react264.useEffect(() => {
+    if (selectedConnectorId && selectedLayoutIds.length > 0) {
+      loadCropsForSelectedLayouts();
+    } else {
+      setLayoutCrops(new Map);
+    }
+    setChangedRows(new Map);
+    setCheckedRows(new Set);
+  }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
+  const handleCropChange = import_react264.useCallback((layoutId, cropIndex, updatedCrop) => {
+    const rowKey = `${layoutId}-${cropIndex}`;
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      newMap.set(rowKey, updatedCrop);
+      return newMap;
+    });
+  }, []);
+  const handleCheckChange = import_react264.useCallback((layoutId, cropIndex, checked) => {
+    const rowKey = `${layoutId}-${cropIndex}`;
+    setCheckedRows((prev2) => {
+      const newSet = new Set(prev2);
+      if (checked) {
+        newSet.add(rowKey);
+      } else {
+        newSet.delete(rowKey);
+      }
+      return newSet;
+    });
+  }, []);
+  const getCheckedSnapshotsCountForLayout = import_react264.useCallback((layoutId) => {
+    return Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`)).length;
+  }, [checkedRows]);
+  const getCheckedCropsForLayout = import_react264.useCallback((layoutId) => {
+    const layoutCrop = layoutCrops.get(layoutId);
+    if (!layoutCrop)
+      return [];
+    const checkedCrops = [];
+    Array.from(checkedRows).forEach((rowKey) => {
+      if (rowKey.startsWith(`${layoutId}-`)) {
+        const [, cropIndexStr] = rowKey.split("-");
+        const cropIndex = parseInt(cropIndexStr, 10);
+        const changedCrop = changedRows.get(rowKey);
+        let crop;
+        if (changedCrop && "frameId" in changedCrop) {
+          crop = changedCrop;
+        } else {
+          crop = layoutCrop.crops[cropIndex];
+        }
+        if (crop) {
+          checkedCrops.push(crop);
+        }
+      }
+    });
+    return checkedCrops;
+  }, [checkedRows, layoutCrops, changedRows]);
+  const deleteCheckedSnapshots = import_react264.useCallback((layoutId) => {
+    const checkedRowsForLayout = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`));
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      checkedRowsForLayout.forEach((rowKey) => {
+        const [, cropIndexStr] = rowKey.split("-");
+        const cropIndex = parseInt(cropIndexStr, 10);
+        const deleteEntry = {
+          layoutId,
+          cropIndex
+        };
+        newMap.set(rowKey, deleteEntry);
+      });
+      return newMap;
+    });
+    setCheckedRows((prev2) => {
+      const newSet = new Set(prev2);
+      checkedRowsForLayout.forEach((rowKey) => {
+        newSet.delete(rowKey);
+      });
+      return newSet;
+    });
+  }, [checkedRows]);
+  const setCopyModalOpened = import_react264.useCallback((opened, layoutId) => {
+    if (opened && layoutId) {
+      setCurrentCopySourceLayoutId(layoutId);
+    }
+    setCopyCropToLayerModalOpened(opened);
+  }, []);
+  const setCopyAndAddRowModalOpened = import_react264.useCallback((opened, layoutId) => {
+    if (opened && layoutId) {
+      const checkedCrops = getCheckedCropsForLayout(layoutId);
+      if (checkedCrops.length === 1) {
+        setCurrentCropForCopy(checkedCrops[0]);
+        setCurrentLayoutIdForCopy(layoutId);
+        setCopyAndAddRowModalOpenedState(true);
+      }
+    } else {
+      setCopyAndAddRowModalOpenedState(false);
+      setCurrentCropForCopy(null);
+      setCurrentLayoutIdForCopy("");
+    }
+  }, [getCheckedCropsForLayout]);
+  const setCopyAndReplaceModalOpened = import_react264.useCallback((opened, layoutId) => {
+    if (opened && layoutId) {
+      const checkedCrops = getCheckedCropsForLayout(layoutId);
+      if (checkedCrops.length > 0) {
+        setCurrentCropsForReplace(checkedCrops);
+        setCurrentLayoutIdForReplace(layoutId);
+        setCopyAndReplaceModalOpenedState(true);
+      }
+    } else {
+      setCopyAndReplaceModalOpenedState(false);
+      setCurrentCropsForReplace([]);
+      setCurrentLayoutIdForReplace("");
+    }
+  }, [getCheckedCropsForLayout]);
+  const deselectAllRows = import_react264.useCallback((layoutId) => {
+    setCheckedRows((prev2) => {
+      const newSet = new Set(prev2);
+      Array.from(prev2).forEach((rowKey) => {
+        if (rowKey.startsWith(`${layoutId}-`)) {
+          newSet.delete(rowKey);
+        }
+      });
+      return newSet;
+    });
+  }, []);
+  const copyCropsToLayers = import_react264.useCallback(async (targetLayoutIds, checkedCrops) => {
+    const missingLayoutIds = targetLayoutIds.filter((id) => !layoutCrops.has(id));
+    let layoutNamesMap = new Map;
+    if (missingLayoutIds.length > 0) {
+      try {
+        const studioResult = await getStudio();
+        if (studioResult.isOk()) {
+          const allLayoutsResult = await getAllLayouts(studioResult.value);
+          if (allLayoutsResult.isOk()) {
+            const allLayouts = allLayoutsResult.value;
+            missingLayoutIds.forEach((layoutId) => {
+              const layout = allLayouts.find((l2) => l2.id === layoutId);
+              if (layout) {
+                layoutNamesMap.set(layoutId, layout.name);
+              }
+            });
+          }
+        }
+      } catch (error) {
+        raiseError2(error instanceof Error ? error : new Error("Failed to load layout names"));
+      }
+    }
+    setLayoutCrops((prevLayoutCrops) => {
+      const newLayoutCrops = new Map(prevLayoutCrops);
+      targetLayoutIds.forEach((targetLayoutId) => {
+        const existingLayoutCrop = newLayoutCrops.get(targetLayoutId);
+        if (existingLayoutCrop) {
+          const updatedCrops = [...existingLayoutCrop.crops];
+          checkedCrops.forEach((newCrop) => {
+            const existingIndex = updatedCrops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+            if (existingIndex !== -1) {
+              updatedCrops[existingIndex] = newCrop;
+            } else {
+              updatedCrops.push(newCrop);
+            }
+          });
+          newLayoutCrops.set(targetLayoutId, {
+            ...existingLayoutCrop,
+            crops: updatedCrops
+          });
+        } else {
+          const layoutName = layoutNamesMap.get(targetLayoutId) || `Layout ${targetLayoutId}`;
+          newLayoutCrops.set(targetLayoutId, {
+            layoutId: targetLayoutId,
+            layoutName,
+            crops: [...checkedCrops]
+          });
+        }
+      });
+      return newLayoutCrops;
+    });
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      targetLayoutIds.forEach((targetLayoutId) => {
+        const existingLayoutCrop = layoutCrops.get(targetLayoutId);
+        checkedCrops.forEach((crop) => {
+          if (existingLayoutCrop) {
+            const existingIndex = existingLayoutCrop.crops.findIndex((c2) => c2.frameId === crop.frameId && c2.name === crop.name);
+            if (existingIndex !== -1) {
+              const rowKey = `${targetLayoutId}-${existingIndex}`;
+              newMap.set(rowKey, crop);
+            } else {
+              const newIndex = existingLayoutCrop.crops.length;
+              const rowKey = `${targetLayoutId}-${newIndex}`;
+              newMap.set(rowKey, crop);
+            }
+          } else {
+            const newIndex = checkedCrops.indexOf(crop);
+            const rowKey = `${targetLayoutId}-${newIndex}`;
+            newMap.set(rowKey, crop);
+          }
+        });
+      });
+      return newMap;
+    });
+  }, [layoutCrops, raiseError2]);
+  const addCopyOfCrop = import_react264.useCallback((originalCrop, newName) => {
+    const layoutId = currentLayoutIdForCopy;
+    if (!layoutId)
+      return;
+    const newCrop = {
+      ...originalCrop,
+      name: newName
+    };
+    setLayoutCrops((prevLayoutCrops) => {
+      const newLayoutCrops = new Map(prevLayoutCrops);
+      const existingLayoutCrop = newLayoutCrops.get(layoutId);
+      if (existingLayoutCrop) {
+        const updatedCrops = [...existingLayoutCrop.crops];
+        const existingIndex = updatedCrops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+        if (existingIndex !== -1) {
+          updatedCrops[existingIndex] = newCrop;
+        } else {
+          updatedCrops.push(newCrop);
+        }
+        newLayoutCrops.set(layoutId, {
+          ...existingLayoutCrop,
+          crops: updatedCrops
+        });
+      }
+      return newLayoutCrops;
+    });
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      const existingLayoutCrop = layoutCrops.get(layoutId);
+      if (existingLayoutCrop) {
+        const existingIndex = existingLayoutCrop.crops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+        if (existingIndex !== -1) {
+          const rowKey = `${layoutId}-${existingIndex}`;
+          newMap.set(rowKey, newCrop);
+        } else {
+          const newIndex = existingLayoutCrop.crops.length;
+          const rowKey = `${layoutId}-${newIndex}`;
+          newMap.set(rowKey, newCrop);
+        }
+      }
+      return newMap;
+    });
+  }, [currentLayoutIdForCopy, layoutCrops]);
+  const addCopyOfCropForReplace = import_react264.useCallback((originalCrop, newName) => {
+    const layoutId = currentLayoutIdForReplace;
+    if (!layoutId)
+      return;
+    const newCrop = {
+      ...originalCrop,
+      name: newName
+    };
+    setLayoutCrops((prevLayoutCrops) => {
+      const newLayoutCrops = new Map(prevLayoutCrops);
+      const existingLayoutCrop = newLayoutCrops.get(layoutId);
+      if (existingLayoutCrop) {
+        const updatedCrops = [...existingLayoutCrop.crops];
+        const existingIndex = updatedCrops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+        if (existingIndex !== -1) {
+          updatedCrops[existingIndex] = newCrop;
+        } else {
+          updatedCrops.push(newCrop);
+        }
+        newLayoutCrops.set(layoutId, {
+          ...existingLayoutCrop,
+          crops: updatedCrops
+        });
+      }
+      return newLayoutCrops;
+    });
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      const existingLayoutCrop = layoutCrops.get(layoutId);
+      if (existingLayoutCrop) {
+        const existingIndex = existingLayoutCrop.crops.findIndex((crop) => crop.frameId === newCrop.frameId && crop.name === newCrop.name);
+        if (existingIndex !== -1) {
+          const rowKey = `${layoutId}-${existingIndex}`;
+          newMap.set(rowKey, newCrop);
+        } else {
+          const newIndex = existingLayoutCrop.crops.length;
+          const rowKey = `${layoutId}-${newIndex}`;
+          newMap.set(rowKey, newCrop);
+        }
+      }
+      return newMap;
+    });
+  }, [currentLayoutIdForReplace, layoutCrops]);
+  const saveCropChanges = async () => {
+    if (changedRows.size === 0)
+      return;
+    try {
+      setSaveState("saving");
+      setSaveMessage("Saving Crop Changes...");
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        setSaveState("error");
+        setSaveMessage("Error saving changes...");
+        return;
+      }
+      const studio2 = studioResult.value;
+      const originalDocStateResult = await getCurrentDocumentState(studio2);
+      if (!originalDocStateResult.isOk()) {
+        raiseError2(new Error("Failed to get original document state: " + originalDocStateResult.error?.message));
+        setSaveState("error");
+        setSaveMessage("Error saving changes...");
+        return;
+      }
+      const originalDocumentState2 = originalDocStateResult.value;
+      setOriginalDocumentState(originalDocumentState2);
+      const layoutChanges = new Map;
+      const layoutDeletes = new Map;
+      changedRows.forEach((entry, rowKey) => {
+        const [layoutId, cropIndexStr] = rowKey.split("-");
+        const cropIndex = parseInt(cropIndexStr, 10);
+        if ("frameId" in entry) {
+          if (!layoutChanges.has(layoutId)) {
+            layoutChanges.set(layoutId, new Map);
+          }
+          layoutChanges.get(layoutId).set(cropIndex, entry);
+        } else {
+          if (!layoutDeletes.has(layoutId)) {
+            layoutDeletes.set(layoutId, new Set);
+          }
+          layoutDeletes.get(layoutId).add(cropIndex);
+        }
+      });
+      let currentDocumentState = originalDocumentState2;
+      for (const [layoutId, deleteIndices] of layoutDeletes) {
+        if (deleteIndices.size > 0) {
+          const result = deleteManualCropsForLayout(currentDocumentState, layoutId, selectedConnectorId);
+          if (result.isError()) {
+            raiseError2(new Error("Failed to delete manual crops: " + result.error?.message));
+            setSaveState("error");
+            setSaveMessage("Error reverting changes...");
+            if (originalDocumentState2) {
+              const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+              if (revertResult.isError()) {
+                raiseError2(new Error("Failed to revert changes after error"));
+              }
+            }
+            return;
+          }
+          currentDocumentState = result.value;
+        }
+      }
+      for (const [layoutId, cropChanges] of layoutChanges) {
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (!layoutCrop)
+          continue;
+        const updatedCrops = layoutCrop.crops.map((crop, index4) => {
+          const changedCrop = cropChanges.get(index4);
+          return changedCrop || crop;
+        });
+        const manualCrops = updatedCrops.map((crop) => ({
+          frameId: crop.frameId,
+          frameName: crop.frameName,
+          name: crop.name,
+          left: crop.left,
+          top: crop.top,
+          width: crop.width,
+          height: crop.height,
+          rotationDegrees: crop.rotationDegrees,
+          originalParentWidth: crop.originalParentWidth,
+          originalParentHeight: crop.originalParentHeight
+        }));
+        console.log("Current document state:", currentDocumentState);
+        const result = setManualCropsForLayout(currentDocumentState, layoutId, selectedConnectorId, manualCrops);
+        if (result.isError()) {
+          raiseError2(new Error("Failed to set manual crops: " + result.error?.message));
+          setSaveState("error");
+          setSaveMessage("Error reverting changes...");
+          if (originalDocumentState2) {
+            const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+            if (revertResult.isError()) {
+              raiseError2(new Error("Failed to revert changes after error"));
+            }
+          }
+          return;
+        }
+        currentDocumentState = result.value;
+      }
+      const finalResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(currentDocumentState));
+      if (finalResult.isError()) {
+        raiseError2(new Error("Failed to load final document state: " + finalResult.error?.message));
+        setSaveState("error");
+        setSaveMessage("Error reverting changes...");
+        if (originalDocumentState2) {
+          const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+          if (revertResult.isError()) {
+            raiseError2(new Error("Failed to revert changes after error"));
+          }
+        }
+        return;
+      }
+      setSaveState("success");
+      setSaveMessage("Changes Saved!");
+      setChangedRows(new Map);
+      if (onCropsSaved) {
+        onCropsSaved();
+      }
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to save crop changes"));
+      setSaveState("error");
+      setSaveMessage("Error reverting changes...");
+      if (originalDocumentState) {
+        try {
+          const studioResult = await getStudio();
+          if (studioResult.isOk()) {
+            await loadDocumentFromJsonStr(studioResult.value, JSON.stringify(originalDocumentState));
+          }
+        } catch (revertError) {
+          raiseError2(new Error("Failed to revert changes after error"));
+        }
+      }
+    }
+  };
+  const handleOkayClick = async () => {
+    setSaveState("idle");
+    setSaveMessage("");
+    await loadCropsForSelectedLayouts();
+  };
+  const handleCloseClick = () => {
+    if (onModalClose) {
+      onModalClose();
+    } else {
+      setSaveState("idle");
+      setSaveMessage("");
+    }
+  };
+  if (saveState !== "idle") {
+    return /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+      style: { height: "100%" },
+      children: /* @__PURE__ */ jsx_runtime28.jsxs(Stack, {
+        align: "center",
+        gap: "md",
+        children: [
+          saveState === "saving" && /* @__PURE__ */ jsx_runtime28.jsx(Loader, {
+            size: "lg"
+          }),
+          /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+            size: "lg",
+            fw: 500,
+            children: saveMessage
+          }),
+          saveState === "success" && /* @__PURE__ */ jsx_runtime28.jsxs(Group, {
+            gap: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+                onClick: handleOkayClick,
+                color: "blue",
+                children: "Okay"
+              }),
+              /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+                onClick: handleCloseClick,
+                variant: "outline",
+                children: "Close"
+              })
+            ]
+          })
+        ]
+      })
+    });
+  }
+  if (selectedLayoutIds.length === 0) {
+    return /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+      style: { height: "100%" },
+      children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+        c: "dimmed",
+        children: "Select layouts from the Layout Viewer to view their manual crops"
+      })
+    });
+  }
+  return /* @__PURE__ */ jsx_runtime28.jsxs(Box, {
+    style: { height: "100%", display: "flex", flexDirection: "column" },
+    children: [
+      /* @__PURE__ */ jsx_runtime28.jsx(Box, {
+        p: "md",
+        style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
+        children: /* @__PURE__ */ jsx_runtime28.jsx(Group, {
+          justify: "flex-end",
+          align: "center",
+          children: /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+            onClick: saveCropChanges,
+            disabled: changedRows.size === 0,
+            color: "blue",
+            size: "sm",
+            children: "Save Crop Changes"
+          })
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(ScrollArea, {
+        style: { flex: 1 },
+        children: /* @__PURE__ */ jsx_runtime28.jsx(Box, {
+          p: "md",
+          children: isLoading ? /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+            style: { height: 200 },
+            children: /* @__PURE__ */ jsx_runtime28.jsx(Loader, {
+              size: "sm"
+            })
+          }) : layoutCrops.size === 0 ? /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+            style: { height: 200 },
+            children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+              c: "dimmed",
+              children: selectedConnectorId ? "No manual crops found for the selected layouts and connector" : "Select a connector to view manual crops"
+            })
+          }) : /* @__PURE__ */ jsx_runtime28.jsx(Stack, {
+            gap: "lg",
+            children: Array.from(layoutCrops.values()).map((layoutCrop) => {
+              const checkedSnapshotsCount = getCheckedSnapshotsCountForLayout(layoutCrop.layoutId);
+              return /* @__PURE__ */ jsx_runtime28.jsxs(Paper, {
+                p: "md",
+                withBorder: true,
+                children: [
+                  /* @__PURE__ */ jsx_runtime28.jsxs(Group, {
+                    justify: "space-between",
+                    align: "center",
+                    mb: "md",
+                    children: [
+                      /* @__PURE__ */ jsx_runtime28.jsx(Title, {
+                        order: 4,
+                        children: layoutCrop.layoutName
+                      }),
+                      /* @__PURE__ */ jsx_runtime28.jsx(Group, {
+                        gap: "xs",
+                        children: checkedSnapshotsCount > 0 && /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
+                          children: [
+                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "red",
+                              variant: "filled",
+                              onClick: () => deleteCheckedSnapshots(layoutCrop.layoutId),
+                              title: "Delete selected",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconTrash, {
+                                size: 16
+                              })
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "blue",
+                              variant: "filled",
+                              onClick: () => setCopyModalOpened(true, layoutCrop.layoutId),
+                              title: "Copy to layer",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconCopy, {
+                                size: 16
+                              })
+                            }),
+                            checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "blue",
+                              variant: "filled",
+                              onClick: () => setCopyAndAddRowModalOpened(true, layoutCrop.layoutId),
+                              title: "Copy and add row",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconCopyPlus, {
+                                size: 16
+                              })
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "blue",
+                              variant: "filled",
+                              onClick: () => setCopyAndReplaceModalOpened(true, layoutCrop.layoutId),
+                              title: "Copy and replace",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconReplace, {
+                                size: 16
+                              })
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                              color: "blue",
+                              variant: "filled",
+                              onClick: () => deselectAllRows(layoutCrop.layoutId),
+                              title: "Deselect all",
+                              disabled: !selectedConnectorId,
+                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconDeselect, {
+                                size: 16
+                              })
+                            })
+                          ]
+                        })
+                      })
+                    ]
+                  }),
+                  layoutCrop.crops.length === 0 ? /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+                    c: "dimmed",
+                    size: "sm",
+                    children: "No manual crops for this layout"
+                  }) : /* @__PURE__ */ jsx_runtime28.jsxs(Table, {
+                    striped: true,
+                    highlightOnHover: true,
+                    children: [
+                      /* @__PURE__ */ jsx_runtime28.jsx(Table.Thead, {
+                        children: /* @__PURE__ */ jsx_runtime28.jsxs(Table.Tr, {
+                          children: [
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              style: { width: 40 }
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Frame Name"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Asset Name"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Left"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Top"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Width"
+                            }),
+                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                              children: "Height"
+                            })
+                          ]
+                        })
+                      }),
+                      /* @__PURE__ */ jsx_runtime28.jsx(Table.Tbody, {
+                        children: layoutCrop.crops.map((crop, index4) => {
+                          const rowKey = `${layoutCrop.layoutId}-${index4}`;
+                          const changedRow = changedRows.get(rowKey);
+                          const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
+                          return /* @__PURE__ */ jsx_runtime28.jsx(CropRow, {
+                            crop,
+                            layoutId: layoutCrop.layoutId,
+                            cropIndex: index4,
+                            onCropChange: handleCropChange,
+                            isChecked: checkedRows.has(rowKey),
+                            onCheckChange: handleCheckChange,
+                            isDeleted: !!isDeleted
+                          }, `${crop.frameId}-${crop.name}`);
+                        })
+                      })
+                    ]
+                  })
+                ]
+              }, layoutCrop.layoutId);
+            })
+          })
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(CopyCropToLayerModal, {
+        opened: copyCropToLayerModalOpened,
+        onClose: () => setCopyCropToLayerModalOpened(false),
+        sourceLayoutId: currentCopySourceLayoutId,
+        checkedCrops: getCheckedCropsForLayout(currentCopySourceLayoutId),
+        selectedConnectorId,
+        onCopy: copyCropsToLayers
+      }),
+      currentCropForCopy && /* @__PURE__ */ jsx_runtime28.jsx(CopyAndAddRowModal2, {
+        opened: copyAndAddRowModalOpened,
+        onClose: () => setCopyAndAddRowModalOpened(false),
+        crop: currentCropForCopy,
+        layoutId: currentLayoutIdForCopy,
+        existingCrops: layoutCrops.get(currentLayoutIdForCopy)?.crops || [],
+        onAddCopy: addCopyOfCrop
+      }),
+      currentCropsForReplace.length > 0 && /* @__PURE__ */ jsx_runtime28.jsx(CopyAndReplaceModal2, {
+        opened: copyAndReplaceModalOpened,
+        onClose: () => setCopyAndReplaceModalOpened(false),
+        crops: currentCropsForReplace,
+        layoutId: currentLayoutIdForReplace,
+        existingCrops: layoutCrops.get(currentLayoutIdForReplace)?.crops || [],
+        onAddCopy: addCopyOfCropForReplace
+      })
+    ]
+  });
+}
+
+// src/components/ManualCropManager/ManualCropManagerModal.tsx
+var jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
+function ManualCropManagerModal({
+  opened,
+  onClose
+}) {
+  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react265.useState(false);
+  const [layoutViewerWidth, setLayoutViewerWidth] = import_react265.useState(400);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react265.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react265.useState("");
+  const [isResizing, setIsResizing] = import_react265.useState(false);
+  const [connectors, setConnectors] = import_react265.useState([]);
+  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react265.useState(null);
+  const enableToolbar = appStore((state) => state.enableToolbar);
+  const disableToolbar = appStore((state) => state.disableToolbar);
+  const raiseError2 = appStore((state) => state.raiseError);
+  const loadConnectors = async () => {
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const connectorsResult = await getCurrentConnectors(studio2);
+      if (!connectorsResult.isOk()) {
+        raiseError2(new Error("Failed to load connectors: " + connectorsResult.error?.message));
+        return;
+      }
+      const connectorsData = connectorsResult.value;
+      setConnectors(connectorsData);
+      const storedConnectorId = sessionStorage.getItem("tempManualCropManager_selectedConnectorId");
+      if (storedConnectorId && connectorsData.some((c2) => c2.id === storedConnectorId)) {
+        setSelectedConnectorId(storedConnectorId);
+      } else if (!selectedConnectorId && connectorsData.length > 0) {
+        const firstConnectorId = connectorsData[0].id;
+        setSelectedConnectorId(firstConnectorId);
+        sessionStorage.setItem("tempManualCropManager_selectedConnectorId", firstConnectorId);
+      }
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error("Failed to load connectors"));
+    }
+  };
+  import_react265.useEffect(() => {
+    if (opened) {
+      const storedSelected = sessionStorage.getItem("tempManualCropManager_layoutsSelected");
+      if (storedSelected) {
+        try {
+          const selectedIds = JSON.parse(storedSelected);
+          setSelectedLayoutIds(selectedIds);
+        } catch (error) {
+          setSelectedLayoutIds([]);
+        }
+      } else {
+        setSelectedLayoutIds([]);
+      }
+      setSelectedConnectorId("");
+      disableToolbar();
+      loadConnectors();
+    } else {
+      enableToolbar();
+    }
+  }, [opened]);
+  import_react265.useEffect(() => {
+    sessionStorage.setItem("tempManualCropManager_layoutsSelected", JSON.stringify(selectedLayoutIds));
+  }, [selectedLayoutIds]);
+  const handleMouseDown = (e) => {
+    setIsResizing(true);
+    e.preventDefault();
+  };
+  const handleMouseMove = (e) => {
+    if (!isResizing)
+      return;
+    const newWidth = e.clientX;
+    if (newWidth >= 200 && newWidth <= 600) {
+      setLayoutViewerWidth(newWidth);
+    }
+  };
+  const handleMouseUp = () => {
+    setIsResizing(false);
+  };
+  import_react265.useEffect(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+    }
+  }, [isResizing]);
+  const toggleLayoutViewer = () => {
+    setIsLayoutViewerCollapsed(!isLayoutViewerCollapsed);
+  };
+  const handleConnectorChange = (value) => {
+    const connectorId = value || "";
+    setSelectedConnectorId(connectorId);
+    if (connectorId) {
+      sessionStorage.setItem("tempManualCropManager_selectedConnectorId", connectorId);
+    } else {
+      sessionStorage.removeItem("tempManualCropManager_selectedConnectorId");
+    }
+  };
+  const handleClose = () => {
+    enableToolbar();
+    onClose();
+  };
+  const handleLayoutViewerRefreshReady = import_react265.useCallback((refreshFn) => {
+    setLayoutViewerRefresh(() => refreshFn);
+  }, []);
+  const handleCropsSaved = import_react265.useCallback(async () => {
+    if (layoutViewerRefresh) {
+      layoutViewerRefresh();
+    }
+    if (selectedConnectorId) {
+      try {
+        const studioResult = await getStudio();
+        if (studioResult.isOk()) {
+          const { getManualCropsFromDocByConnector: getManualCropsFromDocByConnector2 } = await Promise.resolve().then(() => (init_getManualCropsFromDocByConnector(), exports_getManualCropsFromDocByConnector));
+          const cropsResult = await getManualCropsFromDocByConnector2(studioResult.value, selectedConnectorId);
+          if (cropsResult.isOk()) {
+            const cropsData = cropsResult.value;
+            const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
+            const newLayoutsWithCrops = Array.from(layoutsWithCrops).filter((layoutId) => !selectedLayoutIds.includes(layoutId));
+            if (newLayoutsWithCrops.length > 0) {
+              setSelectedLayoutIds((prev2) => [...prev2, ...newLayoutsWithCrops]);
+            }
+          }
+        }
+      } catch (error) {
+        console.warn("Failed to auto-select layouts with new crops:", error);
+      }
+    }
+  }, [layoutViewerRefresh, selectedConnectorId, selectedLayoutIds]);
+  return /* @__PURE__ */ jsx_runtime29.jsxs(Modal, {
+    opened,
+    onClose: handleClose,
+    fullScreen: true,
+    padding: 0,
+    withCloseButton: false,
+    children: [
+      /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+        style: {
+          padding: "16px 24px",
+          borderBottom: "1px solid var(--mantine-color-gray-3)",
+          backgroundColor: "var(--mantine-color-gray-0)"
+        },
+        children: /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+          justify: "space-between",
+          align: "center",
+          children: [
+            /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+              gap: "lg",
+              align: "center",
+              children: [
+                /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                  size: "lg",
+                  fw: 600,
+                  children: "Manual Crop Manager"
+                }),
+                /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+                  gap: "md",
+                  align: "center",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                      size: "sm",
+                      fw: 500,
+                      children: "Show crops for connector:"
+                    }),
+                    /* @__PURE__ */ jsx_runtime29.jsx(Select, {
+                      placeholder: "Select connector",
+                      data: connectors.map((connector) => ({
+                        value: connector.id,
+                        label: connector.name + " (" + connector.usesInTemplate.images.reduce((acc, image) => acc + `SFrame:${image.name}, `, "") + connector.usesInTemplate.variables.reduce((acc, variable) => acc + `Var:${variable.name}, `, "") + ")"
+                      })),
+                      value: selectedConnectorId,
+                      onChange: handleConnectorChange,
+                      style: { minWidth: 200 },
+                      size: "sm"
+                    })
+                  ]
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime29.jsx(Button, {
+              variant: "subtle",
+              color: "gray",
+              size: "sm",
+              leftSection: /* @__PURE__ */ jsx_runtime29.jsx(IconX, {
+                size: 16
+              }),
+              onClick: handleClose,
+              children: "Close"
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime29.jsxs(Box, {
+        style: { display: "flex", height: "calc(100vh - 120px)" },
+        children: [
+          /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+            style: {
+              width: isLayoutViewerCollapsed ? 40 : layoutViewerWidth,
+              minWidth: isLayoutViewerCollapsed ? 40 : 200,
+              maxWidth: isLayoutViewerCollapsed ? 40 : 600,
+              borderRight: "1px solid var(--mantine-color-gray-3)",
+              display: "flex",
+              flexDirection: "column",
+              transition: isLayoutViewerCollapsed ? "width 0.2s ease" : "none"
+            },
+            children: isLayoutViewerCollapsed ? /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+              style: {
+                padding: "8px",
+                display: "flex",
+                justifyContent: "center"
+              },
+              children: /* @__PURE__ */ jsx_runtime29.jsx(Tooltip, {
+                label: "Expand Layout Viewer",
+                position: "right",
+                children: /* @__PURE__ */ jsx_runtime29.jsx(ActionIcon, {
+                  variant: "subtle",
+                  onClick: toggleLayoutViewer,
+                  size: "sm",
+                  children: /* @__PURE__ */ jsx_runtime29.jsx(IconChevronRight, {
+                    size: 16
+                  })
+                })
+              })
+            }) : /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
+              children: [
+                /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+                  justify: "space-between",
+                  p: "md",
+                  style: {
+                    borderBottom: "1px solid var(--mantine-color-gray-3)"
+                  },
+                  children: [
+                    /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+                      style: { fontSize: "14px", fontWeight: 500 },
+                      children: "Layout Viewer"
+                    }),
+                    /* @__PURE__ */ jsx_runtime29.jsx(Tooltip, {
+                      label: "Collapse Layout Viewer",
+                      position: "left",
+                      children: /* @__PURE__ */ jsx_runtime29.jsx(ActionIcon, {
+                        variant: "subtle",
+                        onClick: toggleLayoutViewer,
+                        size: "sm",
+                        children: /* @__PURE__ */ jsx_runtime29.jsx(IconChevronLeft, {
+                          size: 16
+                        })
+                      })
+                    })
+                  ]
+                }),
+                /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+                  style: { flex: 1, overflow: "hidden" },
+                  children: /* @__PURE__ */ jsx_runtime29.jsx(LayoutViewer, {
+                    selectedLayoutIds,
+                    onSelectionChange: setSelectedLayoutIds,
+                    selectedConnectorId,
+                    onRefreshFunctionReady: handleLayoutViewerRefreshReady
+                  })
+                })
+              ]
+            })
+          }),
+          !isLayoutViewerCollapsed && /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+            style: {
+              width: 4,
+              cursor: "col-resize",
+              backgroundColor: isResizing ? "var(--mantine-color-blue-5)" : "transparent",
+              transition: "background-color 0.2s ease"
+            },
+            onMouseDown: handleMouseDown
+          }),
+          /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+            style: { flex: 1, display: "flex", flexDirection: "column" },
+            children: /* @__PURE__ */ jsx_runtime29.jsx(ManualCropEditor, {
+              selectedLayoutIds,
+              selectedConnectorId,
+              onModalClose: handleClose,
+              onCropsSaved: handleCropsSaved
+            })
+          })
+        ]
+      })
+    ]
+  });
+}
+
+// src/components/ToolbarSettingsModal.tsx
+var jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
+var defaultConfig = {
+  showSnapshot: false,
+  showFramePositionViewer: false,
+  showLayoutManager: false,
+  showMagicLayouts: true,
+  showAspectLock: true,
+  showLayoutImageMapper: true,
+  showUploadDownload: true,
+  showTestError: false,
+  showConnectorCleanup: false,
+  showManualCropManager: true
+};
+function ToolbarSettingsModal({
+  opened,
+  onClose,
+  config,
+  onConfigChange,
+  onReloadConfig
+}) {
+  const handleToggle = (key, value) => {
+    const newConfig = { ...config, [key]: value };
+    onConfigChange(newConfig);
+  };
+  const handleSave = () => {
+    localStorage.setItem("tempUserConfig", JSON.stringify(config));
+    onClose();
+    onReloadConfig();
+  };
+  const handleReset = () => {
+    onConfigChange(defaultConfig);
+  };
+  return /* @__PURE__ */ jsx_runtime30.jsx(Modal, {
+    opened,
+    onClose,
+    title: "Toolbar Settings",
+    centered: true,
+    size: "md",
+    children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+      children: [
+        /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+          size: "sm",
+          c: "dimmed",
+          children: "Configure which tools are visible in the toolbar."
+        }),
+        /* @__PURE__ */ jsx_runtime30.jsx(ScrollArea.Autosize, {
+          mah: 400,
+          children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+            gap: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime30.jsx(Title, {
+                order: 5,
+                children: "Available Tools"
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Snapshot Image Position",
+                description: "Tool for capturing frame snapshots",
+                checked: config.showSnapshot,
+                onChange: (event) => handleToggle("showSnapshot", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Frame Position Viewer",
+                description: "View and analyze frame positions",
+                checked: config.showFramePositionViewer,
+                onChange: (event) => handleToggle("showFramePositionViewer", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Layout Manager",
+                description: "Manage layout properties and hierarchy",
+                checked: config.showLayoutManager,
+                onChange: (event) => handleToggle("showLayoutManager", false)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Magic Layouts",
+                description: "Automated layout generation and management",
+                checked: config.showMagicLayouts,
+                onChange: (event) => handleToggle("showMagicLayouts", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Aspect Lock",
+                description: "Lock aspect ratios for layouts",
+                checked: config.showAspectLock,
+                onChange: (event) => handleToggle("showAspectLock", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Layout Image Mapper",
+                description: "Map images to layout variables",
+                checked: config.showLayoutImageMapper,
+                onChange: (event) => handleToggle("showLayoutImageMapper", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Upload/Download Document",
+                description: "Upload and download document JSON",
+                checked: config.showUploadDownload,
+                onChange: (event) => handleToggle("showUploadDownload", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Test Error",
+                description: "Test error handling functionality",
+                checked: config.showTestError,
+                onChange: (event) => handleToggle("showTestError", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Connector Cleanup",
+                description: "Manage and remove unused connectors",
+                checked: config.showConnectorCleanup,
+                onChange: (event) => handleToggle("showConnectorCleanup", event.currentTarget.checked)
+              }),
+              /* @__PURE__ */ jsx_runtime30.jsx(Switch, {
+                label: "Manual Crop Manager",
+                description: "Manage manual crops for layouts and connectors",
+                checked: config.showManualCropManager,
+                onChange: (event) => handleToggle("showManualCropManager", event.currentTarget.checked)
+              })
+            ]
+          })
+        }),
+        /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+          justify: "space-between",
+          mt: "xl",
+          children: [
+            /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+              variant: "subtle",
+              onClick: handleReset,
+              children: "Reset to Default"
+            }),
+            /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+              children: [
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                  variant: "default",
+                  onClick: onClose,
+                  children: "Cancel"
+                }),
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                  onClick: handleSave,
+                  children: "Save & Apply"
+                })
+              ]
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+
+// src/components/Toolbar.tsx
+var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react258.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react258.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react258.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react258.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react258.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react258.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react258.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react258.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react258.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react258.useState("");
-  const [updateInfo, setUpdateInfo] = import_react258.useState(null);
+  const [visible2, setVisible] = import_react266.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react266.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react266.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react266.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react266.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react266.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react266.useState(false);
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react266.useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react266.useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react266.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react266.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react266.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react266.useState("");
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react266.useState(false);
+  const [appConfig, setAppConfig] = import_react266.useState(defaultConfig);
+  const [updateInfo, setUpdateInfo] = import_react266.useState(null);
   const effects = appStore((store) => store.effects);
   const raiseError2 = appStore((store) => store.raiseError);
-  const isToolbarEnabled = appStore((store) => store.state.isToolbarEnabled);
   const disableToolbar = appStore((store) => store.disableToolbar);
   const handleTestError = () => {
     raiseError2(new Error("This is a test error message"));
   };
+  const handleSettings = () => {
+    setIsSettingsModalOpen(true);
+  };
   const setVisibleIntercept = (value) => {
+    const isToolbarEnabled = appStore.getState().state.isToolbarEnabled;
     if (!isToolbarEnabled) {
       setVisible(false);
+    } else {
+      setVisible(value);
     }
-    setVisible(value);
   };
   const handleUploadDownloadClick = () => {
     setIsDownloadUploadModalOpen(true);
@@ -43174,7 +46860,24 @@ function Toolbar() {
     }
     setIsUpdateModalOpen(false);
   };
-  import_react258.useEffect(() => {
+  const reloadConfig = () => {
+    const savedConfig = localStorage.getItem("tempUserConfig");
+    if (savedConfig) {
+      try {
+        const parsedConfig = JSON.parse(savedConfig);
+        setAppConfig({ ...defaultConfig, ...parsedConfig });
+      } catch (error) {
+        console.error("Failed to parse saved config:", error);
+        setAppConfig(defaultConfig);
+      }
+    } else {
+      setAppConfig(defaultConfig);
+    }
+  };
+  import_react266.useEffect(() => {
+    reloadConfig();
+  }, []);
+  import_react266.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -43217,6 +46920,18 @@ function Toolbar() {
     setVisible(false);
     setIsLayoutManagerOpen(true);
   };
+  const handleMagicLayouts = () => {
+    setVisible(false);
+    setIsMagicLayoutsModalOpen(true);
+  };
+  const handleConnectorCleanup = () => {
+    setVisible(false);
+    setIsConnectorCleanupModalOpen(true);
+  };
+  const handleManualCropManager = () => {
+    setVisible(false);
+    setIsManualCropManagerModalOpen(true);
+  };
   const handleAspectLock = () => {
     setIsAspectLockConfirmModalOpen(true);
   };
@@ -43227,14 +46942,14 @@ function Toolbar() {
       setIsAspectLockSuccessModalOpen(true);
     }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
   };
-  return /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
+  return /* @__PURE__ */ jsx_runtime31.jsxs(jsx_runtime31.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime22.jsx(Transition, {
+      /* @__PURE__ */ jsx_runtime31.jsx(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_runtime22.jsx(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_runtime31.jsx(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -43251,95 +46966,170 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+          children: /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
             gap: "lg",
             children: [
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconCameraPlus, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconPhotoCog, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Magic Layouts",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "purple",
+                  size: "lg",
+                  "aria-label": "Magic Layouts",
+                  onClick: handleMagicLayouts,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconSparkles, {
+                    size: 20
+                  })
+                })
+              }),
+              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Layout Manager",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Layout Manager",
+                  onClick: handleLayoutManager,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconListTree, {
+                    size: 20
+                  })
+                })
+              }),
+              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Aspect Lock",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Aspect Lock",
                   onClick: handleAspectLock,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconPlaystationSquare, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconPlaystationSquare, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Upload/Download Document",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleUploadDownloadClick,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconArrowsTransferUpDown, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Layout Image Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconMapBolt, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
+              appConfig.showTestError && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                   variant: "filled",
                   color: "red",
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_runtime22.jsx(IconBug, {
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconBug, {
+                    size: 20
+                  })
+                })
+              }),
+              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Connector Cleanup",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Connector Cleanup",
+                  onClick: handleConnectorCleanup,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconPlug, {
+                    size: 20
+                  })
+                })
+              }),
+              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Manual Crop Manager",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "blue",
+                  size: "lg",
+                  "aria-label": "Manual Crop Manager",
+                  onClick: handleManualCropManager,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconCrop, {
+                    size: 20
+                  })
+                })
+              }),
+              /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                label: "Settings",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: "gray",
+                  size: "lg",
+                  "aria-label": "Settings",
+                  onClick: handleSettings,
+                  children: /* @__PURE__ */ jsx_runtime31.jsx(IconSettings, {
                     size: 20
                   })
                 })
@@ -43348,45 +47138,45 @@ function Toolbar() {
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime22.jsx(DownloadModal, {
+      appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime31.jsx(DownloadModal, {
         opened: isDownloadUploadModalOpen,
         onClose: () => setIsDownloadUploadModalOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime31.jsx(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }),
-            /* @__PURE__ */ jsx_runtime22.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_runtime22.jsx("br", {}),
+                /* @__PURE__ */ jsx_runtime31.jsx("br", {}),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }),
-            /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }),
-                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_runtime22.jsx(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_runtime31.jsx(IconExternalLink, {
                     size: 16
                   }),
                   color: "blue",
@@ -43397,39 +47187,51 @@ function Toolbar() {
           ]
         })
       }),
-      isFramePositionViewerOpen && /* @__PURE__ */ jsx_runtime22.jsx(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime31.jsx(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }),
-      isAddFrameSnapshotModalOpen && /* @__PURE__ */ jsx_runtime22.jsx(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime31.jsx(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }),
-      isLayoutManagerOpen && /* @__PURE__ */ jsx_runtime22.jsx(LayoutManagerModal, {
+      isLayoutManagerOpen && appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime31.jsx(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime22.jsxs(Modal, {
+      isMagicLayoutsModalOpen && appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime31.jsx(MagicLayoutsModal, {
+        opened: isMagicLayoutsModalOpen,
+        onClose: () => setIsMagicLayoutsModalOpen(false)
+      }),
+      appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime31.jsx(ConnectorCleanupModal, {
+        opened: isConnectorCleanupModalOpen,
+        onClose: () => setIsConnectorCleanupModalOpen(false)
+      }),
+      appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime31.jsx(ManualCropManagerModal, {
+        opened: isManualCropManagerModalOpen,
+        onClose: () => setIsManualCropManagerModalOpen(false)
+      }),
+      appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime31.jsxs(Modal, {
         opened: isAspectLockConfirmModalOpen,
         onClose: () => setIsAspectLockConfirmModalOpen(false),
         title: "Confirm Aspect Lock Change",
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime31.jsx(Text, {
             children: "Turn Aspect Lock On?"
           }),
-          /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                 variant: "default",
                 onClick: () => handleConfirmAspectLock(false),
                 children: "No"
               }),
-              /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                 color: "blue",
                 onClick: () => handleConfirmAspectLock(true),
                 children: "Yes"
@@ -43438,7 +47240,7 @@ function Toolbar() {
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime22.jsxs(Modal, {
+      appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime31.jsxs(Modal, {
         opened: isAspectLockSuccessModalOpen,
         onClose: () => {
           setIsAspectLockSuccessModalOpen(false);
@@ -43448,13 +47250,13 @@ function Toolbar() {
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime31.jsx(Text, {
             children: aspectLockSuccessMessage
           }),
-          /* @__PURE__ */ jsx_runtime22.jsx(Group, {
+          /* @__PURE__ */ jsx_runtime31.jsx(Group, {
             justify: "flex-end",
             mt: "md",
-            children: /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+            children: /* @__PURE__ */ jsx_runtime31.jsx(Button, {
               onClick: () => {
                 setIsAspectLockSuccessModalOpen(false);
                 setAspectLockSuccessMessage("");
@@ -43463,18 +47265,25 @@ function Toolbar() {
             })
           })
         ]
+      }),
+      /* @__PURE__ */ jsx_runtime31.jsx(ToolbarSettingsModal, {
+        opened: isSettingsModalOpen,
+        onClose: () => setIsSettingsModalOpen(false),
+        config: appConfig,
+        onConfigChange: setAppConfig,
+        onReloadConfig: reloadConfig
       })
     ]
   });
 }
 
 // src/components/AlertsContainer.tsx
-var import_react259 = __toESM(require_react(), 1);
-var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+var import_react267 = __toESM(require_react(), 1);
+var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react259.useEffect(() => {
+  import_react267.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -43489,7 +47298,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime23.jsx(Box, {
+  return /* @__PURE__ */ jsx_runtime32.jsx(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -43497,10 +47306,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_runtime23.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime32.jsx(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime23.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime23.jsx(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime32.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime32.jsx(IconInfoCircle, {
           size: "1rem"
         }),
         title: "Toolbar Error",
@@ -43520,7 +47329,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime33 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -43541,16 +47350,16 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime24.jsx(import_react260.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime24.jsx(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime33.jsx(import_react268.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime33.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime24.jsx(import_react260.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime24.jsxs(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime33.jsx(import_react268.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime33.jsxs(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_runtime24.jsx(Toolbar, {}),
-        /* @__PURE__ */ jsx_runtime24.jsx(AlertsContainer, {})
+        /* @__PURE__ */ jsx_runtime33.jsx(Toolbar, {}),
+        /* @__PURE__ */ jsx_runtime33.jsx(AlertsContainer, {})
       ]
     })
   }));
@@ -43575,4 +47384,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=230CD81BF4579BE264756E2164756E21
+//# debugId=EC81D71833088CE764756E2164756E21

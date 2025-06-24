@@ -21,6 +21,7 @@ import {
   ActionEditorEvent,
   VariableType,
   VariableVisibilityType,
+  ConnectorType,
 } from "@chili-publish/studio-sdk";
 import {
   createEmptyEnvelope,
@@ -43,6 +44,18 @@ import { layoutMappingToActionMap } from "./layoutMappingToActionMap.ts";
 import { frameLayoutMappingToLookup } from "../studio-adapter/frameLayoutMappingToLookup.ts";
 import { layoutManagerToLookup } from "../studio-adapter/layoutManagerToLookup.ts";
 import { layoutSizingScript } from "./actions/layoutSizing.js";
+import {
+  getCurrentDocumentState,
+  loadDocumentFromJsonStr,
+} from "./documentHandler.ts";
+import {
+  getConnectorsByType,
+  unregisterConnector,
+} from "./connectorAdapter.ts";
+import type {
+  DocumentConnector,
+  DocumentConnectorWithUsage,
+} from "../types/connectorTypes.ts";
 
 declare global {
   interface Window {
@@ -69,36 +82,36 @@ async function tryAddingToolbarToData(data: PrivateData) {
 }
 
 export async function loadLayoutImageMapFromDoc(): Promise<
-Result<LayoutMap[], never> | Result<never, Error>
+  Result<LayoutMap[], never> | Result<never, Error>
 > {
   const result = await loadToolbarDataFromDoc();
-  if (await result.isOk()){
+  if (await result.isOk()) {
     return Result.ok(result.value?.layoutMaps ?? []);
   }
 
-  return result as Result<never, Error>;;
+  return result as Result<never, Error>;
 }
 
 export async function loadFrameLayoutMapsFromDoc(): Promise<
-Result<FrameLayoutMap[], never> | Result<never, Error>
+  Result<FrameLayoutMap[], never> | Result<never, Error>
 > {
   const result = await loadToolbarDataFromDoc();
-  if (await result.isOk()){
+  if (await result.isOk()) {
     return Result.ok(result.value?.frameMaps ?? []);
   }
 
-  return result as Result<never, Error>;;
+  return result as Result<never, Error>;
 }
 
 export async function loadLayoutSizesFromDoc(): Promise<
-Result<Record<string, LayoutSize>, never> | Result<never, Error>
+  Result<Record<string, LayoutSize>, never> | Result<never, Error>
 > {
   const result = await loadToolbarDataFromDoc();
-  if (await result.isOk()){
+  if (await result.isOk()) {
     return Result.ok(result.value?.layoutSizes ?? {});
   }
 
-  return result as Result<never, Error>;;
+  return result as Result<never, Error>;
 }
 
 export async function loadToolbarDataFromDoc(): Promise<
@@ -115,7 +128,7 @@ export async function loadToolbarDataFromDoc(): Promise<
     if (data.toolbar != null) {
       const toolbarResult = await Result.try(() => JSON.parse(data.toolbar));
       if (toolbarResult.isOk()) {
-        return Result.ok((toolbarResult.value as ToolbarEnvelope));
+        return Result.ok(toolbarResult.value as ToolbarEnvelope);
       }
 
       return toolbarResult as Result<never, Error>;
@@ -133,19 +146,21 @@ export async function loadToolbarDataFromDoc(): Promise<
 }
 
 export function saveLayoutImageMapToDoc(layoutMaps: LayoutMap[]) {
-  return saveToolbarDataToDoc("layoutMaps", layoutMaps)
+  return saveToolbarDataToDoc("layoutMaps", layoutMaps);
 }
 
 export function saveFrameLayoutMapsToDoc(frameMaps: FrameLayoutMap[]) {
-  return saveToolbarDataToDoc("frameMaps", frameMaps)
+  return saveToolbarDataToDoc("frameMaps", frameMaps);
 }
 
 export function saveLayoutSizesToDoc(layoutSizes: Record<string, LayoutSize>) {
-  return saveToolbarDataToDoc("layoutSizes", layoutSizes)
+  return saveToolbarDataToDoc("layoutSizes", layoutSizes);
 }
 
-
-export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(key:K, value:ToolbarEnvelope[K]) {
+export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(
+  key: K,
+  value: ToolbarEnvelope[K]
+) {
   const dataResult = await getPrivateData({
     id: "0",
     studio: window.SDK,
@@ -177,7 +192,7 @@ export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(key:
         const toolbar = toolbarResult.value as ToolbarEnvelope;
         toolbar[key] = value;
         const stringifyResult = Result.try(() =>
-          JSON.stringify(toolbar, null, 0),
+          JSON.stringify(toolbar, null, 0)
         );
         if (stringifyResult.isOk()) {
           data.toolbar = stringifyResult.value as string;
@@ -198,7 +213,7 @@ export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(key:
     }
 
     return Result.error(
-      new Error("data.toolbar is null even after we tried to fix it"),
+      new Error("data.toolbar is null even after we tried to fix it")
     );
   }
 
@@ -280,7 +295,7 @@ export async function loadDocFromDoc(): Promise<
 
 export async function saveLayoutMappingToAction(
   layoutMaps: LayoutMap[],
-  doc: Doc,
+  doc: Doc
 ) {
   const actionMap = layoutMappingToActionMap(layoutMaps, doc);
 
@@ -302,7 +317,7 @@ export async function saveLayoutMappingToAction(
         { event: ActionEditorEvent.variableValueChanged },
       ],
       script: script,
-    },
+    }
   );
 
   return updateResult;
@@ -318,18 +333,20 @@ export async function saveLayoutMappingToAction(
 }
 
 export async function saveImageSizingMappingToAction(
-  frameMaps: FrameLayoutMap[],
+  frameMaps: FrameLayoutMap[]
 ) {
-
-  const imageResizingMapResult = await frameLayoutMappingToLookup(frameMaps, window.SDK);
+  const imageResizingMapResult = await frameLayoutMappingToLookup(
+    frameMaps,
+    window.SDK
+  );
   const layoutSizingMapResult = await layoutManagerToLookup(window.SDK);
 
-  const results = Result.all(imageResizingMapResult, layoutSizingMapResult)
-  
+  const results = Result.all(imageResizingMapResult, layoutSizingMapResult);
+
   if (results.isError() || results.value == null) {
     return results;
   }
-  
+
   const [imageResizingData, layoutSizingData] = results.value;
 
   const script =
@@ -351,25 +368,25 @@ export async function saveImageSizingMappingToAction(
         { event: ActionEditorEvent.variableValueChanged },
       ],
       script: script,
-    },
+    }
   );
 
   return updateResult;
-
 }
 
-export async function saveLayoutSizingToAction(on:boolean) {
-
-  if (on){
+export async function saveLayoutSizingToAction(on: boolean) {
+  if (on) {
     const layoutSizingMapResult = await layoutManagerToLookup(window.SDK);
 
-    if (layoutSizingMapResult.isError() || layoutSizingMapResult.value == null) {
+    if (
+      layoutSizingMapResult.isError() ||
+      layoutSizingMapResult.value == null
+    ) {
       return layoutSizingMapResult;
     }
 
     const script =
-    layoutSizingScript
-        .toString() +
+      layoutSizingScript.toString() +
       "\nconsole.log(layoutSizingScript(false))";
 
     const updateResult = await updateAction(
@@ -379,47 +396,50 @@ export async function saveLayoutSizingToAction(on:boolean) {
       },
       {
         name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-        triggers: [
-          { event: ActionEditorEvent.pageSizeChanged },
-        ],
+        triggers: [{ event: ActionEditorEvent.pageSizeChanged }],
         script: script,
-      },
+      }
     );
 
     if (updateResult.isError()) {
-      return updateResult
+      return updateResult;
     }
 
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
       variableType: VariableType.shortText,
-      value: JSON.stringify(layoutSizingMapResult.value, null, 0)
+      value: JSON.stringify(layoutSizingMapResult.value, null, 0),
     });
 
     if (variableResult.isError()) {
       return variableResult;
     }
 
-    return setVariableVisblityWithName({studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible:{type:VariableVisibilityType.invisible}});      
-  }
-  else {
+    return setVariableVisblityWithName({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      visible: { type: VariableVisibilityType.invisible },
+    });
+  } else {
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
       variableType: VariableType.shortText,
-      value: JSON.stringify({}, null, 0)
+      value: JSON.stringify({}, null, 0),
     });
 
     if (variableResult.isError()) {
       return variableResult;
     }
 
-    return setVariableVisblityWithName({studio: window.SDK, name: "AUTO_GEN_TOOLBAR_LAYOUTS", visible:{type:VariableVisibilityType.invisible}});      
+    return setVariableVisblityWithName({
+      studio: window.SDK,
+      name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+      visible: { type: VariableVisibilityType.invisible },
+    });
   }
-
 }
-
 
 // export async function convertOldMap(variableId: string) {
 //   const studioResult = await getStudio();
@@ -471,31 +491,47 @@ export async function saveLayoutSizingToAction(on:boolean) {
 //   }
 // }
 
-export async function removeFrameLayouyMap(frameId:string, imageName:String, layoutId:string): Promise<Result<void, Error>> {
+export async function removeFrameLayouyMap(
+  frameId: string,
+  imageName: String,
+  layoutId: string
+): Promise<Result<void, Error>> {
   try {
     // 1. Load frame layout maps from doc
     const frameLayoutMapsResult = await loadFrameLayoutMapsFromDoc();
     if (!frameLayoutMapsResult.isOk()) {
-      return Result.error(new Error("Failed to load frame layout maps: " + frameLayoutMapsResult.error?.message));
+      return Result.error(
+        new Error(
+          "Failed to load frame layout maps: " +
+            frameLayoutMapsResult.error?.message
+        )
+      );
     }
-    
+
     const frameLayoutMaps = frameLayoutMapsResult.value;
 
     // 2. Find the frame layout map for the specified layout
-    const frameLayoutMapIndex = frameLayoutMaps.findIndex(map => map.layoutId === layoutId);
-    
+    const frameLayoutMapIndex = frameLayoutMaps.findIndex(
+      (map) => map.layoutId === layoutId
+    );
+
     if (frameLayoutMapIndex === -1) {
-      return Result.error(new Error(`No frame layout map found for layout ID: ${layoutId}`));
+      return Result.error(
+        new Error(`No frame layout map found for layout ID: ${layoutId}`)
+      );
     }
 
     // 3. Find the frame snapshot with the specified frame ID
     const frameLayoutMap = frameLayoutMaps[frameLayoutMapIndex];
     const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex(
-      snapshot => snapshot.frameId === frameId && snapshot.imageName == imageName
+      (snapshot) =>
+        snapshot.frameId === frameId && snapshot.imageName == imageName
     );
-    
+
     if (frameSnapshotIndex === -1) {
-      return Result.error(new Error(`No frame snapshot found with ID: ${frameId}`));
+      return Result.error(
+        new Error(`No frame snapshot found with ID: ${frameId}`)
+      );
     }
 
     // 4. Remove the frame snapshot
@@ -509,18 +545,24 @@ export async function removeFrameLayouyMap(frameId:string, imageName:String, lay
     // 6. Save the updated frame layout maps
     const saveResult = await saveFrameLayoutMapsToDoc(frameLayoutMaps);
     if (!saveResult.isOk()) {
-      return Result.error(new Error("Failed to save frame layout maps: " + saveResult.error?.message));
+      return Result.error(
+        new Error(
+          "Failed to save frame layout maps: " + saveResult.error?.message
+        )
+      );
     }
 
     return Result.ok(undefined);
   } catch (error) {
-    return Result.error(error instanceof Error ? error : new Error(String(error)));
+    return Result.error(
+      error instanceof Error ? error : new Error(String(error))
+    );
   }
 }
 
 export async function updateFrameLayoutMaps(frameSnapshot: {
   frameId: string;
-  assetId:string;
+  assetId: string;
   x: number;
   y: number;
   width: number;
@@ -537,39 +579,53 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
     // 2. Get selected layout ID
     const selectedLayoutResult = await getSelected(studio);
     if (!selectedLayoutResult.isOk()) {
-      return Result.error(new Error("Failed to get selected layout: " + selectedLayoutResult.error?.message));
+      return Result.error(
+        new Error(
+          "Failed to get selected layout: " +
+            selectedLayoutResult.error?.message
+        )
+      );
     }
-    
+
     const selectedLayout = selectedLayoutResult.value;
     if (!selectedLayout || !selectedLayout.id) {
       return Result.error(new Error("No layout is currently selected"));
     }
-    
+
     const layoutId = selectedLayout.id;
 
     // 3. Load frame layout maps from doc
     const frameLayoutMapsResult = await loadFrameLayoutMapsFromDoc();
     if (!frameLayoutMapsResult.isOk()) {
-      return Result.error(new Error("Failed to load frame layout maps: " + frameLayoutMapsResult.error?.message));
+      return Result.error(
+        new Error(
+          "Failed to load frame layout maps: " +
+            frameLayoutMapsResult.error?.message
+        )
+      );
     }
-    
+
     const frameLayoutMaps = frameLayoutMapsResult.value;
 
     // 4. Find or create a FrameLayoutMap for the selected layout
-    let frameLayoutMap = frameLayoutMaps.find(map => map.layoutId === layoutId);
-    
+    let frameLayoutMap = frameLayoutMaps.find(
+      (map) => map.layoutId === layoutId
+    );
+
     if (!frameLayoutMap) {
       // Create a new FrameLayoutMap if one doesn't exist for this layout
       frameLayoutMap = {
         layoutId,
-        frameSnapshots: []
+        frameSnapshots: [],
       };
       frameLayoutMaps.push(frameLayoutMap);
     }
 
     // 5. Find or add a FrameSnapshot for the selected frame
     const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex(
-      snapshot => snapshot.frameId === frameSnapshot.frameId && snapshot.imageName == frameSnapshot.assetId
+      (snapshot) =>
+        snapshot.frameId === frameSnapshot.frameId &&
+        snapshot.imageName == frameSnapshot.assetId
     );
 
     const newFrameSnapshot = {
@@ -578,7 +634,7 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
       x: frameSnapshot.x,
       y: frameSnapshot.y,
       width: frameSnapshot.width,
-      height: frameSnapshot.height
+      height: frameSnapshot.height,
     };
 
     if (frameSnapshotIndex >= 0) {
@@ -592,11 +648,195 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
     // 6. Save updated frame layout maps to doc
     const saveResult = await saveFrameLayoutMapsToDoc(frameLayoutMaps);
     if (!saveResult.isOk()) {
-      return Result.error(new Error("Failed to save frame layout maps: " + saveResult.error?.message));
+      return Result.error(
+        new Error(
+          "Failed to save frame layout maps: " + saveResult.error?.message
+        )
+      );
     }
 
     return Result.ok(undefined);
   } catch (error) {
-    return Result.error(error instanceof Error ? error : new Error(String(error)));
+    return Result.error(
+      error instanceof Error ? error : new Error(String(error))
+    );
+  }
+}
+
+/**
+ * Get all connectors in the current document with their usage information
+ */
+export async function getCurrentConnectors(
+  studio: SDKType
+): Promise<Result<DocumentConnectorWithUsage[], Error>> {
+  try {
+    // 1. Get connectors by type from the SDK
+    const connectorsResult = await getConnectorsByType(
+      studio,
+      ConnectorType.media
+    );
+    if (!connectorsResult.isOk()) {
+      return Result.error(
+        new Error(
+          "Failed to get connectors: " + connectorsResult.error?.message
+        )
+      );
+    }
+
+    const connectorInstances = connectorsResult.value;
+
+    console.log("connectorInstances", connectorInstances);
+
+    // 2. Get current document state
+    const documentStateResult = await getCurrentDocumentState(studio);
+    if (!documentStateResult.isOk()) {
+      return Result.error(
+        new Error(
+          "Failed to get document state: " + documentStateResult.error?.message
+        )
+      );
+    }
+
+    const documentState = documentStateResult.value as any; // Raw JSON document
+
+    // 3. Filter document connectors that have source "grafx" and are in the connector instances
+    const documentConnectors = (documentState.connectors ||
+      []) as DocumentConnector[];
+
+    console.log("documentConnectors", documentConnectors);
+
+    const grafxConnectors = documentConnectors.filter(
+      (docConnector) =>
+        docConnector.source.source === "grafx" &&
+        connectorInstances.some((instance) => instance.id === docConnector.id)
+    );
+
+    // 4. Search for usage in the document
+    const result: DocumentConnectorWithUsage[] = [];
+
+    for (const connector of grafxConnectors) {
+      const usage: DocumentConnectorWithUsage = {
+        id: connector.id,
+        name: connector.name,
+        type: "media", // Assuming media type since we're getting media connectors
+        usesInTemplate: {
+          images: [],
+          variables: [],
+        },
+      };
+
+      // Search in pages.frames for images with this connector ID
+      if (documentState.pages && Array.isArray(documentState.pages)) {
+        for (const page of documentState.pages) {
+          if (page.frames && Array.isArray(page.frames)) {
+            for (const frame of page.frames) {
+              if (
+                frame.type === "image" &&
+                (frame as any).src &&
+                (frame as any).src.id === connector.id
+              ) {
+                usage.usesInTemplate.images.push({
+                  id: frame.id,
+                  name: frame.name || frame.id,
+                });
+              }
+            }
+          }
+        }
+      }
+
+      // Search in variables for image variables with this connector ID
+      if (documentState.variables && Array.isArray(documentState.variables)) {
+        for (const variable of documentState.variables) {
+          if (
+            variable.type === "image" &&
+            variable.value &&
+            typeof variable.value === "object" &&
+            (variable.value as any).connectorId === connector.id
+          ) {
+            usage.usesInTemplate.variables.push({
+              id: variable.id,
+              name: variable.name || variable.id,
+            });
+          }
+        }
+      }
+
+      result.push(usage);
+    }
+
+    return Result.ok(result);
+  } catch (error) {
+    return Result.error(
+      error instanceof Error ? error : new Error(String(error))
+    );
+  }
+}
+
+/**
+ * Merge multiple connectors into a single target connector
+ * @param studio - Studio SDK instance
+ * @param targetConnectorId - ID of the connector to merge into
+ * @param selectedConnectorIds - Array of connector IDs to merge (including the target)
+ * @returns Result indicating success or failure
+ */
+export async function mergeConnectors(
+  studio: SDKType,
+  targetConnectorId: string,
+  selectedConnectorIds: string[]
+): Promise<Result<void, Error>> {
+  try {
+    // Filter out the target connector from the list of connectors to unregister
+    const connectorsToUnregister = selectedConnectorIds.filter(
+      (id) => id !== targetConnectorId
+    );
+
+    // Step 1: Unregister all connectors except the target
+    for (const connectorId of connectorsToUnregister) {
+      const unregisterResult = await unregisterConnector(studio, connectorId);
+      if (!unregisterResult.isOk()) {
+        return Result.error(
+          new Error(
+            `Failed to unregister connector ${connectorId}: ${unregisterResult.error?.message}`
+          )
+        );
+      }
+    }
+
+    // Step 2: Get current document state
+    const documentStateResult = await getCurrentDocumentState(studio);
+    if (!documentStateResult.isOk()) {
+      return Result.error(
+        new Error(
+          `Failed to get document state: ${documentStateResult.error?.message}`
+        )
+      );
+    }
+
+    // Step 3: Replace all connector IDs in the document JSON
+    let documentJson = JSON.stringify(documentStateResult.value);
+
+    // Replace each connector ID with the target connector ID
+    for (const connectorId of connectorsToUnregister) {
+      // Use a global regex to replace all occurrences
+      const regex = new RegExp(connectorId, "g");
+      documentJson = documentJson.replace(regex, targetConnectorId);
+    }
+
+    // Step 4: Load the updated document
+    const loadResult = await loadDocumentFromJsonStr(studio, documentJson);
+    if (!loadResult.isOk()) {
+      return Result.error(
+        new Error(
+          `Failed to load updated document: ${loadResult.error?.message}`
+        )
+      );
+    }
+
+    return Result.ok(undefined);
+  } catch (error) {
+    return Result.error(
+      error instanceof Error ? error : new Error(String(error))
+    );
   }
 }
