@@ -5,11 +5,16 @@ import {
   Stack,
   Group,
   Button,
-  Checkbox,
   Loader,
   Alert,
+  SimpleGrid,
 } from "@mantine/core";
-import { IconDownload, IconUpload, IconAlertCircle } from "@tabler/icons-react";
+import {
+  IconDownload,
+  IconUpload,
+  IconAlertCircle,
+  IconFileText,
+} from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import {
   getCurrentDocumentState,
@@ -24,6 +29,7 @@ import type {
 } from "../types/connectorTypes";
 import type {
   FontFamily,
+  FontStyle,
   FontMigrationProgress,
   FontToMigrate,
   FontFamiliesResponse,
@@ -48,12 +54,14 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   );
   const [pendingJsonContent, setPendingJsonContent] = useState<string>("");
   const [nameMatches, setNameMatches] = useState<Record<string, string>>({});
-  const [useTemplatePackage, setUseTemplatePackage] = useState(false);
   const [fontMigrationProgress, setFontMigrationProgress] =
     useState<FontMigrationProgress | null>(null);
   const [showPackageWarning, setShowPackageWarning] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
-  const handleDownload = async () => {
+  // Button 1: Download Document JSON (Blue)
+  const handleDownloadDocumentJson = async () => {
+    setIsDownloading(true);
     try {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
@@ -73,7 +81,46 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         return;
       }
 
-      // Get token and baseUrl from configuration - we'll need these for multiple operations
+      // Get template name for filename
+      const templateName = await getTemplateName(studioResult.value);
+
+      // Prepare document data (no additional properties)
+      const documentData = { ...documentResult.value } as any;
+      const fileName = `${templateName}.json`;
+
+      // Create and download the file
+      downloadJsonFile(documentData, fileName);
+      onClose();
+    } catch (error) {
+      raiseError(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  // Button 2: Download Template Package (Blue)
+  const handleDownloadTemplatePackage = async () => {
+    setIsDownloading(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError(
+          new Error(studioResult.error?.message || "Failed to get studio")
+        );
+        return;
+      }
+
+      const documentResult = await getCurrentDocumentState(studioResult.value);
+      if (!documentResult.isOk()) {
+        raiseError(
+          new Error(
+            documentResult.error?.message || "Failed to get document state"
+          )
+        );
+        return;
+      }
+
+      // Get token and baseUrl from configuration
       const token = (
         await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
       ).parsedData;
@@ -81,22 +128,54 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         await studioResult.value.configuration.getValue("ENVIRONMENT_API")
       ).parsedData;
 
+      // Get template name for filename
+      const templateName = await getTemplateName(studioResult.value);
+
+      // Prepare document data with token and baseUrl properties
+      const documentData = { ...documentResult.value } as any;
+
+      // Ensure properties object exists
+      if (!documentData.properties) {
+        documentData.properties = {};
+      }
+
+      // Store token and baseUrl in document properties
+      documentData.properties.token = token;
+      documentData.properties.baseUrl = baseUrl;
+
+      const fileName = `${templateName}.packageJson`;
+
+      // Create and download the file
+      downloadJsonFile(documentData, fileName);
+
+      // Show package warning
+      setShowPackageWarning(true);
+      setTimeout(() => setShowPackageWarning(false), 5000);
+
+      onClose();
+    } catch (error) {
+      raiseError(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  // Helper function to get template name
+  const getTemplateName = async (studio: any): Promise<string> => {
+    try {
+      // Get token and baseUrl from configuration
+      const token = (await studio.configuration.getValue("GRAFX_AUTH_TOKEN"))
+        .parsedData;
+      const baseUrl = (await studio.configuration.getValue("ENVIRONMENT_API"))
+        .parsedData;
+
       // Get template ID from URL
       const urlPath = window.location.href;
       const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
-      let templateId = "";
       let templateName = "document";
 
       if (templateIdMatch && templateIdMatch[1]) {
-        templateId = templateIdMatch[1];
-
-        // Get token and baseUrl from configuration
-        const token = (
-          await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-        ).parsedData;
-        const baseUrl = (
-          await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-        ).parsedData;
+        const templateId = templateIdMatch[1];
 
         try {
           // Fetch template details to get the name
@@ -117,52 +196,247 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             }
           }
         } catch (error) {
-          console.warn("Failed to fetch template name:", error);
           // Continue with default name if template fetch fails
+          raiseError(
+            error instanceof Error
+              ? error
+              : new Error("Failed to fetch template name")
+          );
         }
       }
 
-      // Prepare document data
-      let documentData = { ...documentResult.value } as any;
-      let fileName = `${templateName}.json`;
+      return templateName;
+    } catch (error) {
+      raiseError(error instanceof Error ? error : new Error(String(error)));
+      return "document";
+    }
+  };
 
-      // If using template package, store token and baseUrl in properties and change file extension
-      if (useTemplatePackage) {
-        // Ensure properties object exists
-        if (!documentData.properties) {
-          documentData.properties = {};
-        }
+  // Helper function to download JSON file
+  const downloadJsonFile = (data: any, fileName: string) => {
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
 
-        // Store token and baseUrl in document properties
-        documentData.properties.token = token;
-        documentData.properties.baseUrl = baseUrl;
+    // Clean up
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 0);
+  };
 
-        fileName = `${templateName}.packageJson`;
+  // Button 3: Upload Document JSON or Template Package (Green)
+  const handleUpload = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
-        // Show package warning
-        setShowPackageWarning(true);
-        setTimeout(() => setShowPackageWarning(false), 5000); // Hide after 5 seconds
+  // Button 4: Download Document Fonts (Blue)
+  const handleDownloadFonts = async () => {
+    setIsDownloading(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError(
+          new Error(studioResult.error?.message || "Failed to get studio")
+        );
+        return;
       }
 
-      // Create a blob from the document state
-      const jsonStr = JSON.stringify(documentData, null, 2);
-      const blob = new Blob([jsonStr], { type: "application/json" });
+      const documentResult = await getCurrentDocumentState(studioResult.value);
+      if (!documentResult.isOk()) {
+        raiseError(
+          new Error(
+            documentResult.error?.message || "Failed to get document state"
+          )
+        );
+        return;
+      }
 
-      // Create a download link and trigger it
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
+      // Get token and baseUrl from configuration
+      const token = (
+        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
+      ).parsedData as string;
+      const baseUrl = (
+        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
+      ).parsedData as string;
 
-      // Clean up
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 0);
+      // Extract font families from document
+      const documentData = documentResult.value as any;
+      if (
+        !documentData.stylekit?.fontFamilies ||
+        !Array.isArray(documentData.stylekit.fontFamilies)
+      ) {
+        raiseError(new Error("No fonts found in document"));
+        return;
+      }
 
-      // Close the modal
+      const fontFamilies = documentData.stylekit.fontFamilies as FontFamily[];
+      if (fontFamilies.length === 0) {
+        raiseError(new Error("No fonts found in document"));
+        return;
+      }
+
+      // Download fonts with deduplication and create ledger
+      await downloadDocumentFonts(fontFamilies, token, baseUrl);
+    } catch (error) {
+      raiseError(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  // Font download function with deduplication and ledger creation
+  const downloadDocumentFonts = async (
+    fontFamilies: FontFamily[],
+    token: string,
+    baseUrl: string
+  ) => {
+    try {
+      const downloadedFonts = new Set<string>(); // For deduplication
+      const ledgerEntries: string[] = [];
+      const templateName = await getTemplateName({
+        configuration: {
+          getValue: async (key: string) => ({
+            parsedData: key === "GRAFX_AUTH_TOKEN" ? token : baseUrl,
+          }),
+        },
+      });
+
+      // Collect all font styles with deduplication
+      const fontsToDownload: {
+        family: FontFamily;
+        style: FontStyle;
+        fileName: string;
+      }[] = [];
+
+      for (const family of fontFamilies) {
+        for (const style of family.fontStyles) {
+          // Get font style details to get the actual fileName
+          try {
+            const fontStyleResponse = await fetch(
+              `${baseUrl}font-families/${family.fontFamilyId}/styles`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            if (fontStyleResponse.ok) {
+              const fontStylesData: FontStylesResponse =
+                await fontStyleResponse.json();
+              const fontStyleDetails = fontStylesData.data.find(
+                (fs) => fs.id === style.fontStyleId
+              );
+
+              if (fontStyleDetails) {
+                const lastDotIndex = fontStyleDetails.fileName.lastIndexOf(".");
+                const fontBaseName = fontStyleDetails.fileName.slice(
+                  0,
+                  lastDotIndex
+                );
+
+                // Check for deduplication using the base font name
+                if (!downloadedFonts.has(fontBaseName)) {
+                  downloadedFonts.add(fontBaseName);
+
+                  // Create ledger entry mapping display name to actual font name
+                  const displayName =
+                    style.name + fontStyleDetails.fileName.slice(lastDotIndex);
+                  ledgerEntries.push(`${displayName} -> ${fontBaseName}`);
+
+                  fontsToDownload.push({
+                    family,
+                    style,
+                    fileName:
+                      fontBaseName +
+                      fontStyleDetails.fileName.slice(lastDotIndex),
+                  });
+                }
+              }
+            }
+          } catch (error) {
+            raiseError(
+              error instanceof Error
+                ? error
+                : new Error(
+                    `Failed to get font style details for ${style.name}`
+                  )
+            );
+          }
+        }
+      }
+
+      // Download each unique font
+      for (let i = 0; i < fontsToDownload.length; i++) {
+        const { style, fileName } = fontsToDownload[i];
+
+        try {
+          const fontDownloadResponse = await fetch(
+            `${baseUrl}font-styles/${style.fontStyleId}/download`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (fontDownloadResponse.ok) {
+            const fontBlob = await fontDownloadResponse.blob();
+
+            // Download the font file
+            const url = URL.createObjectURL(fontBlob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+
+            // Clean up
+            setTimeout(() => {
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            }, 100 * i); // Stagger cleanup to avoid conflicts
+          } else {
+            raiseError(new Error(`Failed to download font: ${style.name}`));
+          }
+        } catch (error) {
+          raiseError(
+            error instanceof Error
+              ? error
+              : new Error(`Error downloading font ${style.name}`)
+          );
+        }
+      }
+
+      // Create and download the ledger file
+      if (ledgerEntries.length > 0) {
+        const ledgerContent = `# Font Ledger for ${templateName}\n\nThis file maps the display names to actual font file names:\n\n${ledgerEntries.join(
+          "\n"
+        )}`;
+        const ledgerBlob = new Blob([ledgerContent], { type: "text/markdown" });
+        const ledgerUrl = URL.createObjectURL(ledgerBlob);
+        const ledgerLink = document.createElement("a");
+        ledgerLink.href = ledgerUrl;
+        ledgerLink.download = `${templateName}_font_ledger.md`;
+        document.body.appendChild(ledgerLink);
+        ledgerLink.click();
+
+        // Clean up
+        setTimeout(() => {
+          document.body.removeChild(ledgerLink);
+          URL.revokeObjectURL(ledgerUrl);
+        }, 1000);
+      }
+
       onClose();
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -283,8 +557,10 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
           );
 
           if (!fontDownloadResponse.ok) {
-            console.warn(
-              `Failed to download font: ${fontDownloadResponse.statusText}`
+            raiseError(
+              new Error(
+                `Failed to download font: ${fontDownloadResponse.statusText}`
+              )
             );
             continue;
           }
@@ -311,7 +587,9 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
           );
 
           if (!uploadResponse.ok) {
-            console.warn(`Failed to upload font: ${uploadResponse.statusText}`);
+            raiseError(
+              new Error(`Failed to upload font: ${uploadResponse.statusText}`)
+            );
             continue;
           }
 
@@ -352,16 +630,21 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               );
 
               if (!confirmResponse.ok) {
-                console.warn(
-                  `Failed to confirm font upload: ${confirmResponse.statusText}`
+                raiseError(
+                  new Error(
+                    `Failed to confirm font upload: ${confirmResponse.statusText}`
+                  )
                 );
               }
             }
           }
         } catch (error) {
-          console.warn(
-            `Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}:`,
-            error
+          raiseError(
+            error instanceof Error
+              ? error
+              : new Error(
+                  `Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`
+                )
           );
         }
       }
@@ -389,12 +672,6 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       setTimeout(() => {
         setFontMigrationProgress(null);
       }, 5000);
-    }
-  };
-
-  const handleUpload = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
     }
   };
 
@@ -677,36 +954,109 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         onClose={onClose}
         title="Document Upload/Download"
         centered
+        size="50%"
+        styles={{
+          content: {
+            minHeight: "400px",
+          },
+          body: {
+            padding: "2rem",
+          },
+          header: {
+            padding: "1.5rem 2rem 1rem 2rem",
+          },
+          title: {
+            fontSize: "1.5rem",
+            fontWeight: 600,
+          },
+        }}
       >
-        <Stack>
-          <Text size="sm">
-            Uploading and downloading only transfers the JSON not assets.
+        <Stack gap="xl">
+          <Text size="md" style={{ textAlign: "center", marginBottom: "1rem" }}>
+            Choose an action for document management. Downloads transfer JSON
+            only, not assets.
           </Text>
 
-          <Stack gap="xs">
-            <Group>
-              <Button onClick={handleDownload} color="blue">
-                <Group gap="xs">
-                  <IconDownload size={20} />
-                  <span>Download</span>
-                </Group>
-              </Button>
+          <SimpleGrid cols={2} spacing="xl" style={{ marginTop: "1rem" }}>
+            {/* Button 1: Download Document JSON */}
+            <Button
+              onClick={handleDownloadDocumentJson}
+              color="blue"
+              loading={isDownloading}
+              disabled={isDownloading}
+              fullWidth
+              size="lg"
+              style={{
+                height: "80px",
+                fontSize: "1rem",
+                fontWeight: 500,
+              }}
+            >
+              <Group gap="md" style={{ flexDirection: "column" }}>
+                <IconDownload size={28} />
+                <span>Download Document JSON</span>
+              </Group>
+            </Button>
 
-              <Button onClick={handleUpload} color="green">
-                <Group gap="xs">
-                  <IconUpload size={20} />
-                  <span>Upload</span>
-                </Group>
-              </Button>
-            </Group>
-            <Checkbox
-              label="Use Template Package"
-              checked={useTemplatePackage}
-              onChange={(event) =>
-                setUseTemplatePackage(event.currentTarget.checked)
-              }
-            />
-          </Stack>
+            {/* Button 2: Download Template Package */}
+            <Button
+              onClick={handleDownloadTemplatePackage}
+              color="blue"
+              loading={isDownloading}
+              disabled={isDownloading}
+              fullWidth
+              size="lg"
+              style={{
+                height: "80px",
+                fontSize: "1rem",
+                fontWeight: 500,
+              }}
+            >
+              <Group gap="md" style={{ flexDirection: "column" }}>
+                <IconDownload size={28} />
+                <span>Download Template Package</span>
+              </Group>
+            </Button>
+
+            {/* Button 3: Upload Document JSON or Template Package */}
+            <Button
+              onClick={handleUpload}
+              color="green"
+              disabled={isDownloading}
+              fullWidth
+              size="lg"
+              style={{
+                height: "80px",
+                fontSize: "1rem",
+                fontWeight: 500,
+              }}
+            >
+              <Group gap="md" style={{ flexDirection: "column" }}>
+                <IconUpload size={28} />
+                <span>Upload JSON/Package</span>
+              </Group>
+            </Button>
+
+            {/* Button 4: Download Document Fonts */}
+            <Button
+              onClick={handleDownloadFonts}
+              color="blue"
+              loading={isDownloading}
+              disabled={isDownloading}
+              fullWidth
+              size="lg"
+              style={{
+                height: "80px",
+                fontSize: "1rem",
+                fontWeight: 500,
+              }}
+            >
+              <Group gap="md" style={{ flexDirection: "column" }}>
+                <IconFileText size={28} />
+                <span>Download Document Fonts</span>
+              </Group>
+            </Button>
+          </SimpleGrid>
         </Stack>
 
         {/* Package Warning */}
