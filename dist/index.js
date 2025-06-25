@@ -14266,8 +14266,8 @@ var init_defaultAttributes = __esm(() => {
 });
 
 // node_modules/@tabler/icons-react/dist/esm/createReactComponent.mjs
-var import_react235, createReactComponent = (type, iconName, iconNamePascal, iconNode) => {
-  const Component2 = import_react235.forwardRef(({ color = "currentColor", size: size4 = 24, stroke = 2, title, className, children, ...rest }, ref) => import_react235.createElement("svg", {
+var import_react237, createReactComponent = (type, iconName, iconNamePascal, iconNode) => {
+  const Component2 = import_react237.forwardRef(({ color = "currentColor", size: size4 = 24, stroke = 2, title, className, children, ...rest }, ref) => import_react237.createElement("svg", {
     ref,
     ...defaultAttributes[type],
     width: size4,
@@ -14281,15 +14281,15 @@ var import_react235, createReactComponent = (type, iconName, iconNamePascal, ico
     },
     ...rest
   }, [
-    title && import_react235.createElement("title", { key: "svg-title" }, title),
-    ...iconNode.map(([tag, attrs]) => import_react235.createElement(tag, attrs)),
+    title && import_react237.createElement("title", { key: "svg-title" }, title),
+    ...iconNode.map(([tag, attrs]) => import_react237.createElement(tag, attrs)),
     ...Array.isArray(children) ? children : [children]
   ]));
   Component2.displayName = `${iconNamePascal}`;
   return Component2;
 };
 var init_createReactComponent = __esm(() => {
-  import_react235 = __toESM(require_react(), 1);
+  import_react237 = __toESM(require_react(), 1);
   init_defaultAttributes();
 });
 
@@ -14403,6 +14403,13 @@ var IconEyeClosed;
 var init_IconEyeClosed = __esm(() => {
   init_createReactComponent();
   IconEyeClosed = createReactComponent("outline", "eye-closed", "IconEyeClosed", [["path", { d: "M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4", key: "svg-0" }], ["path", { d: "M3 15l2.5 -3.8", key: "svg-1" }], ["path", { d: "M21 14.976l-2.492 -3.776", key: "svg-2" }], ["path", { d: "M9 17l.5 -4", key: "svg-3" }], ["path", { d: "M15 17l-.5 -4", key: "svg-4" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFileText.mjs
+var IconFileText;
+var init_IconFileText = __esm(() => {
+  init_createReactComponent();
+  IconFileText = createReactComponent("outline", "file-text", "IconFileText", [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M9 9l1 0", key: "svg-2" }], ["path", { d: "M9 13l6 0", key: "svg-3" }], ["path", { d: "M9 17l6 0", key: "svg-4" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFilter.mjs
@@ -14633,7 +14640,7 @@ var init_getManualCropsFromDocByConnector = __esm(() => {
 });
 
 // src/index.tsx
-var import_react268 = __toESM(require_react(), 1);
+var import_react270 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -16824,7 +16831,7 @@ async function mergeConnectors(studio2, targetConnectorId, selectedConnectorIds)
 }
 
 // src/components/LayoutMappingModal/LayoutModal.tsx
-var import_react246 = __toESM(require_react(), 1);
+var import_react248 = __toESM(require_react(), 1);
 
 // node_modules/styled-components/node_modules/tslib/tslib.es6.mjs
 var __assign = function() {
@@ -34910,17 +34917,167 @@ var Select = factory((_props, ref) => {
 });
 Select.classes = { ...InputBase.classes, ...Combobox.classes };
 Select.displayName = "@mantine/core/Select";
-// node_modules/@mantine/core/esm/components/Stack/Stack.mjs
+// node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.mjs
+var import_jsx_runtime177 = __toESM(require_jsx_runtime(), 1);
+var import_react220 = __toESM(require_react(), 1);
+
+// node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGridVariables.mjs
 var import_jsx_runtime176 = __toESM(require_jsx_runtime(), 1);
 var import_react219 = __toESM(require_react(), 1);
+"use client";
+function SimpleGridMediaVariables({
+  spacing,
+  verticalSpacing,
+  cols,
+  selector
+}) {
+  const theme = useMantineTheme();
+  const _verticalSpacing = verticalSpacing === undefined ? spacing : verticalSpacing;
+  const baseStyles = filterProps({
+    "--sg-spacing-x": getSpacing(getBaseValue(spacing)),
+    "--sg-spacing-y": getSpacing(getBaseValue(_verticalSpacing)),
+    "--sg-cols": getBaseValue(cols)?.toString()
+  });
+  const queries = keys(theme.breakpoints).reduce((acc, breakpoint) => {
+    if (!acc[breakpoint]) {
+      acc[breakpoint] = {};
+    }
+    if (typeof spacing === "object" && spacing[breakpoint] !== undefined) {
+      acc[breakpoint]["--sg-spacing-x"] = getSpacing(spacing[breakpoint]);
+    }
+    if (typeof _verticalSpacing === "object" && _verticalSpacing[breakpoint] !== undefined) {
+      acc[breakpoint]["--sg-spacing-y"] = getSpacing(_verticalSpacing[breakpoint]);
+    }
+    if (typeof cols === "object" && cols[breakpoint] !== undefined) {
+      acc[breakpoint]["--sg-cols"] = cols[breakpoint];
+    }
+    return acc;
+  }, {});
+  const sortedBreakpoints = getSortedBreakpoints(keys(queries), theme.breakpoints).filter((breakpoint) => keys(queries[breakpoint.value]).length > 0);
+  const media = sortedBreakpoints.map((breakpoint) => ({
+    query: `(min-width: ${theme.breakpoints[breakpoint.value]})`,
+    styles: queries[breakpoint.value]
+  }));
+  return /* @__PURE__ */ import_jsx_runtime176.jsx(InlineStyles, { styles: baseStyles, media, selector });
+}
+function getBreakpoints(values2) {
+  if (typeof values2 === "object" && values2 !== null) {
+    return keys(values2);
+  }
+  return [];
+}
+function sortBreakpoints(breakpoints) {
+  return breakpoints.sort((a2, b) => px(a2) - px(b));
+}
+function getUniqueBreakpoints({
+  spacing,
+  verticalSpacing,
+  cols
+}) {
+  const breakpoints = Array.from(/* @__PURE__ */ new Set([
+    ...getBreakpoints(spacing),
+    ...getBreakpoints(verticalSpacing),
+    ...getBreakpoints(cols)
+  ]));
+  return sortBreakpoints(breakpoints);
+}
+function SimpleGridContainerVariables({
+  spacing,
+  verticalSpacing,
+  cols,
+  selector
+}) {
+  const _verticalSpacing = verticalSpacing === undefined ? spacing : verticalSpacing;
+  const baseStyles = filterProps({
+    "--sg-spacing-x": getSpacing(getBaseValue(spacing)),
+    "--sg-spacing-y": getSpacing(getBaseValue(_verticalSpacing)),
+    "--sg-cols": getBaseValue(cols)?.toString()
+  });
+  const uniqueBreakpoints = getUniqueBreakpoints({ spacing, verticalSpacing, cols });
+  const queries = uniqueBreakpoints.reduce((acc, breakpoint) => {
+    if (!acc[breakpoint]) {
+      acc[breakpoint] = {};
+    }
+    if (typeof spacing === "object" && spacing[breakpoint] !== undefined) {
+      acc[breakpoint]["--sg-spacing-x"] = getSpacing(spacing[breakpoint]);
+    }
+    if (typeof _verticalSpacing === "object" && _verticalSpacing[breakpoint] !== undefined) {
+      acc[breakpoint]["--sg-spacing-y"] = getSpacing(_verticalSpacing[breakpoint]);
+    }
+    if (typeof cols === "object" && cols[breakpoint] !== undefined) {
+      acc[breakpoint]["--sg-cols"] = cols[breakpoint];
+    }
+    return acc;
+  }, {});
+  const media = uniqueBreakpoints.map((breakpoint) => ({
+    query: `simple-grid (min-width: ${breakpoint})`,
+    styles: queries[breakpoint]
+  }));
+  return /* @__PURE__ */ import_jsx_runtime176.jsx(InlineStyles, { styles: baseStyles, container: media, selector });
+}
+
+// node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.module.css.mjs
+"use client";
+var classes33 = { container: "m_925c2d2c", root: "m_2415a157" };
+
+// node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.mjs
+"use client";
+var defaultProps87 = {
+  cols: 1,
+  spacing: "md",
+  type: "media"
+};
+var SimpleGrid = factory((_props, ref) => {
+  const props = useProps("SimpleGrid", defaultProps87, _props);
+  const {
+    classNames,
+    className,
+    style: style2,
+    styles,
+    unstyled,
+    vars,
+    cols,
+    verticalSpacing,
+    spacing,
+    type,
+    ...others
+  } = props;
+  const getStyles2 = useStyles({
+    name: "SimpleGrid",
+    classes: classes33,
+    props,
+    className,
+    style: style2,
+    classNames,
+    styles,
+    unstyled,
+    vars
+  });
+  const responsiveClassName = useRandomClassName();
+  if (type === "container") {
+    return /* @__PURE__ */ import_jsx_runtime177.jsxs(import_jsx_runtime177.Fragment, { children: [
+      /* @__PURE__ */ import_jsx_runtime177.jsx(SimpleGridContainerVariables, { ...props, selector: `.${responsiveClassName}` }),
+      /* @__PURE__ */ import_jsx_runtime177.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime177.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others }) })
+    ] });
+  }
+  return /* @__PURE__ */ import_jsx_runtime177.jsxs(import_jsx_runtime177.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime177.jsx(SimpleGridMediaVariables, { ...props, selector: `.${responsiveClassName}` }),
+    /* @__PURE__ */ import_jsx_runtime177.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others })
+  ] });
+});
+SimpleGrid.classes = classes33;
+SimpleGrid.displayName = "@mantine/core/SimpleGrid";
+// node_modules/@mantine/core/esm/components/Stack/Stack.mjs
+var import_jsx_runtime178 = __toESM(require_jsx_runtime(), 1);
+var import_react221 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Stack/Stack.module.css.mjs
 "use client";
-var classes33 = { root: "m_6d731127" };
+var classes34 = { root: "m_6d731127" };
 
 // node_modules/@mantine/core/esm/components/Stack/Stack.mjs
 "use client";
-var defaultProps87 = {
+var defaultProps88 = {
   gap: "md",
   align: "stretch",
   justify: "flex-start"
@@ -34933,7 +35090,7 @@ var varsResolver37 = createVarsResolver((_2, { gap, align, justify }) => ({
   }
 }));
 var Stack = factory((_props, ref) => {
-  const props = useProps("Stack", defaultProps87, _props);
+  const props = useProps("Stack", defaultProps88, _props);
   const {
     classNames,
     className,
@@ -34950,7 +35107,7 @@ var Stack = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Stack",
     props,
-    classes: classes33,
+    classes: classes34,
     className,
     style: style2,
     classNames,
@@ -34959,28 +35116,28 @@ var Stack = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver37
   });
-  return /* @__PURE__ */ import_jsx_runtime176.jsx(Box, { ref, ...getStyles2("root"), variant, ...others });
+  return /* @__PURE__ */ import_jsx_runtime178.jsx(Box, { ref, ...getStyles2("root"), variant, ...others });
 });
-Stack.classes = classes33;
+Stack.classes = classes34;
 Stack.displayName = "@mantine/core/Stack";
 // node_modules/@mantine/core/esm/components/Switch/Switch.mjs
-var import_jsx_runtime178 = __toESM(require_jsx_runtime(), 1);
-var import_react222 = __toESM(require_react(), 1);
+var import_jsx_runtime180 = __toESM(require_jsx_runtime(), 1);
+var import_react224 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Switch/SwitchGroup.context.mjs
-var import_react220 = __toESM(require_react(), 1);
+var import_react222 = __toESM(require_react(), 1);
 "use client";
-var SwitchGroupContext = import_react220.createContext(null);
+var SwitchGroupContext = import_react222.createContext(null);
 var SwitchGroupProvider = SwitchGroupContext.Provider;
-var useSwitchGroupContext = () => import_react220.useContext(SwitchGroupContext);
+var useSwitchGroupContext = () => import_react222.useContext(SwitchGroupContext);
 
 // node_modules/@mantine/core/esm/components/Switch/SwitchGroup/SwitchGroup.mjs
-var import_jsx_runtime177 = __toESM(require_jsx_runtime(), 1);
-var import_react221 = __toESM(require_react(), 1);
+var import_jsx_runtime179 = __toESM(require_jsx_runtime(), 1);
+var import_react223 = __toESM(require_react(), 1);
 "use client";
-var defaultProps88 = {};
+var defaultProps89 = {};
 var SwitchGroup = factory((props, ref) => {
-  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("SwitchGroup", defaultProps88, props);
+  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("SwitchGroup", defaultProps89, props);
   const [_value, setValue] = useUncontrolled({
     value,
     defaultValue,
@@ -34991,14 +35148,14 @@ var SwitchGroup = factory((props, ref) => {
     const itemValue = event.currentTarget.value;
     !readOnly && setValue(_value.includes(itemValue) ? _value.filter((item) => item !== itemValue) : [..._value, itemValue]);
   };
-  return /* @__PURE__ */ import_jsx_runtime177.jsx(SwitchGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime177.jsx(Input.Wrapper, {
+  return /* @__PURE__ */ import_jsx_runtime179.jsx(SwitchGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime179.jsx(Input.Wrapper, {
     size: size4,
     ref,
     ...wrapperProps,
     ...others,
     labelElement: "div",
     __staticSelector: "SwitchGroup",
-    children: /* @__PURE__ */ import_jsx_runtime177.jsx(InputsGroupFieldset, { role: "group", children })
+    children: /* @__PURE__ */ import_jsx_runtime179.jsx(InputsGroupFieldset, { role: "group", children })
   }) });
 });
 SwitchGroup.classes = Input.Wrapper.classes;
@@ -35006,11 +35163,11 @@ SwitchGroup.displayName = "@mantine/core/SwitchGroup";
 
 // node_modules/@mantine/core/esm/components/Switch/Switch.module.css.mjs
 "use client";
-var classes34 = { root: "m_5f93f3bb", input: "m_926b4011", track: "m_9307d992", thumb: "m_93039a1d", trackLabel: "m_8277e082" };
+var classes35 = { root: "m_5f93f3bb", input: "m_926b4011", track: "m_9307d992", thumb: "m_93039a1d", trackLabel: "m_8277e082" };
 
 // node_modules/@mantine/core/esm/components/Switch/Switch.mjs
 "use client";
-var defaultProps89 = {
+var defaultProps90 = {
   labelPosition: "right"
 };
 var varsResolver38 = createVarsResolver((theme, { radius, color, size: size4 }) => ({
@@ -35025,7 +35182,7 @@ var varsResolver38 = createVarsResolver((theme, { radius, color, size: size4 }) 
   }
 }));
 var Switch = factory((_props, ref) => {
-  const props = useProps("Switch", defaultProps89, _props);
+  const props = useProps("Switch", defaultProps90, _props);
   const {
     classNames,
     className,
@@ -35059,7 +35216,7 @@ var Switch = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Switch",
     props,
-    classes: classes34,
+    classes: classes35,
     className,
     style: style2,
     classNames,
@@ -35079,7 +35236,7 @@ var Switch = factory((_props, ref) => {
     defaultValue: defaultChecked,
     finalValue: false
   });
-  return /* @__PURE__ */ import_jsx_runtime178.jsxs(InlineInput, {
+  return /* @__PURE__ */ import_jsx_runtime180.jsxs(InlineInput, {
     ...getStyles2("root"),
     __staticSelector: "Switch",
     __stylesApiProps: props,
@@ -35102,7 +35259,7 @@ var Switch = factory((_props, ref) => {
     ...styleProps,
     ...wrapperProps,
     children: [
-      /* @__PURE__ */ import_jsx_runtime178.jsx("input", {
+      /* @__PURE__ */ import_jsx_runtime180.jsx("input", {
         ...rest,
         disabled,
         checked: _checked,
@@ -35117,38 +35274,38 @@ var Switch = factory((_props, ref) => {
         role: "switch",
         ...getStyles2("input")
       }),
-      /* @__PURE__ */ import_jsx_runtime178.jsxs(Box, {
+      /* @__PURE__ */ import_jsx_runtime180.jsxs(Box, {
         "aria-hidden": "true",
         mod: { error, "label-position": labelPosition, "without-labels": !onLabel && !offLabel },
         ...getStyles2("track"),
         children: [
-          /* @__PURE__ */ import_jsx_runtime178.jsx(Box, { component: "span", mod: "reduce-motion", ...getStyles2("thumb"), children: thumbIcon }),
-          /* @__PURE__ */ import_jsx_runtime178.jsx("span", { ...getStyles2("trackLabel"), children: _checked ? onLabel : offLabel })
+          /* @__PURE__ */ import_jsx_runtime180.jsx(Box, { component: "span", mod: "reduce-motion", ...getStyles2("thumb"), children: thumbIcon }),
+          /* @__PURE__ */ import_jsx_runtime180.jsx("span", { ...getStyles2("trackLabel"), children: _checked ? onLabel : offLabel })
         ]
       })
     ]
   });
 });
-Switch.classes = { ...classes34, ...InlineInputClasses };
+Switch.classes = { ...classes35, ...InlineInputClasses };
 Switch.displayName = "@mantine/core/Switch";
 Switch.Group = SwitchGroup;
 // node_modules/@mantine/core/esm/components/Table/Table.mjs
-var import_jsx_runtime183 = __toESM(require_jsx_runtime(), 1);
-var import_react226 = __toESM(require_react(), 1);
+var import_jsx_runtime185 = __toESM(require_jsx_runtime(), 1);
+var import_react228 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Table/Table.components.mjs
-var import_jsx_runtime180 = __toESM(require_jsx_runtime(), 1);
-var import_react224 = __toESM(require_react(), 1);
+var import_jsx_runtime182 = __toESM(require_jsx_runtime(), 1);
+var import_react226 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Table/Table.context.mjs
-var import_react223 = __toESM(require_react(), 1);
-var import_jsx_runtime179 = __toESM(require_jsx_runtime(), 1);
+var import_react225 = __toESM(require_react(), 1);
+var import_jsx_runtime181 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [TableProvider, useTableContext] = createSafeContext("Table component was not found in the tree");
 
 // node_modules/@mantine/core/esm/components/Table/Table.module.css.mjs
 "use client";
-var classes35 = { table: "m_b23fa0ef", th: "m_4e7aa4f3", tr: "m_4e7aa4fd", td: "m_4e7aa4ef", tbody: "m_b2404537", thead: "m_b242d975", caption: "m_9e5a3ac7", scrollContainer: "m_a100c15", scrollContainerInner: "m_62259741" };
+var classes36 = { table: "m_b23fa0ef", th: "m_4e7aa4f3", tr: "m_4e7aa4fd", td: "m_4e7aa4ef", tbody: "m_b2404537", thead: "m_b242d975", caption: "m_9e5a3ac7", scrollContainer: "m_a100c15", scrollContainerInner: "m_62259741" };
 
 // node_modules/@mantine/core/esm/components/Table/Table.components.mjs
 "use client";
@@ -35183,7 +35340,7 @@ function tableElement(element, options) {
     const props = useProps(name, {}, _props);
     const { classNames, className, style: style2, styles, ...others } = props;
     const ctx = useTableContext();
-    return /* @__PURE__ */ import_jsx_runtime180.jsx(Box, {
+    return /* @__PURE__ */ import_jsx_runtime182.jsx(Box, {
       component: element,
       ref,
       ...getDataAttributes(ctx, options),
@@ -35192,7 +35349,7 @@ function tableElement(element, options) {
     });
   });
   Component2.displayName = `@mantine/core/${name}`;
-  Component2.classes = classes35;
+  Component2.classes = classes36;
   return Component2;
 }
 var TableTh = tableElement("th", { columnBorder: true });
@@ -35208,23 +35365,23 @@ var TableTfoot = tableElement("tfoot");
 var TableCaption = tableElement("caption", { captionSide: true });
 
 // node_modules/@mantine/core/esm/components/Table/TableDataRenderer.mjs
-var import_jsx_runtime181 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime183 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function TableDataRenderer({ data }) {
-  return /* @__PURE__ */ import_jsx_runtime181.jsxs(import_jsx_runtime181.Fragment, { children: [
-    data.caption && /* @__PURE__ */ import_jsx_runtime181.jsx(TableCaption, { children: data.caption }),
-    data.head && /* @__PURE__ */ import_jsx_runtime181.jsx(TableThead, { children: /* @__PURE__ */ import_jsx_runtime181.jsx(TableTr, { children: data.head.map((item, index4) => /* @__PURE__ */ import_jsx_runtime181.jsx(TableTh, { children: item }, index4)) }) }),
-    data.body && /* @__PURE__ */ import_jsx_runtime181.jsx(TableTbody, { children: data.body.map((row, rowIndex) => /* @__PURE__ */ import_jsx_runtime181.jsx(TableTr, { children: row.map((item, index4) => /* @__PURE__ */ import_jsx_runtime181.jsx(TableTd, { children: item }, index4)) }, rowIndex)) }),
-    data.foot && /* @__PURE__ */ import_jsx_runtime181.jsx(TableTfoot, { children: /* @__PURE__ */ import_jsx_runtime181.jsx(TableTr, { children: data.foot.map((item, index4) => /* @__PURE__ */ import_jsx_runtime181.jsx(TableTh, { children: item }, index4)) }) })
+  return /* @__PURE__ */ import_jsx_runtime183.jsxs(import_jsx_runtime183.Fragment, { children: [
+    data.caption && /* @__PURE__ */ import_jsx_runtime183.jsx(TableCaption, { children: data.caption }),
+    data.head && /* @__PURE__ */ import_jsx_runtime183.jsx(TableThead, { children: /* @__PURE__ */ import_jsx_runtime183.jsx(TableTr, { children: data.head.map((item, index4) => /* @__PURE__ */ import_jsx_runtime183.jsx(TableTh, { children: item }, index4)) }) }),
+    data.body && /* @__PURE__ */ import_jsx_runtime183.jsx(TableTbody, { children: data.body.map((row, rowIndex) => /* @__PURE__ */ import_jsx_runtime183.jsx(TableTr, { children: row.map((item, index4) => /* @__PURE__ */ import_jsx_runtime183.jsx(TableTd, { children: item }, index4)) }, rowIndex)) }),
+    data.foot && /* @__PURE__ */ import_jsx_runtime183.jsx(TableTfoot, { children: /* @__PURE__ */ import_jsx_runtime183.jsx(TableTr, { children: data.foot.map((item, index4) => /* @__PURE__ */ import_jsx_runtime183.jsx(TableTh, { children: item }, index4)) }) })
   ] });
 }
 TableDataRenderer.displayName = "@mantine/core/TableDataRenderer";
 
 // node_modules/@mantine/core/esm/components/Table/TableScrollContainer.mjs
-var import_jsx_runtime182 = __toESM(require_jsx_runtime(), 1);
-var import_react225 = __toESM(require_react(), 1);
+var import_jsx_runtime184 = __toESM(require_jsx_runtime(), 1);
+var import_react227 = __toESM(require_react(), 1);
 "use client";
-var defaultProps90 = {
+var defaultProps91 = {
   type: "scrollarea"
 };
 var varsResolver39 = createVarsResolver((_2, { minWidth, maxHeight, type }) => ({
@@ -35235,7 +35392,7 @@ var varsResolver39 = createVarsResolver((_2, { minWidth, maxHeight, type }) => (
   }
 }));
 var TableScrollContainer = factory((_props, ref) => {
-  const props = useProps("TableScrollContainer", defaultProps90, _props);
+  const props = useProps("TableScrollContainer", defaultProps91, _props);
   const {
     classNames,
     className,
@@ -35251,7 +35408,7 @@ var TableScrollContainer = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "TableScrollContainer",
-    classes: classes35,
+    classes: classes36,
     props,
     className,
     style: style2,
@@ -35262,21 +35419,21 @@ var TableScrollContainer = factory((_props, ref) => {
     varsResolver: varsResolver39,
     rootSelector: "scrollContainer"
   });
-  return /* @__PURE__ */ import_jsx_runtime182.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime184.jsx(Box, {
     component: type === "scrollarea" ? ScrollArea : "div",
     ...type === "scrollarea" ? maxHeight ? { offsetScrollbars: "xy" } : { offsetScrollbars: "x" } : {},
     ref,
     ...getStyles2("scrollContainer"),
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime182.jsx("div", { ...getStyles2("scrollContainerInner"), children })
+    children: /* @__PURE__ */ import_jsx_runtime184.jsx("div", { ...getStyles2("scrollContainerInner"), children })
   });
 });
-TableScrollContainer.classes = classes35;
+TableScrollContainer.classes = classes36;
 TableScrollContainer.displayName = "@mantine/core/TableScrollContainer";
 
 // node_modules/@mantine/core/esm/components/Table/Table.mjs
 "use client";
-var defaultProps91 = {
+var defaultProps92 = {
   withRowBorders: true,
   verticalSpacing: 7
 };
@@ -35305,7 +35462,7 @@ var varsResolver40 = createVarsResolver((theme, {
   }
 }));
 var Table = factory((_props, ref) => {
-  const props = useProps("Table", defaultProps91, _props);
+  const props = useProps("Table", defaultProps92, _props);
   const {
     classNames,
     className,
@@ -35339,7 +35496,7 @@ var Table = factory((_props, ref) => {
     props,
     className,
     style: style2,
-    classes: classes35,
+    classes: classes36,
     classNames,
     styles,
     unstyled,
@@ -35347,7 +35504,7 @@ var Table = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver40
   });
-  return /* @__PURE__ */ import_jsx_runtime183.jsx(TableProvider, {
+  return /* @__PURE__ */ import_jsx_runtime185.jsx(TableProvider, {
     value: {
       getStyles: getStyles2,
       stickyHeader,
@@ -35357,18 +35514,18 @@ var Table = factory((_props, ref) => {
       withRowBorders,
       captionSide: captionSide || "bottom"
     },
-    children: /* @__PURE__ */ import_jsx_runtime183.jsx(Box, {
+    children: /* @__PURE__ */ import_jsx_runtime185.jsx(Box, {
       component: "table",
       variant,
       ref,
       mod: [{ "data-with-table-border": withTableBorder, "data-tabular-nums": tabularNums }, mod],
       ...getStyles2("table"),
       ...others,
-      children: children || !!data && /* @__PURE__ */ import_jsx_runtime183.jsx(TableDataRenderer, { data })
+      children: children || !!data && /* @__PURE__ */ import_jsx_runtime185.jsx(TableDataRenderer, { data })
     })
   });
 });
-Table.classes = classes35;
+Table.classes = classes36;
 Table.displayName = "@mantine/core/Table";
 Table.Td = TableTd;
 Table.Th = TableTh;
@@ -35380,23 +35537,23 @@ Table.Caption = TableCaption;
 Table.ScrollContainer = TableScrollContainer;
 Table.DataRenderer = TableDataRenderer;
 // node_modules/@mantine/core/esm/components/TextInput/TextInput.mjs
-var import_jsx_runtime184 = __toESM(require_jsx_runtime(), 1);
-var import_react227 = __toESM(require_react(), 1);
+var import_jsx_runtime186 = __toESM(require_jsx_runtime(), 1);
+var import_react229 = __toESM(require_react(), 1);
 "use client";
-var defaultProps92 = {};
+var defaultProps93 = {};
 var TextInput = factory((props, ref) => {
-  const _props = useProps("TextInput", defaultProps92, props);
-  return /* @__PURE__ */ import_jsx_runtime184.jsx(InputBase, { component: "input", ref, ..._props, __staticSelector: "TextInput" });
+  const _props = useProps("TextInput", defaultProps93, props);
+  return /* @__PURE__ */ import_jsx_runtime186.jsx(InputBase, { component: "input", ref, ..._props, __staticSelector: "TextInput" });
 });
 TextInput.classes = InputBase.classes;
 TextInput.displayName = "@mantine/core/TextInput";
 // node_modules/@mantine/core/esm/components/Title/Title.mjs
-var import_jsx_runtime186 = __toESM(require_jsx_runtime(), 1);
-var import_react229 = __toESM(require_react(), 1);
+var import_jsx_runtime188 = __toESM(require_jsx_runtime(), 1);
+var import_react231 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Title/get-title-size.mjs
-var import_react228 = __toESM(require_react(), 1);
-var import_jsx_runtime185 = __toESM(require_jsx_runtime(), 1);
+var import_react230 = __toESM(require_react(), 1);
+var import_jsx_runtime187 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var headings3 = ["h1", "h2", "h3", "h4", "h5", "h6"];
 var sizes = ["xs", "sm", "md", "lg", "xl"];
@@ -35424,11 +35581,11 @@ function getTitleSize(order, size4) {
 
 // node_modules/@mantine/core/esm/components/Title/Title.module.css.mjs
 "use client";
-var classes36 = { root: "m_8a5d1357" };
+var classes37 = { root: "m_8a5d1357" };
 
 // node_modules/@mantine/core/esm/components/Title/Title.mjs
 "use client";
-var defaultProps93 = {
+var defaultProps94 = {
   order: 1
 };
 var varsResolver41 = createVarsResolver((_2, { order, size: size4, lineClamp, textWrap }) => {
@@ -35444,7 +35601,7 @@ var varsResolver41 = createVarsResolver((_2, { order, size: size4, lineClamp, te
   };
 });
 var Title = factory((_props, ref) => {
-  const props = useProps("Title", defaultProps93, _props);
+  const props = useProps("Title", defaultProps94, _props);
   const {
     classNames,
     className,
@@ -35463,7 +35620,7 @@ var Title = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Title",
     props,
-    classes: classes36,
+    classes: classes37,
     className,
     style: style2,
     classNames,
@@ -35475,7 +35632,7 @@ var Title = factory((_props, ref) => {
   if (![1, 2, 3, 4, 5, 6].includes(order)) {
     return null;
   }
-  return /* @__PURE__ */ import_jsx_runtime186.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime188.jsx(Box, {
     ...getStyles2("root"),
     component: `h${order}`,
     variant,
@@ -35485,15 +35642,15 @@ var Title = factory((_props, ref) => {
     ...others
   });
 });
-Title.classes = classes36;
+Title.classes = classes37;
 Title.displayName = "@mantine/core/Title";
 // node_modules/@mantine/core/esm/components/Tree/Tree.mjs
-var import_jsx_runtime190 = __toESM(require_jsx_runtime(), 1);
-var import_react234 = __toESM(require_react(), 1);
+var import_jsx_runtime192 = __toESM(require_jsx_runtime(), 1);
+var import_react236 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tree/TreeNode.mjs
-var import_jsx_runtime187 = __toESM(require_jsx_runtime(), 1);
-var import_react230 = __toESM(require_react(), 1);
+var import_jsx_runtime189 = __toESM(require_jsx_runtime(), 1);
+var import_react232 = __toESM(require_react(), 1);
 "use client";
 function getValuesRange(anchor, value, flatValues) {
   if (!anchor || !value) {
@@ -35520,8 +35677,8 @@ function TreeNode({
   expandOnSpace,
   checkOnSpace
 }) {
-  const ref = import_react230.useRef(null);
-  const nested = (node2.children || []).map((child) => /* @__PURE__ */ import_jsx_runtime187.jsx(TreeNode, {
+  const ref = import_react232.useRef(null);
+  const nested = (node2.children || []).map((child) => /* @__PURE__ */ import_jsx_runtime189.jsx(TreeNode, {
     node: child,
     flatValues,
     getStyles: getStyles2,
@@ -35608,7 +35765,7 @@ function TreeNode({
     "data-value": node2.value,
     "data-hovered": controller.hoveredNode === node2.value || undefined
   };
-  return /* @__PURE__ */ import_jsx_runtime187.jsxs("li", {
+  return /* @__PURE__ */ import_jsx_runtime189.jsxs("li", {
     ...getStyles2("node", {
       style: { "--label-offset": `calc(var(--level-offset) * ${level - 1})` }
     }),
@@ -35638,15 +35795,15 @@ function TreeNode({
         expanded: controller.expandedState[node2.value] || false,
         hasChildren: Array.isArray(node2.children) && node2.children.length > 0,
         elementProps
-      }) : /* @__PURE__ */ import_jsx_runtime187.jsx("div", { ...elementProps, children: node2.label }),
-      controller.expandedState[node2.value] && nested.length > 0 && /* @__PURE__ */ import_jsx_runtime187.jsx("ul", { role: "group", ...getStyles2("subtree"), "data-level": level, children: nested })
+      }) : /* @__PURE__ */ import_jsx_runtime189.jsx("div", { ...elementProps, children: node2.label }),
+      controller.expandedState[node2.value] && nested.length > 0 && /* @__PURE__ */ import_jsx_runtime189.jsx("ul", { role: "group", ...getStyles2("subtree"), "data-level": level, children: nested })
     ]
   });
 }
 TreeNode.displayName = "@mantine/core/TreeNode";
 
 // node_modules/@mantine/core/esm/components/Tree/use-tree.mjs
-var import_react233 = __toESM(require_react(), 1);
+var import_react235 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tree/get-all-checked-nodes/get-all-checked-nodes.mjs
 "use client";
@@ -35729,8 +35886,8 @@ function getAllChildrenNodes(data) {
 }
 
 // node_modules/@mantine/core/esm/components/Tree/is-node-checked/is-node-checked.mjs
-var import_react231 = __toESM(require_react(), 1);
-var import_jsx_runtime188 = __toESM(require_jsx_runtime(), 1);
+var import_react233 = __toESM(require_react(), 1);
+var import_jsx_runtime190 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function isNodeChecked(value, data, checkedState) {
   if (checkedState.length === 0) {
@@ -35745,8 +35902,8 @@ function isNodeChecked(value, data, checkedState) {
 var memoizedIsNodeChecked = memoize2(isNodeChecked);
 
 // node_modules/@mantine/core/esm/components/Tree/is-node-indeterminate/is-node-indeterminate.mjs
-var import_react232 = __toESM(require_react(), 1);
-var import_jsx_runtime189 = __toESM(require_jsx_runtime(), 1);
+var import_react234 = __toESM(require_react(), 1);
+var import_jsx_runtime191 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function isNodeIndeterminate(value, data, checkedState) {
   if (checkedState.length === 0) {
@@ -35781,25 +35938,25 @@ function useTree({
   onNodeCollapse,
   onNodeExpand
 } = {}) {
-  const [data, setData] = import_react233.useState([]);
-  const [expandedState, setExpandedState] = import_react233.useState(initialExpandedState);
-  const [selectedState, setSelectedState] = import_react233.useState(initialSelectedState);
-  const [checkedState, setCheckedState] = import_react233.useState(initialCheckedState);
-  const [anchorNode, setAnchorNode] = import_react233.useState(null);
-  const [hoveredNode, setHoveredNode] = import_react233.useState(null);
-  const initialize = import_react233.useCallback((_data) => {
+  const [data, setData] = import_react235.useState([]);
+  const [expandedState, setExpandedState] = import_react235.useState(initialExpandedState);
+  const [selectedState, setSelectedState] = import_react235.useState(initialSelectedState);
+  const [checkedState, setCheckedState] = import_react235.useState(initialCheckedState);
+  const [anchorNode, setAnchorNode] = import_react235.useState(null);
+  const [hoveredNode, setHoveredNode] = import_react235.useState(null);
+  const initialize = import_react235.useCallback((_data) => {
     setExpandedState((current2) => getInitialTreeExpandedState(current2, _data, selectedState));
     setCheckedState((current2) => getInitialCheckedState(current2, _data));
     setData(_data);
   }, [selectedState, checkedState]);
-  const toggleExpanded = import_react233.useCallback((value) => {
+  const toggleExpanded = import_react235.useCallback((value) => {
     setExpandedState((current2) => {
       const nextState = { ...current2, [value]: !current2[value] };
       nextState[value] ? onNodeExpand?.(value) : onNodeCollapse?.(value);
       return nextState;
     });
   }, [onNodeCollapse, onNodeExpand]);
-  const collapse = import_react233.useCallback((value) => {
+  const collapse = import_react235.useCallback((value) => {
     setExpandedState((current2) => {
       if (current2[value] !== false) {
         onNodeCollapse?.(value);
@@ -35807,7 +35964,7 @@ function useTree({
       return { ...current2, [value]: false };
     });
   }, [onNodeCollapse]);
-  const expand = import_react233.useCallback((value) => {
+  const expand = import_react235.useCallback((value) => {
     setExpandedState((current2) => {
       if (current2[value] !== true) {
         onNodeExpand?.(value);
@@ -35815,7 +35972,7 @@ function useTree({
       return { ...current2, [value]: true };
     });
   }, [onNodeExpand]);
-  const expandAllNodes = import_react233.useCallback(() => {
+  const expandAllNodes = import_react235.useCallback(() => {
     setExpandedState((current2) => {
       const next2 = { ...current2 };
       Object.keys(next2).forEach((key) => {
@@ -35824,7 +35981,7 @@ function useTree({
       return next2;
     });
   }, []);
-  const collapseAllNodes = import_react233.useCallback(() => {
+  const collapseAllNodes = import_react235.useCallback(() => {
     setExpandedState((current2) => {
       const next2 = { ...current2 };
       Object.keys(next2).forEach((key) => {
@@ -35833,7 +35990,7 @@ function useTree({
       return next2;
     });
   }, []);
-  const toggleSelected = import_react233.useCallback((value) => setSelectedState((current2) => {
+  const toggleSelected = import_react235.useCallback((value) => setSelectedState((current2) => {
     if (!multiple) {
       if (current2.includes(value)) {
         setAnchorNode(null);
@@ -35849,30 +36006,30 @@ function useTree({
     setAnchorNode(value);
     return [...current2, value];
   }), []);
-  const select = import_react233.useCallback((value) => {
+  const select = import_react235.useCallback((value) => {
     setAnchorNode(value);
     setSelectedState((current2) => multiple ? current2.includes(value) ? current2 : [...current2, value] : [value]);
   }, []);
-  const deselect = import_react233.useCallback((value) => {
+  const deselect = import_react235.useCallback((value) => {
     anchorNode === value && setAnchorNode(null);
     setSelectedState((current2) => current2.filter((item) => item !== value));
   }, []);
-  const clearSelected = import_react233.useCallback(() => {
+  const clearSelected = import_react235.useCallback(() => {
     setSelectedState([]);
     setAnchorNode(null);
   }, []);
-  const checkNode = import_react233.useCallback((value) => {
+  const checkNode = import_react235.useCallback((value) => {
     const checkedNodes = getChildrenNodesValues(value, data);
     setCheckedState((current2) => Array.from(/* @__PURE__ */ new Set([...current2, ...checkedNodes])));
   }, [data]);
-  const uncheckNode = import_react233.useCallback((value) => {
+  const uncheckNode = import_react235.useCallback((value) => {
     const checkedNodes = getChildrenNodesValues(value, data);
     setCheckedState((current2) => current2.filter((item) => !checkedNodes.includes(item)));
   }, [data]);
-  const checkAllNodes = import_react233.useCallback(() => {
+  const checkAllNodes = import_react235.useCallback(() => {
     setCheckedState(() => getAllChildrenNodes(data));
   }, [data]);
-  const uncheckAllNodes = import_react233.useCallback(() => {
+  const uncheckAllNodes = import_react235.useCallback(() => {
     setCheckedState([]);
   }, []);
   const getCheckedNodes = () => getAllCheckedNodes(data, checkedState).result;
@@ -35911,7 +36068,7 @@ function useTree({
 
 // node_modules/@mantine/core/esm/components/Tree/Tree.module.css.mjs
 "use client";
-var classes37 = { root: "m_f698e191", subtree: "m_75f3ecf", node: "m_f6970eb1", label: "m_dc283425" };
+var classes38 = { root: "m_f698e191", subtree: "m_75f3ecf", node: "m_f6970eb1", label: "m_dc283425" };
 
 // node_modules/@mantine/core/esm/components/Tree/Tree.mjs
 "use client";
@@ -35924,7 +36081,7 @@ function getFlatValues(data) {
     return acc;
   }, []);
 }
-var defaultProps94 = {
+var defaultProps95 = {
   expandOnClick: true,
   allowRangeSelection: true,
   expandOnSpace: true
@@ -35935,7 +36092,7 @@ var varsResolver42 = createVarsResolver((_theme, { levelOffset }) => ({
   }
 }));
 var Tree = factory((_props, ref) => {
-  const props = useProps("Tree", defaultProps94, _props);
+  const props = useProps("Tree", defaultProps95, _props);
   const {
     classNames,
     className,
@@ -35959,7 +36116,7 @@ var Tree = factory((_props, ref) => {
   const controller = tree || defaultController;
   const getStyles2 = useStyles({
     name: "Tree",
-    classes: classes37,
+    classes: classes38,
     props,
     className,
     style: style2,
@@ -35971,11 +36128,11 @@ var Tree = factory((_props, ref) => {
   });
   const clickOutsideRef = useClickOutside(() => clearSelectionOnOutsideClick && controller.clearSelected());
   const mergedRef = useMergedRef(ref, clickOutsideRef);
-  const flatValues = import_react234.useMemo(() => getFlatValues(data), [data]);
-  import_react234.useEffect(() => {
+  const flatValues = import_react236.useMemo(() => getFlatValues(data), [data]);
+  import_react236.useEffect(() => {
     controller.initialize(data);
   }, [data]);
-  const nodes = data.map((node2, index4) => /* @__PURE__ */ import_jsx_runtime190.jsx(TreeNode, {
+  const nodes = data.map((node2, index4) => /* @__PURE__ */ import_jsx_runtime192.jsx(TreeNode, {
     node: node2,
     getStyles: getStyles2,
     rootIndex: index4,
@@ -35988,7 +36145,7 @@ var Tree = factory((_props, ref) => {
     expandOnSpace,
     checkOnSpace
   }, node2.value));
-  return /* @__PURE__ */ import_jsx_runtime190.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime192.jsx(Box, {
     component: "ul",
     ref: mergedRef,
     ...getStyles2("root"),
@@ -36000,7 +36157,7 @@ var Tree = factory((_props, ref) => {
   });
 });
 Tree.displayName = "@mantine/core/Tree";
-Tree.classes = classes37;
+Tree.classes = classes38;
 // src/studio-adapter/layoutMapingValidation.ts
 function layoutMappingValidation(layoutMap, doc) {
   const cleanLayoutMap = JSON.parse(JSON.stringify(layoutMap));
@@ -36082,6 +36239,7 @@ init_IconDownload();
 init_IconExchange();
 init_IconExternalLink();
 init_IconEyeClosed();
+init_IconFileText();
 init_IconFilter();
 init_IconGripVertical();
 init_IconInfoCircle();
@@ -36106,7 +36264,7 @@ init_IconFilterFilled();
 init_IconTrashFilled();
 
 // src/components/LayoutMappingModal/AddMappingImageVariableModal.tsx
-var import_react236 = __toESM(require_react(), 1);
+var import_react238 = __toESM(require_react(), 1);
 var jsx_runtime = __toESM(require_jsx_runtime(), 1);
 var AddMappingImageVariableModal = ({ currentMapConfig }) => {
   const setIsImageVariableMappingModalOpen = appStore((state) => state.effects.modal.setIsImageVariableMappingModalOpen);
@@ -36116,7 +36274,7 @@ var AddMappingImageVariableModal = ({ currentMapConfig }) => {
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const currentAddImageMappingSelectedVariables = appStore((state) => state.state.modal.currentAddImageMappingSelectedVariables);
   const isAddImageVariableMappingModalOpen = appStore((state) => state.state.modal.isAddImageVariableMappingModalOpen);
-  const possibleVariableValues = import_react236.useMemo(() => {
+  const possibleVariableValues = import_react238.useMemo(() => {
     const allImageVariables = variables.filter((variable) => variable.type === "image").map((variable) => ({
       value: variable.id,
       label: variable.name,
@@ -36289,7 +36447,7 @@ var AddDependentModal = () => {
 };
 
 // src/components/LayoutMappingModal/SwapImageVariableModal.tsx
-var import_react237 = __toESM(require_react(), 1);
+var import_react239 = __toESM(require_react(), 1);
 var jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var SwapImageVariableModal = ({
   currentMapConfig,
@@ -36302,7 +36460,7 @@ var SwapImageVariableModal = ({
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const currentSwapImageVariableSelected = appStore((state) => state.state.modal.currentSwapImageVariableSelected);
   const isSwapImageVariableModalOpen = appStore((state) => state.state.modal.isSwapImageVariableModalOpen);
-  const possibleVariableValues = import_react237.useMemo(() => {
+  const possibleVariableValues = import_react239.useMemo(() => {
     const allImageVariables = variables.filter((variable) => variable.type === "image").map((variable) => ({
       value: variable.id,
       label: variable.name,
@@ -36363,10 +36521,10 @@ var SwapImageVariableModal = ({
 };
 
 // src/components/LayoutMappingModal/LayoutConfigSelection.tsx
-var import_react245 = __toESM(require_react(), 1);
+var import_react247 = __toESM(require_react(), 1);
 
 // src/components/LayoutMappingModal/LayoutMultiSelect.tsx
-var import_react238 = __toESM(require_react(), 1);
+var import_react240 = __toESM(require_react(), 1);
 var jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
 var buildTreeData = (documentLayouts, selectedLayoutIds, disabledLayoutIds) => {
   const layoutsByParent = {};
@@ -36395,8 +36553,8 @@ var LayoutMultiSelect = ({
   const documentLayouts = appStore((store) => store.state.studio.document.layouts);
   const layoutImageMapping = appStore((store) => store.state.studio.layoutImageMapping);
   const setLayoutIds = appStore((store) => store.effects.studio.layoutImageMapping.setLayoutIds);
-  const [drawerOpened, setDrawerOpened] = import_react238.useState(false);
-  const [selectedLayouts, setSelectedLayouts] = import_react238.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
+  const [drawerOpened, setDrawerOpened] = import_react240.useState(false);
+  const [selectedLayouts, setSelectedLayouts] = import_react240.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
   const assignedToOtherMaps = layoutImageMapping.filter((map) => map.id !== layoutConfig.id).flatMap((map) => map.layoutIds);
   const handleMultiSelectChange = (updateLayoutIds) => {
     setLayoutIds({
@@ -36555,20 +36713,20 @@ var LayoutMultiSelect = ({
 };
 
 // src/components/LayoutMappingModal/VariableCard.tsx
-var import_react244 = __toESM(require_react(), 1);
+var import_react246 = __toESM(require_react(), 1);
 init_dist();
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var import_react241 = __toESM(require_react(), 1);
+var import_react243 = __toESM(require_react(), 1);
 var import_react_dom5 = __toESM(require_react_dom(), 1);
 
 // node_modules/@dnd-kit/utilities/dist/utilities.esm.js
-var import_react239 = __toESM(require_react(), 1);
+var import_react241 = __toESM(require_react(), 1);
 function useCombinedRefs() {
   for (var _len = arguments.length, refs = new Array(_len), _key = 0;_key < _len; _key++) {
     refs[_key] = arguments[_key];
   }
-  return import_react239.useMemo(() => (node2) => {
+  return import_react241.useMemo(() => (node2) => {
     refs.forEach((ref) => ref(node2));
   }, refs);
 }
@@ -36626,13 +36784,13 @@ function getOwnerDocument(target) {
   }
   return document;
 }
-var useIsomorphicLayoutEffect2 = canUseDOM2 ? import_react239.useLayoutEffect : import_react239.useEffect;
+var useIsomorphicLayoutEffect2 = canUseDOM2 ? import_react241.useLayoutEffect : import_react241.useEffect;
 function useEvent(handler) {
-  const handlerRef = import_react239.useRef(handler);
+  const handlerRef = import_react241.useRef(handler);
   useIsomorphicLayoutEffect2(() => {
     handlerRef.current = handler;
   });
-  return import_react239.useCallback(function() {
+  return import_react241.useCallback(function() {
     for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
       args[_key] = arguments[_key];
     }
@@ -36640,11 +36798,11 @@ function useEvent(handler) {
   }, []);
 }
 function useInterval() {
-  const intervalRef = import_react239.useRef(null);
-  const set2 = import_react239.useCallback((listener, duration) => {
+  const intervalRef = import_react241.useRef(null);
+  const set2 = import_react241.useCallback((listener, duration) => {
     intervalRef.current = setInterval(listener, duration);
   }, []);
-  const clear = import_react239.useCallback(() => {
+  const clear = import_react241.useCallback(() => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -36656,7 +36814,7 @@ function useLatestValue(value, dependencies) {
   if (dependencies === undefined) {
     dependencies = [value];
   }
-  const valueRef = import_react239.useRef(value);
+  const valueRef = import_react241.useRef(value);
   useIsomorphicLayoutEffect2(() => {
     if (valueRef.current !== value) {
       valueRef.current = value;
@@ -36665,8 +36823,8 @@ function useLatestValue(value, dependencies) {
   return valueRef;
 }
 function useLazyMemo(callback, dependencies) {
-  const valueRef = import_react239.useRef();
-  return import_react239.useMemo(() => {
+  const valueRef = import_react241.useRef();
+  return import_react241.useMemo(() => {
     const newValue = callback(valueRef.current);
     valueRef.current = newValue;
     return newValue;
@@ -36674,8 +36832,8 @@ function useLazyMemo(callback, dependencies) {
 }
 function useNodeRef(onChange) {
   const onChangeHandler = useEvent(onChange);
-  const node2 = import_react239.useRef(null);
-  const setNodeRef = import_react239.useCallback((element) => {
+  const node2 = import_react241.useRef(null);
+  const setNodeRef = import_react241.useCallback((element) => {
     if (element !== node2.current) {
       onChangeHandler == null || onChangeHandler(element, node2.current);
     }
@@ -36684,15 +36842,15 @@ function useNodeRef(onChange) {
   return [node2, setNodeRef];
 }
 function usePrevious2(value) {
-  const ref = import_react239.useRef();
-  import_react239.useEffect(() => {
+  const ref = import_react241.useRef();
+  import_react241.useEffect(() => {
     ref.current = value;
   }, [value]);
   return ref.current;
 }
 var ids = {};
 function useUniqueId(prefix3, value) {
-  return import_react239.useMemo(() => {
+  return import_react241.useMemo(() => {
     if (value) {
       return value;
     }
@@ -36826,7 +36984,7 @@ function findFirstFocusableNode(element) {
 }
 
 // node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js
-var import_react240 = __toESM(require_react(), 1);
+var import_react242 = __toESM(require_react(), 1);
 var hiddenStyles = {
   display: "none"
 };
@@ -36835,7 +36993,7 @@ function HiddenText(_ref) {
     id,
     value
   } = _ref;
-  return import_react240.default.createElement("div", {
+  return import_react242.default.createElement("div", {
     id,
     style: hiddenStyles
   }, value);
@@ -36860,7 +37018,7 @@ function LiveRegion(_ref) {
     clipPath: "inset(100%)",
     whiteSpace: "nowrap"
   };
-  return import_react240.default.createElement("div", {
+  return import_react242.default.createElement("div", {
     id,
     style: visuallyHidden,
     role: "status",
@@ -36869,8 +37027,8 @@ function LiveRegion(_ref) {
   }, announcement);
 }
 function useAnnouncement() {
-  const [announcement, setAnnouncement] = import_react240.useState("");
-  const announce = import_react240.useCallback((value) => {
+  const [announcement, setAnnouncement] = import_react242.useState("");
+  const announce = import_react242.useCallback((value) => {
     if (value != null) {
       setAnnouncement(value);
     }
@@ -36882,10 +37040,10 @@ function useAnnouncement() {
 }
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var DndMonitorContext = /* @__PURE__ */ import_react241.createContext(null);
+var DndMonitorContext = /* @__PURE__ */ import_react243.createContext(null);
 function useDndMonitor(listener) {
-  const registerListener = import_react241.useContext(DndMonitorContext);
-  import_react241.useEffect(() => {
+  const registerListener = import_react243.useContext(DndMonitorContext);
+  import_react243.useEffect(() => {
     if (!registerListener) {
       throw new Error("useDndMonitor must be used within a children of <DndContext>");
     }
@@ -36894,12 +37052,12 @@ function useDndMonitor(listener) {
   }, [listener, registerListener]);
 }
 function useDndMonitorProvider() {
-  const [listeners] = import_react241.useState(() => new Set);
-  const registerListener = import_react241.useCallback((listener) => {
+  const [listeners] = import_react243.useState(() => new Set);
+  const registerListener = import_react243.useCallback((listener) => {
     listeners.add(listener);
     return () => listeners.delete(listener);
   }, [listeners]);
-  const dispatch = import_react241.useCallback((_ref) => {
+  const dispatch = import_react243.useCallback((_ref) => {
     let {
       type,
       event
@@ -36964,11 +37122,11 @@ function Accessibility(_ref) {
     announcement
   } = useAnnouncement();
   const liveRegionId = useUniqueId("DndLiveRegion");
-  const [mounted, setMounted] = import_react241.useState(false);
-  import_react241.useEffect(() => {
+  const [mounted, setMounted] = import_react243.useState(false);
+  import_react243.useEffect(() => {
     setMounted(true);
   }, []);
-  useDndMonitor(import_react241.useMemo(() => ({
+  useDndMonitor(import_react243.useMemo(() => ({
     onDragStart(_ref2) {
       let {
         active
@@ -37023,10 +37181,10 @@ function Accessibility(_ref) {
   if (!mounted) {
     return null;
   }
-  const markup = import_react241.default.createElement(import_react241.default.Fragment, null, import_react241.default.createElement(HiddenText, {
+  const markup = import_react243.default.createElement(import_react243.default.Fragment, null, import_react243.default.createElement(HiddenText, {
     id: hiddenTextDescribedById,
     value: screenReaderInstructions.draggable
-  }), import_react241.default.createElement(LiveRegion, {
+  }), import_react243.default.createElement(LiveRegion, {
     id: liveRegionId,
     announcement
   }));
@@ -37046,7 +37204,7 @@ var Action;
 function noop6() {
 }
 function useSensor(sensor, options) {
-  return import_react241.useMemo(() => ({
+  return import_react243.useMemo(() => ({
     sensor,
     options: options != null ? options : {}
   }), [sensor, options]);
@@ -37055,7 +37213,7 @@ function useSensors() {
   for (var _len = arguments.length, sensors = new Array(_len), _key = 0;_key < _len; _key++) {
     sensors[_key] = arguments[_key];
   }
-  return import_react241.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
+  return import_react243.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
 }
 var defaultCoordinates = /* @__PURE__ */ Object.freeze({
   x: 0,
@@ -38300,15 +38458,15 @@ function useAutoScroller(_ref) {
     disabled: !enabled
   });
   const [setAutoScrollInterval, clearAutoScrollInterval] = useInterval();
-  const scrollSpeed = import_react241.useRef({
+  const scrollSpeed = import_react243.useRef({
     x: 0,
     y: 0
   });
-  const scrollDirection = import_react241.useRef({
+  const scrollDirection = import_react243.useRef({
     x: 0,
     y: 0
   });
-  const rect = import_react241.useMemo(() => {
+  const rect = import_react243.useMemo(() => {
     switch (activator) {
       case AutoScrollActivator.Pointer:
         return pointerCoordinates ? {
@@ -38321,8 +38479,8 @@ function useAutoScroller(_ref) {
         return draggingRect;
     }
   }, [activator, draggingRect, pointerCoordinates]);
-  const scrollContainerRef = import_react241.useRef(null);
-  const autoScroll = import_react241.useCallback(() => {
+  const scrollContainerRef = import_react243.useRef(null);
+  const autoScroll = import_react243.useCallback(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) {
       return;
@@ -38331,8 +38489,8 @@ function useAutoScroller(_ref) {
     const scrollTop = scrollSpeed.current.y * scrollDirection.current.y;
     scrollContainer.scrollBy(scrollLeft, scrollTop);
   }, []);
-  const sortedScrollableAncestors = import_react241.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
-  import_react241.useEffect(() => {
+  const sortedScrollableAncestors = import_react243.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
+  import_react243.useEffect(() => {
     if (!enabled || !scrollableAncestors.length || !rect) {
       clearAutoScrollInterval();
       return;
@@ -38438,7 +38596,7 @@ function useCachedNode(draggableNodes, id) {
   }, [node2, id]);
 }
 function useCombineActivators(sensors, getSyntheticHandler) {
-  return import_react241.useMemo(() => sensors.reduce((accumulator, sensor) => {
+  return import_react243.useMemo(() => sensors.reduce((accumulator, sensor) => {
     const {
       sensor: Sensor
     } = sensor;
@@ -38466,16 +38624,16 @@ function useDroppableMeasuring(containers, _ref) {
     dependencies,
     config
   } = _ref;
-  const [queue, setQueue] = import_react241.useState(null);
+  const [queue, setQueue] = import_react243.useState(null);
   const {
     frequency,
     measure,
     strategy
   } = config;
-  const containersRef = import_react241.useRef(containers);
+  const containersRef = import_react243.useRef(containers);
   const disabled = isDisabled();
   const disabledRef = useLatestValue(disabled);
-  const measureDroppableContainers = import_react241.useCallback(function(ids2) {
+  const measureDroppableContainers = import_react243.useCallback(function(ids2) {
     if (ids2 === undefined) {
       ids2 = [];
     }
@@ -38489,7 +38647,7 @@ function useDroppableMeasuring(containers, _ref) {
       return value.concat(ids2.filter((id) => !value.includes(id)));
     });
   }, [disabledRef]);
-  const timeoutId = import_react241.useRef(null);
+  const timeoutId = import_react243.useRef(null);
   const droppableRects = useLazyMemo((previousValue) => {
     if (disabled && !dragging) {
       return defaultValue;
@@ -38515,21 +38673,21 @@ function useDroppableMeasuring(containers, _ref) {
     }
     return previousValue;
   }, [containers, queue, dragging, disabled, measure]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     containersRef.current = containers;
   }, [containers]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     if (disabled) {
       return;
     }
     measureDroppableContainers();
   }, [dragging, disabled]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     if (queue && queue.length > 0) {
       setQueue(null);
     }
   }, [JSON.stringify(queue)]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     if (disabled || typeof frequency !== "number" || timeoutId.current !== null) {
       return;
     }
@@ -38574,7 +38732,7 @@ function useMutationObserver(_ref) {
     disabled
   } = _ref;
   const handleMutations = useEvent(callback);
-  const mutationObserver = import_react241.useMemo(() => {
+  const mutationObserver = import_react243.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.MutationObserver === "undefined") {
       return;
     }
@@ -38583,7 +38741,7 @@ function useMutationObserver(_ref) {
     } = window;
     return new MutationObserver2(handleMutations);
   }, [handleMutations, disabled]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     return () => mutationObserver == null ? undefined : mutationObserver.disconnect();
   }, [mutationObserver]);
   return mutationObserver;
@@ -38594,7 +38752,7 @@ function useResizeObserver2(_ref) {
     disabled
   } = _ref;
   const handleResize = useEvent(callback);
-  const resizeObserver = import_react241.useMemo(() => {
+  const resizeObserver = import_react243.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.ResizeObserver === "undefined") {
       return;
     }
@@ -38603,7 +38761,7 @@ function useResizeObserver2(_ref) {
     } = window;
     return new ResizeObserver2(handleResize);
   }, [disabled]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     return () => resizeObserver == null ? undefined : resizeObserver.disconnect();
   }, [resizeObserver]);
   return resizeObserver;
@@ -38615,7 +38773,7 @@ function useRect(element, measure, fallbackRect) {
   if (measure === undefined) {
     measure = defaultMeasure;
   }
-  const [rect, setRect] = import_react241.useState(null);
+  const [rect, setRect] = import_react243.useState(null);
   function measureRect() {
     setRect((currentRect) => {
       if (!element) {
@@ -38673,7 +38831,7 @@ function useRectDelta(rect) {
 }
 var defaultValue$1 = [];
 function useScrollableAncestors(node2) {
-  const previousNode = import_react241.useRef(node2);
+  const previousNode = import_react243.useRef(node2);
   const ancestors = useLazyMemo((previousValue) => {
     if (!node2) {
       return defaultValue$1;
@@ -38683,15 +38841,15 @@ function useScrollableAncestors(node2) {
     }
     return getScrollableAncestors(node2);
   }, [node2]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     previousNode.current = node2;
   }, [node2]);
   return ancestors;
 }
 function useScrollOffsets(elements) {
-  const [scrollCoordinates, setScrollCoordinates] = import_react241.useState(null);
-  const prevElements = import_react241.useRef(elements);
-  const handleScroll2 = import_react241.useCallback((event) => {
+  const [scrollCoordinates, setScrollCoordinates] = import_react243.useState(null);
+  const prevElements = import_react243.useRef(elements);
+  const handleScroll2 = import_react243.useCallback((event) => {
     const scrollingElement = getScrollableElement(event.target);
     if (!scrollingElement) {
       return;
@@ -38704,7 +38862,7 @@ function useScrollOffsets(elements) {
       return new Map(scrollCoordinates2);
     });
   }, []);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     const previousElements = prevElements.current;
     if (elements !== previousElements) {
       cleanup(previousElements);
@@ -38732,7 +38890,7 @@ function useScrollOffsets(elements) {
       });
     }
   }, [handleScroll2, elements]);
-  return import_react241.useMemo(() => {
+  return import_react243.useMemo(() => {
     if (elements.length) {
       return scrollCoordinates ? Array.from(scrollCoordinates.values()).reduce((acc, coordinates) => add(acc, coordinates), defaultCoordinates) : getScrollOffsets(elements);
     }
@@ -38743,11 +38901,11 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   if (dependencies === undefined) {
     dependencies = [];
   }
-  const initialScrollOffsets = import_react241.useRef(null);
-  import_react241.useEffect(() => {
+  const initialScrollOffsets = import_react243.useRef(null);
+  import_react243.useEffect(() => {
     initialScrollOffsets.current = null;
   }, dependencies);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     const hasScrollOffsets = scrollOffsets !== defaultCoordinates;
     if (hasScrollOffsets && !initialScrollOffsets.current) {
       initialScrollOffsets.current = scrollOffsets;
@@ -38759,7 +38917,7 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   return initialScrollOffsets.current ? subtract(scrollOffsets, initialScrollOffsets.current) : defaultCoordinates;
 }
 function useSensorSetup(sensors) {
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     if (!canUseDOM2) {
       return;
     }
@@ -38782,7 +38940,7 @@ function useSensorSetup(sensors) {
   }));
 }
 function useSyntheticListeners(listeners, id) {
-  return import_react241.useMemo(() => {
+  return import_react243.useMemo(() => {
     return listeners.reduce((acc, _ref) => {
       let {
         eventName,
@@ -38796,7 +38954,7 @@ function useSyntheticListeners(listeners, id) {
   }, [listeners, id]);
 }
 function useWindowRect(element) {
-  return import_react241.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
+  return import_react243.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
 }
 var defaultValue$2 = [];
 function useRects(elements, measure) {
@@ -38805,7 +38963,7 @@ function useRects(elements, measure) {
   }
   const [firstElement] = elements;
   const windowRect = useWindowRect(firstElement ? getWindow2(firstElement) : null);
-  const [rects, setRects] = import_react241.useState(defaultValue$2);
+  const [rects, setRects] = import_react243.useState(defaultValue$2);
   function measureRects() {
     setRects(() => {
       if (!elements.length) {
@@ -38838,8 +38996,8 @@ function useDragOverlayMeasuring(_ref) {
   let {
     measure
   } = _ref;
-  const [rect, setRect] = import_react241.useState(null);
-  const handleResize = import_react241.useCallback((entries) => {
+  const [rect, setRect] = import_react243.useState(null);
+  const handleResize = import_react243.useCallback((entries) => {
     for (const {
       target
     } of entries) {
@@ -38859,7 +39017,7 @@ function useDragOverlayMeasuring(_ref) {
   const resizeObserver = useResizeObserver2({
     callback: handleResize
   });
-  const handleNodeChange = import_react241.useCallback((element) => {
+  const handleNodeChange = import_react243.useCallback((element) => {
     const node2 = getMeasurableNode(element);
     resizeObserver == null || resizeObserver.disconnect();
     if (node2) {
@@ -38868,7 +39026,7 @@ function useDragOverlayMeasuring(_ref) {
     setRect(node2 ? measure(node2) : null);
   }, [measure, resizeObserver]);
   const [nodeRef, setRef] = useNodeRef(handleNodeChange);
-  return import_react241.useMemo(() => ({
+  return import_react243.useMemo(() => ({
     nodeRef,
     rect,
     setRef
@@ -38957,8 +39115,8 @@ var defaultInternalContext = {
   over: null,
   measureDroppableContainers: noop6
 };
-var InternalContext = /* @__PURE__ */ import_react241.createContext(defaultInternalContext);
-var PublicContext = /* @__PURE__ */ import_react241.createContext(defaultPublicContext);
+var InternalContext = /* @__PURE__ */ import_react243.createContext(defaultInternalContext);
+var PublicContext = /* @__PURE__ */ import_react243.createContext(defaultPublicContext);
 function getInitialState() {
   return {
     draggable: {
@@ -39092,10 +39250,10 @@ function RestoreFocus(_ref) {
     active,
     activatorEvent,
     draggableNodes
-  } = import_react241.useContext(InternalContext);
+  } = import_react243.useContext(InternalContext);
   const previousActivatorEvent = usePrevious2(activatorEvent);
   const previousActiveId = usePrevious2(active == null ? undefined : active.id);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     if (disabled) {
       return;
     }
@@ -39146,7 +39304,7 @@ function applyModifiers(modifiers, _ref) {
   }, transform) : transform;
 }
 function useMeasuringConfiguration(config) {
-  return import_react241.useMemo(() => ({
+  return import_react243.useMemo(() => ({
     draggable: {
       ...defaultMeasuringConfiguration.draggable,
       ...config == null ? undefined : config.draggable
@@ -39168,7 +39326,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     initialRect,
     config = true
   } = _ref;
-  const initialized = import_react241.useRef(false);
+  const initialized = import_react243.useRef(false);
   const {
     x: x2,
     y: y2
@@ -39209,7 +39367,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     }
   }, [activeNode, x2, y2, initialRect, measure]);
 }
-var ActiveDraggableContext = /* @__PURE__ */ import_react241.createContext({
+var ActiveDraggableContext = /* @__PURE__ */ import_react243.createContext({
   ...defaultCoordinates,
   scaleX: 1,
   scaleY: 1
@@ -39220,7 +39378,7 @@ var Status;
   Status2[Status2["Initializing"] = 1] = "Initializing";
   Status2[Status2["Initialized"] = 2] = "Initialized";
 })(Status || (Status = {}));
-var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref) {
+var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref) {
   var _sensorContext$curren, _dragOverlay$nodeRef$, _dragOverlay$rect, _over$rect;
   let {
     id,
@@ -39233,10 +39391,10 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
     modifiers,
     ...props
   } = _ref;
-  const store = import_react241.useReducer(reducer, undefined, getInitialState);
+  const store = import_react243.useReducer(reducer, undefined, getInitialState);
   const [state, dispatch] = store;
   const [dispatchMonitorEvent, registerMonitorListener] = useDndMonitorProvider();
-  const [status, setStatus] = import_react241.useState(Status.Uninitialized);
+  const [status, setStatus] = import_react243.useState(Status.Uninitialized);
   const isInitialized = status === Status.Initialized;
   const {
     draggable: {
@@ -39249,11 +39407,11 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
     }
   } = state;
   const node2 = activeId != null ? draggableNodes.get(activeId) : null;
-  const activeRects = import_react241.useRef({
+  const activeRects = import_react243.useRef({
     initial: null,
     translated: null
   });
-  const active = import_react241.useMemo(() => {
+  const active = import_react243.useMemo(() => {
     var _node$data;
     return activeId != null ? {
       id: activeId,
@@ -39261,12 +39419,12 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
       rect: activeRects
     } : null;
   }, [activeId, node2]);
-  const activeRef = import_react241.useRef(null);
-  const [activeSensor, setActiveSensor] = import_react241.useState(null);
-  const [activatorEvent, setActivatorEvent] = import_react241.useState(null);
+  const activeRef = import_react243.useRef(null);
+  const [activeSensor, setActiveSensor] = import_react243.useState(null);
+  const [activatorEvent, setActivatorEvent] = import_react243.useState(null);
   const latestProps = useLatestValue(props, Object.values(props));
   const draggableDescribedById = useUniqueId("DndDescribedBy", id);
-  const enabledDroppableContainers = import_react241.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
+  const enabledDroppableContainers = import_react243.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
   const measuringConfiguration = useMeasuringConfiguration(measuring);
   const {
     droppableRects,
@@ -39278,7 +39436,7 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
     config: measuringConfiguration.droppable
   });
   const activeNode = useCachedNode(draggableNodes, activeId);
-  const activationCoordinates = import_react241.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
+  const activationCoordinates = import_react243.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
   const autoScrollOptions = getAutoScrollerOptions();
   const initialActiveNodeRect = useInitialRect(activeNode, measuringConfiguration.draggable.measure);
   useLayoutShiftScrollCompensation({
@@ -39289,7 +39447,7 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
   });
   const activeNodeRect = useRect(activeNode, measuringConfiguration.draggable.measure, initialActiveNodeRect);
   const containerNodeRect = useRect(activeNode ? activeNode.parentElement : null);
-  const sensorContext = import_react241.useRef({
+  const sensorContext = import_react243.useRef({
     activatorEvent: null,
     active: null,
     activeNode,
@@ -39347,11 +39505,11 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
     pointerCoordinates
   }) : null;
   const overId = getFirstCollision(collisions, "id");
-  const [over, setOver] = import_react241.useState(null);
+  const [over, setOver] = import_react243.useState(null);
   const appliedTranslate = usesDragOverlay ? modifiedTranslate : add(modifiedTranslate, activeNodeScrollDelta);
   const transform = adjustScale(appliedTranslate, (_over$rect = over == null ? undefined : over.rect) != null ? _over$rect : null, activeNodeRect);
-  const activeSensorRef = import_react241.useRef(null);
-  const instantiateSensor = import_react241.useCallback((event, _ref2) => {
+  const activeSensorRef = import_react243.useRef(null);
+  const instantiateSensor = import_react243.useCallback((event, _ref2) => {
     let {
       sensor: Sensor,
       options
@@ -39503,7 +39661,7 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
       };
     }
   }, [draggableNodes]);
-  const bindActivatorToSensorInstantiator = import_react241.useCallback((handler, sensor) => {
+  const bindActivatorToSensorInstantiator = import_react243.useCallback((handler, sensor) => {
     return (event, active2) => {
       const nativeEvent = event.nativeEvent;
       const activeDraggableNode = draggableNodes.get(active2);
@@ -39530,7 +39688,7 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
       setStatus(Status.Initialized);
     }
   }, [activeNodeRect, status]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     const {
       onDragMove
     } = latestProps.current;
@@ -39561,7 +39719,7 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
       });
     });
   }, [scrollAdjustedTranslate.x, scrollAdjustedTranslate.y]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     const {
       active: active2,
       activatorEvent: activatorEvent2,
@@ -39630,7 +39788,7 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
     scrollableAncestors,
     scrollableAncestorRects
   });
-  const publicContext = import_react241.useMemo(() => {
+  const publicContext = import_react243.useMemo(() => {
     const context = {
       active,
       activeNode,
@@ -39652,7 +39810,7 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
     };
     return context;
   }, [active, activeNode, activeNodeRect, activatorEvent, collisions, containerNodeRect, dragOverlay, draggableNodes, droppableContainers, droppableRects, over, measureDroppableContainers, scrollableAncestors, scrollableAncestorRects, measuringConfiguration, measuringScheduled, windowRect]);
-  const internalContext = import_react241.useMemo(() => {
+  const internalContext = import_react243.useMemo(() => {
     const context = {
       activatorEvent,
       activators,
@@ -39668,17 +39826,17 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
     };
     return context;
   }, [activatorEvent, activators, active, activeNodeRect, dispatch, draggableDescribedById, draggableNodes, over, measureDroppableContainers]);
-  return import_react241.default.createElement(DndMonitorContext.Provider, {
+  return import_react243.default.createElement(DndMonitorContext.Provider, {
     value: registerMonitorListener
-  }, import_react241.default.createElement(InternalContext.Provider, {
+  }, import_react243.default.createElement(InternalContext.Provider, {
     value: internalContext
-  }, import_react241.default.createElement(PublicContext.Provider, {
+  }, import_react243.default.createElement(PublicContext.Provider, {
     value: publicContext
-  }, import_react241.default.createElement(ActiveDraggableContext.Provider, {
+  }, import_react243.default.createElement(ActiveDraggableContext.Provider, {
     value: transform
-  }, children)), import_react241.default.createElement(RestoreFocus, {
+  }, children)), import_react243.default.createElement(RestoreFocus, {
     disabled: (accessibility == null ? undefined : accessibility.restoreFocus) === false
-  })), import_react241.default.createElement(Accessibility, {
+  })), import_react243.default.createElement(Accessibility, {
     ...accessibility,
     hiddenTextDescribedById: draggableDescribedById
   }));
@@ -39697,7 +39855,7 @@ var DndContext = /* @__PURE__ */ import_react241.memo(function DndContext2(_ref)
     };
   }
 });
-var NullContext = /* @__PURE__ */ import_react241.createContext(null);
+var NullContext = /* @__PURE__ */ import_react243.createContext(null);
 var defaultRole = "button";
 var ID_PREFIX = "Draggable";
 function useDraggable(_ref) {
@@ -39716,14 +39874,14 @@ function useDraggable(_ref) {
     ariaDescribedById,
     draggableNodes,
     over
-  } = import_react241.useContext(InternalContext);
+  } = import_react243.useContext(InternalContext);
   const {
     role = defaultRole,
     roleDescription = "draggable",
     tabIndex = 0
   } = attributes != null ? attributes : {};
   const isDragging = (active == null ? undefined : active.id) === id;
-  const transform = import_react241.useContext(isDragging ? ActiveDraggableContext : NullContext);
+  const transform = import_react243.useContext(isDragging ? ActiveDraggableContext : NullContext);
   const [node2, setNodeRef] = useNodeRef();
   const [activatorNode, setActivatorNodeRef] = useNodeRef();
   const listeners = useSyntheticListeners(activators, id);
@@ -39743,7 +39901,7 @@ function useDraggable(_ref) {
       }
     };
   }, [draggableNodes, id]);
-  const memoizedAttributes = import_react241.useMemo(() => ({
+  const memoizedAttributes = import_react243.useMemo(() => ({
     role,
     tabIndex,
     "aria-disabled": disabled,
@@ -39766,7 +39924,7 @@ function useDraggable(_ref) {
   };
 }
 function useDndContext() {
-  return import_react241.useContext(PublicContext);
+  return import_react243.useContext(PublicContext);
 }
 var ID_PREFIX$1 = "Droppable";
 var defaultResizeObserverConfig = {
@@ -39785,13 +39943,13 @@ function useDroppable(_ref) {
     dispatch,
     over,
     measureDroppableContainers
-  } = import_react241.useContext(InternalContext);
-  const previous = import_react241.useRef({
+  } = import_react243.useContext(InternalContext);
+  const previous = import_react243.useRef({
     disabled
   });
-  const resizeObserverConnected = import_react241.useRef(false);
-  const rect = import_react241.useRef(null);
-  const callbackId = import_react241.useRef(null);
+  const resizeObserverConnected = import_react243.useRef(false);
+  const rect = import_react243.useRef(null);
+  const callbackId = import_react243.useRef(null);
   const {
     disabled: resizeObserverDisabled,
     updateMeasurementsFor,
@@ -39801,7 +39959,7 @@ function useDroppable(_ref) {
     ...resizeObserverConfig
   };
   const ids2 = useLatestValue(updateMeasurementsFor != null ? updateMeasurementsFor : id);
-  const handleResize = import_react241.useCallback(() => {
+  const handleResize = import_react243.useCallback(() => {
     if (!resizeObserverConnected.current) {
       resizeObserverConnected.current = true;
       return;
@@ -39818,7 +39976,7 @@ function useDroppable(_ref) {
     callback: handleResize,
     disabled: resizeObserverDisabled || !active
   });
-  const handleNodeChange = import_react241.useCallback((newElement, previousElement) => {
+  const handleNodeChange = import_react243.useCallback((newElement, previousElement) => {
     if (!resizeObserver) {
       return;
     }
@@ -39832,7 +39990,7 @@ function useDroppable(_ref) {
   }, [resizeObserver]);
   const [nodeRef, setNodeRef] = useNodeRef(handleNodeChange);
   const dataRef = useLatestValue(data);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     if (!resizeObserver || !nodeRef.current) {
       return;
     }
@@ -39840,7 +39998,7 @@ function useDroppable(_ref) {
     resizeObserverConnected.current = false;
     resizeObserver.observe(nodeRef.current);
   }, [nodeRef, resizeObserver]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     dispatch({
       type: Action.RegisterDroppable,
       element: {
@@ -39858,7 +40016,7 @@ function useDroppable(_ref) {
       id
     });
   }, [id]);
-  import_react241.useEffect(() => {
+  import_react243.useEffect(() => {
     if (disabled !== previous.current.disabled) {
       dispatch({
         type: Action.SetDroppableDisabled,
@@ -39880,7 +40038,7 @@ function useDroppable(_ref) {
 }
 
 // node_modules/@dnd-kit/sortable/dist/sortable.esm.js
-var import_react242 = __toESM(require_react(), 1);
+var import_react244 = __toESM(require_react(), 1);
 function arrayMove(array, from2, to) {
   const newArray = array.slice();
   newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from2, 1)[0]);
@@ -40003,7 +40161,7 @@ var rectSortingStrategy = (_ref) => {
   };
 };
 var ID_PREFIX2 = "Sortable";
-var Context = /* @__PURE__ */ import_react242.default.createContext({
+var Context = /* @__PURE__ */ import_react244.default.createContext({
   activeIndex: -1,
   containerId: ID_PREFIX2,
   disableTransforms: false,
@@ -40034,11 +40192,11 @@ function SortableContext(_ref) {
   } = useDndContext();
   const containerId = useUniqueId(ID_PREFIX2, id);
   const useDragOverlay = Boolean(dragOverlay.rect !== null);
-  const items = import_react242.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
+  const items = import_react244.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
   const isDragging = active != null;
   const activeIndex = active ? items.indexOf(active.id) : -1;
   const overIndex = over ? items.indexOf(over.id) : -1;
-  const previousItemsRef = import_react242.useRef(items);
+  const previousItemsRef = import_react244.useRef(items);
   const itemsHaveChanged = !itemsEqual(items, previousItemsRef.current);
   const disableTransforms = overIndex !== -1 && activeIndex === -1 || itemsHaveChanged;
   const disabled = normalizeDisabled(disabledProp);
@@ -40047,10 +40205,10 @@ function SortableContext(_ref) {
       measureDroppableContainers(items);
     }
   }, [itemsHaveChanged, items, isDragging, measureDroppableContainers]);
-  import_react242.useEffect(() => {
+  import_react244.useEffect(() => {
     previousItemsRef.current = items;
   }, [items]);
-  const contextValue = import_react242.useMemo(() => ({
+  const contextValue = import_react244.useMemo(() => ({
     activeIndex,
     containerId,
     disabled,
@@ -40061,7 +40219,7 @@ function SortableContext(_ref) {
     sortedRects: getSortedRects(items, droppableRects),
     strategy
   }), [activeIndex, containerId, disabled.draggable, disabled.droppable, disableTransforms, items, overIndex, droppableRects, useDragOverlay, strategy]);
-  return import_react242.default.createElement(Context.Provider, {
+  return import_react244.default.createElement(Context.Provider, {
     value: contextValue
   }, children);
 }
@@ -40117,8 +40275,8 @@ function useDerivedTransform(_ref) {
     node: node2,
     rect
   } = _ref;
-  const [derivedTransform, setDerivedtransform] = import_react242.useState(null);
-  const previousIndex = import_react242.useRef(index4);
+  const [derivedTransform, setDerivedtransform] = import_react244.useState(null);
+  const previousIndex = import_react244.useRef(index4);
   useIsomorphicLayoutEffect2(() => {
     if (!disabled && index4 !== previousIndex.current && node2.current) {
       const initial = rect.current;
@@ -40141,7 +40299,7 @@ function useDerivedTransform(_ref) {
       previousIndex.current = index4;
     }
   }, [disabled, index4, node2, rect]);
-  import_react242.useEffect(() => {
+  import_react244.useEffect(() => {
     if (derivedTransform) {
       setDerivedtransform(null);
     }
@@ -40170,10 +40328,10 @@ function useSortable(_ref) {
     overIndex,
     useDragOverlay,
     strategy: globalStrategy
-  } = import_react242.useContext(Context);
+  } = import_react244.useContext(Context);
   const disabled = normalizeLocalDisabled(localDisabled, globalDisabled);
   const index4 = items.indexOf(id);
-  const data = import_react242.useMemo(() => ({
+  const data = import_react244.useMemo(() => ({
     sortable: {
       containerId,
       index: index4,
@@ -40181,7 +40339,7 @@ function useSortable(_ref) {
     },
     ...customData
   }), [containerId, customData, index4, items]);
-  const itemsAfterCurrentSortable = import_react242.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
+  const itemsAfterCurrentSortable = import_react244.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
   const {
     rect,
     node: node2,
@@ -40236,7 +40394,7 @@ function useSortable(_ref) {
     overIndex
   }) : index4;
   const activeId = active == null ? undefined : active.id;
-  const previous = import_react242.useRef({
+  const previous = import_react244.useRef({
     activeId,
     items,
     newIndex,
@@ -40263,7 +40421,7 @@ function useSortable(_ref) {
     node: node2,
     rect
   });
-  import_react242.useEffect(() => {
+  import_react244.useEffect(() => {
     if (isSorting && previous.current.newIndex !== newIndex) {
       previous.current.newIndex = newIndex;
     }
@@ -40274,7 +40432,7 @@ function useSortable(_ref) {
       previous.current.items = items;
     }
   }, [isSorting, newIndex, containerId, items]);
-  import_react242.useEffect(() => {
+  import_react244.useEffect(() => {
     if (activeId === previous.current.activeId) {
       return;
     }
@@ -40454,7 +40612,7 @@ function isAfter(a2, b) {
 }
 
 // src/components/LayoutMappingModal/DependentGroupSortableCard.tsx
-var import_react243 = __toESM(require_react(), 1);
+var import_react245 = __toESM(require_react(), 1);
 var jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
 var TransformCommandCard = ({
   transform,
@@ -40527,8 +40685,8 @@ var DependentGroupValueSortableCard = ({
   const raiseError2 = appStore((state) => state.raiseError);
   const updateVarValueFromDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup);
   const variables = appStore((state) => state.state.studio.document.variables);
-  const [transformModalOpen, setTransformModalOpen] = import_react243.useState(false);
-  const [transforms, setTransforms] = import_react243.useState([]);
+  const [transformModalOpen, setTransformModalOpen] = import_react245.useState(false);
+  const [transforms, setTransforms] = import_react245.useState([]);
   const {
     attributes,
     listeners,
@@ -41133,7 +41291,7 @@ var VariableCard = ({
   const setIsSwapImageVariableModalOpen = appStore((store) => store.effects.modal.setIsSwapImageVariableModalOpen);
   const setCurrentSwapImageVariableId = appStore((store) => store.effects.modal.setCurrentSwapImageVariableId);
   const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
-  const [isOpen, setIsOpen] = import_react244.useState(false);
+  const [isOpen, setIsOpen] = import_react246.useState(false);
   const variableImageConfig = documentVariables.find((v2) => v2.id === variableConfig.id);
   if (variableImageConfig == null) {
     raiseError2(Result.error(new Error("variableDocument is null")));
@@ -41268,9 +41426,9 @@ var LayoutConfigSection = ({
   mapConfig,
   index: index4
 }) => {
-  const [isOpen, setIsOpen] = import_react245.useState(false);
-  const [menuOpened, setMenuOpened] = import_react245.useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = import_react245.useState(false);
+  const [isOpen, setIsOpen] = import_react247.useState(false);
+  const [menuOpened, setMenuOpened] = import_react247.useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = import_react247.useState(false);
   const addLayoutMapFromCopy = appStore((store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy);
   const setIsImageVariableMappingModalOpen = appStore((store) => store.effects.modal.setIsImageVariableMappingModalOpen);
   const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
@@ -41414,18 +41572,18 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
   const layoutImageMapping = appStore((state) => state.state.studio.layoutImageMapping);
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const currentSwapImageVariableId = appStore((state) => state.state.modal.currentSwapImageVariableId);
-  const [validationReport, setValidationReport] = import_react246.useState(null);
-  const [isValidationModalOpen, setIsValidationModalOpen] = import_react246.useState(false);
-  const imageVariables = import_react246.useMemo(() => {
+  const [validationReport, setValidationReport] = import_react248.useState(null);
+  const [isValidationModalOpen, setIsValidationModalOpen] = import_react248.useState(false);
+  const imageVariables = import_react248.useMemo(() => {
     return variables.filter((variable) => variable.type === "image");
   }, [variables]);
-  const imageVariableOptions = import_react246.useMemo(() => {
+  const imageVariableOptions = import_react248.useMemo(() => {
     return imageVariables.map((variable) => ({
       value: variable.id,
       label: variable.name
     }));
   }, [imageVariables]);
-  import_react246.useEffect(() => {
+  import_react248.useEffect(() => {
     const loadConfig = async () => {
       if (!isLayoutConfigLoaded && !isDocumentLoaded) {
         const resultDoc = await loadDocFromDoc();
@@ -41728,19 +41886,19 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react266 = __toESM(require_react(), 1);
+var import_react268 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
-var import_react253 = __toESM(require_react(), 1);
+var import_react255 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameLayoutCard.tsx
-var import_react252 = __toESM(require_react(), 1);
+var import_react254 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotRow.tsx
-var import_react248 = __toESM(require_react(), 1);
+var import_react250 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/EditableCell.tsx
-var import_react247 = __toESM(require_react(), 1);
+var import_react249 = __toESM(require_react(), 1);
 var jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
 function EditableCell({
   rowKey,
@@ -41753,15 +41911,15 @@ function EditableCell({
   onEditSave,
   onEditCancel
 }) {
-  const [isHovered, setIsHovered] = import_react247.useState(false);
-  const inputRef = import_react247.useRef(null);
+  const [isHovered, setIsHovered] = import_react249.useState(false);
+  const inputRef = import_react249.useRef(null);
   const cellKey = `${rowKey}:${field}`;
-  import_react247.useEffect(() => {
+  import_react249.useEffect(() => {
     if (isEditing) {
       setTimeout(() => inputRef.current?.focus(), 10);
     }
   }, [isEditing]);
-  import_react247.useEffect(() => {
+  import_react249.useEffect(() => {
     console.log(rowKey);
   }, []);
   const handleKeyDown = (e) => {
@@ -41817,20 +41975,20 @@ function FrameSnapshotRow({
   onCheckChange,
   isChecked
 }) {
-  const [editState, setEditState] = import_react248.useState({ key: null, value: "" });
-  const handleEditStart = import_react248.useCallback((key, value) => {
+  const [editState, setEditState] = import_react250.useState({ key: null, value: "" });
+  const handleEditStart = import_react250.useCallback((key, value) => {
     setEditState({ key, value });
   }, []);
-  const handleEditChange = import_react248.useCallback((value) => {
+  const handleEditChange = import_react250.useCallback((value) => {
     setEditState((prev2) => ({ ...prev2, value }));
   }, []);
-  const handleEditSave = import_react248.useCallback(() => {
+  const handleEditSave = import_react250.useCallback(() => {
     if (editState.key && onEditCell) {
       onEditCell(layoutId, editState.key, editState.value);
     }
     setEditState({ key: null, value: "" });
   }, [editState, onEditCell]);
-  const handleEditCancel = import_react248.useCallback(() => {
+  const handleEditCancel = import_react250.useCallback(() => {
     setEditState({ key: null, value: "" });
   }, []);
   const rowStyle = isChecked ? { backgroundColor: "#e6f7ff" } : {};
@@ -41861,7 +42019,7 @@ function FrameSnapshotRow({
 }
 
 // src/components/FrameSnapshotLayout/CopyToLayerModal.tsx
-var import_react249 = __toESM(require_react(), 1);
+var import_react251 = __toESM(require_react(), 1);
 var jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
 function CopyToLayerModal({
   opened,
@@ -41871,11 +42029,11 @@ function CopyToLayerModal({
   frameLayoutMaps,
   onUpdateFrameLayoutMaps
 }) {
-  const [layouts, setLayouts] = import_react249.useState([]);
-  const [selectedLayoutId, setSelectedLayoutId] = import_react249.useState(null);
-  const [isLoading, setIsLoading] = import_react249.useState(false);
+  const [layouts, setLayouts] = import_react251.useState([]);
+  const [selectedLayoutId, setSelectedLayoutId] = import_react251.useState(null);
+  const [isLoading, setIsLoading] = import_react251.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react249.useEffect(() => {
+  import_react251.useEffect(() => {
     if (opened) {
       loadAvailableLayouts();
     }
@@ -41999,7 +42157,7 @@ function CopyToLayerModal({
 }
 
 // src/components/FrameSnapshotLayout/CopyAndAddRowModal.tsx
-var import_react250 = __toESM(require_react(), 1);
+var import_react252 = __toESM(require_react(), 1);
 var jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
 function CopyAndAddRowModal({
   opened,
@@ -42009,10 +42167,10 @@ function CopyAndAddRowModal({
   existingSnapshots,
   onAddCopy
 }) {
-  const [newName, setNewName] = import_react250.useState("");
-  const [error, setError] = import_react250.useState(null);
-  const [isLoading, setIsLoading] = import_react250.useState(false);
-  import_react250.default.useEffect(() => {
+  const [newName, setNewName] = import_react252.useState("");
+  const [error, setError] = import_react252.useState(null);
+  const [isLoading, setIsLoading] = import_react252.useState(false);
+  import_react252.default.useEffect(() => {
     if (opened) {
       setNewName(snapshot.imageName);
       setError(null);
@@ -42081,7 +42239,7 @@ function CopyAndAddRowModal({
 }
 
 // src/components/FrameSnapshotLayout/CopyAndReplaceModal.tsx
-var import_react251 = __toESM(require_react(), 1);
+var import_react253 = __toESM(require_react(), 1);
 var jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
 function CopyAndReplaceModal({
   opened,
@@ -42091,14 +42249,14 @@ function CopyAndReplaceModal({
   existingSnapshots,
   onAddCopy
 }) {
-  const [searchText, setSearchText] = import_react251.useState("");
-  const [replaceText, setReplaceText] = import_react251.useState("");
-  const [errors, setErrors] = import_react251.useState({});
-  const [isLoading, setIsLoading] = import_react251.useState(false);
-  const [previewSnapshot, setPreviewSnapshot] = import_react251.useState(null);
-  const [previewNewName, setPreviewNewName] = import_react251.useState("");
-  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react251.useState(false);
-  import_react251.useEffect(() => {
+  const [searchText, setSearchText] = import_react253.useState("");
+  const [replaceText, setReplaceText] = import_react253.useState("");
+  const [errors, setErrors] = import_react253.useState({});
+  const [isLoading, setIsLoading] = import_react253.useState(false);
+  const [previewSnapshot, setPreviewSnapshot] = import_react253.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react253.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react253.useState(false);
+  import_react253.useEffect(() => {
     if (opened) {
       setSearchText("");
       setReplaceText("");
@@ -42111,7 +42269,7 @@ function CopyAndReplaceModal({
       }
     }
   }, [opened, snapshots]);
-  import_react251.useEffect(() => {
+  import_react253.useEffect(() => {
     if (previewSnapshot) {
       const newName = previewSnapshot.imageName.replace(new RegExp(searchText, "g"), replaceText);
       setPreviewNewName(newName);
@@ -42252,10 +42410,10 @@ function FrameLayoutCard({
   frameLayoutMaps,
   onUpdateFrameLayoutMaps
 }) {
-  const [checkedSnapshots, setCheckedSnapshots] = import_react252.useState({});
-  const [copyModalOpened, setCopyModalOpened] = import_react252.useState(false);
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = import_react252.useState(false);
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = import_react252.useState(false);
+  const [checkedSnapshots, setCheckedSnapshots] = import_react254.useState({});
+  const [copyModalOpened, setCopyModalOpened] = import_react254.useState(false);
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = import_react254.useState(false);
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = import_react254.useState(false);
   const handleCheckChange = (snapshotKey, isChecked) => {
     setCheckedSnapshots((prev2) => ({
       ...prev2,
@@ -42279,7 +42437,7 @@ function FrameLayoutCard({
   };
   const hasCheckedSnapshots = Object.values(checkedSnapshots).some(Boolean);
   const checkedSnapshotsCount = Object.values(checkedSnapshots).filter(Boolean).length;
-  const singleSelectedSnapshot = import_react252.useMemo(() => {
+  const singleSelectedSnapshot = import_react254.useMemo(() => {
     if (checkedSnapshotsCount === 1) {
       const selectedKey = Object.keys(checkedSnapshots).find((key) => checkedSnapshots[key]);
       return layoutMap.snapshots.find((snapshot) => snapshot.uniqueId === selectedKey);
@@ -42454,11 +42612,11 @@ function FrameSnapshotLayoutModal({
   opened,
   onClose
 }) {
-  const [frameLayoutMaps, setFrameLayoutMaps] = import_react253.useState([]);
-  const [isLoading, setIsLoading] = import_react253.useState(false);
-  const [isRemoving, setIsRemoving] = import_react253.useState(false);
+  const [frameLayoutMaps, setFrameLayoutMaps] = import_react255.useState([]);
+  const [isLoading, setIsLoading] = import_react255.useState(false);
+  const [isRemoving, setIsRemoving] = import_react255.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  const tableData = import_react253.useMemo(() => {
+  const tableData = import_react255.useMemo(() => {
     return frameLayoutMaps.map((frameLayoutMap, layoutIndex) => {
       let snapshots = frameLayoutMap.frameSnapshots.map((snapshot, snapshotIndex) => {
         const uniqueId = `${snapshot.frameId}_${snapshot.imageName}`;
@@ -42480,7 +42638,7 @@ function FrameSnapshotLayoutModal({
       map.frameSnapshots = [...map.frameSnapshots].sort((a2, b) => a2.imageName.localeCompare(b.imageName));
     });
   };
-  const handleEditCell = import_react253.useCallback((layoutId, key, value) => {
+  const handleEditCell = import_react255.useCallback((layoutId, key, value) => {
     if (!key)
       return;
     const [uniqueId, field] = key.split(":");
@@ -42535,7 +42693,7 @@ function FrameSnapshotLayoutModal({
       setIsLoading(false);
     }
   };
-  import_react253.useEffect(() => {
+  import_react255.useEffect(() => {
     if (opened) {
       loadFrameLayouts();
     }
@@ -42563,7 +42721,7 @@ function FrameSnapshotLayoutModal({
       setIsRemoving(false);
     }
   };
-  const cleanupFrameLayoutMaps = import_react253.useCallback(() => {
+  const cleanupFrameLayoutMaps = import_react255.useCallback(() => {
     return frameLayoutMaps.map((map) => {
       const { layoutName, ...cleanMap } = map;
       const sortedSnapshots = [...cleanMap.frameSnapshots].sort((a2, b) => a2.imageName.localeCompare(b.imageName));
@@ -42573,7 +42731,7 @@ function FrameSnapshotLayoutModal({
       };
     });
   }, [frameLayoutMaps]);
-  const saveCleanedFrameLayoutMaps = import_react253.useCallback(async () => {
+  const saveCleanedFrameLayoutMaps = import_react255.useCallback(async () => {
     const cleanFrameLayoutMaps = cleanupFrameLayoutMaps();
     return await saveFrameLayoutMapsToDoc(cleanFrameLayoutMaps);
   }, [cleanupFrameLayoutMaps]);
@@ -42666,17 +42824,17 @@ function FrameSnapshotLayoutModal({
 }
 
 // src/components/AddFrameSnapshotModal.tsx
-var import_react254 = __toESM(require_react(), 1);
+var import_react256 = __toESM(require_react(), 1);
 var jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
 function AddFrameSnapshotModal({
   opened,
   onClose,
   raiseError: raiseError2
 }) {
-  const [status, setStatus] = import_react254.useState("idle");
-  const [message, setMessage] = import_react254.useState(null);
-  const [positionData, setPositionData] = import_react254.useState(null);
-  import_react254.useEffect(() => {
+  const [status, setStatus] = import_react256.useState("idle");
+  const [message, setMessage] = import_react256.useState(null);
+  const [positionData, setPositionData] = import_react256.useState(null);
+  import_react256.useEffect(() => {
     if (!opened) {
       setStatus("idle");
       setMessage(null);
@@ -42811,13 +42969,13 @@ function AddFrameSnapshotModal({
 }
 
 // src/components/LayoutManagerModal.tsx
-var import_react255 = __toESM(require_react(), 1);
+var import_react257 = __toESM(require_react(), 1);
 var jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
 function LayoutManagerModal({ opened, onClose }) {
-  const [layouts, setLayouts] = import_react255.useState([]);
-  const [studio2, setStudio] = import_react255.useState(null);
+  const [layouts, setLayouts] = import_react257.useState([]);
+  const [studio2, setStudio] = import_react257.useState(null);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react255.useEffect(() => {
+  import_react257.useEffect(() => {
     const fetchLayouts = async () => {
       try {
         const studioResult = await getStudio();
@@ -43051,11 +43209,11 @@ function LayoutManagerModal({ opened, onClose }) {
 }
 
 // src/components/DownloadModal.tsx
-var import_react257 = __toESM(require_react(), 1);
+var import_react259 = __toESM(require_react(), 1);
 init_documentHandler();
 
 // src/components/ConnectorReplacementModal.tsx
-var import_react256 = __toESM(require_react(), 1);
+var import_react258 = __toESM(require_react(), 1);
 var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
 function ConnectorReplacementModal({
   opened,
@@ -43065,9 +43223,9 @@ function ConnectorReplacementModal({
   onReplace,
   nameMatches = {}
 }) {
-  const [replacements, setReplacements] = import_react256.useState({});
+  const [replacements, setReplacements] = import_react258.useState({});
   const mediaConnectors = availableConnectors.filter((c2) => c2.type === "media");
-  import_react256.useEffect(() => {
+  import_react258.useEffect(() => {
     if (opened && Object.keys(nameMatches).length > 0) {
       setReplacements(nameMatches);
     }
@@ -43165,17 +43323,42 @@ function ConnectorReplacementModal({
 // src/components/DownloadModal.tsx
 var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
 function DownloadModal({ opened, onClose }) {
-  const fileInputRef = import_react257.useRef(null);
+  const fileInputRef = import_react259.useRef(null);
   const raiseError2 = appStore((store) => store.raiseError);
-  const [replacementModalOpened, setReplacementModalOpened] = import_react257.useState(false);
-  const [missingConnectors, setMissingConnectors] = import_react257.useState([]);
-  const [availableConnectors, setAvailableConnectors] = import_react257.useState([]);
-  const [pendingJsonContent, setPendingJsonContent] = import_react257.useState("");
-  const [nameMatches, setNameMatches] = import_react257.useState({});
-  const [useTemplatePackage, setUseTemplatePackage] = import_react257.useState(false);
-  const [fontMigrationProgress, setFontMigrationProgress] = import_react257.useState(null);
-  const [showPackageWarning, setShowPackageWarning] = import_react257.useState(false);
-  const handleDownload = async () => {
+  const [replacementModalOpened, setReplacementModalOpened] = import_react259.useState(false);
+  const [missingConnectors, setMissingConnectors] = import_react259.useState([]);
+  const [availableConnectors, setAvailableConnectors] = import_react259.useState([]);
+  const [pendingJsonContent, setPendingJsonContent] = import_react259.useState("");
+  const [nameMatches, setNameMatches] = import_react259.useState({});
+  const [fontMigrationProgress, setFontMigrationProgress] = import_react259.useState(null);
+  const [showPackageWarning, setShowPackageWarning] = import_react259.useState(false);
+  const [isDownloading, setIsDownloading] = import_react259.useState(false);
+  const handleDownloadDocumentJson = async () => {
+    setIsDownloading(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const documentResult = await getCurrentDocumentState(studioResult.value);
+      if (!documentResult.isOk()) {
+        raiseError2(new Error(documentResult.error?.message || "Failed to get document state"));
+        return;
+      }
+      const templateName = await getTemplateName(studioResult.value);
+      const documentData = { ...documentResult.value };
+      const fileName = `${templateName}.json`;
+      downloadJsonFile(documentData, fileName);
+      onClose();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+  const handleDownloadTemplatePackage = async () => {
+    setIsDownloading(true);
     try {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
@@ -43189,18 +43372,37 @@ function DownloadModal({ opened, onClose }) {
       }
       const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
       const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
+      const templateName = await getTemplateName(studioResult.value);
+      const documentData = { ...documentResult.value };
+      if (!documentData.properties) {
+        documentData.properties = {};
+      }
+      documentData.properties.token = token2;
+      documentData.properties.baseUrl = baseUrl;
+      const fileName = `${templateName}.packageJson`;
+      downloadJsonFile(documentData, fileName);
+      setShowPackageWarning(true);
+      setTimeout(() => setShowPackageWarning(false), 5000);
+      onClose();
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+  const getTemplateName = async (studio2) => {
+    try {
+      const token2 = (await studio2.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+      const baseUrl = (await studio2.configuration.getValue("ENVIRONMENT_API")).parsedData;
       const urlPath = window.location.href;
       const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
-      let templateId = "";
       let templateName = "document";
       if (templateIdMatch && templateIdMatch[1]) {
-        templateId = templateIdMatch[1];
-        const token3 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
-        const baseUrl2 = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
+        const templateId = templateIdMatch[1];
         try {
-          const templateResponse = await fetch(`${baseUrl2}templates/${templateId}`, {
+          const templateResponse = await fetch(`${baseUrl}templates/${templateId}`, {
             headers: {
-              Authorization: `Bearer ${token3}`,
+              Authorization: `Bearer ${token2}`,
               "Content-Type": "application/json"
             }
           });
@@ -43214,30 +43416,153 @@ function DownloadModal({ opened, onClose }) {
           raiseError2(error instanceof Error ? error : new Error("Failed to fetch template name"));
         }
       }
-      let documentData = { ...documentResult.value };
-      let fileName = `${templateName}.json`;
-      if (useTemplatePackage) {
-        if (!documentData.properties) {
-          documentData.properties = {};
-        }
-        documentData.properties.token = token2;
-        documentData.properties.baseUrl = baseUrl;
-        fileName = `${templateName}.packageJson`;
-        setShowPackageWarning(true);
-        setTimeout(() => setShowPackageWarning(false), 5000);
+      return templateName;
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      return "document";
+    }
+  };
+  const downloadJsonFile = (data, fileName) => {
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a2 = document.createElement("a");
+    a2.href = url;
+    a2.download = fileName;
+    document.body.appendChild(a2);
+    a2.click();
+    setTimeout(() => {
+      document.body.removeChild(a2);
+      URL.revokeObjectURL(url);
+    }, 0);
+  };
+  const handleUpload = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+  const handleDownloadFonts = async () => {
+    setIsDownloading(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
       }
-      const jsonStr = JSON.stringify(documentData, null, 2);
-      const blob = new Blob([jsonStr], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a2 = document.createElement("a");
-      a2.href = url;
-      a2.download = fileName;
-      document.body.appendChild(a2);
-      a2.click();
-      setTimeout(() => {
-        document.body.removeChild(a2);
-        URL.revokeObjectURL(url);
-      }, 0);
+      const documentResult = await getCurrentDocumentState(studioResult.value);
+      if (!documentResult.isOk()) {
+        raiseError2(new Error(documentResult.error?.message || "Failed to get document state"));
+        return;
+      }
+      const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+      const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
+      const documentData = documentResult.value;
+      if (!documentData.stylekit?.fontFamilies || !Array.isArray(documentData.stylekit.fontFamilies)) {
+        raiseError2(new Error("No fonts found in document"));
+        return;
+      }
+      const fontFamilies = documentData.stylekit.fontFamilies;
+      if (fontFamilies.length === 0) {
+        raiseError2(new Error("No fonts found in document"));
+        return;
+      }
+      await downloadDocumentFonts(fontFamilies, token2, baseUrl);
+    } catch (error) {
+      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+  const downloadDocumentFonts = async (fontFamilies, token2, baseUrl) => {
+    try {
+      const downloadedFonts = new Set;
+      const ledgerEntries = [];
+      const templateName = await getTemplateName({
+        configuration: {
+          getValue: async (key) => ({
+            parsedData: key === "GRAFX_AUTH_TOKEN" ? token2 : baseUrl
+          })
+        }
+      });
+      const fontsToDownload = [];
+      for (const family of fontFamilies) {
+        for (const style2 of family.fontStyles) {
+          try {
+            const fontStyleResponse = await fetch(`${baseUrl}font-families/${family.fontFamilyId}/styles`, {
+              headers: {
+                Authorization: `Bearer ${token2}`,
+                "Content-Type": "application/json"
+              }
+            });
+            if (fontStyleResponse.ok) {
+              const fontStylesData = await fontStyleResponse.json();
+              const fontStyleDetails = fontStylesData.data.find((fs) => fs.id === style2.fontStyleId);
+              if (fontStyleDetails) {
+                const lastDotIndex = fontStyleDetails.fileName.lastIndexOf(".");
+                const fontBaseName = fontStyleDetails.fileName.slice(0, lastDotIndex);
+                if (!downloadedFonts.has(fontBaseName)) {
+                  downloadedFonts.add(fontBaseName);
+                  const displayName = style2.name + fontStyleDetails.fileName.slice(lastDotIndex);
+                  ledgerEntries.push(`${displayName} -> ${fontBaseName}`);
+                  fontsToDownload.push({
+                    family,
+                    style: style2,
+                    fileName: fontBaseName + fontStyleDetails.fileName.slice(lastDotIndex)
+                  });
+                }
+              }
+            }
+          } catch (error) {
+            raiseError2(error instanceof Error ? error : new Error(`Failed to get font style details for ${style2.name}`));
+          }
+        }
+      }
+      for (let i2 = 0;i2 < fontsToDownload.length; i2++) {
+        const { style: style2, fileName } = fontsToDownload[i2];
+        try {
+          const fontDownloadResponse = await fetch(`${baseUrl}font-styles/${style2.fontStyleId}/download`, {
+            headers: {
+              Authorization: `Bearer ${token2}`
+            }
+          });
+          if (fontDownloadResponse.ok) {
+            const fontBlob = await fontDownloadResponse.blob();
+            const url = URL.createObjectURL(fontBlob);
+            const a2 = document.createElement("a");
+            a2.href = url;
+            a2.download = fileName;
+            document.body.appendChild(a2);
+            a2.click();
+            setTimeout(() => {
+              document.body.removeChild(a2);
+              URL.revokeObjectURL(url);
+            }, 100 * i2);
+          } else {
+            raiseError2(new Error(`Failed to download font: ${style2.name}`));
+          }
+        } catch (error) {
+          raiseError2(error instanceof Error ? error : new Error(`Error downloading font ${style2.name}`));
+        }
+      }
+      if (ledgerEntries.length > 0) {
+        const ledgerContent = `# Font Ledger for ${templateName}
+
+This file maps the display names to actual font file names:
+
+${ledgerEntries.join(`
+`)}`;
+        const ledgerBlob = new Blob([ledgerContent], { type: "text/markdown" });
+        const ledgerUrl = URL.createObjectURL(ledgerBlob);
+        const ledgerLink = document.createElement("a");
+        ledgerLink.href = ledgerUrl;
+        ledgerLink.download = `${templateName}_font_ledger.md`;
+        document.body.appendChild(ledgerLink);
+        ledgerLink.click();
+        setTimeout(() => {
+          document.body.removeChild(ledgerLink);
+          URL.revokeObjectURL(ledgerUrl);
+        }, 1000);
+      }
       onClose();
     } catch (error) {
       raiseError2(error instanceof Error ? error : new Error(String(error)));
@@ -43381,11 +43706,6 @@ function DownloadModal({ opened, onClose }) {
       setTimeout(() => {
         setFontMigrationProgress(null);
       }, 5000);
-    }
-  };
-  const handleUpload = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
     }
   };
   const handleFileChange = async (event) => {
@@ -43535,54 +43855,134 @@ function DownloadModal({ opened, onClose }) {
         onClose,
         title: "Document Upload/Download",
         centered: true,
+        size: "50%",
+        styles: {
+          content: {
+            minHeight: "400px"
+          },
+          body: {
+            padding: "2rem"
+          },
+          header: {
+            padding: "1.5rem 2rem 1rem 2rem"
+          },
+          title: {
+            fontSize: "1.5rem",
+            fontWeight: 600
+          }
+        },
         children: [
           /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+            gap: "xl",
             children: [
               /* @__PURE__ */ jsx_runtime21.jsx(Text, {
-                size: "sm",
-                children: "Uploading and downloading only transfers the JSON not assets."
+                size: "md",
+                style: { textAlign: "center", marginBottom: "1rem" },
+                children: "Choose an action for document management. Downloads transfer JSON only, not assets."
               }),
-              /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
-                gap: "xs",
+              /* @__PURE__ */ jsx_runtime21.jsxs(SimpleGrid, {
+                cols: 2,
+                spacing: "xl",
+                style: { marginTop: "1rem" },
                 children: [
-                  /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                    children: [
-                      /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                        onClick: handleDownload,
-                        color: "blue",
-                        children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                          gap: "xs",
-                          children: [
-                            /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
-                              size: 20
-                            }),
-                            /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                              children: "Download"
-                            })
-                          ]
+                  /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    onClick: handleDownloadDocumentJson,
+                    color: "blue",
+                    loading: isDownloading,
+                    disabled: isDownloading,
+                    fullWidth: true,
+                    size: "lg",
+                    style: {
+                      height: "80px",
+                      fontSize: "1rem",
+                      fontWeight: 500
+                    },
+                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                      gap: "md",
+                      style: { flexDirection: "column" },
+                      children: [
+                        /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
+                          size: 28
+                        }),
+                        /* @__PURE__ */ jsx_runtime21.jsx("span", {
+                          children: "Download Document JSON"
                         })
-                      }),
-                      /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                        onClick: handleUpload,
-                        color: "green",
-                        children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                          gap: "xs",
-                          children: [
-                            /* @__PURE__ */ jsx_runtime21.jsx(IconUpload, {
-                              size: 20
-                            }),
-                            /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                              children: "Upload"
-                            })
-                          ]
-                        })
-                      })
-                    ]
+                      ]
+                    })
                   }),
-                  /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
-                    label: "Use Template Package",
-                    checked: useTemplatePackage,
-                    onChange: (event) => setUseTemplatePackage(event.currentTarget.checked)
+                  /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    onClick: handleDownloadTemplatePackage,
+                    color: "blue",
+                    loading: isDownloading,
+                    disabled: isDownloading,
+                    fullWidth: true,
+                    size: "lg",
+                    style: {
+                      height: "80px",
+                      fontSize: "1rem",
+                      fontWeight: 500
+                    },
+                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                      gap: "md",
+                      style: { flexDirection: "column" },
+                      children: [
+                        /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
+                          size: 28
+                        }),
+                        /* @__PURE__ */ jsx_runtime21.jsx("span", {
+                          children: "Download Template Package"
+                        })
+                      ]
+                    })
+                  }),
+                  /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    onClick: handleUpload,
+                    color: "green",
+                    disabled: isDownloading,
+                    fullWidth: true,
+                    size: "lg",
+                    style: {
+                      height: "80px",
+                      fontSize: "1rem",
+                      fontWeight: 500
+                    },
+                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                      gap: "md",
+                      style: { flexDirection: "column" },
+                      children: [
+                        /* @__PURE__ */ jsx_runtime21.jsx(IconUpload, {
+                          size: 28
+                        }),
+                        /* @__PURE__ */ jsx_runtime21.jsx("span", {
+                          children: "Upload JSON/Package"
+                        })
+                      ]
+                    })
+                  }),
+                  /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    onClick: handleDownloadFonts,
+                    color: "blue",
+                    loading: isDownloading,
+                    disabled: isDownloading,
+                    fullWidth: true,
+                    size: "lg",
+                    style: {
+                      height: "80px",
+                      fontSize: "1rem",
+                      fontWeight: 500
+                    },
+                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                      gap: "md",
+                      style: { flexDirection: "column" },
+                      children: [
+                        /* @__PURE__ */ jsx_runtime21.jsx(IconFileText, {
+                          size: 28
+                        }),
+                        /* @__PURE__ */ jsx_runtime21.jsx("span", {
+                          children: "Download Document Fonts"
+                        })
+                      ]
+                    })
                   })
                 ]
               })
@@ -43643,7 +44043,7 @@ function DownloadModal({ opened, onClose }) {
 }
 
 // src/components/MagicLayoutsModal.tsx
-var import_react258 = __toESM(require_react(), 1);
+var import_react260 = __toESM(require_react(), 1);
 var import_studio_sdk3 = __toESM(require_main(), 1);
 
 // src/studio/actions/magicLayout.js
@@ -43685,8 +44085,8 @@ function magicLayoutScript(debug = false) {
 // src/components/MagicLayoutsModal.tsx
 var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
 function MagicLayoutsModal({ opened, onClose }) {
-  const [isProcessing, setIsProcessing] = import_react258.useState(true);
-  const [isComplete, setIsComplete] = import_react258.useState(false);
+  const [isProcessing, setIsProcessing] = import_react260.useState(true);
+  const [isComplete, setIsComplete] = import_react260.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
   const gatherAllChildren = async (childrenLayoutIds, onlyLeafs, skipUnavailable = true, recur = 0) => {
     const leafNames = [];
@@ -43945,7 +44345,7 @@ magicLayoutScript(false)`;
     });
     return updateResult;
   };
-  import_react258.useEffect(() => {
+  import_react260.useEffect(() => {
     if (!opened) {
       setIsProcessing(true);
       setIsComplete(false);
@@ -44012,21 +44412,21 @@ magicLayoutScript(false)`;
 }
 
 // src/components/ConnectorCleanupModal.tsx
-var import_react259 = __toESM(require_react(), 1);
+var import_react261 = __toESM(require_react(), 1);
 var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
 function ConnectorCleanupModal({
   opened,
   onClose
 }) {
-  const [connectors, setConnectors] = import_react259.useState([]);
-  const [selectedConnectors, setSelectedConnectors] = import_react259.useState(new Set);
-  const [isLoading, setIsLoading] = import_react259.useState(false);
-  const [isDeleting, setIsDeleting] = import_react259.useState(false);
-  const [isMergeModalOpen, setIsMergeModalOpen] = import_react259.useState(false);
-  const [mergeTargetId, setMergeTargetId] = import_react259.useState(null);
-  const [isMerging, setIsMerging] = import_react259.useState(false);
+  const [connectors, setConnectors] = import_react261.useState([]);
+  const [selectedConnectors, setSelectedConnectors] = import_react261.useState(new Set);
+  const [isLoading, setIsLoading] = import_react261.useState(false);
+  const [isDeleting, setIsDeleting] = import_react261.useState(false);
+  const [isMergeModalOpen, setIsMergeModalOpen] = import_react261.useState(false);
+  const [mergeTargetId, setMergeTargetId] = import_react261.useState(null);
+  const [isMerging, setIsMerging] = import_react261.useState(false);
   const { raiseError: raiseError2 } = useAppStore();
-  import_react259.useEffect(() => {
+  import_react261.useEffect(() => {
     if (opened) {
       loadConnectors();
     }
@@ -44355,10 +44755,10 @@ function ConnectorCleanupModal({
 }
 
 // src/components/ManualCropManager/ManualCropManagerModal.tsx
-var import_react265 = __toESM(require_react(), 1);
+var import_react267 = __toESM(require_react(), 1);
 
 // src/components/ManualCropManager/LayoutViewer.tsx
-var import_react260 = __toESM(require_react(), 1);
+var import_react262 = __toESM(require_react(), 1);
 init_getManualCropsFromDocByConnector();
 var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
 function LayoutViewer({
@@ -44367,15 +44767,15 @@ function LayoutViewer({
   selectedConnectorId,
   onRefreshFunctionReady
 }) {
-  const [layouts, setLayouts] = import_react260.useState([]);
-  const [searchQuery, setSearchQuery] = import_react260.useState("");
-  const [isLoading, setIsLoading] = import_react260.useState(true);
-  const [expandedLayouts, setExpandedLayouts] = import_react260.useState(new Set);
-  const [isInitialized, setIsInitialized] = import_react260.useState(false);
-  const [activeFilters, setActiveFilters] = import_react260.useState([]);
-  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react260.useState(false);
+  const [layouts, setLayouts] = import_react262.useState([]);
+  const [searchQuery, setSearchQuery] = import_react262.useState("");
+  const [isLoading, setIsLoading] = import_react262.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react262.useState(new Set);
+  const [isInitialized, setIsInitialized] = import_react262.useState(false);
+  const [activeFilters, setActiveFilters] = import_react262.useState([]);
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react262.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react260.useEffect(() => {
+  import_react262.useEffect(() => {
     const storedExpanded = sessionStorage.getItem("tempManualCropManager_layoutsExpanded");
     if (storedExpanded) {
       try {
@@ -44387,7 +44787,7 @@ function LayoutViewer({
     }
     setIsInitialized(true);
   }, []);
-  import_react260.useEffect(() => {
+  import_react262.useEffect(() => {
     const storedFilters = localStorage.getItem("tempManualCropManager_layoutViewerFilters");
     if (storedFilters) {
       try {
@@ -44398,19 +44798,19 @@ function LayoutViewer({
       }
     }
   }, []);
-  import_react260.useEffect(() => {
+  import_react262.useEffect(() => {
     loadLayouts();
   }, []);
-  import_react260.useEffect(() => {
+  import_react262.useEffect(() => {
     if (isInitialized) {
       const expandedIds = Array.from(expandedLayouts);
       sessionStorage.setItem("tempManualCropManager_layoutsExpanded", JSON.stringify(expandedIds));
     }
   }, [expandedLayouts, isInitialized]);
-  import_react260.useEffect(() => {
+  import_react262.useEffect(() => {
     localStorage.setItem("tempManualCropManager_layoutViewerFilters", JSON.stringify(activeFilters));
   }, [activeFilters]);
-  import_react260.useEffect(() => {
+  import_react262.useEffect(() => {
     if (selectedConnectorId) {
       updateManualCropIndicators();
     }
@@ -44437,7 +44837,7 @@ function LayoutViewer({
       setIsLoading(false);
     }
   };
-  const updateManualCropIndicators = import_react260.useCallback(async () => {
+  const updateManualCropIndicators = import_react262.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -44462,7 +44862,7 @@ function LayoutViewer({
       raiseError2(error instanceof Error ? error : new Error("Failed to update manual crop indicators"));
     }
   }, [selectedConnectorId, raiseError2]);
-  import_react260.useEffect(() => {
+  import_react262.useEffect(() => {
     if (onRefreshFunctionReady) {
       onRefreshFunctionReady(updateManualCropIndicators);
     }
@@ -44529,7 +44929,7 @@ function LayoutViewer({
     };
     return filterLayouts(layouts2);
   };
-  const filteredLayouts = import_react260.useMemo(() => {
+  const filteredLayouts = import_react262.useMemo(() => {
     let processedLayouts = layouts;
     if (activeFilters.length > 0) {
       processedLayouts = applyFilters(layouts, activeFilters);
@@ -44830,7 +45230,7 @@ function LayoutTreeItem({
 }
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
-var import_react264 = __toESM(require_react(), 1);
+var import_react266 = __toESM(require_react(), 1);
 init_documentHandler();
 init_getManualCropsFromDocByConnector();
 
@@ -44903,7 +45303,7 @@ function deleteManualCropsForLayout(documentState, layoutId, connectorId) {
 }
 
 // src/components/ManualCropManager/CopyCropToLayerModal.tsx
-var import_react261 = __toESM(require_react(), 1);
+var import_react263 = __toESM(require_react(), 1);
 init_getManualCropsFromDocByConnector();
 var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
 function CopyCropToLayerModal({
@@ -44914,20 +45314,20 @@ function CopyCropToLayerModal({
   selectedConnectorId,
   onCopy
 }) {
-  const [layouts, setLayouts] = import_react261.useState([]);
-  const [searchQuery, setSearchQuery] = import_react261.useState("");
-  const [isLoading, setIsLoading] = import_react261.useState(true);
-  const [expandedLayouts, setExpandedLayouts] = import_react261.useState(new Set);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react261.useState([]);
+  const [layouts, setLayouts] = import_react263.useState([]);
+  const [searchQuery, setSearchQuery] = import_react263.useState("");
+  const [isLoading, setIsLoading] = import_react263.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react263.useState(new Set);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react263.useState([]);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react261.useEffect(() => {
+  import_react263.useEffect(() => {
     if (opened) {
       loadLayouts();
       setSelectedLayoutIds([]);
       setSearchQuery("");
     }
   }, [opened]);
-  import_react261.useEffect(() => {
+  import_react263.useEffect(() => {
     if (selectedConnectorId && opened) {
       updateManualCropIndicators();
     }
@@ -45014,7 +45414,7 @@ function CopyCropToLayerModal({
     });
     return rootLayouts;
   };
-  const filteredLayouts = import_react261.useMemo(() => {
+  const filteredLayouts = import_react263.useMemo(() => {
     if (!searchQuery.trim())
       return layouts;
     const filterLayouts = (layouts2) => {
@@ -45280,7 +45680,7 @@ function CopyLayoutTreeItem({
 }
 
 // src/components/ManualCropManager/CopyAndAddRowModal.tsx
-var import_react262 = __toESM(require_react(), 1);
+var import_react264 = __toESM(require_react(), 1);
 var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
 function CopyAndAddRowModal2({
   opened,
@@ -45290,10 +45690,10 @@ function CopyAndAddRowModal2({
   existingCrops,
   onAddCopy
 }) {
-  const [newName, setNewName] = import_react262.useState("");
-  const [error, setError] = import_react262.useState(null);
-  const [isLoading, setIsLoading] = import_react262.useState(false);
-  import_react262.default.useEffect(() => {
+  const [newName, setNewName] = import_react264.useState("");
+  const [error, setError] = import_react264.useState(null);
+  const [isLoading, setIsLoading] = import_react264.useState(false);
+  import_react264.default.useEffect(() => {
     if (opened) {
       setNewName(crop.name);
       setError(null);
@@ -45362,7 +45762,7 @@ function CopyAndAddRowModal2({
 }
 
 // src/components/ManualCropManager/CopyAndReplaceModal.tsx
-var import_react263 = __toESM(require_react(), 1);
+var import_react265 = __toESM(require_react(), 1);
 var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
 function CopyAndReplaceModal2({
   opened,
@@ -45372,14 +45772,14 @@ function CopyAndReplaceModal2({
   existingCrops,
   onAddCopy
 }) {
-  const [searchText, setSearchText] = import_react263.useState("");
-  const [replaceText, setReplaceText] = import_react263.useState("");
-  const [errors, setErrors] = import_react263.useState({});
-  const [isLoading, setIsLoading] = import_react263.useState(false);
-  const [previewCrop, setPreviewCrop] = import_react263.useState(null);
-  const [previewNewName, setPreviewNewName] = import_react263.useState("");
-  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react263.useState(false);
-  import_react263.useEffect(() => {
+  const [searchText, setSearchText] = import_react265.useState("");
+  const [replaceText, setReplaceText] = import_react265.useState("");
+  const [errors, setErrors] = import_react265.useState({});
+  const [isLoading, setIsLoading] = import_react265.useState(false);
+  const [previewCrop, setPreviewCrop] = import_react265.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react265.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react265.useState(false);
+  import_react265.useEffect(() => {
     if (opened) {
       setSearchText("");
       setReplaceText("");
@@ -45392,7 +45792,7 @@ function CopyAndReplaceModal2({
       }
     }
   }, [opened, crops]);
-  import_react263.useEffect(() => {
+  import_react265.useEffect(() => {
     if (previewCrop) {
       const newName = previewCrop.name.replace(new RegExp(searchText, "g"), replaceText);
       setPreviewNewName(newName);
@@ -45554,8 +45954,8 @@ function CropRow({
   onCheckChange,
   isDeleted
 }) {
-  const [localCrop, setLocalCrop] = import_react264.useState(crop);
-  import_react264.useEffect(() => {
+  const [localCrop, setLocalCrop] = import_react266.useState(crop);
+  import_react266.useEffect(() => {
     setLocalCrop(crop);
   }, [crop]);
   const handleFieldChange = (field, value) => {
@@ -45652,23 +46052,23 @@ function ManualCropEditor({
   onModalClose,
   onCropsSaved
 }) {
-  const [layoutCrops, setLayoutCrops] = import_react264.useState(new Map);
-  const [isLoading, setIsLoading] = import_react264.useState(false);
-  const [saveState, setSaveState] = import_react264.useState("idle");
-  const [saveMessage, setSaveMessage] = import_react264.useState("");
-  const [originalDocumentState, setOriginalDocumentState] = import_react264.useState(null);
-  const [changedRows, setChangedRows] = import_react264.useState(new Map);
-  const [checkedRows, setCheckedRows] = import_react264.useState(new Set);
-  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react264.useState(false);
-  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react264.useState("");
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react264.useState(false);
-  const [currentCropForCopy, setCurrentCropForCopy] = import_react264.useState(null);
-  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react264.useState("");
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react264.useState(false);
-  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react264.useState([]);
-  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react264.useState("");
+  const [layoutCrops, setLayoutCrops] = import_react266.useState(new Map);
+  const [isLoading, setIsLoading] = import_react266.useState(false);
+  const [saveState, setSaveState] = import_react266.useState("idle");
+  const [saveMessage, setSaveMessage] = import_react266.useState("");
+  const [originalDocumentState, setOriginalDocumentState] = import_react266.useState(null);
+  const [changedRows, setChangedRows] = import_react266.useState(new Map);
+  const [checkedRows, setCheckedRows] = import_react266.useState(new Set);
+  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react266.useState(false);
+  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react266.useState("");
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react266.useState(false);
+  const [currentCropForCopy, setCurrentCropForCopy] = import_react266.useState(null);
+  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react266.useState("");
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react266.useState(false);
+  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react266.useState([]);
+  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react266.useState("");
   const raiseError2 = appStore((store) => store.raiseError);
-  const loadCropsForSelectedLayouts = import_react264.useCallback(async () => {
+  const loadCropsForSelectedLayouts = import_react266.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -45710,7 +46110,7 @@ function ManualCropEditor({
       setIsLoading(false);
     }
   }, [selectedConnectorId, selectedLayoutIds, raiseError2]);
-  import_react264.useEffect(() => {
+  import_react266.useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
       loadCropsForSelectedLayouts();
     } else {
@@ -45719,7 +46119,7 @@ function ManualCropEditor({
     setChangedRows(new Map);
     setCheckedRows(new Set);
   }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
-  const handleCropChange = import_react264.useCallback((layoutId, cropIndex, updatedCrop) => {
+  const handleCropChange = import_react266.useCallback((layoutId, cropIndex, updatedCrop) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
@@ -45727,7 +46127,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, []);
-  const handleCheckChange = import_react264.useCallback((layoutId, cropIndex, checked) => {
+  const handleCheckChange = import_react266.useCallback((layoutId, cropIndex, checked) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
@@ -45739,10 +46139,10 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const getCheckedSnapshotsCountForLayout = import_react264.useCallback((layoutId) => {
+  const getCheckedSnapshotsCountForLayout = import_react266.useCallback((layoutId) => {
     return Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`)).length;
   }, [checkedRows]);
-  const getCheckedCropsForLayout = import_react264.useCallback((layoutId) => {
+  const getCheckedCropsForLayout = import_react266.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
     if (!layoutCrop)
       return [];
@@ -45765,7 +46165,7 @@ function ManualCropEditor({
     });
     return checkedCrops;
   }, [checkedRows, layoutCrops, changedRows]);
-  const deleteCheckedSnapshots = import_react264.useCallback((layoutId) => {
+  const deleteCheckedSnapshots = import_react266.useCallback((layoutId) => {
     const checkedRowsForLayout = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`));
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
@@ -45788,13 +46188,13 @@ function ManualCropEditor({
       return newSet;
     });
   }, [checkedRows]);
-  const setCopyModalOpened = import_react264.useCallback((opened, layoutId) => {
+  const setCopyModalOpened = import_react266.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       setCurrentCopySourceLayoutId(layoutId);
     }
     setCopyCropToLayerModalOpened(opened);
   }, []);
-  const setCopyAndAddRowModalOpened = import_react264.useCallback((opened, layoutId) => {
+  const setCopyAndAddRowModalOpened = import_react266.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       const checkedCrops = getCheckedCropsForLayout(layoutId);
       if (checkedCrops.length === 1) {
@@ -45808,7 +46208,7 @@ function ManualCropEditor({
       setCurrentLayoutIdForCopy("");
     }
   }, [getCheckedCropsForLayout]);
-  const setCopyAndReplaceModalOpened = import_react264.useCallback((opened, layoutId) => {
+  const setCopyAndReplaceModalOpened = import_react266.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       const checkedCrops = getCheckedCropsForLayout(layoutId);
       if (checkedCrops.length > 0) {
@@ -45822,7 +46222,7 @@ function ManualCropEditor({
       setCurrentLayoutIdForReplace("");
     }
   }, [getCheckedCropsForLayout]);
-  const deselectAllRows = import_react264.useCallback((layoutId) => {
+  const deselectAllRows = import_react266.useCallback((layoutId) => {
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
       Array.from(prev2).forEach((rowKey) => {
@@ -45833,7 +46233,7 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const copyCropsToLayers = import_react264.useCallback(async (targetLayoutIds, checkedCrops) => {
+  const copyCropsToLayers = import_react266.useCallback(async (targetLayoutIds, checkedCrops) => {
     const missingLayoutIds = targetLayoutIds.filter((id) => !layoutCrops.has(id));
     let layoutNamesMap = new Map;
     if (missingLayoutIds.length > 0) {
@@ -45909,7 +46309,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, [layoutCrops, raiseError2]);
-  const addCopyOfCrop = import_react264.useCallback((originalCrop, newName) => {
+  const addCopyOfCrop = import_react266.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForCopy;
     if (!layoutId)
       return;
@@ -45952,7 +46352,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, [currentLayoutIdForCopy, layoutCrops]);
-  const addCopyOfCropForReplace = import_react264.useCallback((originalCrop, newName) => {
+  const addCopyOfCropForReplace = import_react266.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForReplace;
     if (!layoutId)
       return;
@@ -46383,13 +46783,13 @@ function ManualCropManagerModal({
   opened,
   onClose
 }) {
-  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react265.useState(false);
-  const [layoutViewerWidth, setLayoutViewerWidth] = import_react265.useState(400);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react265.useState([]);
-  const [selectedConnectorId, setSelectedConnectorId] = import_react265.useState("");
-  const [isResizing, setIsResizing] = import_react265.useState(false);
-  const [connectors, setConnectors] = import_react265.useState([]);
-  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react265.useState(null);
+  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react267.useState(false);
+  const [layoutViewerWidth, setLayoutViewerWidth] = import_react267.useState(400);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react267.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react267.useState("");
+  const [isResizing, setIsResizing] = import_react267.useState(false);
+  const [connectors, setConnectors] = import_react267.useState([]);
+  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react267.useState(null);
   const enableToolbar = appStore((state) => state.enableToolbar);
   const disableToolbar = appStore((state) => state.disableToolbar);
   const raiseError2 = appStore((state) => state.raiseError);
@@ -46420,7 +46820,7 @@ function ManualCropManagerModal({
       raiseError2(error instanceof Error ? error : new Error("Failed to load connectors"));
     }
   };
-  import_react265.useEffect(() => {
+  import_react267.useEffect(() => {
     if (opened) {
       const storedSelected = sessionStorage.getItem("tempManualCropManager_layoutsSelected");
       if (storedSelected) {
@@ -46440,7 +46840,7 @@ function ManualCropManagerModal({
       enableToolbar();
     }
   }, [opened]);
-  import_react265.useEffect(() => {
+  import_react267.useEffect(() => {
     sessionStorage.setItem("tempManualCropManager_layoutsSelected", JSON.stringify(selectedLayoutIds));
   }, [selectedLayoutIds]);
   const handleMouseDown = (e) => {
@@ -46458,7 +46858,7 @@ function ManualCropManagerModal({
   const handleMouseUp = () => {
     setIsResizing(false);
   };
-  import_react265.useEffect(() => {
+  import_react267.useEffect(() => {
     if (isResizing) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
@@ -46484,10 +46884,10 @@ function ManualCropManagerModal({
     enableToolbar();
     onClose();
   };
-  const handleLayoutViewerRefreshReady = import_react265.useCallback((refreshFn) => {
+  const handleLayoutViewerRefreshReady = import_react267.useCallback((refreshFn) => {
     setLayoutViewerRefresh(() => refreshFn);
   }, []);
-  const handleCropsSaved = import_react265.useCallback(async () => {
+  const handleCropsSaved = import_react267.useCallback(async () => {
     if (layoutViewerRefresh) {
       layoutViewerRefresh();
     }
@@ -46818,22 +47218,22 @@ function ToolbarSettingsModal({
 // src/components/Toolbar.tsx
 var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react266.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react266.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react266.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react266.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react266.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react266.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react266.useState(false);
-  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react266.useState(false);
-  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react266.useState(false);
-  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react266.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react266.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react266.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react266.useState("");
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react266.useState(false);
-  const [appConfig, setAppConfig] = import_react266.useState(defaultConfig);
-  const [updateInfo, setUpdateInfo] = import_react266.useState(null);
+  const [visible2, setVisible] = import_react268.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react268.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react268.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react268.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react268.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react268.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react268.useState(false);
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react268.useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react268.useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react268.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react268.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react268.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react268.useState("");
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react268.useState(false);
+  const [appConfig, setAppConfig] = import_react268.useState(defaultConfig);
+  const [updateInfo, setUpdateInfo] = import_react268.useState(null);
   const effects = appStore((store) => store.effects);
   const raiseError2 = appStore((store) => store.raiseError);
   const disableToolbar = appStore((store) => store.disableToolbar);
@@ -46874,10 +47274,10 @@ function Toolbar() {
       setAppConfig(defaultConfig);
     }
   };
-  import_react266.useEffect(() => {
+  import_react268.useEffect(() => {
     reloadConfig();
   }, []);
-  import_react266.useEffect(() => {
+  import_react268.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -47278,12 +47678,12 @@ function Toolbar() {
 }
 
 // src/components/AlertsContainer.tsx
-var import_react267 = __toESM(require_react(), 1);
+var import_react269 = __toESM(require_react(), 1);
 var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react267.useEffect(() => {
+  import_react269.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -47350,12 +47750,12 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime33.jsx(import_react268.default.StrictMode, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime33.jsx(import_react270.default.StrictMode, {
     children: /* @__PURE__ */ jsx_runtime33.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime33.jsx(import_react268.default.StrictMode, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime33.jsx(import_react270.default.StrictMode, {
     children: /* @__PURE__ */ jsx_runtime33.jsxs(MantineProvider, {
       children: [
         /* @__PURE__ */ jsx_runtime33.jsx(Toolbar, {}),
@@ -47384,4 +47784,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=EC81D71833088CE764756E2164756E21
+//# debugId=B90DACF062E7BE2964756E2164756E21
