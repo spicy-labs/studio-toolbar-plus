@@ -1,3 +1,9 @@
+## 0.11.0
+
+### ⚡ Improved
+
+- Split download into 4 separate sections for downloading JSON, download package, uploading, and downloading fonts
+
 ## 0.10.3
 
 ### 🐛 Fixed
