@@ -31,7 +31,7 @@ type LayoutImageMappingModalEffects = {
   showModal: () => void;
   hideModal: () => void;
   dependentModal: {
-    setIsOpen: (value: boolean) => void;
+    setIsOpen: (value: boolean, mapId?: string) => void;
     setCurrentGroupIndex: (value: number | null) => void;
     setCurrentImageVariableId: (id: string) => void;
     setCurrentSelectedVariables: (value: string[]) => void;
@@ -241,9 +241,17 @@ export const appStore = create<AppStore>()(
           });
         },
         dependentModal: {
-          setIsOpen: (value) => {
+          setIsOpen: (value, mapId) => {
             set((store) => {
               store.state.modal.dependentModal.isOpen = value;
+              if (value === true) {
+                if (!mapId) {
+                  raiseError(store, new Error("Cannot open dependent modal without mapId"));
+                  store.state.modal.dependentModal.isOpen = false;
+                  return;
+                }
+                store.state.modal.currentSelectedMapId = mapId;
+              }
             });
           },
           setCurrentImageVariableId: (id) => {

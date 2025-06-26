@@ -15339,9 +15339,17 @@ var appStore = create()(immer2((set2, get) => ({
         });
       },
       dependentModal: {
-        setIsOpen: (value) => {
+        setIsOpen: (value, mapId) => {
           set2((store) => {
             store.state.modal.dependentModal.isOpen = value;
+            if (value === true) {
+              if (!mapId) {
+                raiseError(store, new Error("Cannot open dependent modal without mapId"));
+                store.state.modal.dependentModal.isOpen = false;
+                return;
+              }
+              store.state.modal.currentSelectedMapId = mapId;
+            }
           });
         },
         setCurrentImageVariableId: (id) => {
@@ -15589,7 +15597,11 @@ var appStore = create()(immer2((set2, get) => ({
             raiseError(store, new Error("For removeImageVariable layout config is not loaded"));
           }
         }),
-        swapImageVariable: ({ mapId, oldImageVariableId, newImageVariableId }) => set2((store) => {
+        swapImageVariable: ({
+          mapId,
+          oldImageVariableId,
+          newImageVariableId
+        }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
@@ -41299,7 +41311,7 @@ var VariableCard = ({
   }
   const handleAddGroup = () => {
     setCurrentImageVariableId(variableConfig.id);
-    setDependentModalIsOpen(true);
+    setDependentModalIsOpen(true, layoutMap.id);
   };
   const handleSwapImageVariable = (e) => {
     e.stopPropagation();
@@ -47784,4 +47796,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=B90DACF062E7BE2964756E2164756E21
+//# debugId=5C2829B5EB1B994F64756E2164756E21

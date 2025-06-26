@@ -1,3 +1,10 @@
+
+## 0.11.1
+
+### 🐛 Fixed
+
+- Issue when adding a group caused a error about `mapId` being null
+
 ## 0.11.0
 
 ### ⚡ Improved

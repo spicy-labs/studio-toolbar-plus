@@ -24,7 +24,6 @@ import type {
   DependentVar,
 } from "../../types/layoutConfigTypes";
 import { appStore } from "../../modalStore";
-import { AddDependentModal } from "./AddDependentModal";
 import { DependentGroup } from "./DependentGroup";
 
 // Variable Card Component
@@ -60,7 +59,7 @@ export const VariableCard: React.FC<VariableCardProps> = ({
   // Function to open the modal for adding a new group
   const handleAddGroup = () => {
     setCurrentImageVariableId(variableConfig.id);
-    setDependentModalIsOpen(true);
+    setDependentModalIsOpen(true, layoutMap.id);
   };
 
   // Function to open the modal for swapping image variables
