@@ -303,7 +303,7 @@ export const appStore = create<AppStore>()(
               } else {
                 raiseError(
                   store,
-                  new Error("For addLayoutMap layout config is not loaded"),
+                  new Error("For addLayoutMap layout config is not loaded")
                 );
               }
             }),
@@ -313,7 +313,7 @@ export const appStore = create<AppStore>()(
                 // Find the source layout map to copy
                 const sourceLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id === mapId,
+                    (map) => map.id === mapId
                   );
 
                 if (sourceLayoutMap) {
@@ -325,7 +325,7 @@ export const appStore = create<AppStore>()(
                     id: randomId,
                     layoutIds: [], // Empty layoutIds as required
                     variables: JSON.parse(
-                      JSON.stringify(sourceLayoutMap.variables),
+                      JSON.stringify(sourceLayoutMap.variables)
                     ), // Deep copy variables
                   };
 
@@ -335,16 +335,16 @@ export const appStore = create<AppStore>()(
                   raiseError(
                     store,
                     new Error(
-                      "For addLayoutMapFromCopy source layout map not found",
-                    ),
+                      "For addLayoutMapFromCopy source layout map not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
                   new Error(
-                    "For addLayoutMapFromCopy layout config is not loaded",
-                  ),
+                    "For addLayoutMapFromCopy layout config is not loaded"
+                  )
                 );
               }
             }),
@@ -353,7 +353,7 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const mapIndex =
                   store.state.studio.layoutImageMapping.findIndex(
-                    (map) => map.id === mapId,
+                    (map) => map.id === mapId
                   );
 
                 if (mapIndex !== -1) {
@@ -362,13 +362,13 @@ export const appStore = create<AppStore>()(
                 } else {
                   raiseError(
                     store,
-                    new Error("For deleteLayoutMap layout map not found"),
+                    new Error("For deleteLayoutMap layout map not found")
                   );
                 }
               } else {
                 raiseError(
                   store,
-                  new Error("For deleteLayoutMap layout config is not loaded"),
+                  new Error("For deleteLayoutMap layout config is not loaded")
                 );
               }
             }),
@@ -377,20 +377,20 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (layout) => layout.id == configId,
+                    (layout) => layout.id == configId
                   );
                 if (targetLayoutMap) {
                   targetLayoutMap.layoutIds = layoutIds;
                 } else {
                   raiseError(
                     store,
-                    new Error("For setLayoutIds targetLayoutMap not found"),
+                    new Error("For setLayoutIds targetLayoutMap not found")
                   );
                 }
               } else {
                 raiseError(
                   store,
-                  new Error("For setLayoutIds layout config is not loaded"),
+                  new Error("For setLayoutIds layout config is not loaded")
                 );
               }
             }),
@@ -399,12 +399,12 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMapMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMapMap) {
                   const imageVariableIndex =
                     targetLayoutMapMap.variables.findIndex(
-                      (imgVar) => imgVar.id == imageVariable.id,
+                      (imgVar) => imgVar.id == imageVariable.id
                     );
 
                   if (imageVariableIndex == -1) {
@@ -417,14 +417,14 @@ export const appStore = create<AppStore>()(
                   raiseError(
                     store,
                     new Error(
-                      "For addImageVariable targetLayoutMapMap not found",
-                    ),
+                      "For addImageVariable targetLayoutMapMap not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
-                  new Error("For addImageVariable layout config is not loaded"),
+                  new Error("For addImageVariable layout config is not loaded")
                 );
               }
             }),
@@ -438,25 +438,25 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (layout) => layout.id == mapId,
+                    (layout) => layout.id == mapId
                   );
 
                 if (!targetLayoutMap) {
                   raiseError(
                     store,
-                    new Error("For updateDependent targetLayoutMap not found"),
+                    new Error("For updateDependent targetLayoutMap not found")
                   );
                   return;
                 }
 
                 const imageVariable = targetLayoutMap.variables.find(
-                  (imgVar) => imgVar.id == imageVariableId,
+                  (imgVar) => imgVar.id == imageVariableId
                 );
 
                 if (!imageVariable) {
                   raiseError(
                     store,
-                    new Error("For updateDependent imageVariable not found"),
+                    new Error("For updateDependent imageVariable not found")
                   );
                   return;
                 }
@@ -467,13 +467,13 @@ export const appStore = create<AppStore>()(
                 if (dependentGroup == undefined) {
                   raiseError(
                     store,
-                    new Error("For updateDependent dependentGroup not found"),
+                    new Error("For updateDependent dependentGroup not found")
                   );
                   return;
                 }
 
                 const dependentIndex = dependentGroup.dependents.findIndex(
-                  (dep) => dep.variableId == dependent.variableId,
+                  (dep) => dep.variableId == dependent.variableId
                 );
 
                 if (dependentIndex == -1) {
@@ -486,7 +486,7 @@ export const appStore = create<AppStore>()(
               } else {
                 raiseError(
                   store,
-                  new Error("For updateDependent layout config is not loaded"),
+                  new Error("For updateDependent layout config is not loaded")
                 );
               }
             }),
@@ -500,25 +500,25 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (layout) => layout.id == mapId,
+                    (layout) => layout.id == mapId
                   );
 
                 if (!targetLayoutMap) {
                   raiseError(
                     store,
-                    new Error("For removeDependent targetLayoutMap not found"),
+                    new Error("For removeDependent targetLayoutMap not found")
                   );
                   return;
                 }
 
                 const imageVariable = targetLayoutMap.variables.find(
-                  (imgVar) => imgVar.id == imageVariableId,
+                  (imgVar) => imgVar.id == imageVariableId
                 );
 
                 if (!imageVariable) {
                   raiseError(
                     store,
-                    new Error("For removeDependent imageVariable not found"),
+                    new Error("For removeDependent imageVariable not found")
                   );
                   return;
                 }
@@ -529,19 +529,19 @@ export const appStore = create<AppStore>()(
                 if (dependentGroup == undefined) {
                   raiseError(
                     store,
-                    new Error("For removeDependent dependentGroup not found"),
+                    new Error("For removeDependent dependentGroup not found")
                   );
                   return;
                 }
 
                 const dependentIndex = dependentGroup.dependents.findIndex(
-                  (dep) => dep.variableId == dependent.variableId,
+                  (dep) => dep.variableId == dependent.variableId
                 );
 
                 if (dependentIndex == -1) {
                   raiseError(
                     store,
-                    new Error("For removeDependent dependent not found"),
+                    new Error("For removeDependent dependent not found")
                   );
                   return;
                 }
@@ -550,7 +550,7 @@ export const appStore = create<AppStore>()(
               } else {
                 raiseError(
                   store,
-                  new Error("For removeDependent layout config is not loaded"),
+                  new Error("For removeDependent layout config is not loaded")
                 );
               }
             }),
@@ -562,7 +562,7 @@ export const appStore = create<AppStore>()(
               } else {
                 raiseError(
                   store,
-                  new Error("For load layout config is already loaded"),
+                  new Error("For load layout config is already loaded")
                 );
               }
             }),
@@ -578,7 +578,7 @@ export const appStore = create<AppStore>()(
             } else {
               raiseError(
                 store,
-                new Error("For save layout config is not loaded"),
+                new Error("For save layout config is not loaded")
               );
             }
           },
@@ -587,11 +587,11 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const imageVariable = targetLayoutMap.variables.find(
-                    (imgVar) => imgVar.id == imageVariableId,
+                    (imgVar) => imgVar.id == imageVariableId
                   );
                   if (imageVariable) {
                     imageVariable.dependentGroup.push({
@@ -601,25 +601,19 @@ export const appStore = create<AppStore>()(
                   } else {
                     raiseError(
                       store,
-                      new Error(
-                        "For addDependentGroup imageVariable not found",
-                      ),
+                      new Error("For addDependentGroup imageVariable not found")
                     );
                   }
                 } else {
                   raiseError(
                     store,
-                    new Error(
-                      "For addDependentGroup targetLayoutMap not found",
-                    ),
+                    new Error("For addDependentGroup targetLayoutMap not found")
                   );
                 }
               } else {
                 raiseError(
                   store,
-                  new Error(
-                    "For addDependentGroup layout config is not loaded",
-                  ),
+                  new Error("For addDependentGroup layout config is not loaded")
                 );
               }
             }),
@@ -628,11 +622,11 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const imageVariable = targetLayoutMap.variables.find(
-                    (imgVar) => imgVar.id == imageVariableId,
+                    (imgVar) => imgVar.id == imageVariableId
                   );
                   if (imageVariable) {
                     const dependentGroup =
@@ -642,8 +636,8 @@ export const appStore = create<AppStore>()(
                       raiseError(
                         store,
                         new Error(
-                          "For copyDependentGroup dependentGroup not found",
-                        ),
+                          "For copyDependentGroup dependentGroup not found"
+                        )
                       );
                       return;
                     }
@@ -659,24 +653,24 @@ export const appStore = create<AppStore>()(
                     raiseError(
                       store,
                       new Error(
-                        "For copyDependentGroup imageVariable not found",
-                      ),
+                        "For copyDependentGroup imageVariable not found"
+                      )
                     );
                   }
                 } else {
                   raiseError(
                     store,
                     new Error(
-                      "For copyDependentGroup targetLayoutMap not found",
-                    ),
+                      "For copyDependentGroup targetLayoutMap not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
                   new Error(
-                    "For copyDependentGroup layout config is not loaded",
-                  ),
+                    "For copyDependentGroup layout config is not loaded"
+                  )
                 );
               }
             }),
@@ -685,12 +679,12 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const imageVariableIndex =
                     targetLayoutMap.variables.findIndex(
-                      (imgVar) => imgVar.id == imageVariableId,
+                      (imgVar) => imgVar.id == imageVariableId
                     );
                   if (imageVariableIndex !== -1) {
                     targetLayoutMap.variables.splice(imageVariableIndex, 1);
@@ -698,73 +692,75 @@ export const appStore = create<AppStore>()(
                     raiseError(
                       store,
                       new Error(
-                        "For removeImageVariable imageVariable not found",
-                      ),
+                        "For removeImageVariable imageVariable not found"
+                      )
                     );
                   }
                 } else {
                   raiseError(
                     store,
                     new Error(
-                      "For removeImageVariable targetLayoutMap not found",
-                    ),
+                      "For removeImageVariable targetLayoutMap not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
                   new Error(
-                    "For removeImageVariable layout config is not loaded",
-                  ),
+                    "For removeImageVariable layout config is not loaded"
+                  )
                 );
               }
             }),
-          swapImageVariable: ({ mapId, oldImageVariableId, newImageVariableId }) =>
+          swapImageVariable: ({
+            mapId,
+            oldImageVariableId,
+            newImageVariableId,
+          }) =>
             set((store) => {
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const oldImageVariableIndex =
                     targetLayoutMap.variables.findIndex(
-                      (imgVar) => imgVar.id == oldImageVariableId,
+                      (imgVar) => imgVar.id == oldImageVariableId
                     );
                   if (oldImageVariableIndex !== -1) {
                     // Get the old image variable with all its dependentGroups
-                    const oldImageVariable = targetLayoutMap.variables[oldImageVariableIndex];
+                    const oldImageVariable =
+                      targetLayoutMap.variables[oldImageVariableIndex];
 
                     // Create a new image variable with the new ID but keeping all dependentGroups
                     const newImageVariable: ImageVariable = {
                       id: newImageVariableId,
-                      dependentGroup: [...oldImageVariable.dependentGroup]
+                      dependentGroup: [...oldImageVariable.dependentGroup],
                     };
 
                     // Replace the old image variable with the new one
-                    targetLayoutMap.variables[oldImageVariableIndex] = newImageVariable;
+                    targetLayoutMap.variables[oldImageVariableIndex] =
+                      newImageVariable;
                   } else {
                     raiseError(
                       store,
                       new Error(
-                        "For swapImageVariable oldImageVariable not found",
-                      ),
+                        "For swapImageVariable oldImageVariable not found"
+                      )
                     );
                   }
                 } else {
                   raiseError(
                     store,
-                    new Error(
-                      "For swapImageVariable targetLayoutMap not found",
-                    ),
+                    new Error("For swapImageVariable targetLayoutMap not found")
                   );
                 }
               } else {
                 raiseError(
                   store,
-                  new Error(
-                    "For swapImageVariable layout config is not loaded",
-                  ),
+                  new Error("For swapImageVariable layout config is not loaded")
                 );
               }
             }),
@@ -773,11 +769,11 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const imageVariable = targetLayoutMap.variables.find(
-                    (imgVar) => imgVar.id == imageVariableId,
+                    (imgVar) => imgVar.id == imageVariableId
                   );
                   if (imageVariable) {
                     imageVariable.dependentGroup.splice(groupIndex, 1);
@@ -785,24 +781,24 @@ export const appStore = create<AppStore>()(
                     raiseError(
                       store,
                       new Error(
-                        "For removeDependentGroup imageVariable not found",
-                      ),
+                        "For removeDependentGroup imageVariable not found"
+                      )
                     );
                   }
                 } else {
                   raiseError(
                     store,
                     new Error(
-                      "For removeDependentGroup targetLayoutMap not found",
-                    ),
+                      "For removeDependentGroup targetLayoutMap not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
                   new Error(
-                    "For removeDependentGroup layout config is not loaded",
-                  ),
+                    "For removeDependentGroup layout config is not loaded"
+                  )
                 );
               }
             }),
@@ -816,11 +812,11 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const imageVariable = targetLayoutMap.variables.find(
-                    (imgVar) => imgVar.id == imageVariableId,
+                    (imgVar) => imgVar.id == imageVariableId
                   );
                   if (imageVariable) {
                     const dependentGroup =
@@ -830,8 +826,8 @@ export const appStore = create<AppStore>()(
                       raiseError(
                         store,
                         new Error(
-                          "For addVarValueToDependentGroup dependentGroup not found",
-                        ),
+                          "For addVarValueToDependentGroup dependentGroup not found"
+                        )
                       );
                       return;
                     }
@@ -842,24 +838,24 @@ export const appStore = create<AppStore>()(
                     raiseError(
                       store,
                       new Error(
-                        "For addVarValueToDependentGroup imageVariable not found",
-                      ),
+                        "For addVarValueToDependentGroup imageVariable not found"
+                      )
                     );
                   }
                 } else {
                   raiseError(
                     store,
                     new Error(
-                      "For addVarValueToDependentGroup targetLayoutMap not found",
-                    ),
+                      "For addVarValueToDependentGroup targetLayoutMap not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
                   new Error(
-                    "For addVarValueToDependentGroup layout config is not loaded",
-                  ),
+                    "For addVarValueToDependentGroup layout config is not loaded"
+                  )
                 );
               }
             }),
@@ -873,11 +869,11 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const imageVariable = targetLayoutMap.variables.find(
-                    (imgVar) => imgVar.id == imageVariableId,
+                    (imgVar) => imgVar.id == imageVariableId
                   );
                   if (imageVariable) {
                     const dependentGroup =
@@ -887,8 +883,8 @@ export const appStore = create<AppStore>()(
                       raiseError(
                         store,
                         new Error(
-                          "For removeVarValueFromDependentGroup dependentGroup not found",
-                        ),
+                          "For removeVarValueFromDependentGroup dependentGroup not found"
+                        )
                       );
                       return;
                     }
@@ -900,8 +896,8 @@ export const appStore = create<AppStore>()(
                       raiseError(
                         store,
                         new Error(
-                          "For removeVarValueFromDependentGroup invalid variableValueIndex",
-                        ),
+                          "For removeVarValueFromDependentGroup invalid variableValueIndex"
+                        )
                       );
                       return;
                     }
@@ -912,24 +908,24 @@ export const appStore = create<AppStore>()(
                     raiseError(
                       store,
                       new Error(
-                        "For removeVarValueFromDependentGroup imageVariable not found",
-                      ),
+                        "For removeVarValueFromDependentGroup imageVariable not found"
+                      )
                     );
                   }
                 } else {
                   raiseError(
                     store,
                     new Error(
-                      "For removeVarValueFromDependentGroup targetLayoutMap not found",
-                    ),
+                      "For removeVarValueFromDependentGroup targetLayoutMap not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
                   new Error(
-                    "For removeVarValueFromDependentGroup layout config is not loaded",
-                  ),
+                    "For removeVarValueFromDependentGroup layout config is not loaded"
+                  )
                 );
               }
             }),
@@ -944,11 +940,11 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const imageVariable = targetLayoutMap.variables.find(
-                    (imgVar) => imgVar.id == imageVariableId,
+                    (imgVar) => imgVar.id == imageVariableId
                   );
                   if (imageVariable) {
                     const dependentGroup =
@@ -958,8 +954,8 @@ export const appStore = create<AppStore>()(
                       raiseError(
                         store,
                         new Error(
-                          "For updateVarValueFromDependentGroup dependentGroup not found",
-                        ),
+                          "For updateVarValueFromDependentGroup dependentGroup not found"
+                        )
                       );
                       return;
                     }
@@ -971,8 +967,8 @@ export const appStore = create<AppStore>()(
                       raiseError(
                         store,
                         new Error(
-                          "For updateVarValueFromDependentGroup invalid variableValueIndex",
-                        ),
+                          "For updateVarValueFromDependentGroup invalid variableValueIndex"
+                        )
                       );
                       return;
                     }
@@ -984,24 +980,24 @@ export const appStore = create<AppStore>()(
                     raiseError(
                       store,
                       new Error(
-                        "For updateVarValueFromDependentGroup imageVariable not found",
-                      ),
+                        "For updateVarValueFromDependentGroup imageVariable not found"
+                      )
                     );
                   }
                 } else {
                   raiseError(
                     store,
                     new Error(
-                      "For updateVarValueFromDependentGroup targetLayoutMap not found",
-                    ),
+                      "For updateVarValueFromDependentGroup targetLayoutMap not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
                   new Error(
-                    "For updateVarValueFromDependentGroup layout config is not loaded",
-                  ),
+                    "For updateVarValueFromDependentGroup layout config is not loaded"
+                  )
                 );
               }
             }),
@@ -1016,11 +1012,11 @@ export const appStore = create<AppStore>()(
               if (store.state.studio.isLayoutConfigLoaded) {
                 const targetLayoutMap =
                   store.state.studio.layoutImageMapping.find(
-                    (map) => map.id == mapId,
+                    (map) => map.id == mapId
                   );
                 if (targetLayoutMap) {
                   const imageVariable = targetLayoutMap.variables.find(
-                    (imgVar) => imgVar.id == imageVariableId,
+                    (imgVar) => imgVar.id == imageVariableId
                   );
                   if (imageVariable) {
                     const dependentGroup =
@@ -1030,8 +1026,8 @@ export const appStore = create<AppStore>()(
                       raiseError(
                         store,
                         new Error(
-                          "For setIndexOfVarValueFromDependentGroup dependentGroup not found",
-                        ),
+                          "For setIndexOfVarValueFromDependentGroup dependentGroup not found"
+                        )
                       );
                       return;
                     }
@@ -1044,8 +1040,8 @@ export const appStore = create<AppStore>()(
                       raiseError(
                         store,
                         new Error(
-                          "For setIndexOfVarValueFromDependentGroup invalid oldVariableValueIndex",
-                        ),
+                          "For setIndexOfVarValueFromDependentGroup invalid oldVariableValueIndex"
+                        )
                       );
                       return;
                     }
@@ -1069,35 +1065,35 @@ export const appStore = create<AppStore>()(
                     // Move the variable value from the old index to the new index
                     const [movedItem] = dependentGroup.variableValue.splice(
                       oldVariableValueIndex,
-                      1,
+                      1
                     );
                     dependentGroup.variableValue.splice(
                       adjustedNewIndex,
                       0,
-                      movedItem,
+                      movedItem
                     );
                   } else {
                     raiseError(
                       store,
                       new Error(
-                        "For setIndexOfVarValueFromDependentGroup imageVariable not found",
-                      ),
+                        "For setIndexOfVarValueFromDependentGroup imageVariable not found"
+                      )
                     );
                   }
                 } else {
                   raiseError(
                     store,
                     new Error(
-                      "For setIndexOfVarValueFromDependentGroup targetLayoutMap not found",
-                    ),
+                      "For setIndexOfVarValueFromDependentGroup targetLayoutMap not found"
+                    )
                   );
                 }
               } else {
                 raiseError(
                   store,
                   new Error(
-                    "For setIndexOfVarValueFromDependentGroup layout config is not loaded",
-                  ),
+                    "For setIndexOfVarValueFromDependentGroup layout config is not loaded"
+                  )
                 );
               }
             }),
@@ -1115,16 +1111,18 @@ export const appStore = create<AppStore>()(
       }),
     enableToolbar: () =>
       set((state) => {
+        console.log("ENABLE TOOLBAR");
         state.state.isToolbarEnabled = true;
       }),
     disableToolbar: () =>
       set((state) => {
+        console.log("DISABLE TOOLBAR");
         state.state.isToolbarEnabled = false;
       }),
     raiseError: (error) => {
       if ((error as ResultType<any, Error>).isResult != null) {
         (error as ResultType<any, Error>).onFailure((error) =>
-          set((state) => raiseError(state, error)),
+          set((state) => raiseError(state, error))
         );
       } else {
         set((state) => raiseError(state, error as Error));
@@ -1134,11 +1132,11 @@ export const appStore = create<AppStore>()(
       set((state) => {
         state.alerts = state.alerts.filter((alert) => alert.id !== id);
       }),
-  })),
+  }))
 );
 
 appStore.subscribe((state, oldState) =>
-  console.log("state", state, "oldState", oldState),
+  console.log("state", state, "oldState", oldState)
 );
 
 function raiseError(store: WritableDraft<AppStore>, error: Error) {

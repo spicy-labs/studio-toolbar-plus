@@ -13,21 +13,23 @@ export const AddMappingImageVariableModal: React.FC<
 > = ({ currentMapConfig }) => {
   // Modal effects
   const setIsImageVariableMappingModalOpen = appStore(
-    (state) => state.effects.modal.setIsImageVariableMappingModalOpen
+    (state) => state.effects.modal.setIsImageVariableMappingModalOpen,
   );
   const setCurrentAddImageMappingSelectedVariables = appStore(
-    (state) => state.effects.modal.setCurrentAddImageMappingSelectedVariables
+    (state) => state.effects.modal.setCurrentAddImageMappingSelectedVariables,
   );
   const addImageVariable = appStore(
-    (state) => state.effects.studio.layoutImageMapping.addImageVariable
+    (state) => state.effects.studio.layoutImageMapping.addImageVariable,
   );
   const variables = appStore((state) => state.state.studio.document.variables);
-  const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
+  const currentSelectedMapId = appStore(
+    (state) => state.state.modal.currentSelectedMapId,
+  );
   const currentAddImageMappingSelectedVariables = appStore(
-    (state) => state.state.modal.currentAddImageMappingSelectedVariables
+    (state) => state.state.modal.currentAddImageMappingSelectedVariables,
   );
   const isAddImageVariableMappingModalOpen = appStore(
-    (state) => state.state.modal.isAddImageVariableMappingModalOpen
+    (state) => state.state.modal.isAddImageVariableMappingModalOpen,
   );
 
   const possibleVariableValues = useMemo(() => {
@@ -56,17 +58,15 @@ export const AddMappingImageVariableModal: React.FC<
 
     if (mapId == null) return;
 
-    currentAddImageMappingSelectedVariables.forEach(
-      (variableId) => {
-        addImageVariable({
-          mapId: mapId,
-          imageVariable: {
-            id: variableId,
-            dependentGroup: [],
-          },
-        });
-      },
-    );
+    currentAddImageMappingSelectedVariables.forEach((variableId) => {
+      addImageVariable({
+        mapId: mapId,
+        imageVariable: {
+          id: variableId,
+          dependentGroup: [],
+        },
+      });
+    });
     onClose();
   };
 
@@ -93,9 +93,7 @@ export const AddMappingImageVariableModal: React.FC<
           </Button>
           <Button
             onClick={addImageVariables}
-            disabled={
-              currentAddImageMappingSelectedVariables.length == 0
-            }
+            disabled={currentAddImageMappingSelectedVariables.length == 0}
           >
             Add
           </Button>

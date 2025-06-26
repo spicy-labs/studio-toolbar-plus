@@ -10,12 +10,14 @@ export function CopyToLayerModal({
   snapshots,
   sourceLayoutId,
   frameLayoutMaps,
-  onUpdateFrameLayoutMaps
+  onUpdateFrameLayoutMaps,
 }: CopyToLayerModalProps) {
-  const [layouts, setLayouts] = useState<{ value: string; label: string }[]>([]);
+  const [layouts, setLayouts] = useState<{ value: string; label: string }[]>(
+    [],
+  );
   const [selectedLayoutId, setSelectedLayoutId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const raiseError = appStore(store => store.raiseError);
+  const raiseError = appStore((store) => store.raiseError);
 
   // Load available layouts when modal opens
   useEffect(() => {
@@ -30,17 +32,17 @@ export function CopyToLayerModal({
       const layoutsResult = await getAllLayouts(window.SDK);
       if (!layoutsResult.isOk()) {
         raiseError(
-          new Error(layoutsResult.error?.message || "Failed to load layouts")
+          new Error(layoutsResult.error?.message || "Failed to load layouts"),
         );
         return;
       }
 
       // Filter out the source layout
       const filteredLayouts = layoutsResult.value
-        .filter(layout => layout.id !== sourceLayoutId)
-        .map(layout => ({
+        .filter((layout) => layout.id !== sourceLayoutId)
+        .map((layout) => ({
           value: layout.id,
-          label: layout.name || "Unnamed Layout"
+          label: layout.name || "Unnamed Layout",
         }));
 
       setLayouts(filteredLayouts);
@@ -67,17 +69,21 @@ export function CopyToLayerModal({
       const updatedFrameLayoutMaps = [...frameLayoutMaps];
 
       // Find or create a frame layout map for the target layout
-      let targetLayoutMap = updatedFrameLayoutMaps.find(map => map.layoutId === selectedLayoutId);
+      let targetLayoutMap = updatedFrameLayoutMaps.find(
+        (map) => map.layoutId === selectedLayoutId,
+      );
 
       if (!targetLayoutMap) {
         // Create a new layout map if it doesn't exist
         // Find the layout name from the layouts array
-        const layoutName = layouts.find(l => l.value === selectedLayoutId)?.label || "Unknown Layout";
+        const layoutName =
+          layouts.find((l) => l.value === selectedLayoutId)?.label ||
+          "Unknown Layout";
 
         targetLayoutMap = {
           layoutId: selectedLayoutId,
           layoutName,
-          frameSnapshots: []
+          frameSnapshots: [],
         };
         updatedFrameLayoutMaps.push(targetLayoutMap);
       }
@@ -85,11 +91,12 @@ export function CopyToLayerModal({
       // Copy snapshots to the target layout
       for (const snapshot of snapshots) {
         // Generate a unique ID if not already present
-        const uniqueId = snapshot.uniqueId || `${snapshot.frameId}_${snapshot.imageName}`;
+        const uniqueId =
+          snapshot.uniqueId || `${snapshot.frameId}_${snapshot.imageName}`;
 
         // Check if a snapshot with the same uniqueId already exists
         const existingIndex = targetLayoutMap.frameSnapshots.findIndex(
-          s => s.id === uniqueId
+          (s) => s.id === uniqueId,
         );
 
         if (existingIndex !== -1) {
@@ -101,7 +108,7 @@ export function CopyToLayerModal({
             y: snapshot.y,
             width: snapshot.width,
             height: snapshot.height,
-            id: uniqueId // Include the unique ID
+            id: uniqueId, // Include the unique ID
           };
         } else {
           // Add new snapshot
@@ -112,7 +119,7 @@ export function CopyToLayerModal({
             y: snapshot.y,
             width: snapshot.width,
             height: snapshot.height,
-            id: uniqueId // Include the unique ID
+            id: uniqueId, // Include the unique ID
           });
         }
       }
@@ -130,15 +137,11 @@ export function CopyToLayerModal({
   };
 
   return (
-    <Modal
-      opened={opened}
-      onClose={onClose}
-      title="Copy to Layer"
-      centered
-    >
+    <Modal opened={opened} onClose={onClose} title="Copy to Layer" centered>
       <Stack>
         <Text size="sm">
-          Select a layout to copy {snapshots.length} snapshot{snapshots.length !== 1 ? 's' : ''} to:
+          Select a layout to copy {snapshots.length} snapshot
+          {snapshots.length !== 1 ? "s" : ""} to:
         </Text>
 
         <Select

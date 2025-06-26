@@ -59,7 +59,7 @@ export function LayoutViewer({
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [expandedLayouts, setExpandedLayouts] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [isInitialized, setIsInitialized] = useState(false);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
@@ -69,7 +69,7 @@ export function LayoutViewer({
   // Load expanded layouts from sessionStorage on component mount
   useEffect(() => {
     const storedExpanded = sessionStorage.getItem(
-      "tempManualCropManager_layoutsExpanded"
+      "tempManualCropManager_layoutsExpanded",
     );
     if (storedExpanded) {
       try {
@@ -86,7 +86,7 @@ export function LayoutViewer({
   // Load filters from localStorage on component mount
   useEffect(() => {
     const storedFilters = localStorage.getItem(
-      "tempManualCropManager_layoutViewerFilters"
+      "tempManualCropManager_layoutViewerFilters",
     );
     if (storedFilters) {
       try {
@@ -110,7 +110,7 @@ export function LayoutViewer({
       const expandedIds = Array.from(expandedLayouts);
       sessionStorage.setItem(
         "tempManualCropManager_layoutsExpanded",
-        JSON.stringify(expandedIds)
+        JSON.stringify(expandedIds),
       );
     }
   }, [expandedLayouts, isInitialized]);
@@ -119,7 +119,7 @@ export function LayoutViewer({
   useEffect(() => {
     localStorage.setItem(
       "tempManualCropManager_layoutViewerFilters",
-      JSON.stringify(activeFilters)
+      JSON.stringify(activeFilters),
     );
   }, [activeFilters]);
 
@@ -136,7 +136,7 @@ export function LayoutViewer({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error("Failed to get studio: " + studioResult.error?.message)
+          new Error("Failed to get studio: " + studioResult.error?.message),
         );
         return;
       }
@@ -145,7 +145,7 @@ export function LayoutViewer({
 
       if (!layoutsResult.isOk()) {
         raiseError(
-          new Error("Failed to load layouts: " + layoutsResult.error?.message)
+          new Error("Failed to load layouts: " + layoutsResult.error?.message),
         );
         return;
       }
@@ -155,7 +155,7 @@ export function LayoutViewer({
       setLayouts(layoutNodes);
     } catch (error) {
       raiseError(
-        error instanceof Error ? error : new Error("Failed to load layouts")
+        error instanceof Error ? error : new Error("Failed to load layouts"),
       );
     } finally {
       setIsLoading(false);
@@ -169,21 +169,21 @@ export function LayoutViewer({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error("Failed to get studio: " + studioResult.error?.message)
+          new Error("Failed to get studio: " + studioResult.error?.message),
         );
         return;
       }
 
       const cropsResult = await getManualCropsFromDocByConnector(
         studioResult.value,
-        selectedConnectorId
+        selectedConnectorId,
       );
 
       if (cropsResult.isError()) {
         raiseError(
           new Error(
-            `Failed to load manual crops: ${cropsResult.error?.message}`
-          )
+            `Failed to load manual crops: ${cropsResult.error?.message}`,
+          ),
         );
         return;
       }
@@ -197,13 +197,13 @@ export function LayoutViewer({
       const layoutsWithCrops = new Set(cropsData.layouts.map((l) => l.id));
 
       setLayouts((prevLayouts) =>
-        updateLayoutCropIndicators(prevLayouts, layoutsWithCrops)
+        updateLayoutCropIndicators(prevLayouts, layoutsWithCrops),
       );
     } catch (error) {
       raiseError(
         error instanceof Error
           ? error
-          : new Error("Failed to update manual crop indicators")
+          : new Error("Failed to update manual crop indicators"),
       );
     }
   }, [selectedConnectorId, raiseError]);
@@ -217,7 +217,7 @@ export function LayoutViewer({
 
   const updateLayoutCropIndicators = (
     layouts: LayoutNode[],
-    layoutsWithCrops: Set<string>
+    layoutsWithCrops: Set<string>,
   ): LayoutNode[] => {
     return layouts.map((layout) => ({
       ...layout,
@@ -265,7 +265,7 @@ export function LayoutViewer({
 
   const applyFilters = (
     layouts: LayoutNode[],
-    filters: string[]
+    filters: string[],
   ): LayoutNode[] => {
     const hasVisibleFilter = filters.includes("Visible");
     const hasManualCropsFilter = filters.includes("With Manual Crops");
@@ -379,13 +379,13 @@ export function LayoutViewer({
   const toggleChildrenSelection = (layout: LayoutNode) => {
     const allChildIds = getAllChildIds(layout);
     const allChildrenSelected = allChildIds.every((id) =>
-      selectedLayoutIds.includes(id)
+      selectedLayoutIds.includes(id),
     );
 
     if (allChildrenSelected) {
       // Unselect all children
       const newSelection = selectedLayoutIds.filter(
-        (id) => !allChildIds.includes(id)
+        (id) => !allChildIds.includes(id),
       );
       onSelectionChange(newSelection);
     } else {
@@ -406,13 +406,13 @@ export function LayoutViewer({
   };
 
   const getCheckboxState = (
-    layout: LayoutNode
+    layout: LayoutNode,
   ): "checked" | "unchecked" | "indeterminate" => {
     if (layout.children.length === 0) return "unchecked";
 
     const allChildIds = getAllChildIds(layout);
     const selectedChildIds = allChildIds.filter((id) =>
-      selectedLayoutIds.includes(id)
+      selectedLayoutIds.includes(id),
     );
 
     if (selectedChildIds.length === 0) return "unchecked";
@@ -521,7 +521,7 @@ interface LayoutTreeProps {
   onToggleSelection: (layoutId: string) => void;
   onToggleChildrenSelection: (layout: LayoutNode) => void;
   getCheckboxState: (
-    layout: LayoutNode
+    layout: LayoutNode,
   ) => "checked" | "unchecked" | "indeterminate";
 }
 
@@ -560,7 +560,7 @@ interface LayoutTreeItemProps {
   onToggleSelection: (layoutId: string) => void;
   onToggleChildrenSelection: (layout: LayoutNode) => void;
   getCheckboxState: (
-    layout: LayoutNode
+    layout: LayoutNode,
   ) => "checked" | "unchecked" | "indeterminate";
 }
 

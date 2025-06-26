@@ -48,7 +48,7 @@ export function CopyAndAddRowModal({
 
     // Check if name already exists in the crops for the same frame
     const nameExists = existingCrops.some(
-      (c) => c.frameId === crop.frameId && c.name === newName.trim()
+      (c) => c.frameId === crop.frameId && c.name === newName.trim(),
     );
 
     if (nameExists) {

@@ -38,11 +38,10 @@ const handleExportCSV = () => {
   // Implementation will come later
 };
 
-async function renderToolbar(studio:SDKType) {
+async function renderToolbar(studio: SDKType) {
   console.log("Rendering toolbar...");
   // Create our modal root if it doesn't exist
   if (!window.rootInstance) {
-
     // Create div on body and use in it in the createRoot
     const modalContainer = document.createElement("div");
     modalContainer.id = "config-modal-root";
@@ -78,28 +77,26 @@ async function renderToolbar(studio:SDKType) {
   );
 }
 
-
-async function checkStudioExist () {
-
-    const studioResult = await getStudio();
-    studioResult.fold(
-      (studio) => {
-        studio.config.events.onParagraphStylesChanged.registerCallback(()=> {
-          console.log("Studio found, rendering toolbar...");
-          if (window.customToolbarLoaded == null) {
-            window.customToolbarLoaded = true;
-            renderToolbar(studio);
-            setEnableActions(studio, true);
-          }
-        });
-      },
-      () => {
-        console.log("Studio not found, retrying in 200ms...");
-        setTimeout(() => {
-          checkStudioExist();
-        }, 200);
-      },
-    )
+async function checkStudioExist() {
+  const studioResult = await getStudio();
+  studioResult.fold(
+    (studio) => {
+      studio.config.events.onParagraphStylesChanged.registerCallback(() => {
+        console.log("Studio found, rendering toolbar...");
+        if (window.customToolbarLoaded == null) {
+          window.customToolbarLoaded = true;
+          renderToolbar(studio);
+          setEnableActions(studio, true);
+        }
+      });
+    },
+    () => {
+      console.log("Studio not found, retrying in 200ms...");
+      setTimeout(() => {
+        checkStudioExist();
+      }, 200);
+    },
+  );
 }
 
 checkStudioExist();

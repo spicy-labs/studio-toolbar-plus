@@ -4,23 +4,33 @@ import { appStore } from "../../modalStore";
 
 export const AddDependentModal: React.FC = () => {
   const raiseError = appStore((state) => state.raiseError);
-  const setIsOpen = appStore((state) => state.effects.modal.dependentModal.setIsOpen);
-  const setCurrentGroupIndex = appStore((state) => state.effects.modal.dependentModal.setCurrentGroupIndex);
-  const setCurrentSelectedVariables = appStore((state) => state.effects.modal.dependentModal.setCurrentSelectedVariables);
-  const addDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.addDependentGroup);
-  const updateDependent = appStore((state) => state.effects.studio.layoutImageMapping.updateDependent);
+  const setIsOpen = appStore(
+    (state) => state.effects.modal.dependentModal.setIsOpen,
+  );
+  const setCurrentGroupIndex = appStore(
+    (state) => state.effects.modal.dependentModal.setCurrentGroupIndex,
+  );
+  const setCurrentSelectedVariables = appStore(
+    (state) => state.effects.modal.dependentModal.setCurrentSelectedVariables,
+  );
+  const addDependentGroup = appStore(
+    (state) => state.effects.studio.layoutImageMapping.addDependentGroup,
+  );
+  const updateDependent = appStore(
+    (state) => state.effects.studio.layoutImageMapping.updateDependent,
+  );
   const variables = appStore((state) => state.state.studio.document.variables);
   const currentSelectedVariables = appStore(
-    (state) => state.state.modal.dependentModal.currentSelectedVariables
+    (state) => state.state.modal.dependentModal.currentSelectedVariables,
   );
   const currentImageVariableId = appStore(
-    (state) => state.state.modal.dependentModal.currentImageVariableId
+    (state) => state.state.modal.dependentModal.currentImageVariableId,
   );
   const currentSelectedMapId = appStore(
-    (state) => state.state.modal.currentSelectedMapId
+    (state) => state.state.modal.currentSelectedMapId,
   );
   const currentGroupIndex = appStore(
-    (state) => state.state.modal.dependentModal.currentGroupIndex
+    (state) => state.state.modal.dependentModal.currentGroupIndex,
   );
   const isOpen = appStore((state) => state.state.modal.dependentModal.isOpen);
 
@@ -124,9 +134,7 @@ export const AddDependentModal: React.FC = () => {
           </Button>
           <Button
             onClick={addDependents}
-            disabled={
-              currentSelectedVariables.length === 0
-            }
+            disabled={currentSelectedVariables.length === 0}
           >
             Add
           </Button>

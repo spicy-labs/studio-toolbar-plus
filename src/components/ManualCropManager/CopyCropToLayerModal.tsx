@@ -45,7 +45,7 @@ interface CopyCropToLayerModalProps {
   selectedConnectorId: string;
   onCopy: (
     targetLayoutIds: string[],
-    checkedCrops: ManualCrop[]
+    checkedCrops: ManualCrop[],
   ) => Promise<void>;
 }
 
@@ -61,7 +61,7 @@ export function CopyCropToLayerModal({
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [expandedLayouts, setExpandedLayouts] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [selectedLayoutIds, setSelectedLayoutIds] = useState<string[]>([]);
   const raiseError = appStore((store) => store.raiseError);
@@ -88,7 +88,7 @@ export function CopyCropToLayerModal({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error("Failed to get studio: " + studioResult.error?.message)
+          new Error("Failed to get studio: " + studioResult.error?.message),
         );
         return;
       }
@@ -97,7 +97,7 @@ export function CopyCropToLayerModal({
 
       if (!layoutsResult.isOk()) {
         raiseError(
-          new Error("Failed to load layouts: " + layoutsResult.error?.message)
+          new Error("Failed to load layouts: " + layoutsResult.error?.message),
         );
         return;
       }
@@ -107,7 +107,7 @@ export function CopyCropToLayerModal({
       setLayouts(layoutNodes);
     } catch (error) {
       raiseError(
-        error instanceof Error ? error : new Error("Failed to load layouts")
+        error instanceof Error ? error : new Error("Failed to load layouts"),
       );
     } finally {
       setIsLoading(false);
@@ -121,21 +121,21 @@ export function CopyCropToLayerModal({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error("Failed to get studio: " + studioResult.error?.message)
+          new Error("Failed to get studio: " + studioResult.error?.message),
         );
         return;
       }
 
       const cropsResult = await getManualCropsFromDocByConnector(
         studioResult.value,
-        selectedConnectorId
+        selectedConnectorId,
       );
 
       if (cropsResult.isError()) {
         raiseError(
           new Error(
-            `Failed to load manual crops: ${cropsResult.error?.message}`
-          )
+            `Failed to load manual crops: ${cropsResult.error?.message}`,
+          ),
         );
         return;
       }
@@ -149,20 +149,20 @@ export function CopyCropToLayerModal({
       const layoutsWithCrops = new Set(cropsData.layouts.map((l) => l.id));
 
       setLayouts((prevLayouts) =>
-        updateLayoutCropIndicators(prevLayouts, layoutsWithCrops)
+        updateLayoutCropIndicators(prevLayouts, layoutsWithCrops),
       );
     } catch (error) {
       raiseError(
         error instanceof Error
           ? error
-          : new Error("Failed to update manual crop indicators")
+          : new Error("Failed to update manual crop indicators"),
       );
     }
   };
 
   const updateLayoutCropIndicators = (
     layouts: LayoutNode[],
-    layoutsWithCrops: Set<string>
+    layoutsWithCrops: Set<string>,
   ): LayoutNode[] => {
     return layouts.map((layout) => ({
       ...layout,
@@ -280,7 +280,7 @@ export function CopyCropToLayerModal({
       onClose();
     } catch (error) {
       raiseError(
-        error instanceof Error ? error : new Error("Failed to copy crops")
+        error instanceof Error ? error : new Error("Failed to copy crops"),
       );
     }
   };
@@ -441,8 +441,8 @@ function CopyLayoutTreeItem({
           backgroundColor: isSelected
             ? "var(--mantine-color-blue-1)"
             : isSourceLayout
-            ? "var(--mantine-color-gray-2)"
-            : "transparent",
+              ? "var(--mantine-color-gray-2)"
+              : "transparent",
           opacity: isSourceLayout ? 0.5 : 1,
         }}
       >

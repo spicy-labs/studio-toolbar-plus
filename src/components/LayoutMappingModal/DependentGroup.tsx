@@ -39,18 +39,34 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
 
   const variables = appStore((state) => state.state.studio.document.variables);
   const raiseError = appStore((state) => state.raiseError);
-  
+
   // Modal effects
-  const setCurrentImageVariableId = appStore((state) => state.effects.modal.dependentModal.setCurrentImageVariableId);
-  const setCurrentSelectedMapId = appStore((state) => state.effects.modal.setCurrentSelectedMapId);
-  const setCurrentGroupIndex = appStore((state) => state.effects.modal.dependentModal.setCurrentGroupIndex);
-  const setIsOpen = appStore((state) => state.effects.modal.dependentModal.setIsOpen);
-  
+  const setCurrentImageVariableId = appStore(
+    (state) => state.effects.modal.dependentModal.setCurrentImageVariableId,
+  );
+  const setCurrentSelectedMapId = appStore(
+    (state) => state.effects.modal.setCurrentSelectedMapId,
+  );
+  const setCurrentGroupIndex = appStore(
+    (state) => state.effects.modal.dependentModal.setCurrentGroupIndex,
+  );
+  const setIsOpen = appStore(
+    (state) => state.effects.modal.dependentModal.setIsOpen,
+  );
+
   // Layout mapping effects
-  const removeDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.removeDependentGroup);
-  const copyDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.copyDependentGroup);
-  const removeDependent = appStore((state) => state.effects.studio.layoutImageMapping.removeDependent);
-  const updateDependent = appStore((state) => state.effects.studio.layoutImageMapping.updateDependent);
+  const removeDependentGroup = appStore(
+    (state) => state.effects.studio.layoutImageMapping.removeDependentGroup,
+  );
+  const copyDependentGroup = appStore(
+    (state) => state.effects.studio.layoutImageMapping.copyDependentGroup,
+  );
+  const removeDependent = appStore(
+    (state) => state.effects.studio.layoutImageMapping.removeDependent,
+  );
+  const updateDependent = appStore(
+    (state) => state.effects.studio.layoutImageMapping.updateDependent,
+  );
 
   // Function to open the modal for adding variables to an existing group
   const handleAddDependentToGroup = (groupIndex: number) => {

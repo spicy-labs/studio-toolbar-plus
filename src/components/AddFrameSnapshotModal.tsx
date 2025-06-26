@@ -7,9 +7,7 @@ import {
   getPropertiesOnSelectedLayout,
   getById,
 } from "../studio/frameHandler";
-import {
-  getById as getVariableById
-} from "../studio/variableHandler";
+import { getById as getVariableById } from "../studio/variableHandler";
 import type SDK from "@chili-publish/studio-sdk";
 import { Result } from "typescript-result";
 import type { Variable } from "@chili-publish/studio-sdk";
@@ -86,7 +84,7 @@ export function AddFrameSnapshotModal({
         if (selectedFrameType.type !== "image") {
           setStatus("error");
           setMessage(
-            `Please select an image frame, you selected a ${selectedFrameType.type || 'non-image'} frame.`,
+            `Please select an image frame, you selected a ${selectedFrameType.type || "non-image"} frame.`,
           );
           return;
         }
@@ -97,28 +95,29 @@ export function AddFrameSnapshotModal({
         }
 
         const frame = frameResult.value;
-        const frameVariableId = (frame as {src?: {id:string}}).src?.id
+        const frameVariableId = (frame as { src?: { id: string } }).src?.id;
 
         // Check if the frame is connected to a variable via its src property
         if (!frameVariableId) {
-            throw new Error("Image frame is not tied to image variable");
+          throw new Error("Image frame is not tied to image variable");
         }
 
         // Fetch the variable linked to the frame to ensure it exists
         const variableResult = await getVariableById(studio, frameVariableId);
         if (!variableResult.isOk()) {
-            // If the variable fetch fails, throw the specific error from getVariableById
-            throw variableResult.error;
+          // If the variable fetch fails, throw the specific error from getVariableById
+          throw variableResult.error;
         }
         // We don't strictly need the variable value here, just confirming it's linked and exists.
-        const linkedVariable = variableResult.value as Variable & {value?: {assetId?:string}};
+        const linkedVariable = variableResult.value as Variable & {
+          value?: { assetId?: string };
+        };
 
-        const variableValue = linkedVariable.value?.assetId
+        const variableValue = linkedVariable.value?.assetId;
 
         if (!variableValue) {
           throw new Error("assetId not found on linked variable");
         }
-
 
         // 4. Get Frame Properties
         const propertiesResult = await getPropertiesOnSelectedLayout(studio);
@@ -134,18 +133,31 @@ export function AddFrameSnapshotModal({
           : null;
 
         if (!frameProperties) {
-           // This case might happen if getPropertiesOnSelectedLayout returns unexpected data
-           throw new Error(`Could not find properties for selected frame ${selectedFrameType.name} with ID: ${selectedFrameType.id}`);
+          // This case might happen if getPropertiesOnSelectedLayout returns unexpected data
+          throw new Error(
+            `Could not find properties for selected frame ${selectedFrameType.name} with ID: ${selectedFrameType.id}`,
+          );
         }
-
 
         // 6. Extract Position Data (Accessing .value from PropertyState)
         const { x, y, width, height } = frameProperties;
-        if (x?.value === undefined || y?.value === undefined || width?.value === undefined || height?.value === undefined) {
-            throw new Error("Selected image frame is missing position properties (x, y, width, or height values).");
+        if (
+          x?.value === undefined ||
+          y?.value === undefined ||
+          width?.value === undefined ||
+          height?.value === undefined
+        ) {
+          throw new Error(
+            "Selected image frame is missing position properties (x, y, width, or height values).",
+          );
         }
 
-        const extractedPosition: FramePosition = { x: x.value, y: y.value, width: width.value, height: height.value };
+        const extractedPosition: FramePosition = {
+          x: x.value,
+          y: y.value,
+          width: width.value,
+          height: height.value,
+        };
         setPositionData(extractedPosition);
 
         // Call updateFrameLayoutMaps with the extracted position and frame ID
@@ -155,7 +167,7 @@ export function AddFrameSnapshotModal({
           x: extractedPosition.x,
           y: extractedPosition.y,
           width: extractedPosition.width,
-          height: extractedPosition.height
+          height: extractedPosition.height,
         });
 
         if (!updateResult.isOk()) {
@@ -165,7 +177,6 @@ export function AddFrameSnapshotModal({
         // 7. Success
         setStatus("success");
         setMessage("Image position successfully saved to layout mapping");
-
       } catch (error) {
         const err = error instanceof Error ? error : new Error(String(error));
         setStatus("error");
@@ -175,7 +186,6 @@ export function AddFrameSnapshotModal({
     };
 
     fetchAndValidateFrame();
-
   }, [opened, raiseError]); // Dependency array includes opened and raiseError
 
   return (
@@ -195,7 +205,11 @@ export function AddFrameSnapshotModal({
           </Stack>
         )}
         {status === "error" && message && (
-          <Alert icon={<IconAlertCircle size="1rem" />} title="Error" color="red">
+          <Alert
+            icon={<IconAlertCircle size="1rem" />}
+            title="Error"
+            color="red"
+          >
             {message}
           </Alert>
         )}
@@ -206,9 +220,11 @@ export function AddFrameSnapshotModal({
             {/* <pre>{JSON.stringify(positionData, null, 2)}</pre> */}
           </Alert>
         )}
-         {status === "idle" && (
-            <Text size="sm" c="dimmed">Initializing...</Text>
-         )}
+        {status === "idle" && (
+          <Text size="sm" c="dimmed">
+            Initializing...
+          </Text>
+        )}
       </Stack>
     </Modal>
   );

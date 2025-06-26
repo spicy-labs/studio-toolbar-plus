@@ -8,7 +8,7 @@ export function CopyAndAddRowModal({
   snapshot,
   layoutId,
   existingSnapshots,
-  onAddCopy
+  onAddCopy,
 }: CopyAndAddRowModalProps) {
   const [newName, setNewName] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -38,8 +38,8 @@ export function CopyAndAddRowModal({
     }
 
     // Check if name already exists in the snapshots
-    const nameExists = existingSnapshots.some(s =>
-      s.imageName === newName.trim()
+    const nameExists = existingSnapshots.some(
+      (s) => s.imageName === newName.trim(),
     );
 
     if (nameExists) {
@@ -58,16 +58,9 @@ export function CopyAndAddRowModal({
   };
 
   return (
-    <Modal
-      opened={opened}
-      onClose={onClose}
-      title="Copy and Add Row"
-      centered
-    >
+    <Modal opened={opened} onClose={onClose} title="Copy and Add Row" centered>
       <Stack>
-        <Text size="sm">
-          Enter a name for the new snapshot:
-        </Text>
+        <Text size="sm">Enter a name for the new snapshot:</Text>
 
         <TextInput
           label="Name"

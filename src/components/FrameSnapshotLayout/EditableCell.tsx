@@ -12,7 +12,7 @@ export function EditableCell({
   editValue,
   onEditChange,
   onEditSave,
-  onEditCancel
+  onEditCancel,
 }: EditableCellProps) {
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -31,18 +31,18 @@ export function EditableCell({
 
   // Handle key presses in the input
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') onEditSave();
-    if (e.key === 'Escape') onEditCancel();
+    if (e.key === "Enter") onEditSave();
+    if (e.key === "Escape") onEditCancel();
   };
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ position: 'relative' }}
+      style={{ position: "relative" }}
     >
       {isEditing ? (
-        field === 'imageName' ? (
+        field === "imageName" ? (
           <TextInput
             ref={inputRef}
             value={editValue as string}
@@ -50,7 +50,7 @@ export function EditableCell({
             onKeyDown={handleKeyDown}
             onBlur={onEditSave}
             size="xs"
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           />
         ) : (
           <NumberInput
@@ -60,7 +60,7 @@ export function EditableCell({
             onKeyDown={handleKeyDown}
             onBlur={onEditSave}
             size="xs"
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           />
         )
       ) : (
@@ -71,7 +71,12 @@ export function EditableCell({
               size="xs"
               variant="subtle"
               color="blue"
-              style={{ position: 'absolute', right: '5px', top: '50%', transform: 'translateY(-50%)' }}
+              style={{
+                position: "absolute",
+                right: "5px",
+                top: "50%",
+                transform: "translateY(-50%)",
+              }}
               onClick={() => onEditStart(cellKey, value)}
             >
               <IconPencil size={14} />

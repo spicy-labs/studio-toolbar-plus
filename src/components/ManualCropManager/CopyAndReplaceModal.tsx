@@ -57,7 +57,7 @@ export function CopyAndReplaceModal({
     if (previewCrop) {
       const newName = previewCrop.name.replace(
         new RegExp(searchText, "g"),
-        replaceText
+        replaceText,
       );
       setPreviewNewName(newName);
       setIsPreviewNameDifferent(newName !== previewCrop.name);
@@ -92,7 +92,7 @@ export function CopyAndReplaceModal({
     crops.forEach((crop) => {
       const newName = crop.name.replace(
         new RegExp(searchText, "g"),
-        replaceText
+        replaceText,
       );
 
       // Skip if name didn't change
@@ -102,13 +102,12 @@ export function CopyAndReplaceModal({
 
       // Check if name already exists in the existing crops for the same frame
       const nameExists = existingCrops.some(
-        (c) => c.frameId === crop.frameId && c.name === newName
+        (c) => c.frameId === crop.frameId && c.name === newName,
       );
 
       if (nameExists) {
-        newErrors[
-          `${crop.frameId}-${crop.name}`
-        ] = `Name "${newName}" already exists for frame ${crop.frameName}`;
+        newErrors[`${crop.frameId}-${crop.name}`] =
+          `Name "${newName}" already exists for frame ${crop.frameName}`;
         hasErrors = true;
       }
     });
@@ -123,7 +122,7 @@ export function CopyAndReplaceModal({
     crops.forEach((crop) => {
       const newName = crop.name.replace(
         new RegExp(searchText, "g"),
-        replaceText
+        replaceText,
       );
 
       // Skip if name didn't change

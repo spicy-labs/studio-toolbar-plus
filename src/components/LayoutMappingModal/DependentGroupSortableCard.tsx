@@ -113,7 +113,8 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
 }) => {
   const raiseError = appStore((state) => state.raiseError);
   const updateVarValueFromDependentGroup = appStore(
-    (state) => state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup
+    (state) =>
+      state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup,
   );
   const variables = appStore((state) => state.state.studio.document.variables);
   const [transformModalOpen, setTransformModalOpen] = useState(false);

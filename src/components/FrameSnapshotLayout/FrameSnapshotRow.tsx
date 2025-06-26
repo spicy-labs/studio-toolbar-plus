@@ -8,9 +8,12 @@ export function FrameSnapshotRow({
   layoutId,
   onEditCell,
   onCheckChange,
-  isChecked
+  isChecked,
 }: FrameSnapshotRowProps) {
-  const [editState, setEditState] = useState<EditState>({ key: null, value: '' });
+  const [editState, setEditState] = useState<EditState>({
+    key: null,
+    value: "",
+  });
 
   // Handlers for editing
   const handleEditStart = useCallback((key: string, value: string | number) => {
@@ -18,7 +21,7 @@ export function FrameSnapshotRow({
   }, []);
 
   const handleEditChange = useCallback((value: string | number) => {
-    setEditState(prev => ({ ...prev, value }));
+    setEditState((prev) => ({ ...prev, value }));
   }, []);
 
   const handleEditSave = useCallback(() => {
@@ -26,19 +29,19 @@ export function FrameSnapshotRow({
       // Pass the edit to the parent component
       onEditCell(layoutId, editState.key, editState.value);
     }
-    setEditState({ key: null, value: '' });
+    setEditState({ key: null, value: "" });
   }, [editState, onEditCell]);
 
   const handleEditCancel = useCallback(() => {
-    setEditState({ key: null, value: '' });
+    setEditState({ key: null, value: "" });
   }, []);
 
   // Define the style for checked rows
-  const rowStyle = isChecked ? { backgroundColor: '#e6f7ff' } : {};
+  const rowStyle = isChecked ? { backgroundColor: "#e6f7ff" } : {};
 
   return (
     <Table.Tr style={rowStyle}>
-      {['imageName', 'x', 'y', 'width', 'height'].map(field => (
+      {["imageName", "x", "y", "width", "height"].map((field) => (
         <Table.Td key={field}>
           <EditableCell
             rowKey={snapshot.uniqueId}
@@ -56,7 +59,9 @@ export function FrameSnapshotRow({
       <Table.Td>
         <Checkbox
           checked={isChecked}
-          onChange={(event) => onCheckChange(snapshot.uniqueId, event.currentTarget.checked)}
+          onChange={(event) =>
+            onCheckChange(snapshot.uniqueId, event.currentTarget.checked)
+          }
         />
       </Table.Td>
     </Table.Tr>

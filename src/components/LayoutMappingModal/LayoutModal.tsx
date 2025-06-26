@@ -41,28 +41,36 @@ export const LayoutImageMappingModal: React.FC<
   LayoutImageMappingModalProps
 > = ({ onExportCSV = () => console.log("Export CSV clicked") }) => {
   // Replace broad state access with targeted selectors
-  const events = appStore(state => state.effects);
-  const raiseError = appStore(state => state.raiseError);
-  const enableToolbar = appStore(state => state.enableToolbar);
+  const events = appStore((state) => state.effects);
+  const raiseError = appStore((state) => state.raiseError);
+  const enableToolbar = appStore((state) => state.enableToolbar);
 
   // Select only the specific state slices needed
-  const document = appStore(state => state.state.studio.document);
-  const variables = appStore(state => state.state.studio.document.variables);
-  const isLayoutConfigLoaded = appStore(state => state.state.studio.isLayoutConfigLoaded);
-  const isDocumentLoaded = appStore(state => state.state.studio.isDocumentLoaded);
-  const isModalVisible = appStore(state => state.state.modal.isModalVisible);
-  const layoutImageMapping = appStore(state => state.state.studio.layoutImageMapping);
-  const currentSelectedMapId = appStore(state => state.state.modal.currentSelectedMapId);
-  const currentSwapImageVariableId = appStore(state => state.state.modal.currentSwapImageVariableId);
+  const document = appStore((state) => state.state.studio.document);
+  const variables = appStore((state) => state.state.studio.document.variables);
+  const isLayoutConfigLoaded = appStore(
+    (state) => state.state.studio.isLayoutConfigLoaded,
+  );
+  const isDocumentLoaded = appStore(
+    (state) => state.state.studio.isDocumentLoaded,
+  );
+  const isModalVisible = appStore((state) => state.state.modal.isModalVisible);
+  const layoutImageMapping = appStore(
+    (state) => state.state.studio.layoutImageMapping,
+  );
+  const currentSelectedMapId = appStore(
+    (state) => state.state.modal.currentSelectedMapId,
+  );
+  const currentSwapImageVariableId = appStore(
+    (state) => state.state.modal.currentSwapImageVariableId,
+  );
   const [validationReport, setValidationReport] =
     useState<ValidationReport | null>(null);
   const [isValidationModalOpen, setIsValidationModalOpen] = useState(false);
 
   // Filter image variables from variables state
   const imageVariables = useMemo(() => {
-    return variables.filter(
-      (variable) => variable.type === "image",
-    );
+    return variables.filter((variable) => variable.type === "image");
   }, [variables]);
 
   // Transform image variables into format required by Mantine Select
@@ -76,10 +84,7 @@ export const LayoutImageMappingModal: React.FC<
   // Load config when component mounts if it"s not loaded yet
   useEffect(() => {
     const loadConfig = async () => {
-      if (
-        !isLayoutConfigLoaded &&
-        !isDocumentLoaded
-      ) {
+      if (!isLayoutConfigLoaded && !isDocumentLoaded) {
         const resultDoc = await loadDocFromDoc();
         const resultLayoutMap = await loadLayoutImageMapFromDoc();
 
@@ -154,16 +159,11 @@ export const LayoutImageMappingModal: React.FC<
 
   const handleSave = async () => {
     // Save the layout image mapping to the document
-    const saveToDocResult = await saveLayoutImageMapToDoc(
-      layoutImageMapping,
-    );
+    const saveToDocResult = await saveLayoutImageMapToDoc(layoutImageMapping);
 
     saveToDocResult
       .map(async (_) => {
-        return await saveLayoutMappingToAction(
-          layoutImageMapping,
-          document,
-        );
+        return await saveLayoutMappingToAction(layoutImageMapping, document);
       })
       .fold(handleClose, (e) => (e ? raiseError(e) : e));
   };
@@ -241,8 +241,7 @@ export const LayoutImageMappingModal: React.FC<
         <ModalHeader />
 
         <Content>
-          {!isLayoutConfigLoaded ||
-          !isDocumentLoaded ? (
+          {!isLayoutConfigLoaded || !isDocumentLoaded ? (
             <LoadingSpinner />
           ) : (
             <Stack h="100%" gap="md">
@@ -290,7 +289,8 @@ export const LayoutImageMappingModal: React.FC<
           currentSelectedMapId && currentSwapImageVariableId
             ? layoutImageMapping
                 .find((config) => config.id === currentSelectedMapId)
-                ?.variables.find((v) => v.id === currentSwapImageVariableId) || null
+                ?.variables.find((v) => v.id === currentSwapImageVariableId) ||
+              null
             : null
         }
       />

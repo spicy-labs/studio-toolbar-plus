@@ -1,6 +1,12 @@
 import React, { useState, useMemo } from "react";
 import { Card, Table, Title, Group, ActionIcon } from "@mantine/core";
-import { IconTrash, IconCopy, IconCopyPlus, IconReplace, IconDeselect } from "@tabler/icons-react";
+import {
+  IconTrash,
+  IconCopy,
+  IconCopyPlus,
+  IconReplace,
+  IconDeselect,
+} from "@tabler/icons-react";
 import { FrameSnapshotRow } from "./FrameSnapshotRow";
 import { CopyToLayerModal } from "./CopyToLayerModal";
 import { CopyAndAddRowModal } from "./CopyAndAddRowModal";
@@ -12,24 +18,30 @@ export function FrameLayoutCard({
   onRemoveSnapshot,
   onEditCell,
   frameLayoutMaps,
-  onUpdateFrameLayoutMaps
+  onUpdateFrameLayoutMaps,
 }: FrameLayoutCardProps) {
-  const [checkedSnapshots, setCheckedSnapshots] = useState<Record<string, boolean>>({});
+  const [checkedSnapshots, setCheckedSnapshots] = useState<
+    Record<string, boolean>
+  >({});
   const [copyModalOpened, setCopyModalOpened] = useState(false);
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = useState(false);
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = useState(false);
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] =
+    useState(false);
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] =
+    useState(false);
 
   // Handle checkbox change
   const handleCheckChange = (snapshotKey: string, isChecked: boolean) => {
-    setCheckedSnapshots(prev => ({
+    setCheckedSnapshots((prev) => ({
       ...prev,
-      [snapshotKey]: isChecked
+      [snapshotKey]: isChecked,
     }));
   };
 
   // Get checked snapshots
   const getCheckedSnapshots = (): EnhancedFrameSnapshot[] => {
-    return layoutMap.snapshots.filter(snapshot => checkedSnapshots[snapshot.uniqueId]);
+    return layoutMap.snapshots.filter(
+      (snapshot) => checkedSnapshots[snapshot.uniqueId],
+    );
   };
 
   // Delete all checked snapshots
@@ -38,10 +50,7 @@ export function FrameLayoutCard({
     for (const snapshot of checked) {
       // Make sure uniqueId is available
       if (snapshot.uniqueId) {
-        await onRemoveSnapshot(
-          layoutMap.layoutId,
-          snapshot.uniqueId
-        );
+        await onRemoveSnapshot(layoutMap.layoutId, snapshot.uniqueId);
       }
     }
     // Clear checked snapshots after deletion
@@ -57,13 +66,18 @@ export function FrameLayoutCard({
   const hasCheckedSnapshots = Object.values(checkedSnapshots).some(Boolean);
 
   // Get the number of checked snapshots
-  const checkedSnapshotsCount = Object.values(checkedSnapshots).filter(Boolean).length;
+  const checkedSnapshotsCount =
+    Object.values(checkedSnapshots).filter(Boolean).length;
 
   // Get the single selected snapshot when exactly one is selected
   const singleSelectedSnapshot = useMemo(() => {
     if (checkedSnapshotsCount === 1) {
-      const selectedKey = Object.keys(checkedSnapshots).find(key => checkedSnapshots[key]);
-      return layoutMap.snapshots.find(snapshot => snapshot.uniqueId === selectedKey);
+      const selectedKey = Object.keys(checkedSnapshots).find(
+        (key) => checkedSnapshots[key],
+      );
+      return layoutMap.snapshots.find(
+        (snapshot) => snapshot.uniqueId === selectedKey,
+      );
     }
     return null;
   }, [checkedSnapshots, layoutMap.snapshots]);
@@ -74,7 +88,9 @@ export function FrameLayoutCard({
     const updatedFrameLayoutMaps = [...frameLayoutMaps];
 
     // Find the current layout map
-    const currentLayoutMap = updatedFrameLayoutMaps.find(map => map.layoutId === layoutMap.layoutId);
+    const currentLayoutMap = updatedFrameLayoutMaps.find(
+      (map) => map.layoutId === layoutMap.layoutId,
+    );
 
     if (!currentLayoutMap) return;
 
@@ -90,7 +106,7 @@ export function FrameLayoutCard({
       width: snapshot.width,
       height: snapshot.height,
       id: uniqueId, // Add the id property used by the system
-      uniqueId: uniqueId // Add the uniqueId property used by the UI
+      uniqueId: uniqueId, // Add the uniqueId property used by the UI
     };
 
     // Add the new snapshot to the layout
@@ -104,7 +120,13 @@ export function FrameLayoutCard({
     onUpdateFrameLayoutMaps(updatedFrameLayoutMaps);
   };
   return (
-    <Card key={layoutMap.layoutId} shadow="sm" padding="md" radius="md" withBorder>
+    <Card
+      key={layoutMap.layoutId}
+      shadow="sm"
+      padding="md"
+      radius="md"
+      withBorder
+    >
       <Card.Section withBorder inheritPadding py="xs">
         <Group justify="space-between">
           <Title order={4}>{layoutMap.layoutName}</Title>
@@ -171,7 +193,7 @@ export function FrameLayoutCard({
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {layoutMap.snapshots.map(snapshot => (
+          {layoutMap.snapshots.map((snapshot) => (
             <FrameSnapshotRow
               key={snapshot.uniqueId}
               snapshot={snapshot}

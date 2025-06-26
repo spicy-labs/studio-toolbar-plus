@@ -29,10 +29,10 @@ export function ConnectorCleanupModal({
   onClose,
 }: ConnectorCleanupModalProps) {
   const [connectors, setConnectors] = useState<DocumentConnectorWithUsage[]>(
-    []
+    [],
   );
   const [selectedConnectors, setSelectedConnectors] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -56,7 +56,7 @@ export function ConnectorCleanupModal({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -65,8 +65,8 @@ export function ConnectorCleanupModal({
       if (!connectorsResult.isOk()) {
         raiseError(
           new Error(
-            connectorsResult.error?.message || "Failed to load connectors"
-          )
+            connectorsResult.error?.message || "Failed to load connectors",
+          ),
         );
         return;
       }
@@ -106,7 +106,7 @@ export function ConnectorCleanupModal({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -120,8 +120,8 @@ export function ConnectorCleanupModal({
         if (!result.isOk()) {
           raiseError(
             new Error(
-              `Failed to delete connector ${connectorId}: ${result.error?.message}`
-            )
+              `Failed to delete connector ${connectorId}: ${result.error?.message}`,
+            ),
           );
           // Continue with other deletions even if one fails
         }
@@ -156,7 +156,7 @@ export function ConnectorCleanupModal({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -168,7 +168,7 @@ export function ConnectorCleanupModal({
       const result = await mergeConnectors(studio, mergeTargetId, selectedIds);
       if (!result.isOk()) {
         raiseError(
-          new Error(result.error?.message || "Failed to merge connectors")
+          new Error(result.error?.message || "Failed to merge connectors"),
         );
         return;
       }

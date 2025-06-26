@@ -14,7 +14,7 @@ import {
   IconTrashFilled,
   IconPlus,
   IconCaretDownFilled,
-  IconExchange
+  IconExchange,
 } from "@tabler/icons-react";
 import { useState } from "react";
 import { Result } from "typescript-result";
@@ -37,14 +37,28 @@ export const VariableCard: React.FC<VariableCardProps> = ({
   layoutMap,
 }) => {
   // Use selectors to only get the specific state and effects needed
-  const documentVariables = appStore(store => store.state.studio.document.variables);
-  const raiseError = appStore(store => store.raiseError);
-  const setCurrentImageVariableId = appStore(store => store.effects.modal.dependentModal.setCurrentImageVariableId);
-  const setDependentModalIsOpen = appStore(store => store.effects.modal.dependentModal.setIsOpen);
-  const removeImageVariable = appStore(store => store.effects.studio.layoutImageMapping.removeImageVariable);
-  const setIsSwapImageVariableModalOpen = appStore(store => store.effects.modal.setIsSwapImageVariableModalOpen);
-  const setCurrentSwapImageVariableId = appStore(store => store.effects.modal.setCurrentSwapImageVariableId);
-  const setCurrentSelectedMapId = appStore(store => store.effects.modal.setCurrentSelectedMapId);
+  const documentVariables = appStore(
+    (store) => store.state.studio.document.variables,
+  );
+  const raiseError = appStore((store) => store.raiseError);
+  const setCurrentImageVariableId = appStore(
+    (store) => store.effects.modal.dependentModal.setCurrentImageVariableId,
+  );
+  const setDependentModalIsOpen = appStore(
+    (store) => store.effects.modal.dependentModal.setIsOpen,
+  );
+  const removeImageVariable = appStore(
+    (store) => store.effects.studio.layoutImageMapping.removeImageVariable,
+  );
+  const setIsSwapImageVariableModalOpen = appStore(
+    (store) => store.effects.modal.setIsSwapImageVariableModalOpen,
+  );
+  const setCurrentSwapImageVariableId = appStore(
+    (store) => store.effects.modal.setCurrentSwapImageVariableId,
+  );
+  const setCurrentSelectedMapId = appStore(
+    (store) => store.effects.modal.setCurrentSelectedMapId,
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   const variableImageConfig = documentVariables.find(

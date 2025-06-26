@@ -33,13 +33,17 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
 }) => {
   // Layout mapping effects
   const removeVarValueFromDependentGroup = appStore(
-    (state) => state.effects.studio.layoutImageMapping.removeVarValueFromDependentGroup
+    (state) =>
+      state.effects.studio.layoutImageMapping.removeVarValueFromDependentGroup,
   );
   const addVarValueToDependentGroup = appStore(
-    (state) => state.effects.studio.layoutImageMapping.addVarValueToDependentGroup
+    (state) =>
+      state.effects.studio.layoutImageMapping.addVarValueToDependentGroup,
   );
   const setIndexOfVarValueFromDependentGroup = appStore(
-    (state) => state.effects.studio.layoutImageMapping.setIndexOfVarValueFromDependentGroup
+    (state) =>
+      state.effects.studio.layoutImageMapping
+        .setIndexOfVarValueFromDependentGroup,
   );
 
   // Set up sensors for drag and drop

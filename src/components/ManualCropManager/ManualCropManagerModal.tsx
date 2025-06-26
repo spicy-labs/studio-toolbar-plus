@@ -31,7 +31,7 @@ export function ManualCropManagerModal({
   const [selectedConnectorId, setSelectedConnectorId] = useState<string>("");
   const [isResizing, setIsResizing] = useState(false);
   const [connectors, setConnectors] = useState<DocumentConnectorWithUsage[]>(
-    []
+    [],
   );
   const [layoutViewerRefresh, setLayoutViewerRefresh] = useState<
     (() => void) | null
@@ -47,7 +47,7 @@ export function ManualCropManagerModal({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -57,8 +57,8 @@ export function ManualCropManagerModal({
       if (!connectorsResult.isOk()) {
         raiseError(
           new Error(
-            "Failed to load connectors: " + connectorsResult.error?.message
-          )
+            "Failed to load connectors: " + connectorsResult.error?.message,
+          ),
         );
         return;
       }
@@ -68,7 +68,7 @@ export function ManualCropManagerModal({
 
       // Load selected connector from sessionStorage or auto-select first connector
       const storedConnectorId = sessionStorage.getItem(
-        "tempManualCropManager_selectedConnectorId"
+        "tempManualCropManager_selectedConnectorId",
       );
 
       if (
@@ -83,12 +83,12 @@ export function ManualCropManagerModal({
         setSelectedConnectorId(firstConnectorId);
         sessionStorage.setItem(
           "tempManualCropManager_selectedConnectorId",
-          firstConnectorId
+          firstConnectorId,
         );
       }
     } catch (error) {
       raiseError(
-        error instanceof Error ? error : new Error("Failed to load connectors")
+        error instanceof Error ? error : new Error("Failed to load connectors"),
       );
     }
   };
@@ -98,7 +98,7 @@ export function ManualCropManagerModal({
     if (opened) {
       // Load selected layouts from sessionStorage
       const storedSelected = sessionStorage.getItem(
-        "tempManualCropManager_layoutsSelected"
+        "tempManualCropManager_layoutsSelected",
       );
       if (storedSelected) {
         try {
@@ -124,7 +124,7 @@ export function ManualCropManagerModal({
   useEffect(() => {
     sessionStorage.setItem(
       "tempManualCropManager_layoutsSelected",
-      JSON.stringify(selectedLayoutIds)
+      JSON.stringify(selectedLayoutIds),
     );
   }, [selectedLayoutIds]);
 
@@ -169,7 +169,7 @@ export function ManualCropManagerModal({
     if (connectorId) {
       sessionStorage.setItem(
         "tempManualCropManager_selectedConnectorId",
-        connectorId
+        connectorId,
       );
     } else {
       sessionStorage.removeItem("tempManualCropManager_selectedConnectorId");
@@ -185,7 +185,7 @@ export function ManualCropManagerModal({
     (refreshFn: () => void) => {
       setLayoutViewerRefresh(() => refreshFn);
     },
-    []
+    [],
   );
 
   const handleCropsSaved = useCallback(async () => {
@@ -204,18 +204,18 @@ export function ManualCropManagerModal({
           );
           const cropsResult = await getManualCropsFromDocByConnector(
             studioResult.value,
-            selectedConnectorId
+            selectedConnectorId,
           );
 
           if (cropsResult.isOk()) {
             const cropsData = cropsResult.value;
             const layoutsWithCrops = new Set(
-              cropsData.layouts.map((l) => l.id)
+              cropsData.layouts.map((l) => l.id),
             );
 
             // Add any layouts that now have crops but aren't selected
             const newLayoutsWithCrops = Array.from(layoutsWithCrops).filter(
-              (layoutId) => !selectedLayoutIds.includes(layoutId)
+              (layoutId) => !selectedLayoutIds.includes(layoutId),
             );
 
             if (newLayoutsWithCrops.length > 0) {
@@ -264,11 +264,11 @@ export function ManualCropManagerModal({
                     " (" +
                     connector.usesInTemplate.images.reduce(
                       (acc, image) => acc + `SFrame:${image.name}, `,
-                      ""
+                      "",
                     ) +
                     connector.usesInTemplate.variables.reduce(
                       (acc, variable) => acc + `Var:${variable.name}, `,
-                      ""
+                      "",
                     ) +
                     ")",
                 }))}

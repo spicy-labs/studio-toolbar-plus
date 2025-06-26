@@ -64,13 +64,18 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
   // onChange
 }) => {
   // Use selectors to only get the specific state and effects needed
-  const documentLayouts = appStore(store => store.state.studio.document.layouts);
-  const layoutImageMapping = appStore(store => store.state.studio.layoutImageMapping);
-  const setLayoutIds = appStore(store => store.effects.studio.layoutImageMapping.setLayoutIds);
+  const documentLayouts = appStore(
+    (store) => store.state.studio.document.layouts,
+  );
+  const layoutImageMapping = appStore(
+    (store) => store.state.studio.layoutImageMapping,
+  );
+  const setLayoutIds = appStore(
+    (store) => store.effects.studio.layoutImageMapping.setLayoutIds,
+  );
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [selectedLayouts, setSelectedLayouts] = useState<string[]>(
-    layoutImageMapping.find((lc) => lc.id === layoutConfig.id)
-      ?.layoutIds || [],
+    layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || [],
   );
 
   // Get all layout IDs that are already assigned to other LayoutMaps
@@ -170,9 +175,8 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
             };
           })}
           value={
-            layoutImageMapping.find(
-              (lc) => lc.id === layoutConfig.id,
-            )?.layoutIds
+            layoutImageMapping.find((lc) => lc.id === layoutConfig.id)
+              ?.layoutIds
           }
           onChange={handleMultiSelectChange}
           placeholder="Select layouts"

@@ -43,7 +43,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
     childrenLayoutIds: string[],
     onlyLeafs: boolean,
     skipUnavailable: boolean = true,
-    recur = 0
+    recur = 0,
   ) => {
     const leafNames: string[] = [];
     const leafIds: string[] = [];
@@ -60,7 +60,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
           throw new Error(`Failed to get layout with id ${id}`);
         }
         return layoutResult.value as Layout;
-      })
+      }),
     );
 
     console.log({
@@ -91,7 +91,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
             child.childLayouts,
             onlyLeafs,
             skipUnavailable,
-            recur + 1
+            recur + 1,
           );
 
           console.log({
@@ -114,7 +114,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
           child.childLayouts,
           onlyLeafs,
           skipUnavailable,
-          recur + 1
+          recur + 1,
         );
         leafNames.push(...childLeaves.names);
         leafIds.push(...childLeaves.ids);
@@ -145,38 +145,41 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
 
     // Find all layouts that start with ✨
     const magicLayouts = layouts.filter((layout) =>
-      layout.name.startsWith("✨")
+      layout.name.startsWith("✨"),
     );
 
     // Create a map of magic layouts to their corresponding normal layouts
-    const muggleToMagicLayouts = magicLayouts.reduce((acc, magicLayout) => {
-      const normalLayoutName = magicLayout.name.replace("✨", "");
-      const normalLayout = layouts.find(
-        (layout) => layout.name === normalLayoutName
-      );
-      if (normalLayout) {
-        acc[normalLayout.name] = magicLayout.name;
+    const muggleToMagicLayouts = magicLayouts.reduce(
+      (acc, magicLayout) => {
+        const normalLayoutName = magicLayout.name.replace("✨", "");
+        const normalLayout = layouts.find(
+          (layout) => layout.name === normalLayoutName,
+        );
+        if (normalLayout) {
+          acc[normalLayout.name] = magicLayout.name;
 
-        // if (!acc[magicLayout.id]) {
-        //   acc[magicLayout.id] = [];
-        // }
+          // if (!acc[magicLayout.id]) {
+          //   acc[magicLayout.id] = [];
+          // }
 
-        // acc[magicLayout.id].push(normalLayout.name);
-      }
-      return acc;
-    }, {} as Record<string, string>);
+          // acc[magicLayout.id].push(normalLayout.name);
+        }
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
 
     // For each normal layout that has a magic counterpart, find all its children
     for (const [normalLayoutName, magicLayoutName] of Object.entries(
-      muggleToMagicLayouts
+      muggleToMagicLayouts,
     )) {
       const normalLayout = layouts.find(
-        (layout) => layout.name === normalLayoutName
+        (layout) => layout.name === normalLayoutName,
       );
       if (normalLayout) {
         const allChildren = await gatherAllChildren(
           normalLayout.childLayouts,
-          false
+          false,
         );
         // Add all children to muggleToMagicLayouts with the same magic layout name
         allChildren.names.forEach((childName) => {
@@ -187,14 +190,14 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
 
     const childrenIds: string[] = [];
 
-   const result = await getAllVariables(window.SDK);
-   if (result.isOk()) {
-     const variables = result.value;
-     const idsToDelete = variables
-       .filter((variable) => variable.name.startsWith("✨"))
-       .map((variable) => variable.id);
-     await deleteVariables(window.SDK, idsToDelete);
-   }
+    const result = await getAllVariables(window.SDK);
+    if (result.isOk()) {
+      const variables = result.value;
+      const idsToDelete = variables
+        .filter((variable) => variable.name.startsWith("✨"))
+        .map((variable) => variable.id);
+      await deleteVariables(window.SDK, idsToDelete);
+    }
 
     // For each magic layout, create a variable with its children layout names
     for (const magicLayout of magicLayouts) {
@@ -202,14 +205,14 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       const leafChildren = await gatherAllChildren(
         magicLayout.childLayouts,
         true,
-        false
+        false,
       );
       console.log("LEAF CHILDREN", leafChildren);
       const childrenNames = leafChildren.names;
       childrenIds.push(...leafChildren.ids);
 
       (await gatherAllChildren(magicLayout.childLayouts, false)).ids.forEach(
-        (id) => setLayoutAvailable(window.SDK, id, false)
+        (id) => setLayoutAvailable(window.SDK, id, false),
       );
 
       // // If the layout has a childLayouts property, also include those names
@@ -245,7 +248,9 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
 
       if (visibilityResult.isError()) {
         raiseError(
-          new Error(`Failed to set visibility for variable ${magicLayout.name}`)
+          new Error(
+            `Failed to set visibility for variable ${magicLayout.name}`,
+          ),
         );
         // Continue with other variables even if one fails
       }
@@ -269,7 +274,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
     // Check if AUTO_GEN_MAGIC variable exists
     let autoGenMagicId: string;
     const existingAutoGenMagic = allVariables.find(
-      (variable) => variable.name === "AUTO_GEN_MAGIC"
+      (variable) => variable.name === "AUTO_GEN_MAGIC",
     );
 
     if (existingAutoGenMagic) {
@@ -296,7 +301,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
 
       if (!getByNameResult.value) {
         raiseError(
-          new Error("AUTO_GEN_MAGIC variable not found after creation")
+          new Error("AUTO_GEN_MAGIC variable not found after creation"),
         );
         throw new Error("AUTO_GEN_MAGIC variable not found after creation");
       }
@@ -307,7 +312,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
     // Find all magic variables we created and move them under AUTO_GEN_MAGIC if needed
     const magicVariableNames = magicLayouts.map((layout) => layout.name);
     const magicVariables = allVariables.filter((variable) =>
-      magicVariableNames.includes(variable.name)
+      magicVariableNames.includes(variable.name),
     );
 
     // Move variables that don't have the correct parentId
@@ -322,7 +327,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
 
         if (moveResult.isError()) {
           raiseError(
-            new Error(`Failed to move variable ${magicVariable.name}`)
+            new Error(`Failed to move variable ${magicVariable.name}`),
           );
           throw new Error(`Failed to move variable ${magicVariable.name}`);
         }
@@ -346,7 +351,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
 
     // Filter to only child layouts (layouts that have a parentId)
     const childLayouts = allLayouts.filter((layout) =>
-      childrenIds.includes(layout.id)
+      childrenIds.includes(layout.id),
     );
 
     // Create object with child layout names as keys and {w, h} as values
@@ -388,15 +393,15 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
     for (const layout of childLayouts) {
       const framePropertiesResult = await getPropertiesOnLayout(
         window.SDK,
-        layout.id
+        layout.id,
       );
 
       if (framePropertiesResult.isError()) {
         raiseError(
-          new Error(`Failed to get frame properties for layout ${layout.name}`)
+          new Error(`Failed to get frame properties for layout ${layout.name}`),
         );
         throw new Error(
-          `Failed to get frame properties for layout ${layout.name}`
+          `Failed to get frame properties for layout ${layout.name}`,
         );
       }
 
@@ -405,11 +410,11 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       if (!frameProperties || !Array.isArray(frameProperties)) {
         raiseError(
           new Error(
-            `Frame properties is not an array for layout ${layout.name}`
-          )
+            `Frame properties is not an array for layout ${layout.name}`,
+          ),
         );
         throw new Error(
-          `Frame properties is not an array for layout ${layout.name}`
+          `Frame properties is not an array for layout ${layout.name}`,
         );
       }
 
@@ -421,11 +426,11 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
         if (!frameProps) {
           raiseError(
             new Error(
-              `Frame properties is null or undefined for layout ${layout.name}`
-            )
+              `Frame properties is null or undefined for layout ${layout.name}`,
+            ),
           );
           throw new Error(
-            `Frame properties is null or undefined for layout ${layout.name}`
+            `Frame properties is null or undefined for layout ${layout.name}`,
           );
         }
 
@@ -445,11 +450,11 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
           if (!frameName) {
             raiseError(
               new Error(
-                `Failed to get frame name for frame ID ${frameProps.id}`
-              )
+                `Failed to get frame name for frame ID ${frameProps.id}`,
+              ),
             );
             throw new Error(
-              `Failed to get frame name for frame ID ${frameProps.id}`
+              `Failed to get frame name for frame ID ${frameProps.id}`,
             );
           }
 
@@ -497,7 +502,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
           { event: ActionEditorEvent.documentLoaded },
         ],
         script: script,
-      }
+      },
     );
 
     return updateResult;

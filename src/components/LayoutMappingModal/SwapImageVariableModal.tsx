@@ -15,21 +15,23 @@ export const SwapImageVariableModal: React.FC<SwapImageVariableModalProps> = ({
 }) => {
   // Modal effects
   const setIsSwapImageVariableModalOpen = appStore(
-    (state) => state.effects.modal.setIsSwapImageVariableModalOpen
+    (state) => state.effects.modal.setIsSwapImageVariableModalOpen,
   );
   const setCurrentSwapImageVariableSelected = appStore(
-    (state) => state.effects.modal.setCurrentSwapImageVariableSelected
+    (state) => state.effects.modal.setCurrentSwapImageVariableSelected,
   );
   const swapImageVariable = appStore(
-    (state) => state.effects.studio.layoutImageMapping.swapImageVariable
+    (state) => state.effects.studio.layoutImageMapping.swapImageVariable,
   );
   const variables = appStore((state) => state.state.studio.document.variables);
-  const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
+  const currentSelectedMapId = appStore(
+    (state) => state.state.modal.currentSelectedMapId,
+  );
   const currentSwapImageVariableSelected = appStore(
-    (state) => state.state.modal.currentSwapImageVariableSelected
+    (state) => state.state.modal.currentSwapImageVariableSelected,
   );
   const isSwapImageVariableModalOpen = appStore(
-    (state) => state.state.modal.isSwapImageVariableModalOpen
+    (state) => state.state.modal.isSwapImageVariableModalOpen,
   );
 
   const possibleVariableValues = useMemo(() => {
@@ -42,8 +44,11 @@ export const SwapImageVariableModal: React.FC<SwapImageVariableModalProps> = ({
         // Disable if the variable is the current one or already in the current map config
         disabled:
           (currentImageVariable && variable.id === currentImageVariable.id) ||
-          (currentMapConfig?.variables.some((v) => v.id === variable.id && 
-            (currentImageVariable ? v.id !== currentImageVariable.id : true))) ||
+          currentMapConfig?.variables.some(
+            (v) =>
+              v.id === variable.id &&
+              (currentImageVariable ? v.id !== currentImageVariable.id : true),
+          ) ||
           false,
       }));
 
@@ -66,7 +71,7 @@ export const SwapImageVariableModal: React.FC<SwapImageVariableModalProps> = ({
       oldImageVariableId: currentImageVariable.id,
       newImageVariableId: newImageVariableId,
     });
-    
+
     onClose();
   };
 
@@ -83,7 +88,9 @@ export const SwapImageVariableModal: React.FC<SwapImageVariableModalProps> = ({
           placeholder="Choose an image variable to swap with"
           data={possibleVariableValues}
           value={currentSwapImageVariableSelected}
-          onChange={(value) => value && setCurrentSwapImageVariableSelected(value)}
+          onChange={(value) =>
+            value && setCurrentSwapImageVariableSelected(value)
+          }
           searchable
         />
 

@@ -15,7 +15,9 @@ interface ConnectorReplacementModalProps {
   onClose: () => void;
   missingConnectors: DocumentConnector[];
   availableConnectors: Connector[];
-  onReplace: (replacements: { original: string; replacement: string }[]) => void;
+  onReplace: (
+    replacements: { original: string; replacement: string }[],
+  ) => void;
   nameMatches?: Record<string, string>;
 }
 
@@ -39,7 +41,7 @@ export function ConnectorReplacementModal({
 
   // Check if all missing connectors have replacements selected
   const allSelected = missingConnectors.every(
-    (connector) => replacements[connector.id] !== undefined
+    (connector) => replacements[connector.id] !== undefined,
   );
 
   const handleReplace = () => {
@@ -47,7 +49,7 @@ export function ConnectorReplacementModal({
       ([original, replacement]) => ({
         original,
         replacement,
-      })
+      }),
     );
     onReplace(replacementArray);
     onClose();
@@ -63,8 +65,8 @@ export function ConnectorReplacementModal({
     >
       <Stack>
         <Text size="sm">
-          The following connectors in your document were not found in your current environment.
-          Please select replacement connectors:
+          The following connectors in your document were not found in your
+          current environment. Please select replacement connectors:
         </Text>
 
         <Table>

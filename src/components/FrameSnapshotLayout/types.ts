@@ -1,4 +1,7 @@
-import type { FrameLayoutMap, FrameSnapshot } from "../../types/toolbarEnvelope";
+import type {
+  FrameLayoutMap,
+  FrameSnapshot,
+} from "../../types/toolbarEnvelope";
 
 // Enhanced type with layout name
 export interface EnhancedFrameLayoutMap extends FrameLayoutMap {
@@ -14,7 +17,7 @@ export interface EnhancedFrameSnapshot extends FrameSnapshot {
 
 // Type for the edit state
 export type EditState = {
-  key: string | null;  // "rowKey:field"
+  key: string | null; // "rowKey:field"
   value: string | number;
 };
 
@@ -32,7 +35,7 @@ export interface FrameLayoutCardProps {
     snapshots: EnhancedFrameSnapshot[];
   };
   onRemoveSnapshot: (layoutId: string, uniqueId: string) => Promise<void>;
-  onEditCell?: (layoutId:string, key: string, value: string | number) => void;
+  onEditCell?: (layoutId: string, key: string, value: string | number) => void;
   frameLayoutMaps: EnhancedFrameLayoutMap[];
   onUpdateFrameLayoutMaps: (updatedMaps: EnhancedFrameLayoutMap[]) => void;
 }
@@ -41,8 +44,13 @@ export interface FrameLayoutCardProps {
 export interface FrameSnapshotRowProps {
   snapshot: EnhancedFrameSnapshot;
   layoutId: string;
-  onRemoveSnapshot: (frameId: string, imageName: string, layoutId: string, uniqueId: string) => Promise<void>;
-  onEditCell?: (layoutId:string, key: string, value: string | number) => void;
+  onRemoveSnapshot: (
+    frameId: string,
+    imageName: string,
+    layoutId: string,
+    uniqueId: string,
+  ) => Promise<void>;
+  onEditCell?: (layoutId: string, key: string, value: string | number) => void;
   onCheckChange: (key: string, isChecked: boolean) => void;
   isChecked: boolean;
 }

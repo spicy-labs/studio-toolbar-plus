@@ -4,8 +4,8 @@ import { IconInfoCircle } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 
 export function AlertsContainer() {
-  const alerts = appStore(store => store.alerts);
-  const dismissAlert = appStore(store => store.dismissAlert);
+  const alerts = appStore((store) => store.alerts);
+  const dismissAlert = appStore((store) => store.dismissAlert);
 
   // Set up automatic dismissal after 10 seconds
   useEffect(() => {

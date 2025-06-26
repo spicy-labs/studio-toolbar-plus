@@ -100,7 +100,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showFramePositionViewer",
-                  event.currentTarget.checked
+                  event.currentTarget.checked,
                 )
               }
             />
@@ -137,7 +137,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showLayoutImageMapper",
-                  event.currentTarget.checked
+                  event.currentTarget.checked,
                 )
               }
             />
@@ -167,7 +167,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showConnectorCleanup",
-                  event.currentTarget.checked
+                  event.currentTarget.checked,
                 )
               }
             />
@@ -179,7 +179,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showManualCropManager",
-                  event.currentTarget.checked
+                  event.currentTarget.checked,
                 )
               }
             />

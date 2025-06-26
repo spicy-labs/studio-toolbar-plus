@@ -36,11 +36,21 @@ export const LayoutConfigSection: React.FC<LayoutConfigSectionProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const addLayoutMapFromCopy = appStore(store => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy);
-  const setIsImageVariableMappingModalOpen = appStore(store => store.effects.modal.setIsImageVariableMappingModalOpen);
-  const setCurrentSelectedMapId = appStore(store => store.effects.modal.setCurrentSelectedMapId);
-  const setCurrentAddImageMappingSelectedVariables = appStore(store => store.effects.modal.setCurrentAddImageMappingSelectedVariables);
-  const deleteLayoutMap = appStore(store => store.effects.studio.layoutImageMapping.deleteLayoutMap);
+  const addLayoutMapFromCopy = appStore(
+    (store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy,
+  );
+  const setIsImageVariableMappingModalOpen = appStore(
+    (store) => store.effects.modal.setIsImageVariableMappingModalOpen,
+  );
+  const setCurrentSelectedMapId = appStore(
+    (store) => store.effects.modal.setCurrentSelectedMapId,
+  );
+  const setCurrentAddImageMappingSelectedVariables = appStore(
+    (store) => store.effects.modal.setCurrentAddImageMappingSelectedVariables,
+  );
+  const deleteLayoutMap = appStore(
+    (store) => store.effects.studio.layoutImageMapping.deleteLayoutMap,
+  );
 
   return (
     <Paper key={index} p="md">
@@ -51,11 +61,7 @@ export const LayoutConfigSection: React.FC<LayoutConfigSectionProps> = ({
             <ActionIcon
               size="lg"
               radius="xl"
-              onClick={() =>
-                addLayoutMapFromCopy(
-                  mapConfig.id,
-                )
-              }
+              onClick={() => addLayoutMapFromCopy(mapConfig.id)}
             >
               <IconCopy />
             </ActionIcon>

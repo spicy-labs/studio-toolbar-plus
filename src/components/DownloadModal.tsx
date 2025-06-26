@@ -50,7 +50,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
     DocumentConnector[]
   >([]);
   const [availableConnectors, setAvailableConnectors] = useState<Connector[]>(
-    []
+    [],
   );
   const [pendingJsonContent, setPendingJsonContent] = useState<string>("");
   const [nameMatches, setNameMatches] = useState<Record<string, string>>({});
@@ -66,7 +66,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -75,8 +75,8 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       if (!documentResult.isOk()) {
         raiseError(
           new Error(
-            documentResult.error?.message || "Failed to get document state"
-          )
+            documentResult.error?.message || "Failed to get document state",
+          ),
         );
         return;
       }
@@ -105,7 +105,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -114,8 +114,8 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       if (!documentResult.isOk()) {
         raiseError(
           new Error(
-            documentResult.error?.message || "Failed to get document state"
-          )
+            documentResult.error?.message || "Failed to get document state",
+          ),
         );
         return;
       }
@@ -186,7 +186,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
-            }
+            },
           );
 
           if (templateResponse.ok) {
@@ -200,7 +200,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
           raiseError(
             error instanceof Error
               ? error
-              : new Error("Failed to fetch template name")
+              : new Error("Failed to fetch template name"),
           );
         }
       }
@@ -244,7 +244,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -253,8 +253,8 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       if (!documentResult.isOk()) {
         raiseError(
           new Error(
-            documentResult.error?.message || "Failed to get document state"
-          )
+            documentResult.error?.message || "Failed to get document state",
+          ),
         );
         return;
       }
@@ -296,7 +296,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   const downloadDocumentFonts = async (
     fontFamilies: FontFamily[],
     token: string,
-    baseUrl: string
+    baseUrl: string,
   ) => {
     try {
       const downloadedFonts = new Set<string>(); // For deduplication
@@ -327,21 +327,21 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                   Authorization: `Bearer ${token}`,
                   "Content-Type": "application/json",
                 },
-              }
+              },
             );
 
             if (fontStyleResponse.ok) {
               const fontStylesData: FontStylesResponse =
                 await fontStyleResponse.json();
               const fontStyleDetails = fontStylesData.data.find(
-                (fs) => fs.id === style.fontStyleId
+                (fs) => fs.id === style.fontStyleId,
               );
 
               if (fontStyleDetails) {
                 const lastDotIndex = fontStyleDetails.fileName.lastIndexOf(".");
                 const fontBaseName = fontStyleDetails.fileName.slice(
                   0,
-                  lastDotIndex
+                  lastDotIndex,
                 );
 
                 // Check for deduplication using the base font name
@@ -368,8 +368,8 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               error instanceof Error
                 ? error
                 : new Error(
-                    `Failed to get font style details for ${style.name}`
-                  )
+                    `Failed to get font style details for ${style.name}`,
+                  ),
             );
           }
         }
@@ -386,7 +386,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            }
+            },
           );
 
           if (fontDownloadResponse.ok) {
@@ -412,7 +412,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
           raiseError(
             error instanceof Error
               ? error
-              : new Error(`Error downloading font ${style.name}`)
+              : new Error(`Error downloading font ${style.name}`),
           );
         }
       }
@@ -420,7 +420,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       // Create and download the ledger file
       if (ledgerEntries.length > 0) {
         const ledgerContent = `# Font Ledger for ${templateName}\n\nThis file maps the display names to actual font file names:\n\n${ledgerEntries.join(
-          "\n"
+          "\n",
         )}`;
         const ledgerBlob = new Blob([ledgerContent], { type: "text/markdown" });
         const ledgerUrl = URL.createObjectURL(ledgerBlob);
@@ -449,7 +449,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
     sourceToken: string,
     sourceBaseUrl: string,
     targetToken: string,
-    targetBaseUrl: string
+    targetBaseUrl: string,
   ) => {
     try {
       setFontMigrationProgress({
@@ -466,12 +466,12 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             Authorization: `Bearer ${targetToken}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       if (!targetFontsResponse.ok) {
         throw new Error(
-          `Failed to fetch target fonts: ${targetFontsResponse.statusText}`
+          `Failed to fetch target fonts: ${targetFontsResponse.statusText}`,
         );
       }
 
@@ -482,7 +482,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       // Step 2: Compare source and target fonts
       for (const sourceFamily of sourceFontFamilies) {
         const targetFamily = targetFontsData.data.find(
-          (tf) => tf.name === sourceFamily.name
+          (tf) => tf.name === sourceFamily.name,
         );
 
         if (targetFamily) {
@@ -494,7 +494,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                 Authorization: `Bearer ${targetToken}`,
                 "Content-Type": "application/json",
               },
-            }
+            },
           );
 
           if (targetStylesResponse.ok) {
@@ -503,7 +503,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
 
             for (const sourceStyle of sourceFamily.fontStyles) {
               const targetStyle = targetStylesData.data.find(
-                (ts) => ts.name === sourceStyle.name
+                (ts) => ts.name === sourceStyle.name,
               );
 
               if (!targetStyle) {
@@ -553,14 +553,14 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               headers: {
                 Authorization: `Bearer ${sourceToken}`,
               },
-            }
+            },
           );
 
           if (!fontDownloadResponse.ok) {
             raiseError(
               new Error(
-                `Failed to download font: ${fontDownloadResponse.statusText}`
-              )
+                `Failed to download font: ${fontDownloadResponse.statusText}`,
+              ),
             );
             continue;
           }
@@ -572,7 +572,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
           formData.append(
             "file",
             fontBlob,
-            `${fontToMigrate.sourceFamily.name}-${fontToMigrate.sourceStyle.name}.ttf`
+            `${fontToMigrate.sourceFamily.name}-${fontToMigrate.sourceStyle.name}.ttf`,
           );
 
           const uploadResponse = await fetch(
@@ -583,12 +583,12 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                 Authorization: `Bearer ${targetToken}`,
               },
               body: formData,
-            }
+            },
           );
 
           if (!uploadResponse.ok) {
             raiseError(
-              new Error(`Failed to upload font: ${uploadResponse.statusText}`)
+              new Error(`Failed to upload font: ${uploadResponse.statusText}`),
             );
             continue;
           }
@@ -614,7 +614,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                     styleName: fontToMigrate.sourceStyle.name,
                   },
                 ]),
-              }
+              },
             );
 
             if (patchResponse.ok) {
@@ -626,14 +626,14 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                   headers: {
                     Authorization: `Bearer ${targetToken}`,
                   },
-                }
+                },
               );
 
               if (!confirmResponse.ok) {
                 raiseError(
                   new Error(
-                    `Failed to confirm font upload: ${confirmResponse.statusText}`
-                  )
+                    `Failed to confirm font upload: ${confirmResponse.statusText}`,
+                  ),
                 );
               }
             }
@@ -643,8 +643,8 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             error instanceof Error
               ? error
               : new Error(
-                  `Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`
-                )
+                  `Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`,
+                ),
           );
         }
       }
@@ -676,7 +676,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   };
 
   const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -700,7 +700,9 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             const studioResult = await getStudio();
             if (!studioResult.isOk()) {
               raiseError(
-                new Error(studioResult.error?.message || "Failed to get studio")
+                new Error(
+                  studioResult.error?.message || "Failed to get studio",
+                ),
               );
               return;
             }
@@ -708,7 +710,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             // Get token and baseUrl from configuration
             const token = (
               await studioResult.value.configuration.getValue(
-                "GRAFX_AUTH_TOKEN"
+                "GRAFX_AUTH_TOKEN",
               )
             ).parsedData;
             const baseUrl = (
@@ -726,7 +728,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
 
               if (!response.ok) {
                 throw new Error(
-                  `Failed to fetch connectors: ${response.statusText}`
+                  `Failed to fetch connectors: ${response.statusText}`,
                 );
               }
 
@@ -748,13 +750,13 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                 ) {
                   const sourceId = docConnector.source.id;
                   const foundConnector = connectorResponse.data.find(
-                    (c) => c.id === sourceId
+                    (c) => c.id === sourceId,
                   );
 
                   if (!foundConnector) {
                     // Try to find by name
                     const nameMatch = connectorResponse.data.find(
-                      (c) => c.name === docConnector.name
+                      (c) => c.name === docConnector.name,
                     );
 
                     if (nameMatch) {
@@ -778,7 +780,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               if (missingConnectorsList.length > 0) {
                 // Check if all missing connectors have name matches
                 const allHaveMatches = missingConnectorsList.every(
-                  (connector) => nameMatchesMap[connector.id] !== undefined
+                  (connector) => nameMatchesMap[connector.id] !== undefined,
                 );
 
                 if (!allHaveMatches) {
@@ -794,11 +796,11 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               await loadDocument(
                 studioResult.value,
                 updatedContent,
-                isPackageFile && hasStoredCredentials
+                isPackageFile && hasStoredCredentials,
               );
             } catch (error) {
               raiseError(
-                error instanceof Error ? error : new Error(String(error))
+                error instanceof Error ? error : new Error(String(error)),
               );
             }
           } else {
@@ -806,7 +808,9 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             const studioResult = await getStudio();
             if (!studioResult.isOk()) {
               raiseError(
-                new Error(studioResult.error?.message || "Failed to get studio")
+                new Error(
+                  studioResult.error?.message || "Failed to get studio",
+                ),
               );
               return;
             }
@@ -814,7 +818,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
             await loadDocument(
               studioResult.value,
               content,
-              isPackageFile && hasStoredCredentials
+              isPackageFile && hasStoredCredentials,
             );
           }
         } catch (parseError) {
@@ -824,8 +828,8 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
                 parseError instanceof Error
                   ? parseError.message
                   : String(parseError)
-              }`
-            )
+              }`,
+            ),
           );
         }
       };
@@ -842,7 +846,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   const loadDocument = async (
     studio: any,
     content: string,
-    isPackageFile = false
+    isPackageFile = false,
   ) => {
     try {
       const jsonData = JSON.parse(content);
@@ -880,7 +884,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               sourceToken,
               sourceBaseUrl,
               targetToken,
-              targetBaseUrl
+              targetBaseUrl,
             );
           }
         }
@@ -894,7 +898,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
       const loadResult = await loadDocumentFromJsonStr(studio, content);
       if (!loadResult.isOk()) {
         raiseError(
-          new Error(loadResult.error?.message || "Failed to load document")
+          new Error(loadResult.error?.message || "Failed to load document"),
         );
         return;
       }
@@ -906,7 +910,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
   };
 
   const handleConnectorReplacements = async (
-    replacements: { original: string; replacement: string }[]
+    replacements: { original: string; replacement: string }[],
   ) => {
     try {
       const jsonData = JSON.parse(pendingJsonContent);
@@ -918,7 +922,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         for (const docConnector of documentConnectors) {
           if (docConnector.source.source === "grafx") {
             const replacement = replacements.find(
-              (r) => r.original === docConnector.id
+              (r) => r.original === docConnector.id,
             );
             if (replacement) {
               docConnector.source.id = replacement.replacement;
@@ -930,7 +934,7 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
         const studioResult = await getStudio();
         if (!studioResult.isOk()) {
           raiseError(
-            new Error(studioResult.error?.message || "Failed to get studio")
+            new Error(studioResult.error?.message || "Failed to get studio"),
           );
           return;
         }
@@ -1085,18 +1089,18 @@ export function DownloadModal({ opened, onClose }: DownloadModalProps) {
               fontMigrationProgress.status === "checking"
                 ? "Checking Fonts"
                 : fontMigrationProgress.status === "downloading" ||
-                  fontMigrationProgress.status === "uploading"
-                ? `Number of Fonts To Move: ${fontMigrationProgress.completed}/${fontMigrationProgress.total}`
-                : fontMigrationProgress.status === "complete"
-                ? "Font Migration Complete"
-                : "Font Migration Error"
+                    fontMigrationProgress.status === "uploading"
+                  ? `Number of Fonts To Move: ${fontMigrationProgress.completed}/${fontMigrationProgress.total}`
+                  : fontMigrationProgress.status === "complete"
+                    ? "Font Migration Complete"
+                    : "Font Migration Error"
             }
             color={
               fontMigrationProgress.status === "error"
                 ? "red"
                 : fontMigrationProgress.status === "complete"
-                ? "green"
-                : "blue"
+                  ? "green"
+                  : "blue"
             }
             style={{ marginTop: "1rem" }}
           >
