@@ -1,3 +1,9 @@
+## 0.12.0
+
+### ✨ Added
+
+- Out Template feature to generate output files (JPG, PNG, PDF, GIF, MP4) from templates
+- Comprehensive error handling for output generation with detailed error reports
 
 ## 0.11.1
 
