@@ -20,19 +20,21 @@ export type AppConfig = {
   showTestError: boolean;
   showConnectorCleanup: boolean;
   showManualCropManager: boolean;
+  showOutput: boolean;
 };
 
 export const defaultConfig: AppConfig = {
   showSnapshot: false,
   showFramePositionViewer: false,
   showLayoutManager: false,
-  showMagicLayouts: true,
+  showMagicLayouts: false,
   showAspectLock: true,
   showLayoutImageMapper: true,
   showUploadDownload: true,
   showTestError: false,
   showConnectorCleanup: false,
   showManualCropManager: true,
+  showOutput: true,
 };
 
 interface ToolbarSettingsModalProps {
@@ -100,7 +102,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showFramePositionViewer",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
               }
             />
@@ -137,7 +139,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showLayoutImageMapper",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
               }
             />
@@ -167,7 +169,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showConnectorCleanup",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
               }
             />
@@ -179,8 +181,17 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showManualCropManager",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
+              }
+            />
+
+            <Switch
+              label="Output"
+              description="Generate output files from layouts"
+              checked={config.showOutput}
+              onChange={(event) =>
+                handleToggle("showOutput", event.currentTarget.checked)
               }
             />
           </Stack>
