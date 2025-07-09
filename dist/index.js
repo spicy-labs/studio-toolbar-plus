@@ -59824,14 +59824,14 @@ var defaultConfig = {
   showSnapshot: false,
   showFramePositionViewer: false,
   showLayoutManager: false,
-  showMagicLayouts: true,
+  showMagicLayouts: false,
   showAspectLock: true,
   showLayoutImageMapper: true,
   showUploadDownload: true,
   showTestError: false,
   showConnectorCleanup: false,
   showManualCropManager: true,
-  showOutTemplate: true
+  showOutput: true
 };
 function ToolbarSettingsModal({
   opened,
@@ -59935,10 +59935,10 @@ function ToolbarSettingsModal({
                 onChange: (event) => handleToggle("showManualCropManager", event.currentTarget.checked)
               }),
               /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Out Template",
-                description: "Generate output files from templates",
-                checked: config.showOutTemplate,
-                onChange: (event) => handleToggle("showOutTemplate", event.currentTarget.checked)
+                label: "Output",
+                description: "Generate output files from layouts",
+                checked: config.showOutput,
+                onChange: (event) => handleToggle("showOutput", event.currentTarget.checked)
               })
             ]
           })
@@ -60281,15 +60281,15 @@ function Toolbar() {
                   })
                 })
               }),
-              appConfig.showOutTemplate && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
-                label: "Out Template",
+              appConfig.showOutput && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+                label: "Output",
                 position: "bottom",
                 withArrow: true,
                 children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
                   variant: "filled",
                   color: "blue",
                   size: "lg",
-                  "aria-label": "Out Template",
+                  "aria-label": "Output",
                   onClick: handleOutTemplate,
                   children: /* @__PURE__ */ jsx_runtime32.jsx(IconDownload, {
                     size: 20
@@ -60389,7 +60389,7 @@ function Toolbar() {
         opened: isManualCropManagerModalOpen,
         onClose: () => setIsManualCropManagerModalOpen(false)
       }),
-      appConfig.showOutTemplate && /* @__PURE__ */ jsx_runtime32.jsx(OutTemplateModal, {
+      appConfig.showOutput && /* @__PURE__ */ jsx_runtime32.jsx(OutTemplateModal, {
         opened: isOutTemplateModalOpen,
         onClose: () => setIsOutTemplateModalOpen(false)
       }),
@@ -60565,4 +60565,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=950D4BE231CE1AE464756E2164756E21
+//# debugId=A3151079D5EDD5F564756E2164756E21
