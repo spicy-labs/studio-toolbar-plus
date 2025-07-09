@@ -20,21 +20,21 @@ export type AppConfig = {
   showTestError: boolean;
   showConnectorCleanup: boolean;
   showManualCropManager: boolean;
-  showOutTemplate: boolean;
+  showOutput: boolean;
 };
 
 export const defaultConfig: AppConfig = {
   showSnapshot: false,
   showFramePositionViewer: false,
   showLayoutManager: false,
-  showMagicLayouts: true,
+  showMagicLayouts: false,
   showAspectLock: true,
   showLayoutImageMapper: true,
   showUploadDownload: true,
   showTestError: false,
   showConnectorCleanup: false,
   showManualCropManager: true,
-  showOutTemplate: true,
+  showOutput: true,
 };
 
 interface ToolbarSettingsModalProps {
@@ -187,11 +187,11 @@ export function ToolbarSettingsModal({
             />
 
             <Switch
-              label="Out Template"
-              description="Generate output files from templates"
-              checked={config.showOutTemplate}
+              label="Output"
+              description="Generate output files from layouts"
+              checked={config.showOutput}
               onChange={(event) =>
-                handleToggle("showOutTemplate", event.currentTarget.checked)
+                handleToggle("showOutput", event.currentTarget.checked)
               }
             />
           </Stack>

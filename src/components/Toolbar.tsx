@@ -418,13 +418,13 @@ export function Toolbar() {
                   </ActionIcon>
                 </Tooltip>
               )}
-              {appConfig.showOutTemplate && (
-                <Tooltip label="Out Template" position="bottom" withArrow>
+              {appConfig.showOutput && (
+                <Tooltip label="Output" position="bottom" withArrow>
                   <ActionIcon
                     variant="filled"
                     color="blue"
                     size="lg"
-                    aria-label="Out Template"
+                    aria-label="Output"
                     onClick={handleOutTemplate}
                   >
                     <IconDownload size={20} />
@@ -536,7 +536,7 @@ export function Toolbar() {
       )}
 
       {/* Out Template Modal */}
-      {appConfig.showOutTemplate && (
+      {appConfig.showOutput && (
         <OutTemplateModal
           opened={isOutTemplateModalOpen}
           onClose={() => setIsOutTemplateModalOpen(false)}
