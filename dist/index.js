@@ -57280,24 +57280,33 @@ function setManualCropsForLayout(documentState, layoutId, connectorId, manualCro
 
 // src/studio-adapter/deleteManualCropsForLayout.ts
 init_dist();
-function deleteManualCropsForLayout(documentState, layoutId, connectorId) {
+function deleteSingleManualCropForLayout(documentState, layoutId, connectorId, frameId, assetName) {
   try {
     const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
     const layout = updatedDocumentState.layouts?.find((l2) => l2.id === layoutId);
     if (!layout) {
       return Result.error(new Error(`Layout with ID ${layoutId} not found`));
     }
-    for (const frameProperty of layout.frameProperties) {
-      if (frameProperty.perAssetCrop && frameProperty.perAssetCrop[connectorId]) {
-        delete frameProperty.perAssetCrop[connectorId];
-        if (Object.keys(frameProperty.perAssetCrop).length === 0) {
-          delete frameProperty.perAssetCrop;
-        }
-      }
+    const frameProperty = layout.frameProperties?.find((fp) => fp.id === frameId);
+    if (!frameProperty) {
+      return Result.error(new Error(`Frame with ID ${frameId} not found in layout ${layoutId}`));
+    }
+    if (!frameProperty.perAssetCrop || !frameProperty.perAssetCrop[connectorId]) {
+      return Result.error(new Error(`No crops found for connector ${connectorId} in frame ${frameId}`));
+    }
+    if (!frameProperty.perAssetCrop[connectorId][assetName]) {
+      return Result.error(new Error(`Asset ${assetName} not found for connector ${connectorId} in frame ${frameId}`));
+    }
+    delete frameProperty.perAssetCrop[connectorId][assetName];
+    if (Object.keys(frameProperty.perAssetCrop[connectorId]).length === 0) {
+      delete frameProperty.perAssetCrop[connectorId];
+    }
+    if (Object.keys(frameProperty.perAssetCrop).length === 0) {
+      delete frameProperty.perAssetCrop;
     }
     return Result.ok(updatedDocumentState);
   } catch (error) {
-    return Result.error(error instanceof Error ? error : new Error("Failed to delete manual crops for layout"));
+    return Result.error(error instanceof Error ? error : new Error("Failed to delete single manual crop for layout"));
   }
 }
 
@@ -58437,20 +58446,32 @@ function ManualCropEditor({
       let currentDocumentState = originalDocumentState2;
       for (const [layoutId, deleteIndices] of layoutDeletes) {
         if (deleteIndices.size > 0) {
-          const result = deleteManualCropsForLayout(currentDocumentState, layoutId, selectedConnectorId);
-          if (result.isError()) {
-            raiseError2(new Error("Failed to delete manual crops: " + result.error?.message));
-            setSaveState("error");
-            setSaveMessage("Error reverting changes...");
-            if (originalDocumentState2) {
-              const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
-              if (revertResult.isError()) {
-                raiseError2(new Error("Failed to revert changes after error"));
-              }
-            }
+          const layoutCrop = layoutCrops.get(layoutId);
+          if (!layoutCrop) {
+            raiseError2(new Error(`Layout crops not found for layout ${layoutId}`));
             return;
           }
-          currentDocumentState = result.value;
+          for (const cropIndex of deleteIndices) {
+            const crop = layoutCrop.crops[cropIndex];
+            if (!crop) {
+              raiseError2(new Error(`Crop at index ${cropIndex} not found in layout ${layoutId}`));
+              return;
+            }
+            const result = deleteSingleManualCropForLayout(currentDocumentState, layoutId, selectedConnectorId, crop.frameId, crop.name);
+            if (result.isError()) {
+              raiseError2(new Error(`Failed to delete manual crop ${crop.name} in frame ${crop.frameId}: ${result.error?.message}`));
+              setSaveState("error");
+              setSaveMessage("Error reverting changes...");
+              if (originalDocumentState2) {
+                const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+                if (revertResult.isError()) {
+                  raiseError2(new Error("Failed to revert changes after error"));
+                }
+              }
+              return;
+            }
+            currentDocumentState = result.value;
+          }
         }
       }
       for (const [layoutId, cropChanges] of layoutChanges) {
@@ -60565,4 +60586,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=A3151079D5EDD5F564756E2164756E21
+//# debugId=0D004F23C249943064756E2164756E21

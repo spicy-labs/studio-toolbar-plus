@@ -1,3 +1,9 @@
+## 0.12.1
+
+### 🐛 Fixed
+
+- Issue where deleting a single crop would delete all crops in a layout
+
 ## 0.12.0
 
 ### ✨ Added
