@@ -1,0 +1,609 @@
+{
+  "selectedLayoutId": "0",
+  "sdkVersion": "1.25.1",
+  "engineVersion": "2.8.1",
+  "documentVersion": "0.8.1",
+  "properties": {
+    "type": "template"
+  },
+  "pages": [
+    {
+      "id": "0",
+      "number": 0,
+      "frames": [
+        {
+          "id": "1",
+          "name": "Image",
+          "type": "image",
+          "src": {
+            "id": "622cfcfd-726a-41f6-bd89-a9928d03211d",
+            "assetId": "{\"format\":\"image/png\",\"availableRenditions\":[\"cq5dam.thumbnail.140.100.png\",\"cq5dam.thumbnail.319.319.png\"],\"path\":\"/content/dam/tccc/template-components/chili/2025/testing/Genie.png\"}",
+            "type": "connector"
+          },
+          "blendMode": "normal"
+        },
+        {
+          "id": "2",
+          "name": "Image 1",
+          "type": "image",
+          "src": {
+            "id": "8a6e7471-acdb-479b-a7bd-8467dcfeeb0d",
+            "assetId": "916e7a99-f3cf-4887-8ccd-debf8713e5bf",
+            "type": "connector"
+          },
+          "blendMode": "normal"
+        },
+        {
+          "id": "3",
+          "name": "Text",
+          "type": "text",
+          "textContent": [
+            {
+              "type": "paragraph"
+            },
+            {
+              "type": "span",
+              "style": {
+                "fontKey": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::5ce80c13-dc59-4073-b084-a06a535eaf11"
+              }
+            },
+            {
+              "text": "sdfdsafsd sdfsdf ",
+              "type": "text"
+            },
+            {
+              "type": "span",
+              "style": {
+                "fontKey": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::20d32000-cab0-4717-8ab7-3691f86466d4"
+              }
+            },
+            {
+              "text": "sdfsd",
+              "type": "text"
+            }
+          ],
+          "paddingLeft": 0,
+          "paddingTop": 0,
+          "paddingRight": 0,
+          "paddingBottom": 0,
+          "numberOfColumns": 1,
+          "columnGap": 5000,
+          "textDirection": "auto",
+          "flowDirection": "horizontal",
+          "verticalAlign": "top",
+          "textStroke": false,
+          "textStrokeWeight": 1000,
+          "textStrokeColor": 0,
+          "hasClippingPath": false,
+          "blendMode": "normal"
+        },
+        {
+          "id": "4",
+          "name": "Image 2",
+          "type": "image",
+          "src": {
+            "id": "b2a96ec8-11f5-477d-901d-3c0112e9736f",
+            "assetId": "/content/dam/tccc/template-components/chili/2025/testing/the-image.pdf",
+            "type": "connector",
+            "smartCropData": {
+              "pointOfInterest": {
+                "x": 0.061224489795918366,
+                "y": 0.08928571428571429
+              },
+              "subjectArea": {
+                "x": 0,
+                "y": 0,
+                "width": 0.21173469387755103,
+                "height": 0.34566326530612246
+              }
+            }
+          },
+          "blendMode": "normal"
+        }
+      ],
+      "isVisible": true
+    }
+  ],
+  "layouts": [
+    {
+      "id": "0",
+      "name": "A4",
+      "frameProperties": [
+        {
+          "id": "1",
+          "horizontal": {
+            "start": 0.07571424971651756,
+            "end": 0.07571424971651745,
+            "target": {
+              "type": "page"
+            },
+            "type": "relative"
+          },
+          "vertical": {
+            "start": 0.041685364697721376,
+            "end": 0.05831463530227851,
+            "target": {
+              "type": "page"
+            },
+            "type": "relative"
+          },
+          "width": 505133,
+          "height": 757700,
+          "rotationDegrees": 0,
+          "rotationOriginY": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "isVisible": true,
+          "imageFit": {
+            "mode": "fill",
+            "position": "center"
+          },
+          "type": "top",
+          "copyfittingSettings": {
+            "type": "top",
+            "min": 0.1,
+            "max": 10,
+            "enabled": false
+          },
+          "autoGrowSettings": {
+            "type": "top",
+            "directions": [],
+            "enabled": false
+          }
+        },
+        {
+          "id": "2",
+          "horizontal": {
+            "start": 0.008399479232287599,
+            "end": 0.8051320818109278,
+            "target": {
+              "type": "page"
+            },
+            "type": "relative"
+          },
+          "vertical": {
+            "start": 4.321209574055146e-18,
+            "end": 0.8776560805521868,
+            "target": {
+              "type": "page"
+            },
+            "type": "relative"
+          },
+          "width": 111000,
+          "height": 103000,
+          "rotationDegrees": 0,
+          "rotationOriginY": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "isVisible": true,
+          "imageFit": {
+            "mode": "fill",
+            "position": "center"
+          },
+          "type": "top",
+          "copyfittingSettings": {
+            "type": "top",
+            "min": 0.1,
+            "max": 10,
+            "enabled": false
+          },
+          "autoGrowSettings": {
+            "type": "top",
+            "directions": [],
+            "enabled": false
+          }
+        },
+        {
+          "id": "3",
+          "horizontal": {
+            "start": 0.692117088740498,
+            "end": 0.0844567636806518,
+            "target": {
+              "type": "page"
+            },
+            "type": "relative"
+          },
+          "vertical": {
+            "start": 0.027319515993201003,
+            "end": 0.866965835163543,
+            "target": {
+              "type": "page"
+            },
+            "type": "relative"
+          },
+          "width": 133000,
+          "height": 89000,
+          "rotationDegrees": 0,
+          "rotationOriginY": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "isVisible": true,
+          "imageFit": {
+            "mode": "fill",
+            "position": "center"
+          },
+          "type": "top",
+          "copyfittingSettings": {
+            "type": "top",
+            "min": 0.1,
+            "max": 10,
+            "enabled": false
+          },
+          "autoGrowSettings": {
+            "type": "top",
+            "directions": [],
+            "enabled": false
+          }
+        },
+        {
+          "id": "4",
+          "horizontal": {
+            "start": 0.2535050464666466,
+            "end": 0.270304957313119,
+            "target": {
+              "type": "page"
+            },
+            "type": "relative"
+          },
+          "vertical": {
+            "start": 0.24612771580984313,
+            "end": 0.4171723154294295,
+            "target": {
+              "type": "page"
+            },
+            "type": "relative"
+          },
+          "width": 283464,
+          "height": 283464,
+          "rotationDegrees": 0,
+          "rotationOriginY": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "isVisible": true,
+          "imageFit": {
+            "mode": "smartCrop",
+            "position": "center"
+          },
+          "type": "top",
+          "copyfittingSettings": {
+            "type": "top",
+            "min": 0.1,
+            "max": 10,
+            "enabled": false
+          },
+          "autoGrowSettings": {
+            "type": "top",
+            "directions": [],
+            "enabled": false
+          },
+          "perAssetCrop": {
+            "b2a96ec8-11f5-477d-901d-3c0112e9736f": {
+              "/content/dam/tccc/template-components/chili/2025/testing/the-image.pdf": {
+                "left": -0.8395892664682774,
+                "top": -0.3618459925232415,
+                "width": 2.892988929889299,
+                "height": 2.8929889298892983,
+                "rotationDegrees": 0,
+                "originalParentWidth": 283464,
+                "originalParentHeight": 283464
+              }
+            }
+          }
+        }
+      ],
+      "width": 595275,
+      "height": 841889,
+      "childLayouts": [
+        "1",
+        "2",
+        "3"
+      ],
+      "type": "top",
+      "unit": "mm",
+      "intent": "print",
+      "fillColor": {
+        "color": {
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "type": "rgb"
+        },
+        "opacity": 1,
+        "type": "local"
+      },
+      "fillColorEnabled": true,
+      "bleed": {
+        "value": 8503,
+        "type": "combined"
+      },
+      "privateData": {},
+      "availableForUser": true,
+      "resizableByUser": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "1",
+      "name": "A4 1",
+      "parentId": "0",
+      "frameProperties": [
+        {
+          "id": "1",
+          "type": "child"
+        },
+        {
+          "id": "2",
+          "type": "child"
+        },
+        {
+          "id": "3",
+          "type": "child"
+        },
+        {
+          "id": "4",
+          "type": "child"
+        }
+      ],
+      "childLayouts": [],
+      "type": "child",
+      "privateData": {},
+      "availableForUser": true,
+      "resizableByUser": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "2",
+      "name": "A4 2",
+      "parentId": "0",
+      "frameProperties": [
+        {
+          "id": "1",
+          "type": "child"
+        },
+        {
+          "id": "2",
+          "type": "child"
+        },
+        {
+          "id": "3",
+          "type": "child"
+        },
+        {
+          "id": "4",
+          "perAssetCrop": {
+            "b2a96ec8-11f5-477d-901d-3c0112e9736f": {
+              "/content/dam/tccc/template-components/chili/2025/testing/the-image.pdf": {
+                "left": -1.7495781981603904,
+                "top": -0.7272746186358223,
+                "width": 2.892988929889299,
+                "height": 2.8929889298892983,
+                "rotationDegrees": 0,
+                "originalParentWidth": 283464,
+                "originalParentHeight": 283464
+              }
+            }
+          },
+          "type": "child"
+        }
+      ],
+      "childLayouts": [],
+      "type": "child",
+      "privateData": {},
+      "availableForUser": true,
+      "resizableByUser": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "3",
+      "name": "A4 3",
+      "parentId": "0",
+      "frameProperties": [
+        {
+          "id": "1",
+          "type": "child"
+        },
+        {
+          "id": "2",
+          "type": "child"
+        },
+        {
+          "id": "3",
+          "type": "child"
+        },
+        {
+          "id": "4",
+          "perAssetCrop": {
+            "b2a96ec8-11f5-477d-901d-3c0112e9736f": {
+              "/content/dam/tccc/template-components/chili/2025/testing/the-image.pdf": {
+                "left": -1.7495781981603904,
+                "top": -0.7272746186358223,
+                "width": 2.892988929889299,
+                "height": 2.8929889298892983,
+                "rotationDegrees": 0,
+                "originalParentWidth": 283464,
+                "originalParentHeight": 283464
+              }
+            }
+          },
+          "type": "child"
+        }
+      ],
+      "childLayouts": [],
+      "type": "child",
+      "privateData": {},
+      "availableForUser": true,
+      "resizableByUser": {
+        "enabled": false
+      }
+    }
+  ],
+  "stylekit": {
+    "colors": [],
+    "characterStyles": [],
+    "paragraphStyles": [],
+    "fontFamilies": [
+      {
+        "id": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182",
+        "name": "TCCC-UnityHeadline",
+        "connectorId": "grafx-fonts",
+        "fontFamilyId": "485c1e08-d60a-42ad-896e-7db627dc0182",
+        "fontStyles": [
+          {
+            "id": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::fc30f534-5d9b-41de-a550-8decf3b0a272",
+            "fontStyleId": "fc30f534-5d9b-41de-a550-8decf3b0a272",
+            "fontFamilyId": "485c1e08-d60a-42ad-896e-7db627dc0182",
+            "connectorId": "grafx-fonts",
+            "name": "Light 300",
+            "isDefault": false
+          },
+          {
+            "id": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::a9658afb-2c29-4f14-b380-34f74bb6606c",
+            "fontStyleId": "a9658afb-2c29-4f14-b380-34f74bb6606c",
+            "fontFamilyId": "485c1e08-d60a-42ad-896e-7db627dc0182",
+            "connectorId": "grafx-fonts",
+            "name": "Regular 400",
+            "isDefault": false
+          },
+          {
+            "id": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::67922a4c-eca6-465d-ae3a-6ad20bf63eea",
+            "fontStyleId": "67922a4c-eca6-465d-ae3a-6ad20bf63eea",
+            "fontFamilyId": "485c1e08-d60a-42ad-896e-7db627dc0182",
+            "connectorId": "grafx-fonts",
+            "name": "Medium 500",
+            "isDefault": false
+          },
+          {
+            "id": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::20d32000-cab0-4717-8ab7-3691f86466d4",
+            "fontStyleId": "20d32000-cab0-4717-8ab7-3691f86466d4",
+            "fontFamilyId": "485c1e08-d60a-42ad-896e-7db627dc0182",
+            "connectorId": "grafx-fonts",
+            "name": "Semi Bold 600",
+            "isDefault": false
+          },
+          {
+            "id": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::083e0a4f-fd00-4eb2-a8c1-71e93bb7f5b5",
+            "fontStyleId": "083e0a4f-fd00-4eb2-a8c1-71e93bb7f5b5",
+            "fontFamilyId": "485c1e08-d60a-42ad-896e-7db627dc0182",
+            "connectorId": "grafx-fonts",
+            "name": "Bold 700",
+            "isDefault": false
+          },
+          {
+            "id": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::5ce80c13-dc59-4073-b084-a06a535eaf11",
+            "fontStyleId": "5ce80c13-dc59-4073-b084-a06a535eaf11",
+            "fontFamilyId": "485c1e08-d60a-42ad-896e-7db627dc0182",
+            "connectorId": "grafx-fonts",
+            "name": "Extra Bold 800",
+            "isDefault": false
+          },
+          {
+            "id": "grafx-fonts::485c1e08-d60a-42ad-896e-7db627dc0182::a19f21cc-dd45-4bab-8ca5-1aed6396b838",
+            "fontStyleId": "a19f21cc-dd45-4bab-8ca5-1aed6396b838",
+            "fontFamilyId": "485c1e08-d60a-42ad-896e-7db627dc0182",
+            "connectorId": "grafx-fonts",
+            "name": "Black 900",
+            "isDefault": false
+          }
+        ]
+      }
+    ]
+  },
+  "variables": [
+    {
+      "id": "014a708e-6427-4f82-98db-ec3189b51a4e",
+      "type": "image",
+      "parentId": "",
+      "name": "Image",
+      "visibility": {
+        "type": "visible"
+      },
+      "isReadonly": false,
+      "isRequired": false,
+      "value": {
+        "connectorId": "aa92faf8-7a97-4aa6-a273-1086f61af928",
+        "assetId": "e66b848b-ff40-4845-b921-e6a21d7ad16f"
+      },
+      "resolved": {
+        "mediaId": "e66b848b-ff40-4845-b921-e6a21d7ad16f"
+      },
+      "privateData": {},
+      "allowQuery": true,
+      "allowUpload": false
+    }
+  ],
+  "connectors": [
+    {
+      "id": "grafx-media",
+      "name": "GraFx Media",
+      "source": {
+        "source": "local",
+        "url": "grafx-media.json"
+      },
+      "options": {},
+      "mappings": []
+    },
+    {
+      "id": "grafx-fonts",
+      "name": "GraFx Fonts",
+      "source": {
+        "source": "local",
+        "url": "grafx-fonts.json"
+      },
+      "options": {},
+      "mappings": []
+    },
+    {
+      "id": "5c5a0be4-a47c-4b19-b544-4ff5bd80e625",
+      "name": "AEM",
+      "source": {
+        "id": "2e986109-b2a4-4f80-84dd-30e6a5aaf375",
+        "source": "grafx"
+      },
+      "options": {},
+      "mappings": []
+    },
+    {
+      "id": "622cfcfd-726a-41f6-bd89-a9928d03211d",
+      "name": "AEM2",
+      "source": {
+        "id": "ac3111ca-1666-4e06-85f0-4d9b7ed7fe68",
+        "source": "grafx"
+      },
+      "options": {},
+      "mappings": []
+    },
+    {
+      "id": "8a6e7471-acdb-479b-a7bd-8467dcfeeb0d",
+      "name": "GraFx Media",
+      "source": {
+        "id": "9dff801d-99f9-4a58-8169-7be5ec2b2999",
+        "source": "grafx"
+      },
+      "options": {},
+      "mappings": []
+    },
+    {
+      "id": "aa92faf8-7a97-4aa6-a273-1086f61af928",
+      "name": "GraFx Media",
+      "source": {
+        "id": "9dff801d-99f9-4a58-8169-7be5ec2b2999",
+        "source": "grafx"
+      },
+      "options": {},
+      "mappings": []
+    },
+    {
+      "id": "b2a96ec8-11f5-477d-901d-3c0112e9736f",
+      "name": "AEM",
+      "source": {
+        "id": "2e986109-b2a4-4f80-84dd-30e6a5aaf375",
+        "source": "grafx"
+      },
+      "options": {},
+      "mappings": []
+    }
+  ],
+  "actions": []
+}
