@@ -23,6 +23,8 @@ import {
   IconSettings,
   IconPlug,
   IconCrop,
+  IconFileExport,
+  IconDownload,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
@@ -32,6 +34,7 @@ import { DownloadModal } from "./DownloadModal";
 import { MagicLayoutsModal } from "./MagicLayoutsModal";
 import { ConnectorCleanupModal } from "./ConnectorCleanupModal";
 import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerModal";
+import { OutTemplateModal } from "./OutTemplateModal";
 import {
   ToolbarSettingsModal,
   type AppConfig,
@@ -55,6 +58,7 @@ export function Toolbar() {
     useState(false);
   const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] =
     useState(false);
+  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = useState(false);
   const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] =
     useState(false); // State for the confirmation modal
   const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] =
@@ -208,6 +212,11 @@ export function Toolbar() {
   const handleManualCropManager = () => {
     setVisible(false);
     setIsManualCropManagerModalOpen(true);
+  };
+
+  const handleOutTemplate = () => {
+    setVisible(false);
+    setIsOutTemplateModalOpen(true);
   };
 
   const handleAspectLock = () => {
@@ -409,6 +418,19 @@ export function Toolbar() {
                   </ActionIcon>
                 </Tooltip>
               )}
+              {appConfig.showOutTemplate && (
+                <Tooltip label="Out Template" position="bottom" withArrow>
+                  <ActionIcon
+                    variant="filled"
+                    color="blue"
+                    size="lg"
+                    aria-label="Out Template"
+                    onClick={handleOutTemplate}
+                  >
+                    <IconDownload size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              )}
               <Tooltip label="Settings" position="bottom" withArrow>
                 <ActionIcon
                   variant="filled"
@@ -510,6 +532,14 @@ export function Toolbar() {
         <ManualCropManagerModal
           opened={isManualCropManagerModalOpen}
           onClose={() => setIsManualCropManagerModalOpen(false)}
+        />
+      )}
+
+      {/* Out Template Modal */}
+      {appConfig.showOutTemplate && (
+        <OutTemplateModal
+          opened={isOutTemplateModalOpen}
+          onClose={() => setIsOutTemplateModalOpen(false)}
         />
       )}
 

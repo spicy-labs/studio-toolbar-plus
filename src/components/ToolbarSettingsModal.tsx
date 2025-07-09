@@ -20,6 +20,7 @@ export type AppConfig = {
   showTestError: boolean;
   showConnectorCleanup: boolean;
   showManualCropManager: boolean;
+  showOutTemplate: boolean;
 };
 
 export const defaultConfig: AppConfig = {
@@ -33,6 +34,7 @@ export const defaultConfig: AppConfig = {
   showTestError: false,
   showConnectorCleanup: false,
   showManualCropManager: true,
+  showOutTemplate: true,
 };
 
 interface ToolbarSettingsModalProps {
@@ -100,7 +102,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showFramePositionViewer",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
               }
             />
@@ -137,7 +139,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showLayoutImageMapper",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
               }
             />
@@ -167,7 +169,7 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showConnectorCleanup",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
               }
             />
@@ -179,8 +181,17 @@ export function ToolbarSettingsModal({
               onChange={(event) =>
                 handleToggle(
                   "showManualCropManager",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
+              }
+            />
+
+            <Switch
+              label="Out Template"
+              description="Generate output files from templates"
+              checked={config.showOutTemplate}
+              onChange={(event) =>
+                handleToggle("showOutTemplate", event.currentTarget.checked)
               }
             />
           </Stack>
