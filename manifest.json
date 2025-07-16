@@ -38,5 +38,53 @@
       "resources": ["dist/index.js", "dist/index.css"],
       "matches": ["*://*.chiligrafx.com/*", "*://*.chiligrafx-dev.com/*"]
     }
-  ]
+  ],
+  "appConfig": {
+    "toolbarConfig": {
+      "showSnapshot": {
+        "enabled": false,
+        "status": "deprecated"
+      },
+      "showFramePositionViewer": {
+        "enabled": false,
+        "status": "deprecated"
+      },
+      "showLayoutManager": {
+        "enabled": false,
+        "status": "experimental"
+      },
+      "showMagicLayouts": {
+        "enabled": false,
+        "status": "experimental"
+      },
+      "showAspectLock": {
+        "enabled": true,
+        "status": "none"
+      },
+      "showLayoutImageMapper": {
+        "enabled": true,
+        "status": "sponsored"
+      },
+      "showUploadDownload": {
+        "enabled": true,
+        "status": "sponsored"
+      },
+      "showTestError": {
+        "enabled": false,
+        "status": "none"
+      },
+      "showConnectorCleanup": {
+        "enabled": false,
+        "status": "experimental"
+      },
+      "showManualCropManager": {
+        "enabled": true,
+        "status": "sponsored"
+      },
+      "showOutput": {
+        "enabled": true,
+        "status": "none"
+      }
+    }
+  }
 }
