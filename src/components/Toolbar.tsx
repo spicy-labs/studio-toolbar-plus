@@ -35,12 +35,11 @@ import { MagicLayoutsModal } from "./MagicLayoutsModal";
 import { ConnectorCleanupModal } from "./ConnectorCleanupModal";
 import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerModal";
 import { OutTemplateModal } from "./OutTemplateModal";
-import {
-  ToolbarSettingsModal,
-  type AppConfig,
-  defaultConfig,
-} from "./ToolbarSettingsModal";
+import { ToolbarSettingsModal } from "./ToolbarSettingsModal";
+import type { AppConfig, AppInfo } from "../utils/appConfig";
+import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
 import { saveLayoutSizingToAction } from "../studio/studioAdapter";
+import { Result } from "typescript-result";
 
 export function Toolbar() {
   const [visible, setVisible] = useState(false);
@@ -65,11 +64,30 @@ export function Toolbar() {
     useState(false); // State for the success modal
   const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = useState(""); // State for the dynamic success message
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-  const [appConfig, setAppConfig] = useState<AppConfig>(defaultConfig);
+  const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
   const [updateInfo, setUpdateInfo] = useState<{
     currentVersion: string;
     latestVersion: string;
   } | null>(null);
+
+  // Helper function to get ActionIcon color based on status
+  const getActionIconColor = (appKey: string): string => {
+    const appInfo = (appConfig as any)[appKey] as AppInfo | undefined;
+    const appStatus = appInfo ? appInfo.status : "none";
+
+    switch (appStatus) {
+      case "none":
+        return "blue";
+      case "sponsored":
+        return "blue";
+      case "deprecated":
+        return "dark";
+      case "experimental":
+        return "purple";
+      default:
+        return "blue";
+    }
+  };
   const effects = appStore((store) => store.effects);
   const raiseError = appStore((store) => store.raiseError);
   const disableToolbar = appStore((store) => store.disableToolbar);
@@ -108,24 +126,36 @@ export function Toolbar() {
   };
 
   // Function to reload configuration from localStorage
-  const reloadConfig = () => {
-    const savedConfig = localStorage.getItem("tempUserConfig");
-    if (savedConfig) {
-      try {
-        const parsedConfig = JSON.parse(savedConfig);
-        setAppConfig({ ...defaultConfig, ...parsedConfig });
-      } catch (error) {
-        console.error("Failed to parse saved config:", error);
-        setAppConfig(defaultConfig);
-      }
-    } else {
-      setAppConfig(defaultConfig);
-    }
+  const reloadConfig = (config: AppConfig) => {
+    setAppConfig(config);
   };
 
   // Load configuration from localStorage on component mount
   useEffect(() => {
-    reloadConfig();
+    (async () => {
+      const localConfig = localStorage.getItem("tempUserConfig");
+      Result.try(() => {
+        if (localConfig) {
+          return JSON.parse(localConfig);
+        }
+        throw new Error("Local config not found");
+      }).fold(
+        (parsedConfig) => {
+          console.log(parsedConfig);
+          setAppConfig(parsedConfig as AppConfig);
+        },
+        async (error) => {
+          (await getDefaultConfig()).fold(
+            ([appConfig, githubVersion]) => {
+              reloadConfig(appConfigFromFullConfig(appConfig));
+            },
+            (error) => {
+              raiseError(error);
+            },
+          );
+        },
+      );
+    })();
   }, []);
 
   // Listen for update notifications
@@ -266,189 +296,195 @@ export function Toolbar() {
             }}
             onMouseLeave={() => setVisible(false)}
           >
-            <Group gap="lg">
-              {appConfig.showSnapshot && (
-                <Tooltip
-                  label="Snapshot Image Position"
-                  position="bottom"
-                  withArrow
-                >
-                  <ActionIcon
-                    variant="filled"
-                    color="blue"
-                    size="lg"
-                    aria-label="Snapshot Image Position"
-                    onClick={handleSnapshot}
+            {appConfig && (
+              <Group gap="lg">
+                {appConfig.showSnapshot && (
+                  <Tooltip
+                    label="Snapshot Image Position"
+                    position="bottom"
+                    withArrow
                   >
-                    <IconCameraPlus size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              {appConfig.showFramePositionViewer && (
-                <Tooltip
-                  label="Frame Position Viewer"
-                  position="bottom"
-                  withArrow
-                >
-                  <ActionIcon
-                    variant="filled"
-                    color="blue"
-                    size="lg"
-                    aria-label="Frame Position Viewer"
-                    onClick={handleFramePositionViewer}
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showSnapshot")}
+                      size="lg"
+                      aria-label="Snapshot Image Position"
+                      onClick={handleSnapshot}
+                    >
+                      <IconCameraPlus size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showFramePositionViewer && (
+                  <Tooltip
+                    label="Frame Position Viewer"
+                    position="bottom"
+                    withArrow
                   >
-                    <IconPhotoCog size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              {appConfig.showMagicLayouts && (
-                <Tooltip label="Magic Layouts" position="bottom" withArrow>
-                  <ActionIcon
-                    variant="filled"
-                    color="purple"
-                    size="lg"
-                    aria-label="Magic Layouts"
-                    onClick={handleMagicLayouts}
-                  >
-                    <IconSparkles size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              {appConfig.showLayoutManager && (
-                <Tooltip label="Layout Manager" position="bottom" withArrow>
-                  <ActionIcon
-                    variant="filled"
-                    color="blue"
-                    size="lg"
-                    aria-label="Layout Manager"
-                    onClick={handleLayoutManager}
-                  >
-                    <IconListTree size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              {appConfig.showAspectLock && (
-                <Tooltip label="Aspect Lock" position="bottom" withArrow>
-                  <ActionIcon
-                    variant="filled"
-                    color="blue"
-                    size="lg"
-                    aria-label="Aspect Lock"
-                    onClick={handleAspectLock}
-                  >
-                    <IconPlaystationSquare size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showFramePositionViewer")}
+                      size="lg"
+                      aria-label="Frame Position Viewer"
+                      onClick={handleFramePositionViewer}
+                    >
+                      <IconPhotoCog size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showMagicLayouts && (
+                  <Tooltip label="Magic Layouts" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showMagicLayouts")}
+                      size="lg"
+                      aria-label="Magic Layouts"
+                      onClick={handleMagicLayouts}
+                    >
+                      <IconSparkles size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showLayoutManager && (
+                  <Tooltip label="Layout Manager" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showLayoutManager")}
+                      size="lg"
+                      aria-label="Layout Manager"
+                      onClick={handleLayoutManager}
+                    >
+                      <IconListTree size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showAspectLock && (
+                  <Tooltip label="Aspect Lock" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showAspectLock")}
+                      size="lg"
+                      aria-label="Aspect Lock"
+                      onClick={handleAspectLock}
+                    >
+                      <IconPlaystationSquare size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
 
-              {appConfig.showUploadDownload && (
-                <Tooltip
-                  label="Upload/Download Document"
-                  position="bottom"
-                  withArrow
-                >
+                {appConfig.showUploadDownload && (
+                  <Tooltip
+                    label="Upload/Download Document"
+                    position="bottom"
+                    withArrow
+                  >
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showUploadDownload")}
+                      size="lg"
+                      aria-label="Upload/Download"
+                      onClick={handleUploadDownloadClick}
+                    >
+                      <IconArrowsTransferUpDown size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showLayoutImageMapper && (
+                  <Tooltip
+                    label="Layout Image Mapper"
+                    position="bottom"
+                    withArrow
+                  >
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showLayoutImageMapper")}
+                      size="lg"
+                      aria-label="Layout"
+                      onClick={handleLayoutClick}
+                    >
+                      <IconMapBolt size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showTestError && (
+                  <Tooltip label="Test Error" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showTestError")}
+                      size="lg"
+                      aria-label="Test Error"
+                      onClick={handleTestError}
+                    >
+                      <IconBug size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showConnectorCleanup && (
+                  <Tooltip
+                    label="Connector Cleanup"
+                    position="bottom"
+                    withArrow
+                  >
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showConnectorCleanup")}
+                      size="lg"
+                      aria-label="Connector Cleanup"
+                      onClick={handleConnectorCleanup}
+                    >
+                      <IconPlug size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showManualCropManager && (
+                  <Tooltip
+                    label="Manual Crop Manager"
+                    position="bottom"
+                    withArrow
+                  >
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showManualCropManager")}
+                      size="lg"
+                      aria-label="Manual Crop Manager"
+                      onClick={handleManualCropManager}
+                    >
+                      <IconCrop size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                {appConfig.showOutput && (
+                  <Tooltip label="Output" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showOutput")}
+                      size="lg"
+                      aria-label="Output"
+                      onClick={handleOutTemplate}
+                    >
+                      <IconDownload size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+                <Tooltip label="Settings" position="bottom" withArrow>
                   <ActionIcon
                     variant="filled"
-                    color="blue"
+                    color="gray"
                     size="lg"
-                    aria-label="Upload/Download"
-                    onClick={handleUploadDownloadClick}
+                    aria-label="Settings"
+                    onClick={handleSettings}
                   >
-                    <IconArrowsTransferUpDown size={20} />
+                    <IconSettings size={20} />
                   </ActionIcon>
                 </Tooltip>
-              )}
-              {appConfig.showLayoutImageMapper && (
-                <Tooltip
-                  label="Layout Image Mapper"
-                  position="bottom"
-                  withArrow
-                >
-                  <ActionIcon
-                    variant="filled"
-                    color="blue"
-                    size="lg"
-                    aria-label="Layout"
-                    onClick={handleLayoutClick}
-                  >
-                    <IconMapBolt size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              {appConfig.showTestError && (
-                <Tooltip label="Test Error" position="bottom" withArrow>
-                  <ActionIcon
-                    variant="filled"
-                    color="red"
-                    size="lg"
-                    aria-label="Test Error"
-                    onClick={handleTestError}
-                  >
-                    <IconBug size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              {appConfig.showConnectorCleanup && (
-                <Tooltip label="Connector Cleanup" position="bottom" withArrow>
-                  <ActionIcon
-                    variant="filled"
-                    color="blue"
-                    size="lg"
-                    aria-label="Connector Cleanup"
-                    onClick={handleConnectorCleanup}
-                  >
-                    <IconPlug size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              {appConfig.showManualCropManager && (
-                <Tooltip
-                  label="Manual Crop Manager"
-                  position="bottom"
-                  withArrow
-                >
-                  <ActionIcon
-                    variant="filled"
-                    color="blue"
-                    size="lg"
-                    aria-label="Manual Crop Manager"
-                    onClick={handleManualCropManager}
-                  >
-                    <IconCrop size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              {appConfig.showOutput && (
-                <Tooltip label="Output" position="bottom" withArrow>
-                  <ActionIcon
-                    variant="filled"
-                    color="blue"
-                    size="lg"
-                    aria-label="Output"
-                    onClick={handleOutTemplate}
-                  >
-                    <IconDownload size={20} />
-                  </ActionIcon>
-                </Tooltip>
-              )}
-              <Tooltip label="Settings" position="bottom" withArrow>
-                <ActionIcon
-                  variant="filled"
-                  color="gray"
-                  size="lg"
-                  aria-label="Settings"
-                  onClick={handleSettings}
-                >
-                  <IconSettings size={20} />
-                </ActionIcon>
-              </Tooltip>
-            </Group>
+              </Group>
+            )}
           </Box>
         )}
       </Transition>
 
       {/* Download Modal */}
-      {appConfig.showUploadDownload && (
+      {appConfig?.showUploadDownload && (
         <DownloadModal
           opened={isDownloadUploadModalOpen}
           onClose={() => setIsDownloadUploadModalOpen(false)}
@@ -487,7 +523,7 @@ export function Toolbar() {
       </Modal>
 
       {/* Frame Position Viewer Modal */}
-      {isFramePositionViewerOpen && appConfig.showFramePositionViewer && (
+      {isFramePositionViewerOpen && appConfig?.showFramePositionViewer && (
         <FrameSnapshotLayoutModal
           opened={isFramePositionViewerOpen}
           onClose={() => setIsFramePositionViewerOpen(false)}
@@ -495,7 +531,7 @@ export function Toolbar() {
       )}
 
       {/* Add Frame Snapshot Modal */}
-      {isAddFrameSnapshotModalOpen && appConfig.showSnapshot && (
+      {isAddFrameSnapshotModalOpen && appConfig?.showSnapshot && (
         <AddFrameSnapshotModal
           opened={isAddFrameSnapshotModalOpen}
           onClose={() => setIsAddFrameSnapshotModalOpen(false)}
@@ -504,7 +540,7 @@ export function Toolbar() {
       )}
 
       {/* Layout Manager Modal */}
-      {isLayoutManagerOpen && appConfig.showLayoutManager && (
+      {isLayoutManagerOpen && appConfig?.showLayoutManager && (
         <LayoutManagerModal
           opened={isLayoutManagerOpen}
           onClose={() => setIsLayoutManagerOpen(false)}
@@ -512,7 +548,7 @@ export function Toolbar() {
       )}
 
       {/* Magic Layouts Modal */}
-      {isMagicLayoutsModalOpen && appConfig.showMagicLayouts && (
+      {isMagicLayoutsModalOpen && appConfig?.showMagicLayouts && (
         <MagicLayoutsModal
           opened={isMagicLayoutsModalOpen}
           onClose={() => setIsMagicLayoutsModalOpen(false)}
@@ -520,7 +556,7 @@ export function Toolbar() {
       )}
 
       {/* Connector Cleanup Modal */}
-      {appConfig.showConnectorCleanup && (
+      {appConfig?.showConnectorCleanup && (
         <ConnectorCleanupModal
           opened={isConnectorCleanupModalOpen}
           onClose={() => setIsConnectorCleanupModalOpen(false)}
@@ -528,7 +564,7 @@ export function Toolbar() {
       )}
 
       {/* Manual Crop Manager Modal */}
-      {appConfig.showManualCropManager && (
+      {appConfig?.showManualCropManager && (
         <ManualCropManagerModal
           opened={isManualCropManagerModalOpen}
           onClose={() => setIsManualCropManagerModalOpen(false)}
@@ -536,7 +572,7 @@ export function Toolbar() {
       )}
 
       {/* Out Template Modal */}
-      {appConfig.showOutput && (
+      {appConfig?.showOutput && (
         <OutTemplateModal
           opened={isOutTemplateModalOpen}
           onClose={() => setIsOutTemplateModalOpen(false)}
@@ -545,7 +581,7 @@ export function Toolbar() {
 
       {/* Aspect Lock Success Modal */}
       {/* Aspect Lock Confirmation Modal */}
-      {appConfig.showAspectLock && (
+      {appConfig?.showAspectLock && (
         <Modal
           opened={isAspectLockConfirmModalOpen}
           onClose={() => setIsAspectLockConfirmModalOpen(false)}
@@ -569,7 +605,7 @@ export function Toolbar() {
       )}
 
       {/* Aspect Lock Success Modal */}
-      {appConfig.showAspectLock && (
+      {appConfig?.showAspectLock && (
         <Modal
           opened={isAspectLockSuccessModalOpen}
           onClose={() => {
@@ -595,13 +631,14 @@ export function Toolbar() {
       )}
 
       {/* Toolbar Settings Modal */}
-      <ToolbarSettingsModal
-        opened={isSettingsModalOpen}
-        onClose={() => setIsSettingsModalOpen(false)}
-        config={appConfig}
-        onConfigChange={setAppConfig}
-        onReloadConfig={reloadConfig}
-      />
+      {appConfig && (
+        <ToolbarSettingsModal
+          opened={isSettingsModalOpen}
+          onClose={() => setIsSettingsModalOpen(false)}
+          onReloadConfig={reloadConfig}
+          updateInfo={updateInfo ?? undefined}
+        />
+      )}
     </>
   );
 }
