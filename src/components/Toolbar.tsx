@@ -124,7 +124,7 @@ export function Toolbar() {
       // Fallback for local storage if chrome API isn't available
       localStorage.setItem(
         "toolbarplus_last_notified_version",
-        updateInfo.latestVersion,
+        updateInfo.latestVersion
       );
     }
     setIsUpdateModalOpen(false);
@@ -156,9 +156,9 @@ export function Toolbar() {
             },
             (error) => {
               raiseError(error);
-            },
+            }
           );
-        },
+        }
       );
     })();
   }, []);
@@ -265,12 +265,11 @@ export function Toolbar() {
         setAspectLockSuccessMessage(
           value
             ? "Success in turning Aspect Ratio On"
-            : "Success in turning Aspect Ratio Off",
+            : "Success in turning Aspect Ratio Off"
         );
         setIsAspectLockSuccessModalOpen(true); // Open success modal on success
       },
-      (err) =>
-        raiseError(err ?? Error(`Error setting aspect lock to ${value}`)),
+      (err) => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
     );
   };
 
@@ -487,14 +486,6 @@ export function Toolbar() {
           </Box>
         )}
       </Transition>
-
-      {/* Download Modal */}
-      {appConfig?.showUploadDownload && (
-        <DownloadModal
-          opened={isDownloadUploadModalOpen}
-          onClose={() => setIsDownloadUploadModalOpen(false)}
-        />
-      )}
 
       {/* Update Available Modal */}
       <Modal
