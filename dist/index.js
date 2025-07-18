@@ -74036,10 +74036,6 @@ function Toolbar() {
           })
         })
       }),
-      appConfig?.showUploadDownload && /* @__PURE__ */ jsx_runtime38.jsx(DownloadModal, {
-        opened: isDownloadUploadModalOpen,
-        onClose: () => setIsDownloadUploadModalOpen(false)
-      }),
       /* @__PURE__ */ jsx_runtime38.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
@@ -74289,4 +74285,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=846D5D7BAA50D2C264756E2164756E21
+//# debugId=42E0A119D68A684164756E2164756E21
