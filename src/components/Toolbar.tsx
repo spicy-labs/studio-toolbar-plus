@@ -30,7 +30,7 @@ import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
 import { AddFrameSnapshotModal } from "./AddFrameSnapshotModal";
 import { LayoutManagerModal } from "./LayoutManagerModal";
-import { DownloadModal } from "./DownloadModal";
+import { DownloadModalNew } from "./DownloadModalNew";
 import { MagicLayoutsModal } from "./MagicLayoutsModal";
 import { ConnectorCleanupModal } from "./ConnectorCleanupModal";
 import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerModal";
@@ -45,6 +45,7 @@ export function Toolbar() {
   const [visible, setVisible] = useState(false);
   const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] =
     useState(false);
+  const [isDownloadModalNewOpen, setIsDownloadModalNewOpen] = useState(false);
   const [isConvertModalOpen, setIsConvertModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] =
@@ -111,6 +112,10 @@ export function Toolbar() {
 
   const handleUploadDownloadClick = () => {
     setIsDownloadUploadModalOpen(true);
+  };
+
+  const handleDownloadModalNewClick = () => {
+    setIsDownloadModalNewOpen(true);
   };
 
   // Handle dismissing update notification
@@ -374,7 +379,7 @@ export function Toolbar() {
 
                 {appConfig.showUploadDownload && (
                   <Tooltip
-                    label="Upload/Download Document"
+                    label="Upload/Download Template"
                     position="bottom"
                     withArrow
                   >
@@ -383,7 +388,7 @@ export function Toolbar() {
                       color={getActionIconColor("showUploadDownload")}
                       size="lg"
                       aria-label="Upload/Download"
-                      onClick={handleUploadDownloadClick}
+                      onClick={handleDownloadModalNewClick}
                     >
                       <IconArrowsTransferUpDown size={20} />
                     </ActionIcon>
@@ -629,6 +634,12 @@ export function Toolbar() {
           </Group>
         </Modal>
       )}
+
+      {/* Download Modal New */}
+      <DownloadModalNew
+        opened={isDownloadModalNewOpen}
+        onClose={() => setIsDownloadModalNewOpen(false)}
+      />
 
       {/* Toolbar Settings Modal */}
       {appConfig && (

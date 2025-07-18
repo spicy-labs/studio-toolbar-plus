@@ -23,6 +23,9 @@
     "*://*.chili-publish.online/*",
     "*://*.chiligrafx-dev.com/*"
   ],
+  "background": {
+    "service_worker": "downloader.js"
+  },
   "content_scripts": [
     {
       "matches": [
