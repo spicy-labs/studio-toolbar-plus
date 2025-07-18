@@ -1,3 +1,12 @@
+## 0.13.0
+
+### ✨ Added
+
+- Re-write download and upload functionality to use a folder based approach
+  - Supports copying smart crops
+  - Supports downloading font files
+- Add new app settings that show current app status
+
 ## 0.12.1
 
 ### 🐛 Fixed
