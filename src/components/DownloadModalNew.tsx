@@ -18,7 +18,11 @@ import { ConnectorSelectionModal } from "./ConnectorSelectionModal";
 import { ReplaceConnectorsModal } from "./DownloadModal/ReplaceConnectorsModal";
 import type { ConnectorFolderSelection } from "./ConnectorFolderBrowser";
 import type { QueryPage, Media } from "./ConnectorFolderBrowser";
-import type { Connector, DocumentConnector } from "../types/connectorTypes";
+import type {
+  Connector,
+  DocumentConnector,
+  DocumentConnectorGraFx,
+} from "../types/connectorTypes";
 import type {
   FontData,
   FontFamily,
@@ -53,6 +57,7 @@ import {
   validateFolderName,
   getDocumentId,
 } from "./DownloadModal/utils";
+import { cornersOfRectangle } from "@dnd-kit/core/dist/utilities/algorithms/helpers";
 
 interface DownloadModalNewProps {
   opened: boolean;
@@ -93,7 +98,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     [],
   );
   const [connectorsToReplace, setConnectorsToReplace] = useState<
-    DocumentConnector[]
+    DocumentConnectorGraFx[]
   >([]);
   const [selectedVisionConnector, setSelectedVisionConnector] =
     useState<string>("");
@@ -676,7 +681,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         const connectorsNeedingReplacement = documentConnectors.filter(
           (connector) =>
             connector.source.source === "grafx" && connector.source.id,
-        );
+        ) as DocumentConnectorGraFx[];
 
         if (connectorsNeedingReplacement.length > 0) {
           setConnectorsToReplace(connectorsNeedingReplacement);
@@ -732,19 +737,26 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   ) => {
     setReplaceConnectorsModalOpened(false);
 
+    console.log(replacementMap);
+
     if (documentData) {
       // Perform string replacement in document JSON
-      let documentJsonString = JSON.stringify(documentData);
+      console.log("HELLO");
+      console.log(documentData);
 
-      replacementMap.forEach((newId, oldId) => {
-        // Replace all occurrences of the old connector ID with the new one
-        const regex = new RegExp(oldId, "g");
-        documentJsonString = documentJsonString.replace(regex, newId);
-      });
+      const newDocumentData = JSON.parse(JSON.stringify(documentData));
 
-      // Parse back to object and update state
-      const updatedDocumentData = JSON.parse(documentJsonString);
-      setDocumentData(updatedDocumentData);
+      for (const connector of newDocumentData.connectors) {
+        if (connector.source.source === "grafx" && connector.source.id) {
+          const replacementId = replacementMap.get(connector.source.id);
+          if (replacementId) {
+            connector.source.id = replacementId;
+          }
+        }
+      }
+
+      setDocumentData(newDocumentData);
+      console.log(newDocumentData);
 
       // Mark package task as complete and continue with task processing
       setUploadTasks((prev) =>
@@ -780,6 +792,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           currentStudio,
           currentToken,
           currentBaseUrl,
+          newDocumentData,
         );
       }
     }
@@ -792,6 +805,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     studio: any,
     token: string,
     baseUrl: string,
+    currentDocumentData?: any,
   ) => {
     try {
       // Process fonts first
@@ -902,7 +916,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       }
 
       // Finally, load the document
-      if (documentData) {
+      if (currentDocumentData) {
         setUploadTasks((prev) =>
           prev.map((task) =>
             task.id === "document-load"
@@ -911,10 +925,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           ),
         );
 
+        console.log(currentDocumentData);
         try {
           const loadResult = await loadDocumentFromJsonStr(
             studio,
-            JSON.stringify(documentData),
+            JSON.stringify(currentDocumentData),
           );
           if (loadResult.isOk()) {
             setUploadTasks((prev) =>
@@ -2163,7 +2178,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         onClose={() => setReplaceConnectorsModalOpened(false)}
         connectorsToReplace={connectorsToReplace}
         availableConnectors={availableConnectors}
-        onReplace={handleConnectorReplacement}
+        onReplace={(replacementMap) => {
+          handleConnectorReplacement(replacementMap);
+        }}
       />
     </>
   );

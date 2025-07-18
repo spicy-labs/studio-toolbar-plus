@@ -8,12 +8,17 @@ import {
   Select,
   Table,
 } from "@mantine/core";
-import type { Connector, DocumentConnector } from "../types/connectorTypes";
+import type {
+  Connector,
+  DocumentConnector,
+  DocumentConnectorGraFx,
+  GrafxSource,
+} from "../../types/connectorTypes";
 
 interface ReplaceConnectorsModalProps {
   opened: boolean;
   onClose: () => void;
-  connectorsToReplace: DocumentConnector[];
+  connectorsToReplace: DocumentConnectorGraFx[];
   availableConnectors: Connector[];
   onReplace: (replacementMap: Map<string, string>) => void;
 }
@@ -26,22 +31,37 @@ export function ReplaceConnectorsModal({
   onReplace,
 }: ReplaceConnectorsModalProps) {
   const [replacements, setReplacements] = useState<Record<string, string>>({});
+  const [replacementMap, setReplacementMap] = useState<
+    Map<string, { name: string; replacementId: string | null }>
+  >(new Map());
 
   // Auto-select connectors based on name match when modal opens
   useEffect(() => {
     if (opened && connectorsToReplace.length > 0) {
-      const autoReplacements: Record<string, string> = {};
+      const connectorsSources = new Map<string, string>();
 
-      connectorsToReplace.forEach((docConnector) => {
+      for (const connector of connectorsToReplace) {
+        connectorsSources.set(connector.source.id, connector.name);
+      }
+
+      const newReplacementMap = new Map();
+
+      for (const [sourceId, name] of connectorsSources) {
         const matchingConnector = availableConnectors.find(
-          (connector) => connector.name === docConnector.name,
+          (connector) => connector.name === name,
         );
-        if (matchingConnector) {
-          autoReplacements[docConnector.id] = matchingConnector.id;
-        }
-      });
 
-      setReplacements(autoReplacements);
+        if (matchingConnector) {
+          newReplacementMap.set(sourceId, {
+            name,
+            replacementId: matchingConnector.id,
+          });
+        } else {
+          newReplacementMap.set(sourceId, { name, replacementId: null });
+        }
+      }
+
+      setReplacementMap(newReplacementMap);
     }
   }, [opened, connectorsToReplace, availableConnectors]);
 
@@ -49,35 +69,41 @@ export function ReplaceConnectorsModal({
   useEffect(() => {
     if (!opened) {
       setReplacements({});
+      setReplacementMap(new Map());
     }
   }, [opened]);
 
   // Check if all connectors have replacements selected
-  const allSelected = connectorsToReplace.every(
-    (connector) => replacements[connector.id] !== undefined,
+  const allSelected = Array.from(replacementMap.values()).every(
+    (connector) => connector.replacementId !== null,
   );
 
   const handleReplacementChange = (
     connectorId: string,
+    name: string,
     replacementId: string | null,
   ) => {
-    setReplacements((prev) => {
-      const updated = { ...prev };
+    setReplacementMap((prev) => {
+      const updated = new Map(prev);
       if (replacementId) {
-        updated[connectorId] = replacementId;
+        updated.set(connectorId, { name: name, replacementId });
       } else {
-        delete updated[connectorId];
+        updated.delete(connectorId);
       }
       return updated;
     });
   };
 
   const handleContinue = () => {
-    const replacementMap = new Map<string, string>();
-    Object.entries(replacements).forEach(([original, replacement]) => {
-      replacementMap.set(original, replacement);
-    });
-    onReplace(replacementMap);
+    const newReplacementMap = new Map<string, string>();
+
+    for (const [sourceId, connector] of replacementMap.entries()) {
+      if (connector.replacementId) {
+        newReplacementMap.set(sourceId, connector.replacementId);
+      }
+    }
+
+    onReplace(newReplacementMap);
     onClose();
   };
 
@@ -124,31 +150,37 @@ export function ReplaceConnectorsModal({
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {connectorsToReplace.map((connector) => (
-              <Table.Tr key={connector.id}>
-                <Table.Td>{connector.name}</Table.Td>
-                <Table.Td
-                  style={{ fontFamily: "monospace", fontSize: "0.8rem" }}
-                >
-                  {connector.id}
-                </Table.Td>
-                <Table.Td>
-                  <Select
-                    data={availableConnectors.map((c) => ({
-                      value: c.id,
-                      label: c.name,
-                    }))}
-                    placeholder="Select a connector"
-                    value={replacements[connector.id] || null}
-                    onChange={(value) =>
-                      handleReplacementChange(connector.id, value)
-                    }
-                    searchable
-                    required
-                  />
-                </Table.Td>
-              </Table.Tr>
-            ))}
+            {Array.from(replacementMap.entries()).map(
+              ([connectorId, connector]) => (
+                <Table.Tr key={connectorId}>
+                  <Table.Td>{connector.name}</Table.Td>
+                  <Table.Td
+                    style={{ fontFamily: "monospace", fontSize: "0.8rem" }}
+                  >
+                    {connectorId}
+                  </Table.Td>
+                  <Table.Td>
+                    <Select
+                      data={availableConnectors.map((c) => ({
+                        value: c.id,
+                        label: c.name,
+                      }))}
+                      placeholder="Select a connector"
+                      value={connector.replacementId || null}
+                      onChange={(value) =>
+                        handleReplacementChange(
+                          connectorId,
+                          connector.name,
+                          value,
+                        )
+                      }
+                      searchable
+                      required
+                    />
+                  </Table.Td>
+                </Table.Tr>
+              ),
+            )}
           </Table.Tbody>
         </Table>
 
