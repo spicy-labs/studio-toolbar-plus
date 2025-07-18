@@ -67413,41 +67413,54 @@ function ReplaceConnectorsModal({
   onReplace
 }) {
   const [replacements, setReplacements] = import_react262.useState({});
+  const [replacementMap, setReplacementMap] = import_react262.useState(new Map);
   import_react262.useEffect(() => {
     if (opened && connectorsToReplace.length > 0) {
-      const autoReplacements = {};
-      connectorsToReplace.forEach((docConnector) => {
-        const matchingConnector = availableConnectors.find((connector) => connector.name === docConnector.name);
+      const connectorsSources = new Map;
+      for (const connector of connectorsToReplace) {
+        connectorsSources.set(connector.source.id, connector.name);
+      }
+      const newReplacementMap = new Map;
+      for (const [sourceId, name] of connectorsSources) {
+        const matchingConnector = availableConnectors.find((connector) => connector.name === name);
         if (matchingConnector) {
-          autoReplacements[docConnector.id] = matchingConnector.id;
+          newReplacementMap.set(sourceId, {
+            name,
+            replacementId: matchingConnector.id
+          });
+        } else {
+          newReplacementMap.set(sourceId, { name, replacementId: null });
         }
-      });
-      setReplacements(autoReplacements);
+      }
+      setReplacementMap(newReplacementMap);
     }
   }, [opened, connectorsToReplace, availableConnectors]);
   import_react262.useEffect(() => {
     if (!opened) {
       setReplacements({});
+      setReplacementMap(new Map);
     }
   }, [opened]);
-  const allSelected = connectorsToReplace.every((connector) => replacements[connector.id] !== undefined);
-  const handleReplacementChange = (connectorId, replacementId) => {
-    setReplacements((prev2) => {
-      const updated = { ...prev2 };
+  const allSelected = Array.from(replacementMap.values()).every((connector) => connector.replacementId !== null);
+  const handleReplacementChange = (connectorId, name, replacementId) => {
+    setReplacementMap((prev2) => {
+      const updated = new Map(prev2);
       if (replacementId) {
-        updated[connectorId] = replacementId;
+        updated.set(connectorId, { name, replacementId });
       } else {
-        delete updated[connectorId];
+        updated.delete(connectorId);
       }
       return updated;
     });
   };
   const handleContinue = () => {
-    const replacementMap = new Map;
-    Object.entries(replacements).forEach(([original, replacement]) => {
-      replacementMap.set(original, replacement);
-    });
-    onReplace(replacementMap);
+    const newReplacementMap = new Map;
+    for (const [sourceId, connector] of replacementMap.entries()) {
+      if (connector.replacementId) {
+        newReplacementMap.set(sourceId, connector.replacementId);
+      }
+    }
+    onReplace(newReplacementMap);
     onClose();
   };
   const handleClose = () => {
@@ -67500,14 +67513,14 @@ function ReplaceConnectorsModal({
               })
             }),
             /* @__PURE__ */ jsx_runtime22.jsx(Table.Tbody, {
-              children: connectorsToReplace.map((connector) => /* @__PURE__ */ jsx_runtime22.jsxs(Table.Tr, {
+              children: Array.from(replacementMap.entries()).map(([connectorId, connector]) => /* @__PURE__ */ jsx_runtime22.jsxs(Table.Tr, {
                 children: [
                   /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
                     children: connector.name
                   }),
                   /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
                     style: { fontFamily: "monospace", fontSize: "0.8rem" },
-                    children: connector.id
+                    children: connectorId
                   }),
                   /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
                     children: /* @__PURE__ */ jsx_runtime22.jsx(Select, {
@@ -67516,14 +67529,14 @@ function ReplaceConnectorsModal({
                         label: c2.name
                       })),
                       placeholder: "Select a connector",
-                      value: replacements[connector.id] || null,
-                      onChange: (value) => handleReplacementChange(connector.id, value),
+                      value: connector.replacementId || null,
+                      onChange: (value) => handleReplacementChange(connectorId, connector.name, value),
                       searchable: true,
                       required: true
                     })
                   })
                 ]
-              }, connector.id))
+              }, connectorId))
             })
           ]
         }),
@@ -68564,14 +68577,21 @@ function DownloadModalNew({ opened, onClose }) {
   };
   const handleConnectorReplacement = async (replacementMap) => {
     setReplaceConnectorsModalOpened(false);
+    console.log(replacementMap);
     if (documentData) {
-      let documentJsonString = JSON.stringify(documentData);
-      replacementMap.forEach((newId, oldId) => {
-        const regex = new RegExp(oldId, "g");
-        documentJsonString = documentJsonString.replace(regex, newId);
-      });
-      const updatedDocumentData = JSON.parse(documentJsonString);
-      setDocumentData(updatedDocumentData);
+      console.log("HELLO");
+      console.log(documentData);
+      const newDocumentData = JSON.parse(JSON.stringify(documentData));
+      for (const connector of newDocumentData.connectors) {
+        if (connector.source.source === "grafx" && connector.source.id) {
+          const replacementId = replacementMap.get(connector.source.id);
+          if (replacementId) {
+            connector.source.id = replacementId;
+          }
+        }
+      }
+      setDocumentData(newDocumentData);
+      console.log(newDocumentData);
       setUploadTasks((prev2) => prev2.map((task) => task.id === packageJsonTaskId ? { ...task, status: "complete" } : task));
       setUploadTasks((prev2) => [
         ...prev2,
@@ -68583,11 +68603,11 @@ function DownloadModalNew({ opened, onClose }) {
         }
       ]);
       if (currentFiles.length > 0 && currentStudioPackage && currentStudio && currentToken && currentBaseUrl) {
-        await startTaskProcessing(currentFiles, currentStudioPackage, currentStudio, currentToken, currentBaseUrl);
+        await startTaskProcessing(currentFiles, currentStudioPackage, currentStudio, currentToken, currentBaseUrl, newDocumentData);
       }
     }
   };
-  const startTaskProcessing = async (files, studioPackage, studio2, token2, baseUrl) => {
+  const startTaskProcessing = async (files, studioPackage, studio2, token2, baseUrl, currentDocumentData) => {
     try {
       for (const document2 of studioPackage.documents) {
         for (const fontInfo of document2.fonts) {
@@ -68660,10 +68680,11 @@ function DownloadModalNew({ opened, onClose }) {
           }
         }
       }
-      if (documentData) {
+      if (currentDocumentData) {
         setUploadTasks((prev2) => prev2.map((task) => task.id === "document-load" ? { ...task, status: "processing" } : task));
+        console.log(currentDocumentData);
         try {
-          const loadResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(documentData));
+          const loadResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(currentDocumentData));
           if (loadResult.isOk()) {
             setUploadTasks((prev2) => prev2.map((task) => task.id === "document-load" ? { ...task, status: "complete" } : task));
           } else {
@@ -69348,7 +69369,9 @@ function DownloadModalNew({ opened, onClose }) {
         onClose: () => setReplaceConnectorsModalOpened(false),
         connectorsToReplace,
         availableConnectors,
-        onReplace: handleConnectorReplacement
+        onReplace: (replacementMap) => {
+          handleConnectorReplacement(replacementMap);
+        }
       })
     ]
   });
@@ -74285,4 +74308,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=42E0A119D68A684164756E2164756E21
+//# debugId=FC084CC8E5E2A30B64756E2164756E21
