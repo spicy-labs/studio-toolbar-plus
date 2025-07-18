@@ -1,3 +1,9 @@
+## 0.12.2
+
+### 🐛 Fixed
+
+- Issue when copying a group and then adding a dependent variable would cause an error
+
 ## 0.12.1
 
 ### 🐛 Fixed

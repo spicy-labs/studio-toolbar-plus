@@ -42,30 +42,30 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
 
   // Modal effects
   const setCurrentImageVariableId = appStore(
-    (state) => state.effects.modal.dependentModal.setCurrentImageVariableId,
+    (state) => state.effects.modal.dependentModal.setCurrentImageVariableId
   );
   const setCurrentSelectedMapId = appStore(
-    (state) => state.effects.modal.setCurrentSelectedMapId,
+    (state) => state.effects.modal.setCurrentSelectedMapId
   );
   const setCurrentGroupIndex = appStore(
-    (state) => state.effects.modal.dependentModal.setCurrentGroupIndex,
+    (state) => state.effects.modal.dependentModal.setCurrentGroupIndex
   );
   const setIsOpen = appStore(
-    (state) => state.effects.modal.dependentModal.setIsOpen,
+    (state) => state.effects.modal.dependentModal.setIsOpen
   );
 
   // Layout mapping effects
   const removeDependentGroup = appStore(
-    (state) => state.effects.studio.layoutImageMapping.removeDependentGroup,
+    (state) => state.effects.studio.layoutImageMapping.removeDependentGroup
   );
   const copyDependentGroup = appStore(
-    (state) => state.effects.studio.layoutImageMapping.copyDependentGroup,
+    (state) => state.effects.studio.layoutImageMapping.copyDependentGroup
   );
   const removeDependent = appStore(
-    (state) => state.effects.studio.layoutImageMapping.removeDependent,
+    (state) => state.effects.studio.layoutImageMapping.removeDependent
   );
   const updateDependent = appStore(
-    (state) => state.effects.studio.layoutImageMapping.updateDependent,
+    (state) => state.effects.studio.layoutImageMapping.updateDependent
   );
 
   // Function to open the modal for adding variables to an existing group
@@ -73,7 +73,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
     setCurrentImageVariableId(variableConfig.id);
     setCurrentSelectedMapId(layoutMap.id);
     setCurrentGroupIndex(groupIndex);
-    setIsOpen(true);
+    setIsOpen(true, layoutMap.id);
   };
 
   // Function to handle removing a group

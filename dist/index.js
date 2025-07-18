@@ -53055,7 +53055,7 @@ var DependentGroup = ({
     setCurrentImageVariableId(variableConfig.id);
     setCurrentSelectedMapId(layoutMap.id);
     setCurrentGroupIndex(groupIndex2);
-    setIsOpen(true);
+    setIsOpen(true, layoutMap.id);
   };
   const handleRemoveGroup = (groupIndex2) => {
     removeDependentGroup({
@@ -60586,4 +60586,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=0D004F23C249943064756E2164756E21
+//# debugId=0D5DBEF8A04DCC8F64756E2164756E21
