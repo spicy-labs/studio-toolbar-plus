@@ -14281,8 +14281,8 @@ var init_defaultAttributes = __esm(() => {
 });
 
 // node_modules/@tabler/icons-react/dist/esm/createReactComponent.mjs
-var import_react237, createReactComponent = (type, iconName, iconNamePascal, iconNode) => {
-  const Component2 = import_react237.forwardRef(({ color = "currentColor", size: size4 = 24, stroke = 2, title, className, children, ...rest }, ref) => import_react237.createElement("svg", {
+var import_react239, createReactComponent = (type, iconName, iconNamePascal, iconNode) => {
+  const Component2 = import_react239.forwardRef(({ color = "currentColor", size: size4 = 24, stroke = 2, title, className, children, ...rest }, ref) => import_react239.createElement("svg", {
     ref,
     ...defaultAttributes[type],
     width: size4,
@@ -14296,15 +14296,15 @@ var import_react237, createReactComponent = (type, iconName, iconNamePascal, ico
     },
     ...rest
   }, [
-    title && import_react237.createElement("title", { key: "svg-title" }, title),
-    ...iconNode.map(([tag, attrs]) => import_react237.createElement(tag, attrs)),
+    title && import_react239.createElement("title", { key: "svg-title" }, title),
+    ...iconNode.map(([tag, attrs]) => import_react239.createElement(tag, attrs)),
     ...Array.isArray(children) ? children : [children]
   ]));
   Component2.displayName = `${iconNamePascal}`;
   return Component2;
 };
 var init_createReactComponent = __esm(() => {
-  import_react237 = __toESM(require_react(), 1);
+  import_react239 = __toESM(require_react(), 1);
   init_defaultAttributes();
 });
 
@@ -14371,6 +14371,13 @@ var init_IconChevronRight = __esm(() => {
   IconChevronRight = createReactComponent("outline", "chevron-right", "IconChevronRight", [["path", { d: "M9 6l6 6l-6 6", key: "svg-0" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconCircleX.mjs
+var IconCircleX;
+var init_IconCircleX = __esm(() => {
+  init_createReactComponent();
+  IconCircleX = createReactComponent("outline", "circle-x", "IconCircleX", [["path", { d: "M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0", key: "svg-0" }], ["path", { d: "M10 10l4 4m0 -4l-4 4", key: "svg-1" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconCopyPlus.mjs
 var IconCopyPlus;
 var init_IconCopyPlus = __esm(() => {
@@ -14413,6 +14420,13 @@ var init_IconExchange = __esm(() => {
   IconExchange = createReactComponent("outline", "exchange", "IconExchange", [["path", { d: "M5 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-0" }], ["path", { d: "M19 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-1" }], ["path", { d: "M19 8v5a5 5 0 0 1 -5 5h-3l3 -3m0 6l-3 -3", key: "svg-2" }], ["path", { d: "M5 16v-5a5 5 0 0 1 5 -5h3l-3 -3m0 6l3 -3", key: "svg-3" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconExclamationCircle.mjs
+var IconExclamationCircle;
+var init_IconExclamationCircle = __esm(() => {
+  init_createReactComponent();
+  IconExclamationCircle = createReactComponent("outline", "exclamation-circle", "IconExclamationCircle", [["path", { d: "M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0", key: "svg-0" }], ["path", { d: "M12 9v4", key: "svg-1" }], ["path", { d: "M12 16v.01", key: "svg-2" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconExternalLink.mjs
 var IconExternalLink;
 var init_IconExternalLink = __esm(() => {
@@ -14427,11 +14441,18 @@ var init_IconEyeClosed = __esm(() => {
   IconEyeClosed = createReactComponent("outline", "eye-closed", "IconEyeClosed", [["path", { d: "M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4", key: "svg-0" }], ["path", { d: "M3 15l2.5 -3.8", key: "svg-1" }], ["path", { d: "M21 14.976l-2.492 -3.776", key: "svg-2" }], ["path", { d: "M9 17l.5 -4", key: "svg-3" }], ["path", { d: "M15 17l-.5 -4", key: "svg-4" }]]);
 });
 
-// node_modules/@tabler/icons-react/dist/esm/icons/IconFileText.mjs
-var IconFileText;
-var init_IconFileText = __esm(() => {
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFileDownload.mjs
+var IconFileDownload;
+var init_IconFileDownload = __esm(() => {
   init_createReactComponent();
-  IconFileText = createReactComponent("outline", "file-text", "IconFileText", [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M9 9l1 0", key: "svg-2" }], ["path", { d: "M9 13l6 0", key: "svg-3" }], ["path", { d: "M9 17l6 0", key: "svg-4" }]]);
+  IconFileDownload = createReactComponent("outline", "file-download", "IconFileDownload", [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M12 17v-6", key: "svg-2" }], ["path", { d: "M9.5 14.5l2.5 2.5l2.5 -2.5", key: "svg-3" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFileUpload.mjs
+var IconFileUpload;
+var init_IconFileUpload = __esm(() => {
+  init_createReactComponent();
+  IconFileUpload = createReactComponent("outline", "file-upload", "IconFileUpload", [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M12 11v6", key: "svg-2" }], ["path", { d: "M9.5 13.5l2.5 -2.5l2.5 2.5", key: "svg-3" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFilter.mjs
@@ -14439,6 +14460,13 @@ var IconFilter;
 var init_IconFilter = __esm(() => {
   init_createReactComponent();
   IconFilter = createReactComponent("outline", "filter", "IconFilter", [["path", { d: "M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFolder.mjs
+var IconFolder;
+var init_IconFolder = __esm(() => {
+  init_createReactComponent();
+  IconFolder = createReactComponent("outline", "folder", "IconFolder", [["path", { d: "M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2", key: "svg-0" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconGripVertical.mjs
@@ -14574,6 +14602,20 @@ var init_IconX = __esm(() => {
   IconX = createReactComponent("outline", "x", "IconX", [["path", { d: "M18 6l-12 12", key: "svg-0" }], ["path", { d: "M6 6l12 12", key: "svg-1" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconArrowBigLeftFilled.mjs
+var IconArrowBigLeftFilled;
+var init_IconArrowBigLeftFilled = __esm(() => {
+  init_createReactComponent();
+  IconArrowBigLeftFilled = createReactComponent("filled", "arrow-big-left-filled", "IconArrowBigLeftFilled", [["path", { d: "M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconBugFilled.mjs
+var IconBugFilled;
+var init_IconBugFilled = __esm(() => {
+  init_createReactComponent();
+  IconBugFilled = createReactComponent("filled", "bug-filled", "IconBugFilled", [["path", { d: "M12 4a4 4 0 0 1 3.995 3.8l.005 .2a1 1 0 0 1 .428 .096l3.033 -1.938a1 1 0 1 1 1.078 1.684l-3.015 1.931a7.17 7.17 0 0 1 .476 2.227h3a1 1 0 0 1 0 2h-3v1a6.01 6.01 0 0 1 -.195 1.525l2.708 1.616a1 1 0 1 1 -1.026 1.718l-2.514 -1.501a6.002 6.002 0 0 1 -3.973 2.56v-5.918a1 1 0 0 0 -2 0v5.917a6.002 6.002 0 0 1 -3.973 -2.56l-2.514 1.503a1 1 0 1 1 -1.026 -1.718l2.708 -1.616a6.01 6.01 0 0 1 -.195 -1.526v-1h-3a1 1 0 0 1 0 -2h3.001v-.055a7 7 0 0 1 .474 -2.173l-3.014 -1.93a1 1 0 1 1 1.078 -1.684l3.032 1.939l.024 -.012l.068 -.027l.019 -.005l.016 -.006l.032 -.008l.04 -.013l.034 -.007l.034 -.004l.045 -.008l.015 -.001l.015 -.002l.087 -.004a4 4 0 0 1 4 -4zm0 2a2 2 0 0 0 -2 2h4a2 2 0 0 0 -2 -2z", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconCaretDownFilled.mjs
 var IconCaretDownFilled;
 var init_IconCaretDownFilled = __esm(() => {
@@ -14581,11 +14623,53 @@ var init_IconCaretDownFilled = __esm(() => {
   IconCaretDownFilled = createReactComponent("filled", "caret-down-filled", "IconCaretDownFilled", [["path", { d: "M18 9c.852 0 1.297 .986 .783 1.623l-.076 .084l-6 6a1 1 0 0 1 -1.32 .083l-.094 -.083l-6 -6l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057v-.118l.005 -.058l.009 -.06l.01 -.052l.032 -.108l.027 -.067l.07 -.132l.065 -.09l.073 -.081l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01l.057 -.004l12.059 -.002z", key: "svg-0" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconCircleCheckFilled.mjs
+var IconCircleCheckFilled;
+var init_IconCircleCheckFilled = __esm(() => {
+  init_createReactComponent();
+  IconCircleCheckFilled = createReactComponent("filled", "circle-check-filled", "IconCircleCheckFilled", [["path", { d: "M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconCircleRectangleFilled.mjs
+var IconCircleRectangleFilled;
+var init_IconCircleRectangleFilled = __esm(() => {
+  init_createReactComponent();
+  IconCircleRectangleFilled = createReactComponent("filled", "circle-rectangle-filled", "IconCircleRectangleFilled", [["path", { d: "M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m0 5.66h-10a1 1 0 0 0 -1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1", key: "svg-0" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFilterFilled.mjs
 var IconFilterFilled;
 var init_IconFilterFilled = __esm(() => {
   init_createReactComponent();
   IconFilterFilled = createReactComponent("filled", "filter-filled", "IconFilterFilled", [["path", { d: "M20 3h-16a1 1 0 0 0 -1 1v2.227l.008 .223a3 3 0 0 0 .772 1.795l4.22 4.641v8.114a1 1 0 0 0 1.316 .949l6 -2l.108 -.043a1 1 0 0 0 .576 -.906v-6.586l4.121 -4.12a3 3 0 0 0 .879 -2.123v-2.171a1 1 0 0 0 -1 -1z", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconInfoCircleFilled.mjs
+var IconInfoCircleFilled;
+var init_IconInfoCircleFilled = __esm(() => {
+  init_createReactComponent();
+  IconInfoCircleFilled = createReactComponent("filled", "info-circle-filled", "IconInfoCircleFilled", [["path", { d: "M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconRadioactiveFilled.mjs
+var IconRadioactiveFilled;
+var init_IconRadioactiveFilled = __esm(() => {
+  init_createReactComponent();
+  IconRadioactiveFilled = createReactComponent("filled", "radioactive-filled", "IconRadioactiveFilled", [["path", { d: "M21 11a1 1 0 0 1 1 1a10 10 0 0 1 -5 8.656a1 1 0 0 1 -1.302 -.268l-.064 -.098l-3 -5.19a.995 .995 0 0 1 -.133 -.542l.01 -.11l.023 -.106l.034 -.106l.046 -.1l.056 -.094l.067 -.089a.994 .994 0 0 1 .165 -.155l.098 -.064a2 2 0 0 0 .993 -1.57l.007 -.163a1 1 0 0 1 .883 -.994l.117 -.007h6z", key: "svg-0" }], ["path", { d: "M7 3.344a10 10 0 0 1 10 0a1 1 0 0 1 .418 1.262l-.052 .104l-3 5.19l-.064 .098a.994 .994 0 0 1 -.155 .165l-.089 .067a1 1 0 0 1 -.195 .102l-.105 .034l-.107 .022a1.003 1.003 0 0 1 -.547 -.07l-.104 -.052a2 2 0 0 0 -1.842 -.082l-.158 .082a1 1 0 0 1 -1.302 -.268l-.064 -.098l-3 -5.19a1 1 0 0 1 .366 -1.366z", key: "svg-1" }], ["path", { d: "M9 11a1 1 0 0 1 .993 .884l.007 .117a2 2 0 0 0 .861 1.645l.237 .152a.994 .994 0 0 1 .165 .155l.067 .089l.056 .095l.045 .099c.014 .036 .026 .07 .035 .106l.022 .107l.011 .11a.994 .994 0 0 1 -.08 .437l-.053 .104l-3 5.19a1 1 0 0 1 -1.366 .366a10 10 0 0 1 -5 -8.656a1 1 0 0 1 .883 -.993l.117 -.007h6z", key: "svg-2" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconRosetteDiscountCheckFilled.mjs
+var IconRosetteDiscountCheckFilled;
+var init_IconRosetteDiscountCheckFilled = __esm(() => {
+  init_createReactComponent();
+  IconRosetteDiscountCheckFilled = createReactComponent("filled", "rosette-discount-check-filled", "IconRosetteDiscountCheckFilled", [["path", { d: "M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944zm3.697 7.282a1 1 0 0 0 -1.414 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconRosetteFilled.mjs
+var IconRosetteFilled;
+var init_IconRosetteFilled = __esm(() => {
+  init_createReactComponent();
+  IconRosetteFilled = createReactComponent("filled", "rosette-filled", "IconRosetteFilled", [["path", { d: "M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944z", key: "svg-0" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTrashFilled.mjs
@@ -14659,8 +14743,8 @@ async function getManualCropsFromDocByConnector(studio2, connectorId) {
       }
     }
     return Result.ok(result);
-  } catch (error) {
-    return Result.error(error instanceof Error ? error : new Error(String(error)));
+  } catch (error40) {
+    return Result.error(error40 instanceof Error ? error40 : new Error(String(error40)));
   }
 }
 var init_getManualCropsFromDocByConnector = __esm(() => {
@@ -14739,7 +14823,7 @@ var require_path = __commonJS((exports) => {
       const { key: nextKey } = state(remaining);
       const nextKeyAsInt = parseInt(nextKey);
       if (Array.isArray(keyVal) && isNaN(nextKeyAsInt)) {
-        return keyVal.map((doc) => evaluatePath(doc, remaining));
+        return keyVal.map((doc2) => evaluatePath(doc2, remaining));
       }
       return evaluatePath(keyVal, remaining);
     } else if (Array.isArray(obj)) {
@@ -14747,7 +14831,7 @@ var require_path = __commonJS((exports) => {
       if (kp === key && dotIndex === -1 && !isNaN(keyAsInt)) {
         return keyVal;
       }
-      return obj.map((doc) => evaluatePath(doc, kp));
+      return obj.map((doc2) => evaluatePath(doc2, kp));
     } else if (dotIndex >= 0 && kp !== key && typeof obj === "object" && key in obj) {
       return evaluatePath(keyVal, remaining);
     } else if (dotIndex === -1 && typeof obj === "object" && key in obj && !(kp in obj)) {
@@ -14777,7 +14861,7 @@ var require_path = __commonJS((exports) => {
         _sp(obj[key], remaining, v2);
         return obj;
       } else if (typeof obj === "object" && obj !== null && !(key in obj) && Array.isArray(obj)) {
-        obj.forEach((doc) => _sp(doc, kp, v2));
+        obj.forEach((doc2) => _sp(doc2, kp, v2));
         return obj;
       } else if (typeof obj === "object" && obj !== null && !(key in obj) && !Array.isArray(obj)) {
         const { key: nextKey } = state(remaining);
@@ -14798,7 +14882,7 @@ var require_path = __commonJS((exports) => {
         obj[key] = v2;
         return obj;
       }
-      obj.forEach((doc) => _sp(doc, remaining, v2));
+      obj.forEach((doc2) => _sp(doc2, remaining, v2));
       return obj;
     } else {
       obj[key] = v2;
@@ -14827,12 +14911,12 @@ var require_path = __commonJS((exports) => {
 var require_utils = __commonJS((exports) => {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.isDocumentToRecurOn = exports.flatten = exports.unique = undefined;
-  function unique(array) {
-    return [...new Set(array)];
+  function unique(array2) {
+    return [...new Set(array2)];
   }
   exports.unique = unique;
-  function flatten(array) {
-    return [].concat(...array);
+  function flatten(array2) {
+    return [].concat(...array2);
   }
   exports.flatten = flatten;
   function isDocumentToRecurOn(val) {
@@ -14889,10 +14973,10 @@ var require_deeks = __commonJS((exports) => {
   exports.deepKeysFromList = exports.deepKeys = undefined;
   var utils = __importStar(require_utils());
   __exportStar(require_types(), exports);
-  function deepKeys(object, options) {
+  function deepKeys(object2, options) {
     const parsedOptions = mergeOptions(options);
-    if (typeof object === "object" && object !== null) {
-      return generateDeepKeysList("", object, parsedOptions);
+    if (typeof object2 === "object" && object2 !== null) {
+      return generateDeepKeysList("", object2, parsedOptions);
     }
     return [];
   }
@@ -15047,9 +15131,9 @@ var require_utils2 = __commonJS((exports) => {
       accumulator.push(cloned);
     }
   }
-  function unwind(array, field) {
+  function unwind(array2, field) {
     const result = [];
-    array.forEach((item) => {
+    array2.forEach((item) => {
       unwindItem(result, item, field);
     });
     return result;
@@ -15063,10 +15147,10 @@ var require_utils2 = __commonJS((exports) => {
     return typeof value === "string";
   }
   exports.isString = isString;
-  function isObject2(value) {
+  function isObject3(value) {
     return typeof value === "object";
   }
-  exports.isObject = isObject2;
+  exports.isObject = isObject3;
   function isNull(value) {
     return value === null;
   }
@@ -15083,22 +15167,22 @@ var require_utils2 = __commonJS((exports) => {
     return a2.filter((x2) => !b.includes(x2));
   }
   exports.arrayDifference = arrayDifference;
-  function unique(array) {
-    return [...new Set(array)];
+  function unique(array2) {
+    return [...new Set(array2)];
   }
   exports.unique = unique;
-  function flatten(array) {
-    if (array.flat) {
-      return array.flat();
+  function flatten(array2) {
+    if (array2.flat) {
+      return array2.flat();
     }
-    if (array.length > MAX_ARRAY_LENGTH) {
+    if (array2.length > MAX_ARRAY_LENGTH) {
       let safeArray = [];
-      for (let a2 = 0;a2 < array.length; a2 += MAX_ARRAY_LENGTH) {
-        safeArray = safeArray.concat(...array.slice(a2, a2 + MAX_ARRAY_LENGTH));
+      for (let a2 = 0;a2 < array2.length; a2 += MAX_ARRAY_LENGTH) {
+        safeArray = safeArray.concat(...array2.slice(a2, a2 + MAX_ARRAY_LENGTH));
       }
       return safeArray;
     }
-    return array.reduce((accumulator, value) => accumulator.concat(value), []);
+    return array2.reduce((accumulator, value) => accumulator.concat(value), []);
   }
   exports.flatten = flatten;
   function isInvalid(parsedJson) {
@@ -15283,9 +15367,9 @@ var require_json2csv = __commonJS((exports) => {
       return sortHeaderFields(filtered);
     }
     function stillNeedsUnwind(params) {
-      for (const record of params.records) {
+      for (const record2 of params.records) {
         for (const field of params.headerFields) {
-          const value = (0, doc_path_1.evaluatePath)(record, field);
+          const value = (0, doc_path_1.evaluatePath)(record2, field);
           if (Array.isArray(value)) {
             return true;
           }
@@ -15314,8 +15398,8 @@ var require_json2csv = __commonJS((exports) => {
       return params;
     }
     function processRecords(params) {
-      params.recordString = params.records.map((record) => {
-        const recordFieldData = retrieveRecordFieldData(record, params.headerFields), processedRecordData = recordFieldData.map((fieldValue) => {
+      params.recordString = params.records.map((record2) => {
+        const recordFieldData = retrieveRecordFieldData(record2, params.headerFields), processedRecordData = recordFieldData.map((fieldValue) => {
           fieldValue = trimRecordFieldValue(fieldValue);
           fieldValue = preventCsvInjection(fieldValue);
           let stringified = customValueParser ? customValueParser(fieldValue, recordFieldValueToString) : recordFieldValueToString(fieldValue);
@@ -15335,10 +15419,10 @@ var require_json2csv = __commonJS((exports) => {
       }
       return recordFieldValue;
     }
-    function retrieveRecordFieldData(record, fields) {
+    function retrieveRecordFieldData(record2, fields) {
       const recordValues = [];
       fields.forEach((field) => {
-        let recordFieldValue = (0, doc_path_1.evaluatePath)(record, field);
+        let recordFieldValue = (0, doc_path_1.evaluatePath)(record2, field);
         if (!utils.isUndefined(options.emptyFieldValue) && utils.isEmptyField(recordFieldValue)) {
           recordFieldValue = options.emptyFieldValue;
         } else if (options.expandArrayObjects && Array.isArray(recordFieldValue)) {
@@ -15621,7 +15705,7 @@ var require_csv2json = __commonJS((exports) => {
         const value = retrieveRecordValueFromLine(headerField, line2);
         try {
           return (0, doc_path_1.setPath)(document2, headerField.value, value);
-        } catch (error) {
+        } catch (error40) {
           return document2;
         }
       }, {});
@@ -19811,17 +19895,17 @@ var require_browser2 = __commonJS((exports, module) => {
     if (typeof onFulfilled !== "function" && this.state === FULFILLED || typeof onRejected !== "function" && this.state === REJECTED) {
       return this;
     }
-    var promise = new this.constructor(INTERNAL);
+    var promise2 = new this.constructor(INTERNAL);
     if (this.state !== PENDING) {
       var resolver = this.state === FULFILLED ? onFulfilled : onRejected;
-      unwrap(promise, resolver, this.outcome);
+      unwrap(promise2, resolver, this.outcome);
     } else {
-      this.queue.push(new QueueItem(promise, onFulfilled, onRejected));
+      this.queue.push(new QueueItem(promise2, onFulfilled, onRejected));
     }
-    return promise;
+    return promise2;
   };
-  function QueueItem(promise, onFulfilled, onRejected) {
-    this.promise = promise;
+  function QueueItem(promise2, onFulfilled, onRejected) {
+    this.promise = promise2;
     if (typeof onFulfilled === "function") {
       this.onFulfilled = onFulfilled;
       this.callFulfilled = this.otherCallFulfilled;
@@ -19843,18 +19927,18 @@ var require_browser2 = __commonJS((exports, module) => {
   QueueItem.prototype.otherCallRejected = function(value) {
     unwrap(this.promise, this.onRejected, value);
   };
-  function unwrap(promise, func, value) {
+  function unwrap(promise2, func, value) {
     immediate(function() {
       var returnValue;
       try {
         returnValue = func(value);
       } catch (e) {
-        return handlers.reject(promise, e);
+        return handlers.reject(promise2, e);
       }
-      if (returnValue === promise) {
-        handlers.reject(promise, new TypeError("Cannot resolve promise with itself"));
+      if (returnValue === promise2) {
+        handlers.reject(promise2, new TypeError("Cannot resolve promise with itself"));
       } else {
-        handlers.resolve(promise, returnValue);
+        handlers.resolve(promise2, returnValue);
       }
     });
   }
@@ -19877,13 +19961,13 @@ var require_browser2 = __commonJS((exports, module) => {
     }
     return self2;
   };
-  handlers.reject = function(self2, error) {
+  handlers.reject = function(self2, error40) {
     self2.state = REJECTED;
-    self2.outcome = error;
+    self2.outcome = error40;
     var i2 = -1;
     var len = self2.queue.length;
     while (++i2 < len) {
-      self2.queue[i2].callRejected(error);
+      self2.queue[i2].callRejected(error40);
     }
     return self2;
   };
@@ -19939,8 +20023,8 @@ var require_browser2 = __commonJS((exports, module) => {
   }
   Promise2.reject = reject;
   function reject(reason) {
-    var promise = new this(INTERNAL);
-    return handlers.reject(promise, reason);
+    var promise2 = new this(INTERNAL);
+    return handlers.reject(promise2, reason);
   }
   Promise2.all = all;
   function all(iterable) {
@@ -19956,23 +20040,23 @@ var require_browser2 = __commonJS((exports, module) => {
     var values2 = new Array(len);
     var resolved = 0;
     var i2 = -1;
-    var promise = new this(INTERNAL);
+    var promise2 = new this(INTERNAL);
     while (++i2 < len) {
       allResolver(iterable[i2], i2);
     }
-    return promise;
+    return promise2;
     function allResolver(value, i3) {
-      self2.resolve(value).then(resolveFromAll, function(error) {
+      self2.resolve(value).then(resolveFromAll, function(error40) {
         if (!called) {
           called = true;
-          handlers.reject(promise, error);
+          handlers.reject(promise2, error40);
         }
       });
       function resolveFromAll(outValue) {
         values2[i3] = outValue;
         if (++resolved === len && !called) {
           called = true;
-          handlers.resolve(promise, values2);
+          handlers.resolve(promise2, values2);
         }
       }
     }
@@ -19989,21 +20073,21 @@ var require_browser2 = __commonJS((exports, module) => {
       return this.resolve([]);
     }
     var i2 = -1;
-    var promise = new this(INTERNAL);
+    var promise2 = new this(INTERNAL);
     while (++i2 < len) {
       resolver(iterable[i2]);
     }
-    return promise;
+    return promise2;
     function resolver(value) {
       self2.resolve(value).then(function(response) {
         if (!called) {
           called = true;
-          handlers.resolve(promise, response);
+          handlers.resolve(promise2, response);
         }
-      }, function(error) {
+      }, function(error40) {
         if (!called) {
           called = true;
-          handlers.reject(promise, error);
+          handlers.reject(promise2, error40);
         }
       });
     }
@@ -20032,7 +20116,7 @@ var require_setImmediate = __commonJS((exports) => {
     var nextHandle = 1;
     var tasksByHandle = {};
     var currentlyRunningATask = false;
-    var doc = global2.document;
+    var doc2 = global2.document;
     var registerImmediate;
     function setImmediate2(callback) {
       if (typeof callback !== "function") {
@@ -20133,9 +20217,9 @@ var require_setImmediate = __commonJS((exports) => {
       };
     }
     function installReadyStateChangeImplementation() {
-      var html = doc.documentElement;
+      var html = doc2.documentElement;
       registerImmediate = function(handle) {
-        var script = doc.createElement("script");
+        var script = doc2.createElement("script");
         script.onreadystatechange = function() {
           runIfPresent(handle);
           script.onreadystatechange = null;
@@ -20158,7 +20242,7 @@ var require_setImmediate = __commonJS((exports) => {
       installPostMessageImplementation();
     } else if (global2.MessageChannel) {
       installMessageChannelImplementation();
-    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+    } else if (doc2 && "onreadystatechange" in doc2.createElement("script")) {
       installReadyStateChangeImplementation();
     } else {
       installSetTimeoutImplementation();
@@ -20171,9 +20255,9 @@ var require_setImmediate = __commonJS((exports) => {
 // node_modules/jszip/lib/utils.js
 var require_utils3 = __commonJS((exports) => {
   var support = require_support();
-  var base64 = require_base64();
+  var base643 = require_base64();
   var nodejsUtils = require_nodejsUtils();
-  var external = require_external();
+  var external2 = require_external();
   require_setImmediate();
   function string2binary(str) {
     var result = null;
@@ -20204,32 +20288,32 @@ var require_utils3 = __commonJS((exports) => {
   function identity3(input) {
     return input;
   }
-  function stringToArrayLike(str, array) {
+  function stringToArrayLike(str, array2) {
     for (var i2 = 0;i2 < str.length; ++i2) {
-      array[i2] = str.charCodeAt(i2) & 255;
+      array2[i2] = str.charCodeAt(i2) & 255;
     }
-    return array;
+    return array2;
   }
   var arrayToStringHelper = {
-    stringifyByChunk: function(array, type, chunk) {
-      var result = [], k3 = 0, len = array.length;
+    stringifyByChunk: function(array2, type, chunk) {
+      var result = [], k3 = 0, len = array2.length;
       if (len <= chunk) {
-        return String.fromCharCode.apply(null, array);
+        return String.fromCharCode.apply(null, array2);
       }
       while (k3 < len) {
         if (type === "array" || type === "nodebuffer") {
-          result.push(String.fromCharCode.apply(null, array.slice(k3, Math.min(k3 + chunk, len))));
+          result.push(String.fromCharCode.apply(null, array2.slice(k3, Math.min(k3 + chunk, len))));
         } else {
-          result.push(String.fromCharCode.apply(null, array.subarray(k3, Math.min(k3 + chunk, len))));
+          result.push(String.fromCharCode.apply(null, array2.subarray(k3, Math.min(k3 + chunk, len))));
         }
         k3 += chunk;
       }
       return result.join("");
     },
-    stringifyByChar: function(array) {
+    stringifyByChar: function(array2) {
       var resultStr = "";
-      for (var i2 = 0;i2 < array.length; i2++) {
-        resultStr += String.fromCharCode(array[i2]);
+      for (var i2 = 0;i2 < array2.length; i2++) {
+        resultStr += String.fromCharCode(array2[i2]);
       }
       return resultStr;
     },
@@ -20250,8 +20334,8 @@ var require_utils3 = __commonJS((exports) => {
       }()
     }
   };
-  function arrayLikeToString(array) {
-    var chunk = 65536, type = exports.getTypeOf(array), canUseApply = true;
+  function arrayLikeToString(array2) {
+    var chunk = 65536, type = exports.getTypeOf(array2), canUseApply = true;
     if (type === "uint8array") {
       canUseApply = arrayToStringHelper.applyCanBeUsed.uint8array;
     } else if (type === "nodebuffer") {
@@ -20260,13 +20344,13 @@ var require_utils3 = __commonJS((exports) => {
     if (canUseApply) {
       while (chunk > 1) {
         try {
-          return arrayToStringHelper.stringifyByChunk(array, type, chunk);
+          return arrayToStringHelper.stringifyByChunk(array2, type, chunk);
         } catch (e) {
           chunk = Math.floor(chunk / 2);
         }
       }
     }
-    return arrayToStringHelper.stringifyByChar(array);
+    return arrayToStringHelper.stringifyByChar(array2);
   }
   exports.applyFromCharCode = arrayLikeToString;
   function arrayLikeToArrayLike(arrayFrom, arrayTo) {
@@ -20275,14 +20359,14 @@ var require_utils3 = __commonJS((exports) => {
     }
     return arrayTo;
   }
-  var transform = {};
-  transform["string"] = {
+  var transform2 = {};
+  transform2["string"] = {
     string: identity3,
     array: function(input) {
       return stringToArrayLike(input, new Array(input.length));
     },
     arraybuffer: function(input) {
-      return transform["string"]["uint8array"](input).buffer;
+      return transform2["string"]["uint8array"](input).buffer;
     },
     uint8array: function(input) {
       return stringToArrayLike(input, new Uint8Array(input.length));
@@ -20291,7 +20375,7 @@ var require_utils3 = __commonJS((exports) => {
       return stringToArrayLike(input, nodejsUtils.allocBuffer(input.length));
     }
   };
-  transform["array"] = {
+  transform2["array"] = {
     string: arrayLikeToString,
     array: identity3,
     arraybuffer: function(input) {
@@ -20304,7 +20388,7 @@ var require_utils3 = __commonJS((exports) => {
       return nodejsUtils.newBufferFrom(input);
     }
   };
-  transform["arraybuffer"] = {
+  transform2["arraybuffer"] = {
     string: function(input) {
       return arrayLikeToString(new Uint8Array(input));
     },
@@ -20319,7 +20403,7 @@ var require_utils3 = __commonJS((exports) => {
       return nodejsUtils.newBufferFrom(new Uint8Array(input));
     }
   };
-  transform["uint8array"] = {
+  transform2["uint8array"] = {
     string: arrayLikeToString,
     array: function(input) {
       return arrayLikeToArrayLike(input, new Array(input.length));
@@ -20332,13 +20416,13 @@ var require_utils3 = __commonJS((exports) => {
       return nodejsUtils.newBufferFrom(input);
     }
   };
-  transform["nodebuffer"] = {
+  transform2["nodebuffer"] = {
     string: arrayLikeToString,
     array: function(input) {
       return arrayLikeToArrayLike(input, new Array(input.length));
     },
     arraybuffer: function(input) {
-      return transform["nodebuffer"]["uint8array"](input).buffer;
+      return transform2["nodebuffer"]["uint8array"](input).buffer;
     },
     uint8array: function(input) {
       return arrayLikeToArrayLike(input, new Uint8Array(input.length));
@@ -20354,7 +20438,7 @@ var require_utils3 = __commonJS((exports) => {
     }
     exports.checkSupport(outputType);
     var inputType = exports.getTypeOf(input);
-    var result = transform[inputType][outputType](input);
+    var result = transform2[inputType][outputType](input);
     return result;
   };
   exports.resolve = function(path) {
@@ -20428,10 +20512,10 @@ var require_utils3 = __commonJS((exports) => {
     return result;
   };
   exports.prepareContent = function(name, inputData, isBinary, isOptimizedBinaryString, isBase64) {
-    var promise = external.Promise.resolve(inputData).then(function(data) {
+    var promise2 = external2.Promise.resolve(inputData).then(function(data) {
       var isBlob = support.blob && (data instanceof Blob || ["[object File]", "[object Blob]"].indexOf(Object.prototype.toString.call(data)) !== -1);
       if (isBlob && typeof FileReader !== "undefined") {
-        return new external.Promise(function(resolve, reject) {
+        return new external2.Promise(function(resolve, reject) {
           var reader = new FileReader;
           reader.onload = function(e) {
             resolve(e.target.result);
@@ -20445,16 +20529,16 @@ var require_utils3 = __commonJS((exports) => {
         return data;
       }
     });
-    return promise.then(function(data) {
+    return promise2.then(function(data) {
       var dataType = exports.getTypeOf(data);
       if (!dataType) {
-        return external.Promise.reject(new Error("Can't read the data of '" + name + "'. Is it " + "in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?"));
+        return external2.Promise.reject(new Error("Can't read the data of '" + name + "'. Is it " + "in a supported JavaScript type (String, Blob, ArrayBuffer, etc) ?"));
       }
       if (dataType === "arraybuffer") {
         data = exports.transformTo("uint8array", data);
       } else if (dataType === "string") {
         if (isBase64) {
-          data = base64.decode(data);
+          data = base643.decode(data);
         } else if (isBinary) {
           if (isOptimizedBinaryString !== true) {
             data = string2binary(data);
@@ -20856,9 +20940,9 @@ var require_StreamHelper = __commonJS((exports, module) => {
   var utils = require_utils3();
   var ConvertWorker = require_ConvertWorker();
   var GenericWorker = require_GenericWorker();
-  var base64 = require_base64();
+  var base643 = require_base64();
   var support = require_support();
-  var external = require_external();
+  var external2 = require_external();
   var NodejsStreamOutputAdapter = null;
   if (support.nodestream) {
     try {
@@ -20871,7 +20955,7 @@ var require_StreamHelper = __commonJS((exports, module) => {
       case "blob":
         return utils.newBlob(utils.transformTo("arraybuffer", content), mimeType);
       case "base64":
-        return base64.encode(content);
+        return base643.encode(content);
       default:
         return utils.transformTo(type, content);
     }
@@ -20900,7 +20984,7 @@ var require_StreamHelper = __commonJS((exports, module) => {
     }
   }
   function accumulate(helper, updateCallback2) {
-    return new external.Promise(function(resolve, reject) {
+    return new external2.Promise(function(resolve, reject) {
       var dataArray = [];
       var { _internalType: chunkType, _outputType: resultType, _mimeType: mimeType } = helper;
       helper.on("data", function(data, meta) {
@@ -21165,7 +21249,7 @@ var require_DataLengthProbe = __commonJS((exports, module) => {
 
 // node_modules/jszip/lib/compressedObject.js
 var require_compressedObject = __commonJS((exports, module) => {
-  var external = require_external();
+  var external2 = require_external();
   var DataWorker = require_DataWorker();
   var Crc32Probe = require_Crc32Probe();
   var DataLengthProbe = require_DataLengthProbe();
@@ -21178,7 +21262,7 @@ var require_compressedObject = __commonJS((exports, module) => {
   }
   CompressedObject.prototype = {
     getContentWorker: function() {
-      var worker = new DataWorker(external.Promise.resolve(this.compressedContent)).pipe(this.compression.uncompressWorker()).pipe(new DataLengthProbe("data_length"));
+      var worker = new DataWorker(external2.Promise.resolve(this.compressedContent)).pipe(this.compression.uncompressWorker()).pipe(new DataLengthProbe("data_length"));
       var that = this;
       worker.on("end", function() {
         if (this.streamInfo["data_length"] !== that.uncompressedSize) {
@@ -21188,7 +21272,7 @@ var require_compressedObject = __commonJS((exports, module) => {
       return worker;
     },
     getCompressedWorker: function() {
-      return new DataWorker(external.Promise.resolve(this.compressedContent)).withStreamInfo("compressedSize", this.compressedSize).withStreamInfo("uncompressedSize", this.uncompressedSize).withStreamInfo("crc32", this.crc32).withStreamInfo("compression", this.compression);
+      return new DataWorker(external2.Promise.resolve(this.compressedContent)).withStreamInfo("compressedSize", this.compressedSize).withStreamInfo("uncompressedSize", this.uncompressedSize).withStreamInfo("crc32", this.crc32).withStreamInfo("compression", this.compression);
     }
   };
   CompressedObject.createWorkerFrom = function(uncompressedWorker, compression, compressionOptions) {
@@ -25438,7 +25522,7 @@ var require_ZipFileWorker = __commonJS((exports, module) => {
     return (dosPermissions || 0) & 63;
   };
   var generateZipParts = function(streamInfo, streamedContent, streamingEnded, offset4, platform2, encodeFileName) {
-    var file = streamInfo["file"], compression = streamInfo["compression"], useCustomEncoding = encodeFileName !== utf8.utf8encode, encodedFileName = utils.transformTo("string", encodeFileName(file.name)), utfEncodedFileName = utils.transformTo("string", utf8.utf8encode(file.name)), comment2 = file.comment, encodedComment = utils.transformTo("string", encodeFileName(comment2)), utfEncodedComment = utils.transformTo("string", utf8.utf8encode(comment2)), useUTF8ForFileName = utfEncodedFileName.length !== file.name.length, useUTF8ForComment = utfEncodedComment.length !== comment2.length, dosTime, dosDate, extraFields = "", unicodePathExtraField = "", unicodeCommentExtraField = "", dir = file.dir, date = file.date;
+    var file2 = streamInfo["file"], compression = streamInfo["compression"], useCustomEncoding = encodeFileName !== utf8.utf8encode, encodedFileName = utils.transformTo("string", encodeFileName(file2.name)), utfEncodedFileName = utils.transformTo("string", utf8.utf8encode(file2.name)), comment2 = file2.comment, encodedComment = utils.transformTo("string", encodeFileName(comment2)), utfEncodedComment = utils.transformTo("string", utf8.utf8encode(comment2)), useUTF8ForFileName = utfEncodedFileName.length !== file2.name.length, useUTF8ForComment = utfEncodedComment.length !== comment2.length, dosTime, dosDate, extraFields = "", unicodePathExtraField = "", unicodeCommentExtraField = "", dir = file2.dir, date5 = file2.date;
     var dataInfo = {
       crc32: 0,
       compressedSize: 0,
@@ -25463,21 +25547,21 @@ var require_ZipFileWorker = __commonJS((exports, module) => {
     }
     if (platform2 === "UNIX") {
       versionMadeBy = 798;
-      extFileAttr |= generateUnixExternalFileAttr(file.unixPermissions, dir);
+      extFileAttr |= generateUnixExternalFileAttr(file2.unixPermissions, dir);
     } else {
       versionMadeBy = 20;
-      extFileAttr |= generateDosExternalFileAttr(file.dosPermissions, dir);
+      extFileAttr |= generateDosExternalFileAttr(file2.dosPermissions, dir);
     }
-    dosTime = date.getUTCHours();
+    dosTime = date5.getUTCHours();
     dosTime = dosTime << 6;
-    dosTime = dosTime | date.getUTCMinutes();
+    dosTime = dosTime | date5.getUTCMinutes();
     dosTime = dosTime << 5;
-    dosTime = dosTime | date.getUTCSeconds() / 2;
-    dosDate = date.getUTCFullYear() - 1980;
+    dosTime = dosTime | date5.getUTCSeconds() / 2;
+    dosDate = date5.getUTCFullYear() - 1980;
     dosDate = dosDate << 4;
-    dosDate = dosDate | date.getUTCMonth() + 1;
+    dosDate = dosDate | date5.getUTCMonth() + 1;
     dosDate = dosDate << 5;
-    dosDate = dosDate | date.getUTCDate();
+    dosDate = dosDate | date5.getUTCDate();
     if (useUTF8ForFileName) {
       unicodePathExtraField = decToHex(1, 1) + decToHex(crc32(encodedFileName), 4) + utfEncodedFileName;
       extraFields += "up" + decToHex(unicodePathExtraField.length, 2) + unicodePathExtraField;
@@ -25554,9 +25638,9 @@ var require_ZipFileWorker = __commonJS((exports, module) => {
     this.currentFile = streamInfo["file"].name;
     var streamedContent = this.streamFiles && !streamInfo["file"].dir;
     if (streamedContent) {
-      var record = generateZipParts(streamInfo, streamedContent, false, this.currentSourceOffset, this.zipPlatform, this.encodeFileName);
+      var record2 = generateZipParts(streamInfo, streamedContent, false, this.currentSourceOffset, this.zipPlatform, this.encodeFileName);
       this.push({
-        data: record.fileRecord,
+        data: record2.fileRecord,
         meta: { percent: 0 }
       });
     } else {
@@ -25566,8 +25650,8 @@ var require_ZipFileWorker = __commonJS((exports, module) => {
   ZipFileWorker.prototype.closedSource = function(streamInfo) {
     this.accumulate = false;
     var streamedContent = this.streamFiles && !streamInfo["file"].dir;
-    var record = generateZipParts(streamInfo, streamedContent, true, this.currentSourceOffset, this.zipPlatform, this.encodeFileName);
-    this.dirRecords.push(record.dirRecord);
+    var record2 = generateZipParts(streamInfo, streamedContent, true, this.currentSourceOffset, this.zipPlatform, this.encodeFileName);
+    this.dirRecords.push(record2.dirRecord);
     if (streamedContent) {
       this.push({
         data: generateDataDescriptors(streamInfo),
@@ -25575,7 +25659,7 @@ var require_ZipFileWorker = __commonJS((exports, module) => {
       });
     } else {
       this.push({
-        data: record.fileRecord,
+        data: record2.fileRecord,
         meta: { percent: 0 }
       });
       while (this.contentBuffer.length) {
@@ -25679,18 +25763,18 @@ var require_generate = __commonJS((exports) => {
     var zipFileWorker = new ZipFileWorker(options.streamFiles, comment2, options.platform, options.encodeFileName);
     var entriesCount = 0;
     try {
-      zip.forEach(function(relativePath, file) {
+      zip.forEach(function(relativePath, file2) {
         entriesCount++;
-        var compression = getCompression(file.options.compression, options.compression);
-        var compressionOptions = file.options.compressionOptions || options.compressionOptions || {};
-        var { dir, date } = file;
-        file._compressWorker(compression, compressionOptions).withStreamInfo("file", {
+        var compression = getCompression(file2.options.compression, options.compression);
+        var compressionOptions = file2.options.compressionOptions || options.compressionOptions || {};
+        var { dir, date: date5 } = file2;
+        file2._compressWorker(compression, compressionOptions).withStreamInfo("file", {
           name: relativePath,
           dir,
-          date,
-          comment: file.comment || "",
-          unixPermissions: file.unixPermissions,
-          dosPermissions: file.dosPermissions
+          date: date5,
+          comment: file2.comment || "",
+          unixPermissions: file2.unixPermissions,
+          dosPermissions: file2.dosPermissions
         }).pipe(zipFileWorker);
       });
       zipFileWorker.entriesCount = entriesCount;
@@ -25811,8 +25895,8 @@ var require_object = __commonJS((exports, module) => {
     } else {
       zipObjectContent = utils.prepareContent(name, data, o2.binary, o2.optimizedBinaryString, o2.base64);
     }
-    var object = new ZipObject(name, zipObjectContent, o2);
-    this.files[name] = object;
+    var object2 = new ZipObject(name, zipObjectContent, o2);
+    this.files[name] = object2;
   };
   var parentFolder = function(path) {
     if (path.slice(-1) === "/") {
@@ -25838,20 +25922,20 @@ var require_object = __commonJS((exports, module) => {
     }
     return this.files[name];
   };
-  function isRegExp(object) {
-    return Object.prototype.toString.call(object) === "[object RegExp]";
+  function isRegExp(object2) {
+    return Object.prototype.toString.call(object2) === "[object RegExp]";
   }
   var out = {
     load: function() {
       throw new Error("This method has been removed in JSZip 3.0, please check the upgrade guide.");
     },
     forEach: function(cb) {
-      var filename, relativePath, file;
+      var filename, relativePath, file2;
       for (filename in this.files) {
-        file = this.files[filename];
+        file2 = this.files[filename];
         relativePath = filename.slice(this.root.length, filename.length);
         if (relativePath && filename.slice(0, this.root.length) === this.root) {
-          cb(relativePath, file);
+          cb(relativePath, file2);
         }
       }
     },
@@ -25868,8 +25952,8 @@ var require_object = __commonJS((exports, module) => {
       if (arguments.length === 1) {
         if (isRegExp(name)) {
           var regexp = name;
-          return this.filter(function(relativePath, file) {
-            return !file.dir && regexp.test(relativePath);
+          return this.filter(function(relativePath, file2) {
+            return !file2.dir && regexp.test(relativePath);
           });
         } else {
           var obj = this.files[this.root + name];
@@ -25890,8 +25974,8 @@ var require_object = __commonJS((exports, module) => {
         return this;
       }
       if (isRegExp(arg)) {
-        return this.filter(function(relativePath, file) {
-          return file.dir && arg.test(relativePath);
+        return this.filter(function(relativePath, file2) {
+          return file2.dir && arg.test(relativePath);
         });
       }
       var name = this.root + arg;
@@ -25902,18 +25986,18 @@ var require_object = __commonJS((exports, module) => {
     },
     remove: function(name) {
       name = this.root + name;
-      var file = this.files[name];
-      if (!file) {
+      var file2 = this.files[name];
+      if (!file2) {
         if (name.slice(-1) !== "/") {
           name += "/";
         }
-        file = this.files[name];
+        file2 = this.files[name];
       }
-      if (file && !file.dir) {
+      if (file2 && !file2.dir) {
         delete this.files[name];
       } else {
-        var kids = this.filter(function(relativePath, file2) {
-          return file2.name.slice(0, name.length) === name;
+        var kids = this.filter(function(relativePath, file3) {
+          return file3.name.slice(0, name.length) === name;
         });
         for (var i2 = 0;i2 < kids.length; i2++) {
           delete this.files[kids[i2].name];
@@ -26402,25 +26486,25 @@ var require_zipEntries = __commonJS((exports, module) => {
       }
     },
     readLocalFiles: function() {
-      var i2, file;
+      var i2, file2;
       for (i2 = 0;i2 < this.files.length; i2++) {
-        file = this.files[i2];
-        this.reader.setIndex(file.localHeaderOffset);
+        file2 = this.files[i2];
+        this.reader.setIndex(file2.localHeaderOffset);
         this.checkSignature(sig.LOCAL_FILE_HEADER);
-        file.readLocalPart(this.reader);
-        file.handleUTF8();
-        file.processAttributes();
+        file2.readLocalPart(this.reader);
+        file2.handleUTF8();
+        file2.processAttributes();
       }
     },
     readCentralDir: function() {
-      var file;
+      var file2;
       this.reader.setIndex(this.centralDirOffset);
       while (this.reader.readAndCheckSignature(sig.CENTRAL_FILE_HEADER)) {
-        file = new ZipEntry({
+        file2 = new ZipEntry({
           zip64: this.zip64
         }, this.loadOptions);
-        file.readCentralPart(this.reader);
-        this.files.push(file);
+        file2.readCentralPart(this.reader);
+        this.files.push(file2);
       }
       if (this.centralDirRecords !== this.files.length) {
         if (this.centralDirRecords !== 0 && this.files.length === 0) {
@@ -26493,13 +26577,13 @@ var require_zipEntries = __commonJS((exports, module) => {
 // node_modules/jszip/lib/load.js
 var require_load = __commonJS((exports, module) => {
   var utils = require_utils3();
-  var external = require_external();
+  var external2 = require_external();
   var utf8 = require_utf8();
   var ZipEntries = require_zipEntries();
   var Crc32Probe = require_Crc32Probe();
   var nodejsUtils = require_nodejsUtils();
   function checkEntryCRC32(zipEntry) {
-    return new external.Promise(function(resolve, reject) {
+    return new external2.Promise(function(resolve, reject) {
       var worker = zipEntry.decompressed.getContentWorker().pipe(new Crc32Probe);
       worker.on("error", function(e) {
         reject(e);
@@ -26522,21 +26606,21 @@ var require_load = __commonJS((exports, module) => {
       decodeFileName: utf8.utf8decode
     });
     if (nodejsUtils.isNode && nodejsUtils.isStream(data)) {
-      return external.Promise.reject(new Error("JSZip can't accept a stream when loading a zip file."));
+      return external2.Promise.reject(new Error("JSZip can't accept a stream when loading a zip file."));
     }
     return utils.prepareContent("the loaded zip file", data, true, options.optimizedBinaryString, options.base64).then(function(data2) {
       var zipEntries = new ZipEntries(options);
       zipEntries.load(data2);
       return zipEntries;
     }).then(function checkCRC32(zipEntries) {
-      var promises = [external.Promise.resolve(zipEntries)];
+      var promises = [external2.Promise.resolve(zipEntries)];
       var files = zipEntries.files;
       if (options.checkCRC32) {
         for (var i2 = 0;i2 < files.length; i2++) {
           promises.push(checkEntryCRC32(files[i2]));
         }
       }
-      return external.Promise.all(promises);
+      return external2.Promise.all(promises);
     }).then(function addFiles(results) {
       var zipEntries = results.shift();
       var files = zipEntries.files;
@@ -26601,7 +26685,7 @@ var require_lib = __commonJS((exports, module) => {
 });
 
 // src/index.tsx
-var import_react271 = __toESM(require_react(), 1);
+var import_react277 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -28403,8 +28487,29 @@ init_documentHandler();
 
 // src/studio/connectorAdapter.ts
 init_utils();
+
+// node_modules/@chili-publish/studio-sdk/lib/src/next/types/ConnectorTypes.js
+var ConnectorRegistrationSource;
+(function(ConnectorRegistrationSource2) {
+  ConnectorRegistrationSource2["url"] = "url";
+  ConnectorRegistrationSource2["grafx"] = "grafx";
+  ConnectorRegistrationSource2["local"] = "local";
+})(ConnectorRegistrationSource || (ConnectorRegistrationSource = {}));
+var ConnectorType;
+(function(ConnectorType2) {
+  ConnectorType2["media"] = "media";
+  ConnectorType2["fonts"] = "fonts";
+  ConnectorType2["data"] = "data";
+})(ConnectorType || (ConnectorType = {}));
+// src/studio/connectorAdapter.ts
 async function getConnectorsByType(studio2, type) {
   return handleStudioFunc(studio2.connector.getAllByType, type);
+}
+async function registerConnector(studio2, id) {
+  return handleStudioFunc(studio2.next.connector.register, {
+    id,
+    source: ConnectorRegistrationSource.grafx
+  });
 }
 async function unregisterConnector(studio2, connectorId) {
   return handleStudioFunc(studio2.connector.unregister, connectorId);
@@ -28804,7 +28909,7 @@ async function mergeConnectors(studio2, targetConnectorId, selectedConnectorIds)
 }
 
 // src/components/LayoutMappingModal/LayoutModal.tsx
-var import_react248 = __toESM(require_react(), 1);
+var import_react250 = __toESM(require_react(), 1);
 
 // node_modules/styled-components/node_modules/tslib/tslib.es6.mjs
 var __assign = function() {
@@ -40968,6 +41073,10 @@ var Alert = factory((_props, ref) => {
 });
 Alert.classes = classes13;
 Alert.displayName = "@mantine/core/Alert";
+// node_modules/@mantine/core/esm/components/Anchor/Anchor.mjs
+var import_jsx_runtime94 = __toESM(require_jsx_runtime(), 1);
+var import_react129 = __toESM(require_react(), 1);
+
 // node_modules/@mantine/core/esm/components/Text/Text.mjs
 var import_jsx_runtime93 = __toESM(require_jsx_runtime(), 1);
 var import_react128 = __toESM(require_react(), 1);
@@ -41053,6 +41162,29 @@ var Text = polymorphicFactory((_props, ref) => {
 Text.classes = classes14;
 Text.displayName = "@mantine/core/Text";
 
+// node_modules/@mantine/core/esm/components/Anchor/Anchor.module.css.mjs
+"use client";
+var classes15 = { root: "m_849cf0da" };
+
+// node_modules/@mantine/core/esm/components/Anchor/Anchor.mjs
+"use client";
+var defaultProps27 = {
+  underline: "hover"
+};
+var Anchor = polymorphicFactory((props, ref) => {
+  const { underline, className, unstyled, mod, ...others } = useProps("Anchor", defaultProps27, props);
+  return /* @__PURE__ */ import_jsx_runtime94.jsx(Text, {
+    component: "a",
+    ref,
+    className: clsx_default({ [classes15.root]: !unstyled }, className),
+    ...others,
+    mod: [{ underline }, mod],
+    __staticSelector: "Anchor",
+    unstyled
+  });
+});
+Anchor.classes = classes15;
+Anchor.displayName = "@mantine/core/Anchor";
 // node_modules/@mantine/core/esm/components/Combobox/get-parsed-combobox-data/get-parsed-combobox-data.mjs
 "use client";
 function parseItem(item) {
@@ -41093,16 +41225,16 @@ function getOptionsLockup(options) {
 }
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxChevron/ComboboxChevron.mjs
-var import_jsx_runtime94 = __toESM(require_jsx_runtime(), 1);
-var import_react129 = __toESM(require_react(), 1);
+var import_jsx_runtime95 = __toESM(require_jsx_runtime(), 1);
+var import_react130 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Combobox/Combobox.module.css.mjs
 "use client";
-var classes15 = { dropdown: "m_88b62a41", search: "m_985517d8", options: "m_b2821a6e", option: "m_92253aa5", empty: "m_2530cd1d", header: "m_858f94bd", footer: "m_82b967cb", group: "m_254f3e4f", groupLabel: "m_2bb2e9e5", chevron: "m_2943220b", optionsDropdownOption: "m_390b5f4", optionsDropdownCheckIcon: "m_8ee53fc2" };
+var classes16 = { dropdown: "m_88b62a41", search: "m_985517d8", options: "m_b2821a6e", option: "m_92253aa5", empty: "m_2530cd1d", header: "m_858f94bd", footer: "m_82b967cb", group: "m_254f3e4f", groupLabel: "m_2bb2e9e5", chevron: "m_2943220b", optionsDropdownOption: "m_390b5f4", optionsDropdownCheckIcon: "m_8ee53fc2" };
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxChevron/ComboboxChevron.mjs
 "use client";
-var defaultProps27 = {
+var defaultProps28 = {
   error: null
 };
 var varsResolver18 = createVarsResolver((theme, { size: size4, color }) => ({
@@ -41112,11 +41244,11 @@ var varsResolver18 = createVarsResolver((theme, { size: size4, color }) => ({
   }
 }));
 var ComboboxChevron = factory((_props, ref) => {
-  const props = useProps("ComboboxChevron", defaultProps27, _props);
+  const props = useProps("ComboboxChevron", defaultProps28, _props);
   const { size: size4, error, style: style2, className, classNames, styles, unstyled, vars, mod, ...others } = props;
   const getStyles2 = useStyles({
     name: "ComboboxChevron",
-    classes: classes15,
+    classes: classes16,
     props,
     style: style2,
     className,
@@ -41127,7 +41259,7 @@ var ComboboxChevron = factory((_props, ref) => {
     varsResolver: varsResolver18,
     rootSelector: "chevron"
   });
-  return /* @__PURE__ */ import_jsx_runtime94.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime95.jsx(Box, {
     component: "svg",
     ...others,
     ...getStyles2("chevron"),
@@ -41137,7 +41269,7 @@ var ComboboxChevron = factory((_props, ref) => {
     xmlns: "http://www.w3.org/2000/svg",
     mod: ["combobox-chevron", { error }, mod],
     ref,
-    children: /* @__PURE__ */ import_jsx_runtime94.jsx("path", {
+    children: /* @__PURE__ */ import_jsx_runtime95.jsx("path", {
       d: "M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z",
       fill: "currentColor",
       fillRule: "evenodd",
@@ -41145,24 +41277,24 @@ var ComboboxChevron = factory((_props, ref) => {
     })
   });
 });
-ComboboxChevron.classes = classes15;
+ComboboxChevron.classes = classes16;
 ComboboxChevron.displayName = "@mantine/core/ComboboxChevron";
 
 // node_modules/@mantine/core/esm/components/Combobox/Combobox.mjs
-var import_jsx_runtime109 = __toESM(require_jsx_runtime(), 1);
-var import_react145 = __toESM(require_react(), 1);
+var import_jsx_runtime110 = __toESM(require_jsx_runtime(), 1);
+var import_react146 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Combobox/Combobox.context.mjs
-var import_react130 = __toESM(require_react(), 1);
-var import_jsx_runtime95 = __toESM(require_jsx_runtime(), 1);
+var import_react131 = __toESM(require_react(), 1);
+var import_jsx_runtime96 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [ComboboxProvider, useComboboxContext] = createSafeContext("Combobox component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxClearButton/ComboboxClearButton.mjs
-var import_jsx_runtime96 = __toESM(require_jsx_runtime(), 1);
-var import_react131 = __toESM(require_react(), 1);
+var import_jsx_runtime97 = __toESM(require_jsx_runtime(), 1);
+var import_react132 = __toESM(require_react(), 1);
 "use client";
-var ComboboxClearButton = import_react131.forwardRef(({ size: size4, onMouseDown, onClick, onClear, ...others }, ref) => /* @__PURE__ */ import_jsx_runtime96.jsx(Input.ClearButton, {
+var ComboboxClearButton = import_react132.forwardRef(({ size: size4, onMouseDown, onClick, onClear, ...others }, ref) => /* @__PURE__ */ import_jsx_runtime97.jsx(Input.ClearButton, {
   ref,
   tabIndex: -1,
   "aria-hidden": true,
@@ -41179,14 +41311,14 @@ var ComboboxClearButton = import_react131.forwardRef(({ size: size4, onMouseDown
 ComboboxClearButton.displayName = "@mantine/core/ComboboxClearButton";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxDropdown/ComboboxDropdown.mjs
-var import_jsx_runtime97 = __toESM(require_jsx_runtime(), 1);
-var import_react132 = __toESM(require_react(), 1);
+var import_jsx_runtime98 = __toESM(require_jsx_runtime(), 1);
+var import_react133 = __toESM(require_react(), 1);
 "use client";
-var defaultProps28 = {};
+var defaultProps29 = {};
 var ComboboxDropdown = factory((props, ref) => {
-  const { classNames, styles, className, style: style2, hidden: hidden2, ...others } = useProps("ComboboxDropdown", defaultProps28, props);
+  const { classNames, styles, className, style: style2, hidden: hidden2, ...others } = useProps("ComboboxDropdown", defaultProps29, props);
   const ctx = useComboboxContext();
-  return /* @__PURE__ */ import_jsx_runtime97.jsx(Popover.Dropdown, {
+  return /* @__PURE__ */ import_jsx_runtime98.jsx(Popover.Dropdown, {
     ...others,
     ref,
     role: "presentation",
@@ -41194,49 +41326,49 @@ var ComboboxDropdown = factory((props, ref) => {
     ...ctx.getStyles("dropdown", { className, style: style2, classNames, styles })
   });
 });
-ComboboxDropdown.classes = classes15;
+ComboboxDropdown.classes = classes16;
 ComboboxDropdown.displayName = "@mantine/core/ComboboxDropdown";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxDropdownTarget/ComboboxDropdownTarget.mjs
-var import_jsx_runtime98 = __toESM(require_jsx_runtime(), 1);
-var import_react133 = __toESM(require_react(), 1);
+var import_jsx_runtime99 = __toESM(require_jsx_runtime(), 1);
+var import_react134 = __toESM(require_react(), 1);
 "use client";
-var defaultProps29 = {
+var defaultProps30 = {
   refProp: "ref"
 };
 var ComboboxDropdownTarget = factory((props, ref) => {
-  const { children, refProp } = useProps("ComboboxDropdownTarget", defaultProps29, props);
+  const { children, refProp } = useProps("ComboboxDropdownTarget", defaultProps30, props);
   useComboboxContext();
   if (!isElement(children)) {
     throw new Error("Combobox.DropdownTarget component children should be an element or a component that accepts ref. Fragments, strings, numbers and other primitive values are not supported");
   }
-  return /* @__PURE__ */ import_jsx_runtime98.jsx(Popover.Target, { ref, refProp, children });
+  return /* @__PURE__ */ import_jsx_runtime99.jsx(Popover.Target, { ref, refProp, children });
 });
 ComboboxDropdownTarget.displayName = "@mantine/core/ComboboxDropdownTarget";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxEmpty/ComboboxEmpty.mjs
-var import_jsx_runtime99 = __toESM(require_jsx_runtime(), 1);
-var import_react134 = __toESM(require_react(), 1);
+var import_jsx_runtime100 = __toESM(require_jsx_runtime(), 1);
+var import_react135 = __toESM(require_react(), 1);
 "use client";
-var defaultProps30 = {};
+var defaultProps31 = {};
 var ComboboxEmpty = factory((props, ref) => {
-  const { classNames, className, style: style2, styles, vars, ...others } = useProps("ComboboxEmpty", defaultProps30, props);
+  const { classNames, className, style: style2, styles, vars, ...others } = useProps("ComboboxEmpty", defaultProps31, props);
   const ctx = useComboboxContext();
-  return /* @__PURE__ */ import_jsx_runtime99.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime100.jsx(Box, {
     ref,
     ...ctx.getStyles("empty", { className, classNames, styles, style: style2 }),
     ...others
   });
 });
-ComboboxEmpty.classes = classes15;
+ComboboxEmpty.classes = classes16;
 ComboboxEmpty.displayName = "@mantine/core/ComboboxEmpty";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxEventsTarget/ComboboxEventsTarget.mjs
-var import_react136 = __toESM(require_react(), 1);
-var import_jsx_runtime100 = __toESM(require_jsx_runtime(), 1);
+var import_react137 = __toESM(require_react(), 1);
+var import_jsx_runtime101 = __toESM(require_jsx_runtime(), 1);
 
 // node_modules/@mantine/core/esm/components/Combobox/use-combobox-target-props/use-combobox-target-props.mjs
-var import_react135 = __toESM(require_react(), 1);
+var import_react136 = __toESM(require_react(), 1);
 "use client";
 function useComboboxTargetProps({
   onKeyDown,
@@ -41247,7 +41379,7 @@ function useComboboxTargetProps({
   autoComplete
 }) {
   const ctx = useComboboxContext();
-  const [selectedOptionId, setSelectedOptionId] = import_react135.useState(null);
+  const [selectedOptionId, setSelectedOptionId] = import_react136.useState(null);
   const handleKeyDown = (event) => {
     onKeyDown?.(event);
     if (ctx.readOnly) {
@@ -41318,7 +41450,7 @@ function useComboboxTargetProps({
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxEventsTarget/ComboboxEventsTarget.mjs
 "use client";
-var defaultProps31 = {
+var defaultProps32 = {
   refProp: "ref",
   targetType: "input",
   withKeyboardNavigation: true,
@@ -41336,7 +41468,7 @@ var ComboboxEventsTarget = factory((props, ref) => {
     targetType,
     autoComplete,
     ...others
-  } = useProps("ComboboxEventsTarget", defaultProps31, props);
+  } = useProps("ComboboxEventsTarget", defaultProps32, props);
   if (!isElement(children)) {
     throw new Error("Combobox.EventsTarget component children should be an element or a component that accepts ref. Fragments, strings, numbers and other primitive values are not supported");
   }
@@ -41349,7 +41481,7 @@ var ComboboxEventsTarget = factory((props, ref) => {
     onKeyDown: children.props.onKeyDown,
     autoComplete
   });
-  return import_react136.cloneElement(children, {
+  return import_react137.cloneElement(children, {
     ...targetProps,
     ...others,
     [refProp]: useMergedRef(ref, ctx.store.targetRef, getRefProp(children))
@@ -41358,14 +41490,14 @@ var ComboboxEventsTarget = factory((props, ref) => {
 ComboboxEventsTarget.displayName = "@mantine/core/ComboboxEventsTarget";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxFooter/ComboboxFooter.mjs
-var import_jsx_runtime101 = __toESM(require_jsx_runtime(), 1);
-var import_react137 = __toESM(require_react(), 1);
+var import_jsx_runtime102 = __toESM(require_jsx_runtime(), 1);
+var import_react138 = __toESM(require_react(), 1);
 "use client";
-var defaultProps32 = {};
+var defaultProps33 = {};
 var ComboboxFooter = factory((props, ref) => {
-  const { classNames, className, style: style2, styles, vars, ...others } = useProps("ComboboxFooter", defaultProps32, props);
+  const { classNames, className, style: style2, styles, vars, ...others } = useProps("ComboboxFooter", defaultProps33, props);
   const ctx = useComboboxContext();
-  return /* @__PURE__ */ import_jsx_runtime101.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime102.jsx(Box, {
     ref,
     ...ctx.getStyles("footer", { className, classNames, style: style2, styles }),
     ...others,
@@ -41374,39 +41506,39 @@ var ComboboxFooter = factory((props, ref) => {
     }
   });
 });
-ComboboxFooter.classes = classes15;
+ComboboxFooter.classes = classes16;
 ComboboxFooter.displayName = "@mantine/core/ComboboxFooter";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxGroup/ComboboxGroup.mjs
-var import_jsx_runtime102 = __toESM(require_jsx_runtime(), 1);
-var import_react138 = __toESM(require_react(), 1);
-"use client";
-var defaultProps33 = {};
-var ComboboxGroup = factory((props, ref) => {
-  const { classNames, className, style: style2, styles, vars, children, label, ...others } = useProps("ComboboxGroup", defaultProps33, props);
-  const ctx = useComboboxContext();
-  return /* @__PURE__ */ import_jsx_runtime102.jsxs(Box, {
-    ref,
-    ...ctx.getStyles("group", { className, classNames, style: style2, styles }),
-    ...others,
-    children: [
-      label && /* @__PURE__ */ import_jsx_runtime102.jsx("div", { ...ctx.getStyles("groupLabel", { classNames, styles }), children: label }),
-      children
-    ]
-  });
-});
-ComboboxGroup.classes = classes15;
-ComboboxGroup.displayName = "@mantine/core/ComboboxGroup";
-
-// node_modules/@mantine/core/esm/components/Combobox/ComboboxHeader/ComboboxHeader.mjs
 var import_jsx_runtime103 = __toESM(require_jsx_runtime(), 1);
 var import_react139 = __toESM(require_react(), 1);
 "use client";
 var defaultProps34 = {};
-var ComboboxHeader = factory((props, ref) => {
-  const { classNames, className, style: style2, styles, vars, ...others } = useProps("ComboboxHeader", defaultProps34, props);
+var ComboboxGroup = factory((props, ref) => {
+  const { classNames, className, style: style2, styles, vars, children, label, ...others } = useProps("ComboboxGroup", defaultProps34, props);
   const ctx = useComboboxContext();
-  return /* @__PURE__ */ import_jsx_runtime103.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime103.jsxs(Box, {
+    ref,
+    ...ctx.getStyles("group", { className, classNames, style: style2, styles }),
+    ...others,
+    children: [
+      label && /* @__PURE__ */ import_jsx_runtime103.jsx("div", { ...ctx.getStyles("groupLabel", { classNames, styles }), children: label }),
+      children
+    ]
+  });
+});
+ComboboxGroup.classes = classes16;
+ComboboxGroup.displayName = "@mantine/core/ComboboxGroup";
+
+// node_modules/@mantine/core/esm/components/Combobox/ComboboxHeader/ComboboxHeader.mjs
+var import_jsx_runtime104 = __toESM(require_jsx_runtime(), 1);
+var import_react140 = __toESM(require_react(), 1);
+"use client";
+var defaultProps35 = {};
+var ComboboxHeader = factory((props, ref) => {
+  const { classNames, className, style: style2, styles, vars, ...others } = useProps("ComboboxHeader", defaultProps35, props);
+  const ctx = useComboboxContext();
+  return /* @__PURE__ */ import_jsx_runtime104.jsx(Box, {
     ref,
     ...ctx.getStyles("header", { className, classNames, style: style2, styles }),
     ...others,
@@ -41415,18 +41547,18 @@ var ComboboxHeader = factory((props, ref) => {
     }
   });
 });
-ComboboxHeader.classes = classes15;
+ComboboxHeader.classes = classes16;
 ComboboxHeader.displayName = "@mantine/core/ComboboxHeader";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxHiddenInput/ComboboxHiddenInput.mjs
-var import_jsx_runtime104 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime105 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function ComboboxHiddenInput({
   value,
   valuesDivider = ",",
   ...others
 }) {
-  return /* @__PURE__ */ import_jsx_runtime104.jsx("input", {
+  return /* @__PURE__ */ import_jsx_runtime105.jsx("input", {
     type: "hidden",
     value: Array.isArray(value) ? value.join(valuesDivider) : value || "",
     ...others
@@ -41435,12 +41567,12 @@ function ComboboxHiddenInput({
 ComboboxHiddenInput.displayName = "@mantine/core/ComboboxHiddenInput";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxOption/ComboboxOption.mjs
-var import_jsx_runtime105 = __toESM(require_jsx_runtime(), 1);
-var import_react140 = __toESM(require_react(), 1);
+var import_jsx_runtime106 = __toESM(require_jsx_runtime(), 1);
+var import_react141 = __toESM(require_react(), 1);
 "use client";
-var defaultProps35 = {};
+var defaultProps36 = {};
 var ComboboxOption = factory((_props, ref) => {
-  const props = useProps("ComboboxOption", defaultProps35, _props);
+  const props = useProps("ComboboxOption", defaultProps36, _props);
   const {
     classNames,
     className,
@@ -41458,9 +41590,9 @@ var ComboboxOption = factory((_props, ref) => {
     ...others
   } = props;
   const ctx = useComboboxContext();
-  const uuid = import_react140.useId();
+  const uuid = import_react141.useId();
   const _id = id || uuid;
-  return /* @__PURE__ */ import_jsx_runtime105.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime106.jsx(Box, {
     ...ctx.getStyles("option", { className, classNames, styles, style: style2 }),
     ...others,
     ref,
@@ -41491,23 +41623,23 @@ var ComboboxOption = factory((_props, ref) => {
     }
   });
 });
-ComboboxOption.classes = classes15;
+ComboboxOption.classes = classes16;
 ComboboxOption.displayName = "@mantine/core/ComboboxOption";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxOptions/ComboboxOptions.mjs
-var import_jsx_runtime106 = __toESM(require_jsx_runtime(), 1);
-var import_react141 = __toESM(require_react(), 1);
+var import_jsx_runtime107 = __toESM(require_jsx_runtime(), 1);
+var import_react142 = __toESM(require_react(), 1);
 "use client";
-var defaultProps36 = {};
+var defaultProps37 = {};
 var ComboboxOptions = factory((_props, ref) => {
-  const props = useProps("ComboboxOptions", defaultProps36, _props);
+  const props = useProps("ComboboxOptions", defaultProps37, _props);
   const { classNames, className, style: style2, styles, id, onMouseDown, labelledBy, ...others } = props;
   const ctx = useComboboxContext();
   const _id = useId(id);
-  import_react141.useEffect(() => {
+  import_react142.useEffect(() => {
     ctx.store.setListId(_id);
   }, [_id]);
-  return /* @__PURE__ */ import_jsx_runtime106.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime107.jsx(Box, {
     ref,
     ...ctx.getStyles("options", { className, style: style2, classNames, styles }),
     ...others,
@@ -41520,19 +41652,19 @@ var ComboboxOptions = factory((_props, ref) => {
     }
   });
 });
-ComboboxOptions.classes = classes15;
+ComboboxOptions.classes = classes16;
 ComboboxOptions.displayName = "@mantine/core/ComboboxOptions";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxSearch/ComboboxSearch.mjs
-var import_jsx_runtime107 = __toESM(require_jsx_runtime(), 1);
-var import_react142 = __toESM(require_react(), 1);
+var import_jsx_runtime108 = __toESM(require_jsx_runtime(), 1);
+var import_react143 = __toESM(require_react(), 1);
 "use client";
-var defaultProps37 = {
+var defaultProps38 = {
   withAriaAttributes: true,
   withKeyboardNavigation: true
 };
 var ComboboxSearch = factory((_props, ref) => {
-  const props = useProps("ComboboxSearch", defaultProps37, _props);
+  const props = useProps("ComboboxSearch", defaultProps38, _props);
   const {
     classNames,
     styles,
@@ -41554,7 +41686,7 @@ var ComboboxSearch = factory((_props, ref) => {
     onKeyDown,
     autoComplete: "off"
   });
-  return /* @__PURE__ */ import_jsx_runtime107.jsx(Input, {
+  return /* @__PURE__ */ import_jsx_runtime108.jsx(Input, {
     ref: useMergedRef(ref, ctx.store.searchRef),
     classNames: [{ input: _styles.className }, classNames],
     styles: [{ input: _styles.style }, styles],
@@ -41564,14 +41696,14 @@ var ComboboxSearch = factory((_props, ref) => {
     __staticSelector: "Combobox"
   });
 });
-ComboboxSearch.classes = classes15;
+ComboboxSearch.classes = classes16;
 ComboboxSearch.displayName = "@mantine/core/ComboboxSearch";
 
 // node_modules/@mantine/core/esm/components/Combobox/ComboboxTarget/ComboboxTarget.mjs
-var import_jsx_runtime108 = __toESM(require_jsx_runtime(), 1);
-var import_react143 = __toESM(require_react(), 1);
+var import_jsx_runtime109 = __toESM(require_jsx_runtime(), 1);
+var import_react144 = __toESM(require_react(), 1);
 "use client";
-var defaultProps38 = {
+var defaultProps39 = {
   refProp: "ref",
   targetType: "input",
   withKeyboardNavigation: true,
@@ -41589,7 +41721,7 @@ var ComboboxTarget = factory((props, ref) => {
     targetType,
     autoComplete,
     ...others
-  } = useProps("ComboboxTarget", defaultProps38, props);
+  } = useProps("ComboboxTarget", defaultProps39, props);
   if (!isElement(children)) {
     throw new Error("Combobox.Target component children should be an element or a component that accepts ref. Fragments, strings, numbers and other primitive values are not supported");
   }
@@ -41602,16 +41734,16 @@ var ComboboxTarget = factory((props, ref) => {
     onKeyDown: children.props.onKeyDown,
     autoComplete
   });
-  const clonedElement = import_react143.cloneElement(children, {
+  const clonedElement = import_react144.cloneElement(children, {
     ...targetProps,
     ...others
   });
-  return /* @__PURE__ */ import_jsx_runtime108.jsx(Popover.Target, { ref: useMergedRef(ref, ctx.store.targetRef), children: clonedElement });
+  return /* @__PURE__ */ import_jsx_runtime109.jsx(Popover.Target, { ref: useMergedRef(ref, ctx.store.targetRef), children: clonedElement });
 });
 ComboboxTarget.displayName = "@mantine/core/ComboboxTarget";
 
 // node_modules/@mantine/core/esm/components/Combobox/use-combobox/use-combobox.mjs
-var import_react144 = __toESM(require_react(), 1);
+var import_react145 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Combobox/use-combobox/get-index/get-index.mjs
 "use client";
@@ -41671,38 +41803,38 @@ function useCombobox({
     finalValue: false,
     onChange: onOpenedChange
   });
-  const listId = import_react144.useRef(null);
-  const selectedOptionIndex = import_react144.useRef(-1);
-  const searchRef = import_react144.useRef(null);
-  const targetRef = import_react144.useRef(null);
-  const focusSearchTimeout = import_react144.useRef(-1);
-  const focusTargetTimeout = import_react144.useRef(-1);
-  const selectedIndexUpdateTimeout = import_react144.useRef(-1);
-  const openDropdown = import_react144.useCallback((eventSource = "unknown") => {
+  const listId = import_react145.useRef(null);
+  const selectedOptionIndex = import_react145.useRef(-1);
+  const searchRef = import_react145.useRef(null);
+  const targetRef = import_react145.useRef(null);
+  const focusSearchTimeout = import_react145.useRef(-1);
+  const focusTargetTimeout = import_react145.useRef(-1);
+  const selectedIndexUpdateTimeout = import_react145.useRef(-1);
+  const openDropdown = import_react145.useCallback((eventSource = "unknown") => {
     if (!dropdownOpened) {
       setDropdownOpened(true);
       onDropdownOpen?.(eventSource);
     }
   }, [setDropdownOpened, onDropdownOpen, dropdownOpened]);
-  const closeDropdown = import_react144.useCallback((eventSource = "unknown") => {
+  const closeDropdown = import_react145.useCallback((eventSource = "unknown") => {
     if (dropdownOpened) {
       setDropdownOpened(false);
       onDropdownClose?.(eventSource);
     }
   }, [setDropdownOpened, onDropdownClose, dropdownOpened]);
-  const toggleDropdown = import_react144.useCallback((eventSource = "unknown") => {
+  const toggleDropdown = import_react145.useCallback((eventSource = "unknown") => {
     if (dropdownOpened) {
       closeDropdown(eventSource);
     } else {
       openDropdown(eventSource);
     }
   }, [closeDropdown, openDropdown, dropdownOpened]);
-  const clearSelectedItem = import_react144.useCallback(() => {
+  const clearSelectedItem = import_react145.useCallback(() => {
     const selected = document.querySelector(`#${listId.current} [data-combobox-selected]`);
     selected?.removeAttribute("data-combobox-selected");
     selected?.removeAttribute("aria-selected");
   }, []);
-  const selectOption = import_react144.useCallback((index4) => {
+  const selectOption = import_react145.useCallback((index4) => {
     const list = document.getElementById(listId.current);
     const items = list?.querySelectorAll("[data-combobox-option]");
     if (!items) {
@@ -41719,7 +41851,7 @@ function useCombobox({
     }
     return null;
   }, [scrollBehavior, clearSelectedItem]);
-  const selectActiveOption = import_react144.useCallback(() => {
+  const selectActiveOption = import_react145.useCallback(() => {
     const activeOption = document.querySelector(`#${listId.current} [data-combobox-active]`);
     if (activeOption) {
       const items = document.querySelectorAll(`#${listId.current} [data-combobox-option]`);
@@ -41728,10 +41860,10 @@ function useCombobox({
     }
     return selectOption(0);
   }, [selectOption]);
-  const selectNextOption = import_react144.useCallback(() => selectOption(getNextIndex2(selectedOptionIndex.current, document.querySelectorAll(`#${listId.current} [data-combobox-option]`), loop)), [selectOption, loop]);
-  const selectPreviousOption = import_react144.useCallback(() => selectOption(getPreviousIndex2(selectedOptionIndex.current, document.querySelectorAll(`#${listId.current} [data-combobox-option]`), loop)), [selectOption, loop]);
-  const selectFirstOption = import_react144.useCallback(() => selectOption(getFirstIndex(document.querySelectorAll(`#${listId.current} [data-combobox-option]`))), [selectOption]);
-  const updateSelectedOptionIndex = import_react144.useCallback((target = "selected", options) => {
+  const selectNextOption = import_react145.useCallback(() => selectOption(getNextIndex2(selectedOptionIndex.current, document.querySelectorAll(`#${listId.current} [data-combobox-option]`), loop)), [selectOption, loop]);
+  const selectPreviousOption = import_react145.useCallback(() => selectOption(getPreviousIndex2(selectedOptionIndex.current, document.querySelectorAll(`#${listId.current} [data-combobox-option]`), loop)), [selectOption, loop]);
+  const selectFirstOption = import_react145.useCallback(() => selectOption(getFirstIndex(document.querySelectorAll(`#${listId.current} [data-combobox-option]`))), [selectOption]);
+  const updateSelectedOptionIndex = import_react145.useCallback((target = "selected", options) => {
     selectedIndexUpdateTimeout.current = window.setTimeout(() => {
       const items = document.querySelectorAll(`#${listId.current} [data-combobox-option]`);
       const index4 = Array.from(items).findIndex((option) => option.hasAttribute(`data-combobox-${target}`));
@@ -41741,26 +41873,26 @@ function useCombobox({
       }
     }, 0);
   }, []);
-  const resetSelectedOption = import_react144.useCallback(() => {
+  const resetSelectedOption = import_react145.useCallback(() => {
     selectedOptionIndex.current = -1;
     clearSelectedItem();
   }, [clearSelectedItem]);
-  const clickSelectedOption = import_react144.useCallback(() => {
+  const clickSelectedOption = import_react145.useCallback(() => {
     const items = document.querySelectorAll(`#${listId.current} [data-combobox-option]`);
     const item = items?.[selectedOptionIndex.current];
     item?.click();
   }, []);
-  const setListId = import_react144.useCallback((id) => {
+  const setListId = import_react145.useCallback((id) => {
     listId.current = id;
   }, []);
-  const focusSearchInput = import_react144.useCallback(() => {
+  const focusSearchInput = import_react145.useCallback(() => {
     focusSearchTimeout.current = window.setTimeout(() => searchRef.current.focus(), 0);
   }, []);
-  const focusTarget = import_react144.useCallback(() => {
+  const focusTarget = import_react145.useCallback(() => {
     focusTargetTimeout.current = window.setTimeout(() => targetRef.current.focus(), 0);
   }, []);
-  const getSelectedOptionIndex = import_react144.useCallback(() => selectedOptionIndex.current, []);
-  import_react144.useEffect(() => () => {
+  const getSelectedOptionIndex = import_react145.useCallback(() => selectedOptionIndex.current, []);
+  import_react145.useEffect(() => () => {
     window.clearTimeout(focusSearchTimeout.current);
     window.clearTimeout(focusTargetTimeout.current);
     window.clearTimeout(selectedIndexUpdateTimeout.current);
@@ -41791,7 +41923,7 @@ function useCombobox({
 
 // node_modules/@mantine/core/esm/components/Combobox/Combobox.mjs
 "use client";
-var defaultProps39 = {
+var defaultProps40 = {
   keepMounted: true,
   withinPortal: true,
   resetSelectionOnOptionHover: false,
@@ -41810,7 +41942,7 @@ var varsResolver19 = createVarsResolver((_2, { size: size4, dropdownPadding }) =
   }
 }));
 function Combobox(_props) {
-  const props = useProps("Combobox", defaultProps39, _props);
+  const props = useProps("Combobox", defaultProps40, _props);
   const {
     classNames,
     styles,
@@ -41831,7 +41963,7 @@ function Combobox(_props) {
   const store = controlledStore || uncontrolledStore;
   const getStyles2 = useStyles({
     name: __staticSelector || "Combobox",
-    classes: classes15,
+    classes: classes16,
     props,
     classNames,
     styles,
@@ -41843,7 +41975,7 @@ function Combobox(_props) {
     onClose?.();
     store.closeDropdown();
   };
-  return /* @__PURE__ */ import_jsx_runtime109.jsx(ComboboxProvider, {
+  return /* @__PURE__ */ import_jsx_runtime110.jsx(ComboboxProvider, {
     value: {
       getStyles: getStyles2,
       store,
@@ -41852,7 +41984,7 @@ function Combobox(_props) {
       resetSelectionOnOptionHover,
       readOnly
     },
-    children: /* @__PURE__ */ import_jsx_runtime109.jsx(Popover, {
+    children: /* @__PURE__ */ import_jsx_runtime110.jsx(Popover, {
       opened: store.dropdownOpened,
       ...others,
       onChange: (_opened) => !_opened && onDropdownClose(),
@@ -41864,7 +41996,7 @@ function Combobox(_props) {
 }
 var extendCombobox = (c2) => c2;
 Combobox.extend = extendCombobox;
-Combobox.classes = classes15;
+Combobox.classes = classes16;
 Combobox.displayName = "@mantine/core/Combobox";
 Combobox.Target = ComboboxTarget;
 Combobox.Dropdown = ComboboxDropdown;
@@ -41882,24 +42014,24 @@ Combobox.ClearButton = ComboboxClearButton;
 Combobox.HiddenInput = ComboboxHiddenInput;
 
 // node_modules/@mantine/core/esm/components/Combobox/OptionsDropdown/OptionsDropdown.mjs
-var import_jsx_runtime118 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime119 = __toESM(require_jsx_runtime(), 1);
 
 // node_modules/@mantine/core/esm/components/Checkbox/Checkbox.mjs
-var import_jsx_runtime117 = __toESM(require_jsx_runtime(), 1);
-var import_react154 = __toESM(require_react(), 1);
+var import_jsx_runtime118 = __toESM(require_jsx_runtime(), 1);
+var import_react155 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/InlineInput/InlineInput.mjs
-var import_jsx_runtime110 = __toESM(require_jsx_runtime(), 1);
-var import_react146 = __toESM(require_react(), 1);
+var import_jsx_runtime111 = __toESM(require_jsx_runtime(), 1);
+var import_react147 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/InlineInput/InlineInput.module.css.mjs
 "use client";
-var classes16 = { root: "m_5f75b09e", body: "m_5f6e695e", labelWrapper: "m_d3ea56bb", label: "m_8ee546b8", description: "m_328f68c0", error: "m_8e8a99cc" };
+var classes17 = { root: "m_5f75b09e", body: "m_5f6e695e", labelWrapper: "m_d3ea56bb", label: "m_8ee546b8", description: "m_328f68c0", error: "m_8e8a99cc" };
 
 // node_modules/@mantine/core/esm/components/InlineInput/InlineInput.mjs
 "use client";
-var InlineInputClasses = classes16;
-var InlineInput = import_react146.forwardRef(({
+var InlineInputClasses = classes17;
+var InlineInput = import_react147.forwardRef(({
   __staticSelector,
   __stylesApiProps,
   className,
@@ -41927,12 +42059,12 @@ var InlineInput = import_react146.forwardRef(({
     props: __stylesApiProps,
     className,
     style: style2,
-    classes: classes16,
+    classes: classes17,
     classNames,
     styles,
     unstyled
   });
-  return /* @__PURE__ */ import_jsx_runtime110.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime111.jsx(Box, {
     ...getStyles2("root"),
     ref,
     __vars: {
@@ -41943,22 +42075,22 @@ var InlineInput = import_react146.forwardRef(({
     variant,
     size: size4,
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime110.jsxs(Box, {
+    children: /* @__PURE__ */ import_jsx_runtime111.jsxs(Box, {
       component: bodyElement,
       htmlFor: bodyElement === "label" ? id : undefined,
       ...getStyles2("body"),
       children: [
         children,
-        /* @__PURE__ */ import_jsx_runtime110.jsxs("div", { ...getStyles2("labelWrapper"), "data-disabled": disabled || undefined, children: [
-          label && /* @__PURE__ */ import_jsx_runtime110.jsx(Box, {
+        /* @__PURE__ */ import_jsx_runtime111.jsxs("div", { ...getStyles2("labelWrapper"), "data-disabled": disabled || undefined, children: [
+          label && /* @__PURE__ */ import_jsx_runtime111.jsx(Box, {
             component: labelElement,
             htmlFor: labelElement === "label" ? id : undefined,
             ...getStyles2("label"),
             "data-disabled": disabled || undefined,
             children: label
           }),
-          description && /* @__PURE__ */ import_jsx_runtime110.jsx(Input.Description, { size: size4, __inheritStyles: false, ...getStyles2("description"), children: description }),
-          error && typeof error !== "boolean" && /* @__PURE__ */ import_jsx_runtime110.jsx(Input.Error, { size: size4, __inheritStyles: false, ...getStyles2("error"), children: error })
+          description && /* @__PURE__ */ import_jsx_runtime111.jsx(Input.Description, { size: size4, __inheritStyles: false, ...getStyles2("description"), children: description }),
+          error && typeof error !== "boolean" && /* @__PURE__ */ import_jsx_runtime111.jsx(Input.Error, { size: size4, __inheritStyles: false, ...getStyles2("error"), children: error })
         ] })
       ]
     })
@@ -41967,29 +42099,29 @@ var InlineInput = import_react146.forwardRef(({
 InlineInput.displayName = "@mantine/core/InlineInput";
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxCard/CheckboxCard.mjs
-var import_jsx_runtime112 = __toESM(require_jsx_runtime(), 1);
-var import_react149 = __toESM(require_react(), 1);
+var import_jsx_runtime113 = __toESM(require_jsx_runtime(), 1);
+var import_react150 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxGroup.context.mjs
-var import_react147 = __toESM(require_react(), 1);
+var import_react148 = __toESM(require_react(), 1);
 "use client";
-var CheckboxGroupContext = import_react147.createContext(null);
+var CheckboxGroupContext = import_react148.createContext(null);
 var CheckboxGroupProvider = CheckboxGroupContext.Provider;
-var useCheckboxGroupContext = () => import_react147.useContext(CheckboxGroupContext);
+var useCheckboxGroupContext = () => import_react148.useContext(CheckboxGroupContext);
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxCard/CheckboxCard.context.mjs
-var import_react148 = __toESM(require_react(), 1);
-var import_jsx_runtime111 = __toESM(require_jsx_runtime(), 1);
+var import_react149 = __toESM(require_react(), 1);
+var import_jsx_runtime112 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [CheckboxCardProvider, useCheckboxCardContext] = createOptionalContext();
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxCard/CheckboxCard.module.css.mjs
 "use client";
-var classes17 = { card: "m_26775b0a" };
+var classes18 = { card: "m_26775b0a" };
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxCard/CheckboxCard.mjs
 "use client";
-var defaultProps40 = {
+var defaultProps41 = {
   withBorder: true
 };
 var varsResolver20 = createVarsResolver((_2, { radius }) => ({
@@ -41998,7 +42130,7 @@ var varsResolver20 = createVarsResolver((_2, { radius }) => ({
   }
 }));
 var CheckboxCard = factory((_props, ref) => {
-  const props = useProps("CheckboxCard", defaultProps40, _props);
+  const props = useProps("CheckboxCard", defaultProps41, _props);
   const {
     classNames,
     className,
@@ -42017,7 +42149,7 @@ var CheckboxCard = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "CheckboxCard",
-    classes: classes17,
+    classes: classes18,
     props,
     className,
     style: style2,
@@ -42036,7 +42168,7 @@ var CheckboxCard = factory((_props, ref) => {
     finalValue: false,
     onChange
   });
-  return /* @__PURE__ */ import_jsx_runtime112.jsx(CheckboxCardProvider, { value: { checked: _value }, children: /* @__PURE__ */ import_jsx_runtime112.jsx(UnstyledButton, {
+  return /* @__PURE__ */ import_jsx_runtime113.jsx(CheckboxCardProvider, { value: { checked: _value }, children: /* @__PURE__ */ import_jsx_runtime113.jsx(UnstyledButton, {
     ref,
     mod: [{ "with-border": withBorder, checked: _value }, mod],
     ...getStyles2("card"),
@@ -42051,29 +42183,29 @@ var CheckboxCard = factory((_props, ref) => {
   }) });
 });
 CheckboxCard.displayName = "@mantine/core/CheckboxCard";
-CheckboxCard.classes = classes17;
+CheckboxCard.classes = classes18;
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxGroup/CheckboxGroup.mjs
-var import_jsx_runtime114 = __toESM(require_jsx_runtime(), 1);
-var import_react151 = __toESM(require_react(), 1);
+var import_jsx_runtime115 = __toESM(require_jsx_runtime(), 1);
+var import_react152 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/InputsGroupFieldset/InputsGroupFieldset.mjs
-var import_jsx_runtime113 = __toESM(require_jsx_runtime(), 1);
-var import_react150 = __toESM(require_react(), 1);
+var import_jsx_runtime114 = __toESM(require_jsx_runtime(), 1);
+var import_react151 = __toESM(require_react(), 1);
 "use client";
 function InputsGroupFieldset({ children, role }) {
   const ctx = useInputWrapperContext();
   if (!ctx) {
-    return /* @__PURE__ */ import_jsx_runtime113.jsx(import_jsx_runtime113.Fragment, { children });
+    return /* @__PURE__ */ import_jsx_runtime114.jsx(import_jsx_runtime114.Fragment, { children });
   }
-  return /* @__PURE__ */ import_jsx_runtime113.jsx("div", { role, "aria-labelledby": ctx.labelId, "aria-describedby": ctx.describedBy, children });
+  return /* @__PURE__ */ import_jsx_runtime114.jsx("div", { role, "aria-labelledby": ctx.labelId, "aria-describedby": ctx.describedBy, children });
 }
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxGroup/CheckboxGroup.mjs
 "use client";
-var defaultProps41 = {};
+var defaultProps42 = {};
 var CheckboxGroup = factory((props, ref) => {
-  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("CheckboxGroup", defaultProps41, props);
+  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("CheckboxGroup", defaultProps42, props);
   const [_value, setValue] = useUncontrolled({
     value,
     defaultValue,
@@ -42084,37 +42216,37 @@ var CheckboxGroup = factory((props, ref) => {
     const itemValue = typeof event === "string" ? event : event.currentTarget.value;
     !readOnly && setValue(_value.includes(itemValue) ? _value.filter((item) => item !== itemValue) : [..._value, itemValue]);
   };
-  return /* @__PURE__ */ import_jsx_runtime114.jsx(CheckboxGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime114.jsx(Input.Wrapper, {
+  return /* @__PURE__ */ import_jsx_runtime115.jsx(CheckboxGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime115.jsx(Input.Wrapper, {
     size: size4,
     ref,
     ...wrapperProps,
     ...others,
     labelElement: "div",
     __staticSelector: "CheckboxGroup",
-    children: /* @__PURE__ */ import_jsx_runtime114.jsx(InputsGroupFieldset, { role: "group", children })
+    children: /* @__PURE__ */ import_jsx_runtime115.jsx(InputsGroupFieldset, { role: "group", children })
   }) });
 });
 CheckboxGroup.classes = Input.Wrapper.classes;
 CheckboxGroup.displayName = "@mantine/core/CheckboxGroup";
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxIndicator/CheckboxIndicator.mjs
-var import_jsx_runtime116 = __toESM(require_jsx_runtime(), 1);
-var import_react153 = __toESM(require_react(), 1);
+var import_jsx_runtime117 = __toESM(require_jsx_runtime(), 1);
+var import_react154 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckIcon.mjs
-var import_jsx_runtime115 = __toESM(require_jsx_runtime(), 1);
-var import_react152 = __toESM(require_react(), 1);
+var import_jsx_runtime116 = __toESM(require_jsx_runtime(), 1);
+var import_react153 = __toESM(require_react(), 1);
 "use client";
 function CheckIcon({ size: size4, style: style2, ...others }) {
   const _style = size4 !== undefined ? { width: rem(size4), height: rem(size4), ...style2 } : style2;
-  return /* @__PURE__ */ import_jsx_runtime115.jsx("svg", {
+  return /* @__PURE__ */ import_jsx_runtime116.jsx("svg", {
     viewBox: "0 0 10 7",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg",
     style: _style,
     "aria-hidden": true,
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime115.jsx("path", {
+    children: /* @__PURE__ */ import_jsx_runtime116.jsx("path", {
       d: "M4 4.586L1.707 2.293A1 1 0 1 0 .293 3.707l3 3a.997.997 0 0 0 1.414 0l5-5A1 1 0 1 0 8.293.293L4 4.586z",
       fill: "currentColor",
       fillRule: "evenodd",
@@ -42124,25 +42256,25 @@ function CheckIcon({ size: size4, style: style2, ...others }) {
 }
 function CheckboxIcon({ indeterminate, ...others }) {
   if (indeterminate) {
-    return /* @__PURE__ */ import_jsx_runtime115.jsx("svg", {
+    return /* @__PURE__ */ import_jsx_runtime116.jsx("svg", {
       xmlns: "http://www.w3.org/2000/svg",
       fill: "none",
       viewBox: "0 0 32 6",
       "aria-hidden": true,
       ...others,
-      children: /* @__PURE__ */ import_jsx_runtime115.jsx("rect", { width: "32", height: "6", fill: "currentColor", rx: "3" })
+      children: /* @__PURE__ */ import_jsx_runtime116.jsx("rect", { width: "32", height: "6", fill: "currentColor", rx: "3" })
     });
   }
-  return /* @__PURE__ */ import_jsx_runtime115.jsx(CheckIcon, { ...others });
+  return /* @__PURE__ */ import_jsx_runtime116.jsx(CheckIcon, { ...others });
 }
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxIndicator/CheckboxIndicator.module.css.mjs
 "use client";
-var classes18 = { indicator: "m_5e5256ee", icon: "m_1b1c543a", "indicator--outline": "m_76e20374" };
+var classes19 = { indicator: "m_5e5256ee", icon: "m_1b1c543a", "indicator--outline": "m_76e20374" };
 
 // node_modules/@mantine/core/esm/components/Checkbox/CheckboxIndicator/CheckboxIndicator.mjs
 "use client";
-var defaultProps42 = {
+var defaultProps43 = {
   icon: CheckboxIcon
 };
 var varsResolver21 = createVarsResolver((theme, { radius, color, size: size4, iconColor, variant, autoContrast }) => {
@@ -42158,7 +42290,7 @@ var varsResolver21 = createVarsResolver((theme, { radius, color, size: size4, ic
   };
 });
 var CheckboxIndicator = factory((_props, ref) => {
-  const props = useProps("CheckboxIndicator", defaultProps42, _props);
+  const props = useProps("CheckboxIndicator", defaultProps43, _props);
   const {
     classNames,
     className,
@@ -42181,7 +42313,7 @@ var CheckboxIndicator = factory((_props, ref) => {
   const Icon = icon;
   const getStyles2 = useStyles({
     name: "CheckboxIndicator",
-    classes: classes18,
+    classes: classes19,
     props,
     className,
     style: style2,
@@ -42194,25 +42326,25 @@ var CheckboxIndicator = factory((_props, ref) => {
   });
   const ctx = useCheckboxCardContext();
   const _checked = typeof checked === "boolean" || typeof indeterminate === "boolean" ? checked || indeterminate : ctx?.checked || false;
-  return /* @__PURE__ */ import_jsx_runtime116.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime117.jsx(Box, {
     ref,
     ...getStyles2("indicator", { variant }),
     variant,
     mod: [{ checked: _checked, disabled }, mod],
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime116.jsx(Icon, { indeterminate, ...getStyles2("icon") })
+    children: /* @__PURE__ */ import_jsx_runtime117.jsx(Icon, { indeterminate, ...getStyles2("icon") })
   });
 });
 CheckboxIndicator.displayName = "@mantine/core/CheckboxIndicator";
-CheckboxIndicator.classes = classes18;
+CheckboxIndicator.classes = classes19;
 
 // node_modules/@mantine/core/esm/components/Checkbox/Checkbox.module.css.mjs
 "use client";
-var classes19 = { root: "m_bf2d988c", inner: "m_26062bec", input: "m_26063560", icon: "m_bf295423", "input--outline": "m_215c4542" };
+var classes20 = { root: "m_bf2d988c", inner: "m_26062bec", input: "m_26063560", icon: "m_bf295423", "input--outline": "m_215c4542" };
 
 // node_modules/@mantine/core/esm/components/Checkbox/Checkbox.mjs
 "use client";
-var defaultProps43 = {
+var defaultProps44 = {
   labelPosition: "right",
   icon: CheckboxIcon
 };
@@ -42229,7 +42361,7 @@ var varsResolver22 = createVarsResolver((theme, { radius, color, size: size4, ic
   };
 });
 var Checkbox = factory((_props, forwardedRef) => {
-  const props = useProps("Checkbox", defaultProps43, _props);
+  const props = useProps("Checkbox", defaultProps44, _props);
   const {
     classNames,
     className,
@@ -42264,7 +42396,7 @@ var Checkbox = factory((_props, forwardedRef) => {
   const getStyles2 = useStyles({
     name: "Checkbox",
     props,
-    classes: classes19,
+    classes: classes20,
     className,
     style: style2,
     classNames,
@@ -42282,14 +42414,14 @@ var Checkbox = factory((_props, forwardedRef) => {
       onChange?.(event);
     }
   } : {};
-  const fallbackRef = import_react154.useRef(null);
+  const fallbackRef = import_react155.useRef(null);
   const ref = forwardedRef || fallbackRef;
-  import_react154.useEffect(() => {
+  import_react155.useEffect(() => {
     if (ref && "current" in ref && ref.current) {
       ref.current.indeterminate = indeterminate || false;
     }
   }, [indeterminate, ref]);
-  return /* @__PURE__ */ import_jsx_runtime117.jsx(InlineInput, {
+  return /* @__PURE__ */ import_jsx_runtime118.jsx(InlineInput, {
     ...getStyles2("root"),
     __staticSelector: "Checkbox",
     __stylesApiProps: props,
@@ -42309,8 +42441,8 @@ var Checkbox = factory((_props, forwardedRef) => {
     mod,
     ...styleProps,
     ...wrapperProps,
-    children: /* @__PURE__ */ import_jsx_runtime117.jsxs(Box, { ...getStyles2("inner"), mod: { "data-label-position": labelPosition }, children: [
-      /* @__PURE__ */ import_jsx_runtime117.jsx(Box, {
+    children: /* @__PURE__ */ import_jsx_runtime118.jsxs(Box, { ...getStyles2("inner"), mod: { "data-label-position": labelPosition }, children: [
+      /* @__PURE__ */ import_jsx_runtime118.jsx(Box, {
         component: "input",
         id: uuid,
         ref,
@@ -42323,11 +42455,11 @@ var Checkbox = factory((_props, forwardedRef) => {
         ...contextProps,
         type: "checkbox"
       }),
-      /* @__PURE__ */ import_jsx_runtime117.jsx(Icon, { indeterminate, ...getStyles2("icon") })
+      /* @__PURE__ */ import_jsx_runtime118.jsx(Icon, { indeterminate, ...getStyles2("icon") })
     ] })
   });
 });
-Checkbox.classes = { ...classes19, ...InlineInputClasses };
+Checkbox.classes = { ...classes20, ...InlineInputClasses };
 Checkbox.displayName = "@mantine/core/Checkbox";
 Checkbox.Group = CheckboxGroup;
 Checkbox.Indicator = CheckboxIndicator;
@@ -42428,16 +42560,16 @@ function Option({
 }) {
   if (!isOptionsGroup(data)) {
     const checked = isValueChecked(value, data.value);
-    const check = withCheckIcon && checked && /* @__PURE__ */ import_jsx_runtime118.jsx(CheckIcon, { className: classes15.optionsDropdownCheckIcon });
-    const defaultContent = /* @__PURE__ */ import_jsx_runtime118.jsxs(import_jsx_runtime118.Fragment, { children: [
+    const check = withCheckIcon && checked && /* @__PURE__ */ import_jsx_runtime119.jsx(CheckIcon, { className: classes16.optionsDropdownCheckIcon });
+    const defaultContent = /* @__PURE__ */ import_jsx_runtime119.jsxs(import_jsx_runtime119.Fragment, { children: [
       checkIconPosition === "left" && check,
-      /* @__PURE__ */ import_jsx_runtime118.jsx("span", { children: data.label }),
+      /* @__PURE__ */ import_jsx_runtime119.jsx("span", { children: data.label }),
       checkIconPosition === "right" && check
     ] });
-    return /* @__PURE__ */ import_jsx_runtime118.jsx(Combobox.Option, {
+    return /* @__PURE__ */ import_jsx_runtime119.jsx(Combobox.Option, {
       value: data.value,
       disabled: data.disabled,
-      className: clsx_default({ [classes15.optionsDropdownOption]: !unstyled }),
+      className: clsx_default({ [classes16.optionsDropdownOption]: !unstyled }),
       "data-reverse": checkIconPosition === "right" || undefined,
       "data-checked": checked || undefined,
       "aria-selected": checked,
@@ -42445,7 +42577,7 @@ function Option({
       children: typeof renderOption === "function" ? renderOption({ option: data, checked }) : defaultContent
     });
   }
-  const options = data.items.map((item) => /* @__PURE__ */ import_jsx_runtime118.jsx(Option, {
+  const options = data.items.map((item) => /* @__PURE__ */ import_jsx_runtime119.jsx(Option, {
     data: item,
     value,
     unstyled,
@@ -42453,7 +42585,7 @@ function Option({
     checkIconPosition,
     renderOption
   }, item.value));
-  return /* @__PURE__ */ import_jsx_runtime118.jsx(Combobox.Group, { label: data.group, children: options });
+  return /* @__PURE__ */ import_jsx_runtime119.jsx(Combobox.Group, { label: data.group, children: options });
 }
 function OptionsDropdown({
   data,
@@ -42483,7 +42615,7 @@ function OptionsDropdown({
     limit: limit ?? Infinity
   }) : data;
   const isEmpty = isEmptyComboboxData(filteredData);
-  const options = filteredData.map((item) => /* @__PURE__ */ import_jsx_runtime118.jsx(Option, {
+  const options = filteredData.map((item) => /* @__PURE__ */ import_jsx_runtime119.jsx(Option, {
     data: item,
     withCheckIcon,
     value,
@@ -42491,8 +42623,8 @@ function OptionsDropdown({
     unstyled,
     renderOption
   }, isOptionsGroup(item) ? item.group : item.value));
-  return /* @__PURE__ */ import_jsx_runtime118.jsx(Combobox.Dropdown, { hidden: hidden2 || hiddenWhenEmpty && isEmpty, "data-composed": true, children: /* @__PURE__ */ import_jsx_runtime118.jsxs(Combobox.Options, { labelledBy: labelId, "aria-label": ariaLabel, children: [
-    withScrollArea ? /* @__PURE__ */ import_jsx_runtime118.jsx(ScrollArea.Autosize, {
+  return /* @__PURE__ */ import_jsx_runtime119.jsx(Combobox.Dropdown, { hidden: hidden2 || hiddenWhenEmpty && isEmpty, "data-composed": true, children: /* @__PURE__ */ import_jsx_runtime119.jsxs(Combobox.Options, { labelledBy: labelId, "aria-label": ariaLabel, children: [
+    withScrollArea ? /* @__PURE__ */ import_jsx_runtime119.jsx(ScrollArea.Autosize, {
       mah: maxDropdownHeight ?? 220,
       type: "scroll",
       scrollbarSize: "var(--combobox-padding)",
@@ -42500,32 +42632,91 @@ function OptionsDropdown({
       ...scrollAreaProps,
       children: options
     }) : options,
-    isEmpty && nothingFoundMessage && /* @__PURE__ */ import_jsx_runtime118.jsx(Combobox.Empty, { children: nothingFoundMessage })
+    isEmpty && nothingFoundMessage && /* @__PURE__ */ import_jsx_runtime119.jsx(Combobox.Empty, { children: nothingFoundMessage })
   ] }) });
 }
 
+// node_modules/@mantine/core/esm/components/Breadcrumbs/Breadcrumbs.mjs
+var import_jsx_runtime120 = __toESM(require_jsx_runtime(), 1);
+var import_react156 = __toESM(require_react(), 1);
+
+// node_modules/@mantine/core/esm/components/Breadcrumbs/Breadcrumbs.module.css.mjs
+"use client";
+var classes21 = { root: "m_8b3717df", breadcrumb: "m_f678d540", separator: "m_3b8f2208" };
+
+// node_modules/@mantine/core/esm/components/Breadcrumbs/Breadcrumbs.mjs
+"use client";
+var defaultProps45 = {
+  separator: "/"
+};
+var varsResolver23 = createVarsResolver((_2, { separatorMargin }) => ({
+  root: {
+    "--bc-separator-margin": getSpacing(separatorMargin)
+  }
+}));
+var Breadcrumbs = factory((_props, ref) => {
+  const props = useProps("Breadcrumbs", defaultProps45, _props);
+  const {
+    classNames,
+    className,
+    style: style2,
+    styles,
+    unstyled,
+    vars,
+    children,
+    separator,
+    separatorMargin,
+    ...others
+  } = props;
+  const getStyles2 = useStyles({
+    name: "Breadcrumbs",
+    classes: classes21,
+    props,
+    className,
+    style: style2,
+    classNames,
+    styles,
+    unstyled,
+    vars,
+    varsResolver: varsResolver23
+  });
+  const items = import_react156.Children.toArray(children).reduce((acc, child, index4, array) => {
+    const item = isElement(child) ? import_react156.cloneElement(child, {
+      ...getStyles2("breadcrumb", { className: child.props?.className }),
+      key: index4
+    }) : /* @__PURE__ */ import_react156.createElement("div", { ...getStyles2("breadcrumb"), key: index4 }, child);
+    acc.push(item);
+    if (index4 !== array.length - 1) {
+      acc.push(/* @__PURE__ */ import_react156.createElement(Box, { ...getStyles2("separator"), key: `separator-${index4}` }, separator));
+    }
+    return acc;
+  }, []);
+  return /* @__PURE__ */ import_jsx_runtime120.jsx(Box, { ref, ...getStyles2("root"), ...others, children: items });
+});
+Breadcrumbs.classes = classes21;
+Breadcrumbs.displayName = "@mantine/core/Breadcrumbs";
 // node_modules/@mantine/core/esm/components/Button/Button.mjs
+var import_jsx_runtime123 = __toESM(require_jsx_runtime(), 1);
+var import_react159 = __toESM(require_react(), 1);
+
+// node_modules/@mantine/core/esm/components/Button/ButtonGroup/ButtonGroup.mjs
 var import_jsx_runtime121 = __toESM(require_jsx_runtime(), 1);
 var import_react157 = __toESM(require_react(), 1);
 
-// node_modules/@mantine/core/esm/components/Button/ButtonGroup/ButtonGroup.mjs
-var import_jsx_runtime119 = __toESM(require_jsx_runtime(), 1);
-var import_react155 = __toESM(require_react(), 1);
-
 // node_modules/@mantine/core/esm/components/Button/Button.module.css.mjs
 "use client";
-var classes20 = { root: "m_77c9d27d", inner: "m_80f1301b", label: "m_811560b9", section: "m_a74036a", loader: "m_a25b86ee", group: "m_80d6d844", groupSection: "m_70be2a01" };
+var classes22 = { root: "m_77c9d27d", inner: "m_80f1301b", label: "m_811560b9", section: "m_a74036a", loader: "m_a25b86ee", group: "m_80d6d844", groupSection: "m_70be2a01" };
 
 // node_modules/@mantine/core/esm/components/Button/ButtonGroup/ButtonGroup.mjs
 "use client";
-var defaultProps44 = {
+var defaultProps46 = {
   orientation: "horizontal"
 };
-var varsResolver23 = createVarsResolver((_2, { borderWidth }) => ({
+var varsResolver24 = createVarsResolver((_2, { borderWidth }) => ({
   group: { "--button-border-width": rem(borderWidth) }
 }));
 var ButtonGroup = factory((_props, ref) => {
-  const props = useProps("ButtonGroup", defaultProps44, _props);
+  const props = useProps("ButtonGroup", defaultProps46, _props);
   const {
     className,
     style: style2,
@@ -42538,21 +42729,21 @@ var ButtonGroup = factory((_props, ref) => {
     variant,
     mod,
     ...others
-  } = useProps("ButtonGroup", defaultProps44, _props);
+  } = useProps("ButtonGroup", defaultProps46, _props);
   const getStyles2 = useStyles({
     name: "ButtonGroup",
     props,
-    classes: classes20,
+    classes: classes22,
     className,
     style: style2,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver23,
+    varsResolver: varsResolver24,
     rootSelector: "group"
   });
-  return /* @__PURE__ */ import_jsx_runtime119.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime121.jsx(Box, {
     ...getStyles2("group"),
     ref,
     variant,
@@ -42561,15 +42752,15 @@ var ButtonGroup = factory((_props, ref) => {
     ...others
   });
 });
-ButtonGroup.classes = classes20;
+ButtonGroup.classes = classes22;
 ButtonGroup.displayName = "@mantine/core/ButtonGroup";
 
 // node_modules/@mantine/core/esm/components/Button/ButtonGroupSection/ButtonGroupSection.mjs
-var import_jsx_runtime120 = __toESM(require_jsx_runtime(), 1);
-var import_react156 = __toESM(require_react(), 1);
+var import_jsx_runtime122 = __toESM(require_jsx_runtime(), 1);
+var import_react158 = __toESM(require_react(), 1);
 "use client";
-var defaultProps45 = {};
-var varsResolver24 = createVarsResolver((theme, { radius, color, gradient, variant, autoContrast, size: size4 }) => {
+var defaultProps47 = {};
+var varsResolver25 = createVarsResolver((theme, { radius, color, gradient, variant, autoContrast, size: size4 }) => {
   const colors = theme.variantColorResolver({
     color: color || theme.primaryColor,
     theme,
@@ -42590,7 +42781,7 @@ var varsResolver24 = createVarsResolver((theme, { radius, color, gradient, varia
   };
 });
 var ButtonGroupSection = factory((_props, ref) => {
-  const props = useProps("ButtonGroupSection", defaultProps45, _props);
+  const props = useProps("ButtonGroupSection", defaultProps47, _props);
   const {
     className,
     style: style2,
@@ -42603,23 +42794,23 @@ var ButtonGroupSection = factory((_props, ref) => {
     radius,
     autoContrast,
     ...others
-  } = useProps("ButtonGroupSection", defaultProps45, _props);
+  } = useProps("ButtonGroupSection", defaultProps47, _props);
   const getStyles2 = useStyles({
     name: "ButtonGroupSection",
     props,
-    classes: classes20,
+    classes: classes22,
     className,
     style: style2,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver24,
+    varsResolver: varsResolver25,
     rootSelector: "groupSection"
   });
-  return /* @__PURE__ */ import_jsx_runtime120.jsx(Box, { ...getStyles2("groupSection"), ref, variant, ...others });
+  return /* @__PURE__ */ import_jsx_runtime122.jsx(Box, { ...getStyles2("groupSection"), ref, variant, ...others });
 });
-ButtonGroupSection.classes = classes20;
+ButtonGroupSection.classes = classes22;
 ButtonGroupSection.displayName = "@mantine/core/ButtonGroupSection";
 
 // node_modules/@mantine/core/esm/components/Button/Button.mjs
@@ -42630,8 +42821,8 @@ var loaderTransition = {
   common: { transformOrigin: "center" },
   transitionProperty: "transform, opacity"
 };
-var defaultProps46 = {};
-var varsResolver25 = createVarsResolver((theme, { radius, color, gradient, variant, size: size4, justify, autoContrast }) => {
+var defaultProps48 = {};
+var varsResolver26 = createVarsResolver((theme, { radius, color, gradient, variant, size: size4, justify, autoContrast }) => {
   const colors = theme.variantColorResolver({
     color: color || theme.primaryColor,
     theme,
@@ -42655,7 +42846,7 @@ var varsResolver25 = createVarsResolver((theme, { radius, color, gradient, varia
   };
 });
 var Button = polymorphicFactory((_props, ref) => {
-  const props = useProps("Button", defaultProps46, _props);
+  const props = useProps("Button", defaultProps48, _props);
   const {
     style: style2,
     vars,
@@ -42682,18 +42873,18 @@ var Button = polymorphicFactory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Button",
     props,
-    classes: classes20,
+    classes: classes22,
     className,
     style: style2,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver25
+    varsResolver: varsResolver26
   });
   const hasLeftSection = !!leftSection;
   const hasRightSection = !!rightSection;
-  return /* @__PURE__ */ import_jsx_runtime121.jsxs(UnstyledButton, {
+  return /* @__PURE__ */ import_jsx_runtime123.jsxs(UnstyledButton, {
     ref,
     ...getStyles2("root", { active: !disabled && !loading && !dataDisabled }),
     unstyled,
@@ -42711,114 +42902,114 @@ var Button = polymorphicFactory((_props, ref) => {
     ],
     ...others,
     children: [
-      /* @__PURE__ */ import_jsx_runtime121.jsx(Transition, { mounted: !!loading, transition: loaderTransition, duration: 150, children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime121.jsx(Box, { component: "span", ...getStyles2("loader", { style: transitionStyles }), "aria-hidden": true, children: /* @__PURE__ */ import_jsx_runtime121.jsx(Loader, {
+      /* @__PURE__ */ import_jsx_runtime123.jsx(Transition, { mounted: !!loading, transition: loaderTransition, duration: 150, children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime123.jsx(Box, { component: "span", ...getStyles2("loader", { style: transitionStyles }), "aria-hidden": true, children: /* @__PURE__ */ import_jsx_runtime123.jsx(Loader, {
         color: "var(--button-color)",
         size: "calc(var(--button-height) / 1.8)",
         ...loaderProps
       }) }) }),
-      /* @__PURE__ */ import_jsx_runtime121.jsxs("span", { ...getStyles2("inner"), children: [
-        leftSection && /* @__PURE__ */ import_jsx_runtime121.jsx(Box, { component: "span", ...getStyles2("section"), mod: { position: "left" }, children: leftSection }),
-        /* @__PURE__ */ import_jsx_runtime121.jsx(Box, { component: "span", mod: { loading }, ...getStyles2("label"), children }),
-        rightSection && /* @__PURE__ */ import_jsx_runtime121.jsx(Box, { component: "span", ...getStyles2("section"), mod: { position: "right" }, children: rightSection })
+      /* @__PURE__ */ import_jsx_runtime123.jsxs("span", { ...getStyles2("inner"), children: [
+        leftSection && /* @__PURE__ */ import_jsx_runtime123.jsx(Box, { component: "span", ...getStyles2("section"), mod: { position: "left" }, children: leftSection }),
+        /* @__PURE__ */ import_jsx_runtime123.jsx(Box, { component: "span", mod: { loading }, ...getStyles2("label"), children }),
+        rightSection && /* @__PURE__ */ import_jsx_runtime123.jsx(Box, { component: "span", ...getStyles2("section"), mod: { position: "right" }, children: rightSection })
       ] })
     ]
   });
 });
-Button.classes = classes20;
+Button.classes = classes22;
 Button.displayName = "@mantine/core/Button";
 Button.Group = ButtonGroup;
 Button.GroupSection = ButtonGroupSection;
 // node_modules/@mantine/core/esm/components/Card/Card.mjs
-var import_jsx_runtime124 = __toESM(require_jsx_runtime(), 1);
-var import_react160 = __toESM(require_react(), 1);
+var import_jsx_runtime126 = __toESM(require_jsx_runtime(), 1);
+var import_react162 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Card/Card.context.mjs
-var import_react158 = __toESM(require_react(), 1);
-var import_jsx_runtime122 = __toESM(require_jsx_runtime(), 1);
+var import_react160 = __toESM(require_react(), 1);
+var import_jsx_runtime124 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [CardProvider, useCardContext] = createSafeContext("Card component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Card/CardSection/CardSection.mjs
-var import_jsx_runtime123 = __toESM(require_jsx_runtime(), 1);
-var import_react159 = __toESM(require_react(), 1);
+var import_jsx_runtime125 = __toESM(require_jsx_runtime(), 1);
+var import_react161 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Card/Card.module.css.mjs
 "use client";
-var classes21 = { root: "m_e615b15f", section: "m_599a2148" };
+var classes23 = { root: "m_e615b15f", section: "m_599a2148" };
 
 // node_modules/@mantine/core/esm/components/Card/CardSection/CardSection.mjs
 "use client";
-var defaultProps47 = {};
+var defaultProps49 = {};
 var CardSection = polymorphicFactory((_props, ref) => {
-  const props = useProps("CardSection", defaultProps47, _props);
+  const props = useProps("CardSection", defaultProps49, _props);
   const { classNames, className, style: style2, styles, vars, withBorder, inheritPadding, mod, ...others } = props;
   const ctx = useCardContext();
-  return /* @__PURE__ */ import_jsx_runtime123.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime125.jsx(Box, {
     ref,
     mod: [{ "with-border": withBorder, "inherit-padding": inheritPadding }, mod],
     ...ctx.getStyles("section", { className, style: style2, styles, classNames }),
     ...others
   });
 });
-CardSection.classes = classes21;
+CardSection.classes = classes23;
 CardSection.displayName = "@mantine/core/CardSection";
 
 // node_modules/@mantine/core/esm/components/Card/Card.mjs
 "use client";
-var defaultProps48 = {};
-var varsResolver26 = createVarsResolver((_2, { padding }) => ({
+var defaultProps50 = {};
+var varsResolver27 = createVarsResolver((_2, { padding }) => ({
   root: {
     "--card-padding": getSpacing(padding)
   }
 }));
 var Card = polymorphicFactory((_props, ref) => {
-  const props = useProps("Card", defaultProps48, _props);
+  const props = useProps("Card", defaultProps50, _props);
   const { classNames, className, style: style2, styles, unstyled, vars, children, padding, ...others } = props;
   const getStyles2 = useStyles({
     name: "Card",
     props,
-    classes: classes21,
+    classes: classes23,
     className,
     style: style2,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver26
+    varsResolver: varsResolver27
   });
-  const _children = import_react160.Children.toArray(children);
+  const _children = import_react162.Children.toArray(children);
   const content = _children.map((child, index4) => {
     if (typeof child === "object" && child && "type" in child && child.type === CardSection) {
-      return import_react160.cloneElement(child, {
+      return import_react162.cloneElement(child, {
         "data-first-section": index4 === 0 || undefined,
         "data-last-section": index4 === _children.length - 1 || undefined
       });
     }
     return child;
   });
-  return /* @__PURE__ */ import_jsx_runtime124.jsx(CardProvider, { value: { getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime124.jsx(Paper, { ref, unstyled, ...getStyles2("root"), ...others, children: content }) });
+  return /* @__PURE__ */ import_jsx_runtime126.jsx(CardProvider, { value: { getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime126.jsx(Paper, { ref, unstyled, ...getStyles2("root"), ...others, children: content }) });
 });
-Card.classes = classes21;
+Card.classes = classes23;
 Card.displayName = "@mantine/core/Card";
 Card.Section = CardSection;
 // node_modules/@mantine/core/esm/components/Center/Center.mjs
-var import_jsx_runtime125 = __toESM(require_jsx_runtime(), 1);
-var import_react161 = __toESM(require_react(), 1);
+var import_jsx_runtime127 = __toESM(require_jsx_runtime(), 1);
+var import_react163 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Center/Center.module.css.mjs
 "use client";
-var classes22 = { root: "m_4451eb3a" };
+var classes24 = { root: "m_4451eb3a" };
 
 // node_modules/@mantine/core/esm/components/Center/Center.mjs
 "use client";
-var defaultProps49 = {};
+var defaultProps51 = {};
 var Center = polymorphicFactory((_props, ref) => {
-  const props = useProps("Center", defaultProps49, _props);
+  const props = useProps("Center", defaultProps51, _props);
   const { classNames, className, style: style2, styles, unstyled, vars, inline: inline4, mod, ...others } = props;
   const getStyles2 = useStyles({
     name: "Center",
     props,
-    classes: classes22,
+    classes: classes24,
     className,
     style: style2,
     classNames,
@@ -42826,24 +43017,24 @@ var Center = polymorphicFactory((_props, ref) => {
     unstyled,
     vars
   });
-  return /* @__PURE__ */ import_jsx_runtime125.jsx(Box, { ref, mod: [{ inline: inline4 }, mod], ...getStyles2("root"), ...others });
+  return /* @__PURE__ */ import_jsx_runtime127.jsx(Box, { ref, mod: [{ inline: inline4 }, mod], ...getStyles2("root"), ...others });
 });
-Center.classes = classes22;
+Center.classes = classes24;
 Center.displayName = "@mantine/core/Center";
 // node_modules/@mantine/core/esm/components/Divider/Divider.mjs
-var import_jsx_runtime126 = __toESM(require_jsx_runtime(), 1);
-var import_react162 = __toESM(require_react(), 1);
+var import_jsx_runtime128 = __toESM(require_jsx_runtime(), 1);
+var import_react164 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Divider/Divider.module.css.mjs
 "use client";
-var classes23 = { root: "m_3eebeb36", label: "m_9e365f20" };
+var classes25 = { root: "m_3eebeb36", label: "m_9e365f20" };
 
 // node_modules/@mantine/core/esm/components/Divider/Divider.mjs
 "use client";
-var defaultProps50 = {
+var defaultProps52 = {
   orientation: "horizontal"
 };
-var varsResolver27 = createVarsResolver((theme, { color, variant, size: size4 }) => ({
+var varsResolver28 = createVarsResolver((theme, { color, variant, size: size4 }) => ({
   root: {
     "--divider-color": color ? getThemeColor(color, theme) : undefined,
     "--divider-border-style": variant,
@@ -42851,7 +43042,7 @@ var varsResolver27 = createVarsResolver((theme, { color, variant, size: size4 })
   }
 }));
 var Divider = factory((_props, ref) => {
-  const props = useProps("Divider", defaultProps50, _props);
+  const props = useProps("Divider", defaultProps52, _props);
   const {
     classNames,
     className,
@@ -42868,7 +43059,7 @@ var Divider = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "Divider",
-    classes: classes23,
+    classes: classes25,
     props,
     className,
     style: style2,
@@ -42876,133 +43067,133 @@ var Divider = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver27
+    varsResolver: varsResolver28
   });
-  return /* @__PURE__ */ import_jsx_runtime126.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime128.jsx(Box, {
     ref,
     mod: [{ orientation, "with-label": !!label }, mod],
     ...getStyles2("root"),
     ...others,
     role: "separator",
-    children: label && /* @__PURE__ */ import_jsx_runtime126.jsx(Box, { component: "span", mod: { position: labelPosition }, ...getStyles2("label"), children: label })
+    children: label && /* @__PURE__ */ import_jsx_runtime128.jsx(Box, { component: "span", mod: { position: labelPosition }, ...getStyles2("label"), children: label })
   });
 });
-Divider.classes = classes23;
+Divider.classes = classes25;
 Divider.displayName = "@mantine/core/Divider";
 // node_modules/@mantine/core/esm/components/Drawer/Drawer.mjs
-var import_jsx_runtime136 = __toESM(require_jsx_runtime(), 1);
-var import_react172 = __toESM(require_react(), 1);
+var import_jsx_runtime138 = __toESM(require_jsx_runtime(), 1);
+var import_react174 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerBody.mjs
-var import_jsx_runtime128 = __toESM(require_jsx_runtime(), 1);
-var import_react164 = __toESM(require_react(), 1);
+var import_jsx_runtime130 = __toESM(require_jsx_runtime(), 1);
+var import_react166 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Drawer/Drawer.context.mjs
-var import_react163 = __toESM(require_react(), 1);
-var import_jsx_runtime127 = __toESM(require_jsx_runtime(), 1);
+var import_react165 = __toESM(require_react(), 1);
+var import_jsx_runtime129 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [DrawerProvider, useDrawerContext] = createSafeContext("Drawer component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Drawer/Drawer.module.css.mjs
 "use client";
-var classes24 = { root: "m_f11b401e", header: "m_5a7c2c9", content: "m_b8a05bbd", inner: "m_31cd769a" };
+var classes26 = { root: "m_f11b401e", header: "m_5a7c2c9", content: "m_b8a05bbd", inner: "m_31cd769a" };
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerBody.mjs
 "use client";
-var defaultProps51 = {};
+var defaultProps53 = {};
 var DrawerBody = factory((_props, ref) => {
-  const props = useProps("DrawerBody", defaultProps51, _props);
+  const props = useProps("DrawerBody", defaultProps53, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime128.jsx(ModalBaseBody, {
+  return /* @__PURE__ */ import_jsx_runtime130.jsx(ModalBaseBody, {
     ref,
     ...ctx.getStyles("body", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-DrawerBody.classes = classes24;
+DrawerBody.classes = classes26;
 DrawerBody.displayName = "@mantine/core/DrawerBody";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerCloseButton.mjs
-var import_jsx_runtime129 = __toESM(require_jsx_runtime(), 1);
-var import_react165 = __toESM(require_react(), 1);
+var import_jsx_runtime131 = __toESM(require_jsx_runtime(), 1);
+var import_react167 = __toESM(require_react(), 1);
 "use client";
-var defaultProps52 = {};
+var defaultProps54 = {};
 var DrawerCloseButton = factory((_props, ref) => {
-  const props = useProps("DrawerCloseButton", defaultProps52, _props);
+  const props = useProps("DrawerCloseButton", defaultProps54, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime129.jsx(ModalBaseCloseButton, {
+  return /* @__PURE__ */ import_jsx_runtime131.jsx(ModalBaseCloseButton, {
     ref,
     ...ctx.getStyles("close", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-DrawerCloseButton.classes = classes24;
+DrawerCloseButton.classes = classes26;
 DrawerCloseButton.displayName = "@mantine/core/DrawerCloseButton";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerContent.mjs
-var import_jsx_runtime130 = __toESM(require_jsx_runtime(), 1);
-var import_react166 = __toESM(require_react(), 1);
+var import_jsx_runtime132 = __toESM(require_jsx_runtime(), 1);
+var import_react168 = __toESM(require_react(), 1);
 "use client";
-var defaultProps53 = {};
+var defaultProps55 = {};
 var DrawerContent = factory((_props, ref) => {
-  const props = useProps("DrawerContent", defaultProps53, _props);
+  const props = useProps("DrawerContent", defaultProps55, _props);
   const { classNames, className, style: style2, styles, vars, children, radius, __hidden, ...others } = props;
   const ctx = useDrawerContext();
   const Scroll = ctx.scrollAreaComponent || NativeScrollArea;
-  return /* @__PURE__ */ import_jsx_runtime130.jsx(ModalBaseContent, {
+  return /* @__PURE__ */ import_jsx_runtime132.jsx(ModalBaseContent, {
     ...ctx.getStyles("content", { className, style: style2, styles, classNames }),
     innerProps: ctx.getStyles("inner", { className, style: style2, styles, classNames }),
     ref,
     ...others,
     radius: radius || ctx.radius || 0,
     "data-hidden": __hidden || undefined,
-    children: /* @__PURE__ */ import_jsx_runtime130.jsx(Scroll, { style: { height: "calc(100vh - var(--drawer-offset) * 2)" }, children })
+    children: /* @__PURE__ */ import_jsx_runtime132.jsx(Scroll, { style: { height: "calc(100vh - var(--drawer-offset) * 2)" }, children })
   });
 });
-DrawerContent.classes = classes24;
+DrawerContent.classes = classes26;
 DrawerContent.displayName = "@mantine/core/DrawerContent";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerHeader.mjs
-var import_jsx_runtime131 = __toESM(require_jsx_runtime(), 1);
-var import_react167 = __toESM(require_react(), 1);
+var import_jsx_runtime133 = __toESM(require_jsx_runtime(), 1);
+var import_react169 = __toESM(require_react(), 1);
 "use client";
-var defaultProps54 = {};
+var defaultProps56 = {};
 var DrawerHeader = factory((_props, ref) => {
-  const props = useProps("DrawerHeader", defaultProps54, _props);
+  const props = useProps("DrawerHeader", defaultProps56, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime131.jsx(ModalBaseHeader, {
+  return /* @__PURE__ */ import_jsx_runtime133.jsx(ModalBaseHeader, {
     ref,
     ...ctx.getStyles("header", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-DrawerHeader.classes = classes24;
+DrawerHeader.classes = classes26;
 DrawerHeader.displayName = "@mantine/core/DrawerHeader";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerOverlay.mjs
-var import_jsx_runtime132 = __toESM(require_jsx_runtime(), 1);
-var import_react168 = __toESM(require_react(), 1);
+var import_jsx_runtime134 = __toESM(require_jsx_runtime(), 1);
+var import_react170 = __toESM(require_react(), 1);
 "use client";
-var defaultProps55 = {};
+var defaultProps57 = {};
 var DrawerOverlay = factory((_props, ref) => {
-  const props = useProps("DrawerOverlay", defaultProps55, _props);
+  const props = useProps("DrawerOverlay", defaultProps57, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime132.jsx(ModalBaseOverlay, {
+  return /* @__PURE__ */ import_jsx_runtime134.jsx(ModalBaseOverlay, {
     ref,
     ...ctx.getStyles("overlay", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-DrawerOverlay.classes = classes24;
+DrawerOverlay.classes = classes26;
 DrawerOverlay.displayName = "@mantine/core/DrawerOverlay";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerRoot.mjs
-var import_jsx_runtime133 = __toESM(require_jsx_runtime(), 1);
-var import_react169 = __toESM(require_react(), 1);
+var import_jsx_runtime135 = __toESM(require_jsx_runtime(), 1);
+var import_react171 = __toESM(require_react(), 1);
 "use client";
 function getDrawerAlign(position2) {
   switch (position2) {
@@ -43032,7 +43223,7 @@ var rtlTransitions = {
   right: "slide-right",
   left: "slide-left"
 };
-var defaultProps56 = {
+var defaultProps58 = {
   closeOnClickOutside: true,
   withinPortal: true,
   lockScroll: true,
@@ -43043,7 +43234,7 @@ var defaultProps56 = {
   zIndex: getDefaultZIndex("modal"),
   position: "left"
 };
-var varsResolver28 = createVarsResolver((_2, { position: position2, size: size4, offset: offset4 }) => ({
+var varsResolver29 = createVarsResolver((_2, { position: position2, size: size4, offset: offset4 }) => ({
   root: {
     "--drawer-size": getSize(size4, "drawer-size"),
     "--drawer-flex": getDrawerFlex(position2),
@@ -43054,7 +43245,7 @@ var varsResolver28 = createVarsResolver((_2, { position: position2, size: size4,
   }
 }));
 var DrawerRoot = factory((_props, ref) => {
-  const props = useProps("DrawerRoot", defaultProps56, _props);
+  const props = useProps("DrawerRoot", defaultProps58, _props);
   const {
     classNames,
     className,
@@ -43071,7 +43262,7 @@ var DrawerRoot = factory((_props, ref) => {
   const { dir } = useDirection();
   const getStyles2 = useStyles({
     name: "Drawer",
-    classes: classes24,
+    classes: classes26,
     props,
     className,
     style: style2,
@@ -43079,10 +43270,10 @@ var DrawerRoot = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver28
+    varsResolver: varsResolver29
   });
   const drawerTransition = (dir === "rtl" ? rtlTransitions : transitions2)[position2];
-  return /* @__PURE__ */ import_jsx_runtime133.jsx(DrawerProvider, { value: { scrollAreaComponent, getStyles: getStyles2, radius }, children: /* @__PURE__ */ import_jsx_runtime133.jsx(ModalBase, {
+  return /* @__PURE__ */ import_jsx_runtime135.jsx(DrawerProvider, { value: { scrollAreaComponent, getStyles: getStyles2, radius }, children: /* @__PURE__ */ import_jsx_runtime135.jsx(ModalBase, {
     ref,
     ...getStyles2("root"),
     transitionProps: { transition: drawerTransition, ...transitionProps },
@@ -43091,18 +43282,18 @@ var DrawerRoot = factory((_props, ref) => {
     ...others
   }) });
 });
-DrawerRoot.classes = classes24;
+DrawerRoot.classes = classes26;
 DrawerRoot.displayName = "@mantine/core/DrawerRoot";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerStack.mjs
-var import_jsx_runtime134 = __toESM(require_jsx_runtime(), 1);
-var import_react170 = __toESM(require_react(), 1);
+var import_jsx_runtime136 = __toESM(require_jsx_runtime(), 1);
+var import_react172 = __toESM(require_react(), 1);
 "use client";
 var [DrawerStackProvider, useDrawerStackContext] = createOptionalContext();
 function DrawerStack({ children }) {
-  const [stack, setStack] = import_react170.useState([]);
-  const [maxZIndex, setMaxZIndex] = import_react170.useState(getDefaultZIndex("modal"));
-  return /* @__PURE__ */ import_jsx_runtime134.jsx(DrawerStackProvider, {
+  const [stack, setStack] = import_react172.useState([]);
+  const [maxZIndex, setMaxZIndex] = import_react172.useState(getDefaultZIndex("modal"));
+  return /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerStackProvider, {
     value: {
       stack,
       addModal: (id, zIndex) => {
@@ -43120,26 +43311,26 @@ function DrawerStack({ children }) {
 DrawerStack.displayName = "@mantine/core/DrawerStack";
 
 // node_modules/@mantine/core/esm/components/Drawer/DrawerTitle.mjs
-var import_jsx_runtime135 = __toESM(require_jsx_runtime(), 1);
-var import_react171 = __toESM(require_react(), 1);
+var import_jsx_runtime137 = __toESM(require_jsx_runtime(), 1);
+var import_react173 = __toESM(require_react(), 1);
 "use client";
-var defaultProps57 = {};
+var defaultProps59 = {};
 var DrawerTitle = factory((_props, ref) => {
-  const props = useProps("DrawerTitle", defaultProps57, _props);
+  const props = useProps("DrawerTitle", defaultProps59, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useDrawerContext();
-  return /* @__PURE__ */ import_jsx_runtime135.jsx(ModalBaseTitle, {
+  return /* @__PURE__ */ import_jsx_runtime137.jsx(ModalBaseTitle, {
     ref,
     ...ctx.getStyles("title", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-DrawerTitle.classes = classes24;
+DrawerTitle.classes = classes26;
 DrawerTitle.displayName = "@mantine/core/DrawerTitle";
 
 // node_modules/@mantine/core/esm/components/Drawer/Drawer.mjs
 "use client";
-var defaultProps58 = {
+var defaultProps60 = {
   closeOnClickOutside: true,
   withinPortal: true,
   lockScroll: true,
@@ -43163,7 +43354,7 @@ var Drawer = factory((_props, ref) => {
     stackId,
     zIndex,
     ...others
-  } = useProps("Drawer", defaultProps58, _props);
+  } = useProps("Drawer", defaultProps60, _props);
   const ctx = useDrawerStackContext();
   const hasHeader = !!title || withCloseButton;
   const stackProps = ctx && stackId ? {
@@ -43172,34 +43363,34 @@ var Drawer = factory((_props, ref) => {
     zIndex: ctx.getZIndex(stackId)
   } : {};
   const overlayVisible = withOverlay === false ? false : stackId && ctx ? ctx.currentId === stackId : opened;
-  import_react172.useEffect(() => {
+  import_react174.useEffect(() => {
     if (ctx && stackId) {
       opened ? ctx.addModal(stackId, zIndex || getDefaultZIndex("modal")) : ctx.removeModal(stackId);
     }
   }, [opened, stackId, zIndex]);
-  return /* @__PURE__ */ import_jsx_runtime136.jsxs(DrawerRoot, {
+  return /* @__PURE__ */ import_jsx_runtime138.jsxs(DrawerRoot, {
     ref,
     opened,
     zIndex: ctx && stackId ? ctx.getZIndex(stackId) : zIndex,
     ...others,
     ...stackProps,
     children: [
-      withOverlay && /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerOverlay, {
+      withOverlay && /* @__PURE__ */ import_jsx_runtime138.jsx(DrawerOverlay, {
         visible: overlayVisible,
         transitionProps: ctx && stackId ? { duration: 0 } : undefined,
         ...overlayProps
       }),
-      /* @__PURE__ */ import_jsx_runtime136.jsxs(DrawerContent, { __hidden: ctx && stackId && opened ? stackId !== ctx.currentId : false, children: [
-        hasHeader && /* @__PURE__ */ import_jsx_runtime136.jsxs(DrawerHeader, { children: [
-          title && /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerTitle, { children: title }),
-          withCloseButton && /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerCloseButton, { ...closeButtonProps })
+      /* @__PURE__ */ import_jsx_runtime138.jsxs(DrawerContent, { __hidden: ctx && stackId && opened ? stackId !== ctx.currentId : false, children: [
+        hasHeader && /* @__PURE__ */ import_jsx_runtime138.jsxs(DrawerHeader, { children: [
+          title && /* @__PURE__ */ import_jsx_runtime138.jsx(DrawerTitle, { children: title }),
+          withCloseButton && /* @__PURE__ */ import_jsx_runtime138.jsx(DrawerCloseButton, { ...closeButtonProps })
         ] }),
-        /* @__PURE__ */ import_jsx_runtime136.jsx(DrawerBody, { children })
+        /* @__PURE__ */ import_jsx_runtime138.jsx(DrawerBody, { children })
       ] })
     ]
   });
 });
-Drawer.classes = classes24;
+Drawer.classes = classes26;
 Drawer.displayName = "@mantine/core/Drawer";
 Drawer.Root = DrawerRoot;
 Drawer.Overlay = DrawerOverlay;
@@ -43210,11 +43401,11 @@ Drawer.Title = DrawerTitle;
 Drawer.CloseButton = DrawerCloseButton;
 Drawer.Stack = DrawerStack;
 // node_modules/@mantine/core/esm/components/Floating/use-delayed-hover.mjs
-var import_react173 = __toESM(require_react(), 1);
+var import_react175 = __toESM(require_react(), 1);
 "use client";
 function useDelayedHover({ open, close, openDelay, closeDelay }) {
-  const openTimeout = import_react173.useRef(-1);
-  const closeTimeout = import_react173.useRef(-1);
+  const openTimeout = import_react175.useRef(-1);
+  const closeTimeout = import_react175.useRef(-1);
   const clearTimeouts = () => {
     window.clearTimeout(openTimeout.current);
     window.clearTimeout(closeTimeout.current);
@@ -43235,27 +43426,27 @@ function useDelayedHover({ open, close, openDelay, closeDelay }) {
       closeTimeout.current = window.setTimeout(close, closeDelay);
     }
   };
-  import_react173.useEffect(() => clearTimeouts, []);
+  import_react175.useEffect(() => clearTimeouts, []);
   return { openDropdown, closeDropdown };
 }
 
 // node_modules/@mantine/core/esm/components/Grid/Grid.mjs
-var import_jsx_runtime141 = __toESM(require_jsx_runtime(), 1);
-var import_react178 = __toESM(require_react(), 1);
+var import_jsx_runtime143 = __toESM(require_jsx_runtime(), 1);
+var import_react180 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Grid/Grid.context.mjs
-var import_react174 = __toESM(require_react(), 1);
-var import_jsx_runtime137 = __toESM(require_jsx_runtime(), 1);
+var import_react176 = __toESM(require_react(), 1);
+var import_jsx_runtime139 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [GridProvider, useGridContext] = createSafeContext("Grid component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Grid/GridCol/GridCol.mjs
-var import_jsx_runtime139 = __toESM(require_jsx_runtime(), 1);
-var import_react176 = __toESM(require_react(), 1);
+var import_jsx_runtime141 = __toESM(require_jsx_runtime(), 1);
+var import_react178 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Grid/GridCol/GridColVariables.mjs
-var import_jsx_runtime138 = __toESM(require_jsx_runtime(), 1);
-var import_react175 = __toESM(require_react(), 1);
+var import_jsx_runtime140 = __toESM(require_jsx_runtime(), 1);
+var import_react177 = __toESM(require_react(), 1);
 "use client";
 var getColumnFlexBasis = (colSpan, columns) => {
   if (colSpan === "content") {
@@ -43319,7 +43510,7 @@ function GridColVariables({ span, order, offset: offset4, selector }) {
     query: ctx.type === "container" ? `mantine-grid (min-width: ${_breakpoints[breakpoint.value]})` : `(min-width: ${_breakpoints[breakpoint.value]})`,
     styles: queries[breakpoint.value]
   }));
-  return /* @__PURE__ */ import_jsx_runtime138.jsx(InlineStyles, {
+  return /* @__PURE__ */ import_jsx_runtime140.jsx(InlineStyles, {
     styles: baseStyles,
     media: ctx.type === "container" ? undefined : values2,
     container: ctx.type === "container" ? values2 : undefined,
@@ -43329,26 +43520,26 @@ function GridColVariables({ span, order, offset: offset4, selector }) {
 
 // node_modules/@mantine/core/esm/components/Grid/Grid.module.css.mjs
 "use client";
-var classes25 = { container: "m_8478a6da", root: "m_410352e9", inner: "m_dee7bd2f", col: "m_96bdd299" };
+var classes27 = { container: "m_8478a6da", root: "m_410352e9", inner: "m_dee7bd2f", col: "m_96bdd299" };
 
 // node_modules/@mantine/core/esm/components/Grid/GridCol/GridCol.mjs
 "use client";
-var defaultProps59 = {
+var defaultProps61 = {
   span: 12
 };
 var GridCol = factory((_props, ref) => {
-  const props = useProps("GridCol", defaultProps59, _props);
+  const props = useProps("GridCol", defaultProps61, _props);
   const { classNames, className, style: style2, styles, vars, span, order, offset: offset4, ...others } = props;
   const ctx = useGridContext();
   const responsiveClassName = useRandomClassName();
-  return /* @__PURE__ */ import_jsx_runtime139.jsxs(import_jsx_runtime139.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime139.jsx(GridColVariables, {
+  return /* @__PURE__ */ import_jsx_runtime141.jsxs(import_jsx_runtime141.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime141.jsx(GridColVariables, {
       selector: `.${responsiveClassName}`,
       span,
       order,
       offset: offset4
     }),
-    /* @__PURE__ */ import_jsx_runtime139.jsx(Box, {
+    /* @__PURE__ */ import_jsx_runtime141.jsx(Box, {
       ref,
       ...ctx.getStyles("col", {
         className: clsx_default(className, responsiveClassName),
@@ -43360,12 +43551,12 @@ var GridCol = factory((_props, ref) => {
     })
   ] });
 });
-GridCol.classes = classes25;
+GridCol.classes = classes27;
 GridCol.displayName = "@mantine/core/GridCol";
 
 // node_modules/@mantine/core/esm/components/Grid/GridVariables.mjs
-var import_jsx_runtime140 = __toESM(require_jsx_runtime(), 1);
-var import_react177 = __toESM(require_react(), 1);
+var import_jsx_runtime142 = __toESM(require_jsx_runtime(), 1);
+var import_react179 = __toESM(require_react(), 1);
 "use client";
 function GridVariables({ gutter, selector, breakpoints, type }) {
   const theme = useMantineTheme();
@@ -43387,7 +43578,7 @@ function GridVariables({ gutter, selector, breakpoints, type }) {
     query: type === "container" ? `mantine-grid (min-width: ${_breakpoints[breakpoint.value]})` : `(min-width: ${_breakpoints[breakpoint.value]})`,
     styles: queries[breakpoint.value]
   }));
-  return /* @__PURE__ */ import_jsx_runtime140.jsx(InlineStyles, {
+  return /* @__PURE__ */ import_jsx_runtime142.jsx(InlineStyles, {
     styles: baseStyles,
     media: type === "container" ? undefined : values2,
     container: type === "container" ? values2 : undefined,
@@ -43397,12 +43588,12 @@ function GridVariables({ gutter, selector, breakpoints, type }) {
 
 // node_modules/@mantine/core/esm/components/Grid/Grid.mjs
 "use client";
-var defaultProps60 = {
+var defaultProps62 = {
   gutter: "md",
   grow: false,
   columns: 12
 };
-var varsResolver29 = createVarsResolver((_2, { justify, align, overflow }) => ({
+var varsResolver30 = createVarsResolver((_2, { justify, align, overflow }) => ({
   root: {
     "--grid-justify": justify,
     "--grid-align": align,
@@ -43410,7 +43601,7 @@ var varsResolver29 = createVarsResolver((_2, { justify, align, overflow }) => ({
   }
 }));
 var Grid = factory((_props, ref) => {
-  const props = useProps("Grid", defaultProps60, _props);
+  const props = useProps("Grid", defaultProps62, _props);
   const {
     classNames,
     className,
@@ -43430,7 +43621,7 @@ var Grid = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "Grid",
-    classes: classes25,
+    classes: classes27,
     props,
     className,
     style: style2,
@@ -43438,71 +43629,71 @@ var Grid = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver29
+    varsResolver: varsResolver30
   });
   const responsiveClassName = useRandomClassName();
   if (type === "container" && breakpoints) {
-    return /* @__PURE__ */ import_jsx_runtime141.jsxs(GridProvider, { value: { getStyles: getStyles2, grow, columns: columns || 12, breakpoints, type }, children: [
-      /* @__PURE__ */ import_jsx_runtime141.jsx(GridVariables, { selector: `.${responsiveClassName}`, ...props }),
-      /* @__PURE__ */ import_jsx_runtime141.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime141.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others, children: /* @__PURE__ */ import_jsx_runtime141.jsx("div", { ...getStyles2("inner"), children }) }) })
+    return /* @__PURE__ */ import_jsx_runtime143.jsxs(GridProvider, { value: { getStyles: getStyles2, grow, columns: columns || 12, breakpoints, type }, children: [
+      /* @__PURE__ */ import_jsx_runtime143.jsx(GridVariables, { selector: `.${responsiveClassName}`, ...props }),
+      /* @__PURE__ */ import_jsx_runtime143.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime143.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others, children: /* @__PURE__ */ import_jsx_runtime143.jsx("div", { ...getStyles2("inner"), children }) }) })
     ] });
   }
-  return /* @__PURE__ */ import_jsx_runtime141.jsxs(GridProvider, { value: { getStyles: getStyles2, grow, columns: columns || 12, breakpoints, type }, children: [
-    /* @__PURE__ */ import_jsx_runtime141.jsx(GridVariables, { selector: `.${responsiveClassName}`, ...props }),
-    /* @__PURE__ */ import_jsx_runtime141.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others, children: /* @__PURE__ */ import_jsx_runtime141.jsx("div", { ...getStyles2("inner"), children }) })
+  return /* @__PURE__ */ import_jsx_runtime143.jsxs(GridProvider, { value: { getStyles: getStyles2, grow, columns: columns || 12, breakpoints, type }, children: [
+    /* @__PURE__ */ import_jsx_runtime143.jsx(GridVariables, { selector: `.${responsiveClassName}`, ...props }),
+    /* @__PURE__ */ import_jsx_runtime143.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others, children: /* @__PURE__ */ import_jsx_runtime143.jsx("div", { ...getStyles2("inner"), children }) })
   ] });
 });
-Grid.classes = classes25;
+Grid.classes = classes27;
 Grid.displayName = "@mantine/core/Grid";
 Grid.Col = GridCol;
 // node_modules/@mantine/core/esm/components/List/List.mjs
-var import_jsx_runtime144 = __toESM(require_jsx_runtime(), 1);
-var import_react181 = __toESM(require_react(), 1);
+var import_jsx_runtime146 = __toESM(require_jsx_runtime(), 1);
+var import_react183 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/List/List.context.mjs
-var import_react179 = __toESM(require_react(), 1);
-var import_jsx_runtime142 = __toESM(require_jsx_runtime(), 1);
+var import_react181 = __toESM(require_react(), 1);
+var import_jsx_runtime144 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [ListProvider, useListContext] = createSafeContext("List component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/List/ListItem/ListItem.mjs
-var import_jsx_runtime143 = __toESM(require_jsx_runtime(), 1);
-var import_react180 = __toESM(require_react(), 1);
+var import_jsx_runtime145 = __toESM(require_jsx_runtime(), 1);
+var import_react182 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/List/List.module.css.mjs
 "use client";
-var classes26 = { root: "m_abbac491", item: "m_abb6bec2", itemWrapper: "m_75cd9f71", itemIcon: "m_60f83e5b" };
+var classes28 = { root: "m_abbac491", item: "m_abb6bec2", itemWrapper: "m_75cd9f71", itemIcon: "m_60f83e5b" };
 
 // node_modules/@mantine/core/esm/components/List/ListItem/ListItem.mjs
 "use client";
-var defaultProps61 = {};
+var defaultProps63 = {};
 var ListItem = factory((_props, ref) => {
-  const props = useProps("ListItem", defaultProps61, _props);
+  const props = useProps("ListItem", defaultProps63, _props);
   const { classNames, className, style: style2, styles, vars, icon, children, mod, ...others } = props;
   const ctx = useListContext();
   const _icon = icon || ctx.icon;
   const stylesApiProps = { classNames, styles };
-  return /* @__PURE__ */ import_jsx_runtime143.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime145.jsx(Box, {
     ...ctx.getStyles("item", { ...stylesApiProps, className, style: style2 }),
     component: "li",
     mod: [{ "with-icon": !!_icon, centered: ctx.center }, mod],
     ref,
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime143.jsxs("div", { ...ctx.getStyles("itemWrapper", stylesApiProps), children: [
-      _icon && /* @__PURE__ */ import_jsx_runtime143.jsx("span", { ...ctx.getStyles("itemIcon", stylesApiProps), children: _icon }),
-      /* @__PURE__ */ import_jsx_runtime143.jsx("span", { ...ctx.getStyles("itemLabel", stylesApiProps), children })
+    children: /* @__PURE__ */ import_jsx_runtime145.jsxs("div", { ...ctx.getStyles("itemWrapper", stylesApiProps), children: [
+      _icon && /* @__PURE__ */ import_jsx_runtime145.jsx("span", { ...ctx.getStyles("itemIcon", stylesApiProps), children: _icon }),
+      /* @__PURE__ */ import_jsx_runtime145.jsx("span", { ...ctx.getStyles("itemLabel", stylesApiProps), children })
     ] })
   });
 });
-ListItem.classes = classes26;
+ListItem.classes = classes28;
 ListItem.displayName = "@mantine/core/ListItem";
 
 // node_modules/@mantine/core/esm/components/List/List.mjs
 "use client";
-var defaultProps62 = {
+var defaultProps64 = {
   type: "unordered"
 };
-var varsResolver30 = createVarsResolver((_2, { size: size4, spacing }) => ({
+var varsResolver31 = createVarsResolver((_2, { size: size4, spacing }) => ({
   root: {
     "--list-fz": getFontSize(size4),
     "--list-lh": getLineHeight(size4),
@@ -43510,7 +43701,7 @@ var varsResolver30 = createVarsResolver((_2, { size: size4, spacing }) => ({
   }
 }));
 var List = factory((_props, ref) => {
-  const props = useProps("List", defaultProps62, _props);
+  const props = useProps("List", defaultProps64, _props);
   const {
     classNames,
     className,
@@ -43530,7 +43721,7 @@ var List = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "List",
-    classes: classes26,
+    classes: classes28,
     props,
     className,
     style: style2,
@@ -43538,9 +43729,9 @@ var List = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver30
+    varsResolver: varsResolver31
   });
-  return /* @__PURE__ */ import_jsx_runtime144.jsx(ListProvider, { value: { center, icon, getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime144.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime146.jsx(ListProvider, { value: { center, icon, getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime146.jsx(Box, {
     ...getStyles2("root", { style: { listStyleType } }),
     component: type === "unordered" ? "ul" : "ol",
     mod: [{ "with-padding": withPadding }, mod],
@@ -43549,47 +43740,47 @@ var List = factory((_props, ref) => {
     children
   }) });
 });
-List.classes = classes26;
+List.classes = classes28;
 List.displayName = "@mantine/core/List";
 List.Item = ListItem;
 // node_modules/@mantine/core/esm/components/Menu/Menu.mjs
-var import_jsx_runtime151 = __toESM(require_jsx_runtime(), 1);
-var import_react188 = __toESM(require_react(), 1);
+var import_jsx_runtime153 = __toESM(require_jsx_runtime(), 1);
+var import_react190 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.context.mjs
-var import_react182 = __toESM(require_react(), 1);
-var import_jsx_runtime145 = __toESM(require_jsx_runtime(), 1);
+var import_react184 = __toESM(require_react(), 1);
+var import_jsx_runtime147 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [MenuContextProvider, useMenuContext] = createSafeContext("Menu component was not found in the tree");
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDivider/MenuDivider.mjs
-var import_jsx_runtime146 = __toESM(require_jsx_runtime(), 1);
-var import_react183 = __toESM(require_react(), 1);
+var import_jsx_runtime148 = __toESM(require_jsx_runtime(), 1);
+var import_react185 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.module.css.mjs
 "use client";
-var classes27 = { dropdown: "m_dc9b7c9f", label: "m_9bfac126", divider: "m_efdf90cb", item: "m_99ac2aa1", itemLabel: "m_5476e0d3", itemSection: "m_8b75e504" };
+var classes29 = { dropdown: "m_dc9b7c9f", label: "m_9bfac126", divider: "m_efdf90cb", item: "m_99ac2aa1", itemLabel: "m_5476e0d3", itemSection: "m_8b75e504" };
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDivider/MenuDivider.mjs
 "use client";
-var defaultProps63 = {};
+var defaultProps65 = {};
 var MenuDivider = factory((props, ref) => {
-  const { classNames, className, style: style2, styles, vars, ...others } = useProps("MenuDivider", defaultProps63, props);
+  const { classNames, className, style: style2, styles, vars, ...others } = useProps("MenuDivider", defaultProps65, props);
   const ctx = useMenuContext();
-  return /* @__PURE__ */ import_jsx_runtime146.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime148.jsx(Box, {
     ref,
     ...ctx.getStyles("divider", { className, style: style2, styles, classNames }),
     ...others
   });
 });
-MenuDivider.classes = classes27;
+MenuDivider.classes = classes29;
 MenuDivider.displayName = "@mantine/core/MenuDivider";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDropdown/MenuDropdown.mjs
-var import_jsx_runtime147 = __toESM(require_jsx_runtime(), 1);
-var import_react184 = __toESM(require_react(), 1);
+var import_jsx_runtime149 = __toESM(require_jsx_runtime(), 1);
+var import_react186 = __toESM(require_react(), 1);
 "use client";
-var defaultProps64 = {};
+var defaultProps66 = {};
 var MenuDropdown = factory((props, ref) => {
   const {
     classNames,
@@ -43602,8 +43793,8 @@ var MenuDropdown = factory((props, ref) => {
     onKeyDown,
     children,
     ...others
-  } = useProps("MenuDropdown", defaultProps64, props);
-  const wrapperRef = import_react184.useRef(null);
+  } = useProps("MenuDropdown", defaultProps66, props);
+  const wrapperRef = import_react186.useRef(null);
   const ctx = useMenuContext();
   const handleKeyDown = createEventHandler(onKeyDown, (event) => {
     if (event.key === "ArrowUp" || event.key === "ArrowDown") {
@@ -43613,7 +43804,7 @@ var MenuDropdown = factory((props, ref) => {
   });
   const handleMouseEnter = createEventHandler(onMouseEnter, () => (ctx.trigger === "hover" || ctx.trigger === "click-hover") && ctx.openDropdown());
   const handleMouseLeave = createEventHandler(onMouseLeave, () => (ctx.trigger === "hover" || ctx.trigger === "click-hover") && ctx.closeDropdown());
-  return /* @__PURE__ */ import_jsx_runtime147.jsxs(Popover.Dropdown, {
+  return /* @__PURE__ */ import_jsx_runtime149.jsxs(Popover.Dropdown, {
     ...others,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
@@ -43631,19 +43822,19 @@ var MenuDropdown = factory((props, ref) => {
     "data-menu-dropdown": true,
     onKeyDown: handleKeyDown,
     children: [
-      ctx.withInitialFocusPlaceholder && /* @__PURE__ */ import_jsx_runtime147.jsx("div", { tabIndex: -1, "data-autofocus": true, "data-mantine-stop-propagation": true, style: { outline: 0 } }),
+      ctx.withInitialFocusPlaceholder && /* @__PURE__ */ import_jsx_runtime149.jsx("div", { tabIndex: -1, "data-autofocus": true, "data-mantine-stop-propagation": true, style: { outline: 0 } }),
       children
     ]
   });
 });
-MenuDropdown.classes = classes27;
+MenuDropdown.classes = classes29;
 MenuDropdown.displayName = "@mantine/core/MenuDropdown";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuItem/MenuItem.mjs
-var import_jsx_runtime148 = __toESM(require_jsx_runtime(), 1);
-var import_react185 = __toESM(require_react(), 1);
+var import_jsx_runtime150 = __toESM(require_jsx_runtime(), 1);
+var import_react187 = __toESM(require_react(), 1);
 "use client";
-var defaultProps65 = {};
+var defaultProps67 = {};
 var MenuItem = polymorphicFactory((props, ref) => {
   const {
     classNames,
@@ -43659,11 +43850,11 @@ var MenuItem = polymorphicFactory((props, ref) => {
     disabled,
     "data-disabled": dataDisabled,
     ...others
-  } = useProps("MenuItem", defaultProps65, props);
+  } = useProps("MenuItem", defaultProps67, props);
   const ctx = useMenuContext();
   const theme = useMantineTheme();
   const { dir } = useDirection();
-  const itemRef = import_react185.useRef(null);
+  const itemRef = import_react187.useRef(null);
   const itemIndex = ctx.getItemIndex(itemRef.current);
   const _others = others;
   const handleMouseLeave = createEventHandler(_others.onMouseLeave, () => ctx.setHovered(-1));
@@ -43681,7 +43872,7 @@ var MenuItem = polymorphicFactory((props, ref) => {
   const handleFocus = createEventHandler(_others.onFocus, () => ctx.setHovered(ctx.getItemIndex(itemRef.current)));
   const colors = color ? theme.variantColorResolver({ color, theme, variant: "light" }) : undefined;
   const parsedThemeColor = color ? parseThemeColor({ color, theme }) : null;
-  return /* @__PURE__ */ import_jsx_runtime148.jsxs(UnstyledButton, {
+  return /* @__PURE__ */ import_jsx_runtime150.jsxs(UnstyledButton, {
     ...others,
     unstyled: ctx.unstyled,
     tabIndex: ctx.menuItemTabIndex,
@@ -43711,41 +43902,41 @@ var MenuItem = polymorphicFactory((props, ref) => {
       "--menu-item-hover": colors?.hover
     },
     children: [
-      leftSection && /* @__PURE__ */ import_jsx_runtime148.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "left", children: leftSection }),
-      children && /* @__PURE__ */ import_jsx_runtime148.jsx("div", { ...ctx.getStyles("itemLabel", { styles, classNames }), children }),
-      rightSection && /* @__PURE__ */ import_jsx_runtime148.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "right", children: rightSection })
+      leftSection && /* @__PURE__ */ import_jsx_runtime150.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "left", children: leftSection }),
+      children && /* @__PURE__ */ import_jsx_runtime150.jsx("div", { ...ctx.getStyles("itemLabel", { styles, classNames }), children }),
+      rightSection && /* @__PURE__ */ import_jsx_runtime150.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "right", children: rightSection })
     ]
   });
 });
-MenuItem.classes = classes27;
+MenuItem.classes = classes29;
 MenuItem.displayName = "@mantine/core/MenuItem";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuLabel/MenuLabel.mjs
-var import_jsx_runtime149 = __toESM(require_jsx_runtime(), 1);
-var import_react186 = __toESM(require_react(), 1);
+var import_jsx_runtime151 = __toESM(require_jsx_runtime(), 1);
+var import_react188 = __toESM(require_react(), 1);
 "use client";
-var defaultProps66 = {};
+var defaultProps68 = {};
 var MenuLabel = factory((props, ref) => {
-  const { classNames, className, style: style2, styles, vars, ...others } = useProps("MenuLabel", defaultProps66, props);
+  const { classNames, className, style: style2, styles, vars, ...others } = useProps("MenuLabel", defaultProps68, props);
   const ctx = useMenuContext();
-  return /* @__PURE__ */ import_jsx_runtime149.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime151.jsx(Box, {
     ref,
     ...ctx.getStyles("label", { className, style: style2, styles, classNames }),
     ...others
   });
 });
-MenuLabel.classes = classes27;
+MenuLabel.classes = classes29;
 MenuLabel.displayName = "@mantine/core/MenuLabel";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuTarget/MenuTarget.mjs
-var import_jsx_runtime150 = __toESM(require_jsx_runtime(), 1);
-var import_react187 = __toESM(require_react(), 1);
+var import_jsx_runtime152 = __toESM(require_jsx_runtime(), 1);
+var import_react189 = __toESM(require_react(), 1);
 "use client";
-var defaultProps67 = {
+var defaultProps69 = {
   refProp: "ref"
 };
-var MenuTarget = import_react187.forwardRef((props, ref) => {
-  const { children, refProp, ...others } = useProps("MenuTarget", defaultProps67, props);
+var MenuTarget = import_react189.forwardRef((props, ref) => {
+  const { children, refProp, ...others } = useProps("MenuTarget", defaultProps69, props);
   if (!isElement(children)) {
     throw new Error("Menu.Target component children should be an element or a component that accepts ref. Fragments, strings, numbers and other primitive values are not supported");
   }
@@ -43769,7 +43960,7 @@ var MenuTarget = import_react187.forwardRef((props, ref) => {
       ctx.closeDropdown();
     }
   });
-  return /* @__PURE__ */ import_jsx_runtime150.jsx(Popover.Target, { refProp, popupType: "menu", ref, ...others, children: import_react187.cloneElement(children, {
+  return /* @__PURE__ */ import_jsx_runtime152.jsx(Popover.Target, { refProp, popupType: "menu", ref, ...others, children: import_react189.cloneElement(children, {
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -43780,7 +43971,7 @@ MenuTarget.displayName = "@mantine/core/MenuTarget";
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.mjs
 "use client";
-var defaultProps68 = {
+var defaultProps70 = {
   trapFocus: true,
   closeOnItemClick: true,
   withInitialFocusPlaceholder: true,
@@ -43792,7 +43983,7 @@ var defaultProps68 = {
   menuItemTabIndex: -1
 };
 function Menu(_props) {
-  const props = useProps("Menu", defaultProps68, _props);
+  const props = useProps("Menu", defaultProps70, _props);
   const {
     children,
     onOpen,
@@ -43819,7 +44010,7 @@ function Menu(_props) {
   } = props;
   const getStyles2 = useStyles({
     name: "Menu",
-    classes: classes27,
+    classes: classes29,
     props,
     classNames,
     styles,
@@ -43832,7 +44023,7 @@ function Menu(_props) {
     finalValue: false,
     onChange
   });
-  const [openedViaClick, setOpenedViaClick] = import_react188.useState(false);
+  const [openedViaClick, setOpenedViaClick] = import_react190.useState(false);
   const close = () => {
     setOpened(false);
     setOpenedViaClick(false);
@@ -43855,7 +44046,7 @@ function Menu(_props) {
   useDidUpdate(() => {
     resetHovered();
   }, [_opened]);
-  return /* @__PURE__ */ import_jsx_runtime151.jsx(MenuContextProvider, {
+  return /* @__PURE__ */ import_jsx_runtime153.jsx(MenuContextProvider, {
     value: {
       getStyles: getStyles2,
       opened: _opened,
@@ -43875,7 +44066,7 @@ function Menu(_props) {
       menuItemTabIndex,
       withInitialFocusPlaceholder
     },
-    children: /* @__PURE__ */ import_jsx_runtime151.jsx(Popover, {
+    children: /* @__PURE__ */ import_jsx_runtime153.jsx(Popover, {
       ...others,
       opened: _opened,
       onChange: toggleDropdown,
@@ -43894,7 +44085,7 @@ function Menu(_props) {
 }
 Menu.extend = (input) => input;
 Menu.withProps = getWithProps(Menu);
-Menu.classes = classes27;
+Menu.classes = classes29;
 Menu.displayName = "@mantine/core/Menu";
 Menu.Item = MenuItem;
 Menu.Label = MenuLabel;
@@ -43902,68 +44093,68 @@ Menu.Dropdown = MenuDropdown;
 Menu.Target = MenuTarget;
 Menu.Divider = MenuDivider;
 // node_modules/@mantine/core/esm/components/Modal/Modal.mjs
-var import_jsx_runtime161 = __toESM(require_jsx_runtime(), 1);
-var import_react198 = __toESM(require_react(), 1);
+var import_jsx_runtime163 = __toESM(require_jsx_runtime(), 1);
+var import_react200 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Modal/ModalBody.mjs
-var import_jsx_runtime153 = __toESM(require_jsx_runtime(), 1);
-var import_react190 = __toESM(require_react(), 1);
+var import_jsx_runtime155 = __toESM(require_jsx_runtime(), 1);
+var import_react192 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Modal/Modal.context.mjs
-var import_react189 = __toESM(require_react(), 1);
-var import_jsx_runtime152 = __toESM(require_jsx_runtime(), 1);
+var import_react191 = __toESM(require_react(), 1);
+var import_jsx_runtime154 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [ModalProvider, useModalContext] = createSafeContext("Modal component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Modal/Modal.module.css.mjs
 "use client";
-var classes28 = { root: "m_9df02822", content: "m_54c44539", inner: "m_1f958f16", header: "m_d0e2b9cd" };
+var classes30 = { root: "m_9df02822", content: "m_54c44539", inner: "m_1f958f16", header: "m_d0e2b9cd" };
 
 // node_modules/@mantine/core/esm/components/Modal/ModalBody.mjs
 "use client";
-var defaultProps69 = {};
+var defaultProps71 = {};
 var ModalBody = factory((_props, ref) => {
-  const props = useProps("ModalBody", defaultProps69, _props);
+  const props = useProps("ModalBody", defaultProps71, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime153.jsx(ModalBaseBody, {
+  return /* @__PURE__ */ import_jsx_runtime155.jsx(ModalBaseBody, {
     ref,
     ...ctx.getStyles("body", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-ModalBody.classes = classes28;
+ModalBody.classes = classes30;
 ModalBody.displayName = "@mantine/core/ModalBody";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalCloseButton.mjs
-var import_jsx_runtime154 = __toESM(require_jsx_runtime(), 1);
-var import_react191 = __toESM(require_react(), 1);
+var import_jsx_runtime156 = __toESM(require_jsx_runtime(), 1);
+var import_react193 = __toESM(require_react(), 1);
 "use client";
-var defaultProps70 = {};
+var defaultProps72 = {};
 var ModalCloseButton = factory((_props, ref) => {
-  const props = useProps("ModalCloseButton", defaultProps70, _props);
+  const props = useProps("ModalCloseButton", defaultProps72, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime154.jsx(ModalBaseCloseButton, {
+  return /* @__PURE__ */ import_jsx_runtime156.jsx(ModalBaseCloseButton, {
     ref,
     ...ctx.getStyles("close", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-ModalCloseButton.classes = classes28;
+ModalCloseButton.classes = classes30;
 ModalCloseButton.displayName = "@mantine/core/ModalCloseButton";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalContent.mjs
-var import_jsx_runtime155 = __toESM(require_jsx_runtime(), 1);
-var import_react192 = __toESM(require_react(), 1);
+var import_jsx_runtime157 = __toESM(require_jsx_runtime(), 1);
+var import_react194 = __toESM(require_react(), 1);
 "use client";
-var defaultProps71 = {};
+var defaultProps73 = {};
 var ModalContent = factory((_props, ref) => {
-  const props = useProps("ModalContent", defaultProps71, _props);
+  const props = useProps("ModalContent", defaultProps73, _props);
   const { classNames, className, style: style2, styles, vars, children, __hidden, ...others } = props;
   const ctx = useModalContext();
   const Scroll = ctx.scrollAreaComponent || NativeScrollArea;
-  return /* @__PURE__ */ import_jsx_runtime155.jsx(ModalBaseContent, {
+  return /* @__PURE__ */ import_jsx_runtime157.jsx(ModalBaseContent, {
     ...ctx.getStyles("content", { className, style: style2, styles, classNames }),
     innerProps: ctx.getStyles("inner", { className, style: style2, styles, classNames }),
     "data-full-screen": ctx.fullScreen || undefined,
@@ -43971,7 +44162,7 @@ var ModalContent = factory((_props, ref) => {
     "data-hidden": __hidden || undefined,
     ref,
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime155.jsx(Scroll, {
+    children: /* @__PURE__ */ import_jsx_runtime157.jsx(Scroll, {
       style: {
         maxHeight: ctx.fullScreen ? "100dvh" : `calc(100dvh - (${rem(ctx.yOffset)} * 2))`
       },
@@ -43979,50 +44170,50 @@ var ModalContent = factory((_props, ref) => {
     })
   });
 });
-ModalContent.classes = classes28;
+ModalContent.classes = classes30;
 ModalContent.displayName = "@mantine/core/ModalContent";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalHeader.mjs
-var import_jsx_runtime156 = __toESM(require_jsx_runtime(), 1);
-var import_react193 = __toESM(require_react(), 1);
+var import_jsx_runtime158 = __toESM(require_jsx_runtime(), 1);
+var import_react195 = __toESM(require_react(), 1);
 "use client";
-var defaultProps72 = {};
+var defaultProps74 = {};
 var ModalHeader = factory((_props, ref) => {
-  const props = useProps("ModalHeader", defaultProps72, _props);
+  const props = useProps("ModalHeader", defaultProps74, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime156.jsx(ModalBaseHeader, {
+  return /* @__PURE__ */ import_jsx_runtime158.jsx(ModalBaseHeader, {
     ref,
     ...ctx.getStyles("header", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-ModalHeader.classes = classes28;
+ModalHeader.classes = classes30;
 ModalHeader.displayName = "@mantine/core/ModalHeader";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalOverlay.mjs
-var import_jsx_runtime157 = __toESM(require_jsx_runtime(), 1);
-var import_react194 = __toESM(require_react(), 1);
+var import_jsx_runtime159 = __toESM(require_jsx_runtime(), 1);
+var import_react196 = __toESM(require_react(), 1);
 "use client";
-var defaultProps73 = {};
+var defaultProps75 = {};
 var ModalOverlay = factory((_props, ref) => {
-  const props = useProps("ModalOverlay", defaultProps73, _props);
+  const props = useProps("ModalOverlay", defaultProps75, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime157.jsx(ModalBaseOverlay, {
+  return /* @__PURE__ */ import_jsx_runtime159.jsx(ModalBaseOverlay, {
     ref,
     ...ctx.getStyles("overlay", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-ModalOverlay.classes = classes28;
+ModalOverlay.classes = classes30;
 ModalOverlay.displayName = "@mantine/core/ModalOverlay";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalRoot.mjs
-var import_jsx_runtime158 = __toESM(require_jsx_runtime(), 1);
-var import_react195 = __toESM(require_react(), 1);
+var import_jsx_runtime160 = __toESM(require_jsx_runtime(), 1);
+var import_react197 = __toESM(require_react(), 1);
 "use client";
-var defaultProps74 = {
+var defaultProps76 = {
   __staticSelector: "Modal",
   closeOnClickOutside: true,
   withinPortal: true,
@@ -44035,7 +44226,7 @@ var defaultProps74 = {
   transitionProps: { duration: 200, transition: "fade-down" },
   yOffset: "5dvh"
 };
-var varsResolver31 = createVarsResolver((_2, { radius, size: size4, yOffset, xOffset }) => ({
+var varsResolver32 = createVarsResolver((_2, { radius, size: size4, yOffset, xOffset }) => ({
   root: {
     "--modal-radius": radius === undefined ? undefined : getRadius(radius),
     "--modal-size": getSize(size4, "modal-size"),
@@ -44044,7 +44235,7 @@ var varsResolver31 = createVarsResolver((_2, { radius, size: size4, yOffset, xOf
   }
 }));
 var ModalRoot = factory((_props, ref) => {
-  const props = useProps("ModalRoot", defaultProps74, _props);
+  const props = useProps("ModalRoot", defaultProps76, _props);
   const {
     classNames,
     className,
@@ -44063,7 +44254,7 @@ var ModalRoot = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: __staticSelector,
-    classes: classes28,
+    classes: classes30,
     props,
     className,
     style: style2,
@@ -44071,9 +44262,9 @@ var ModalRoot = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver31
+    varsResolver: varsResolver32
   });
-  return /* @__PURE__ */ import_jsx_runtime158.jsx(ModalProvider, { value: { yOffset, scrollAreaComponent, getStyles: getStyles2, fullScreen }, children: /* @__PURE__ */ import_jsx_runtime158.jsx(ModalBase, {
+  return /* @__PURE__ */ import_jsx_runtime160.jsx(ModalProvider, { value: { yOffset, scrollAreaComponent, getStyles: getStyles2, fullScreen }, children: /* @__PURE__ */ import_jsx_runtime160.jsx(ModalBase, {
     ref,
     ...getStyles2("root"),
     "data-full-screen": fullScreen || undefined,
@@ -44083,18 +44274,18 @@ var ModalRoot = factory((_props, ref) => {
     ...others
   }) });
 });
-ModalRoot.classes = classes28;
+ModalRoot.classes = classes30;
 ModalRoot.displayName = "@mantine/core/ModalRoot";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalStack.mjs
-var import_jsx_runtime159 = __toESM(require_jsx_runtime(), 1);
-var import_react196 = __toESM(require_react(), 1);
+var import_jsx_runtime161 = __toESM(require_jsx_runtime(), 1);
+var import_react198 = __toESM(require_react(), 1);
 "use client";
 var [ModalStackProvider, useModalStackContext] = createOptionalContext();
 function ModalStack({ children }) {
-  const [stack, setStack] = import_react196.useState([]);
-  const [maxZIndex, setMaxZIndex] = import_react196.useState(getDefaultZIndex("modal"));
-  return /* @__PURE__ */ import_jsx_runtime159.jsx(ModalStackProvider, {
+  const [stack, setStack] = import_react198.useState([]);
+  const [maxZIndex, setMaxZIndex] = import_react198.useState(getDefaultZIndex("modal"));
+  return /* @__PURE__ */ import_jsx_runtime161.jsx(ModalStackProvider, {
     value: {
       stack,
       addModal: (id, zIndex) => {
@@ -44112,26 +44303,26 @@ function ModalStack({ children }) {
 ModalStack.displayName = "@mantine/core/ModalStack";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalTitle.mjs
-var import_jsx_runtime160 = __toESM(require_jsx_runtime(), 1);
-var import_react197 = __toESM(require_react(), 1);
+var import_jsx_runtime162 = __toESM(require_jsx_runtime(), 1);
+var import_react199 = __toESM(require_react(), 1);
 "use client";
-var defaultProps75 = {};
+var defaultProps77 = {};
 var ModalTitle = factory((_props, ref) => {
-  const props = useProps("ModalTitle", defaultProps75, _props);
+  const props = useProps("ModalTitle", defaultProps77, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime160.jsx(ModalBaseTitle, {
+  return /* @__PURE__ */ import_jsx_runtime162.jsx(ModalBaseTitle, {
     ref,
     ...ctx.getStyles("title", { classNames, style: style2, styles, className }),
     ...others
   });
 });
-ModalTitle.classes = classes28;
+ModalTitle.classes = classes30;
 ModalTitle.displayName = "@mantine/core/ModalTitle";
 
 // node_modules/@mantine/core/esm/components/Modal/Modal.mjs
 "use client";
-var defaultProps76 = {
+var defaultProps78 = {
   closeOnClickOutside: true,
   withinPortal: true,
   lockScroll: true,
@@ -44157,7 +44348,7 @@ var Modal = factory((_props, ref) => {
     stackId,
     zIndex,
     ...others
-  } = useProps("Modal", defaultProps76, _props);
+  } = useProps("Modal", defaultProps78, _props);
   const ctx = useModalStackContext();
   const hasHeader = !!title || withCloseButton;
   const stackProps = ctx && stackId ? {
@@ -44166,12 +44357,12 @@ var Modal = factory((_props, ref) => {
     zIndex: ctx.getZIndex(stackId)
   } : {};
   const overlayVisible = withOverlay === false ? false : stackId && ctx ? ctx.currentId === stackId : opened;
-  import_react198.useEffect(() => {
+  import_react200.useEffect(() => {
     if (ctx && stackId) {
       opened ? ctx.addModal(stackId, zIndex || getDefaultZIndex("modal")) : ctx.removeModal(stackId);
     }
   }, [opened, stackId, zIndex]);
-  return /* @__PURE__ */ import_jsx_runtime161.jsxs(ModalRoot, {
+  return /* @__PURE__ */ import_jsx_runtime163.jsxs(ModalRoot, {
     ref,
     radius,
     opened,
@@ -44179,26 +44370,26 @@ var Modal = factory((_props, ref) => {
     ...others,
     ...stackProps,
     children: [
-      withOverlay && /* @__PURE__ */ import_jsx_runtime161.jsx(ModalOverlay, {
+      withOverlay && /* @__PURE__ */ import_jsx_runtime163.jsx(ModalOverlay, {
         visible: overlayVisible,
         transitionProps: ctx && stackId ? { duration: 0 } : undefined,
         ...overlayProps
       }),
-      /* @__PURE__ */ import_jsx_runtime161.jsxs(ModalContent, {
+      /* @__PURE__ */ import_jsx_runtime163.jsxs(ModalContent, {
         radius,
         __hidden: ctx && stackId && opened ? stackId !== ctx.currentId : false,
         children: [
-          hasHeader && /* @__PURE__ */ import_jsx_runtime161.jsxs(ModalHeader, { children: [
-            title && /* @__PURE__ */ import_jsx_runtime161.jsx(ModalTitle, { children: title }),
-            withCloseButton && /* @__PURE__ */ import_jsx_runtime161.jsx(ModalCloseButton, { ...closeButtonProps })
+          hasHeader && /* @__PURE__ */ import_jsx_runtime163.jsxs(ModalHeader, { children: [
+            title && /* @__PURE__ */ import_jsx_runtime163.jsx(ModalTitle, { children: title }),
+            withCloseButton && /* @__PURE__ */ import_jsx_runtime163.jsx(ModalCloseButton, { ...closeButtonProps })
           ] }),
-          /* @__PURE__ */ import_jsx_runtime161.jsx(ModalBody, { children })
+          /* @__PURE__ */ import_jsx_runtime163.jsx(ModalBody, { children })
         ]
       })
     ]
   });
 });
-Modal.classes = classes28;
+Modal.classes = classes30;
 Modal.displayName = "@mantine/core/Modal";
 Modal.Root = ModalRoot;
 Modal.Overlay = ModalOverlay;
@@ -44209,49 +44400,49 @@ Modal.Title = ModalTitle;
 Modal.CloseButton = ModalCloseButton;
 Modal.Stack = ModalStack;
 // node_modules/@mantine/core/esm/components/MultiSelect/MultiSelect.mjs
-var import_jsx_runtime169 = __toESM(require_jsx_runtime(), 1);
-var import_react206 = __toESM(require_react(), 1);
+var import_jsx_runtime171 = __toESM(require_jsx_runtime(), 1);
+var import_react208 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.mjs
-var import_jsx_runtime165 = __toESM(require_jsx_runtime(), 1);
-var import_react202 = __toESM(require_react(), 1);
+var import_jsx_runtime167 = __toESM(require_jsx_runtime(), 1);
+var import_react204 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.context.mjs
-var import_react199 = __toESM(require_react(), 1);
-var import_jsx_runtime162 = __toESM(require_jsx_runtime(), 1);
+var import_react201 = __toESM(require_react(), 1);
+var import_jsx_runtime164 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [PillsInputProvider, usePillsInputContext] = createOptionalContext();
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup.context.mjs
-var import_react200 = __toESM(require_react(), 1);
-var import_jsx_runtime163 = __toESM(require_jsx_runtime(), 1);
+var import_react202 = __toESM(require_react(), 1);
+var import_jsx_runtime165 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [PillGroupProvider, usePillGroupContext] = createOptionalContext();
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup/PillGroup.mjs
-var import_jsx_runtime164 = __toESM(require_jsx_runtime(), 1);
-var import_react201 = __toESM(require_react(), 1);
+var import_jsx_runtime166 = __toESM(require_jsx_runtime(), 1);
+var import_react203 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.module.css.mjs
 "use client";
-var classes29 = { root: "m_7cda1cd6", "root--default": "m_44da308b", "root--contrast": "m_e3a01f8", label: "m_1e0e6180", remove: "m_ae386778", group: "m_1dcfd90b" };
+var classes31 = { root: "m_7cda1cd6", "root--default": "m_44da308b", "root--contrast": "m_e3a01f8", label: "m_1e0e6180", remove: "m_ae386778", group: "m_1dcfd90b" };
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup/PillGroup.mjs
 "use client";
-var defaultProps77 = {};
-var varsResolver32 = createVarsResolver((_2, { gap }, { size: size4 }) => ({
+var defaultProps79 = {};
+var varsResolver33 = createVarsResolver((_2, { gap }, { size: size4 }) => ({
   group: {
     "--pg-gap": gap !== undefined ? getSize(gap) : getSize(size4, "pg-gap")
   }
 }));
 var PillGroup = factory((_props, ref) => {
-  const props = useProps("PillGroup", defaultProps77, _props);
+  const props = useProps("PillGroup", defaultProps79, _props);
   const { classNames, className, style: style2, styles, unstyled, vars, size: size4, disabled, ...others } = props;
   const pillsInputCtx = usePillsInputContext();
   const _size = pillsInputCtx?.size || size4 || undefined;
   const getStyles2 = useStyles({
     name: "PillGroup",
-    classes: classes29,
+    classes: classes31,
     props,
     className,
     style: style2,
@@ -44259,21 +44450,21 @@ var PillGroup = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver32,
+    varsResolver: varsResolver33,
     stylesCtx: { size: _size },
     rootSelector: "group"
   });
-  return /* @__PURE__ */ import_jsx_runtime164.jsx(PillGroupProvider, { value: { size: _size, disabled }, children: /* @__PURE__ */ import_jsx_runtime164.jsx(Box, { ref, size: _size, ...getStyles2("group"), ...others }) });
+  return /* @__PURE__ */ import_jsx_runtime166.jsx(PillGroupProvider, { value: { size: _size, disabled }, children: /* @__PURE__ */ import_jsx_runtime166.jsx(Box, { ref, size: _size, ...getStyles2("group"), ...others }) });
 });
-PillGroup.classes = classes29;
+PillGroup.classes = classes31;
 PillGroup.displayName = "@mantine/core/PillGroup";
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.mjs
 "use client";
-var defaultProps78 = {
+var defaultProps80 = {
   variant: "default"
 };
-var varsResolver33 = createVarsResolver((_2, { radius }, { size: size4 }) => ({
+var varsResolver34 = createVarsResolver((_2, { radius }, { size: size4 }) => ({
   root: {
     "--pill-fz": getSize(size4, "pill-fz"),
     "--pill-height": getSize(size4, "pill-height"),
@@ -44281,7 +44472,7 @@ var varsResolver33 = createVarsResolver((_2, { radius }, { size: size4 }) => ({
   }
 }));
 var Pill = factory((_props, ref) => {
-  const props = useProps("Pill", defaultProps78, _props);
+  const props = useProps("Pill", defaultProps80, _props);
   const {
     classNames,
     className,
@@ -44306,7 +44497,7 @@ var Pill = factory((_props, ref) => {
   const _variant = pillsInputCtx?.variant === "filled" ? "contrast" : variant || "default";
   const getStyles2 = useStyles({
     name: "Pill",
-    classes: classes29,
+    classes: classes31,
     props,
     className,
     style: style2,
@@ -44314,10 +44505,10 @@ var Pill = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver33,
+    varsResolver: varsResolver34,
     stylesCtx: { size: _size }
   });
-  return /* @__PURE__ */ import_jsx_runtime165.jsxs(Box, {
+  return /* @__PURE__ */ import_jsx_runtime167.jsxs(Box, {
     component: "span",
     ref,
     variant: _variant,
@@ -44329,8 +44520,8 @@ var Pill = factory((_props, ref) => {
     ],
     ...others,
     children: [
-      /* @__PURE__ */ import_jsx_runtime165.jsx("span", { ...getStyles2("label"), children }),
-      withRemoveButton && /* @__PURE__ */ import_jsx_runtime165.jsx(CloseButton, {
+      /* @__PURE__ */ import_jsx_runtime167.jsx("span", { ...getStyles2("label"), children }),
+      withRemoveButton && /* @__PURE__ */ import_jsx_runtime167.jsx(CloseButton, {
         variant: "transparent",
         radius,
         tabIndex: -1,
@@ -44355,29 +44546,29 @@ var Pill = factory((_props, ref) => {
     ]
   });
 });
-Pill.classes = classes29;
+Pill.classes = classes31;
 Pill.displayName = "@mantine/core/Pill";
 Pill.Group = PillGroup;
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.mjs
-var import_jsx_runtime167 = __toESM(require_jsx_runtime(), 1);
-var import_react204 = __toESM(require_react(), 1);
+var import_jsx_runtime169 = __toESM(require_jsx_runtime(), 1);
+var import_react206 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInputField/PillsInputField.mjs
-var import_jsx_runtime166 = __toESM(require_jsx_runtime(), 1);
-var import_react203 = __toESM(require_react(), 1);
+var import_jsx_runtime168 = __toESM(require_jsx_runtime(), 1);
+var import_react205 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.module.css.mjs
 "use client";
-var classes30 = { field: "m_45c4369d" };
+var classes32 = { field: "m_45c4369d" };
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInputField/PillsInputField.mjs
 "use client";
-var defaultProps79 = {
+var defaultProps81 = {
   type: "visible"
 };
 var PillsInputField = factory((_props, ref) => {
-  const props = useProps("PillsInputField", defaultProps79, _props);
+  const props = useProps("PillsInputField", defaultProps81, _props);
   const {
     classNames,
     className,
@@ -44396,7 +44587,7 @@ var PillsInputField = factory((_props, ref) => {
   const inputWrapperCtx = useInputWrapperContext();
   const getStyles2 = useStyles({
     name: "PillsInputField",
-    classes: classes30,
+    classes: classes32,
     props,
     className,
     style: style2,
@@ -44406,7 +44597,7 @@ var PillsInputField = factory((_props, ref) => {
     rootSelector: "field"
   });
   const _disabled = disabled || ctx?.disabled;
-  return /* @__PURE__ */ import_jsx_runtime166.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime168.jsx(Box, {
     component: "input",
     ref: useMergedRef(ref, ctx?.fieldRef),
     "data-type": type,
@@ -44421,14 +44612,14 @@ var PillsInputField = factory((_props, ref) => {
     onMouseDown: (event) => !pointer && event.stopPropagation()
   });
 });
-PillsInputField.classes = classes30;
+PillsInputField.classes = classes32;
 PillsInputField.displayName = "@mantine/core/PillsInputField";
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.mjs
 "use client";
-var defaultProps80 = {};
+var defaultProps82 = {};
 var PillsInput = factory((_props, ref) => {
-  const props = useProps("PillsInput", defaultProps80, _props);
+  const props = useProps("PillsInput", defaultProps82, _props);
   const {
     children,
     onMouseDown,
@@ -44440,8 +44631,8 @@ var PillsInput = factory((_props, ref) => {
     variant,
     ...others
   } = props;
-  const fieldRef = import_react204.useRef(null);
-  return /* @__PURE__ */ import_jsx_runtime167.jsx(PillsInputProvider, { value: { fieldRef, size: size4, disabled, hasError: !!error, variant }, children: /* @__PURE__ */ import_jsx_runtime167.jsx(InputBase, {
+  const fieldRef = import_react206.useRef(null);
+  return /* @__PURE__ */ import_jsx_runtime169.jsx(PillsInputProvider, { value: { fieldRef, size: size4, disabled, hasError: !!error, variant }, children: /* @__PURE__ */ import_jsx_runtime169.jsx(InputBase, {
     size: size4,
     error,
     variant,
@@ -44472,8 +44663,8 @@ PillsInput.displayName = "@mantine/core/PillsInput";
 PillsInput.Field = PillsInputField;
 
 // node_modules/@mantine/core/esm/components/MultiSelect/filter-picked-values.mjs
-var import_jsx_runtime168 = __toESM(require_jsx_runtime(), 1);
-var import_react205 = __toESM(require_react(), 1);
+var import_jsx_runtime170 = __toESM(require_jsx_runtime(), 1);
+var import_react207 = __toESM(require_react(), 1);
 "use client";
 function filterPickedValues({ data, value }) {
   const normalizedValue = value.map((item) => item.trim().toLowerCase());
@@ -44493,14 +44684,14 @@ function filterPickedValues({ data, value }) {
 
 // node_modules/@mantine/core/esm/components/MultiSelect/MultiSelect.mjs
 "use client";
-var defaultProps81 = {
+var defaultProps83 = {
   maxValues: Infinity,
   withCheckIcon: true,
   checkIconPosition: "left",
   hiddenInputValuesDivider: ","
 };
 var MultiSelect = factory((_props, ref) => {
-  const props = useProps("MultiSelect", defaultProps81, _props);
+  const props = useProps("MultiSelect", defaultProps83, _props);
   const {
     classNames,
     className,
@@ -44633,7 +44824,7 @@ var MultiSelect = factory((_props, ref) => {
       setValue(_value.slice(0, _value.length - 1));
     }
   };
-  const values2 = _value.map((item, index4) => /* @__PURE__ */ import_jsx_runtime169.jsx(Pill, {
+  const values2 = _value.map((item, index4) => /* @__PURE__ */ import_jsx_runtime171.jsx(Pill, {
     withRemoveButton: !readOnly && !optionsLockup[item]?.disabled,
     onRemove: () => {
       setValue(_value.filter((i2) => item !== i2));
@@ -44644,12 +44835,12 @@ var MultiSelect = factory((_props, ref) => {
     ...getStyles2("pill"),
     children: optionsLockup[item]?.label || item
   }, `${item}-${index4}`));
-  import_react206.useEffect(() => {
+  import_react208.useEffect(() => {
     if (selectFirstOptionOnChange) {
       combobox.selectFirstOption();
     }
   }, [selectFirstOptionOnChange, _searchValue]);
-  const clearButton = /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.ClearButton, {
+  const clearButton = /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.ClearButton, {
     ...clearButtonProps,
     onClear: () => {
       onClear?.();
@@ -44659,8 +44850,8 @@ var MultiSelect = factory((_props, ref) => {
   });
   const filteredData = filterPickedValues({ data: parsedData, value: _value });
   const _clearable = clearable && _value.length > 0 && !disabled && !readOnly;
-  return /* @__PURE__ */ import_jsx_runtime169.jsxs(import_jsx_runtime169.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime169.jsxs(Combobox, {
+  return /* @__PURE__ */ import_jsx_runtime171.jsxs(import_jsx_runtime171.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime171.jsxs(Combobox, {
       store: combobox,
       classNames: resolvedClassNames,
       styles: resolvedStyles,
@@ -44681,7 +44872,7 @@ var MultiSelect = factory((_props, ref) => {
       },
       ...comboboxProps,
       children: [
-        /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.DropdownTarget, { children: /* @__PURE__ */ import_jsx_runtime169.jsx(PillsInput, {
+        /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.DropdownTarget, { children: /* @__PURE__ */ import_jsx_runtime171.jsx(PillsInput, {
           ...styleProps,
           __staticSelector: "MultiSelect",
           classNames: resolvedClassNames,
@@ -44693,7 +44884,7 @@ var MultiSelect = factory((_props, ref) => {
           variant,
           disabled,
           radius,
-          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.Chevron, {
+          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.Chevron, {
             size: size4,
             error,
             unstyled,
@@ -44731,9 +44922,9 @@ var MultiSelect = factory((_props, ref) => {
           id: _id,
           required,
           mod,
-          children: /* @__PURE__ */ import_jsx_runtime169.jsxs(Pill.Group, { disabled, unstyled, ...getStyles2("pillsList"), children: [
+          children: /* @__PURE__ */ import_jsx_runtime171.jsxs(Pill.Group, { disabled, unstyled, ...getStyles2("pillsList"), children: [
             values2,
-            /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.EventsTarget, { autoComplete, children: /* @__PURE__ */ import_jsx_runtime169.jsx(PillsInput.Field, {
+            /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.EventsTarget, { autoComplete, children: /* @__PURE__ */ import_jsx_runtime171.jsx(PillsInput.Field, {
               ...rest,
               ref,
               id: _id,
@@ -44763,7 +44954,7 @@ var MultiSelect = factory((_props, ref) => {
             }) })
           ] })
         }) }),
-        /* @__PURE__ */ import_jsx_runtime169.jsx(OptionsDropdown, {
+        /* @__PURE__ */ import_jsx_runtime171.jsx(OptionsDropdown, {
           data: hidePickedOptions ? filteredData : parsedData,
           hidden: readOnly || disabled,
           filter: filter2,
@@ -44785,7 +44976,7 @@ var MultiSelect = factory((_props, ref) => {
         })
       ]
     }),
-    /* @__PURE__ */ import_jsx_runtime169.jsx(Combobox.HiddenInput, {
+    /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.HiddenInput, {
       name,
       valuesDivider: hiddenInputValuesDivider,
       value: _value,
@@ -44798,7 +44989,7 @@ var MultiSelect = factory((_props, ref) => {
 MultiSelect.classes = { ...InputBase.classes, ...Combobox.classes };
 MultiSelect.displayName = "@mantine/core/MultiSelect";
 // node_modules/react-number-format/dist/react-number-format.es.js
-var import_react207 = __toESM(require_react(), 1);
+var import_react209 = __toESM(require_react(), 1);
 function __rest2(s2, e) {
   var t = {};
   for (var p2 in s2) {
@@ -44872,9 +45063,9 @@ function applyThousandSeparator(str, thousandSeparator, thousandsGroupStyle) {
   return str.substring(0, index4) + str.substring(index4, str.length).replace(thousandsGroupRegex, "$1" + thousandSeparator);
 }
 function usePersistentCallback(cb) {
-  var callbackRef = import_react207.useRef(cb);
+  var callbackRef = import_react209.useRef(cb);
   callbackRef.current = cb;
-  var persistentCbRef = import_react207.useRef(function() {
+  var persistentCbRef = import_react209.useRef(function() {
     var args = [], len = arguments.length;
     while (len--)
       args[len] = arguments[len];
@@ -45139,7 +45330,7 @@ function useInternalValues(value, defaultValue, valueIsNumericString, format, re
     }
     return { formattedValue, numAsString };
   });
-  var ref = import_react207.useState(function() {
+  var ref = import_react209.useState(function() {
     return getValues(isNil(value) ? defaultValue : value, valueIsNumericString);
   });
   var values2 = ref[0];
@@ -45160,7 +45351,7 @@ function useInternalValues(value, defaultValue, valueIsNumericString, format, re
     _valueIsNumericString = true;
   }
   var newValues = getValues(_value, _valueIsNumericString);
-  import_react207.useMemo(function() {
+  import_react209.useMemo(function() {
     setValues(newValues);
   }, [newValues.formattedValue]);
   return [values2, _onValueChange];
@@ -45220,21 +45411,21 @@ function NumberFormatBase(props) {
   var formattedValue = ref_0.formattedValue;
   var numAsString = ref_0.numAsString;
   var onFormattedValueChange = ref[1];
-  var caretPositionBeforeChange = import_react207.useRef();
-  var lastUpdatedValue = import_react207.useRef({ formattedValue, numAsString });
+  var caretPositionBeforeChange = import_react209.useRef();
+  var lastUpdatedValue = import_react209.useRef({ formattedValue, numAsString });
   var _onValueChange = function(values2, source) {
     lastUpdatedValue.current = { formattedValue: values2.formattedValue, numAsString: values2.value };
     onFormattedValueChange(values2, source);
   };
-  var ref$1 = import_react207.useState(false);
+  var ref$1 = import_react209.useState(false);
   var mounted = ref$1[0];
   var setMounted = ref$1[1];
-  var focusedElm = import_react207.useRef(null);
-  var timeout = import_react207.useRef({
+  var focusedElm = import_react209.useRef(null);
+  var timeout = import_react209.useRef({
     setCaretTimeout: null,
     focusTimeout: null
   });
-  import_react207.useEffect(function() {
+  import_react209.useEffect(function() {
     setMounted(true);
     return function() {
       clearTimeout(timeout.current.setCaretTimeout);
@@ -45292,7 +45483,7 @@ function NumberFormatBase(props) {
       _onValueChange(getValueObject(newFormattedValue, numAsString2), { event, source });
     }
   };
-  import_react207.useEffect(function() {
+  import_react209.useEffect(function() {
     var ref2 = lastUpdatedValue.current;
     var lastFormattedValue = ref2.formattedValue;
     var lastNumAsString = ref2.numAsString;
@@ -45304,7 +45495,7 @@ function NumberFormatBase(props) {
     }
   }, [formattedValue, numAsString]);
   var currentCaretPosition = focusedElm.current ? geInputCaretPosition(focusedElm.current) : undefined;
-  var useIsomorphicLayoutEffect2 = typeof window !== "undefined" ? import_react207.useLayoutEffect : import_react207.useEffect;
+  var useIsomorphicLayoutEffect2 = typeof window !== "undefined" ? import_react209.useLayoutEffect : import_react209.useEffect;
   useIsomorphicLayoutEffect2(function() {
     var input = focusedElm.current;
     if (formattedValue !== lastUpdatedValue.current.formattedValue && input) {
@@ -45457,12 +45648,12 @@ function NumberFormatBase(props) {
     onBlur: _onBlur
   });
   if (displayType === "text") {
-    return renderText ? import_react207.default.createElement(import_react207.default.Fragment, null, renderText(formattedValue, otherProps) || null) : import_react207.default.createElement("span", Object.assign({}, otherProps, { ref: getInputRef }), formattedValue);
+    return renderText ? import_react209.default.createElement(import_react209.default.Fragment, null, renderText(formattedValue, otherProps) || null) : import_react209.default.createElement("span", Object.assign({}, otherProps, { ref: getInputRef }), formattedValue);
   } else if (customInput) {
     var CustomInput = customInput;
-    return import_react207.default.createElement(CustomInput, Object.assign({}, inputProps, { ref: getInputRef }));
+    return import_react209.default.createElement(CustomInput, Object.assign({}, inputProps, { ref: getInputRef }));
   }
-  return import_react207.default.createElement("input", Object.assign({}, inputProps, { ref: getInputRef }));
+  return import_react209.default.createElement("input", Object.assign({}, inputProps, { ref: getInputRef }));
 }
 function format(numStr, props) {
   var decimalScale = props.decimalScale;
@@ -45849,18 +46040,18 @@ function useNumericFormat(props) {
 }
 function NumericFormat(props) {
   var numericFormatProps = useNumericFormat(props);
-  return import_react207.default.createElement(NumberFormatBase, Object.assign({}, numericFormatProps));
+  return import_react209.default.createElement(NumberFormatBase, Object.assign({}, numericFormatProps));
 }
 
 // node_modules/@mantine/core/esm/components/NumberInput/NumberInput.mjs
-var import_jsx_runtime171 = __toESM(require_jsx_runtime(), 1);
-var import_react208 = __toESM(require_react(), 1);
+var import_jsx_runtime173 = __toESM(require_jsx_runtime(), 1);
+var import_react210 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/NumberInput/NumberInputChevron.mjs
-var import_jsx_runtime170 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime172 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function NumberInputChevron({ direction, style: style2, ...others }) {
-  return /* @__PURE__ */ import_jsx_runtime170.jsx("svg", {
+  return /* @__PURE__ */ import_jsx_runtime172.jsx("svg", {
     style: {
       width: "var(--ni-chevron-size)",
       height: "var(--ni-chevron-size)",
@@ -45871,7 +46062,7 @@ function NumberInputChevron({ direction, style: style2, ...others }) {
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg",
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime170.jsx("path", {
+    children: /* @__PURE__ */ import_jsx_runtime172.jsx("path", {
       d: "M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z",
       fill: "currentColor",
       fillRule: "evenodd",
@@ -45882,7 +46073,7 @@ function NumberInputChevron({ direction, style: style2, ...others }) {
 
 // node_modules/@mantine/core/esm/components/NumberInput/NumberInput.module.css.mjs
 "use client";
-var classes31 = { root: "m_e2f5cd4e", controls: "m_95e17d22", control: "m_80b4b171" };
+var classes33 = { root: "m_e2f5cd4e", controls: "m_95e17d22", control: "m_80b4b171" };
 
 // node_modules/@mantine/core/esm/components/NumberInput/NumberInput.mjs
 "use client";
@@ -45911,7 +46102,7 @@ function isInRange(value, min2, max2) {
   const maxValid = max2 === undefined || value <= max2;
   return minValid && maxValid;
 }
-var defaultProps82 = {
+var defaultProps84 = {
   step: 1,
   clampBehavior: "blur",
   allowDecimal: true,
@@ -45921,7 +46112,7 @@ var defaultProps82 = {
   trimLeadingZeroesOnBlur: true,
   startValue: 0
 };
-var varsResolver34 = createVarsResolver((_2, { size: size4 }) => ({
+var varsResolver35 = createVarsResolver((_2, { size: size4 }) => ({
   controls: {
     "--ni-chevron-size": getSize(size4, "ni-chevron-size")
   }
@@ -45937,7 +46128,7 @@ function clampAndSanitizeInput(sanitizedValue, max2, min2) {
   return clamp(parsedValue, min2, max2);
 }
 var NumberInput = factory((_props, ref) => {
-  const props = useProps("NumberInput", defaultProps82, _props);
+  const props = useProps("NumberInput", defaultProps84, _props);
   const {
     className,
     classNames,
@@ -45977,13 +46168,13 @@ var NumberInput = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "NumberInput",
-    classes: classes31,
+    classes: classes33,
     props,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver34
+    varsResolver: varsResolver35
   });
   const { resolvedClassNames, resolvedStyles } = useResolvedStylesApi({
     classNames,
@@ -45997,9 +46188,9 @@ var NumberInput = factory((_props, ref) => {
     onChange
   });
   const shouldUseStepInterval = stepHoldDelay !== undefined && stepHoldInterval !== undefined;
-  const inputRef = import_react208.useRef(null);
-  const onStepTimeoutRef = import_react208.useRef(null);
-  const stepCountRef = import_react208.useRef(0);
+  const inputRef = import_react210.useRef(null);
+  const onStepTimeoutRef = import_react210.useRef(null);
+  const stepCountRef = import_react210.useRef(0);
   const handleValueChange = (payload, event) => {
     if (event.source === "event") {
       setValue(isValidNumber(payload.floatValue, payload.value) && !leadingDecimalZeroPattern.test(payload.value) && !(allowLeadingZeros ? leadingZerosPattern.test(payload.value) : false) ? payload.floatValue : payload.value);
@@ -46018,7 +46209,7 @@ var NumberInput = factory((_props, ref) => {
       inputRef.current.setSelectionRange(position2, position2);
     }
   };
-  const incrementRef = import_react208.useRef(noop4);
+  const incrementRef = import_react210.useRef(noop4);
   incrementRef.current = () => {
     if (!canIncrement(_value)) {
       return;
@@ -46041,7 +46232,7 @@ var NumberInput = factory((_props, ref) => {
     onValueChange?.({ floatValue: parseFloat(formattedValue), formattedValue, value: formattedValue }, { source: "increment" });
     setTimeout(() => adjustCursor(inputRef.current?.value.length), 0);
   };
-  const decrementRef = import_react208.useRef(noop4);
+  const decrementRef = import_react210.useRef(noop4);
   decrementRef.current = () => {
     if (!canIncrement(_value)) {
       return;
@@ -46131,8 +46322,8 @@ var NumberInput = factory((_props, ref) => {
     onStepTimeoutRef.current = null;
     stepCountRef.current = 0;
   };
-  const controls = /* @__PURE__ */ import_jsx_runtime171.jsxs("div", { ...getStyles2("controls"), children: [
-    /* @__PURE__ */ import_jsx_runtime171.jsx(UnstyledButton, {
+  const controls = /* @__PURE__ */ import_jsx_runtime173.jsxs("div", { ...getStyles2("controls"), children: [
+    /* @__PURE__ */ import_jsx_runtime173.jsx(UnstyledButton, {
       ...getStyles2("control"),
       tabIndex: -1,
       "aria-hidden": true,
@@ -46144,9 +46335,9 @@ var NumberInput = factory((_props, ref) => {
       },
       onPointerUp: onStepDone,
       onPointerLeave: onStepDone,
-      children: /* @__PURE__ */ import_jsx_runtime171.jsx(NumberInputChevron, { direction: "up" })
+      children: /* @__PURE__ */ import_jsx_runtime173.jsx(NumberInputChevron, { direction: "up" })
     }),
-    /* @__PURE__ */ import_jsx_runtime171.jsx(UnstyledButton, {
+    /* @__PURE__ */ import_jsx_runtime173.jsx(UnstyledButton, {
       ...getStyles2("control"),
       tabIndex: -1,
       "aria-hidden": true,
@@ -46158,13 +46349,13 @@ var NumberInput = factory((_props, ref) => {
       },
       onPointerUp: onStepDone,
       onPointerLeave: onStepDone,
-      children: /* @__PURE__ */ import_jsx_runtime171.jsx(NumberInputChevron, { direction: "down" })
+      children: /* @__PURE__ */ import_jsx_runtime173.jsx(NumberInputChevron, { direction: "down" })
     })
   ] });
-  return /* @__PURE__ */ import_jsx_runtime171.jsx(InputBase, {
+  return /* @__PURE__ */ import_jsx_runtime173.jsx(InputBase, {
     component: NumericFormat,
     allowNegative,
-    className: clsx_default(classes31.root, className),
+    className: clsx_default(classes33.root, className),
     size: size4,
     ...others,
     readOnly,
@@ -46195,11 +46386,11 @@ var NumberInput = factory((_props, ref) => {
     }
   });
 });
-NumberInput.classes = { ...InputBase.classes, ...classes31 };
+NumberInput.classes = { ...InputBase.classes, ...classes33 };
 NumberInput.displayName = "@mantine/core/NumberInput";
 // node_modules/@mantine/core/esm/components/Tooltip/Tooltip.mjs
-var import_jsx_runtime174 = __toESM(require_jsx_runtime(), 1);
-var import_react217 = __toESM(require_react(), 1);
+var import_jsx_runtime176 = __toESM(require_jsx_runtime(), 1);
+var import_react219 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Transition/get-transition-props/get-transition-props.mjs
 "use client";
@@ -46212,19 +46403,19 @@ function getTransitionProps(transitionProps, componentTransition) {
 }
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/TooltipFloating.mjs
-var import_jsx_runtime172 = __toESM(require_jsx_runtime(), 1);
-var import_react211 = __toESM(require_react(), 1);
+var import_jsx_runtime174 = __toESM(require_jsx_runtime(), 1);
+var import_react213 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/use-floating-tooltip.mjs
-var import_react209 = __toESM(require_react(), 1);
+var import_react211 = __toESM(require_react(), 1);
 "use client";
 function useFloatingTooltip({
   offset: offset4,
   position: position2,
   defaultOpened
 }) {
-  const [opened, setOpened] = import_react209.useState(defaultOpened);
-  const boundaryRef = import_react209.useRef(null);
+  const [opened, setOpened] = import_react211.useState(defaultOpened);
+  const boundaryRef = import_react211.useRef(null);
   const { x: x2, y: y2, elements, refs, update, placement } = useFloating2({
     placement: position2,
     middleware: [
@@ -46237,7 +46428,7 @@ function useFloatingTooltip({
   });
   const horizontalOffset = placement.includes("right") ? offset4 : position2.includes("left") ? offset4 * -1 : 0;
   const verticalOffset = placement.includes("bottom") ? offset4 : position2.includes("top") ? offset4 * -1 : 0;
-  const handleMouseMove = import_react209.useCallback(({ clientX, clientY }) => {
+  const handleMouseMove = import_react211.useCallback(({ clientX, clientY }) => {
     refs.setPositionReference({
       getBoundingClientRect() {
         return {
@@ -46253,7 +46444,7 @@ function useFloatingTooltip({
       }
     });
   }, [elements.reference]);
-  import_react209.useEffect(() => {
+  import_react211.useEffect(() => {
     if (refs.floating.current) {
       const boundary = boundaryRef.current;
       boundary.addEventListener("mousemove", handleMouseMove);
@@ -46275,11 +46466,11 @@ function useFloatingTooltip({
 
 // node_modules/@mantine/core/esm/components/Tooltip/Tooltip.module.css.mjs
 "use client";
-var classes32 = { tooltip: "m_1b3c8819", arrow: "m_f898399f" };
+var classes34 = { tooltip: "m_1b3c8819", arrow: "m_f898399f" };
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/TooltipFloating.mjs
 "use client";
-var defaultProps83 = {
+var defaultProps85 = {
   refProp: "ref",
   withinPortal: true,
   offset: 10,
@@ -46287,7 +46478,7 @@ var defaultProps83 = {
   position: "right",
   zIndex: getDefaultZIndex("popover")
 };
-var varsResolver35 = createVarsResolver((theme, { radius, color }) => ({
+var varsResolver36 = createVarsResolver((theme, { radius, color }) => ({
   tooltip: {
     "--tooltip-radius": radius === undefined ? undefined : getRadius(radius),
     "--tooltip-bg": color ? getThemeColor(color, theme) : undefined,
@@ -46295,7 +46486,7 @@ var varsResolver35 = createVarsResolver((theme, { radius, color }) => ({
   }
 }));
 var TooltipFloating = factory((_props, ref) => {
-  const props = useProps("TooltipFloating", defaultProps83, _props);
+  const props = useProps("TooltipFloating", defaultProps85, _props);
   const {
     children,
     refProp,
@@ -46323,7 +46514,7 @@ var TooltipFloating = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "TooltipFloating",
     props,
-    classes: classes32,
+    classes: classes34,
     className,
     style: style2,
     classNames,
@@ -46331,7 +46522,7 @@ var TooltipFloating = factory((_props, ref) => {
     unstyled,
     rootSelector: "tooltip",
     vars,
-    varsResolver: varsResolver35
+    varsResolver: varsResolver36
   });
   const { handleMouseMove, x: x2, y: y2, opened, boundaryRef, floating, setOpened } = useFloatingTooltip({
     offset: offset4,
@@ -46352,8 +46543,8 @@ var TooltipFloating = factory((_props, ref) => {
     _childrenProps.onMouseLeave?.(event);
     setOpened(false);
   };
-  return /* @__PURE__ */ import_jsx_runtime172.jsxs(import_jsx_runtime172.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime172.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime172.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime174.jsxs(import_jsx_runtime174.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime174.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime174.jsx(Box, {
       ...others,
       ...getStyles2("tooltip", {
         style: {
@@ -46369,7 +46560,7 @@ var TooltipFloating = factory((_props, ref) => {
       mod: { multiline },
       children: label
     }) }),
-    import_react211.cloneElement(children, {
+    import_react213.cloneElement(children, {
       ..._childrenProps,
       [refProp]: targetRef,
       onMouseEnter,
@@ -46377,35 +46568,35 @@ var TooltipFloating = factory((_props, ref) => {
     })
   ] });
 });
-TooltipFloating.classes = classes32;
+TooltipFloating.classes = classes34;
 TooltipFloating.displayName = "@mantine/core/TooltipFloating";
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.mjs
-var import_jsx_runtime173 = __toESM(require_jsx_runtime(), 1);
-var import_react214 = __toESM(require_react(), 1);
+var import_jsx_runtime175 = __toESM(require_jsx_runtime(), 1);
+var import_react216 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.context.mjs
-var import_react212 = __toESM(require_react(), 1);
+var import_react214 = __toESM(require_react(), 1);
 "use client";
-var TooltipGroupContext = import_react212.createContext(false);
+var TooltipGroupContext = import_react214.createContext(false);
 var TooltipGroupProvider = TooltipGroupContext.Provider;
-var useTooltipGroupContext = () => import_react212.useContext(TooltipGroupContext);
+var useTooltipGroupContext = () => import_react214.useContext(TooltipGroupContext);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.mjs
 "use client";
-var defaultProps84 = {
+var defaultProps86 = {
   openDelay: 0,
   closeDelay: 0
 };
 function TooltipGroup(props) {
-  const { openDelay, closeDelay, children } = useProps("TooltipGroup", defaultProps84, props);
-  return /* @__PURE__ */ import_jsx_runtime173.jsx(TooltipGroupProvider, { value: true, children: /* @__PURE__ */ import_jsx_runtime173.jsx(FloatingDelayGroup, { delay: { open: openDelay, close: closeDelay }, children }) });
+  const { openDelay, closeDelay, children } = useProps("TooltipGroup", defaultProps86, props);
+  return /* @__PURE__ */ import_jsx_runtime175.jsx(TooltipGroupProvider, { value: true, children: /* @__PURE__ */ import_jsx_runtime175.jsx(FloatingDelayGroup, { delay: { open: openDelay, close: closeDelay }, children }) });
 }
 TooltipGroup.displayName = "@mantine/core/TooltipGroup";
 TooltipGroup.extend = (c2) => c2;
 
 // node_modules/@mantine/core/esm/components/Tooltip/use-tooltip.mjs
-var import_react215 = __toESM(require_react(), 1);
+var import_react217 = __toESM(require_react(), 1);
 "use client";
 function getDefaultMiddlewares2(middlewares) {
   if (middlewares === undefined) {
@@ -46438,12 +46629,12 @@ function getTooltipMiddlewares(settings) {
   return middlewares;
 }
 function useTooltip(settings) {
-  const [uncontrolledOpened, setUncontrolledOpened] = import_react215.useState(settings.defaultOpened);
+  const [uncontrolledOpened, setUncontrolledOpened] = import_react217.useState(settings.defaultOpened);
   const controlled = typeof settings.opened === "boolean";
   const opened = controlled ? settings.opened : uncontrolledOpened;
   const withinGroup = useTooltipGroupContext();
   const uid = useId();
-  const onChange = import_react215.useCallback((_opened) => {
+  const onChange = import_react217.useCallback((_opened) => {
     setUncontrolledOpened(_opened);
     if (_opened) {
       setCurrentId(uid);
@@ -46502,7 +46693,7 @@ function useTooltip(settings) {
 
 // node_modules/@mantine/core/esm/components/Tooltip/Tooltip.mjs
 "use client";
-var defaultProps85 = {
+var defaultProps87 = {
   position: "top",
   refProp: "ref",
   withinPortal: true,
@@ -46519,7 +46710,7 @@ var defaultProps85 = {
   positionDependencies: [],
   middlewares: { flip: true, shift: true, inline: false }
 };
-var varsResolver36 = createVarsResolver((theme, { radius, color }) => ({
+var varsResolver37 = createVarsResolver((theme, { radius, color }) => ({
   tooltip: {
     "--tooltip-radius": radius === undefined ? undefined : getRadius(radius),
     "--tooltip-bg": color ? getThemeColor(color, theme) : undefined,
@@ -46527,7 +46718,7 @@ var varsResolver36 = createVarsResolver((theme, { radius, color }) => ({
   }
 }));
 var Tooltip = factory((_props, ref) => {
-  const props = useProps("Tooltip", defaultProps85, _props);
+  const props = useProps("Tooltip", defaultProps87, _props);
   const {
     children,
     position: position2,
@@ -46570,9 +46761,9 @@ var Tooltip = factory((_props, ref) => {
     floatingStrategy,
     middlewares,
     ...others
-  } = useProps("Tooltip", defaultProps85, props);
+  } = useProps("Tooltip", defaultProps87, props);
   const { dir } = useDirection();
-  const arrowRef = import_react217.useRef(null);
+  const arrowRef = import_react219.useRef(null);
   const tooltip = useTooltip({
     position: getFloatingPosition(dir, position2),
     closeDelay,
@@ -46592,7 +46783,7 @@ var Tooltip = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Tooltip",
     props,
-    classes: classes32,
+    classes: classes34,
     className,
     style: style2,
     classNames,
@@ -46600,7 +46791,7 @@ var Tooltip = factory((_props, ref) => {
     unstyled,
     rootSelector: "tooltip",
     vars,
-    varsResolver: varsResolver36
+    varsResolver: varsResolver37
   });
   if (!isElement(children)) {
     throw new Error("[@mantine/core] Tooltip component children should be an element or a component that accepts ref, fragments, strings, numbers and other primitive values are not supported");
@@ -46608,13 +46799,13 @@ var Tooltip = factory((_props, ref) => {
   const targetRef = useMergedRef(tooltip.reference, getRefProp(children), ref);
   const transition = getTransitionProps(transitionProps, { duration: 100, transition: "fade" });
   const _childrenProps = children.props;
-  return /* @__PURE__ */ import_jsx_runtime174.jsxs(import_jsx_runtime174.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime174.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime174.jsx(Transition, {
+  return /* @__PURE__ */ import_jsx_runtime176.jsxs(import_jsx_runtime176.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime176.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime176.jsx(Transition, {
       ...transition,
       keepMounted,
       mounted: !disabled && !!tooltip.opened,
       duration: tooltip.isGroupPhase ? 10 : transition.duration,
-      children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime174.jsxs(Box, {
+      children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime176.jsxs(Box, {
         ...others,
         "data-fixed": floatingStrategy === "fixed" || undefined,
         variant,
@@ -46632,7 +46823,7 @@ var Tooltip = factory((_props, ref) => {
         }),
         children: [
           label,
-          /* @__PURE__ */ import_jsx_runtime174.jsx(FloatingArrow, {
+          /* @__PURE__ */ import_jsx_runtime176.jsx(FloatingArrow, {
             ref: arrowRef,
             arrowX: tooltip.arrowX,
             arrowY: tooltip.arrowY,
@@ -46647,7 +46838,7 @@ var Tooltip = factory((_props, ref) => {
         ]
       })
     }) }),
-    import_react217.cloneElement(children, tooltip.getReferenceProps({
+    import_react219.cloneElement(children, tooltip.getReferenceProps({
       onClick,
       onMouseEnter,
       onMouseLeave,
@@ -46660,23 +46851,23 @@ var Tooltip = factory((_props, ref) => {
     }))
   ] });
 });
-Tooltip.classes = classes32;
+Tooltip.classes = classes34;
 Tooltip.displayName = "@mantine/core/Tooltip";
 Tooltip.Floating = TooltipFloating;
 Tooltip.Group = TooltipGroup;
 
 // node_modules/@mantine/core/esm/components/Select/Select.mjs
-var import_jsx_runtime175 = __toESM(require_jsx_runtime(), 1);
-var import_react218 = __toESM(require_react(), 1);
+var import_jsx_runtime177 = __toESM(require_jsx_runtime(), 1);
+var import_react220 = __toESM(require_react(), 1);
 "use client";
-var defaultProps86 = {
+var defaultProps88 = {
   searchable: false,
   withCheckIcon: true,
   allowDeselect: true,
   checkIconPosition: "left"
 };
 var Select = factory((_props, ref) => {
-  const props = useProps("Select", defaultProps86, _props);
+  const props = useProps("Select", defaultProps88, _props);
   const {
     classNames,
     styles,
@@ -46730,8 +46921,8 @@ var Select = factory((_props, ref) => {
     chevronColor,
     ...others
   } = props;
-  const parsedData = import_react218.useMemo(() => getParsedComboboxData(data), [data]);
-  const optionsLockup = import_react218.useMemo(() => getOptionsLockup(parsedData), [parsedData]);
+  const parsedData = import_react220.useMemo(() => getParsedComboboxData(data), [data]);
+  const optionsLockup = import_react220.useMemo(() => getOptionsLockup(parsedData), [parsedData]);
   const _id = useId(id);
   const [_value, setValue, controlled] = useUncontrolled({
     value,
@@ -46768,12 +46959,12 @@ var Select = factory((_props, ref) => {
     styles,
     classNames
   });
-  import_react218.useEffect(() => {
+  import_react220.useEffect(() => {
     if (selectFirstOptionOnChange) {
       combobox.selectFirstOption();
     }
   }, [selectFirstOptionOnChange, search]);
-  import_react218.useEffect(() => {
+  import_react220.useEffect(() => {
     if (value === null) {
       handleSearchChange("");
     }
@@ -46781,12 +46972,12 @@ var Select = factory((_props, ref) => {
       handleSearchChange(selectedOption.label);
     }
   }, [value, selectedOption]);
-  import_react218.useEffect(() => {
+  import_react220.useEffect(() => {
     if (!controlled) {
       handleSearchChange(typeof _value === "string" ? optionsLockup[_value]?.label || "" : "");
     }
   }, [data, _value]);
-  const clearButton = /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.ClearButton, {
+  const clearButton = /* @__PURE__ */ import_jsx_runtime177.jsx(Combobox.ClearButton, {
     ...clearButtonProps,
     onClear: () => {
       setValue(null, null);
@@ -46795,8 +46986,8 @@ var Select = factory((_props, ref) => {
     }
   });
   const _clearable = clearable && !!_value && !disabled && !readOnly;
-  return /* @__PURE__ */ import_jsx_runtime175.jsxs(import_jsx_runtime175.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime175.jsxs(Combobox, {
+  return /* @__PURE__ */ import_jsx_runtime177.jsxs(import_jsx_runtime177.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime177.jsxs(Combobox, {
       store: combobox,
       __staticSelector: "Select",
       classNames: resolvedClassNames,
@@ -46814,10 +47005,10 @@ var Select = factory((_props, ref) => {
       size: size4,
       ...comboboxProps,
       children: [
-        /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.Target, { targetType: searchable ? "input" : "button", autoComplete, children: /* @__PURE__ */ import_jsx_runtime175.jsx(InputBase, {
+        /* @__PURE__ */ import_jsx_runtime177.jsx(Combobox.Target, { targetType: searchable ? "input" : "button", autoComplete, children: /* @__PURE__ */ import_jsx_runtime177.jsx(InputBase, {
           id: _id,
           ref,
-          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.Chevron, {
+          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime177.jsx(Combobox.Chevron, {
             size: size4,
             error,
             unstyled,
@@ -46857,7 +47048,7 @@ var Select = factory((_props, ref) => {
           pointer: !searchable,
           error
         }) }),
-        /* @__PURE__ */ import_jsx_runtime175.jsx(OptionsDropdown, {
+        /* @__PURE__ */ import_jsx_runtime177.jsx(OptionsDropdown, {
           data: parsedData,
           hidden: readOnly || disabled,
           filter: filter2,
@@ -46879,7 +47070,7 @@ var Select = factory((_props, ref) => {
         })
       ]
     }),
-    /* @__PURE__ */ import_jsx_runtime175.jsx(Combobox.HiddenInput, {
+    /* @__PURE__ */ import_jsx_runtime177.jsx(Combobox.HiddenInput, {
       value: _value,
       name,
       form,
@@ -46891,12 +47082,12 @@ var Select = factory((_props, ref) => {
 Select.classes = { ...InputBase.classes, ...Combobox.classes };
 Select.displayName = "@mantine/core/Select";
 // node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.mjs
-var import_jsx_runtime177 = __toESM(require_jsx_runtime(), 1);
-var import_react220 = __toESM(require_react(), 1);
+var import_jsx_runtime179 = __toESM(require_jsx_runtime(), 1);
+var import_react222 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGridVariables.mjs
-var import_jsx_runtime176 = __toESM(require_jsx_runtime(), 1);
-var import_react219 = __toESM(require_react(), 1);
+var import_jsx_runtime178 = __toESM(require_jsx_runtime(), 1);
+var import_react221 = __toESM(require_react(), 1);
 "use client";
 function SimpleGridMediaVariables({
   spacing,
@@ -46931,7 +47122,7 @@ function SimpleGridMediaVariables({
     query: `(min-width: ${theme.breakpoints[breakpoint.value]})`,
     styles: queries[breakpoint.value]
   }));
-  return /* @__PURE__ */ import_jsx_runtime176.jsx(InlineStyles, { styles: baseStyles, media, selector });
+  return /* @__PURE__ */ import_jsx_runtime178.jsx(InlineStyles, { styles: baseStyles, media, selector });
 }
 function getBreakpoints(values2) {
   if (typeof values2 === "object" && values2 !== null) {
@@ -46986,22 +47177,22 @@ function SimpleGridContainerVariables({
     query: `simple-grid (min-width: ${breakpoint})`,
     styles: queries[breakpoint]
   }));
-  return /* @__PURE__ */ import_jsx_runtime176.jsx(InlineStyles, { styles: baseStyles, container: media, selector });
+  return /* @__PURE__ */ import_jsx_runtime178.jsx(InlineStyles, { styles: baseStyles, container: media, selector });
 }
 
 // node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.module.css.mjs
 "use client";
-var classes33 = { container: "m_925c2d2c", root: "m_2415a157" };
+var classes35 = { container: "m_925c2d2c", root: "m_2415a157" };
 
 // node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.mjs
 "use client";
-var defaultProps87 = {
+var defaultProps89 = {
   cols: 1,
   spacing: "md",
   type: "media"
 };
 var SimpleGrid = factory((_props, ref) => {
-  const props = useProps("SimpleGrid", defaultProps87, _props);
+  const props = useProps("SimpleGrid", defaultProps89, _props);
   const {
     classNames,
     className,
@@ -47017,7 +47208,7 @@ var SimpleGrid = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "SimpleGrid",
-    classes: classes33,
+    classes: classes35,
     props,
     className,
     style: style2,
@@ -47028,34 +47219,34 @@ var SimpleGrid = factory((_props, ref) => {
   });
   const responsiveClassName = useRandomClassName();
   if (type === "container") {
-    return /* @__PURE__ */ import_jsx_runtime177.jsxs(import_jsx_runtime177.Fragment, { children: [
-      /* @__PURE__ */ import_jsx_runtime177.jsx(SimpleGridContainerVariables, { ...props, selector: `.${responsiveClassName}` }),
-      /* @__PURE__ */ import_jsx_runtime177.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime177.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others }) })
+    return /* @__PURE__ */ import_jsx_runtime179.jsxs(import_jsx_runtime179.Fragment, { children: [
+      /* @__PURE__ */ import_jsx_runtime179.jsx(SimpleGridContainerVariables, { ...props, selector: `.${responsiveClassName}` }),
+      /* @__PURE__ */ import_jsx_runtime179.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime179.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others }) })
     ] });
   }
-  return /* @__PURE__ */ import_jsx_runtime177.jsxs(import_jsx_runtime177.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime177.jsx(SimpleGridMediaVariables, { ...props, selector: `.${responsiveClassName}` }),
-    /* @__PURE__ */ import_jsx_runtime177.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others })
+  return /* @__PURE__ */ import_jsx_runtime179.jsxs(import_jsx_runtime179.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime179.jsx(SimpleGridMediaVariables, { ...props, selector: `.${responsiveClassName}` }),
+    /* @__PURE__ */ import_jsx_runtime179.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others })
   ] });
 });
-SimpleGrid.classes = classes33;
+SimpleGrid.classes = classes35;
 SimpleGrid.displayName = "@mantine/core/SimpleGrid";
 // node_modules/@mantine/core/esm/components/Stack/Stack.mjs
-var import_jsx_runtime178 = __toESM(require_jsx_runtime(), 1);
-var import_react221 = __toESM(require_react(), 1);
+var import_jsx_runtime180 = __toESM(require_jsx_runtime(), 1);
+var import_react223 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Stack/Stack.module.css.mjs
 "use client";
-var classes34 = { root: "m_6d731127" };
+var classes36 = { root: "m_6d731127" };
 
 // node_modules/@mantine/core/esm/components/Stack/Stack.mjs
 "use client";
-var defaultProps88 = {
+var defaultProps90 = {
   gap: "md",
   align: "stretch",
   justify: "flex-start"
 };
-var varsResolver37 = createVarsResolver((_2, { gap, align, justify }) => ({
+var varsResolver38 = createVarsResolver((_2, { gap, align, justify }) => ({
   root: {
     "--stack-gap": getSpacing(gap),
     "--stack-align": align,
@@ -47063,7 +47254,7 @@ var varsResolver37 = createVarsResolver((_2, { gap, align, justify }) => ({
   }
 }));
 var Stack = factory((_props, ref) => {
-  const props = useProps("Stack", defaultProps88, _props);
+  const props = useProps("Stack", defaultProps90, _props);
   const {
     classNames,
     className,
@@ -47080,37 +47271,37 @@ var Stack = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Stack",
     props,
-    classes: classes34,
+    classes: classes36,
     className,
     style: style2,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver37
+    varsResolver: varsResolver38
   });
-  return /* @__PURE__ */ import_jsx_runtime178.jsx(Box, { ref, ...getStyles2("root"), variant, ...others });
+  return /* @__PURE__ */ import_jsx_runtime180.jsx(Box, { ref, ...getStyles2("root"), variant, ...others });
 });
-Stack.classes = classes34;
+Stack.classes = classes36;
 Stack.displayName = "@mantine/core/Stack";
 // node_modules/@mantine/core/esm/components/Switch/Switch.mjs
-var import_jsx_runtime180 = __toESM(require_jsx_runtime(), 1);
-var import_react224 = __toESM(require_react(), 1);
+var import_jsx_runtime182 = __toESM(require_jsx_runtime(), 1);
+var import_react226 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Switch/SwitchGroup.context.mjs
-var import_react222 = __toESM(require_react(), 1);
+var import_react224 = __toESM(require_react(), 1);
 "use client";
-var SwitchGroupContext = import_react222.createContext(null);
+var SwitchGroupContext = import_react224.createContext(null);
 var SwitchGroupProvider = SwitchGroupContext.Provider;
-var useSwitchGroupContext = () => import_react222.useContext(SwitchGroupContext);
+var useSwitchGroupContext = () => import_react224.useContext(SwitchGroupContext);
 
 // node_modules/@mantine/core/esm/components/Switch/SwitchGroup/SwitchGroup.mjs
-var import_jsx_runtime179 = __toESM(require_jsx_runtime(), 1);
-var import_react223 = __toESM(require_react(), 1);
+var import_jsx_runtime181 = __toESM(require_jsx_runtime(), 1);
+var import_react225 = __toESM(require_react(), 1);
 "use client";
-var defaultProps89 = {};
+var defaultProps91 = {};
 var SwitchGroup = factory((props, ref) => {
-  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("SwitchGroup", defaultProps89, props);
+  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("SwitchGroup", defaultProps91, props);
   const [_value, setValue] = useUncontrolled({
     value,
     defaultValue,
@@ -47121,14 +47312,14 @@ var SwitchGroup = factory((props, ref) => {
     const itemValue = event.currentTarget.value;
     !readOnly && setValue(_value.includes(itemValue) ? _value.filter((item) => item !== itemValue) : [..._value, itemValue]);
   };
-  return /* @__PURE__ */ import_jsx_runtime179.jsx(SwitchGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime179.jsx(Input.Wrapper, {
+  return /* @__PURE__ */ import_jsx_runtime181.jsx(SwitchGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime181.jsx(Input.Wrapper, {
     size: size4,
     ref,
     ...wrapperProps,
     ...others,
     labelElement: "div",
     __staticSelector: "SwitchGroup",
-    children: /* @__PURE__ */ import_jsx_runtime179.jsx(InputsGroupFieldset, { role: "group", children })
+    children: /* @__PURE__ */ import_jsx_runtime181.jsx(InputsGroupFieldset, { role: "group", children })
   }) });
 });
 SwitchGroup.classes = Input.Wrapper.classes;
@@ -47136,14 +47327,14 @@ SwitchGroup.displayName = "@mantine/core/SwitchGroup";
 
 // node_modules/@mantine/core/esm/components/Switch/Switch.module.css.mjs
 "use client";
-var classes35 = { root: "m_5f93f3bb", input: "m_926b4011", track: "m_9307d992", thumb: "m_93039a1d", trackLabel: "m_8277e082" };
+var classes37 = { root: "m_5f93f3bb", input: "m_926b4011", track: "m_9307d992", thumb: "m_93039a1d", trackLabel: "m_8277e082" };
 
 // node_modules/@mantine/core/esm/components/Switch/Switch.mjs
 "use client";
-var defaultProps90 = {
+var defaultProps92 = {
   labelPosition: "right"
 };
-var varsResolver38 = createVarsResolver((theme, { radius, color, size: size4 }) => ({
+var varsResolver39 = createVarsResolver((theme, { radius, color, size: size4 }) => ({
   root: {
     "--switch-radius": radius === undefined ? undefined : getRadius(radius),
     "--switch-height": getSize(size4, "switch-height"),
@@ -47155,7 +47346,7 @@ var varsResolver38 = createVarsResolver((theme, { radius, color, size: size4 }) 
   }
 }));
 var Switch = factory((_props, ref) => {
-  const props = useProps("Switch", defaultProps90, _props);
+  const props = useProps("Switch", defaultProps92, _props);
   const {
     classNames,
     className,
@@ -47189,14 +47380,14 @@ var Switch = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Switch",
     props,
-    classes: classes35,
+    classes: classes37,
     className,
     style: style2,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver38
+    varsResolver: varsResolver39
   });
   const { styleProps, rest } = extractStyleProps(others);
   const uuid = useId(id);
@@ -47209,7 +47400,7 @@ var Switch = factory((_props, ref) => {
     defaultValue: defaultChecked,
     finalValue: false
   });
-  return /* @__PURE__ */ import_jsx_runtime180.jsxs(InlineInput, {
+  return /* @__PURE__ */ import_jsx_runtime182.jsxs(InlineInput, {
     ...getStyles2("root"),
     __staticSelector: "Switch",
     __stylesApiProps: props,
@@ -47232,7 +47423,7 @@ var Switch = factory((_props, ref) => {
     ...styleProps,
     ...wrapperProps,
     children: [
-      /* @__PURE__ */ import_jsx_runtime180.jsx("input", {
+      /* @__PURE__ */ import_jsx_runtime182.jsx("input", {
         ...rest,
         disabled,
         checked: _checked,
@@ -47247,38 +47438,38 @@ var Switch = factory((_props, ref) => {
         role: "switch",
         ...getStyles2("input")
       }),
-      /* @__PURE__ */ import_jsx_runtime180.jsxs(Box, {
+      /* @__PURE__ */ import_jsx_runtime182.jsxs(Box, {
         "aria-hidden": "true",
         mod: { error, "label-position": labelPosition, "without-labels": !onLabel && !offLabel },
         ...getStyles2("track"),
         children: [
-          /* @__PURE__ */ import_jsx_runtime180.jsx(Box, { component: "span", mod: "reduce-motion", ...getStyles2("thumb"), children: thumbIcon }),
-          /* @__PURE__ */ import_jsx_runtime180.jsx("span", { ...getStyles2("trackLabel"), children: _checked ? onLabel : offLabel })
+          /* @__PURE__ */ import_jsx_runtime182.jsx(Box, { component: "span", mod: "reduce-motion", ...getStyles2("thumb"), children: thumbIcon }),
+          /* @__PURE__ */ import_jsx_runtime182.jsx("span", { ...getStyles2("trackLabel"), children: _checked ? onLabel : offLabel })
         ]
       })
     ]
   });
 });
-Switch.classes = { ...classes35, ...InlineInputClasses };
+Switch.classes = { ...classes37, ...InlineInputClasses };
 Switch.displayName = "@mantine/core/Switch";
 Switch.Group = SwitchGroup;
 // node_modules/@mantine/core/esm/components/Table/Table.mjs
-var import_jsx_runtime185 = __toESM(require_jsx_runtime(), 1);
-var import_react228 = __toESM(require_react(), 1);
+var import_jsx_runtime187 = __toESM(require_jsx_runtime(), 1);
+var import_react230 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Table/Table.components.mjs
-var import_jsx_runtime182 = __toESM(require_jsx_runtime(), 1);
-var import_react226 = __toESM(require_react(), 1);
+var import_jsx_runtime184 = __toESM(require_jsx_runtime(), 1);
+var import_react228 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Table/Table.context.mjs
-var import_react225 = __toESM(require_react(), 1);
-var import_jsx_runtime181 = __toESM(require_jsx_runtime(), 1);
+var import_react227 = __toESM(require_react(), 1);
+var import_jsx_runtime183 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [TableProvider, useTableContext] = createSafeContext("Table component was not found in the tree");
 
 // node_modules/@mantine/core/esm/components/Table/Table.module.css.mjs
 "use client";
-var classes36 = { table: "m_b23fa0ef", th: "m_4e7aa4f3", tr: "m_4e7aa4fd", td: "m_4e7aa4ef", tbody: "m_b2404537", thead: "m_b242d975", caption: "m_9e5a3ac7", scrollContainer: "m_a100c15", scrollContainerInner: "m_62259741" };
+var classes38 = { table: "m_b23fa0ef", th: "m_4e7aa4f3", tr: "m_4e7aa4fd", td: "m_4e7aa4ef", tbody: "m_b2404537", thead: "m_b242d975", caption: "m_9e5a3ac7", scrollContainer: "m_a100c15", scrollContainerInner: "m_62259741" };
 
 // node_modules/@mantine/core/esm/components/Table/Table.components.mjs
 "use client";
@@ -47313,7 +47504,7 @@ function tableElement(element, options) {
     const props = useProps(name, {}, _props);
     const { classNames, className, style: style2, styles, ...others } = props;
     const ctx = useTableContext();
-    return /* @__PURE__ */ import_jsx_runtime182.jsx(Box, {
+    return /* @__PURE__ */ import_jsx_runtime184.jsx(Box, {
       component: element,
       ref,
       ...getDataAttributes(ctx, options),
@@ -47322,7 +47513,7 @@ function tableElement(element, options) {
     });
   });
   Component2.displayName = `@mantine/core/${name}`;
-  Component2.classes = classes36;
+  Component2.classes = classes38;
   return Component2;
 }
 var TableTh = tableElement("th", { columnBorder: true });
@@ -47338,26 +47529,26 @@ var TableTfoot = tableElement("tfoot");
 var TableCaption = tableElement("caption", { captionSide: true });
 
 // node_modules/@mantine/core/esm/components/Table/TableDataRenderer.mjs
-var import_jsx_runtime183 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime185 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function TableDataRenderer({ data }) {
-  return /* @__PURE__ */ import_jsx_runtime183.jsxs(import_jsx_runtime183.Fragment, { children: [
-    data.caption && /* @__PURE__ */ import_jsx_runtime183.jsx(TableCaption, { children: data.caption }),
-    data.head && /* @__PURE__ */ import_jsx_runtime183.jsx(TableThead, { children: /* @__PURE__ */ import_jsx_runtime183.jsx(TableTr, { children: data.head.map((item, index4) => /* @__PURE__ */ import_jsx_runtime183.jsx(TableTh, { children: item }, index4)) }) }),
-    data.body && /* @__PURE__ */ import_jsx_runtime183.jsx(TableTbody, { children: data.body.map((row, rowIndex) => /* @__PURE__ */ import_jsx_runtime183.jsx(TableTr, { children: row.map((item, index4) => /* @__PURE__ */ import_jsx_runtime183.jsx(TableTd, { children: item }, index4)) }, rowIndex)) }),
-    data.foot && /* @__PURE__ */ import_jsx_runtime183.jsx(TableTfoot, { children: /* @__PURE__ */ import_jsx_runtime183.jsx(TableTr, { children: data.foot.map((item, index4) => /* @__PURE__ */ import_jsx_runtime183.jsx(TableTh, { children: item }, index4)) }) })
+  return /* @__PURE__ */ import_jsx_runtime185.jsxs(import_jsx_runtime185.Fragment, { children: [
+    data.caption && /* @__PURE__ */ import_jsx_runtime185.jsx(TableCaption, { children: data.caption }),
+    data.head && /* @__PURE__ */ import_jsx_runtime185.jsx(TableThead, { children: /* @__PURE__ */ import_jsx_runtime185.jsx(TableTr, { children: data.head.map((item, index4) => /* @__PURE__ */ import_jsx_runtime185.jsx(TableTh, { children: item }, index4)) }) }),
+    data.body && /* @__PURE__ */ import_jsx_runtime185.jsx(TableTbody, { children: data.body.map((row, rowIndex) => /* @__PURE__ */ import_jsx_runtime185.jsx(TableTr, { children: row.map((item, index4) => /* @__PURE__ */ import_jsx_runtime185.jsx(TableTd, { children: item }, index4)) }, rowIndex)) }),
+    data.foot && /* @__PURE__ */ import_jsx_runtime185.jsx(TableTfoot, { children: /* @__PURE__ */ import_jsx_runtime185.jsx(TableTr, { children: data.foot.map((item, index4) => /* @__PURE__ */ import_jsx_runtime185.jsx(TableTh, { children: item }, index4)) }) })
   ] });
 }
 TableDataRenderer.displayName = "@mantine/core/TableDataRenderer";
 
 // node_modules/@mantine/core/esm/components/Table/TableScrollContainer.mjs
-var import_jsx_runtime184 = __toESM(require_jsx_runtime(), 1);
-var import_react227 = __toESM(require_react(), 1);
+var import_jsx_runtime186 = __toESM(require_jsx_runtime(), 1);
+var import_react229 = __toESM(require_react(), 1);
 "use client";
-var defaultProps91 = {
+var defaultProps93 = {
   type: "scrollarea"
 };
-var varsResolver39 = createVarsResolver((_2, { minWidth, maxHeight, type }) => ({
+var varsResolver40 = createVarsResolver((_2, { minWidth, maxHeight, type }) => ({
   scrollContainer: {
     "--table-min-width": rem(minWidth),
     "--table-max-height": rem(maxHeight),
@@ -47365,7 +47556,7 @@ var varsResolver39 = createVarsResolver((_2, { minWidth, maxHeight, type }) => (
   }
 }));
 var TableScrollContainer = factory((_props, ref) => {
-  const props = useProps("TableScrollContainer", defaultProps91, _props);
+  const props = useProps("TableScrollContainer", defaultProps93, _props);
   const {
     classNames,
     className,
@@ -47381,7 +47572,7 @@ var TableScrollContainer = factory((_props, ref) => {
   } = props;
   const getStyles2 = useStyles({
     name: "TableScrollContainer",
-    classes: classes36,
+    classes: classes38,
     props,
     className,
     style: style2,
@@ -47389,28 +47580,28 @@ var TableScrollContainer = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver39,
+    varsResolver: varsResolver40,
     rootSelector: "scrollContainer"
   });
-  return /* @__PURE__ */ import_jsx_runtime184.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime186.jsx(Box, {
     component: type === "scrollarea" ? ScrollArea : "div",
     ...type === "scrollarea" ? maxHeight ? { offsetScrollbars: "xy" } : { offsetScrollbars: "x" } : {},
     ref,
     ...getStyles2("scrollContainer"),
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime184.jsx("div", { ...getStyles2("scrollContainerInner"), children })
+    children: /* @__PURE__ */ import_jsx_runtime186.jsx("div", { ...getStyles2("scrollContainerInner"), children })
   });
 });
-TableScrollContainer.classes = classes36;
+TableScrollContainer.classes = classes38;
 TableScrollContainer.displayName = "@mantine/core/TableScrollContainer";
 
 // node_modules/@mantine/core/esm/components/Table/Table.mjs
 "use client";
-var defaultProps92 = {
+var defaultProps94 = {
   withRowBorders: true,
   verticalSpacing: 7
 };
-var varsResolver40 = createVarsResolver((theme, {
+var varsResolver41 = createVarsResolver((theme, {
   layout,
   captionSide,
   horizontalSpacing,
@@ -47435,7 +47626,7 @@ var varsResolver40 = createVarsResolver((theme, {
   }
 }));
 var Table = factory((_props, ref) => {
-  const props = useProps("Table", defaultProps92, _props);
+  const props = useProps("Table", defaultProps94, _props);
   const {
     classNames,
     className,
@@ -47469,15 +47660,15 @@ var Table = factory((_props, ref) => {
     props,
     className,
     style: style2,
-    classes: classes36,
+    classes: classes38,
     classNames,
     styles,
     unstyled,
     rootSelector: "table",
     vars,
-    varsResolver: varsResolver40
+    varsResolver: varsResolver41
   });
-  return /* @__PURE__ */ import_jsx_runtime185.jsx(TableProvider, {
+  return /* @__PURE__ */ import_jsx_runtime187.jsx(TableProvider, {
     value: {
       getStyles: getStyles2,
       stickyHeader,
@@ -47487,18 +47678,18 @@ var Table = factory((_props, ref) => {
       withRowBorders,
       captionSide: captionSide || "bottom"
     },
-    children: /* @__PURE__ */ import_jsx_runtime185.jsx(Box, {
+    children: /* @__PURE__ */ import_jsx_runtime187.jsx(Box, {
       component: "table",
       variant,
       ref,
       mod: [{ "data-with-table-border": withTableBorder, "data-tabular-nums": tabularNums }, mod],
       ...getStyles2("table"),
       ...others,
-      children: children || !!data && /* @__PURE__ */ import_jsx_runtime185.jsx(TableDataRenderer, { data })
+      children: children || !!data && /* @__PURE__ */ import_jsx_runtime187.jsx(TableDataRenderer, { data })
     })
   });
 });
-Table.classes = classes36;
+Table.classes = classes38;
 Table.displayName = "@mantine/core/Table";
 Table.Td = TableTd;
 Table.Th = TableTh;
@@ -47510,23 +47701,23 @@ Table.Caption = TableCaption;
 Table.ScrollContainer = TableScrollContainer;
 Table.DataRenderer = TableDataRenderer;
 // node_modules/@mantine/core/esm/components/TextInput/TextInput.mjs
-var import_jsx_runtime186 = __toESM(require_jsx_runtime(), 1);
-var import_react229 = __toESM(require_react(), 1);
+var import_jsx_runtime188 = __toESM(require_jsx_runtime(), 1);
+var import_react231 = __toESM(require_react(), 1);
 "use client";
-var defaultProps93 = {};
+var defaultProps95 = {};
 var TextInput = factory((props, ref) => {
-  const _props = useProps("TextInput", defaultProps93, props);
-  return /* @__PURE__ */ import_jsx_runtime186.jsx(InputBase, { component: "input", ref, ..._props, __staticSelector: "TextInput" });
+  const _props = useProps("TextInput", defaultProps95, props);
+  return /* @__PURE__ */ import_jsx_runtime188.jsx(InputBase, { component: "input", ref, ..._props, __staticSelector: "TextInput" });
 });
 TextInput.classes = InputBase.classes;
 TextInput.displayName = "@mantine/core/TextInput";
 // node_modules/@mantine/core/esm/components/Title/Title.mjs
-var import_jsx_runtime188 = __toESM(require_jsx_runtime(), 1);
-var import_react231 = __toESM(require_react(), 1);
+var import_jsx_runtime190 = __toESM(require_jsx_runtime(), 1);
+var import_react233 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Title/get-title-size.mjs
-var import_react230 = __toESM(require_react(), 1);
-var import_jsx_runtime187 = __toESM(require_jsx_runtime(), 1);
+var import_react232 = __toESM(require_react(), 1);
+var import_jsx_runtime189 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var headings3 = ["h1", "h2", "h3", "h4", "h5", "h6"];
 var sizes = ["xs", "sm", "md", "lg", "xl"];
@@ -47554,14 +47745,14 @@ function getTitleSize(order, size4) {
 
 // node_modules/@mantine/core/esm/components/Title/Title.module.css.mjs
 "use client";
-var classes37 = { root: "m_8a5d1357" };
+var classes39 = { root: "m_8a5d1357" };
 
 // node_modules/@mantine/core/esm/components/Title/Title.mjs
 "use client";
-var defaultProps94 = {
+var defaultProps96 = {
   order: 1
 };
-var varsResolver41 = createVarsResolver((_2, { order, size: size4, lineClamp, textWrap }) => {
+var varsResolver42 = createVarsResolver((_2, { order, size: size4, lineClamp, textWrap }) => {
   const sizeVariables = getTitleSize(order, size4);
   return {
     root: {
@@ -47574,7 +47765,7 @@ var varsResolver41 = createVarsResolver((_2, { order, size: size4, lineClamp, te
   };
 });
 var Title = factory((_props, ref) => {
-  const props = useProps("Title", defaultProps94, _props);
+  const props = useProps("Title", defaultProps96, _props);
   const {
     classNames,
     className,
@@ -47593,19 +47784,19 @@ var Title = factory((_props, ref) => {
   const getStyles2 = useStyles({
     name: "Title",
     props,
-    classes: classes37,
+    classes: classes39,
     className,
     style: style2,
     classNames,
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver41
+    varsResolver: varsResolver42
   });
   if (![1, 2, 3, 4, 5, 6].includes(order)) {
     return null;
   }
-  return /* @__PURE__ */ import_jsx_runtime188.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime190.jsx(Box, {
     ...getStyles2("root"),
     component: `h${order}`,
     variant,
@@ -47615,15 +47806,15 @@ var Title = factory((_props, ref) => {
     ...others
   });
 });
-Title.classes = classes37;
+Title.classes = classes39;
 Title.displayName = "@mantine/core/Title";
 // node_modules/@mantine/core/esm/components/Tree/Tree.mjs
-var import_jsx_runtime192 = __toESM(require_jsx_runtime(), 1);
-var import_react236 = __toESM(require_react(), 1);
+var import_jsx_runtime194 = __toESM(require_jsx_runtime(), 1);
+var import_react238 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tree/TreeNode.mjs
-var import_jsx_runtime189 = __toESM(require_jsx_runtime(), 1);
-var import_react232 = __toESM(require_react(), 1);
+var import_jsx_runtime191 = __toESM(require_jsx_runtime(), 1);
+var import_react234 = __toESM(require_react(), 1);
 "use client";
 function getValuesRange(anchor, value, flatValues) {
   if (!anchor || !value) {
@@ -47650,8 +47841,8 @@ function TreeNode({
   expandOnSpace,
   checkOnSpace
 }) {
-  const ref = import_react232.useRef(null);
-  const nested = (node2.children || []).map((child) => /* @__PURE__ */ import_jsx_runtime189.jsx(TreeNode, {
+  const ref = import_react234.useRef(null);
+  const nested = (node2.children || []).map((child) => /* @__PURE__ */ import_jsx_runtime191.jsx(TreeNode, {
     node: child,
     flatValues,
     getStyles: getStyles2,
@@ -47738,7 +47929,7 @@ function TreeNode({
     "data-value": node2.value,
     "data-hovered": controller.hoveredNode === node2.value || undefined
   };
-  return /* @__PURE__ */ import_jsx_runtime189.jsxs("li", {
+  return /* @__PURE__ */ import_jsx_runtime191.jsxs("li", {
     ...getStyles2("node", {
       style: { "--label-offset": `calc(var(--level-offset) * ${level - 1})` }
     }),
@@ -47768,15 +47959,15 @@ function TreeNode({
         expanded: controller.expandedState[node2.value] || false,
         hasChildren: Array.isArray(node2.children) && node2.children.length > 0,
         elementProps
-      }) : /* @__PURE__ */ import_jsx_runtime189.jsx("div", { ...elementProps, children: node2.label }),
-      controller.expandedState[node2.value] && nested.length > 0 && /* @__PURE__ */ import_jsx_runtime189.jsx("ul", { role: "group", ...getStyles2("subtree"), "data-level": level, children: nested })
+      }) : /* @__PURE__ */ import_jsx_runtime191.jsx("div", { ...elementProps, children: node2.label }),
+      controller.expandedState[node2.value] && nested.length > 0 && /* @__PURE__ */ import_jsx_runtime191.jsx("ul", { role: "group", ...getStyles2("subtree"), "data-level": level, children: nested })
     ]
   });
 }
 TreeNode.displayName = "@mantine/core/TreeNode";
 
 // node_modules/@mantine/core/esm/components/Tree/use-tree.mjs
-var import_react235 = __toESM(require_react(), 1);
+var import_react237 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tree/get-all-checked-nodes/get-all-checked-nodes.mjs
 "use client";
@@ -47859,8 +48050,8 @@ function getAllChildrenNodes(data) {
 }
 
 // node_modules/@mantine/core/esm/components/Tree/is-node-checked/is-node-checked.mjs
-var import_react233 = __toESM(require_react(), 1);
-var import_jsx_runtime190 = __toESM(require_jsx_runtime(), 1);
+var import_react235 = __toESM(require_react(), 1);
+var import_jsx_runtime192 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function isNodeChecked(value, data, checkedState) {
   if (checkedState.length === 0) {
@@ -47875,8 +48066,8 @@ function isNodeChecked(value, data, checkedState) {
 var memoizedIsNodeChecked = memoize2(isNodeChecked);
 
 // node_modules/@mantine/core/esm/components/Tree/is-node-indeterminate/is-node-indeterminate.mjs
-var import_react234 = __toESM(require_react(), 1);
-var import_jsx_runtime191 = __toESM(require_jsx_runtime(), 1);
+var import_react236 = __toESM(require_react(), 1);
+var import_jsx_runtime193 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function isNodeIndeterminate(value, data, checkedState) {
   if (checkedState.length === 0) {
@@ -47911,25 +48102,25 @@ function useTree({
   onNodeCollapse,
   onNodeExpand
 } = {}) {
-  const [data, setData] = import_react235.useState([]);
-  const [expandedState, setExpandedState] = import_react235.useState(initialExpandedState);
-  const [selectedState, setSelectedState] = import_react235.useState(initialSelectedState);
-  const [checkedState, setCheckedState] = import_react235.useState(initialCheckedState);
-  const [anchorNode, setAnchorNode] = import_react235.useState(null);
-  const [hoveredNode, setHoveredNode] = import_react235.useState(null);
-  const initialize = import_react235.useCallback((_data) => {
+  const [data, setData] = import_react237.useState([]);
+  const [expandedState, setExpandedState] = import_react237.useState(initialExpandedState);
+  const [selectedState, setSelectedState] = import_react237.useState(initialSelectedState);
+  const [checkedState, setCheckedState] = import_react237.useState(initialCheckedState);
+  const [anchorNode, setAnchorNode] = import_react237.useState(null);
+  const [hoveredNode, setHoveredNode] = import_react237.useState(null);
+  const initialize = import_react237.useCallback((_data) => {
     setExpandedState((current2) => getInitialTreeExpandedState(current2, _data, selectedState));
     setCheckedState((current2) => getInitialCheckedState(current2, _data));
     setData(_data);
   }, [selectedState, checkedState]);
-  const toggleExpanded = import_react235.useCallback((value) => {
+  const toggleExpanded = import_react237.useCallback((value) => {
     setExpandedState((current2) => {
       const nextState = { ...current2, [value]: !current2[value] };
       nextState[value] ? onNodeExpand?.(value) : onNodeCollapse?.(value);
       return nextState;
     });
   }, [onNodeCollapse, onNodeExpand]);
-  const collapse = import_react235.useCallback((value) => {
+  const collapse = import_react237.useCallback((value) => {
     setExpandedState((current2) => {
       if (current2[value] !== false) {
         onNodeCollapse?.(value);
@@ -47937,7 +48128,7 @@ function useTree({
       return { ...current2, [value]: false };
     });
   }, [onNodeCollapse]);
-  const expand = import_react235.useCallback((value) => {
+  const expand = import_react237.useCallback((value) => {
     setExpandedState((current2) => {
       if (current2[value] !== true) {
         onNodeExpand?.(value);
@@ -47945,7 +48136,7 @@ function useTree({
       return { ...current2, [value]: true };
     });
   }, [onNodeExpand]);
-  const expandAllNodes = import_react235.useCallback(() => {
+  const expandAllNodes = import_react237.useCallback(() => {
     setExpandedState((current2) => {
       const next2 = { ...current2 };
       Object.keys(next2).forEach((key) => {
@@ -47954,7 +48145,7 @@ function useTree({
       return next2;
     });
   }, []);
-  const collapseAllNodes = import_react235.useCallback(() => {
+  const collapseAllNodes = import_react237.useCallback(() => {
     setExpandedState((current2) => {
       const next2 = { ...current2 };
       Object.keys(next2).forEach((key) => {
@@ -47963,7 +48154,7 @@ function useTree({
       return next2;
     });
   }, []);
-  const toggleSelected = import_react235.useCallback((value) => setSelectedState((current2) => {
+  const toggleSelected = import_react237.useCallback((value) => setSelectedState((current2) => {
     if (!multiple) {
       if (current2.includes(value)) {
         setAnchorNode(null);
@@ -47979,30 +48170,30 @@ function useTree({
     setAnchorNode(value);
     return [...current2, value];
   }), []);
-  const select = import_react235.useCallback((value) => {
+  const select = import_react237.useCallback((value) => {
     setAnchorNode(value);
     setSelectedState((current2) => multiple ? current2.includes(value) ? current2 : [...current2, value] : [value]);
   }, []);
-  const deselect = import_react235.useCallback((value) => {
+  const deselect = import_react237.useCallback((value) => {
     anchorNode === value && setAnchorNode(null);
     setSelectedState((current2) => current2.filter((item) => item !== value));
   }, []);
-  const clearSelected = import_react235.useCallback(() => {
+  const clearSelected = import_react237.useCallback(() => {
     setSelectedState([]);
     setAnchorNode(null);
   }, []);
-  const checkNode = import_react235.useCallback((value) => {
+  const checkNode = import_react237.useCallback((value) => {
     const checkedNodes = getChildrenNodesValues(value, data);
     setCheckedState((current2) => Array.from(/* @__PURE__ */ new Set([...current2, ...checkedNodes])));
   }, [data]);
-  const uncheckNode = import_react235.useCallback((value) => {
+  const uncheckNode = import_react237.useCallback((value) => {
     const checkedNodes = getChildrenNodesValues(value, data);
     setCheckedState((current2) => current2.filter((item) => !checkedNodes.includes(item)));
   }, [data]);
-  const checkAllNodes = import_react235.useCallback(() => {
+  const checkAllNodes = import_react237.useCallback(() => {
     setCheckedState(() => getAllChildrenNodes(data));
   }, [data]);
-  const uncheckAllNodes = import_react235.useCallback(() => {
+  const uncheckAllNodes = import_react237.useCallback(() => {
     setCheckedState([]);
   }, []);
   const getCheckedNodes = () => getAllCheckedNodes(data, checkedState).result;
@@ -48041,7 +48232,7 @@ function useTree({
 
 // node_modules/@mantine/core/esm/components/Tree/Tree.module.css.mjs
 "use client";
-var classes38 = { root: "m_f698e191", subtree: "m_75f3ecf", node: "m_f6970eb1", label: "m_dc283425" };
+var classes40 = { root: "m_f698e191", subtree: "m_75f3ecf", node: "m_f6970eb1", label: "m_dc283425" };
 
 // node_modules/@mantine/core/esm/components/Tree/Tree.mjs
 "use client";
@@ -48054,18 +48245,18 @@ function getFlatValues(data) {
     return acc;
   }, []);
 }
-var defaultProps95 = {
+var defaultProps97 = {
   expandOnClick: true,
   allowRangeSelection: true,
   expandOnSpace: true
 };
-var varsResolver42 = createVarsResolver((_theme, { levelOffset }) => ({
+var varsResolver43 = createVarsResolver((_theme, { levelOffset }) => ({
   root: {
     "--level-offset": getSpacing(levelOffset)
   }
 }));
 var Tree = factory((_props, ref) => {
-  const props = useProps("Tree", defaultProps95, _props);
+  const props = useProps("Tree", defaultProps97, _props);
   const {
     classNames,
     className,
@@ -48089,7 +48280,7 @@ var Tree = factory((_props, ref) => {
   const controller = tree || defaultController;
   const getStyles2 = useStyles({
     name: "Tree",
-    classes: classes38,
+    classes: classes40,
     props,
     className,
     style: style2,
@@ -48097,15 +48288,15 @@ var Tree = factory((_props, ref) => {
     styles,
     unstyled,
     vars,
-    varsResolver: varsResolver42
+    varsResolver: varsResolver43
   });
   const clickOutsideRef = useClickOutside(() => clearSelectionOnOutsideClick && controller.clearSelected());
   const mergedRef = useMergedRef(ref, clickOutsideRef);
-  const flatValues = import_react236.useMemo(() => getFlatValues(data), [data]);
-  import_react236.useEffect(() => {
+  const flatValues = import_react238.useMemo(() => getFlatValues(data), [data]);
+  import_react238.useEffect(() => {
     controller.initialize(data);
   }, [data]);
-  const nodes = data.map((node2, index4) => /* @__PURE__ */ import_jsx_runtime192.jsx(TreeNode, {
+  const nodes = data.map((node2, index4) => /* @__PURE__ */ import_jsx_runtime194.jsx(TreeNode, {
     node: node2,
     getStyles: getStyles2,
     rootIndex: index4,
@@ -48118,7 +48309,7 @@ var Tree = factory((_props, ref) => {
     expandOnSpace,
     checkOnSpace
   }, node2.value));
-  return /* @__PURE__ */ import_jsx_runtime192.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime194.jsx(Box, {
     component: "ul",
     ref: mergedRef,
     ...getStyles2("root"),
@@ -48130,7 +48321,7 @@ var Tree = factory((_props, ref) => {
   });
 });
 Tree.displayName = "@mantine/core/Tree";
-Tree.classes = classes38;
+Tree.classes = classes40;
 // src/studio-adapter/layoutMapingValidation.ts
 function layoutMappingValidation(layoutMap, doc) {
   const cleanLayoutMap = JSON.parse(JSON.stringify(layoutMap));
@@ -48196,6 +48387,7 @@ function processImageVariableDependentGroups(imageVariable, existingVariableIds,
 }
 
 // node_modules/@tabler/icons-react/dist/esm/tabler-icons-react.mjs
+init_IconRosetteDiscountCheckFilled();
 init_IconAbc();
 init_IconAlertCircle();
 init_IconAlertTriangle();
@@ -48205,16 +48397,20 @@ init_IconCameraPlus();
 init_IconChevronDown();
 init_IconChevronLeft();
 init_IconChevronRight();
+init_IconCircleX();
 init_IconCopyPlus();
 init_IconCopy();
 init_IconCrop();
 init_IconDeselect();
 init_IconDownload();
 init_IconExchange();
+init_IconExclamationCircle();
 init_IconExternalLink();
 init_IconEyeClosed();
-init_IconFileText();
+init_IconFileDownload();
+init_IconFileUpload();
 init_IconFilter();
+init_IconFolder();
 init_IconGripVertical();
 init_IconInfoCircle();
 init_IconListTree();
@@ -48234,12 +48430,19 @@ init_IconTrash();
 init_IconUpload();
 init_IconWand();
 init_IconX();
+init_IconArrowBigLeftFilled();
+init_IconBugFilled();
 init_IconCaretDownFilled();
+init_IconCircleCheckFilled();
+init_IconCircleRectangleFilled();
 init_IconFilterFilled();
+init_IconInfoCircleFilled();
+init_IconRadioactiveFilled();
+init_IconRosetteFilled();
 init_IconTrashFilled();
 
 // src/components/LayoutMappingModal/AddMappingImageVariableModal.tsx
-var import_react238 = __toESM(require_react(), 1);
+var import_react240 = __toESM(require_react(), 1);
 var jsx_runtime = __toESM(require_jsx_runtime(), 1);
 var AddMappingImageVariableModal = ({ currentMapConfig }) => {
   const setIsImageVariableMappingModalOpen = appStore((state) => state.effects.modal.setIsImageVariableMappingModalOpen);
@@ -48249,7 +48452,7 @@ var AddMappingImageVariableModal = ({ currentMapConfig }) => {
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const currentAddImageMappingSelectedVariables = appStore((state) => state.state.modal.currentAddImageMappingSelectedVariables);
   const isAddImageVariableMappingModalOpen = appStore((state) => state.state.modal.isAddImageVariableMappingModalOpen);
-  const possibleVariableValues = import_react238.useMemo(() => {
+  const possibleVariableValues = import_react240.useMemo(() => {
     const allImageVariables = variables.filter((variable) => variable.type === "image").map((variable) => ({
       value: variable.id,
       label: variable.name,
@@ -48422,7 +48625,7 @@ var AddDependentModal = () => {
 };
 
 // src/components/LayoutMappingModal/SwapImageVariableModal.tsx
-var import_react239 = __toESM(require_react(), 1);
+var import_react241 = __toESM(require_react(), 1);
 var jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var SwapImageVariableModal = ({
   currentMapConfig,
@@ -48435,7 +48638,7 @@ var SwapImageVariableModal = ({
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const currentSwapImageVariableSelected = appStore((state) => state.state.modal.currentSwapImageVariableSelected);
   const isSwapImageVariableModalOpen = appStore((state) => state.state.modal.isSwapImageVariableModalOpen);
-  const possibleVariableValues = import_react239.useMemo(() => {
+  const possibleVariableValues = import_react241.useMemo(() => {
     const allImageVariables = variables.filter((variable) => variable.type === "image").map((variable) => ({
       value: variable.id,
       label: variable.name,
@@ -48496,10 +48699,10 @@ var SwapImageVariableModal = ({
 };
 
 // src/components/LayoutMappingModal/LayoutConfigSelection.tsx
-var import_react247 = __toESM(require_react(), 1);
+var import_react249 = __toESM(require_react(), 1);
 
 // src/components/LayoutMappingModal/LayoutMultiSelect.tsx
-var import_react240 = __toESM(require_react(), 1);
+var import_react242 = __toESM(require_react(), 1);
 var jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
 var buildTreeData = (documentLayouts, selectedLayoutIds, disabledLayoutIds) => {
   const layoutsByParent = {};
@@ -48528,8 +48731,8 @@ var LayoutMultiSelect = ({
   const documentLayouts = appStore((store) => store.state.studio.document.layouts);
   const layoutImageMapping = appStore((store) => store.state.studio.layoutImageMapping);
   const setLayoutIds = appStore((store) => store.effects.studio.layoutImageMapping.setLayoutIds);
-  const [drawerOpened, setDrawerOpened] = import_react240.useState(false);
-  const [selectedLayouts, setSelectedLayouts] = import_react240.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
+  const [drawerOpened, setDrawerOpened] = import_react242.useState(false);
+  const [selectedLayouts, setSelectedLayouts] = import_react242.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
   const assignedToOtherMaps = layoutImageMapping.filter((map) => map.id !== layoutConfig.id).flatMap((map) => map.layoutIds);
   const handleMultiSelectChange = (updateLayoutIds) => {
     setLayoutIds({
@@ -48688,20 +48891,20 @@ var LayoutMultiSelect = ({
 };
 
 // src/components/LayoutMappingModal/VariableCard.tsx
-var import_react246 = __toESM(require_react(), 1);
+var import_react248 = __toESM(require_react(), 1);
 init_dist();
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var import_react243 = __toESM(require_react(), 1);
+var import_react245 = __toESM(require_react(), 1);
 var import_react_dom5 = __toESM(require_react_dom(), 1);
 
 // node_modules/@dnd-kit/utilities/dist/utilities.esm.js
-var import_react241 = __toESM(require_react(), 1);
+var import_react243 = __toESM(require_react(), 1);
 function useCombinedRefs() {
   for (var _len = arguments.length, refs = new Array(_len), _key = 0;_key < _len; _key++) {
     refs[_key] = arguments[_key];
   }
-  return import_react241.useMemo(() => (node2) => {
+  return import_react243.useMemo(() => (node2) => {
     refs.forEach((ref) => ref(node2));
   }, refs);
 }
@@ -48759,13 +48962,13 @@ function getOwnerDocument(target) {
   }
   return document;
 }
-var useIsomorphicLayoutEffect2 = canUseDOM2 ? import_react241.useLayoutEffect : import_react241.useEffect;
+var useIsomorphicLayoutEffect2 = canUseDOM2 ? import_react243.useLayoutEffect : import_react243.useEffect;
 function useEvent(handler) {
-  const handlerRef = import_react241.useRef(handler);
+  const handlerRef = import_react243.useRef(handler);
   useIsomorphicLayoutEffect2(() => {
     handlerRef.current = handler;
   });
-  return import_react241.useCallback(function() {
+  return import_react243.useCallback(function() {
     for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
       args[_key] = arguments[_key];
     }
@@ -48773,11 +48976,11 @@ function useEvent(handler) {
   }, []);
 }
 function useInterval() {
-  const intervalRef = import_react241.useRef(null);
-  const set2 = import_react241.useCallback((listener, duration) => {
+  const intervalRef = import_react243.useRef(null);
+  const set2 = import_react243.useCallback((listener, duration) => {
     intervalRef.current = setInterval(listener, duration);
   }, []);
-  const clear = import_react241.useCallback(() => {
+  const clear = import_react243.useCallback(() => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -48789,7 +48992,7 @@ function useLatestValue(value, dependencies) {
   if (dependencies === undefined) {
     dependencies = [value];
   }
-  const valueRef = import_react241.useRef(value);
+  const valueRef = import_react243.useRef(value);
   useIsomorphicLayoutEffect2(() => {
     if (valueRef.current !== value) {
       valueRef.current = value;
@@ -48798,8 +49001,8 @@ function useLatestValue(value, dependencies) {
   return valueRef;
 }
 function useLazyMemo(callback, dependencies) {
-  const valueRef = import_react241.useRef();
-  return import_react241.useMemo(() => {
+  const valueRef = import_react243.useRef();
+  return import_react243.useMemo(() => {
     const newValue = callback(valueRef.current);
     valueRef.current = newValue;
     return newValue;
@@ -48807,8 +49010,8 @@ function useLazyMemo(callback, dependencies) {
 }
 function useNodeRef(onChange) {
   const onChangeHandler = useEvent(onChange);
-  const node2 = import_react241.useRef(null);
-  const setNodeRef = import_react241.useCallback((element) => {
+  const node2 = import_react243.useRef(null);
+  const setNodeRef = import_react243.useCallback((element) => {
     if (element !== node2.current) {
       onChangeHandler == null || onChangeHandler(element, node2.current);
     }
@@ -48817,15 +49020,15 @@ function useNodeRef(onChange) {
   return [node2, setNodeRef];
 }
 function usePrevious2(value) {
-  const ref = import_react241.useRef();
-  import_react241.useEffect(() => {
+  const ref = import_react243.useRef();
+  import_react243.useEffect(() => {
     ref.current = value;
   }, [value]);
   return ref.current;
 }
 var ids = {};
 function useUniqueId(prefix3, value) {
-  return import_react241.useMemo(() => {
+  return import_react243.useMemo(() => {
     if (value) {
       return value;
     }
@@ -48959,7 +49162,7 @@ function findFirstFocusableNode(element) {
 }
 
 // node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js
-var import_react242 = __toESM(require_react(), 1);
+var import_react244 = __toESM(require_react(), 1);
 var hiddenStyles = {
   display: "none"
 };
@@ -48968,7 +49171,7 @@ function HiddenText(_ref) {
     id,
     value
   } = _ref;
-  return import_react242.default.createElement("div", {
+  return import_react244.default.createElement("div", {
     id,
     style: hiddenStyles
   }, value);
@@ -48993,7 +49196,7 @@ function LiveRegion(_ref) {
     clipPath: "inset(100%)",
     whiteSpace: "nowrap"
   };
-  return import_react242.default.createElement("div", {
+  return import_react244.default.createElement("div", {
     id,
     style: visuallyHidden,
     role: "status",
@@ -49002,8 +49205,8 @@ function LiveRegion(_ref) {
   }, announcement);
 }
 function useAnnouncement() {
-  const [announcement, setAnnouncement] = import_react242.useState("");
-  const announce = import_react242.useCallback((value) => {
+  const [announcement, setAnnouncement] = import_react244.useState("");
+  const announce = import_react244.useCallback((value) => {
     if (value != null) {
       setAnnouncement(value);
     }
@@ -49015,10 +49218,10 @@ function useAnnouncement() {
 }
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var DndMonitorContext = /* @__PURE__ */ import_react243.createContext(null);
+var DndMonitorContext = /* @__PURE__ */ import_react245.createContext(null);
 function useDndMonitor(listener) {
-  const registerListener = import_react243.useContext(DndMonitorContext);
-  import_react243.useEffect(() => {
+  const registerListener = import_react245.useContext(DndMonitorContext);
+  import_react245.useEffect(() => {
     if (!registerListener) {
       throw new Error("useDndMonitor must be used within a children of <DndContext>");
     }
@@ -49027,12 +49230,12 @@ function useDndMonitor(listener) {
   }, [listener, registerListener]);
 }
 function useDndMonitorProvider() {
-  const [listeners] = import_react243.useState(() => new Set);
-  const registerListener = import_react243.useCallback((listener) => {
+  const [listeners] = import_react245.useState(() => new Set);
+  const registerListener = import_react245.useCallback((listener) => {
     listeners.add(listener);
     return () => listeners.delete(listener);
   }, [listeners]);
-  const dispatch = import_react243.useCallback((_ref) => {
+  const dispatch = import_react245.useCallback((_ref) => {
     let {
       type,
       event
@@ -49097,11 +49300,11 @@ function Accessibility(_ref) {
     announcement
   } = useAnnouncement();
   const liveRegionId = useUniqueId("DndLiveRegion");
-  const [mounted, setMounted] = import_react243.useState(false);
-  import_react243.useEffect(() => {
+  const [mounted, setMounted] = import_react245.useState(false);
+  import_react245.useEffect(() => {
     setMounted(true);
   }, []);
-  useDndMonitor(import_react243.useMemo(() => ({
+  useDndMonitor(import_react245.useMemo(() => ({
     onDragStart(_ref2) {
       let {
         active
@@ -49156,10 +49359,10 @@ function Accessibility(_ref) {
   if (!mounted) {
     return null;
   }
-  const markup = import_react243.default.createElement(import_react243.default.Fragment, null, import_react243.default.createElement(HiddenText, {
+  const markup = import_react245.default.createElement(import_react245.default.Fragment, null, import_react245.default.createElement(HiddenText, {
     id: hiddenTextDescribedById,
     value: screenReaderInstructions.draggable
-  }), import_react243.default.createElement(LiveRegion, {
+  }), import_react245.default.createElement(LiveRegion, {
     id: liveRegionId,
     announcement
   }));
@@ -49179,7 +49382,7 @@ var Action;
 function noop6() {
 }
 function useSensor(sensor, options) {
-  return import_react243.useMemo(() => ({
+  return import_react245.useMemo(() => ({
     sensor,
     options: options != null ? options : {}
   }), [sensor, options]);
@@ -49188,7 +49391,7 @@ function useSensors() {
   for (var _len = arguments.length, sensors = new Array(_len), _key = 0;_key < _len; _key++) {
     sensors[_key] = arguments[_key];
   }
-  return import_react243.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
+  return import_react245.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
 }
 var defaultCoordinates = /* @__PURE__ */ Object.freeze({
   x: 0,
@@ -50433,15 +50636,15 @@ function useAutoScroller(_ref) {
     disabled: !enabled
   });
   const [setAutoScrollInterval, clearAutoScrollInterval] = useInterval();
-  const scrollSpeed = import_react243.useRef({
+  const scrollSpeed = import_react245.useRef({
     x: 0,
     y: 0
   });
-  const scrollDirection = import_react243.useRef({
+  const scrollDirection = import_react245.useRef({
     x: 0,
     y: 0
   });
-  const rect = import_react243.useMemo(() => {
+  const rect = import_react245.useMemo(() => {
     switch (activator) {
       case AutoScrollActivator.Pointer:
         return pointerCoordinates ? {
@@ -50454,8 +50657,8 @@ function useAutoScroller(_ref) {
         return draggingRect;
     }
   }, [activator, draggingRect, pointerCoordinates]);
-  const scrollContainerRef = import_react243.useRef(null);
-  const autoScroll = import_react243.useCallback(() => {
+  const scrollContainerRef = import_react245.useRef(null);
+  const autoScroll = import_react245.useCallback(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) {
       return;
@@ -50464,8 +50667,8 @@ function useAutoScroller(_ref) {
     const scrollTop = scrollSpeed.current.y * scrollDirection.current.y;
     scrollContainer.scrollBy(scrollLeft, scrollTop);
   }, []);
-  const sortedScrollableAncestors = import_react243.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
-  import_react243.useEffect(() => {
+  const sortedScrollableAncestors = import_react245.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
+  import_react245.useEffect(() => {
     if (!enabled || !scrollableAncestors.length || !rect) {
       clearAutoScrollInterval();
       return;
@@ -50571,7 +50774,7 @@ function useCachedNode(draggableNodes, id) {
   }, [node2, id]);
 }
 function useCombineActivators(sensors, getSyntheticHandler) {
-  return import_react243.useMemo(() => sensors.reduce((accumulator, sensor) => {
+  return import_react245.useMemo(() => sensors.reduce((accumulator, sensor) => {
     const {
       sensor: Sensor
     } = sensor;
@@ -50599,16 +50802,16 @@ function useDroppableMeasuring(containers, _ref) {
     dependencies,
     config
   } = _ref;
-  const [queue, setQueue] = import_react243.useState(null);
+  const [queue, setQueue] = import_react245.useState(null);
   const {
     frequency,
     measure,
     strategy
   } = config;
-  const containersRef = import_react243.useRef(containers);
+  const containersRef = import_react245.useRef(containers);
   const disabled = isDisabled();
   const disabledRef = useLatestValue(disabled);
-  const measureDroppableContainers = import_react243.useCallback(function(ids2) {
+  const measureDroppableContainers = import_react245.useCallback(function(ids2) {
     if (ids2 === undefined) {
       ids2 = [];
     }
@@ -50622,7 +50825,7 @@ function useDroppableMeasuring(containers, _ref) {
       return value.concat(ids2.filter((id) => !value.includes(id)));
     });
   }, [disabledRef]);
-  const timeoutId = import_react243.useRef(null);
+  const timeoutId = import_react245.useRef(null);
   const droppableRects = useLazyMemo((previousValue) => {
     if (disabled && !dragging) {
       return defaultValue;
@@ -50648,21 +50851,21 @@ function useDroppableMeasuring(containers, _ref) {
     }
     return previousValue;
   }, [containers, queue, dragging, disabled, measure]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     containersRef.current = containers;
   }, [containers]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     if (disabled) {
       return;
     }
     measureDroppableContainers();
   }, [dragging, disabled]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     if (queue && queue.length > 0) {
       setQueue(null);
     }
   }, [JSON.stringify(queue)]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     if (disabled || typeof frequency !== "number" || timeoutId.current !== null) {
       return;
     }
@@ -50707,7 +50910,7 @@ function useMutationObserver(_ref) {
     disabled
   } = _ref;
   const handleMutations = useEvent(callback);
-  const mutationObserver = import_react243.useMemo(() => {
+  const mutationObserver = import_react245.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.MutationObserver === "undefined") {
       return;
     }
@@ -50716,7 +50919,7 @@ function useMutationObserver(_ref) {
     } = window;
     return new MutationObserver2(handleMutations);
   }, [handleMutations, disabled]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     return () => mutationObserver == null ? undefined : mutationObserver.disconnect();
   }, [mutationObserver]);
   return mutationObserver;
@@ -50727,7 +50930,7 @@ function useResizeObserver2(_ref) {
     disabled
   } = _ref;
   const handleResize = useEvent(callback);
-  const resizeObserver = import_react243.useMemo(() => {
+  const resizeObserver = import_react245.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.ResizeObserver === "undefined") {
       return;
     }
@@ -50736,7 +50939,7 @@ function useResizeObserver2(_ref) {
     } = window;
     return new ResizeObserver2(handleResize);
   }, [disabled]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     return () => resizeObserver == null ? undefined : resizeObserver.disconnect();
   }, [resizeObserver]);
   return resizeObserver;
@@ -50748,7 +50951,7 @@ function useRect(element, measure, fallbackRect) {
   if (measure === undefined) {
     measure = defaultMeasure;
   }
-  const [rect, setRect] = import_react243.useState(null);
+  const [rect, setRect] = import_react245.useState(null);
   function measureRect() {
     setRect((currentRect) => {
       if (!element) {
@@ -50806,7 +51009,7 @@ function useRectDelta(rect) {
 }
 var defaultValue$1 = [];
 function useScrollableAncestors(node2) {
-  const previousNode = import_react243.useRef(node2);
+  const previousNode = import_react245.useRef(node2);
   const ancestors = useLazyMemo((previousValue) => {
     if (!node2) {
       return defaultValue$1;
@@ -50816,15 +51019,15 @@ function useScrollableAncestors(node2) {
     }
     return getScrollableAncestors(node2);
   }, [node2]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     previousNode.current = node2;
   }, [node2]);
   return ancestors;
 }
 function useScrollOffsets(elements) {
-  const [scrollCoordinates, setScrollCoordinates] = import_react243.useState(null);
-  const prevElements = import_react243.useRef(elements);
-  const handleScroll2 = import_react243.useCallback((event) => {
+  const [scrollCoordinates, setScrollCoordinates] = import_react245.useState(null);
+  const prevElements = import_react245.useRef(elements);
+  const handleScroll2 = import_react245.useCallback((event) => {
     const scrollingElement = getScrollableElement(event.target);
     if (!scrollingElement) {
       return;
@@ -50837,7 +51040,7 @@ function useScrollOffsets(elements) {
       return new Map(scrollCoordinates2);
     });
   }, []);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     const previousElements = prevElements.current;
     if (elements !== previousElements) {
       cleanup(previousElements);
@@ -50865,7 +51068,7 @@ function useScrollOffsets(elements) {
       });
     }
   }, [handleScroll2, elements]);
-  return import_react243.useMemo(() => {
+  return import_react245.useMemo(() => {
     if (elements.length) {
       return scrollCoordinates ? Array.from(scrollCoordinates.values()).reduce((acc, coordinates) => add(acc, coordinates), defaultCoordinates) : getScrollOffsets(elements);
     }
@@ -50876,11 +51079,11 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   if (dependencies === undefined) {
     dependencies = [];
   }
-  const initialScrollOffsets = import_react243.useRef(null);
-  import_react243.useEffect(() => {
+  const initialScrollOffsets = import_react245.useRef(null);
+  import_react245.useEffect(() => {
     initialScrollOffsets.current = null;
   }, dependencies);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     const hasScrollOffsets = scrollOffsets !== defaultCoordinates;
     if (hasScrollOffsets && !initialScrollOffsets.current) {
       initialScrollOffsets.current = scrollOffsets;
@@ -50892,7 +51095,7 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   return initialScrollOffsets.current ? subtract(scrollOffsets, initialScrollOffsets.current) : defaultCoordinates;
 }
 function useSensorSetup(sensors) {
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     if (!canUseDOM2) {
       return;
     }
@@ -50915,7 +51118,7 @@ function useSensorSetup(sensors) {
   }));
 }
 function useSyntheticListeners(listeners, id) {
-  return import_react243.useMemo(() => {
+  return import_react245.useMemo(() => {
     return listeners.reduce((acc, _ref) => {
       let {
         eventName,
@@ -50929,7 +51132,7 @@ function useSyntheticListeners(listeners, id) {
   }, [listeners, id]);
 }
 function useWindowRect(element) {
-  return import_react243.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
+  return import_react245.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
 }
 var defaultValue$2 = [];
 function useRects(elements, measure) {
@@ -50938,7 +51141,7 @@ function useRects(elements, measure) {
   }
   const [firstElement] = elements;
   const windowRect = useWindowRect(firstElement ? getWindow2(firstElement) : null);
-  const [rects, setRects] = import_react243.useState(defaultValue$2);
+  const [rects, setRects] = import_react245.useState(defaultValue$2);
   function measureRects() {
     setRects(() => {
       if (!elements.length) {
@@ -50971,8 +51174,8 @@ function useDragOverlayMeasuring(_ref) {
   let {
     measure
   } = _ref;
-  const [rect, setRect] = import_react243.useState(null);
-  const handleResize = import_react243.useCallback((entries) => {
+  const [rect, setRect] = import_react245.useState(null);
+  const handleResize = import_react245.useCallback((entries) => {
     for (const {
       target
     } of entries) {
@@ -50992,7 +51195,7 @@ function useDragOverlayMeasuring(_ref) {
   const resizeObserver = useResizeObserver2({
     callback: handleResize
   });
-  const handleNodeChange = import_react243.useCallback((element) => {
+  const handleNodeChange = import_react245.useCallback((element) => {
     const node2 = getMeasurableNode(element);
     resizeObserver == null || resizeObserver.disconnect();
     if (node2) {
@@ -51001,7 +51204,7 @@ function useDragOverlayMeasuring(_ref) {
     setRect(node2 ? measure(node2) : null);
   }, [measure, resizeObserver]);
   const [nodeRef, setRef] = useNodeRef(handleNodeChange);
-  return import_react243.useMemo(() => ({
+  return import_react245.useMemo(() => ({
     nodeRef,
     rect,
     setRef
@@ -51090,8 +51293,8 @@ var defaultInternalContext = {
   over: null,
   measureDroppableContainers: noop6
 };
-var InternalContext = /* @__PURE__ */ import_react243.createContext(defaultInternalContext);
-var PublicContext = /* @__PURE__ */ import_react243.createContext(defaultPublicContext);
+var InternalContext = /* @__PURE__ */ import_react245.createContext(defaultInternalContext);
+var PublicContext = /* @__PURE__ */ import_react245.createContext(defaultPublicContext);
 function getInitialState() {
   return {
     draggable: {
@@ -51225,10 +51428,10 @@ function RestoreFocus(_ref) {
     active,
     activatorEvent,
     draggableNodes
-  } = import_react243.useContext(InternalContext);
+  } = import_react245.useContext(InternalContext);
   const previousActivatorEvent = usePrevious2(activatorEvent);
   const previousActiveId = usePrevious2(active == null ? undefined : active.id);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     if (disabled) {
       return;
     }
@@ -51279,7 +51482,7 @@ function applyModifiers(modifiers, _ref) {
   }, transform) : transform;
 }
 function useMeasuringConfiguration(config) {
-  return import_react243.useMemo(() => ({
+  return import_react245.useMemo(() => ({
     draggable: {
       ...defaultMeasuringConfiguration.draggable,
       ...config == null ? undefined : config.draggable
@@ -51301,7 +51504,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     initialRect,
     config = true
   } = _ref;
-  const initialized = import_react243.useRef(false);
+  const initialized = import_react245.useRef(false);
   const {
     x: x2,
     y: y2
@@ -51342,7 +51545,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     }
   }, [activeNode, x2, y2, initialRect, measure]);
 }
-var ActiveDraggableContext = /* @__PURE__ */ import_react243.createContext({
+var ActiveDraggableContext = /* @__PURE__ */ import_react245.createContext({
   ...defaultCoordinates,
   scaleX: 1,
   scaleY: 1
@@ -51353,7 +51556,7 @@ var Status;
   Status2[Status2["Initializing"] = 1] = "Initializing";
   Status2[Status2["Initialized"] = 2] = "Initialized";
 })(Status || (Status = {}));
-var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref) {
+var DndContext = /* @__PURE__ */ import_react245.memo(function DndContext2(_ref) {
   var _sensorContext$curren, _dragOverlay$nodeRef$, _dragOverlay$rect, _over$rect;
   let {
     id,
@@ -51366,10 +51569,10 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
     modifiers,
     ...props
   } = _ref;
-  const store = import_react243.useReducer(reducer, undefined, getInitialState);
+  const store = import_react245.useReducer(reducer, undefined, getInitialState);
   const [state, dispatch] = store;
   const [dispatchMonitorEvent, registerMonitorListener] = useDndMonitorProvider();
-  const [status, setStatus] = import_react243.useState(Status.Uninitialized);
+  const [status, setStatus] = import_react245.useState(Status.Uninitialized);
   const isInitialized = status === Status.Initialized;
   const {
     draggable: {
@@ -51382,11 +51585,11 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
     }
   } = state;
   const node2 = activeId != null ? draggableNodes.get(activeId) : null;
-  const activeRects = import_react243.useRef({
+  const activeRects = import_react245.useRef({
     initial: null,
     translated: null
   });
-  const active = import_react243.useMemo(() => {
+  const active = import_react245.useMemo(() => {
     var _node$data;
     return activeId != null ? {
       id: activeId,
@@ -51394,12 +51597,12 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
       rect: activeRects
     } : null;
   }, [activeId, node2]);
-  const activeRef = import_react243.useRef(null);
-  const [activeSensor, setActiveSensor] = import_react243.useState(null);
-  const [activatorEvent, setActivatorEvent] = import_react243.useState(null);
+  const activeRef = import_react245.useRef(null);
+  const [activeSensor, setActiveSensor] = import_react245.useState(null);
+  const [activatorEvent, setActivatorEvent] = import_react245.useState(null);
   const latestProps = useLatestValue(props, Object.values(props));
   const draggableDescribedById = useUniqueId("DndDescribedBy", id);
-  const enabledDroppableContainers = import_react243.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
+  const enabledDroppableContainers = import_react245.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
   const measuringConfiguration = useMeasuringConfiguration(measuring);
   const {
     droppableRects,
@@ -51411,7 +51614,7 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
     config: measuringConfiguration.droppable
   });
   const activeNode = useCachedNode(draggableNodes, activeId);
-  const activationCoordinates = import_react243.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
+  const activationCoordinates = import_react245.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
   const autoScrollOptions = getAutoScrollerOptions();
   const initialActiveNodeRect = useInitialRect(activeNode, measuringConfiguration.draggable.measure);
   useLayoutShiftScrollCompensation({
@@ -51422,7 +51625,7 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
   });
   const activeNodeRect = useRect(activeNode, measuringConfiguration.draggable.measure, initialActiveNodeRect);
   const containerNodeRect = useRect(activeNode ? activeNode.parentElement : null);
-  const sensorContext = import_react243.useRef({
+  const sensorContext = import_react245.useRef({
     activatorEvent: null,
     active: null,
     activeNode,
@@ -51480,11 +51683,11 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
     pointerCoordinates
   }) : null;
   const overId = getFirstCollision(collisions, "id");
-  const [over, setOver] = import_react243.useState(null);
+  const [over, setOver] = import_react245.useState(null);
   const appliedTranslate = usesDragOverlay ? modifiedTranslate : add(modifiedTranslate, activeNodeScrollDelta);
   const transform = adjustScale(appliedTranslate, (_over$rect = over == null ? undefined : over.rect) != null ? _over$rect : null, activeNodeRect);
-  const activeSensorRef = import_react243.useRef(null);
-  const instantiateSensor = import_react243.useCallback((event, _ref2) => {
+  const activeSensorRef = import_react245.useRef(null);
+  const instantiateSensor = import_react245.useCallback((event, _ref2) => {
     let {
       sensor: Sensor,
       options
@@ -51636,7 +51839,7 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
       };
     }
   }, [draggableNodes]);
-  const bindActivatorToSensorInstantiator = import_react243.useCallback((handler, sensor) => {
+  const bindActivatorToSensorInstantiator = import_react245.useCallback((handler, sensor) => {
     return (event, active2) => {
       const nativeEvent = event.nativeEvent;
       const activeDraggableNode = draggableNodes.get(active2);
@@ -51663,7 +51866,7 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
       setStatus(Status.Initialized);
     }
   }, [activeNodeRect, status]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     const {
       onDragMove
     } = latestProps.current;
@@ -51694,7 +51897,7 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
       });
     });
   }, [scrollAdjustedTranslate.x, scrollAdjustedTranslate.y]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     const {
       active: active2,
       activatorEvent: activatorEvent2,
@@ -51763,7 +51966,7 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
     scrollableAncestors,
     scrollableAncestorRects
   });
-  const publicContext = import_react243.useMemo(() => {
+  const publicContext = import_react245.useMemo(() => {
     const context = {
       active,
       activeNode,
@@ -51785,7 +51988,7 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
     };
     return context;
   }, [active, activeNode, activeNodeRect, activatorEvent, collisions, containerNodeRect, dragOverlay, draggableNodes, droppableContainers, droppableRects, over, measureDroppableContainers, scrollableAncestors, scrollableAncestorRects, measuringConfiguration, measuringScheduled, windowRect]);
-  const internalContext = import_react243.useMemo(() => {
+  const internalContext = import_react245.useMemo(() => {
     const context = {
       activatorEvent,
       activators,
@@ -51801,17 +52004,17 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
     };
     return context;
   }, [activatorEvent, activators, active, activeNodeRect, dispatch, draggableDescribedById, draggableNodes, over, measureDroppableContainers]);
-  return import_react243.default.createElement(DndMonitorContext.Provider, {
+  return import_react245.default.createElement(DndMonitorContext.Provider, {
     value: registerMonitorListener
-  }, import_react243.default.createElement(InternalContext.Provider, {
+  }, import_react245.default.createElement(InternalContext.Provider, {
     value: internalContext
-  }, import_react243.default.createElement(PublicContext.Provider, {
+  }, import_react245.default.createElement(PublicContext.Provider, {
     value: publicContext
-  }, import_react243.default.createElement(ActiveDraggableContext.Provider, {
+  }, import_react245.default.createElement(ActiveDraggableContext.Provider, {
     value: transform
-  }, children)), import_react243.default.createElement(RestoreFocus, {
+  }, children)), import_react245.default.createElement(RestoreFocus, {
     disabled: (accessibility == null ? undefined : accessibility.restoreFocus) === false
-  })), import_react243.default.createElement(Accessibility, {
+  })), import_react245.default.createElement(Accessibility, {
     ...accessibility,
     hiddenTextDescribedById: draggableDescribedById
   }));
@@ -51830,7 +52033,7 @@ var DndContext = /* @__PURE__ */ import_react243.memo(function DndContext2(_ref)
     };
   }
 });
-var NullContext = /* @__PURE__ */ import_react243.createContext(null);
+var NullContext = /* @__PURE__ */ import_react245.createContext(null);
 var defaultRole = "button";
 var ID_PREFIX = "Draggable";
 function useDraggable(_ref) {
@@ -51849,14 +52052,14 @@ function useDraggable(_ref) {
     ariaDescribedById,
     draggableNodes,
     over
-  } = import_react243.useContext(InternalContext);
+  } = import_react245.useContext(InternalContext);
   const {
     role = defaultRole,
     roleDescription = "draggable",
     tabIndex = 0
   } = attributes != null ? attributes : {};
   const isDragging = (active == null ? undefined : active.id) === id;
-  const transform = import_react243.useContext(isDragging ? ActiveDraggableContext : NullContext);
+  const transform = import_react245.useContext(isDragging ? ActiveDraggableContext : NullContext);
   const [node2, setNodeRef] = useNodeRef();
   const [activatorNode, setActivatorNodeRef] = useNodeRef();
   const listeners = useSyntheticListeners(activators, id);
@@ -51876,7 +52079,7 @@ function useDraggable(_ref) {
       }
     };
   }, [draggableNodes, id]);
-  const memoizedAttributes = import_react243.useMemo(() => ({
+  const memoizedAttributes = import_react245.useMemo(() => ({
     role,
     tabIndex,
     "aria-disabled": disabled,
@@ -51899,7 +52102,7 @@ function useDraggable(_ref) {
   };
 }
 function useDndContext() {
-  return import_react243.useContext(PublicContext);
+  return import_react245.useContext(PublicContext);
 }
 var ID_PREFIX$1 = "Droppable";
 var defaultResizeObserverConfig = {
@@ -51918,13 +52121,13 @@ function useDroppable(_ref) {
     dispatch,
     over,
     measureDroppableContainers
-  } = import_react243.useContext(InternalContext);
-  const previous = import_react243.useRef({
+  } = import_react245.useContext(InternalContext);
+  const previous = import_react245.useRef({
     disabled
   });
-  const resizeObserverConnected = import_react243.useRef(false);
-  const rect = import_react243.useRef(null);
-  const callbackId = import_react243.useRef(null);
+  const resizeObserverConnected = import_react245.useRef(false);
+  const rect = import_react245.useRef(null);
+  const callbackId = import_react245.useRef(null);
   const {
     disabled: resizeObserverDisabled,
     updateMeasurementsFor,
@@ -51934,7 +52137,7 @@ function useDroppable(_ref) {
     ...resizeObserverConfig
   };
   const ids2 = useLatestValue(updateMeasurementsFor != null ? updateMeasurementsFor : id);
-  const handleResize = import_react243.useCallback(() => {
+  const handleResize = import_react245.useCallback(() => {
     if (!resizeObserverConnected.current) {
       resizeObserverConnected.current = true;
       return;
@@ -51951,7 +52154,7 @@ function useDroppable(_ref) {
     callback: handleResize,
     disabled: resizeObserverDisabled || !active
   });
-  const handleNodeChange = import_react243.useCallback((newElement, previousElement) => {
+  const handleNodeChange = import_react245.useCallback((newElement, previousElement) => {
     if (!resizeObserver) {
       return;
     }
@@ -51965,7 +52168,7 @@ function useDroppable(_ref) {
   }, [resizeObserver]);
   const [nodeRef, setNodeRef] = useNodeRef(handleNodeChange);
   const dataRef = useLatestValue(data);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     if (!resizeObserver || !nodeRef.current) {
       return;
     }
@@ -51973,7 +52176,7 @@ function useDroppable(_ref) {
     resizeObserverConnected.current = false;
     resizeObserver.observe(nodeRef.current);
   }, [nodeRef, resizeObserver]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     dispatch({
       type: Action.RegisterDroppable,
       element: {
@@ -51991,7 +52194,7 @@ function useDroppable(_ref) {
       id
     });
   }, [id]);
-  import_react243.useEffect(() => {
+  import_react245.useEffect(() => {
     if (disabled !== previous.current.disabled) {
       dispatch({
         type: Action.SetDroppableDisabled,
@@ -52013,7 +52216,7 @@ function useDroppable(_ref) {
 }
 
 // node_modules/@dnd-kit/sortable/dist/sortable.esm.js
-var import_react244 = __toESM(require_react(), 1);
+var import_react246 = __toESM(require_react(), 1);
 function arrayMove(array, from2, to) {
   const newArray = array.slice();
   newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from2, 1)[0]);
@@ -52136,7 +52339,7 @@ var rectSortingStrategy = (_ref) => {
   };
 };
 var ID_PREFIX2 = "Sortable";
-var Context = /* @__PURE__ */ import_react244.default.createContext({
+var Context = /* @__PURE__ */ import_react246.default.createContext({
   activeIndex: -1,
   containerId: ID_PREFIX2,
   disableTransforms: false,
@@ -52167,11 +52370,11 @@ function SortableContext(_ref) {
   } = useDndContext();
   const containerId = useUniqueId(ID_PREFIX2, id);
   const useDragOverlay = Boolean(dragOverlay.rect !== null);
-  const items = import_react244.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
+  const items = import_react246.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
   const isDragging = active != null;
   const activeIndex = active ? items.indexOf(active.id) : -1;
   const overIndex = over ? items.indexOf(over.id) : -1;
-  const previousItemsRef = import_react244.useRef(items);
+  const previousItemsRef = import_react246.useRef(items);
   const itemsHaveChanged = !itemsEqual(items, previousItemsRef.current);
   const disableTransforms = overIndex !== -1 && activeIndex === -1 || itemsHaveChanged;
   const disabled = normalizeDisabled(disabledProp);
@@ -52180,10 +52383,10 @@ function SortableContext(_ref) {
       measureDroppableContainers(items);
     }
   }, [itemsHaveChanged, items, isDragging, measureDroppableContainers]);
-  import_react244.useEffect(() => {
+  import_react246.useEffect(() => {
     previousItemsRef.current = items;
   }, [items]);
-  const contextValue = import_react244.useMemo(() => ({
+  const contextValue = import_react246.useMemo(() => ({
     activeIndex,
     containerId,
     disabled,
@@ -52194,7 +52397,7 @@ function SortableContext(_ref) {
     sortedRects: getSortedRects(items, droppableRects),
     strategy
   }), [activeIndex, containerId, disabled.draggable, disabled.droppable, disableTransforms, items, overIndex, droppableRects, useDragOverlay, strategy]);
-  return import_react244.default.createElement(Context.Provider, {
+  return import_react246.default.createElement(Context.Provider, {
     value: contextValue
   }, children);
 }
@@ -52250,8 +52453,8 @@ function useDerivedTransform(_ref) {
     node: node2,
     rect
   } = _ref;
-  const [derivedTransform, setDerivedtransform] = import_react244.useState(null);
-  const previousIndex = import_react244.useRef(index4);
+  const [derivedTransform, setDerivedtransform] = import_react246.useState(null);
+  const previousIndex = import_react246.useRef(index4);
   useIsomorphicLayoutEffect2(() => {
     if (!disabled && index4 !== previousIndex.current && node2.current) {
       const initial = rect.current;
@@ -52274,7 +52477,7 @@ function useDerivedTransform(_ref) {
       previousIndex.current = index4;
     }
   }, [disabled, index4, node2, rect]);
-  import_react244.useEffect(() => {
+  import_react246.useEffect(() => {
     if (derivedTransform) {
       setDerivedtransform(null);
     }
@@ -52303,10 +52506,10 @@ function useSortable(_ref) {
     overIndex,
     useDragOverlay,
     strategy: globalStrategy
-  } = import_react244.useContext(Context);
+  } = import_react246.useContext(Context);
   const disabled = normalizeLocalDisabled(localDisabled, globalDisabled);
   const index4 = items.indexOf(id);
-  const data = import_react244.useMemo(() => ({
+  const data = import_react246.useMemo(() => ({
     sortable: {
       containerId,
       index: index4,
@@ -52314,7 +52517,7 @@ function useSortable(_ref) {
     },
     ...customData
   }), [containerId, customData, index4, items]);
-  const itemsAfterCurrentSortable = import_react244.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
+  const itemsAfterCurrentSortable = import_react246.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
   const {
     rect,
     node: node2,
@@ -52369,7 +52572,7 @@ function useSortable(_ref) {
     overIndex
   }) : index4;
   const activeId = active == null ? undefined : active.id;
-  const previous = import_react244.useRef({
+  const previous = import_react246.useRef({
     activeId,
     items,
     newIndex,
@@ -52396,7 +52599,7 @@ function useSortable(_ref) {
     node: node2,
     rect
   });
-  import_react244.useEffect(() => {
+  import_react246.useEffect(() => {
     if (isSorting && previous.current.newIndex !== newIndex) {
       previous.current.newIndex = newIndex;
     }
@@ -52407,7 +52610,7 @@ function useSortable(_ref) {
       previous.current.items = items;
     }
   }, [isSorting, newIndex, containerId, items]);
-  import_react244.useEffect(() => {
+  import_react246.useEffect(() => {
     if (activeId === previous.current.activeId) {
       return;
     }
@@ -52587,7 +52790,7 @@ function isAfter(a2, b) {
 }
 
 // src/components/LayoutMappingModal/DependentGroupSortableCard.tsx
-var import_react245 = __toESM(require_react(), 1);
+var import_react247 = __toESM(require_react(), 1);
 var jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
 var TransformCommandCard = ({
   transform,
@@ -52660,8 +52863,8 @@ var DependentGroupValueSortableCard = ({
   const raiseError2 = appStore((state) => state.raiseError);
   const updateVarValueFromDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup);
   const variables = appStore((state) => state.state.studio.document.variables);
-  const [transformModalOpen, setTransformModalOpen] = import_react245.useState(false);
-  const [transforms, setTransforms] = import_react245.useState([]);
+  const [transformModalOpen, setTransformModalOpen] = import_react247.useState(false);
+  const [transforms, setTransforms] = import_react247.useState([]);
   const {
     attributes,
     listeners,
@@ -53266,7 +53469,7 @@ var VariableCard = ({
   const setIsSwapImageVariableModalOpen = appStore((store) => store.effects.modal.setIsSwapImageVariableModalOpen);
   const setCurrentSwapImageVariableId = appStore((store) => store.effects.modal.setCurrentSwapImageVariableId);
   const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
-  const [isOpen, setIsOpen] = import_react246.useState(false);
+  const [isOpen, setIsOpen] = import_react248.useState(false);
   const variableImageConfig = documentVariables.find((v2) => v2.id === variableConfig.id);
   if (variableImageConfig == null) {
     raiseError2(Result.error(new Error("variableDocument is null")));
@@ -53401,9 +53604,9 @@ var LayoutConfigSection = ({
   mapConfig,
   index: index4
 }) => {
-  const [isOpen, setIsOpen] = import_react247.useState(false);
-  const [menuOpened, setMenuOpened] = import_react247.useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = import_react247.useState(false);
+  const [isOpen, setIsOpen] = import_react249.useState(false);
+  const [menuOpened, setMenuOpened] = import_react249.useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = import_react249.useState(false);
   const addLayoutMapFromCopy = appStore((store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy);
   const setIsImageVariableMappingModalOpen = appStore((store) => store.effects.modal.setIsImageVariableMappingModalOpen);
   const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
@@ -53547,18 +53750,18 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
   const layoutImageMapping = appStore((state) => state.state.studio.layoutImageMapping);
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const currentSwapImageVariableId = appStore((state) => state.state.modal.currentSwapImageVariableId);
-  const [validationReport, setValidationReport] = import_react248.useState(null);
-  const [isValidationModalOpen, setIsValidationModalOpen] = import_react248.useState(false);
-  const imageVariables = import_react248.useMemo(() => {
+  const [validationReport, setValidationReport] = import_react250.useState(null);
+  const [isValidationModalOpen, setIsValidationModalOpen] = import_react250.useState(false);
+  const imageVariables = import_react250.useMemo(() => {
     return variables.filter((variable) => variable.type === "image");
   }, [variables]);
-  const imageVariableOptions = import_react248.useMemo(() => {
+  const imageVariableOptions = import_react250.useMemo(() => {
     return imageVariables.map((variable) => ({
       value: variable.id,
       label: variable.name
     }));
   }, [imageVariables]);
-  import_react248.useEffect(() => {
+  import_react250.useEffect(() => {
     const loadConfig = async () => {
       if (!isLayoutConfigLoaded && !isDocumentLoaded) {
         const resultDoc = await loadDocFromDoc();
@@ -53861,19 +54064,19 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react269 = __toESM(require_react(), 1);
+var import_react275 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
-var import_react255 = __toESM(require_react(), 1);
+var import_react257 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameLayoutCard.tsx
-var import_react254 = __toESM(require_react(), 1);
+var import_react256 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotRow.tsx
-var import_react250 = __toESM(require_react(), 1);
+var import_react252 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/EditableCell.tsx
-var import_react249 = __toESM(require_react(), 1);
+var import_react251 = __toESM(require_react(), 1);
 var jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
 function EditableCell({
   rowKey,
@@ -53886,15 +54089,15 @@ function EditableCell({
   onEditSave,
   onEditCancel
 }) {
-  const [isHovered, setIsHovered] = import_react249.useState(false);
-  const inputRef = import_react249.useRef(null);
+  const [isHovered, setIsHovered] = import_react251.useState(false);
+  const inputRef = import_react251.useRef(null);
   const cellKey = `${rowKey}:${field}`;
-  import_react249.useEffect(() => {
+  import_react251.useEffect(() => {
     if (isEditing) {
       setTimeout(() => inputRef.current?.focus(), 10);
     }
   }, [isEditing]);
-  import_react249.useEffect(() => {
+  import_react251.useEffect(() => {
     console.log(rowKey);
   }, []);
   const handleKeyDown = (e) => {
@@ -53955,23 +54158,23 @@ function FrameSnapshotRow({
   onCheckChange,
   isChecked
 }) {
-  const [editState, setEditState] = import_react250.useState({
+  const [editState, setEditState] = import_react252.useState({
     key: null,
     value: ""
   });
-  const handleEditStart = import_react250.useCallback((key, value) => {
+  const handleEditStart = import_react252.useCallback((key, value) => {
     setEditState({ key, value });
   }, []);
-  const handleEditChange = import_react250.useCallback((value) => {
+  const handleEditChange = import_react252.useCallback((value) => {
     setEditState((prev2) => ({ ...prev2, value }));
   }, []);
-  const handleEditSave = import_react250.useCallback(() => {
+  const handleEditSave = import_react252.useCallback(() => {
     if (editState.key && onEditCell) {
       onEditCell(layoutId, editState.key, editState.value);
     }
     setEditState({ key: null, value: "" });
   }, [editState, onEditCell]);
-  const handleEditCancel = import_react250.useCallback(() => {
+  const handleEditCancel = import_react252.useCallback(() => {
     setEditState({ key: null, value: "" });
   }, []);
   const rowStyle = isChecked ? { backgroundColor: "#e6f7ff" } : {};
@@ -54002,7 +54205,7 @@ function FrameSnapshotRow({
 }
 
 // src/components/FrameSnapshotLayout/CopyToLayerModal.tsx
-var import_react251 = __toESM(require_react(), 1);
+var import_react253 = __toESM(require_react(), 1);
 var jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
 function CopyToLayerModal({
   opened,
@@ -54012,11 +54215,11 @@ function CopyToLayerModal({
   frameLayoutMaps,
   onUpdateFrameLayoutMaps
 }) {
-  const [layouts, setLayouts] = import_react251.useState([]);
-  const [selectedLayoutId, setSelectedLayoutId] = import_react251.useState(null);
-  const [isLoading, setIsLoading] = import_react251.useState(false);
+  const [layouts, setLayouts] = import_react253.useState([]);
+  const [selectedLayoutId, setSelectedLayoutId] = import_react253.useState(null);
+  const [isLoading, setIsLoading] = import_react253.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react251.useEffect(() => {
+  import_react253.useEffect(() => {
     if (opened) {
       loadAvailableLayouts();
     }
@@ -54140,7 +54343,7 @@ function CopyToLayerModal({
 }
 
 // src/components/FrameSnapshotLayout/CopyAndAddRowModal.tsx
-var import_react252 = __toESM(require_react(), 1);
+var import_react254 = __toESM(require_react(), 1);
 var jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
 function CopyAndAddRowModal({
   opened,
@@ -54150,10 +54353,10 @@ function CopyAndAddRowModal({
   existingSnapshots,
   onAddCopy
 }) {
-  const [newName, setNewName] = import_react252.useState("");
-  const [error, setError] = import_react252.useState(null);
-  const [isLoading, setIsLoading] = import_react252.useState(false);
-  import_react252.default.useEffect(() => {
+  const [newName, setNewName] = import_react254.useState("");
+  const [error, setError] = import_react254.useState(null);
+  const [isLoading, setIsLoading] = import_react254.useState(false);
+  import_react254.default.useEffect(() => {
     if (opened) {
       setNewName(snapshot.imageName);
       setError(null);
@@ -54222,7 +54425,7 @@ function CopyAndAddRowModal({
 }
 
 // src/components/FrameSnapshotLayout/CopyAndReplaceModal.tsx
-var import_react253 = __toESM(require_react(), 1);
+var import_react255 = __toESM(require_react(), 1);
 var jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
 function CopyAndReplaceModal({
   opened,
@@ -54232,14 +54435,14 @@ function CopyAndReplaceModal({
   existingSnapshots,
   onAddCopy
 }) {
-  const [searchText, setSearchText] = import_react253.useState("");
-  const [replaceText, setReplaceText] = import_react253.useState("");
-  const [errors, setErrors] = import_react253.useState({});
-  const [isLoading, setIsLoading] = import_react253.useState(false);
-  const [previewSnapshot, setPreviewSnapshot] = import_react253.useState(null);
-  const [previewNewName, setPreviewNewName] = import_react253.useState("");
-  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react253.useState(false);
-  import_react253.useEffect(() => {
+  const [searchText, setSearchText] = import_react255.useState("");
+  const [replaceText, setReplaceText] = import_react255.useState("");
+  const [errors, setErrors] = import_react255.useState({});
+  const [isLoading, setIsLoading] = import_react255.useState(false);
+  const [previewSnapshot, setPreviewSnapshot] = import_react255.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react255.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react255.useState(false);
+  import_react255.useEffect(() => {
     if (opened) {
       setSearchText("");
       setReplaceText("");
@@ -54252,7 +54455,7 @@ function CopyAndReplaceModal({
       }
     }
   }, [opened, snapshots]);
-  import_react253.useEffect(() => {
+  import_react255.useEffect(() => {
     if (previewSnapshot) {
       const newName = previewSnapshot.imageName.replace(new RegExp(searchText, "g"), replaceText);
       setPreviewNewName(newName);
@@ -54393,10 +54596,10 @@ function FrameLayoutCard({
   frameLayoutMaps,
   onUpdateFrameLayoutMaps
 }) {
-  const [checkedSnapshots, setCheckedSnapshots] = import_react254.useState({});
-  const [copyModalOpened, setCopyModalOpened] = import_react254.useState(false);
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = import_react254.useState(false);
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = import_react254.useState(false);
+  const [checkedSnapshots, setCheckedSnapshots] = import_react256.useState({});
+  const [copyModalOpened, setCopyModalOpened] = import_react256.useState(false);
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = import_react256.useState(false);
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = import_react256.useState(false);
   const handleCheckChange = (snapshotKey, isChecked) => {
     setCheckedSnapshots((prev2) => ({
       ...prev2,
@@ -54420,7 +54623,7 @@ function FrameLayoutCard({
   };
   const hasCheckedSnapshots = Object.values(checkedSnapshots).some(Boolean);
   const checkedSnapshotsCount = Object.values(checkedSnapshots).filter(Boolean).length;
-  const singleSelectedSnapshot = import_react254.useMemo(() => {
+  const singleSelectedSnapshot = import_react256.useMemo(() => {
     if (checkedSnapshotsCount === 1) {
       const selectedKey = Object.keys(checkedSnapshots).find((key) => checkedSnapshots[key]);
       return layoutMap.snapshots.find((snapshot) => snapshot.uniqueId === selectedKey);
@@ -54595,11 +54798,11 @@ function FrameSnapshotLayoutModal({
   opened,
   onClose
 }) {
-  const [frameLayoutMaps, setFrameLayoutMaps] = import_react255.useState([]);
-  const [isLoading, setIsLoading] = import_react255.useState(false);
-  const [isRemoving, setIsRemoving] = import_react255.useState(false);
+  const [frameLayoutMaps, setFrameLayoutMaps] = import_react257.useState([]);
+  const [isLoading, setIsLoading] = import_react257.useState(false);
+  const [isRemoving, setIsRemoving] = import_react257.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  const tableData = import_react255.useMemo(() => {
+  const tableData = import_react257.useMemo(() => {
     return frameLayoutMaps.map((frameLayoutMap, layoutIndex) => {
       let snapshots = frameLayoutMap.frameSnapshots.map((snapshot, snapshotIndex) => {
         const uniqueId = `${snapshot.frameId}_${snapshot.imageName}`;
@@ -54621,7 +54824,7 @@ function FrameSnapshotLayoutModal({
       map.frameSnapshots = [...map.frameSnapshots].sort((a2, b) => a2.imageName.localeCompare(b.imageName));
     });
   };
-  const handleEditCell = import_react255.useCallback((layoutId, key, value) => {
+  const handleEditCell = import_react257.useCallback((layoutId, key, value) => {
     if (!key)
       return;
     const [uniqueId, field] = key.split(":");
@@ -54676,7 +54879,7 @@ function FrameSnapshotLayoutModal({
       setIsLoading(false);
     }
   };
-  import_react255.useEffect(() => {
+  import_react257.useEffect(() => {
     if (opened) {
       loadFrameLayouts();
     }
@@ -54704,7 +54907,7 @@ function FrameSnapshotLayoutModal({
       setIsRemoving(false);
     }
   };
-  const cleanupFrameLayoutMaps = import_react255.useCallback(() => {
+  const cleanupFrameLayoutMaps = import_react257.useCallback(() => {
     return frameLayoutMaps.map((map) => {
       const { layoutName, ...cleanMap } = map;
       const sortedSnapshots = [...cleanMap.frameSnapshots].sort((a2, b) => a2.imageName.localeCompare(b.imageName));
@@ -54714,7 +54917,7 @@ function FrameSnapshotLayoutModal({
       };
     });
   }, [frameLayoutMaps]);
-  const saveCleanedFrameLayoutMaps = import_react255.useCallback(async () => {
+  const saveCleanedFrameLayoutMaps = import_react257.useCallback(async () => {
     const cleanFrameLayoutMaps = cleanupFrameLayoutMaps();
     return await saveFrameLayoutMapsToDoc(cleanFrameLayoutMaps);
   }, [cleanupFrameLayoutMaps]);
@@ -54811,17 +55014,17 @@ function FrameSnapshotLayoutModal({
 }
 
 // src/components/AddFrameSnapshotModal.tsx
-var import_react256 = __toESM(require_react(), 1);
+var import_react258 = __toESM(require_react(), 1);
 var jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
 function AddFrameSnapshotModal({
   opened,
   onClose,
   raiseError: raiseError2
 }) {
-  const [status, setStatus] = import_react256.useState("idle");
-  const [message, setMessage] = import_react256.useState(null);
-  const [positionData, setPositionData] = import_react256.useState(null);
-  import_react256.useEffect(() => {
+  const [status, setStatus] = import_react258.useState("idle");
+  const [message, setMessage] = import_react258.useState(null);
+  const [positionData, setPositionData] = import_react258.useState(null);
+  import_react258.useEffect(() => {
     if (!opened) {
       setStatus("idle");
       setMessage(null);
@@ -54961,16 +55164,16 @@ function AddFrameSnapshotModal({
 }
 
 // src/components/LayoutManagerModal.tsx
-var import_react257 = __toESM(require_react(), 1);
+var import_react259 = __toESM(require_react(), 1);
 var jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
 function LayoutManagerModal({
   opened,
   onClose
 }) {
-  const [layouts, setLayouts] = import_react257.useState([]);
-  const [studio2, setStudio] = import_react257.useState(null);
+  const [layouts, setLayouts] = import_react259.useState([]);
+  const [studio2, setStudio] = import_react259.useState(null);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react257.useEffect(() => {
+  import_react259.useEffect(() => {
     const fetchLayouts = async () => {
       try {
         const studioResult = await getStudio();
@@ -55207,110 +55410,11894 @@ function LayoutManagerModal({
   });
 }
 
-// src/components/DownloadModal.tsx
-var import_react259 = __toESM(require_react(), 1);
+// src/components/DownloadModalNew.tsx
+var import_react264 = __toESM(require_react(), 1);
 init_documentHandler();
 
-// src/components/ConnectorReplacementModal.tsx
-var import_react258 = __toESM(require_react(), 1);
+// src/studio/fontHandler.ts
+init_utils();
+async function getFontFamilies(studio2) {
+  return await handleStudioFunc(studio2.font.getFontFamilies);
+}
+
+// src/studio/mediaConnectorHandler.ts
+init_utils();
+var baseQueryOptions = {
+  pageSize: 15,
+  filter: [""]
+};
+async function queryMediaConnectorSimple(studio2, connectorId, path, pageToken = "") {
+  const queryOptions = {
+    collection: path,
+    pageToken,
+    ...baseQueryOptions
+  };
+  return handleStudioFunc(studio2.mediaConnector.query, connectorId, queryOptions);
+}
+
+// src/utils/smartCrop/getVision.ts
+init_dist();
+
+// src/utils/smartCrop/sha256Concat.ts
+async function sha256Concat(a2, b) {
+  const concatenated = a2 + b;
+  const encoder = new TextEncoder;
+  const data = encoder.encode(concatenated);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  return hashHex;
+}
+
+// src/utils/smartCrop/smartCrop.types.ts
+init_dist();
+
+// node_modules/zod/v4/classic/external.js
+var exports_external = {};
+__export(exports_external, {
+  xid: () => xid2,
+  void: () => _void2,
+  uuidv7: () => uuidv7,
+  uuidv6: () => uuidv6,
+  uuidv4: () => uuidv4,
+  uuid: () => uuid2,
+  url: () => url,
+  uppercase: () => _uppercase,
+  unknown: () => unknown,
+  union: () => union,
+  undefined: () => _undefined3,
+  ulid: () => ulid2,
+  uint64: () => uint64,
+  uint32: () => uint32,
+  tuple: () => tuple,
+  trim: () => _trim,
+  treeifyError: () => treeifyError,
+  transform: () => transform,
+  toUpperCase: () => _toUpperCase,
+  toLowerCase: () => _toLowerCase,
+  toJSONSchema: () => toJSONSchema,
+  templateLiteral: () => templateLiteral,
+  symbol: () => symbol,
+  superRefine: () => superRefine,
+  success: () => success,
+  stringbool: () => stringbool,
+  stringFormat: () => stringFormat,
+  string: () => string2,
+  strictObject: () => strictObject,
+  startsWith: () => _startsWith,
+  size: () => _size,
+  setErrorMap: () => setErrorMap,
+  set: () => set2,
+  safeParseAsync: () => safeParseAsync2,
+  safeParse: () => safeParse2,
+  registry: () => registry,
+  regexes: () => exports_regexes,
+  regex: () => _regex,
+  refine: () => refine,
+  record: () => record,
+  readonly: () => readonly,
+  property: () => _property,
+  promise: () => promise,
+  prettifyError: () => prettifyError,
+  preprocess: () => preprocess,
+  prefault: () => prefault,
+  positive: () => _positive,
+  pipe: () => pipe,
+  partialRecord: () => partialRecord,
+  parseAsync: () => parseAsync2,
+  parse: () => parse5,
+  overwrite: () => _overwrite,
+  optional: () => optional,
+  object: () => object,
+  number: () => number2,
+  nullish: () => nullish2,
+  nullable: () => nullable,
+  null: () => _null3,
+  normalize: () => _normalize,
+  nonpositive: () => _nonpositive,
+  nonoptional: () => nonoptional,
+  nonnegative: () => _nonnegative,
+  never: () => never,
+  negative: () => _negative,
+  nativeEnum: () => nativeEnum,
+  nanoid: () => nanoid2,
+  nan: () => nan,
+  multipleOf: () => _multipleOf,
+  minSize: () => _minSize,
+  minLength: () => _minLength,
+  mime: () => _mime,
+  maxSize: () => _maxSize,
+  maxLength: () => _maxLength,
+  map: () => map,
+  lte: () => _lte,
+  lt: () => _lt,
+  lowercase: () => _lowercase,
+  looseObject: () => looseObject,
+  locales: () => exports_locales,
+  literal: () => literal,
+  length: () => _length,
+  lazy: () => lazy,
+  ksuid: () => ksuid2,
+  keyof: () => keyof,
+  jwt: () => jwt,
+  json: () => json,
+  iso: () => exports_iso,
+  ipv6: () => ipv62,
+  ipv4: () => ipv42,
+  intersection: () => intersection,
+  int64: () => int64,
+  int32: () => int32,
+  int: () => int,
+  instanceof: () => _instanceof,
+  includes: () => _includes,
+  guid: () => guid2,
+  gte: () => _gte,
+  gt: () => _gt,
+  globalRegistry: () => globalRegistry,
+  getErrorMap: () => getErrorMap,
+  function: () => _function,
+  formatError: () => formatError,
+  float64: () => float64,
+  float32: () => float32,
+  flattenError: () => flattenError,
+  file: () => file,
+  enum: () => _enum2,
+  endsWith: () => _endsWith,
+  emoji: () => emoji2,
+  email: () => email2,
+  e164: () => e1642,
+  discriminatedUnion: () => discriminatedUnion,
+  date: () => date3,
+  custom: () => custom,
+  cuid2: () => cuid22,
+  cuid: () => cuid3,
+  core: () => exports_core2,
+  config: () => config,
+  coerce: () => exports_coerce,
+  clone: () => clone,
+  cidrv6: () => cidrv62,
+  cidrv4: () => cidrv42,
+  check: () => check,
+  catch: () => _catch2,
+  boolean: () => boolean2,
+  bigint: () => bigint2,
+  base64url: () => base64url2,
+  base64: () => base642,
+  array: () => array,
+  any: () => any,
+  _default: () => _default2,
+  _ZodString: () => _ZodString,
+  ZodXID: () => ZodXID,
+  ZodVoid: () => ZodVoid,
+  ZodUnknown: () => ZodUnknown,
+  ZodUnion: () => ZodUnion,
+  ZodUndefined: () => ZodUndefined,
+  ZodUUID: () => ZodUUID,
+  ZodURL: () => ZodURL,
+  ZodULID: () => ZodULID,
+  ZodType: () => ZodType,
+  ZodTuple: () => ZodTuple,
+  ZodTransform: () => ZodTransform,
+  ZodTemplateLiteral: () => ZodTemplateLiteral,
+  ZodSymbol: () => ZodSymbol,
+  ZodSuccess: () => ZodSuccess,
+  ZodStringFormat: () => ZodStringFormat,
+  ZodString: () => ZodString,
+  ZodSet: () => ZodSet,
+  ZodRecord: () => ZodRecord,
+  ZodRealError: () => ZodRealError,
+  ZodReadonly: () => ZodReadonly,
+  ZodPromise: () => ZodPromise,
+  ZodPrefault: () => ZodPrefault,
+  ZodPipe: () => ZodPipe,
+  ZodOptional: () => ZodOptional,
+  ZodObject: () => ZodObject,
+  ZodNumberFormat: () => ZodNumberFormat,
+  ZodNumber: () => ZodNumber,
+  ZodNullable: () => ZodNullable,
+  ZodNull: () => ZodNull,
+  ZodNonOptional: () => ZodNonOptional,
+  ZodNever: () => ZodNever,
+  ZodNanoID: () => ZodNanoID,
+  ZodNaN: () => ZodNaN,
+  ZodMap: () => ZodMap,
+  ZodLiteral: () => ZodLiteral,
+  ZodLazy: () => ZodLazy,
+  ZodKSUID: () => ZodKSUID,
+  ZodJWT: () => ZodJWT,
+  ZodIssueCode: () => ZodIssueCode,
+  ZodIntersection: () => ZodIntersection,
+  ZodISOTime: () => ZodISOTime,
+  ZodISODuration: () => ZodISODuration,
+  ZodISODateTime: () => ZodISODateTime,
+  ZodISODate: () => ZodISODate,
+  ZodIPv6: () => ZodIPv6,
+  ZodIPv4: () => ZodIPv4,
+  ZodGUID: () => ZodGUID,
+  ZodFirstPartyTypeKind: () => ZodFirstPartyTypeKind,
+  ZodFile: () => ZodFile,
+  ZodError: () => ZodError,
+  ZodEnum: () => ZodEnum,
+  ZodEmoji: () => ZodEmoji,
+  ZodEmail: () => ZodEmail,
+  ZodE164: () => ZodE164,
+  ZodDiscriminatedUnion: () => ZodDiscriminatedUnion,
+  ZodDefault: () => ZodDefault,
+  ZodDate: () => ZodDate,
+  ZodCustomStringFormat: () => ZodCustomStringFormat,
+  ZodCustom: () => ZodCustom,
+  ZodCatch: () => ZodCatch,
+  ZodCUID2: () => ZodCUID2,
+  ZodCUID: () => ZodCUID,
+  ZodCIDRv6: () => ZodCIDRv6,
+  ZodCIDRv4: () => ZodCIDRv4,
+  ZodBoolean: () => ZodBoolean,
+  ZodBigIntFormat: () => ZodBigIntFormat,
+  ZodBigInt: () => ZodBigInt,
+  ZodBase64URL: () => ZodBase64URL,
+  ZodBase64: () => ZodBase64,
+  ZodArray: () => ZodArray,
+  ZodAny: () => ZodAny,
+  TimePrecision: () => TimePrecision,
+  NEVER: () => NEVER,
+  $output: () => $output,
+  $input: () => $input,
+  $brand: () => $brand
+});
+
+// node_modules/zod/v4/core/index.js
+var exports_core2 = {};
+__export(exports_core2, {
+  version: () => version2,
+  util: () => exports_util,
+  treeifyError: () => treeifyError,
+  toJSONSchema: () => toJSONSchema,
+  toDotPath: () => toDotPath,
+  safeParseAsync: () => safeParseAsync,
+  safeParse: () => safeParse,
+  registry: () => registry,
+  regexes: () => exports_regexes,
+  prettifyError: () => prettifyError,
+  parseAsync: () => parseAsync,
+  parse: () => parse3,
+  locales: () => exports_locales,
+  isValidJWT: () => isValidJWT,
+  isValidBase64URL: () => isValidBase64URL,
+  isValidBase64: () => isValidBase64,
+  globalRegistry: () => globalRegistry,
+  globalConfig: () => globalConfig,
+  function: () => _function,
+  formatError: () => formatError,
+  flattenError: () => flattenError,
+  config: () => config,
+  clone: () => clone,
+  _xid: () => _xid,
+  _void: () => _void,
+  _uuidv7: () => _uuidv7,
+  _uuidv6: () => _uuidv6,
+  _uuidv4: () => _uuidv4,
+  _uuid: () => _uuid,
+  _url: () => _url,
+  _uppercase: () => _uppercase,
+  _unknown: () => _unknown,
+  _union: () => _union,
+  _undefined: () => _undefined2,
+  _ulid: () => _ulid,
+  _uint64: () => _uint64,
+  _uint32: () => _uint32,
+  _tuple: () => _tuple,
+  _trim: () => _trim,
+  _transform: () => _transform,
+  _toUpperCase: () => _toUpperCase,
+  _toLowerCase: () => _toLowerCase,
+  _templateLiteral: () => _templateLiteral,
+  _symbol: () => _symbol,
+  _success: () => _success,
+  _stringbool: () => _stringbool,
+  _stringFormat: () => _stringFormat,
+  _string: () => _string,
+  _startsWith: () => _startsWith,
+  _size: () => _size,
+  _set: () => _set,
+  _safeParseAsync: () => _safeParseAsync,
+  _safeParse: () => _safeParse,
+  _regex: () => _regex,
+  _refine: () => _refine,
+  _record: () => _record,
+  _readonly: () => _readonly,
+  _property: () => _property,
+  _promise: () => _promise,
+  _positive: () => _positive,
+  _pipe: () => _pipe,
+  _parseAsync: () => _parseAsync,
+  _parse: () => _parse,
+  _overwrite: () => _overwrite,
+  _optional: () => _optional,
+  _number: () => _number,
+  _nullable: () => _nullable,
+  _null: () => _null2,
+  _normalize: () => _normalize,
+  _nonpositive: () => _nonpositive,
+  _nonoptional: () => _nonoptional,
+  _nonnegative: () => _nonnegative,
+  _never: () => _never,
+  _negative: () => _negative,
+  _nativeEnum: () => _nativeEnum,
+  _nanoid: () => _nanoid,
+  _nan: () => _nan,
+  _multipleOf: () => _multipleOf,
+  _minSize: () => _minSize,
+  _minLength: () => _minLength,
+  _min: () => _gte,
+  _mime: () => _mime,
+  _maxSize: () => _maxSize,
+  _maxLength: () => _maxLength,
+  _max: () => _lte,
+  _map: () => _map,
+  _lte: () => _lte,
+  _lt: () => _lt,
+  _lowercase: () => _lowercase,
+  _literal: () => _literal,
+  _length: () => _length,
+  _lazy: () => _lazy,
+  _ksuid: () => _ksuid,
+  _jwt: () => _jwt,
+  _isoTime: () => _isoTime,
+  _isoDuration: () => _isoDuration,
+  _isoDateTime: () => _isoDateTime,
+  _isoDate: () => _isoDate,
+  _ipv6: () => _ipv6,
+  _ipv4: () => _ipv4,
+  _intersection: () => _intersection,
+  _int64: () => _int64,
+  _int32: () => _int32,
+  _int: () => _int,
+  _includes: () => _includes,
+  _guid: () => _guid,
+  _gte: () => _gte,
+  _gt: () => _gt,
+  _float64: () => _float64,
+  _float32: () => _float32,
+  _file: () => _file,
+  _enum: () => _enum,
+  _endsWith: () => _endsWith,
+  _emoji: () => _emoji2,
+  _email: () => _email,
+  _e164: () => _e164,
+  _discriminatedUnion: () => _discriminatedUnion,
+  _default: () => _default,
+  _date: () => _date,
+  _custom: () => _custom,
+  _cuid2: () => _cuid2,
+  _cuid: () => _cuid,
+  _coercedString: () => _coercedString,
+  _coercedNumber: () => _coercedNumber,
+  _coercedDate: () => _coercedDate,
+  _coercedBoolean: () => _coercedBoolean,
+  _coercedBigint: () => _coercedBigint,
+  _cidrv6: () => _cidrv6,
+  _cidrv4: () => _cidrv4,
+  _catch: () => _catch,
+  _boolean: () => _boolean,
+  _bigint: () => _bigint,
+  _base64url: () => _base64url,
+  _base64: () => _base64,
+  _array: () => _array,
+  _any: () => _any,
+  TimePrecision: () => TimePrecision,
+  NEVER: () => NEVER,
+  JSONSchemaGenerator: () => JSONSchemaGenerator,
+  JSONSchema: () => exports_json_schema,
+  Doc: () => Doc,
+  $output: () => $output,
+  $input: () => $input,
+  $constructor: () => $constructor,
+  $brand: () => $brand,
+  $ZodXID: () => $ZodXID,
+  $ZodVoid: () => $ZodVoid,
+  $ZodUnknown: () => $ZodUnknown,
+  $ZodUnion: () => $ZodUnion,
+  $ZodUndefined: () => $ZodUndefined,
+  $ZodUUID: () => $ZodUUID,
+  $ZodURL: () => $ZodURL,
+  $ZodULID: () => $ZodULID,
+  $ZodType: () => $ZodType,
+  $ZodTuple: () => $ZodTuple,
+  $ZodTransform: () => $ZodTransform,
+  $ZodTemplateLiteral: () => $ZodTemplateLiteral,
+  $ZodSymbol: () => $ZodSymbol,
+  $ZodSuccess: () => $ZodSuccess,
+  $ZodStringFormat: () => $ZodStringFormat,
+  $ZodString: () => $ZodString,
+  $ZodSet: () => $ZodSet,
+  $ZodRegistry: () => $ZodRegistry,
+  $ZodRecord: () => $ZodRecord,
+  $ZodRealError: () => $ZodRealError,
+  $ZodReadonly: () => $ZodReadonly,
+  $ZodPromise: () => $ZodPromise,
+  $ZodPrefault: () => $ZodPrefault,
+  $ZodPipe: () => $ZodPipe,
+  $ZodOptional: () => $ZodOptional,
+  $ZodObject: () => $ZodObject,
+  $ZodNumberFormat: () => $ZodNumberFormat,
+  $ZodNumber: () => $ZodNumber,
+  $ZodNullable: () => $ZodNullable,
+  $ZodNull: () => $ZodNull,
+  $ZodNonOptional: () => $ZodNonOptional,
+  $ZodNever: () => $ZodNever,
+  $ZodNanoID: () => $ZodNanoID,
+  $ZodNaN: () => $ZodNaN,
+  $ZodMap: () => $ZodMap,
+  $ZodLiteral: () => $ZodLiteral,
+  $ZodLazy: () => $ZodLazy,
+  $ZodKSUID: () => $ZodKSUID,
+  $ZodJWT: () => $ZodJWT,
+  $ZodIntersection: () => $ZodIntersection,
+  $ZodISOTime: () => $ZodISOTime,
+  $ZodISODuration: () => $ZodISODuration,
+  $ZodISODateTime: () => $ZodISODateTime,
+  $ZodISODate: () => $ZodISODate,
+  $ZodIPv6: () => $ZodIPv6,
+  $ZodIPv4: () => $ZodIPv4,
+  $ZodGUID: () => $ZodGUID,
+  $ZodFunction: () => $ZodFunction,
+  $ZodFile: () => $ZodFile,
+  $ZodError: () => $ZodError,
+  $ZodEnum: () => $ZodEnum,
+  $ZodEmoji: () => $ZodEmoji,
+  $ZodEmail: () => $ZodEmail,
+  $ZodE164: () => $ZodE164,
+  $ZodDiscriminatedUnion: () => $ZodDiscriminatedUnion,
+  $ZodDefault: () => $ZodDefault,
+  $ZodDate: () => $ZodDate,
+  $ZodCustomStringFormat: () => $ZodCustomStringFormat,
+  $ZodCustom: () => $ZodCustom,
+  $ZodCheckUpperCase: () => $ZodCheckUpperCase,
+  $ZodCheckStringFormat: () => $ZodCheckStringFormat,
+  $ZodCheckStartsWith: () => $ZodCheckStartsWith,
+  $ZodCheckSizeEquals: () => $ZodCheckSizeEquals,
+  $ZodCheckRegex: () => $ZodCheckRegex,
+  $ZodCheckProperty: () => $ZodCheckProperty,
+  $ZodCheckOverwrite: () => $ZodCheckOverwrite,
+  $ZodCheckNumberFormat: () => $ZodCheckNumberFormat,
+  $ZodCheckMultipleOf: () => $ZodCheckMultipleOf,
+  $ZodCheckMinSize: () => $ZodCheckMinSize,
+  $ZodCheckMinLength: () => $ZodCheckMinLength,
+  $ZodCheckMimeType: () => $ZodCheckMimeType,
+  $ZodCheckMaxSize: () => $ZodCheckMaxSize,
+  $ZodCheckMaxLength: () => $ZodCheckMaxLength,
+  $ZodCheckLowerCase: () => $ZodCheckLowerCase,
+  $ZodCheckLessThan: () => $ZodCheckLessThan,
+  $ZodCheckLengthEquals: () => $ZodCheckLengthEquals,
+  $ZodCheckIncludes: () => $ZodCheckIncludes,
+  $ZodCheckGreaterThan: () => $ZodCheckGreaterThan,
+  $ZodCheckEndsWith: () => $ZodCheckEndsWith,
+  $ZodCheckBigIntFormat: () => $ZodCheckBigIntFormat,
+  $ZodCheck: () => $ZodCheck,
+  $ZodCatch: () => $ZodCatch,
+  $ZodCUID2: () => $ZodCUID2,
+  $ZodCUID: () => $ZodCUID,
+  $ZodCIDRv6: () => $ZodCIDRv6,
+  $ZodCIDRv4: () => $ZodCIDRv4,
+  $ZodBoolean: () => $ZodBoolean,
+  $ZodBigIntFormat: () => $ZodBigIntFormat,
+  $ZodBigInt: () => $ZodBigInt,
+  $ZodBase64URL: () => $ZodBase64URL,
+  $ZodBase64: () => $ZodBase64,
+  $ZodAsyncError: () => $ZodAsyncError,
+  $ZodArray: () => $ZodArray,
+  $ZodAny: () => $ZodAny
+});
+
+// node_modules/zod/v4/core/core.js
+var NEVER = Object.freeze({
+  status: "aborted"
+});
+function $constructor(name, initializer, params) {
+  function init(inst, def) {
+    var _a;
+    Object.defineProperty(inst, "_zod", {
+      value: inst._zod ?? {},
+      enumerable: false
+    });
+    (_a = inst._zod).traits ?? (_a.traits = new Set);
+    inst._zod.traits.add(name);
+    initializer(inst, def);
+    for (const k2 in _2.prototype) {
+      if (!(k2 in inst))
+        Object.defineProperty(inst, k2, { value: _2.prototype[k2].bind(inst) });
+    }
+    inst._zod.constr = _2;
+    inst._zod.def = def;
+  }
+  const Parent = params?.Parent ?? Object;
+
+  class Definition extends Parent {
+  }
+  Object.defineProperty(Definition, "name", { value: name });
+  function _2(def) {
+    var _a;
+    const inst = params?.Parent ? new Definition : this;
+    init(inst, def);
+    (_a = inst._zod).deferred ?? (_a.deferred = []);
+    for (const fn of inst._zod.deferred) {
+      fn();
+    }
+    return inst;
+  }
+  Object.defineProperty(_2, "init", { value: init });
+  Object.defineProperty(_2, Symbol.hasInstance, {
+    value: (inst) => {
+      if (params?.Parent && inst instanceof params.Parent)
+        return true;
+      return inst?._zod?.traits?.has(name);
+    }
+  });
+  Object.defineProperty(_2, "name", { value: name });
+  return _2;
+}
+var $brand = Symbol("zod_brand");
+
+class $ZodAsyncError extends Error {
+  constructor() {
+    super(`Encountered Promise during synchronous parse. Use .parseAsync() instead.`);
+  }
+}
+var globalConfig = {};
+function config(newConfig) {
+  if (newConfig)
+    Object.assign(globalConfig, newConfig);
+  return globalConfig;
+}
+// node_modules/zod/v4/core/util.js
+var exports_util = {};
+__export(exports_util, {
+  unwrapMessage: () => unwrapMessage,
+  stringifyPrimitive: () => stringifyPrimitive,
+  required: () => required,
+  randomString: () => randomString,
+  propertyKeyTypes: () => propertyKeyTypes,
+  promiseAllObject: () => promiseAllObject,
+  primitiveTypes: () => primitiveTypes,
+  prefixIssues: () => prefixIssues,
+  pick: () => pick,
+  partial: () => partial,
+  optionalKeys: () => optionalKeys,
+  omit: () => omit,
+  numKeys: () => numKeys,
+  nullish: () => nullish,
+  normalizeParams: () => normalizeParams,
+  merge: () => merge,
+  jsonStringifyReplacer: () => jsonStringifyReplacer,
+  joinValues: () => joinValues,
+  issue: () => issue,
+  isPlainObject: () => isPlainObject2,
+  isObject: () => isObject2,
+  getSizableOrigin: () => getSizableOrigin,
+  getParsedType: () => getParsedType,
+  getLengthableOrigin: () => getLengthableOrigin,
+  getEnumValues: () => getEnumValues,
+  getElementAtPath: () => getElementAtPath,
+  floatSafeRemainder: () => floatSafeRemainder,
+  finalizeIssue: () => finalizeIssue,
+  extend: () => extend,
+  escapeRegex: () => escapeRegex,
+  esc: () => esc,
+  defineLazy: () => defineLazy,
+  createTransparentProxy: () => createTransparentProxy,
+  clone: () => clone,
+  cleanRegex: () => cleanRegex,
+  cleanEnum: () => cleanEnum,
+  captureStackTrace: () => captureStackTrace,
+  cached: () => cached,
+  assignProp: () => assignProp,
+  assertNotEqual: () => assertNotEqual,
+  assertNever: () => assertNever,
+  assertIs: () => assertIs,
+  assertEqual: () => assertEqual,
+  assert: () => assert,
+  allowsEval: () => allowsEval,
+  aborted: () => aborted,
+  NUMBER_FORMAT_RANGES: () => NUMBER_FORMAT_RANGES,
+  Class: () => Class,
+  BIGINT_FORMAT_RANGES: () => BIGINT_FORMAT_RANGES
+});
+function assertEqual(val) {
+  return val;
+}
+function assertNotEqual(val) {
+  return val;
+}
+function assertIs(_arg) {
+}
+function assertNever(_x) {
+  throw new Error;
+}
+function assert(_2) {
+}
+function getEnumValues(entries) {
+  const numericValues = Object.values(entries).filter((v2) => typeof v2 === "number");
+  const values2 = Object.entries(entries).filter(([k2, _2]) => numericValues.indexOf(+k2) === -1).map(([_2, v2]) => v2);
+  return values2;
+}
+function joinValues(array, separator = "|") {
+  return array.map((val) => stringifyPrimitive(val)).join(separator);
+}
+function jsonStringifyReplacer(_2, value) {
+  if (typeof value === "bigint")
+    return value.toString();
+  return value;
+}
+function cached(getter) {
+  const set2 = false;
+  return {
+    get value() {
+      if (!set2) {
+        const value = getter();
+        Object.defineProperty(this, "value", { value });
+        return value;
+      }
+      throw new Error("cached value already set");
+    }
+  };
+}
+function nullish(input) {
+  return input === null || input === undefined;
+}
+function cleanRegex(source) {
+  const start = source.startsWith("^") ? 1 : 0;
+  const end = source.endsWith("$") ? source.length - 1 : source.length;
+  return source.slice(start, end);
+}
+function floatSafeRemainder(val, step) {
+  const valDecCount = (val.toString().split(".")[1] || "").length;
+  const stepDecCount = (step.toString().split(".")[1] || "").length;
+  const decCount = valDecCount > stepDecCount ? valDecCount : stepDecCount;
+  const valInt = Number.parseInt(val.toFixed(decCount).replace(".", ""));
+  const stepInt = Number.parseInt(step.toFixed(decCount).replace(".", ""));
+  return valInt % stepInt / 10 ** decCount;
+}
+function defineLazy(object, key, getter) {
+  const set2 = false;
+  Object.defineProperty(object, key, {
+    get() {
+      if (!set2) {
+        const value = getter();
+        object[key] = value;
+        return value;
+      }
+      throw new Error("cached value already set");
+    },
+    set(v2) {
+      Object.defineProperty(object, key, {
+        value: v2
+      });
+    },
+    configurable: true
+  });
+}
+function assignProp(target, prop, value) {
+  Object.defineProperty(target, prop, {
+    value,
+    writable: true,
+    enumerable: true,
+    configurable: true
+  });
+}
+function getElementAtPath(obj, path) {
+  if (!path)
+    return obj;
+  return path.reduce((acc, key) => acc?.[key], obj);
+}
+function promiseAllObject(promisesObj) {
+  const keys2 = Object.keys(promisesObj);
+  const promises = keys2.map((key) => promisesObj[key]);
+  return Promise.all(promises).then((results) => {
+    const resolvedObj = {};
+    for (let i2 = 0;i2 < keys2.length; i2++) {
+      resolvedObj[keys2[i2]] = results[i2];
+    }
+    return resolvedObj;
+  });
+}
+function randomString(length2 = 10) {
+  const chars = "abcdefghijklmnopqrstuvwxyz";
+  let str = "";
+  for (let i2 = 0;i2 < length2; i2++) {
+    str += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return str;
+}
+function esc(str) {
+  return JSON.stringify(str);
+}
+var captureStackTrace = Error.captureStackTrace ? Error.captureStackTrace : (..._args) => {
+};
+function isObject2(data) {
+  return typeof data === "object" && data !== null && !Array.isArray(data);
+}
+var allowsEval = cached(() => {
+  if (typeof navigator !== "undefined" && navigator?.userAgent?.includes("Cloudflare")) {
+    return false;
+  }
+  try {
+    const F2 = Function;
+    new F2("");
+    return true;
+  } catch (_2) {
+    return false;
+  }
+});
+function isPlainObject2(o2) {
+  if (isObject2(o2) === false)
+    return false;
+  const ctor = o2.constructor;
+  if (ctor === undefined)
+    return true;
+  const prot = ctor.prototype;
+  if (isObject2(prot) === false)
+    return false;
+  if (Object.prototype.hasOwnProperty.call(prot, "isPrototypeOf") === false) {
+    return false;
+  }
+  return true;
+}
+function numKeys(data) {
+  let keyCount = 0;
+  for (const key in data) {
+    if (Object.prototype.hasOwnProperty.call(data, key)) {
+      keyCount++;
+    }
+  }
+  return keyCount;
+}
+var getParsedType = (data) => {
+  const t = typeof data;
+  switch (t) {
+    case "undefined":
+      return "undefined";
+    case "string":
+      return "string";
+    case "number":
+      return Number.isNaN(data) ? "nan" : "number";
+    case "boolean":
+      return "boolean";
+    case "function":
+      return "function";
+    case "bigint":
+      return "bigint";
+    case "symbol":
+      return "symbol";
+    case "object":
+      if (Array.isArray(data)) {
+        return "array";
+      }
+      if (data === null) {
+        return "null";
+      }
+      if (data.then && typeof data.then === "function" && data.catch && typeof data.catch === "function") {
+        return "promise";
+      }
+      if (typeof Map !== "undefined" && data instanceof Map) {
+        return "map";
+      }
+      if (typeof Set !== "undefined" && data instanceof Set) {
+        return "set";
+      }
+      if (typeof Date !== "undefined" && data instanceof Date) {
+        return "date";
+      }
+      if (typeof File !== "undefined" && data instanceof File) {
+        return "file";
+      }
+      return "object";
+    default:
+      throw new Error(`Unknown data type: ${t}`);
+  }
+};
+var propertyKeyTypes = new Set(["string", "number", "symbol"]);
+var primitiveTypes = new Set(["string", "number", "bigint", "boolean", "symbol", "undefined"]);
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+function clone(inst, def, params) {
+  const cl = new inst._zod.constr(def ?? inst._zod.def);
+  if (!def || params?.parent)
+    cl._zod.parent = inst;
+  return cl;
+}
+function normalizeParams(_params) {
+  const params = _params;
+  if (!params)
+    return {};
+  if (typeof params === "string")
+    return { error: () => params };
+  if (params?.message !== undefined) {
+    if (params?.error !== undefined)
+      throw new Error("Cannot specify both `message` and `error` params");
+    params.error = params.message;
+  }
+  delete params.message;
+  if (typeof params.error === "string")
+    return { ...params, error: () => params.error };
+  return params;
+}
+function createTransparentProxy(getter) {
+  let target;
+  return new Proxy({}, {
+    get(_2, prop, receiver) {
+      target ?? (target = getter());
+      return Reflect.get(target, prop, receiver);
+    },
+    set(_2, prop, value, receiver) {
+      target ?? (target = getter());
+      return Reflect.set(target, prop, value, receiver);
+    },
+    has(_2, prop) {
+      target ?? (target = getter());
+      return Reflect.has(target, prop);
+    },
+    deleteProperty(_2, prop) {
+      target ?? (target = getter());
+      return Reflect.deleteProperty(target, prop);
+    },
+    ownKeys(_2) {
+      target ?? (target = getter());
+      return Reflect.ownKeys(target);
+    },
+    getOwnPropertyDescriptor(_2, prop) {
+      target ?? (target = getter());
+      return Reflect.getOwnPropertyDescriptor(target, prop);
+    },
+    defineProperty(_2, prop, descriptor) {
+      target ?? (target = getter());
+      return Reflect.defineProperty(target, prop, descriptor);
+    }
+  });
+}
+function stringifyPrimitive(value) {
+  if (typeof value === "bigint")
+    return value.toString() + "n";
+  if (typeof value === "string")
+    return `"${value}"`;
+  return `${value}`;
+}
+function optionalKeys(shape) {
+  return Object.keys(shape).filter((k2) => {
+    return shape[k2]._zod.optin === "optional" && shape[k2]._zod.optout === "optional";
+  });
+}
+var NUMBER_FORMAT_RANGES = {
+  safeint: [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+  int32: [-2147483648, 2147483647],
+  uint32: [0, 4294967295],
+  float32: [-340282346638528860000000000000000000000, 340282346638528860000000000000000000000],
+  float64: [-Number.MAX_VALUE, Number.MAX_VALUE]
+};
+var BIGINT_FORMAT_RANGES = {
+  int64: [/* @__PURE__ */ BigInt("-9223372036854775808"), /* @__PURE__ */ BigInt("9223372036854775807")],
+  uint64: [/* @__PURE__ */ BigInt(0), /* @__PURE__ */ BigInt("18446744073709551615")]
+};
+function pick(schema, mask) {
+  const newShape = {};
+  const currDef = schema._zod.def;
+  for (const key in mask) {
+    if (!(key in currDef.shape)) {
+      throw new Error(`Unrecognized key: "${key}"`);
+    }
+    if (!mask[key])
+      continue;
+    newShape[key] = currDef.shape[key];
+  }
+  return clone(schema, {
+    ...schema._zod.def,
+    shape: newShape,
+    checks: []
+  });
+}
+function omit(schema, mask) {
+  const newShape = { ...schema._zod.def.shape };
+  const currDef = schema._zod.def;
+  for (const key in mask) {
+    if (!(key in currDef.shape)) {
+      throw new Error(`Unrecognized key: "${key}"`);
+    }
+    if (!mask[key])
+      continue;
+    delete newShape[key];
+  }
+  return clone(schema, {
+    ...schema._zod.def,
+    shape: newShape,
+    checks: []
+  });
+}
+function extend(schema, shape) {
+  if (!isPlainObject2(shape)) {
+    throw new Error("Invalid input to extend: expected a plain object");
+  }
+  const def = {
+    ...schema._zod.def,
+    get shape() {
+      const _shape = { ...schema._zod.def.shape, ...shape };
+      assignProp(this, "shape", _shape);
+      return _shape;
+    },
+    checks: []
+  };
+  return clone(schema, def);
+}
+function merge(a2, b) {
+  return clone(a2, {
+    ...a2._zod.def,
+    get shape() {
+      const _shape = { ...a2._zod.def.shape, ...b._zod.def.shape };
+      assignProp(this, "shape", _shape);
+      return _shape;
+    },
+    catchall: b._zod.def.catchall,
+    checks: []
+  });
+}
+function partial(Class, schema, mask) {
+  const oldShape = schema._zod.def.shape;
+  const shape = { ...oldShape };
+  if (mask) {
+    for (const key in mask) {
+      if (!(key in oldShape)) {
+        throw new Error(`Unrecognized key: "${key}"`);
+      }
+      if (!mask[key])
+        continue;
+      shape[key] = Class ? new Class({
+        type: "optional",
+        innerType: oldShape[key]
+      }) : oldShape[key];
+    }
+  } else {
+    for (const key in oldShape) {
+      shape[key] = Class ? new Class({
+        type: "optional",
+        innerType: oldShape[key]
+      }) : oldShape[key];
+    }
+  }
+  return clone(schema, {
+    ...schema._zod.def,
+    shape,
+    checks: []
+  });
+}
+function required(Class, schema, mask) {
+  const oldShape = schema._zod.def.shape;
+  const shape = { ...oldShape };
+  if (mask) {
+    for (const key in mask) {
+      if (!(key in shape)) {
+        throw new Error(`Unrecognized key: "${key}"`);
+      }
+      if (!mask[key])
+        continue;
+      shape[key] = new Class({
+        type: "nonoptional",
+        innerType: oldShape[key]
+      });
+    }
+  } else {
+    for (const key in oldShape) {
+      shape[key] = new Class({
+        type: "nonoptional",
+        innerType: oldShape[key]
+      });
+    }
+  }
+  return clone(schema, {
+    ...schema._zod.def,
+    shape,
+    checks: []
+  });
+}
+function aborted(x2, startIndex = 0) {
+  for (let i2 = startIndex;i2 < x2.issues.length; i2++) {
+    if (x2.issues[i2]?.continue !== true)
+      return true;
+  }
+  return false;
+}
+function prefixIssues(path, issues) {
+  return issues.map((iss) => {
+    var _a;
+    (_a = iss).path ?? (_a.path = []);
+    iss.path.unshift(path);
+    return iss;
+  });
+}
+function unwrapMessage(message) {
+  return typeof message === "string" ? message : message?.message;
+}
+function finalizeIssue(iss, ctx, config2) {
+  const full = { ...iss, path: iss.path ?? [] };
+  if (!iss.message) {
+    const message = unwrapMessage(iss.inst?._zod.def?.error?.(iss)) ?? unwrapMessage(ctx?.error?.(iss)) ?? unwrapMessage(config2.customError?.(iss)) ?? unwrapMessage(config2.localeError?.(iss)) ?? "Invalid input";
+    full.message = message;
+  }
+  delete full.inst;
+  delete full.continue;
+  if (!ctx?.reportInput) {
+    delete full.input;
+  }
+  return full;
+}
+function getSizableOrigin(input) {
+  if (input instanceof Set)
+    return "set";
+  if (input instanceof Map)
+    return "map";
+  if (input instanceof File)
+    return "file";
+  return "unknown";
+}
+function getLengthableOrigin(input) {
+  if (Array.isArray(input))
+    return "array";
+  if (typeof input === "string")
+    return "string";
+  return "unknown";
+}
+function issue(...args) {
+  const [iss, input, inst] = args;
+  if (typeof iss === "string") {
+    return {
+      message: iss,
+      code: "custom",
+      input,
+      inst
+    };
+  }
+  return { ...iss };
+}
+function cleanEnum(obj) {
+  return Object.entries(obj).filter(([k2, _2]) => {
+    return Number.isNaN(Number.parseInt(k2, 10));
+  }).map((el) => el[1]);
+}
+
+class Class {
+  constructor(..._args) {
+  }
+}
+
+// node_modules/zod/v4/core/errors.js
+var initializer = (inst, def) => {
+  inst.name = "$ZodError";
+  Object.defineProperty(inst, "_zod", {
+    value: inst._zod,
+    enumerable: false
+  });
+  Object.defineProperty(inst, "issues", {
+    value: def,
+    enumerable: false
+  });
+  Object.defineProperty(inst, "message", {
+    get() {
+      return JSON.stringify(def, jsonStringifyReplacer, 2);
+    },
+    enumerable: true
+  });
+  Object.defineProperty(inst, "toString", {
+    value: () => inst.message,
+    enumerable: false
+  });
+};
+var $ZodError = $constructor("$ZodError", initializer);
+var $ZodRealError = $constructor("$ZodError", initializer, { Parent: Error });
+function flattenError(error, mapper = (issue2) => issue2.message) {
+  const fieldErrors = {};
+  const formErrors = [];
+  for (const sub of error.issues) {
+    if (sub.path.length > 0) {
+      fieldErrors[sub.path[0]] = fieldErrors[sub.path[0]] || [];
+      fieldErrors[sub.path[0]].push(mapper(sub));
+    } else {
+      formErrors.push(mapper(sub));
+    }
+  }
+  return { formErrors, fieldErrors };
+}
+function formatError(error, _mapper) {
+  const mapper = _mapper || function(issue2) {
+    return issue2.message;
+  };
+  const fieldErrors = { _errors: [] };
+  const processError = (error2) => {
+    for (const issue2 of error2.issues) {
+      if (issue2.code === "invalid_union" && issue2.errors.length) {
+        issue2.errors.map((issues) => processError({ issues }));
+      } else if (issue2.code === "invalid_key") {
+        processError({ issues: issue2.issues });
+      } else if (issue2.code === "invalid_element") {
+        processError({ issues: issue2.issues });
+      } else if (issue2.path.length === 0) {
+        fieldErrors._errors.push(mapper(issue2));
+      } else {
+        let curr = fieldErrors;
+        let i2 = 0;
+        while (i2 < issue2.path.length) {
+          const el = issue2.path[i2];
+          const terminal = i2 === issue2.path.length - 1;
+          if (!terminal) {
+            curr[el] = curr[el] || { _errors: [] };
+          } else {
+            curr[el] = curr[el] || { _errors: [] };
+            curr[el]._errors.push(mapper(issue2));
+          }
+          curr = curr[el];
+          i2++;
+        }
+      }
+    }
+  };
+  processError(error);
+  return fieldErrors;
+}
+function treeifyError(error, _mapper) {
+  const mapper = _mapper || function(issue2) {
+    return issue2.message;
+  };
+  const result = { errors: [] };
+  const processError = (error2, path = []) => {
+    var _a, _b;
+    for (const issue2 of error2.issues) {
+      if (issue2.code === "invalid_union" && issue2.errors.length) {
+        issue2.errors.map((issues) => processError({ issues }, issue2.path));
+      } else if (issue2.code === "invalid_key") {
+        processError({ issues: issue2.issues }, issue2.path);
+      } else if (issue2.code === "invalid_element") {
+        processError({ issues: issue2.issues }, issue2.path);
+      } else {
+        const fullpath = [...path, ...issue2.path];
+        if (fullpath.length === 0) {
+          result.errors.push(mapper(issue2));
+          continue;
+        }
+        let curr = result;
+        let i2 = 0;
+        while (i2 < fullpath.length) {
+          const el = fullpath[i2];
+          const terminal = i2 === fullpath.length - 1;
+          if (typeof el === "string") {
+            curr.properties ?? (curr.properties = {});
+            (_a = curr.properties)[el] ?? (_a[el] = { errors: [] });
+            curr = curr.properties[el];
+          } else {
+            curr.items ?? (curr.items = []);
+            (_b = curr.items)[el] ?? (_b[el] = { errors: [] });
+            curr = curr.items[el];
+          }
+          if (terminal) {
+            curr.errors.push(mapper(issue2));
+          }
+          i2++;
+        }
+      }
+    }
+  };
+  processError(error);
+  return result;
+}
+function toDotPath(path) {
+  const segs = [];
+  for (const seg of path) {
+    if (typeof seg === "number")
+      segs.push(`[${seg}]`);
+    else if (typeof seg === "symbol")
+      segs.push(`[${JSON.stringify(String(seg))}]`);
+    else if (/[^\w$]/.test(seg))
+      segs.push(`[${JSON.stringify(seg)}]`);
+    else {
+      if (segs.length)
+        segs.push(".");
+      segs.push(seg);
+    }
+  }
+  return segs.join("");
+}
+function prettifyError(error) {
+  const lines = [];
+  const issues = [...error.issues].sort((a2, b) => a2.path.length - b.path.length);
+  for (const issue2 of issues) {
+    lines.push(`✖ ${issue2.message}`);
+    if (issue2.path?.length)
+      lines.push(`  → at ${toDotPath(issue2.path)}`);
+  }
+  return lines.join(`
+`);
+}
+
+// node_modules/zod/v4/core/parse.js
+var _parse = (_Err) => (schema, value, _ctx, _params) => {
+  const ctx = _ctx ? Object.assign(_ctx, { async: false }) : { async: false };
+  const result = schema._zod.run({ value, issues: [] }, ctx);
+  if (result instanceof Promise) {
+    throw new $ZodAsyncError;
+  }
+  if (result.issues.length) {
+    const e = new (_params?.Err ?? _Err)(result.issues.map((iss) => finalizeIssue(iss, ctx, config())));
+    captureStackTrace(e, _params?.callee);
+    throw e;
+  }
+  return result.value;
+};
+var parse3 = /* @__PURE__ */ _parse($ZodRealError);
+var _parseAsync = (_Err) => async (schema, value, _ctx, params) => {
+  const ctx = _ctx ? Object.assign(_ctx, { async: true }) : { async: true };
+  let result = schema._zod.run({ value, issues: [] }, ctx);
+  if (result instanceof Promise)
+    result = await result;
+  if (result.issues.length) {
+    const e = new (params?.Err ?? _Err)(result.issues.map((iss) => finalizeIssue(iss, ctx, config())));
+    captureStackTrace(e, params?.callee);
+    throw e;
+  }
+  return result.value;
+};
+var parseAsync = /* @__PURE__ */ _parseAsync($ZodRealError);
+var _safeParse = (_Err) => (schema, value, _ctx) => {
+  const ctx = _ctx ? { ..._ctx, async: false } : { async: false };
+  const result = schema._zod.run({ value, issues: [] }, ctx);
+  if (result instanceof Promise) {
+    throw new $ZodAsyncError;
+  }
+  return result.issues.length ? {
+    success: false,
+    error: new (_Err ?? $ZodError)(result.issues.map((iss) => finalizeIssue(iss, ctx, config())))
+  } : { success: true, data: result.value };
+};
+var safeParse = /* @__PURE__ */ _safeParse($ZodRealError);
+var _safeParseAsync = (_Err) => async (schema, value, _ctx) => {
+  const ctx = _ctx ? Object.assign(_ctx, { async: true }) : { async: true };
+  let result = schema._zod.run({ value, issues: [] }, ctx);
+  if (result instanceof Promise)
+    result = await result;
+  return result.issues.length ? {
+    success: false,
+    error: new _Err(result.issues.map((iss) => finalizeIssue(iss, ctx, config())))
+  } : { success: true, data: result.value };
+};
+var safeParseAsync = /* @__PURE__ */ _safeParseAsync($ZodRealError);
+// node_modules/zod/v4/core/regexes.js
+var exports_regexes = {};
+__export(exports_regexes, {
+  xid: () => xid,
+  uuid7: () => uuid7,
+  uuid6: () => uuid6,
+  uuid4: () => uuid4,
+  uuid: () => uuid,
+  uppercase: () => uppercase,
+  unicodeEmail: () => unicodeEmail,
+  undefined: () => _undefined,
+  ulid: () => ulid,
+  time: () => time,
+  string: () => string,
+  rfc5322Email: () => rfc5322Email,
+  number: () => number,
+  null: () => _null,
+  nanoid: () => nanoid,
+  lowercase: () => lowercase,
+  ksuid: () => ksuid,
+  ipv6: () => ipv6,
+  ipv4: () => ipv4,
+  integer: () => integer,
+  html5Email: () => html5Email,
+  hostname: () => hostname,
+  guid: () => guid,
+  extendedDuration: () => extendedDuration,
+  emoji: () => emoji,
+  email: () => email,
+  e164: () => e164,
+  duration: () => duration,
+  domain: () => domain,
+  datetime: () => datetime,
+  date: () => date,
+  cuid2: () => cuid2,
+  cuid: () => cuid,
+  cidrv6: () => cidrv6,
+  cidrv4: () => cidrv4,
+  browserEmail: () => browserEmail,
+  boolean: () => boolean,
+  bigint: () => bigint,
+  base64url: () => base64url,
+  base64: () => base64
+});
+var cuid = /^[cC][^\s-]{8,}$/;
+var cuid2 = /^[0-9a-z]+$/;
+var ulid = /^[0-9A-HJKMNP-TV-Za-hjkmnp-tv-z]{26}$/;
+var xid = /^[0-9a-vA-V]{20}$/;
+var ksuid = /^[A-Za-z0-9]{27}$/;
+var nanoid = /^[a-zA-Z0-9_-]{21}$/;
+var duration = /^P(?:(\d+W)|(?!.*W)(?=\d|T\d)(\d+Y)?(\d+M)?(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+([.,]\d+)?S)?)?)$/;
+var extendedDuration = /^[-+]?P(?!$)(?:(?:[-+]?\d+Y)|(?:[-+]?\d+[.,]\d+Y$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:(?:[-+]?\d+W)|(?:[-+]?\d+[.,]\d+W$))?(?:(?:[-+]?\d+D)|(?:[-+]?\d+[.,]\d+D$))?(?:T(?=[\d+-])(?:(?:[-+]?\d+H)|(?:[-+]?\d+[.,]\d+H$))?(?:(?:[-+]?\d+M)|(?:[-+]?\d+[.,]\d+M$))?(?:[-+]?\d+(?:[.,]\d+)?S)?)??$/;
+var guid = /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$/;
+var uuid = (version2) => {
+  if (!version2)
+    return /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000)$/;
+  return new RegExp(`^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-${version2}[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$`);
+};
+var uuid4 = /* @__PURE__ */ uuid(4);
+var uuid6 = /* @__PURE__ */ uuid(6);
+var uuid7 = /* @__PURE__ */ uuid(7);
+var email = /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$/;
+var html5Email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+var rfc5322Email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+var unicodeEmail = /^[^\s@"]{1,64}@[^\s@]{1,255}$/u;
+var browserEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+var _emoji = `^(\\p{Extended_Pictographic}|\\p{Emoji_Component})+$`;
+function emoji() {
+  return new RegExp(_emoji, "u");
+}
+var ipv4 = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/;
+var ipv6 = /^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|::|([0-9a-fA-F]{1,4})?::([0-9a-fA-F]{1,4}:?){0,6})$/;
+var cidrv4 = /^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\/([0-9]|[1-2][0-9]|3[0-2])$/;
+var cidrv6 = /^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|::|([0-9a-fA-F]{1,4})?::([0-9a-fA-F]{1,4}:?){0,6})\/(12[0-8]|1[01][0-9]|[1-9]?[0-9])$/;
+var base64 = /^$|^(?:[0-9a-zA-Z+/]{4})*(?:(?:[0-9a-zA-Z+/]{2}==)|(?:[0-9a-zA-Z+/]{3}=))?$/;
+var base64url = /^[A-Za-z0-9_-]*$/;
+var hostname = /^([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+$/;
+var domain = /^([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
+var e164 = /^\+(?:[0-9]){6,14}[0-9]$/;
+var dateSource = `(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))`;
+var date = /* @__PURE__ */ new RegExp(`^${dateSource}$`);
+function timeSource(args) {
+  const hhmm = `(?:[01]\\d|2[0-3]):[0-5]\\d`;
+  const regex = typeof args.precision === "number" ? args.precision === -1 ? `${hhmm}` : args.precision === 0 ? `${hhmm}:[0-5]\\d` : `${hhmm}:[0-5]\\d\\.\\d{${args.precision}}` : `${hhmm}(?::[0-5]\\d(?:\\.\\d+)?)?`;
+  return regex;
+}
+function time(args) {
+  return new RegExp(`^${timeSource(args)}$`);
+}
+function datetime(args) {
+  const time2 = timeSource({ precision: args.precision });
+  const opts = ["Z"];
+  if (args.local)
+    opts.push("");
+  if (args.offset)
+    opts.push(`([+-]\\d{2}:\\d{2})`);
+  const timeRegex = `${time2}(?:${opts.join("|")})`;
+  return new RegExp(`^${dateSource}T(?:${timeRegex})$`);
+}
+var string = (params) => {
+  const regex = params ? `[\\s\\S]{${params?.minimum ?? 0},${params?.maximum ?? ""}}` : `[\\s\\S]*`;
+  return new RegExp(`^${regex}$`);
+};
+var bigint = /^\d+n?$/;
+var integer = /^\d+$/;
+var number = /^-?\d+(?:\.\d+)?/i;
+var boolean = /true|false/i;
+var _null = /null/i;
+var _undefined = /undefined/i;
+var lowercase = /^[^A-Z]*$/;
+var uppercase = /^[^a-z]*$/;
+
+// node_modules/zod/v4/core/checks.js
+var $ZodCheck = /* @__PURE__ */ $constructor("$ZodCheck", (inst, def) => {
+  var _a;
+  inst._zod ?? (inst._zod = {});
+  inst._zod.def = def;
+  (_a = inst._zod).onattach ?? (_a.onattach = []);
+});
+var numericOriginMap = {
+  number: "number",
+  bigint: "bigint",
+  object: "date"
+};
+var $ZodCheckLessThan = /* @__PURE__ */ $constructor("$ZodCheckLessThan", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  const origin = numericOriginMap[typeof def.value];
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    const curr = (def.inclusive ? bag.maximum : bag.exclusiveMaximum) ?? Number.POSITIVE_INFINITY;
+    if (def.value < curr) {
+      if (def.inclusive)
+        bag.maximum = def.value;
+      else
+        bag.exclusiveMaximum = def.value;
+    }
+  });
+  inst._zod.check = (payload) => {
+    if (def.inclusive ? payload.value <= def.value : payload.value < def.value) {
+      return;
+    }
+    payload.issues.push({
+      origin,
+      code: "too_big",
+      maximum: def.value,
+      input: payload.value,
+      inclusive: def.inclusive,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckGreaterThan = /* @__PURE__ */ $constructor("$ZodCheckGreaterThan", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  const origin = numericOriginMap[typeof def.value];
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    const curr = (def.inclusive ? bag.minimum : bag.exclusiveMinimum) ?? Number.NEGATIVE_INFINITY;
+    if (def.value > curr) {
+      if (def.inclusive)
+        bag.minimum = def.value;
+      else
+        bag.exclusiveMinimum = def.value;
+    }
+  });
+  inst._zod.check = (payload) => {
+    if (def.inclusive ? payload.value >= def.value : payload.value > def.value) {
+      return;
+    }
+    payload.issues.push({
+      origin,
+      code: "too_small",
+      minimum: def.value,
+      input: payload.value,
+      inclusive: def.inclusive,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckMultipleOf = /* @__PURE__ */ $constructor("$ZodCheckMultipleOf", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  inst._zod.onattach.push((inst2) => {
+    var _a;
+    (_a = inst2._zod.bag).multipleOf ?? (_a.multipleOf = def.value);
+  });
+  inst._zod.check = (payload) => {
+    if (typeof payload.value !== typeof def.value)
+      throw new Error("Cannot mix number and bigint in multiple_of check.");
+    const isMultiple = typeof payload.value === "bigint" ? payload.value % def.value === BigInt(0) : floatSafeRemainder(payload.value, def.value) === 0;
+    if (isMultiple)
+      return;
+    payload.issues.push({
+      origin: typeof payload.value,
+      code: "not_multiple_of",
+      divisor: def.value,
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckNumberFormat = /* @__PURE__ */ $constructor("$ZodCheckNumberFormat", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  def.format = def.format || "float64";
+  const isInt = def.format?.includes("int");
+  const origin = isInt ? "int" : "number";
+  const [minimum, maximum] = NUMBER_FORMAT_RANGES[def.format];
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.format = def.format;
+    bag.minimum = minimum;
+    bag.maximum = maximum;
+    if (isInt)
+      bag.pattern = integer;
+  });
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    if (isInt) {
+      if (!Number.isInteger(input)) {
+        payload.issues.push({
+          expected: origin,
+          format: def.format,
+          code: "invalid_type",
+          input,
+          inst
+        });
+        return;
+      }
+      if (!Number.isSafeInteger(input)) {
+        if (input > 0) {
+          payload.issues.push({
+            input,
+            code: "too_big",
+            maximum: Number.MAX_SAFE_INTEGER,
+            note: "Integers must be within the safe integer range.",
+            inst,
+            origin,
+            continue: !def.abort
+          });
+        } else {
+          payload.issues.push({
+            input,
+            code: "too_small",
+            minimum: Number.MIN_SAFE_INTEGER,
+            note: "Integers must be within the safe integer range.",
+            inst,
+            origin,
+            continue: !def.abort
+          });
+        }
+        return;
+      }
+    }
+    if (input < minimum) {
+      payload.issues.push({
+        origin: "number",
+        input,
+        code: "too_small",
+        minimum,
+        inclusive: true,
+        inst,
+        continue: !def.abort
+      });
+    }
+    if (input > maximum) {
+      payload.issues.push({
+        origin: "number",
+        input,
+        code: "too_big",
+        maximum,
+        inst
+      });
+    }
+  };
+});
+var $ZodCheckBigIntFormat = /* @__PURE__ */ $constructor("$ZodCheckBigIntFormat", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  const [minimum, maximum] = BIGINT_FORMAT_RANGES[def.format];
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.format = def.format;
+    bag.minimum = minimum;
+    bag.maximum = maximum;
+  });
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    if (input < minimum) {
+      payload.issues.push({
+        origin: "bigint",
+        input,
+        code: "too_small",
+        minimum,
+        inclusive: true,
+        inst,
+        continue: !def.abort
+      });
+    }
+    if (input > maximum) {
+      payload.issues.push({
+        origin: "bigint",
+        input,
+        code: "too_big",
+        maximum,
+        inst
+      });
+    }
+  };
+});
+var $ZodCheckMaxSize = /* @__PURE__ */ $constructor("$ZodCheckMaxSize", (inst, def) => {
+  var _a;
+  $ZodCheck.init(inst, def);
+  (_a = inst._zod.def).when ?? (_a.when = (payload) => {
+    const val = payload.value;
+    return !nullish(val) && val.size !== undefined;
+  });
+  inst._zod.onattach.push((inst2) => {
+    const curr = inst2._zod.bag.maximum ?? Number.POSITIVE_INFINITY;
+    if (def.maximum < curr)
+      inst2._zod.bag.maximum = def.maximum;
+  });
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    const size4 = input.size;
+    if (size4 <= def.maximum)
+      return;
+    payload.issues.push({
+      origin: getSizableOrigin(input),
+      code: "too_big",
+      maximum: def.maximum,
+      input,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckMinSize = /* @__PURE__ */ $constructor("$ZodCheckMinSize", (inst, def) => {
+  var _a;
+  $ZodCheck.init(inst, def);
+  (_a = inst._zod.def).when ?? (_a.when = (payload) => {
+    const val = payload.value;
+    return !nullish(val) && val.size !== undefined;
+  });
+  inst._zod.onattach.push((inst2) => {
+    const curr = inst2._zod.bag.minimum ?? Number.NEGATIVE_INFINITY;
+    if (def.minimum > curr)
+      inst2._zod.bag.minimum = def.minimum;
+  });
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    const size4 = input.size;
+    if (size4 >= def.minimum)
+      return;
+    payload.issues.push({
+      origin: getSizableOrigin(input),
+      code: "too_small",
+      minimum: def.minimum,
+      input,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckSizeEquals = /* @__PURE__ */ $constructor("$ZodCheckSizeEquals", (inst, def) => {
+  var _a;
+  $ZodCheck.init(inst, def);
+  (_a = inst._zod.def).when ?? (_a.when = (payload) => {
+    const val = payload.value;
+    return !nullish(val) && val.size !== undefined;
+  });
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.minimum = def.size;
+    bag.maximum = def.size;
+    bag.size = def.size;
+  });
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    const size4 = input.size;
+    if (size4 === def.size)
+      return;
+    const tooBig = size4 > def.size;
+    payload.issues.push({
+      origin: getSizableOrigin(input),
+      ...tooBig ? { code: "too_big", maximum: def.size } : { code: "too_small", minimum: def.size },
+      inclusive: true,
+      exact: true,
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckMaxLength = /* @__PURE__ */ $constructor("$ZodCheckMaxLength", (inst, def) => {
+  var _a;
+  $ZodCheck.init(inst, def);
+  (_a = inst._zod.def).when ?? (_a.when = (payload) => {
+    const val = payload.value;
+    return !nullish(val) && val.length !== undefined;
+  });
+  inst._zod.onattach.push((inst2) => {
+    const curr = inst2._zod.bag.maximum ?? Number.POSITIVE_INFINITY;
+    if (def.maximum < curr)
+      inst2._zod.bag.maximum = def.maximum;
+  });
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    const length2 = input.length;
+    if (length2 <= def.maximum)
+      return;
+    const origin = getLengthableOrigin(input);
+    payload.issues.push({
+      origin,
+      code: "too_big",
+      maximum: def.maximum,
+      inclusive: true,
+      input,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckMinLength = /* @__PURE__ */ $constructor("$ZodCheckMinLength", (inst, def) => {
+  var _a;
+  $ZodCheck.init(inst, def);
+  (_a = inst._zod.def).when ?? (_a.when = (payload) => {
+    const val = payload.value;
+    return !nullish(val) && val.length !== undefined;
+  });
+  inst._zod.onattach.push((inst2) => {
+    const curr = inst2._zod.bag.minimum ?? Number.NEGATIVE_INFINITY;
+    if (def.minimum > curr)
+      inst2._zod.bag.minimum = def.minimum;
+  });
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    const length2 = input.length;
+    if (length2 >= def.minimum)
+      return;
+    const origin = getLengthableOrigin(input);
+    payload.issues.push({
+      origin,
+      code: "too_small",
+      minimum: def.minimum,
+      inclusive: true,
+      input,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckLengthEquals = /* @__PURE__ */ $constructor("$ZodCheckLengthEquals", (inst, def) => {
+  var _a;
+  $ZodCheck.init(inst, def);
+  (_a = inst._zod.def).when ?? (_a.when = (payload) => {
+    const val = payload.value;
+    return !nullish(val) && val.length !== undefined;
+  });
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.minimum = def.length;
+    bag.maximum = def.length;
+    bag.length = def.length;
+  });
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    const length2 = input.length;
+    if (length2 === def.length)
+      return;
+    const origin = getLengthableOrigin(input);
+    const tooBig = length2 > def.length;
+    payload.issues.push({
+      origin,
+      ...tooBig ? { code: "too_big", maximum: def.length } : { code: "too_small", minimum: def.length },
+      inclusive: true,
+      exact: true,
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckStringFormat = /* @__PURE__ */ $constructor("$ZodCheckStringFormat", (inst, def) => {
+  var _a, _b;
+  $ZodCheck.init(inst, def);
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.format = def.format;
+    if (def.pattern) {
+      bag.patterns ?? (bag.patterns = new Set);
+      bag.patterns.add(def.pattern);
+    }
+  });
+  if (def.pattern)
+    (_a = inst._zod).check ?? (_a.check = (payload) => {
+      def.pattern.lastIndex = 0;
+      if (def.pattern.test(payload.value))
+        return;
+      payload.issues.push({
+        origin: "string",
+        code: "invalid_format",
+        format: def.format,
+        input: payload.value,
+        ...def.pattern ? { pattern: def.pattern.toString() } : {},
+        inst,
+        continue: !def.abort
+      });
+    });
+  else
+    (_b = inst._zod).check ?? (_b.check = () => {
+    });
+});
+var $ZodCheckRegex = /* @__PURE__ */ $constructor("$ZodCheckRegex", (inst, def) => {
+  $ZodCheckStringFormat.init(inst, def);
+  inst._zod.check = (payload) => {
+    def.pattern.lastIndex = 0;
+    if (def.pattern.test(payload.value))
+      return;
+    payload.issues.push({
+      origin: "string",
+      code: "invalid_format",
+      format: "regex",
+      input: payload.value,
+      pattern: def.pattern.toString(),
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckLowerCase = /* @__PURE__ */ $constructor("$ZodCheckLowerCase", (inst, def) => {
+  def.pattern ?? (def.pattern = lowercase);
+  $ZodCheckStringFormat.init(inst, def);
+});
+var $ZodCheckUpperCase = /* @__PURE__ */ $constructor("$ZodCheckUpperCase", (inst, def) => {
+  def.pattern ?? (def.pattern = uppercase);
+  $ZodCheckStringFormat.init(inst, def);
+});
+var $ZodCheckIncludes = /* @__PURE__ */ $constructor("$ZodCheckIncludes", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  const escapedRegex = escapeRegex(def.includes);
+  const pattern = new RegExp(typeof def.position === "number" ? `^.{${def.position}}${escapedRegex}` : escapedRegex);
+  def.pattern = pattern;
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.patterns ?? (bag.patterns = new Set);
+    bag.patterns.add(pattern);
+  });
+  inst._zod.check = (payload) => {
+    if (payload.value.includes(def.includes, def.position))
+      return;
+    payload.issues.push({
+      origin: "string",
+      code: "invalid_format",
+      format: "includes",
+      includes: def.includes,
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckStartsWith = /* @__PURE__ */ $constructor("$ZodCheckStartsWith", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  const pattern = new RegExp(`^${escapeRegex(def.prefix)}.*`);
+  def.pattern ?? (def.pattern = pattern);
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.patterns ?? (bag.patterns = new Set);
+    bag.patterns.add(pattern);
+  });
+  inst._zod.check = (payload) => {
+    if (payload.value.startsWith(def.prefix))
+      return;
+    payload.issues.push({
+      origin: "string",
+      code: "invalid_format",
+      format: "starts_with",
+      prefix: def.prefix,
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCheckEndsWith = /* @__PURE__ */ $constructor("$ZodCheckEndsWith", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  const pattern = new RegExp(`.*${escapeRegex(def.suffix)}$`);
+  def.pattern ?? (def.pattern = pattern);
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.patterns ?? (bag.patterns = new Set);
+    bag.patterns.add(pattern);
+  });
+  inst._zod.check = (payload) => {
+    if (payload.value.endsWith(def.suffix))
+      return;
+    payload.issues.push({
+      origin: "string",
+      code: "invalid_format",
+      format: "ends_with",
+      suffix: def.suffix,
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+function handleCheckPropertyResult(result, payload, property) {
+  if (result.issues.length) {
+    payload.issues.push(...prefixIssues(property, result.issues));
+  }
+}
+var $ZodCheckProperty = /* @__PURE__ */ $constructor("$ZodCheckProperty", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  inst._zod.check = (payload) => {
+    const result = def.schema._zod.run({
+      value: payload.value[def.property],
+      issues: []
+    }, {});
+    if (result instanceof Promise) {
+      return result.then((result2) => handleCheckPropertyResult(result2, payload, def.property));
+    }
+    handleCheckPropertyResult(result, payload, def.property);
+    return;
+  };
+});
+var $ZodCheckMimeType = /* @__PURE__ */ $constructor("$ZodCheckMimeType", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  const mimeSet = new Set(def.mime);
+  inst._zod.onattach.push((inst2) => {
+    inst2._zod.bag.mime = def.mime;
+  });
+  inst._zod.check = (payload) => {
+    if (mimeSet.has(payload.value.type))
+      return;
+    payload.issues.push({
+      code: "invalid_value",
+      values: def.mime,
+      input: payload.value.type,
+      inst
+    });
+  };
+});
+var $ZodCheckOverwrite = /* @__PURE__ */ $constructor("$ZodCheckOverwrite", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  inst._zod.check = (payload) => {
+    payload.value = def.tx(payload.value);
+  };
+});
+
+// node_modules/zod/v4/core/doc.js
+class Doc {
+  constructor(args = []) {
+    this.content = [];
+    this.indent = 0;
+    if (this)
+      this.args = args;
+  }
+  indented(fn) {
+    this.indent += 1;
+    fn(this);
+    this.indent -= 1;
+  }
+  write(arg) {
+    if (typeof arg === "function") {
+      arg(this, { execution: "sync" });
+      arg(this, { execution: "async" });
+      return;
+    }
+    const content = arg;
+    const lines = content.split(`
+`).filter((x2) => x2);
+    const minIndent = Math.min(...lines.map((x2) => x2.length - x2.trimStart().length));
+    const dedented = lines.map((x2) => x2.slice(minIndent)).map((x2) => " ".repeat(this.indent * 2) + x2);
+    for (const line2 of dedented) {
+      this.content.push(line2);
+    }
+  }
+  compile() {
+    const F2 = Function;
+    const args = this?.args;
+    const content = this?.content ?? [``];
+    const lines = [...content.map((x2) => `  ${x2}`)];
+    return new F2(...args, lines.join(`
+`));
+  }
+}
+
+// node_modules/zod/v4/core/versions.js
+var version2 = {
+  major: 4,
+  minor: 0,
+  patch: 5
+};
+
+// node_modules/zod/v4/core/schemas.js
+var $ZodType = /* @__PURE__ */ $constructor("$ZodType", (inst, def) => {
+  var _a;
+  inst ?? (inst = {});
+  inst._zod.def = def;
+  inst._zod.bag = inst._zod.bag || {};
+  inst._zod.version = version2;
+  const checks = [...inst._zod.def.checks ?? []];
+  if (inst._zod.traits.has("$ZodCheck")) {
+    checks.unshift(inst);
+  }
+  for (const ch of checks) {
+    for (const fn of ch._zod.onattach) {
+      fn(inst);
+    }
+  }
+  if (checks.length === 0) {
+    (_a = inst._zod).deferred ?? (_a.deferred = []);
+    inst._zod.deferred?.push(() => {
+      inst._zod.run = inst._zod.parse;
+    });
+  } else {
+    const runChecks = (payload, checks2, ctx) => {
+      let isAborted = aborted(payload);
+      let asyncResult;
+      for (const ch of checks2) {
+        if (ch._zod.def.when) {
+          const shouldRun = ch._zod.def.when(payload);
+          if (!shouldRun)
+            continue;
+        } else if (isAborted) {
+          continue;
+        }
+        const currLen = payload.issues.length;
+        const _2 = ch._zod.check(payload);
+        if (_2 instanceof Promise && ctx?.async === false) {
+          throw new $ZodAsyncError;
+        }
+        if (asyncResult || _2 instanceof Promise) {
+          asyncResult = (asyncResult ?? Promise.resolve()).then(async () => {
+            await _2;
+            const nextLen = payload.issues.length;
+            if (nextLen === currLen)
+              return;
+            if (!isAborted)
+              isAborted = aborted(payload, currLen);
+          });
+        } else {
+          const nextLen = payload.issues.length;
+          if (nextLen === currLen)
+            continue;
+          if (!isAborted)
+            isAborted = aborted(payload, currLen);
+        }
+      }
+      if (asyncResult) {
+        return asyncResult.then(() => {
+          return payload;
+        });
+      }
+      return payload;
+    };
+    inst._zod.run = (payload, ctx) => {
+      const result = inst._zod.parse(payload, ctx);
+      if (result instanceof Promise) {
+        if (ctx.async === false)
+          throw new $ZodAsyncError;
+        return result.then((result2) => runChecks(result2, checks, ctx));
+      }
+      return runChecks(result, checks, ctx);
+    };
+  }
+  inst["~standard"] = {
+    validate: (value) => {
+      try {
+        const r3 = safeParse(inst, value);
+        return r3.success ? { value: r3.data } : { issues: r3.error?.issues };
+      } catch (_2) {
+        return safeParseAsync(inst, value).then((r3) => r3.success ? { value: r3.data } : { issues: r3.error?.issues });
+      }
+    },
+    vendor: "zod",
+    version: 1
+  };
+});
+var $ZodString = /* @__PURE__ */ $constructor("$ZodString", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.pattern = [...inst?._zod.bag?.patterns ?? []].pop() ?? string(inst._zod.bag);
+  inst._zod.parse = (payload, _2) => {
+    if (def.coerce)
+      try {
+        payload.value = String(payload.value);
+      } catch (_3) {
+      }
+    if (typeof payload.value === "string")
+      return payload;
+    payload.issues.push({
+      expected: "string",
+      code: "invalid_type",
+      input: payload.value,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodStringFormat = /* @__PURE__ */ $constructor("$ZodStringFormat", (inst, def) => {
+  $ZodCheckStringFormat.init(inst, def);
+  $ZodString.init(inst, def);
+});
+var $ZodGUID = /* @__PURE__ */ $constructor("$ZodGUID", (inst, def) => {
+  def.pattern ?? (def.pattern = guid);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodUUID = /* @__PURE__ */ $constructor("$ZodUUID", (inst, def) => {
+  if (def.version) {
+    const versionMap = {
+      v1: 1,
+      v2: 2,
+      v3: 3,
+      v4: 4,
+      v5: 5,
+      v6: 6,
+      v7: 7,
+      v8: 8
+    };
+    const v2 = versionMap[def.version];
+    if (v2 === undefined)
+      throw new Error(`Invalid UUID version: "${def.version}"`);
+    def.pattern ?? (def.pattern = uuid(v2));
+  } else
+    def.pattern ?? (def.pattern = uuid());
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodEmail = /* @__PURE__ */ $constructor("$ZodEmail", (inst, def) => {
+  def.pattern ?? (def.pattern = email);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodURL = /* @__PURE__ */ $constructor("$ZodURL", (inst, def) => {
+  $ZodStringFormat.init(inst, def);
+  inst._zod.check = (payload) => {
+    try {
+      const orig = payload.value;
+      const url = new URL(orig);
+      const href = url.href;
+      if (def.hostname) {
+        def.hostname.lastIndex = 0;
+        if (!def.hostname.test(url.hostname)) {
+          payload.issues.push({
+            code: "invalid_format",
+            format: "url",
+            note: "Invalid hostname",
+            pattern: hostname.source,
+            input: payload.value,
+            inst,
+            continue: !def.abort
+          });
+        }
+      }
+      if (def.protocol) {
+        def.protocol.lastIndex = 0;
+        if (!def.protocol.test(url.protocol.endsWith(":") ? url.protocol.slice(0, -1) : url.protocol)) {
+          payload.issues.push({
+            code: "invalid_format",
+            format: "url",
+            note: "Invalid protocol",
+            pattern: def.protocol.source,
+            input: payload.value,
+            inst,
+            continue: !def.abort
+          });
+        }
+      }
+      if (!orig.endsWith("/") && href.endsWith("/")) {
+        payload.value = href.slice(0, -1);
+      } else {
+        payload.value = href;
+      }
+      return;
+    } catch (_2) {
+      payload.issues.push({
+        code: "invalid_format",
+        format: "url",
+        input: payload.value,
+        inst,
+        continue: !def.abort
+      });
+    }
+  };
+});
+var $ZodEmoji = /* @__PURE__ */ $constructor("$ZodEmoji", (inst, def) => {
+  def.pattern ?? (def.pattern = emoji());
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodNanoID = /* @__PURE__ */ $constructor("$ZodNanoID", (inst, def) => {
+  def.pattern ?? (def.pattern = nanoid);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodCUID = /* @__PURE__ */ $constructor("$ZodCUID", (inst, def) => {
+  def.pattern ?? (def.pattern = cuid);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodCUID2 = /* @__PURE__ */ $constructor("$ZodCUID2", (inst, def) => {
+  def.pattern ?? (def.pattern = cuid2);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodULID = /* @__PURE__ */ $constructor("$ZodULID", (inst, def) => {
+  def.pattern ?? (def.pattern = ulid);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodXID = /* @__PURE__ */ $constructor("$ZodXID", (inst, def) => {
+  def.pattern ?? (def.pattern = xid);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodKSUID = /* @__PURE__ */ $constructor("$ZodKSUID", (inst, def) => {
+  def.pattern ?? (def.pattern = ksuid);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodISODateTime = /* @__PURE__ */ $constructor("$ZodISODateTime", (inst, def) => {
+  def.pattern ?? (def.pattern = datetime(def));
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodISODate = /* @__PURE__ */ $constructor("$ZodISODate", (inst, def) => {
+  def.pattern ?? (def.pattern = date);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodISOTime = /* @__PURE__ */ $constructor("$ZodISOTime", (inst, def) => {
+  def.pattern ?? (def.pattern = time(def));
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodISODuration = /* @__PURE__ */ $constructor("$ZodISODuration", (inst, def) => {
+  def.pattern ?? (def.pattern = duration);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodIPv4 = /* @__PURE__ */ $constructor("$ZodIPv4", (inst, def) => {
+  def.pattern ?? (def.pattern = ipv4);
+  $ZodStringFormat.init(inst, def);
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.format = `ipv4`;
+  });
+});
+var $ZodIPv6 = /* @__PURE__ */ $constructor("$ZodIPv6", (inst, def) => {
+  def.pattern ?? (def.pattern = ipv6);
+  $ZodStringFormat.init(inst, def);
+  inst._zod.onattach.push((inst2) => {
+    const bag = inst2._zod.bag;
+    bag.format = `ipv6`;
+  });
+  inst._zod.check = (payload) => {
+    try {
+      new URL(`http://[${payload.value}]`);
+    } catch {
+      payload.issues.push({
+        code: "invalid_format",
+        format: "ipv6",
+        input: payload.value,
+        inst,
+        continue: !def.abort
+      });
+    }
+  };
+});
+var $ZodCIDRv4 = /* @__PURE__ */ $constructor("$ZodCIDRv4", (inst, def) => {
+  def.pattern ?? (def.pattern = cidrv4);
+  $ZodStringFormat.init(inst, def);
+});
+var $ZodCIDRv6 = /* @__PURE__ */ $constructor("$ZodCIDRv6", (inst, def) => {
+  def.pattern ?? (def.pattern = cidrv6);
+  $ZodStringFormat.init(inst, def);
+  inst._zod.check = (payload) => {
+    const [address, prefix3] = payload.value.split("/");
+    try {
+      if (!prefix3)
+        throw new Error;
+      const prefixNum = Number(prefix3);
+      if (`${prefixNum}` !== prefix3)
+        throw new Error;
+      if (prefixNum < 0 || prefixNum > 128)
+        throw new Error;
+      new URL(`http://[${address}]`);
+    } catch {
+      payload.issues.push({
+        code: "invalid_format",
+        format: "cidrv6",
+        input: payload.value,
+        inst,
+        continue: !def.abort
+      });
+    }
+  };
+});
+function isValidBase64(data) {
+  if (data === "")
+    return true;
+  if (data.length % 4 !== 0)
+    return false;
+  try {
+    atob(data);
+    return true;
+  } catch {
+    return false;
+  }
+}
+var $ZodBase64 = /* @__PURE__ */ $constructor("$ZodBase64", (inst, def) => {
+  def.pattern ?? (def.pattern = base64);
+  $ZodStringFormat.init(inst, def);
+  inst._zod.onattach.push((inst2) => {
+    inst2._zod.bag.contentEncoding = "base64";
+  });
+  inst._zod.check = (payload) => {
+    if (isValidBase64(payload.value))
+      return;
+    payload.issues.push({
+      code: "invalid_format",
+      format: "base64",
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+function isValidBase64URL(data) {
+  if (!base64url.test(data))
+    return false;
+  const base642 = data.replace(/[-_]/g, (c2) => c2 === "-" ? "+" : "/");
+  const padded = base642.padEnd(Math.ceil(base642.length / 4) * 4, "=");
+  return isValidBase64(padded);
+}
+var $ZodBase64URL = /* @__PURE__ */ $constructor("$ZodBase64URL", (inst, def) => {
+  def.pattern ?? (def.pattern = base64url);
+  $ZodStringFormat.init(inst, def);
+  inst._zod.onattach.push((inst2) => {
+    inst2._zod.bag.contentEncoding = "base64url";
+  });
+  inst._zod.check = (payload) => {
+    if (isValidBase64URL(payload.value))
+      return;
+    payload.issues.push({
+      code: "invalid_format",
+      format: "base64url",
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodE164 = /* @__PURE__ */ $constructor("$ZodE164", (inst, def) => {
+  def.pattern ?? (def.pattern = e164);
+  $ZodStringFormat.init(inst, def);
+});
+function isValidJWT(token2, algorithm = null) {
+  try {
+    const tokensParts = token2.split(".");
+    if (tokensParts.length !== 3)
+      return false;
+    const [header] = tokensParts;
+    if (!header)
+      return false;
+    const parsedHeader = JSON.parse(atob(header));
+    if ("typ" in parsedHeader && parsedHeader?.typ !== "JWT")
+      return false;
+    if (!parsedHeader.alg)
+      return false;
+    if (algorithm && (!("alg" in parsedHeader) || parsedHeader.alg !== algorithm))
+      return false;
+    return true;
+  } catch {
+    return false;
+  }
+}
+var $ZodJWT = /* @__PURE__ */ $constructor("$ZodJWT", (inst, def) => {
+  $ZodStringFormat.init(inst, def);
+  inst._zod.check = (payload) => {
+    if (isValidJWT(payload.value, def.alg))
+      return;
+    payload.issues.push({
+      code: "invalid_format",
+      format: "jwt",
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodCustomStringFormat = /* @__PURE__ */ $constructor("$ZodCustomStringFormat", (inst, def) => {
+  $ZodStringFormat.init(inst, def);
+  inst._zod.check = (payload) => {
+    if (def.fn(payload.value))
+      return;
+    payload.issues.push({
+      code: "invalid_format",
+      format: def.format,
+      input: payload.value,
+      inst,
+      continue: !def.abort
+    });
+  };
+});
+var $ZodNumber = /* @__PURE__ */ $constructor("$ZodNumber", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.pattern = inst._zod.bag.pattern ?? number;
+  inst._zod.parse = (payload, _ctx) => {
+    if (def.coerce)
+      try {
+        payload.value = Number(payload.value);
+      } catch (_2) {
+      }
+    const input = payload.value;
+    if (typeof input === "number" && !Number.isNaN(input) && Number.isFinite(input)) {
+      return payload;
+    }
+    const received = typeof input === "number" ? Number.isNaN(input) ? "NaN" : !Number.isFinite(input) ? "Infinity" : undefined : undefined;
+    payload.issues.push({
+      expected: "number",
+      code: "invalid_type",
+      input,
+      inst,
+      ...received ? { received } : {}
+    });
+    return payload;
+  };
+});
+var $ZodNumberFormat = /* @__PURE__ */ $constructor("$ZodNumber", (inst, def) => {
+  $ZodCheckNumberFormat.init(inst, def);
+  $ZodNumber.init(inst, def);
+});
+var $ZodBoolean = /* @__PURE__ */ $constructor("$ZodBoolean", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.pattern = boolean;
+  inst._zod.parse = (payload, _ctx) => {
+    if (def.coerce)
+      try {
+        payload.value = Boolean(payload.value);
+      } catch (_2) {
+      }
+    const input = payload.value;
+    if (typeof input === "boolean")
+      return payload;
+    payload.issues.push({
+      expected: "boolean",
+      code: "invalid_type",
+      input,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodBigInt = /* @__PURE__ */ $constructor("$ZodBigInt", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.pattern = bigint;
+  inst._zod.parse = (payload, _ctx) => {
+    if (def.coerce)
+      try {
+        payload.value = BigInt(payload.value);
+      } catch (_2) {
+      }
+    if (typeof payload.value === "bigint")
+      return payload;
+    payload.issues.push({
+      expected: "bigint",
+      code: "invalid_type",
+      input: payload.value,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodBigIntFormat = /* @__PURE__ */ $constructor("$ZodBigInt", (inst, def) => {
+  $ZodCheckBigIntFormat.init(inst, def);
+  $ZodBigInt.init(inst, def);
+});
+var $ZodSymbol = /* @__PURE__ */ $constructor("$ZodSymbol", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, _ctx) => {
+    const input = payload.value;
+    if (typeof input === "symbol")
+      return payload;
+    payload.issues.push({
+      expected: "symbol",
+      code: "invalid_type",
+      input,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodUndefined = /* @__PURE__ */ $constructor("$ZodUndefined", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.pattern = _undefined;
+  inst._zod.values = new Set([undefined]);
+  inst._zod.optin = "optional";
+  inst._zod.optout = "optional";
+  inst._zod.parse = (payload, _ctx) => {
+    const input = payload.value;
+    if (typeof input === "undefined")
+      return payload;
+    payload.issues.push({
+      expected: "undefined",
+      code: "invalid_type",
+      input,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodNull = /* @__PURE__ */ $constructor("$ZodNull", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.pattern = _null;
+  inst._zod.values = new Set([null]);
+  inst._zod.parse = (payload, _ctx) => {
+    const input = payload.value;
+    if (input === null)
+      return payload;
+    payload.issues.push({
+      expected: "null",
+      code: "invalid_type",
+      input,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodAny = /* @__PURE__ */ $constructor("$ZodAny", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload) => payload;
+});
+var $ZodUnknown = /* @__PURE__ */ $constructor("$ZodUnknown", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload) => payload;
+});
+var $ZodNever = /* @__PURE__ */ $constructor("$ZodNever", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, _ctx) => {
+    payload.issues.push({
+      expected: "never",
+      code: "invalid_type",
+      input: payload.value,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodVoid = /* @__PURE__ */ $constructor("$ZodVoid", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, _ctx) => {
+    const input = payload.value;
+    if (typeof input === "undefined")
+      return payload;
+    payload.issues.push({
+      expected: "void",
+      code: "invalid_type",
+      input,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodDate = /* @__PURE__ */ $constructor("$ZodDate", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, _ctx) => {
+    if (def.coerce) {
+      try {
+        payload.value = new Date(payload.value);
+      } catch (_err) {
+      }
+    }
+    const input = payload.value;
+    const isDate = input instanceof Date;
+    const isValidDate = isDate && !Number.isNaN(input.getTime());
+    if (isValidDate)
+      return payload;
+    payload.issues.push({
+      expected: "date",
+      code: "invalid_type",
+      input,
+      ...isDate ? { received: "Invalid Date" } : {},
+      inst
+    });
+    return payload;
+  };
+});
+function handleArrayResult(result, final, index4) {
+  if (result.issues.length) {
+    final.issues.push(...prefixIssues(index4, result.issues));
+  }
+  final.value[index4] = result.value;
+}
+var $ZodArray = /* @__PURE__ */ $constructor("$ZodArray", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, ctx) => {
+    const input = payload.value;
+    if (!Array.isArray(input)) {
+      payload.issues.push({
+        expected: "array",
+        code: "invalid_type",
+        input,
+        inst
+      });
+      return payload;
+    }
+    payload.value = Array(input.length);
+    const proms = [];
+    for (let i2 = 0;i2 < input.length; i2++) {
+      const item = input[i2];
+      const result = def.element._zod.run({
+        value: item,
+        issues: []
+      }, ctx);
+      if (result instanceof Promise) {
+        proms.push(result.then((result2) => handleArrayResult(result2, payload, i2)));
+      } else {
+        handleArrayResult(result, payload, i2);
+      }
+    }
+    if (proms.length) {
+      return Promise.all(proms).then(() => payload);
+    }
+    return payload;
+  };
+});
+function handleObjectResult(result, final, key) {
+  if (result.issues.length) {
+    final.issues.push(...prefixIssues(key, result.issues));
+  }
+  final.value[key] = result.value;
+}
+function handleOptionalObjectResult(result, final, key, input) {
+  if (result.issues.length) {
+    if (input[key] === undefined) {
+      if (key in input) {
+        final.value[key] = undefined;
+      } else {
+        final.value[key] = result.value;
+      }
+    } else {
+      final.issues.push(...prefixIssues(key, result.issues));
+    }
+  } else if (result.value === undefined) {
+    if (key in input)
+      final.value[key] = undefined;
+  } else {
+    final.value[key] = result.value;
+  }
+}
+var $ZodObject = /* @__PURE__ */ $constructor("$ZodObject", (inst, def) => {
+  $ZodType.init(inst, def);
+  const _normalized = cached(() => {
+    const keys2 = Object.keys(def.shape);
+    for (const k2 of keys2) {
+      if (!(def.shape[k2] instanceof $ZodType)) {
+        throw new Error(`Invalid element at key "${k2}": expected a Zod schema`);
+      }
+    }
+    const okeys = optionalKeys(def.shape);
+    return {
+      shape: def.shape,
+      keys: keys2,
+      keySet: new Set(keys2),
+      numKeys: keys2.length,
+      optionalKeys: new Set(okeys)
+    };
+  });
+  defineLazy(inst._zod, "propValues", () => {
+    const shape = def.shape;
+    const propValues = {};
+    for (const key in shape) {
+      const field = shape[key]._zod;
+      if (field.values) {
+        propValues[key] ?? (propValues[key] = new Set);
+        for (const v2 of field.values)
+          propValues[key].add(v2);
+      }
+    }
+    return propValues;
+  });
+  const generateFastpass = (shape) => {
+    const doc = new Doc(["shape", "payload", "ctx"]);
+    const normalized = _normalized.value;
+    const parseStr = (key) => {
+      const k2 = esc(key);
+      return `shape[${k2}]._zod.run({ value: input[${k2}], issues: [] }, ctx)`;
+    };
+    doc.write(`const input = payload.value;`);
+    const ids2 = Object.create(null);
+    let counter = 0;
+    for (const key of normalized.keys) {
+      ids2[key] = `key_${counter++}`;
+    }
+    doc.write(`const newResult = {}`);
+    for (const key of normalized.keys) {
+      if (normalized.optionalKeys.has(key)) {
+        const id = ids2[key];
+        doc.write(`const ${id} = ${parseStr(key)};`);
+        const k2 = esc(key);
+        doc.write(`
+        if (${id}.issues.length) {
+          if (input[${k2}] === undefined) {
+            if (${k2} in input) {
+              newResult[${k2}] = undefined;
+            }
+          } else {
+            payload.issues = payload.issues.concat(
+              ${id}.issues.map((iss) => ({
+                ...iss,
+                path: iss.path ? [${k2}, ...iss.path] : [${k2}],
+              }))
+            );
+          }
+        } else if (${id}.value === undefined) {
+          if (${k2} in input) newResult[${k2}] = undefined;
+        } else {
+          newResult[${k2}] = ${id}.value;
+        }
+        `);
+      } else {
+        const id = ids2[key];
+        doc.write(`const ${id} = ${parseStr(key)};`);
+        doc.write(`
+          if (${id}.issues.length) payload.issues = payload.issues.concat(${id}.issues.map(iss => ({
+            ...iss,
+            path: iss.path ? [${esc(key)}, ...iss.path] : [${esc(key)}]
+          })));`);
+        doc.write(`newResult[${esc(key)}] = ${id}.value`);
+      }
+    }
+    doc.write(`payload.value = newResult;`);
+    doc.write(`return payload;`);
+    const fn = doc.compile();
+    return (payload, ctx) => fn(shape, payload, ctx);
+  };
+  let fastpass;
+  const isObject3 = isObject2;
+  const jit = !globalConfig.jitless;
+  const allowsEval2 = allowsEval;
+  const fastEnabled = jit && allowsEval2.value;
+  const catchall = def.catchall;
+  let value;
+  inst._zod.parse = (payload, ctx) => {
+    value ?? (value = _normalized.value);
+    const input = payload.value;
+    if (!isObject3(input)) {
+      payload.issues.push({
+        expected: "object",
+        code: "invalid_type",
+        input,
+        inst
+      });
+      return payload;
+    }
+    const proms = [];
+    if (jit && fastEnabled && ctx?.async === false && ctx.jitless !== true) {
+      if (!fastpass)
+        fastpass = generateFastpass(def.shape);
+      payload = fastpass(payload, ctx);
+    } else {
+      payload.value = {};
+      const shape = value.shape;
+      for (const key of value.keys) {
+        const el = shape[key];
+        const r3 = el._zod.run({ value: input[key], issues: [] }, ctx);
+        const isOptional = el._zod.optin === "optional" && el._zod.optout === "optional";
+        if (r3 instanceof Promise) {
+          proms.push(r3.then((r4) => isOptional ? handleOptionalObjectResult(r4, payload, key, input) : handleObjectResult(r4, payload, key)));
+        } else if (isOptional) {
+          handleOptionalObjectResult(r3, payload, key, input);
+        } else {
+          handleObjectResult(r3, payload, key);
+        }
+      }
+    }
+    if (!catchall) {
+      return proms.length ? Promise.all(proms).then(() => payload) : payload;
+    }
+    const unrecognized = [];
+    const keySet = value.keySet;
+    const _catchall = catchall._zod;
+    const t = _catchall.def.type;
+    for (const key of Object.keys(input)) {
+      if (keySet.has(key))
+        continue;
+      if (t === "never") {
+        unrecognized.push(key);
+        continue;
+      }
+      const r3 = _catchall.run({ value: input[key], issues: [] }, ctx);
+      if (r3 instanceof Promise) {
+        proms.push(r3.then((r4) => handleObjectResult(r4, payload, key)));
+      } else {
+        handleObjectResult(r3, payload, key);
+      }
+    }
+    if (unrecognized.length) {
+      payload.issues.push({
+        code: "unrecognized_keys",
+        keys: unrecognized,
+        input,
+        inst
+      });
+    }
+    if (!proms.length)
+      return payload;
+    return Promise.all(proms).then(() => {
+      return payload;
+    });
+  };
+});
+function handleUnionResults(results, final, inst, ctx) {
+  for (const result of results) {
+    if (result.issues.length === 0) {
+      final.value = result.value;
+      return final;
+    }
+  }
+  final.issues.push({
+    code: "invalid_union",
+    input: final.value,
+    inst,
+    errors: results.map((result) => result.issues.map((iss) => finalizeIssue(iss, ctx, config())))
+  });
+  return final;
+}
+var $ZodUnion = /* @__PURE__ */ $constructor("$ZodUnion", (inst, def) => {
+  $ZodType.init(inst, def);
+  defineLazy(inst._zod, "optin", () => def.options.some((o2) => o2._zod.optin === "optional") ? "optional" : undefined);
+  defineLazy(inst._zod, "optout", () => def.options.some((o2) => o2._zod.optout === "optional") ? "optional" : undefined);
+  defineLazy(inst._zod, "values", () => {
+    if (def.options.every((o2) => o2._zod.values)) {
+      return new Set(def.options.flatMap((option) => Array.from(option._zod.values)));
+    }
+    return;
+  });
+  defineLazy(inst._zod, "pattern", () => {
+    if (def.options.every((o2) => o2._zod.pattern)) {
+      const patterns = def.options.map((o2) => o2._zod.pattern);
+      return new RegExp(`^(${patterns.map((p2) => cleanRegex(p2.source)).join("|")})$`);
+    }
+    return;
+  });
+  inst._zod.parse = (payload, ctx) => {
+    let async = false;
+    const results = [];
+    for (const option of def.options) {
+      const result = option._zod.run({
+        value: payload.value,
+        issues: []
+      }, ctx);
+      if (result instanceof Promise) {
+        results.push(result);
+        async = true;
+      } else {
+        if (result.issues.length === 0)
+          return result;
+        results.push(result);
+      }
+    }
+    if (!async)
+      return handleUnionResults(results, payload, inst, ctx);
+    return Promise.all(results).then((results2) => {
+      return handleUnionResults(results2, payload, inst, ctx);
+    });
+  };
+});
+var $ZodDiscriminatedUnion = /* @__PURE__ */ $constructor("$ZodDiscriminatedUnion", (inst, def) => {
+  $ZodUnion.init(inst, def);
+  const _super = inst._zod.parse;
+  defineLazy(inst._zod, "propValues", () => {
+    const propValues = {};
+    for (const option of def.options) {
+      const pv = option._zod.propValues;
+      if (!pv || Object.keys(pv).length === 0)
+        throw new Error(`Invalid discriminated union option at index "${def.options.indexOf(option)}"`);
+      for (const [k2, v2] of Object.entries(pv)) {
+        if (!propValues[k2])
+          propValues[k2] = new Set;
+        for (const val of v2) {
+          propValues[k2].add(val);
+        }
+      }
+    }
+    return propValues;
+  });
+  const disc = cached(() => {
+    const opts = def.options;
+    const map = new Map;
+    for (const o2 of opts) {
+      const values2 = o2._zod.propValues?.[def.discriminator];
+      if (!values2 || values2.size === 0)
+        throw new Error(`Invalid discriminated union option at index "${def.options.indexOf(o2)}"`);
+      for (const v2 of values2) {
+        if (map.has(v2)) {
+          throw new Error(`Duplicate discriminator value "${String(v2)}"`);
+        }
+        map.set(v2, o2);
+      }
+    }
+    return map;
+  });
+  inst._zod.parse = (payload, ctx) => {
+    const input = payload.value;
+    if (!isObject2(input)) {
+      payload.issues.push({
+        code: "invalid_type",
+        expected: "object",
+        input,
+        inst
+      });
+      return payload;
+    }
+    const opt = disc.value.get(input?.[def.discriminator]);
+    if (opt) {
+      return opt._zod.run(payload, ctx);
+    }
+    if (def.unionFallback) {
+      return _super(payload, ctx);
+    }
+    payload.issues.push({
+      code: "invalid_union",
+      errors: [],
+      note: "No matching discriminator",
+      input,
+      path: [def.discriminator],
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodIntersection = /* @__PURE__ */ $constructor("$ZodIntersection", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, ctx) => {
+    const input = payload.value;
+    const left = def.left._zod.run({ value: input, issues: [] }, ctx);
+    const right = def.right._zod.run({ value: input, issues: [] }, ctx);
+    const async = left instanceof Promise || right instanceof Promise;
+    if (async) {
+      return Promise.all([left, right]).then(([left2, right2]) => {
+        return handleIntersectionResults(payload, left2, right2);
+      });
+    }
+    return handleIntersectionResults(payload, left, right);
+  };
+});
+function mergeValues(a2, b) {
+  if (a2 === b) {
+    return { valid: true, data: a2 };
+  }
+  if (a2 instanceof Date && b instanceof Date && +a2 === +b) {
+    return { valid: true, data: a2 };
+  }
+  if (isPlainObject2(a2) && isPlainObject2(b)) {
+    const bKeys = Object.keys(b);
+    const sharedKeys = Object.keys(a2).filter((key) => bKeys.indexOf(key) !== -1);
+    const newObj = { ...a2, ...b };
+    for (const key of sharedKeys) {
+      const sharedValue = mergeValues(a2[key], b[key]);
+      if (!sharedValue.valid) {
+        return {
+          valid: false,
+          mergeErrorPath: [key, ...sharedValue.mergeErrorPath]
+        };
+      }
+      newObj[key] = sharedValue.data;
+    }
+    return { valid: true, data: newObj };
+  }
+  if (Array.isArray(a2) && Array.isArray(b)) {
+    if (a2.length !== b.length) {
+      return { valid: false, mergeErrorPath: [] };
+    }
+    const newArray = [];
+    for (let index4 = 0;index4 < a2.length; index4++) {
+      const itemA = a2[index4];
+      const itemB = b[index4];
+      const sharedValue = mergeValues(itemA, itemB);
+      if (!sharedValue.valid) {
+        return {
+          valid: false,
+          mergeErrorPath: [index4, ...sharedValue.mergeErrorPath]
+        };
+      }
+      newArray.push(sharedValue.data);
+    }
+    return { valid: true, data: newArray };
+  }
+  return { valid: false, mergeErrorPath: [] };
+}
+function handleIntersectionResults(result, left, right) {
+  if (left.issues.length) {
+    result.issues.push(...left.issues);
+  }
+  if (right.issues.length) {
+    result.issues.push(...right.issues);
+  }
+  if (aborted(result))
+    return result;
+  const merged = mergeValues(left.value, right.value);
+  if (!merged.valid) {
+    throw new Error(`Unmergable intersection. Error path: ` + `${JSON.stringify(merged.mergeErrorPath)}`);
+  }
+  result.value = merged.data;
+  return result;
+}
+var $ZodTuple = /* @__PURE__ */ $constructor("$ZodTuple", (inst, def) => {
+  $ZodType.init(inst, def);
+  const items = def.items;
+  const optStart = items.length - [...items].reverse().findIndex((item) => item._zod.optin !== "optional");
+  inst._zod.parse = (payload, ctx) => {
+    const input = payload.value;
+    if (!Array.isArray(input)) {
+      payload.issues.push({
+        input,
+        inst,
+        expected: "tuple",
+        code: "invalid_type"
+      });
+      return payload;
+    }
+    payload.value = [];
+    const proms = [];
+    if (!def.rest) {
+      const tooBig = input.length > items.length;
+      const tooSmall = input.length < optStart - 1;
+      if (tooBig || tooSmall) {
+        payload.issues.push({
+          input,
+          inst,
+          origin: "array",
+          ...tooBig ? { code: "too_big", maximum: items.length } : { code: "too_small", minimum: items.length }
+        });
+        return payload;
+      }
+    }
+    let i2 = -1;
+    for (const item of items) {
+      i2++;
+      if (i2 >= input.length) {
+        if (i2 >= optStart)
+          continue;
+      }
+      const result = item._zod.run({
+        value: input[i2],
+        issues: []
+      }, ctx);
+      if (result instanceof Promise) {
+        proms.push(result.then((result2) => handleTupleResult(result2, payload, i2)));
+      } else {
+        handleTupleResult(result, payload, i2);
+      }
+    }
+    if (def.rest) {
+      const rest = input.slice(items.length);
+      for (const el of rest) {
+        i2++;
+        const result = def.rest._zod.run({
+          value: el,
+          issues: []
+        }, ctx);
+        if (result instanceof Promise) {
+          proms.push(result.then((result2) => handleTupleResult(result2, payload, i2)));
+        } else {
+          handleTupleResult(result, payload, i2);
+        }
+      }
+    }
+    if (proms.length)
+      return Promise.all(proms).then(() => payload);
+    return payload;
+  };
+});
+function handleTupleResult(result, final, index4) {
+  if (result.issues.length) {
+    final.issues.push(...prefixIssues(index4, result.issues));
+  }
+  final.value[index4] = result.value;
+}
+var $ZodRecord = /* @__PURE__ */ $constructor("$ZodRecord", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, ctx) => {
+    const input = payload.value;
+    if (!isPlainObject2(input)) {
+      payload.issues.push({
+        expected: "record",
+        code: "invalid_type",
+        input,
+        inst
+      });
+      return payload;
+    }
+    const proms = [];
+    if (def.keyType._zod.values) {
+      const values2 = def.keyType._zod.values;
+      payload.value = {};
+      for (const key of values2) {
+        if (typeof key === "string" || typeof key === "number" || typeof key === "symbol") {
+          const result = def.valueType._zod.run({ value: input[key], issues: [] }, ctx);
+          if (result instanceof Promise) {
+            proms.push(result.then((result2) => {
+              if (result2.issues.length) {
+                payload.issues.push(...prefixIssues(key, result2.issues));
+              }
+              payload.value[key] = result2.value;
+            }));
+          } else {
+            if (result.issues.length) {
+              payload.issues.push(...prefixIssues(key, result.issues));
+            }
+            payload.value[key] = result.value;
+          }
+        }
+      }
+      let unrecognized;
+      for (const key in input) {
+        if (!values2.has(key)) {
+          unrecognized = unrecognized ?? [];
+          unrecognized.push(key);
+        }
+      }
+      if (unrecognized && unrecognized.length > 0) {
+        payload.issues.push({
+          code: "unrecognized_keys",
+          input,
+          inst,
+          keys: unrecognized
+        });
+      }
+    } else {
+      payload.value = {};
+      for (const key of Reflect.ownKeys(input)) {
+        if (key === "__proto__")
+          continue;
+        const keyResult = def.keyType._zod.run({ value: key, issues: [] }, ctx);
+        if (keyResult instanceof Promise) {
+          throw new Error("Async schemas not supported in object keys currently");
+        }
+        if (keyResult.issues.length) {
+          payload.issues.push({
+            origin: "record",
+            code: "invalid_key",
+            issues: keyResult.issues.map((iss) => finalizeIssue(iss, ctx, config())),
+            input: key,
+            path: [key],
+            inst
+          });
+          payload.value[keyResult.value] = keyResult.value;
+          continue;
+        }
+        const result = def.valueType._zod.run({ value: input[key], issues: [] }, ctx);
+        if (result instanceof Promise) {
+          proms.push(result.then((result2) => {
+            if (result2.issues.length) {
+              payload.issues.push(...prefixIssues(key, result2.issues));
+            }
+            payload.value[keyResult.value] = result2.value;
+          }));
+        } else {
+          if (result.issues.length) {
+            payload.issues.push(...prefixIssues(key, result.issues));
+          }
+          payload.value[keyResult.value] = result.value;
+        }
+      }
+    }
+    if (proms.length) {
+      return Promise.all(proms).then(() => payload);
+    }
+    return payload;
+  };
+});
+var $ZodMap = /* @__PURE__ */ $constructor("$ZodMap", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, ctx) => {
+    const input = payload.value;
+    if (!(input instanceof Map)) {
+      payload.issues.push({
+        expected: "map",
+        code: "invalid_type",
+        input,
+        inst
+      });
+      return payload;
+    }
+    const proms = [];
+    payload.value = new Map;
+    for (const [key, value] of input) {
+      const keyResult = def.keyType._zod.run({ value: key, issues: [] }, ctx);
+      const valueResult = def.valueType._zod.run({ value, issues: [] }, ctx);
+      if (keyResult instanceof Promise || valueResult instanceof Promise) {
+        proms.push(Promise.all([keyResult, valueResult]).then(([keyResult2, valueResult2]) => {
+          handleMapResult(keyResult2, valueResult2, payload, key, input, inst, ctx);
+        }));
+      } else {
+        handleMapResult(keyResult, valueResult, payload, key, input, inst, ctx);
+      }
+    }
+    if (proms.length)
+      return Promise.all(proms).then(() => payload);
+    return payload;
+  };
+});
+function handleMapResult(keyResult, valueResult, final, key, input, inst, ctx) {
+  if (keyResult.issues.length) {
+    if (propertyKeyTypes.has(typeof key)) {
+      final.issues.push(...prefixIssues(key, keyResult.issues));
+    } else {
+      final.issues.push({
+        origin: "map",
+        code: "invalid_key",
+        input,
+        inst,
+        issues: keyResult.issues.map((iss) => finalizeIssue(iss, ctx, config()))
+      });
+    }
+  }
+  if (valueResult.issues.length) {
+    if (propertyKeyTypes.has(typeof key)) {
+      final.issues.push(...prefixIssues(key, valueResult.issues));
+    } else {
+      final.issues.push({
+        origin: "map",
+        code: "invalid_element",
+        input,
+        inst,
+        key,
+        issues: valueResult.issues.map((iss) => finalizeIssue(iss, ctx, config()))
+      });
+    }
+  }
+  final.value.set(keyResult.value, valueResult.value);
+}
+var $ZodSet = /* @__PURE__ */ $constructor("$ZodSet", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, ctx) => {
+    const input = payload.value;
+    if (!(input instanceof Set)) {
+      payload.issues.push({
+        input,
+        inst,
+        expected: "set",
+        code: "invalid_type"
+      });
+      return payload;
+    }
+    const proms = [];
+    payload.value = new Set;
+    for (const item of input) {
+      const result = def.valueType._zod.run({ value: item, issues: [] }, ctx);
+      if (result instanceof Promise) {
+        proms.push(result.then((result2) => handleSetResult(result2, payload)));
+      } else
+        handleSetResult(result, payload);
+    }
+    if (proms.length)
+      return Promise.all(proms).then(() => payload);
+    return payload;
+  };
+});
+function handleSetResult(result, final) {
+  if (result.issues.length) {
+    final.issues.push(...result.issues);
+  }
+  final.value.add(result.value);
+}
+var $ZodEnum = /* @__PURE__ */ $constructor("$ZodEnum", (inst, def) => {
+  $ZodType.init(inst, def);
+  const values2 = getEnumValues(def.entries);
+  inst._zod.values = new Set(values2);
+  inst._zod.pattern = new RegExp(`^(${values2.filter((k2) => propertyKeyTypes.has(typeof k2)).map((o2) => typeof o2 === "string" ? escapeRegex(o2) : o2.toString()).join("|")})$`);
+  inst._zod.parse = (payload, _ctx) => {
+    const input = payload.value;
+    if (inst._zod.values.has(input)) {
+      return payload;
+    }
+    payload.issues.push({
+      code: "invalid_value",
+      values: values2,
+      input,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodLiteral = /* @__PURE__ */ $constructor("$ZodLiteral", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.values = new Set(def.values);
+  inst._zod.pattern = new RegExp(`^(${def.values.map((o2) => typeof o2 === "string" ? escapeRegex(o2) : o2 ? o2.toString() : String(o2)).join("|")})$`);
+  inst._zod.parse = (payload, _ctx) => {
+    const input = payload.value;
+    if (inst._zod.values.has(input)) {
+      return payload;
+    }
+    payload.issues.push({
+      code: "invalid_value",
+      values: def.values,
+      input,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodFile = /* @__PURE__ */ $constructor("$ZodFile", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, _ctx) => {
+    const input = payload.value;
+    if (input instanceof File)
+      return payload;
+    payload.issues.push({
+      expected: "file",
+      code: "invalid_type",
+      input,
+      inst
+    });
+    return payload;
+  };
+});
+var $ZodTransform = /* @__PURE__ */ $constructor("$ZodTransform", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, _ctx) => {
+    const _out = def.transform(payload.value, payload);
+    if (_ctx.async) {
+      const output = _out instanceof Promise ? _out : Promise.resolve(_out);
+      return output.then((output2) => {
+        payload.value = output2;
+        return payload;
+      });
+    }
+    if (_out instanceof Promise) {
+      throw new $ZodAsyncError;
+    }
+    payload.value = _out;
+    return payload;
+  };
+});
+var $ZodOptional = /* @__PURE__ */ $constructor("$ZodOptional", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.optin = "optional";
+  inst._zod.optout = "optional";
+  defineLazy(inst._zod, "values", () => {
+    return def.innerType._zod.values ? new Set([...def.innerType._zod.values, undefined]) : undefined;
+  });
+  defineLazy(inst._zod, "pattern", () => {
+    const pattern = def.innerType._zod.pattern;
+    return pattern ? new RegExp(`^(${cleanRegex(pattern.source)})?$`) : undefined;
+  });
+  inst._zod.parse = (payload, ctx) => {
+    if (def.innerType._zod.optin === "optional") {
+      return def.innerType._zod.run(payload, ctx);
+    }
+    if (payload.value === undefined) {
+      return payload;
+    }
+    return def.innerType._zod.run(payload, ctx);
+  };
+});
+var $ZodNullable = /* @__PURE__ */ $constructor("$ZodNullable", (inst, def) => {
+  $ZodType.init(inst, def);
+  defineLazy(inst._zod, "optin", () => def.innerType._zod.optin);
+  defineLazy(inst._zod, "optout", () => def.innerType._zod.optout);
+  defineLazy(inst._zod, "pattern", () => {
+    const pattern = def.innerType._zod.pattern;
+    return pattern ? new RegExp(`^(${cleanRegex(pattern.source)}|null)$`) : undefined;
+  });
+  defineLazy(inst._zod, "values", () => {
+    return def.innerType._zod.values ? new Set([...def.innerType._zod.values, null]) : undefined;
+  });
+  inst._zod.parse = (payload, ctx) => {
+    if (payload.value === null)
+      return payload;
+    return def.innerType._zod.run(payload, ctx);
+  };
+});
+var $ZodDefault = /* @__PURE__ */ $constructor("$ZodDefault", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.optin = "optional";
+  defineLazy(inst._zod, "values", () => def.innerType._zod.values);
+  inst._zod.parse = (payload, ctx) => {
+    if (payload.value === undefined) {
+      payload.value = def.defaultValue;
+      return payload;
+    }
+    const result = def.innerType._zod.run(payload, ctx);
+    if (result instanceof Promise) {
+      return result.then((result2) => handleDefaultResult(result2, def));
+    }
+    return handleDefaultResult(result, def);
+  };
+});
+function handleDefaultResult(payload, def) {
+  if (payload.value === undefined) {
+    payload.value = def.defaultValue;
+  }
+  return payload;
+}
+var $ZodPrefault = /* @__PURE__ */ $constructor("$ZodPrefault", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.optin = "optional";
+  defineLazy(inst._zod, "values", () => def.innerType._zod.values);
+  inst._zod.parse = (payload, ctx) => {
+    if (payload.value === undefined) {
+      payload.value = def.defaultValue;
+    }
+    return def.innerType._zod.run(payload, ctx);
+  };
+});
+var $ZodNonOptional = /* @__PURE__ */ $constructor("$ZodNonOptional", (inst, def) => {
+  $ZodType.init(inst, def);
+  defineLazy(inst._zod, "values", () => {
+    const v2 = def.innerType._zod.values;
+    return v2 ? new Set([...v2].filter((x2) => x2 !== undefined)) : undefined;
+  });
+  inst._zod.parse = (payload, ctx) => {
+    const result = def.innerType._zod.run(payload, ctx);
+    if (result instanceof Promise) {
+      return result.then((result2) => handleNonOptionalResult(result2, inst));
+    }
+    return handleNonOptionalResult(result, inst);
+  };
+});
+function handleNonOptionalResult(payload, inst) {
+  if (!payload.issues.length && payload.value === undefined) {
+    payload.issues.push({
+      code: "invalid_type",
+      expected: "nonoptional",
+      input: payload.value,
+      inst
+    });
+  }
+  return payload;
+}
+var $ZodSuccess = /* @__PURE__ */ $constructor("$ZodSuccess", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, ctx) => {
+    const result = def.innerType._zod.run(payload, ctx);
+    if (result instanceof Promise) {
+      return result.then((result2) => {
+        payload.value = result2.issues.length === 0;
+        return payload;
+      });
+    }
+    payload.value = result.issues.length === 0;
+    return payload;
+  };
+});
+var $ZodCatch = /* @__PURE__ */ $constructor("$ZodCatch", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.optin = "optional";
+  defineLazy(inst._zod, "optout", () => def.innerType._zod.optout);
+  defineLazy(inst._zod, "values", () => def.innerType._zod.values);
+  inst._zod.parse = (payload, ctx) => {
+    const result = def.innerType._zod.run(payload, ctx);
+    if (result instanceof Promise) {
+      return result.then((result2) => {
+        payload.value = result2.value;
+        if (result2.issues.length) {
+          payload.value = def.catchValue({
+            ...payload,
+            error: {
+              issues: result2.issues.map((iss) => finalizeIssue(iss, ctx, config()))
+            },
+            input: payload.value
+          });
+          payload.issues = [];
+        }
+        return payload;
+      });
+    }
+    payload.value = result.value;
+    if (result.issues.length) {
+      payload.value = def.catchValue({
+        ...payload,
+        error: {
+          issues: result.issues.map((iss) => finalizeIssue(iss, ctx, config()))
+        },
+        input: payload.value
+      });
+      payload.issues = [];
+    }
+    return payload;
+  };
+});
+var $ZodNaN = /* @__PURE__ */ $constructor("$ZodNaN", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, _ctx) => {
+    if (typeof payload.value !== "number" || !Number.isNaN(payload.value)) {
+      payload.issues.push({
+        input: payload.value,
+        inst,
+        expected: "nan",
+        code: "invalid_type"
+      });
+      return payload;
+    }
+    return payload;
+  };
+});
+var $ZodPipe = /* @__PURE__ */ $constructor("$ZodPipe", (inst, def) => {
+  $ZodType.init(inst, def);
+  defineLazy(inst._zod, "values", () => def.in._zod.values);
+  defineLazy(inst._zod, "optin", () => def.in._zod.optin);
+  defineLazy(inst._zod, "optout", () => def.out._zod.optout);
+  defineLazy(inst._zod, "propValues", () => def.in._zod.propValues);
+  inst._zod.parse = (payload, ctx) => {
+    const left = def.in._zod.run(payload, ctx);
+    if (left instanceof Promise) {
+      return left.then((left2) => handlePipeResult(left2, def, ctx));
+    }
+    return handlePipeResult(left, def, ctx);
+  };
+});
+function handlePipeResult(left, def, ctx) {
+  if (aborted(left)) {
+    return left;
+  }
+  return def.out._zod.run({ value: left.value, issues: left.issues }, ctx);
+}
+var $ZodReadonly = /* @__PURE__ */ $constructor("$ZodReadonly", (inst, def) => {
+  $ZodType.init(inst, def);
+  defineLazy(inst._zod, "propValues", () => def.innerType._zod.propValues);
+  defineLazy(inst._zod, "values", () => def.innerType._zod.values);
+  defineLazy(inst._zod, "optin", () => def.innerType._zod.optin);
+  defineLazy(inst._zod, "optout", () => def.innerType._zod.optout);
+  inst._zod.parse = (payload, ctx) => {
+    const result = def.innerType._zod.run(payload, ctx);
+    if (result instanceof Promise) {
+      return result.then(handleReadonlyResult);
+    }
+    return handleReadonlyResult(result);
+  };
+});
+function handleReadonlyResult(payload) {
+  payload.value = Object.freeze(payload.value);
+  return payload;
+}
+var $ZodTemplateLiteral = /* @__PURE__ */ $constructor("$ZodTemplateLiteral", (inst, def) => {
+  $ZodType.init(inst, def);
+  const regexParts = [];
+  for (const part of def.parts) {
+    if (part instanceof $ZodType) {
+      if (!part._zod.pattern) {
+        throw new Error(`Invalid template literal part, no pattern found: ${[...part._zod.traits].shift()}`);
+      }
+      const source = part._zod.pattern instanceof RegExp ? part._zod.pattern.source : part._zod.pattern;
+      if (!source)
+        throw new Error(`Invalid template literal part: ${part._zod.traits}`);
+      const start = source.startsWith("^") ? 1 : 0;
+      const end = source.endsWith("$") ? source.length - 1 : source.length;
+      regexParts.push(source.slice(start, end));
+    } else if (part === null || primitiveTypes.has(typeof part)) {
+      regexParts.push(escapeRegex(`${part}`));
+    } else {
+      throw new Error(`Invalid template literal part: ${part}`);
+    }
+  }
+  inst._zod.pattern = new RegExp(`^${regexParts.join("")}$`);
+  inst._zod.parse = (payload, _ctx) => {
+    if (typeof payload.value !== "string") {
+      payload.issues.push({
+        input: payload.value,
+        inst,
+        expected: "template_literal",
+        code: "invalid_type"
+      });
+      return payload;
+    }
+    inst._zod.pattern.lastIndex = 0;
+    if (!inst._zod.pattern.test(payload.value)) {
+      payload.issues.push({
+        input: payload.value,
+        inst,
+        code: "invalid_format",
+        format: def.format ?? "template_literal",
+        pattern: inst._zod.pattern.source
+      });
+      return payload;
+    }
+    return payload;
+  };
+});
+var $ZodPromise = /* @__PURE__ */ $constructor("$ZodPromise", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, ctx) => {
+    return Promise.resolve(payload.value).then((inner) => def.innerType._zod.run({ value: inner, issues: [] }, ctx));
+  };
+});
+var $ZodLazy = /* @__PURE__ */ $constructor("$ZodLazy", (inst, def) => {
+  $ZodType.init(inst, def);
+  defineLazy(inst._zod, "innerType", () => def.getter());
+  defineLazy(inst._zod, "pattern", () => inst._zod.innerType._zod.pattern);
+  defineLazy(inst._zod, "propValues", () => inst._zod.innerType._zod.propValues);
+  defineLazy(inst._zod, "optin", () => inst._zod.innerType._zod.optin);
+  defineLazy(inst._zod, "optout", () => inst._zod.innerType._zod.optout);
+  inst._zod.parse = (payload, ctx) => {
+    const inner = inst._zod.innerType;
+    return inner._zod.run(payload, ctx);
+  };
+});
+var $ZodCustom = /* @__PURE__ */ $constructor("$ZodCustom", (inst, def) => {
+  $ZodCheck.init(inst, def);
+  $ZodType.init(inst, def);
+  inst._zod.parse = (payload, _2) => {
+    return payload;
+  };
+  inst._zod.check = (payload) => {
+    const input = payload.value;
+    const r3 = def.fn(input);
+    if (r3 instanceof Promise) {
+      return r3.then((r4) => handleRefineResult(r4, payload, input, inst));
+    }
+    handleRefineResult(r3, payload, input, inst);
+    return;
+  };
+});
+function handleRefineResult(result, payload, input, inst) {
+  if (!result) {
+    const _iss = {
+      code: "custom",
+      input,
+      inst,
+      path: [...inst._zod.def.path ?? []],
+      continue: !inst._zod.def.abort
+    };
+    if (inst._zod.def.params)
+      _iss.params = inst._zod.def.params;
+    payload.issues.push(issue(_iss));
+  }
+}
+// node_modules/zod/v4/locales/index.js
+var exports_locales = {};
+__export(exports_locales, {
+  zhTW: () => zh_TW_default,
+  zhCN: () => zh_CN_default,
+  vi: () => vi_default,
+  ur: () => ur_default,
+  ua: () => ua_default,
+  tr: () => tr_default,
+  th: () => th_default,
+  ta: () => ta_default,
+  sv: () => sv_default,
+  sl: () => sl_default,
+  ru: () => ru_default,
+  pt: () => pt_default,
+  ps: () => ps_default,
+  pl: () => pl_default,
+  ota: () => ota_default,
+  no: () => no_default,
+  nl: () => nl_default,
+  ms: () => ms_default,
+  mk: () => mk_default,
+  ko: () => ko_default,
+  kh: () => kh_default,
+  ja: () => ja_default,
+  it: () => it_default,
+  id: () => id_default,
+  hu: () => hu_default,
+  he: () => he_default,
+  frCA: () => fr_CA_default,
+  fr: () => fr_default,
+  fi: () => fi_default,
+  fa: () => fa_default,
+  es: () => es_default,
+  eo: () => eo_default,
+  en: () => en_default,
+  de: () => de_default,
+  cs: () => cs_default,
+  ca: () => ca_default,
+  be: () => be_default,
+  az: () => az_default,
+  ar: () => ar_default
+});
+
+// node_modules/zod/v4/locales/ar.js
+var error = () => {
+  const Sizable = {
+    string: { unit: "حرف", verb: "أن يحوي" },
+    file: { unit: "بايت", verb: "أن يحوي" },
+    array: { unit: "عنصر", verb: "أن يحوي" },
+    set: { unit: "عنصر", verb: "أن يحوي" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "مدخل",
+    email: "بريد إلكتروني",
+    url: "رابط",
+    emoji: "إيموجي",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "تاريخ ووقت بمعيار ISO",
+    date: "تاريخ بمعيار ISO",
+    time: "وقت بمعيار ISO",
+    duration: "مدة بمعيار ISO",
+    ipv4: "عنوان IPv4",
+    ipv6: "عنوان IPv6",
+    cidrv4: "مدى عناوين بصيغة IPv4",
+    cidrv6: "مدى عناوين بصيغة IPv6",
+    base64: "نَص بترميز base64-encoded",
+    base64url: "نَص بترميز base64url-encoded",
+    json_string: "نَص على هيئة JSON",
+    e164: "رقم هاتف بمعيار E.164",
+    jwt: "JWT",
+    template_literal: "مدخل"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `مدخلات غير مقبولة: يفترض إدخال ${issue2.expected}، ولكن تم إدخال ${parsedType(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `مدخلات غير مقبولة: يفترض إدخال ${stringifyPrimitive(issue2.values[0])}`;
+        return `اختيار غير مقبول: يتوقع انتقاء أحد هذه الخيارات: ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return ` أكبر من اللازم: يفترض أن تكون ${issue2.origin ?? "القيمة"} ${adj} ${issue2.maximum.toString()} ${sizing.unit ?? "عنصر"}`;
+        return `أكبر من اللازم: يفترض أن تكون ${issue2.origin ?? "القيمة"} ${adj} ${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `أصغر من اللازم: يفترض لـ ${issue2.origin} أن يكون ${adj} ${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `أصغر من اللازم: يفترض لـ ${issue2.origin} أن يكون ${adj} ${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `نَص غير مقبول: يجب أن يبدأ بـ "${issue2.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `نَص غير مقبول: يجب أن ينتهي بـ "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `نَص غير مقبول: يجب أن يتضمَّن "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `نَص غير مقبول: يجب أن يطابق النمط ${_issue.pattern}`;
+        return `${Nouns[_issue.format] ?? issue2.format} غير مقبول`;
+      }
+      case "not_multiple_of":
+        return `رقم غير مقبول: يجب أن يكون من مضاعفات ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `معرف${issue2.keys.length > 1 ? "ات" : ""} غريب${issue2.keys.length > 1 ? "ة" : ""}: ${joinValues(issue2.keys, "، ")}`;
+      case "invalid_key":
+        return `معرف غير مقبول في ${issue2.origin}`;
+      case "invalid_union":
+        return "مدخل غير مقبول";
+      case "invalid_element":
+        return `مدخل غير مقبول في ${issue2.origin}`;
+      default:
+        return "مدخل غير مقبول";
+    }
+  };
+};
+function ar_default() {
+  return {
+    localeError: error()
+  };
+}
+// node_modules/zod/v4/locales/az.js
+var error2 = () => {
+  const Sizable = {
+    string: { unit: "simvol", verb: "olmalıdır" },
+    file: { unit: "bayt", verb: "olmalıdır" },
+    array: { unit: "element", verb: "olmalıdır" },
+    set: { unit: "element", verb: "olmalıdır" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "input",
+    email: "email address",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO datetime",
+    date: "ISO date",
+    time: "ISO time",
+    duration: "ISO duration",
+    ipv4: "IPv4 address",
+    ipv6: "IPv6 address",
+    cidrv4: "IPv4 range",
+    cidrv6: "IPv6 range",
+    base64: "base64-encoded string",
+    base64url: "base64url-encoded string",
+    json_string: "JSON string",
+    e164: "E.164 number",
+    jwt: "JWT",
+    template_literal: "input"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Yanlış dəyər: gözlənilən ${issue2.expected}, daxil olan ${parsedType(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Yanlış dəyər: gözlənilən ${stringifyPrimitive(issue2.values[0])}`;
+        return `Yanlış seçim: aşağıdakılardan biri olmalıdır: ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Çox böyük: gözlənilən ${issue2.origin ?? "dəyər"} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "element"}`;
+        return `Çox böyük: gözlənilən ${issue2.origin ?? "dəyər"} ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Çox kiçik: gözlənilən ${issue2.origin} ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        return `Çox kiçik: gözlənilən ${issue2.origin} ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Yanlış mətn: "${_issue.prefix}" ilə başlamalıdır`;
+        if (_issue.format === "ends_with")
+          return `Yanlış mətn: "${_issue.suffix}" ilə bitməlidir`;
+        if (_issue.format === "includes")
+          return `Yanlış mətn: "${_issue.includes}" daxil olmalıdır`;
+        if (_issue.format === "regex")
+          return `Yanlış mətn: ${_issue.pattern} şablonuna uyğun olmalıdır`;
+        return `Yanlış ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Yanlış ədəd: ${issue2.divisor} ilə bölünə bilən olmalıdır`;
+      case "unrecognized_keys":
+        return `Tanınmayan açar${issue2.keys.length > 1 ? "lar" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `${issue2.origin} daxilində yanlış açar`;
+      case "invalid_union":
+        return "Yanlış dəyər";
+      case "invalid_element":
+        return `${issue2.origin} daxilində yanlış dəyər`;
+      default:
+        return `Yanlış dəyər`;
+    }
+  };
+};
+function az_default() {
+  return {
+    localeError: error2()
+  };
+}
+// node_modules/zod/v4/locales/be.js
+function getBelarusianPlural(count2, one, few, many) {
+  const absCount = Math.abs(count2);
+  const lastDigit = absCount % 10;
+  const lastTwoDigits = absCount % 100;
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+    return many;
+  }
+  if (lastDigit === 1) {
+    return one;
+  }
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return few;
+  }
+  return many;
+}
+var error3 = () => {
+  const Sizable = {
+    string: {
+      unit: {
+        one: "сімвал",
+        few: "сімвалы",
+        many: "сімвалаў"
+      },
+      verb: "мець"
+    },
+    array: {
+      unit: {
+        one: "элемент",
+        few: "элементы",
+        many: "элементаў"
+      },
+      verb: "мець"
+    },
+    set: {
+      unit: {
+        one: "элемент",
+        few: "элементы",
+        many: "элементаў"
+      },
+      verb: "мець"
+    },
+    file: {
+      unit: {
+        one: "байт",
+        few: "байты",
+        many: "байтаў"
+      },
+      verb: "мець"
+    }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "лік";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "масіў";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "увод",
+    email: "email адрас",
+    url: "URL",
+    emoji: "эмодзі",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO дата і час",
+    date: "ISO дата",
+    time: "ISO час",
+    duration: "ISO працягласць",
+    ipv4: "IPv4 адрас",
+    ipv6: "IPv6 адрас",
+    cidrv4: "IPv4 дыяпазон",
+    cidrv6: "IPv6 дыяпазон",
+    base64: "радок у фармаце base64",
+    base64url: "радок у фармаце base64url",
+    json_string: "JSON радок",
+    e164: "нумар E.164",
+    jwt: "JWT",
+    template_literal: "увод"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Няправільны ўвод: чакаўся ${issue2.expected}, атрымана ${parsedType(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Няправільны ўвод: чакалася ${stringifyPrimitive(issue2.values[0])}`;
+        return `Няправільны варыянт: чакаўся адзін з ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          const maxValue = Number(issue2.maximum);
+          const unit = getBelarusianPlural(maxValue, sizing.unit.one, sizing.unit.few, sizing.unit.many);
+          return `Занадта вялікі: чакалася, што ${issue2.origin ?? "значэнне"} павінна ${sizing.verb} ${adj}${issue2.maximum.toString()} ${unit}`;
+        }
+        return `Занадта вялікі: чакалася, што ${issue2.origin ?? "значэнне"} павінна быць ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          const minValue = Number(issue2.minimum);
+          const unit = getBelarusianPlural(minValue, sizing.unit.one, sizing.unit.few, sizing.unit.many);
+          return `Занадта малы: чакалася, што ${issue2.origin} павінна ${sizing.verb} ${adj}${issue2.minimum.toString()} ${unit}`;
+        }
+        return `Занадта малы: чакалася, што ${issue2.origin} павінна быць ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Няправільны радок: павінен пачынацца з "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Няправільны радок: павінен заканчвацца на "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Няправільны радок: павінен змяшчаць "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Няправільны радок: павінен адпавядаць шаблону ${_issue.pattern}`;
+        return `Няправільны ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Няправільны лік: павінен быць кратным ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Нераспазнаны ${issue2.keys.length > 1 ? "ключы" : "ключ"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Няправільны ключ у ${issue2.origin}`;
+      case "invalid_union":
+        return "Няправільны ўвод";
+      case "invalid_element":
+        return `Няправільнае значэнне ў ${issue2.origin}`;
+      default:
+        return `Няправільны ўвод`;
+    }
+  };
+};
+function be_default() {
+  return {
+    localeError: error3()
+  };
+}
+// node_modules/zod/v4/locales/ca.js
+var error4 = () => {
+  const Sizable = {
+    string: { unit: "caràcters", verb: "contenir" },
+    file: { unit: "bytes", verb: "contenir" },
+    array: { unit: "elements", verb: "contenir" },
+    set: { unit: "elements", verb: "contenir" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "entrada",
+    email: "adreça electrònica",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "data i hora ISO",
+    date: "data ISO",
+    time: "hora ISO",
+    duration: "durada ISO",
+    ipv4: "adreça IPv4",
+    ipv6: "adreça IPv6",
+    cidrv4: "rang IPv4",
+    cidrv6: "rang IPv6",
+    base64: "cadena codificada en base64",
+    base64url: "cadena codificada en base64url",
+    json_string: "cadena JSON",
+    e164: "número E.164",
+    jwt: "JWT",
+    template_literal: "entrada"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Tipus invàlid: s'esperava ${issue2.expected}, s'ha rebut ${parsedType(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Valor invàlid: s'esperava ${stringifyPrimitive(issue2.values[0])}`;
+        return `Opció invàlida: s'esperava una de ${joinValues(issue2.values, " o ")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "com a màxim" : "menys de";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Massa gran: s'esperava que ${issue2.origin ?? "el valor"} contingués ${adj} ${issue2.maximum.toString()} ${sizing.unit ?? "elements"}`;
+        return `Massa gran: s'esperava que ${issue2.origin ?? "el valor"} fos ${adj} ${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? "com a mínim" : "més de";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Massa petit: s'esperava que ${issue2.origin} contingués ${adj} ${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Massa petit: s'esperava que ${issue2.origin} fos ${adj} ${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `Format invàlid: ha de començar amb "${_issue.prefix}"`;
+        }
+        if (_issue.format === "ends_with")
+          return `Format invàlid: ha d'acabar amb "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Format invàlid: ha d'incloure "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Format invàlid: ha de coincidir amb el patró ${_issue.pattern}`;
+        return `Format invàlid per a ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Número invàlid: ha de ser múltiple de ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Clau${issue2.keys.length > 1 ? "s" : ""} no reconeguda${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Clau invàlida a ${issue2.origin}`;
+      case "invalid_union":
+        return "Entrada invàlida";
+      case "invalid_element":
+        return `Element invàlid a ${issue2.origin}`;
+      default:
+        return `Entrada invàlida`;
+    }
+  };
+};
+function ca_default() {
+  return {
+    localeError: error4()
+  };
+}
+// node_modules/zod/v4/locales/cs.js
+var error5 = () => {
+  const Sizable = {
+    string: { unit: "znaků", verb: "mít" },
+    file: { unit: "bajtů", verb: "mít" },
+    array: { unit: "prvků", verb: "mít" },
+    set: { unit: "prvků", verb: "mít" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "číslo";
+      }
+      case "string": {
+        return "řetězec";
+      }
+      case "boolean": {
+        return "boolean";
+      }
+      case "bigint": {
+        return "bigint";
+      }
+      case "function": {
+        return "funkce";
+      }
+      case "symbol": {
+        return "symbol";
+      }
+      case "undefined": {
+        return "undefined";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "pole";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "regulární výraz",
+    email: "e-mailová adresa",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "datum a čas ve formátu ISO",
+    date: "datum ve formátu ISO",
+    time: "čas ve formátu ISO",
+    duration: "doba trvání ISO",
+    ipv4: "IPv4 adresa",
+    ipv6: "IPv6 adresa",
+    cidrv4: "rozsah IPv4",
+    cidrv6: "rozsah IPv6",
+    base64: "řetězec zakódovaný ve formátu base64",
+    base64url: "řetězec zakódovaný ve formátu base64url",
+    json_string: "řetězec ve formátu JSON",
+    e164: "číslo E.164",
+    jwt: "JWT",
+    template_literal: "vstup"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Neplatný vstup: očekáváno ${issue2.expected}, obdrženo ${parsedType(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Neplatný vstup: očekáváno ${stringifyPrimitive(issue2.values[0])}`;
+        return `Neplatná možnost: očekávána jedna z hodnot ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Hodnota je příliš velká: ${issue2.origin ?? "hodnota"} musí mít ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "prvků"}`;
+        }
+        return `Hodnota je příliš velká: ${issue2.origin ?? "hodnota"} musí být ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Hodnota je příliš malá: ${issue2.origin ?? "hodnota"} musí mít ${adj}${issue2.minimum.toString()} ${sizing.unit ?? "prvků"}`;
+        }
+        return `Hodnota je příliš malá: ${issue2.origin ?? "hodnota"} musí být ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Neplatný řetězec: musí začínat na "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Neplatný řetězec: musí končit na "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Neplatný řetězec: musí obsahovat "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Neplatný řetězec: musí odpovídat vzoru ${_issue.pattern}`;
+        return `Neplatný formát ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Neplatné číslo: musí být násobkem ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Neznámé klíče: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Neplatný klíč v ${issue2.origin}`;
+      case "invalid_union":
+        return "Neplatný vstup";
+      case "invalid_element":
+        return `Neplatná hodnota v ${issue2.origin}`;
+      default:
+        return `Neplatný vstup`;
+    }
+  };
+};
+function cs_default() {
+  return {
+    localeError: error5()
+  };
+}
+// node_modules/zod/v4/locales/de.js
+var error6 = () => {
+  const Sizable = {
+    string: { unit: "Zeichen", verb: "zu haben" },
+    file: { unit: "Bytes", verb: "zu haben" },
+    array: { unit: "Elemente", verb: "zu haben" },
+    set: { unit: "Elemente", verb: "zu haben" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "Zahl";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "Array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "Eingabe",
+    email: "E-Mail-Adresse",
+    url: "URL",
+    emoji: "Emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO-Datum und -Uhrzeit",
+    date: "ISO-Datum",
+    time: "ISO-Uhrzeit",
+    duration: "ISO-Dauer",
+    ipv4: "IPv4-Adresse",
+    ipv6: "IPv6-Adresse",
+    cidrv4: "IPv4-Bereich",
+    cidrv6: "IPv6-Bereich",
+    base64: "Base64-codierter String",
+    base64url: "Base64-URL-codierter String",
+    json_string: "JSON-String",
+    e164: "E.164-Nummer",
+    jwt: "JWT",
+    template_literal: "Eingabe"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Ungültige Eingabe: erwartet ${issue2.expected}, erhalten ${parsedType(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Ungültige Eingabe: erwartet ${stringifyPrimitive(issue2.values[0])}`;
+        return `Ungültige Option: erwartet eine von ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Zu groß: erwartet, dass ${issue2.origin ?? "Wert"} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "Elemente"} hat`;
+        return `Zu groß: erwartet, dass ${issue2.origin ?? "Wert"} ${adj}${issue2.maximum.toString()} ist`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Zu klein: erwartet, dass ${issue2.origin} ${adj}${issue2.minimum.toString()} ${sizing.unit} hat`;
+        }
+        return `Zu klein: erwartet, dass ${issue2.origin} ${adj}${issue2.minimum.toString()} ist`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Ungültiger String: muss mit "${_issue.prefix}" beginnen`;
+        if (_issue.format === "ends_with")
+          return `Ungültiger String: muss mit "${_issue.suffix}" enden`;
+        if (_issue.format === "includes")
+          return `Ungültiger String: muss "${_issue.includes}" enthalten`;
+        if (_issue.format === "regex")
+          return `Ungültiger String: muss dem Muster ${_issue.pattern} entsprechen`;
+        return `Ungültig: ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Ungültige Zahl: muss ein Vielfaches von ${issue2.divisor} sein`;
+      case "unrecognized_keys":
+        return `${issue2.keys.length > 1 ? "Unbekannte Schlüssel" : "Unbekannter Schlüssel"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Ungültiger Schlüssel in ${issue2.origin}`;
+      case "invalid_union":
+        return "Ungültige Eingabe";
+      case "invalid_element":
+        return `Ungültiger Wert in ${issue2.origin}`;
+      default:
+        return `Ungültige Eingabe`;
+    }
+  };
+};
+function de_default() {
+  return {
+    localeError: error6()
+  };
+}
+// node_modules/zod/v4/locales/en.js
+var parsedType = (data) => {
+  const t = typeof data;
+  switch (t) {
+    case "number": {
+      return Number.isNaN(data) ? "NaN" : "number";
+    }
+    case "object": {
+      if (Array.isArray(data)) {
+        return "array";
+      }
+      if (data === null) {
+        return "null";
+      }
+      if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+        return data.constructor.name;
+      }
+    }
+  }
+  return t;
+};
+var error7 = () => {
+  const Sizable = {
+    string: { unit: "characters", verb: "to have" },
+    file: { unit: "bytes", verb: "to have" },
+    array: { unit: "items", verb: "to have" },
+    set: { unit: "items", verb: "to have" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const Nouns = {
+    regex: "input",
+    email: "email address",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO datetime",
+    date: "ISO date",
+    time: "ISO time",
+    duration: "ISO duration",
+    ipv4: "IPv4 address",
+    ipv6: "IPv6 address",
+    cidrv4: "IPv4 range",
+    cidrv6: "IPv6 range",
+    base64: "base64-encoded string",
+    base64url: "base64url-encoded string",
+    json_string: "JSON string",
+    e164: "E.164 number",
+    jwt: "JWT",
+    template_literal: "input"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Invalid input: expected ${issue2.expected}, received ${parsedType(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Invalid input: expected ${stringifyPrimitive(issue2.values[0])}`;
+        return `Invalid option: expected one of ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Too big: expected ${issue2.origin ?? "value"} to have ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elements"}`;
+        return `Too big: expected ${issue2.origin ?? "value"} to be ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Too small: expected ${issue2.origin} to have ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Too small: expected ${issue2.origin} to be ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `Invalid string: must start with "${_issue.prefix}"`;
+        }
+        if (_issue.format === "ends_with")
+          return `Invalid string: must end with "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Invalid string: must include "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Invalid string: must match pattern ${_issue.pattern}`;
+        return `Invalid ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Invalid number: must be a multiple of ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Unrecognized key${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Invalid key in ${issue2.origin}`;
+      case "invalid_union":
+        return "Invalid input";
+      case "invalid_element":
+        return `Invalid value in ${issue2.origin}`;
+      default:
+        return `Invalid input`;
+    }
+  };
+};
+function en_default() {
+  return {
+    localeError: error7()
+  };
+}
+// node_modules/zod/v4/locales/eo.js
+var parsedType2 = (data) => {
+  const t = typeof data;
+  switch (t) {
+    case "number": {
+      return Number.isNaN(data) ? "NaN" : "nombro";
+    }
+    case "object": {
+      if (Array.isArray(data)) {
+        return "tabelo";
+      }
+      if (data === null) {
+        return "senvalora";
+      }
+      if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+        return data.constructor.name;
+      }
+    }
+  }
+  return t;
+};
+var error8 = () => {
+  const Sizable = {
+    string: { unit: "karaktrojn", verb: "havi" },
+    file: { unit: "bajtojn", verb: "havi" },
+    array: { unit: "elementojn", verb: "havi" },
+    set: { unit: "elementojn", verb: "havi" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const Nouns = {
+    regex: "enigo",
+    email: "retadreso",
+    url: "URL",
+    emoji: "emoĝio",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO-datotempo",
+    date: "ISO-dato",
+    time: "ISO-tempo",
+    duration: "ISO-daŭro",
+    ipv4: "IPv4-adreso",
+    ipv6: "IPv6-adreso",
+    cidrv4: "IPv4-rango",
+    cidrv6: "IPv6-rango",
+    base64: "64-ume kodita karaktraro",
+    base64url: "URL-64-ume kodita karaktraro",
+    json_string: "JSON-karaktraro",
+    e164: "E.164-nombro",
+    jwt: "JWT",
+    template_literal: "enigo"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Nevalida enigo: atendiĝis ${issue2.expected}, riceviĝis ${parsedType2(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Nevalida enigo: atendiĝis ${stringifyPrimitive(issue2.values[0])}`;
+        return `Nevalida opcio: atendiĝis unu el ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Tro granda: atendiĝis ke ${issue2.origin ?? "valoro"} havu ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elementojn"}`;
+        return `Tro granda: atendiĝis ke ${issue2.origin ?? "valoro"} havu ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Tro malgranda: atendiĝis ke ${issue2.origin} havu ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Tro malgranda: atendiĝis ke ${issue2.origin} estu ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Nevalida karaktraro: devas komenciĝi per "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Nevalida karaktraro: devas finiĝi per "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Nevalida karaktraro: devas inkluzivi "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Nevalida karaktraro: devas kongrui kun la modelo ${_issue.pattern}`;
+        return `Nevalida ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Nevalida nombro: devas esti oblo de ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Nekonata${issue2.keys.length > 1 ? "j" : ""} ŝlosilo${issue2.keys.length > 1 ? "j" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Nevalida ŝlosilo en ${issue2.origin}`;
+      case "invalid_union":
+        return "Nevalida enigo";
+      case "invalid_element":
+        return `Nevalida valoro en ${issue2.origin}`;
+      default:
+        return `Nevalida enigo`;
+    }
+  };
+};
+function eo_default() {
+  return {
+    localeError: error8()
+  };
+}
+// node_modules/zod/v4/locales/es.js
+var error9 = () => {
+  const Sizable = {
+    string: { unit: "caracteres", verb: "tener" },
+    file: { unit: "bytes", verb: "tener" },
+    array: { unit: "elementos", verb: "tener" },
+    set: { unit: "elementos", verb: "tener" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "número";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "arreglo";
+        }
+        if (data === null) {
+          return "nulo";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "entrada",
+    email: "dirección de correo electrónico",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "fecha y hora ISO",
+    date: "fecha ISO",
+    time: "hora ISO",
+    duration: "duración ISO",
+    ipv4: "dirección IPv4",
+    ipv6: "dirección IPv6",
+    cidrv4: "rango IPv4",
+    cidrv6: "rango IPv6",
+    base64: "cadena codificada en base64",
+    base64url: "URL codificada en base64",
+    json_string: "cadena JSON",
+    e164: "número E.164",
+    jwt: "JWT",
+    template_literal: "entrada"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Entrada inválida: se esperaba ${issue2.expected}, recibido ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Entrada inválida: se esperaba ${stringifyPrimitive(issue2.values[0])}`;
+        return `Opción inválida: se esperaba una de ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Demasiado grande: se esperaba que ${issue2.origin ?? "valor"} tuviera ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elementos"}`;
+        return `Demasiado grande: se esperaba que ${issue2.origin ?? "valor"} fuera ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Demasiado pequeño: se esperaba que ${issue2.origin} tuviera ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Demasiado pequeño: se esperaba que ${issue2.origin} fuera ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Cadena inválida: debe comenzar con "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Cadena inválida: debe terminar en "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Cadena inválida: debe incluir "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Cadena inválida: debe coincidir con el patrón ${_issue.pattern}`;
+        return `Inválido ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Número inválido: debe ser múltiplo de ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Llave${issue2.keys.length > 1 ? "s" : ""} desconocida${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Llave inválida en ${issue2.origin}`;
+      case "invalid_union":
+        return "Entrada inválida";
+      case "invalid_element":
+        return `Valor inválido en ${issue2.origin}`;
+      default:
+        return `Entrada inválida`;
+    }
+  };
+};
+function es_default() {
+  return {
+    localeError: error9()
+  };
+}
+// node_modules/zod/v4/locales/fa.js
+var error10 = () => {
+  const Sizable = {
+    string: { unit: "کاراکتر", verb: "داشته باشد" },
+    file: { unit: "بایت", verb: "داشته باشد" },
+    array: { unit: "آیتم", verb: "داشته باشد" },
+    set: { unit: "آیتم", verb: "داشته باشد" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "عدد";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "آرایه";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "ورودی",
+    email: "آدرس ایمیل",
+    url: "URL",
+    emoji: "ایموجی",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "تاریخ و زمان ایزو",
+    date: "تاریخ ایزو",
+    time: "زمان ایزو",
+    duration: "مدت زمان ایزو",
+    ipv4: "IPv4 آدرس",
+    ipv6: "IPv6 آدرس",
+    cidrv4: "IPv4 دامنه",
+    cidrv6: "IPv6 دامنه",
+    base64: "base64-encoded رشته",
+    base64url: "base64url-encoded رشته",
+    json_string: "JSON رشته",
+    e164: "E.164 عدد",
+    jwt: "JWT",
+    template_literal: "ورودی"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `ورودی نامعتبر: می‌بایست ${issue2.expected} می‌بود، ${parsedType3(issue2.input)} دریافت شد`;
+      case "invalid_value":
+        if (issue2.values.length === 1) {
+          return `ورودی نامعتبر: می‌بایست ${stringifyPrimitive(issue2.values[0])} می‌بود`;
+        }
+        return `گزینه نامعتبر: می‌بایست یکی از ${joinValues(issue2.values, "|")} می‌بود`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `خیلی بزرگ: ${issue2.origin ?? "مقدار"} باید ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "عنصر"} باشد`;
+        }
+        return `خیلی بزرگ: ${issue2.origin ?? "مقدار"} باید ${adj}${issue2.maximum.toString()} باشد`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `خیلی کوچک: ${issue2.origin} باید ${adj}${issue2.minimum.toString()} ${sizing.unit} باشد`;
+        }
+        return `خیلی کوچک: ${issue2.origin} باید ${adj}${issue2.minimum.toString()} باشد`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `رشته نامعتبر: باید با "${_issue.prefix}" شروع شود`;
+        }
+        if (_issue.format === "ends_with") {
+          return `رشته نامعتبر: باید با "${_issue.suffix}" تمام شود`;
+        }
+        if (_issue.format === "includes") {
+          return `رشته نامعتبر: باید شامل "${_issue.includes}" باشد`;
+        }
+        if (_issue.format === "regex") {
+          return `رشته نامعتبر: باید با الگوی ${_issue.pattern} مطابقت داشته باشد`;
+        }
+        return `${Nouns[_issue.format] ?? issue2.format} نامعتبر`;
+      }
+      case "not_multiple_of":
+        return `عدد نامعتبر: باید مضرب ${issue2.divisor} باشد`;
+      case "unrecognized_keys":
+        return `کلید${issue2.keys.length > 1 ? "های" : ""} ناشناس: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `کلید ناشناس در ${issue2.origin}`;
+      case "invalid_union":
+        return `ورودی نامعتبر`;
+      case "invalid_element":
+        return `مقدار نامعتبر در ${issue2.origin}`;
+      default:
+        return `ورودی نامعتبر`;
+    }
+  };
+};
+function fa_default() {
+  return {
+    localeError: error10()
+  };
+}
+// node_modules/zod/v4/locales/fi.js
+var error11 = () => {
+  const Sizable = {
+    string: { unit: "merkkiä", subject: "merkkijonon" },
+    file: { unit: "tavua", subject: "tiedoston" },
+    array: { unit: "alkiota", subject: "listan" },
+    set: { unit: "alkiota", subject: "joukon" },
+    number: { unit: "", subject: "luvun" },
+    bigint: { unit: "", subject: "suuren kokonaisluvun" },
+    int: { unit: "", subject: "kokonaisluvun" },
+    date: { unit: "", subject: "päivämäärän" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "säännöllinen lauseke",
+    email: "sähköpostiosoite",
+    url: "URL-osoite",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO-aikaleima",
+    date: "ISO-päivämäärä",
+    time: "ISO-aika",
+    duration: "ISO-kesto",
+    ipv4: "IPv4-osoite",
+    ipv6: "IPv6-osoite",
+    cidrv4: "IPv4-alue",
+    cidrv6: "IPv6-alue",
+    base64: "base64-koodattu merkkijono",
+    base64url: "base64url-koodattu merkkijono",
+    json_string: "JSON-merkkijono",
+    e164: "E.164-luku",
+    jwt: "JWT",
+    template_literal: "templaattimerkkijono"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Virheellinen tyyppi: odotettiin ${issue2.expected}, oli ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Virheellinen syöte: täytyy olla ${stringifyPrimitive(issue2.values[0])}`;
+        return `Virheellinen valinta: täytyy olla yksi seuraavista: ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Liian suuri: ${sizing.subject} täytyy olla ${adj}${issue2.maximum.toString()} ${sizing.unit}`.trim();
+        }
+        return `Liian suuri: arvon täytyy olla ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Liian pieni: ${sizing.subject} täytyy olla ${adj}${issue2.minimum.toString()} ${sizing.unit}`.trim();
+        }
+        return `Liian pieni: arvon täytyy olla ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Virheellinen syöte: täytyy alkaa "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Virheellinen syöte: täytyy loppua "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Virheellinen syöte: täytyy sisältää "${_issue.includes}"`;
+        if (_issue.format === "regex") {
+          return `Virheellinen syöte: täytyy vastata säännöllistä lauseketta ${_issue.pattern}`;
+        }
+        return `Virheellinen ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Virheellinen luku: täytyy olla luvun ${issue2.divisor} monikerta`;
+      case "unrecognized_keys":
+        return `${issue2.keys.length > 1 ? "Tuntemattomat avaimet" : "Tuntematon avain"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return "Virheellinen avain tietueessa";
+      case "invalid_union":
+        return "Virheellinen unioni";
+      case "invalid_element":
+        return "Virheellinen arvo joukossa";
+      default:
+        return `Virheellinen syöte`;
+    }
+  };
+};
+function fi_default() {
+  return {
+    localeError: error11()
+  };
+}
+// node_modules/zod/v4/locales/fr.js
+var error12 = () => {
+  const Sizable = {
+    string: { unit: "caractères", verb: "avoir" },
+    file: { unit: "octets", verb: "avoir" },
+    array: { unit: "éléments", verb: "avoir" },
+    set: { unit: "éléments", verb: "avoir" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "nombre";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "tableau";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "entrée",
+    email: "adresse e-mail",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "date et heure ISO",
+    date: "date ISO",
+    time: "heure ISO",
+    duration: "durée ISO",
+    ipv4: "adresse IPv4",
+    ipv6: "adresse IPv6",
+    cidrv4: "plage IPv4",
+    cidrv6: "plage IPv6",
+    base64: "chaîne encodée en base64",
+    base64url: "chaîne encodée en base64url",
+    json_string: "chaîne JSON",
+    e164: "numéro E.164",
+    jwt: "JWT",
+    template_literal: "entrée"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Entrée invalide : ${issue2.expected} attendu, ${parsedType3(issue2.input)} reçu`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Entrée invalide : ${stringifyPrimitive(issue2.values[0])} attendu`;
+        return `Option invalide : une valeur parmi ${joinValues(issue2.values, "|")} attendue`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Trop grand : ${issue2.origin ?? "valeur"} doit ${sizing.verb} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "élément(s)"}`;
+        return `Trop grand : ${issue2.origin ?? "valeur"} doit être ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Trop petit : ${issue2.origin} doit ${sizing.verb} ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Trop petit : ${issue2.origin} doit être ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Chaîne invalide : doit commencer par "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Chaîne invalide : doit se terminer par "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Chaîne invalide : doit inclure "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Chaîne invalide : doit correspondre au modèle ${_issue.pattern}`;
+        return `${Nouns[_issue.format] ?? issue2.format} invalide`;
+      }
+      case "not_multiple_of":
+        return `Nombre invalide : doit être un multiple de ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Clé${issue2.keys.length > 1 ? "s" : ""} non reconnue${issue2.keys.length > 1 ? "s" : ""} : ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Clé invalide dans ${issue2.origin}`;
+      case "invalid_union":
+        return "Entrée invalide";
+      case "invalid_element":
+        return `Valeur invalide dans ${issue2.origin}`;
+      default:
+        return `Entrée invalide`;
+    }
+  };
+};
+function fr_default() {
+  return {
+    localeError: error12()
+  };
+}
+// node_modules/zod/v4/locales/fr-CA.js
+var error13 = () => {
+  const Sizable = {
+    string: { unit: "caractères", verb: "avoir" },
+    file: { unit: "octets", verb: "avoir" },
+    array: { unit: "éléments", verb: "avoir" },
+    set: { unit: "éléments", verb: "avoir" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "entrée",
+    email: "adresse courriel",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "date-heure ISO",
+    date: "date ISO",
+    time: "heure ISO",
+    duration: "durée ISO",
+    ipv4: "adresse IPv4",
+    ipv6: "adresse IPv6",
+    cidrv4: "plage IPv4",
+    cidrv6: "plage IPv6",
+    base64: "chaîne encodée en base64",
+    base64url: "chaîne encodée en base64url",
+    json_string: "chaîne JSON",
+    e164: "numéro E.164",
+    jwt: "JWT",
+    template_literal: "entrée"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Entrée invalide : attendu ${issue2.expected}, reçu ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Entrée invalide : attendu ${stringifyPrimitive(issue2.values[0])}`;
+        return `Option invalide : attendu l'une des valeurs suivantes ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "≤" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Trop grand : attendu que ${issue2.origin ?? "la valeur"} ait ${adj}${issue2.maximum.toString()} ${sizing.unit}`;
+        return `Trop grand : attendu que ${issue2.origin ?? "la valeur"} soit ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? "≥" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Trop petit : attendu que ${issue2.origin} ait ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Trop petit : attendu que ${issue2.origin} soit ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `Chaîne invalide : doit commencer par "${_issue.prefix}"`;
+        }
+        if (_issue.format === "ends_with")
+          return `Chaîne invalide : doit se terminer par "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Chaîne invalide : doit inclure "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Chaîne invalide : doit correspondre au motif ${_issue.pattern}`;
+        return `${Nouns[_issue.format] ?? issue2.format} invalide`;
+      }
+      case "not_multiple_of":
+        return `Nombre invalide : doit être un multiple de ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Clé${issue2.keys.length > 1 ? "s" : ""} non reconnue${issue2.keys.length > 1 ? "s" : ""} : ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Clé invalide dans ${issue2.origin}`;
+      case "invalid_union":
+        return "Entrée invalide";
+      case "invalid_element":
+        return `Valeur invalide dans ${issue2.origin}`;
+      default:
+        return `Entrée invalide`;
+    }
+  };
+};
+function fr_CA_default() {
+  return {
+    localeError: error13()
+  };
+}
+// node_modules/zod/v4/locales/he.js
+var error14 = () => {
+  const Sizable = {
+    string: { unit: "אותיות", verb: "לכלול" },
+    file: { unit: "בייטים", verb: "לכלול" },
+    array: { unit: "פריטים", verb: "לכלול" },
+    set: { unit: "פריטים", verb: "לכלול" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "קלט",
+    email: "כתובת אימייל",
+    url: "כתובת רשת",
+    emoji: "אימוג'י",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "תאריך וזמן ISO",
+    date: "תאריך ISO",
+    time: "זמן ISO",
+    duration: "משך זמן ISO",
+    ipv4: "כתובת IPv4",
+    ipv6: "כתובת IPv6",
+    cidrv4: "טווח IPv4",
+    cidrv6: "טווח IPv6",
+    base64: "מחרוזת בבסיס 64",
+    base64url: "מחרוזת בבסיס 64 לכתובות רשת",
+    json_string: "מחרוזת JSON",
+    e164: "מספר E.164",
+    jwt: "JWT",
+    template_literal: "קלט"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `קלט לא תקין: צריך ${issue2.expected}, התקבל ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `קלט לא תקין: צריך ${stringifyPrimitive(issue2.values[0])}`;
+        return `קלט לא תקין: צריך אחת מהאפשרויות  ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `גדול מדי: ${issue2.origin ?? "value"} צריך להיות ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elements"}`;
+        return `גדול מדי: ${issue2.origin ?? "value"} צריך להיות ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `קטן מדי: ${issue2.origin} צריך להיות ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `קטן מדי: ${issue2.origin} צריך להיות ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `מחרוזת לא תקינה: חייבת להתחיל ב"${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `מחרוזת לא תקינה: חייבת להסתיים ב "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `מחרוזת לא תקינה: חייבת לכלול "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `מחרוזת לא תקינה: חייבת להתאים לתבנית ${_issue.pattern}`;
+        return `${Nouns[_issue.format] ?? issue2.format} לא תקין`;
+      }
+      case "not_multiple_of":
+        return `מספר לא תקין: חייב להיות מכפלה של ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `מפתח${issue2.keys.length > 1 ? "ות" : ""} לא מזוה${issue2.keys.length > 1 ? "ים" : "ה"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `מפתח לא תקין ב${issue2.origin}`;
+      case "invalid_union":
+        return "קלט לא תקין";
+      case "invalid_element":
+        return `ערך לא תקין ב${issue2.origin}`;
+      default:
+        return `קלט לא תקין`;
+    }
+  };
+};
+function he_default() {
+  return {
+    localeError: error14()
+  };
+}
+// node_modules/zod/v4/locales/hu.js
+var error15 = () => {
+  const Sizable = {
+    string: { unit: "karakter", verb: "legyen" },
+    file: { unit: "byte", verb: "legyen" },
+    array: { unit: "elem", verb: "legyen" },
+    set: { unit: "elem", verb: "legyen" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "szám";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "tömb";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "bemenet",
+    email: "email cím",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO időbélyeg",
+    date: "ISO dátum",
+    time: "ISO idő",
+    duration: "ISO időintervallum",
+    ipv4: "IPv4 cím",
+    ipv6: "IPv6 cím",
+    cidrv4: "IPv4 tartomány",
+    cidrv6: "IPv6 tartomány",
+    base64: "base64-kódolt string",
+    base64url: "base64url-kódolt string",
+    json_string: "JSON string",
+    e164: "E.164 szám",
+    jwt: "JWT",
+    template_literal: "bemenet"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Érvénytelen bemenet: a várt érték ${issue2.expected}, a kapott érték ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Érvénytelen bemenet: a várt érték ${stringifyPrimitive(issue2.values[0])}`;
+        return `Érvénytelen opció: valamelyik érték várt ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Túl nagy: ${issue2.origin ?? "érték"} mérete túl nagy ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elem"}`;
+        return `Túl nagy: a bemeneti érték ${issue2.origin ?? "érték"} túl nagy: ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Túl kicsi: a bemeneti érték ${issue2.origin} mérete túl kicsi ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Túl kicsi: a bemeneti érték ${issue2.origin} túl kicsi ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Érvénytelen string: "${_issue.prefix}" értékkel kell kezdődnie`;
+        if (_issue.format === "ends_with")
+          return `Érvénytelen string: "${_issue.suffix}" értékkel kell végződnie`;
+        if (_issue.format === "includes")
+          return `Érvénytelen string: "${_issue.includes}" értéket kell tartalmaznia`;
+        if (_issue.format === "regex")
+          return `Érvénytelen string: ${_issue.pattern} mintának kell megfelelnie`;
+        return `Érvénytelen ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Érvénytelen szám: ${issue2.divisor} többszörösének kell lennie`;
+      case "unrecognized_keys":
+        return `Ismeretlen kulcs${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Érvénytelen kulcs ${issue2.origin}`;
+      case "invalid_union":
+        return "Érvénytelen bemenet";
+      case "invalid_element":
+        return `Érvénytelen érték: ${issue2.origin}`;
+      default:
+        return `Érvénytelen bemenet`;
+    }
+  };
+};
+function hu_default() {
+  return {
+    localeError: error15()
+  };
+}
+// node_modules/zod/v4/locales/id.js
+var error16 = () => {
+  const Sizable = {
+    string: { unit: "karakter", verb: "memiliki" },
+    file: { unit: "byte", verb: "memiliki" },
+    array: { unit: "item", verb: "memiliki" },
+    set: { unit: "item", verb: "memiliki" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "input",
+    email: "alamat email",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "tanggal dan waktu format ISO",
+    date: "tanggal format ISO",
+    time: "jam format ISO",
+    duration: "durasi format ISO",
+    ipv4: "alamat IPv4",
+    ipv6: "alamat IPv6",
+    cidrv4: "rentang alamat IPv4",
+    cidrv6: "rentang alamat IPv6",
+    base64: "string dengan enkode base64",
+    base64url: "string dengan enkode base64url",
+    json_string: "string JSON",
+    e164: "angka E.164",
+    jwt: "JWT",
+    template_literal: "input"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Input tidak valid: diharapkan ${issue2.expected}, diterima ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Input tidak valid: diharapkan ${stringifyPrimitive(issue2.values[0])}`;
+        return `Pilihan tidak valid: diharapkan salah satu dari ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Terlalu besar: diharapkan ${issue2.origin ?? "value"} memiliki ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elemen"}`;
+        return `Terlalu besar: diharapkan ${issue2.origin ?? "value"} menjadi ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Terlalu kecil: diharapkan ${issue2.origin} memiliki ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Terlalu kecil: diharapkan ${issue2.origin} menjadi ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `String tidak valid: harus dimulai dengan "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `String tidak valid: harus berakhir dengan "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `String tidak valid: harus menyertakan "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `String tidak valid: harus sesuai pola ${_issue.pattern}`;
+        return `${Nouns[_issue.format] ?? issue2.format} tidak valid`;
+      }
+      case "not_multiple_of":
+        return `Angka tidak valid: harus kelipatan dari ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Kunci tidak dikenali ${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Kunci tidak valid di ${issue2.origin}`;
+      case "invalid_union":
+        return "Input tidak valid";
+      case "invalid_element":
+        return `Nilai tidak valid di ${issue2.origin}`;
+      default:
+        return `Input tidak valid`;
+    }
+  };
+};
+function id_default() {
+  return {
+    localeError: error16()
+  };
+}
+// node_modules/zod/v4/locales/it.js
+var error17 = () => {
+  const Sizable = {
+    string: { unit: "caratteri", verb: "avere" },
+    file: { unit: "byte", verb: "avere" },
+    array: { unit: "elementi", verb: "avere" },
+    set: { unit: "elementi", verb: "avere" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "numero";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "vettore";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "input",
+    email: "indirizzo email",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "data e ora ISO",
+    date: "data ISO",
+    time: "ora ISO",
+    duration: "durata ISO",
+    ipv4: "indirizzo IPv4",
+    ipv6: "indirizzo IPv6",
+    cidrv4: "intervallo IPv4",
+    cidrv6: "intervallo IPv6",
+    base64: "stringa codificata in base64",
+    base64url: "URL codificata in base64",
+    json_string: "stringa JSON",
+    e164: "numero E.164",
+    jwt: "JWT",
+    template_literal: "input"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Input non valido: atteso ${issue2.expected}, ricevuto ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Input non valido: atteso ${stringifyPrimitive(issue2.values[0])}`;
+        return `Opzione non valida: atteso uno tra ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Troppo grande: ${issue2.origin ?? "valore"} deve avere ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elementi"}`;
+        return `Troppo grande: ${issue2.origin ?? "valore"} deve essere ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Troppo piccolo: ${issue2.origin} deve avere ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Troppo piccolo: ${issue2.origin} deve essere ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Stringa non valida: deve iniziare con "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Stringa non valida: deve terminare con "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Stringa non valida: deve includere "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Stringa non valida: deve corrispondere al pattern ${_issue.pattern}`;
+        return `Invalid ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Numero non valido: deve essere un multiplo di ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Chiav${issue2.keys.length > 1 ? "i" : "e"} non riconosciut${issue2.keys.length > 1 ? "e" : "a"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Chiave non valida in ${issue2.origin}`;
+      case "invalid_union":
+        return "Input non valido";
+      case "invalid_element":
+        return `Valore non valido in ${issue2.origin}`;
+      default:
+        return `Input non valido`;
+    }
+  };
+};
+function it_default() {
+  return {
+    localeError: error17()
+  };
+}
+// node_modules/zod/v4/locales/ja.js
+var error18 = () => {
+  const Sizable = {
+    string: { unit: "文字", verb: "である" },
+    file: { unit: "バイト", verb: "である" },
+    array: { unit: "要素", verb: "である" },
+    set: { unit: "要素", verb: "である" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "数値";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "配列";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "入力値",
+    email: "メールアドレス",
+    url: "URL",
+    emoji: "絵文字",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO日時",
+    date: "ISO日付",
+    time: "ISO時刻",
+    duration: "ISO期間",
+    ipv4: "IPv4アドレス",
+    ipv6: "IPv6アドレス",
+    cidrv4: "IPv4範囲",
+    cidrv6: "IPv6範囲",
+    base64: "base64エンコード文字列",
+    base64url: "base64urlエンコード文字列",
+    json_string: "JSON文字列",
+    e164: "E.164番号",
+    jwt: "JWT",
+    template_literal: "入力値"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `無効な入力: ${issue2.expected}が期待されましたが、${parsedType3(issue2.input)}が入力されました`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `無効な入力: ${stringifyPrimitive(issue2.values[0])}が期待されました`;
+        return `無効な選択: ${joinValues(issue2.values, "、")}のいずれかである必要があります`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "以下である" : "より小さい";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `大きすぎる値: ${issue2.origin ?? "値"}は${issue2.maximum.toString()}${sizing.unit ?? "要素"}${adj}必要があります`;
+        return `大きすぎる値: ${issue2.origin ?? "値"}は${issue2.maximum.toString()}${adj}必要があります`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? "以上である" : "より大きい";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `小さすぎる値: ${issue2.origin}は${issue2.minimum.toString()}${sizing.unit}${adj}必要があります`;
+        return `小さすぎる値: ${issue2.origin}は${issue2.minimum.toString()}${adj}必要があります`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `無効な文字列: "${_issue.prefix}"で始まる必要があります`;
+        if (_issue.format === "ends_with")
+          return `無効な文字列: "${_issue.suffix}"で終わる必要があります`;
+        if (_issue.format === "includes")
+          return `無効な文字列: "${_issue.includes}"を含む必要があります`;
+        if (_issue.format === "regex")
+          return `無効な文字列: パターン${_issue.pattern}に一致する必要があります`;
+        return `無効な${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `無効な数値: ${issue2.divisor}の倍数である必要があります`;
+      case "unrecognized_keys":
+        return `認識されていないキー${issue2.keys.length > 1 ? "群" : ""}: ${joinValues(issue2.keys, "、")}`;
+      case "invalid_key":
+        return `${issue2.origin}内の無効なキー`;
+      case "invalid_union":
+        return "無効な入力";
+      case "invalid_element":
+        return `${issue2.origin}内の無効な値`;
+      default:
+        return `無効な入力`;
+    }
+  };
+};
+function ja_default() {
+  return {
+    localeError: error18()
+  };
+}
+// node_modules/zod/v4/locales/kh.js
+var error19 = () => {
+  const Sizable = {
+    string: { unit: "តួអក្សរ", verb: "គួរមាន" },
+    file: { unit: "បៃ", verb: "គួរមាន" },
+    array: { unit: "ធាតុ", verb: "គួរមាន" },
+    set: { unit: "ធាតុ", verb: "គួរមាន" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "មិនមែនជាលេខ (NaN)" : "លេខ";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "អារេ (Array)";
+        }
+        if (data === null) {
+          return "គ្មានតម្លៃ (null)";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "ទិន្នន័យបញ្ចូល",
+    email: "អាសយដ្ឋានអ៊ីមែល",
+    url: "URL",
+    emoji: "សញ្ញាអារម្មណ៍",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "កាលបរិច្ឆេទ និងម៉ោង ISO",
+    date: "កាលបរិច្ឆេទ ISO",
+    time: "ម៉ោង ISO",
+    duration: "រយៈពេល ISO",
+    ipv4: "អាសយដ្ឋាន IPv4",
+    ipv6: "អាសយដ្ឋាន IPv6",
+    cidrv4: "ដែនអាសយដ្ឋាន IPv4",
+    cidrv6: "ដែនអាសយដ្ឋាន IPv6",
+    base64: "ខ្សែអក្សរអ៊ិកូដ base64",
+    base64url: "ខ្សែអក្សរអ៊ិកូដ base64url",
+    json_string: "ខ្សែអក្សរ JSON",
+    e164: "លេខ E.164",
+    jwt: "JWT",
+    template_literal: "ទិន្នន័យបញ្ចូល"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `ទិន្នន័យបញ្ចូលមិនត្រឹមត្រូវ៖ ត្រូវការ ${issue2.expected} ប៉ុន្តែទទួលបាន ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `ទិន្នន័យបញ្ចូលមិនត្រឹមត្រូវ៖ ត្រូវការ ${stringifyPrimitive(issue2.values[0])}`;
+        return `ជម្រើសមិនត្រឹមត្រូវ៖ ត្រូវជាមួយក្នុងចំណោម ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `ធំពេក៖ ត្រូវការ ${issue2.origin ?? "តម្លៃ"} ${adj} ${issue2.maximum.toString()} ${sizing.unit ?? "ធាតុ"}`;
+        return `ធំពេក៖ ត្រូវការ ${issue2.origin ?? "តម្លៃ"} ${adj} ${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `តូចពេក៖ ត្រូវការ ${issue2.origin} ${adj} ${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `តូចពេក៖ ត្រូវការ ${issue2.origin} ${adj} ${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `ខ្សែអក្សរមិនត្រឹមត្រូវ៖ ត្រូវចាប់ផ្តើមដោយ "${_issue.prefix}"`;
+        }
+        if (_issue.format === "ends_with")
+          return `ខ្សែអក្សរមិនត្រឹមត្រូវ៖ ត្រូវបញ្ចប់ដោយ "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `ខ្សែអក្សរមិនត្រឹមត្រូវ៖ ត្រូវមាន "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `ខ្សែអក្សរមិនត្រឹមត្រូវ៖ ត្រូវតែផ្គូផ្គងនឹងទម្រង់ដែលបានកំណត់ ${_issue.pattern}`;
+        return `មិនត្រឹមត្រូវ៖ ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `លេខមិនត្រឹមត្រូវ៖ ត្រូវតែជាពហុគុណនៃ ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `រកឃើញសោមិនស្គាល់៖ ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `សោមិនត្រឹមត្រូវនៅក្នុង ${issue2.origin}`;
+      case "invalid_union":
+        return `ទិន្នន័យមិនត្រឹមត្រូវ`;
+      case "invalid_element":
+        return `ទិន្នន័យមិនត្រឹមត្រូវនៅក្នុង ${issue2.origin}`;
+      default:
+        return `ទិន្នន័យមិនត្រឹមត្រូវ`;
+    }
+  };
+};
+function kh_default() {
+  return {
+    localeError: error19()
+  };
+}
+// node_modules/zod/v4/locales/ko.js
+var error20 = () => {
+  const Sizable = {
+    string: { unit: "문자", verb: "to have" },
+    file: { unit: "바이트", verb: "to have" },
+    array: { unit: "개", verb: "to have" },
+    set: { unit: "개", verb: "to have" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "입력",
+    email: "이메일 주소",
+    url: "URL",
+    emoji: "이모지",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO 날짜시간",
+    date: "ISO 날짜",
+    time: "ISO 시간",
+    duration: "ISO 기간",
+    ipv4: "IPv4 주소",
+    ipv6: "IPv6 주소",
+    cidrv4: "IPv4 범위",
+    cidrv6: "IPv6 범위",
+    base64: "base64 인코딩 문자열",
+    base64url: "base64url 인코딩 문자열",
+    json_string: "JSON 문자열",
+    e164: "E.164 번호",
+    jwt: "JWT",
+    template_literal: "입력"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `잘못된 입력: 예상 타입은 ${issue2.expected}, 받은 타입은 ${parsedType3(issue2.input)}입니다`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `잘못된 입력: 값은 ${stringifyPrimitive(issue2.values[0])} 이어야 합니다`;
+        return `잘못된 옵션: ${joinValues(issue2.values, "또는 ")} 중 하나여야 합니다`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "이하" : "미만";
+        const suffix2 = adj === "미만" ? "이어야 합니다" : "여야 합니다";
+        const sizing = getSizing(issue2.origin);
+        const unit = sizing?.unit ?? "요소";
+        if (sizing)
+          return `${issue2.origin ?? "값"}이 너무 큽니다: ${issue2.maximum.toString()}${unit} ${adj}${suffix2}`;
+        return `${issue2.origin ?? "값"}이 너무 큽니다: ${issue2.maximum.toString()} ${adj}${suffix2}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? "이상" : "초과";
+        const suffix2 = adj === "이상" ? "이어야 합니다" : "여야 합니다";
+        const sizing = getSizing(issue2.origin);
+        const unit = sizing?.unit ?? "요소";
+        if (sizing) {
+          return `${issue2.origin ?? "값"}이 너무 작습니다: ${issue2.minimum.toString()}${unit} ${adj}${suffix2}`;
+        }
+        return `${issue2.origin ?? "값"}이 너무 작습니다: ${issue2.minimum.toString()} ${adj}${suffix2}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `잘못된 문자열: "${_issue.prefix}"(으)로 시작해야 합니다`;
+        }
+        if (_issue.format === "ends_with")
+          return `잘못된 문자열: "${_issue.suffix}"(으)로 끝나야 합니다`;
+        if (_issue.format === "includes")
+          return `잘못된 문자열: "${_issue.includes}"을(를) 포함해야 합니다`;
+        if (_issue.format === "regex")
+          return `잘못된 문자열: 정규식 ${_issue.pattern} 패턴과 일치해야 합니다`;
+        return `잘못된 ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `잘못된 숫자: ${issue2.divisor}의 배수여야 합니다`;
+      case "unrecognized_keys":
+        return `인식할 수 없는 키: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `잘못된 키: ${issue2.origin}`;
+      case "invalid_union":
+        return `잘못된 입력`;
+      case "invalid_element":
+        return `잘못된 값: ${issue2.origin}`;
+      default:
+        return `잘못된 입력`;
+    }
+  };
+};
+function ko_default() {
+  return {
+    localeError: error20()
+  };
+}
+// node_modules/zod/v4/locales/mk.js
+var error21 = () => {
+  const Sizable = {
+    string: { unit: "знаци", verb: "да имаат" },
+    file: { unit: "бајти", verb: "да имаат" },
+    array: { unit: "ставки", verb: "да имаат" },
+    set: { unit: "ставки", verb: "да имаат" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "број";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "низа";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "внес",
+    email: "адреса на е-пошта",
+    url: "URL",
+    emoji: "емоџи",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO датум и време",
+    date: "ISO датум",
+    time: "ISO време",
+    duration: "ISO времетраење",
+    ipv4: "IPv4 адреса",
+    ipv6: "IPv6 адреса",
+    cidrv4: "IPv4 опсег",
+    cidrv6: "IPv6 опсег",
+    base64: "base64-енкодирана низа",
+    base64url: "base64url-енкодирана низа",
+    json_string: "JSON низа",
+    e164: "E.164 број",
+    jwt: "JWT",
+    template_literal: "внес"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Грешен внес: се очекува ${issue2.expected}, примено ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Invalid input: expected ${stringifyPrimitive(issue2.values[0])}`;
+        return `Грешана опција: се очекува една ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Премногу голем: се очекува ${issue2.origin ?? "вредноста"} да има ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "елементи"}`;
+        return `Премногу голем: се очекува ${issue2.origin ?? "вредноста"} да биде ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Премногу мал: се очекува ${issue2.origin} да има ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Премногу мал: се очекува ${issue2.origin} да биде ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `Неважечка низа: мора да започнува со "${_issue.prefix}"`;
+        }
+        if (_issue.format === "ends_with")
+          return `Неважечка низа: мора да завршува со "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Неважечка низа: мора да вклучува "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Неважечка низа: мора да одгоара на патернот ${_issue.pattern}`;
+        return `Invalid ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Грешен број: мора да биде делив со ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `${issue2.keys.length > 1 ? "Непрепознаени клучеви" : "Непрепознаен клуч"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Грешен клуч во ${issue2.origin}`;
+      case "invalid_union":
+        return "Грешен внес";
+      case "invalid_element":
+        return `Грешна вредност во ${issue2.origin}`;
+      default:
+        return `Грешен внес`;
+    }
+  };
+};
+function mk_default() {
+  return {
+    localeError: error21()
+  };
+}
+// node_modules/zod/v4/locales/ms.js
+var error22 = () => {
+  const Sizable = {
+    string: { unit: "aksara", verb: "mempunyai" },
+    file: { unit: "bait", verb: "mempunyai" },
+    array: { unit: "elemen", verb: "mempunyai" },
+    set: { unit: "elemen", verb: "mempunyai" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "nombor";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "input",
+    email: "alamat e-mel",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "tarikh masa ISO",
+    date: "tarikh ISO",
+    time: "masa ISO",
+    duration: "tempoh ISO",
+    ipv4: "alamat IPv4",
+    ipv6: "alamat IPv6",
+    cidrv4: "julat IPv4",
+    cidrv6: "julat IPv6",
+    base64: "string dikodkan base64",
+    base64url: "string dikodkan base64url",
+    json_string: "string JSON",
+    e164: "nombor E.164",
+    jwt: "JWT",
+    template_literal: "input"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Input tidak sah: dijangka ${issue2.expected}, diterima ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Input tidak sah: dijangka ${stringifyPrimitive(issue2.values[0])}`;
+        return `Pilihan tidak sah: dijangka salah satu daripada ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Terlalu besar: dijangka ${issue2.origin ?? "nilai"} ${sizing.verb} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elemen"}`;
+        return `Terlalu besar: dijangka ${issue2.origin ?? "nilai"} adalah ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Terlalu kecil: dijangka ${issue2.origin} ${sizing.verb} ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Terlalu kecil: dijangka ${issue2.origin} adalah ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `String tidak sah: mesti bermula dengan "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `String tidak sah: mesti berakhir dengan "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `String tidak sah: mesti mengandungi "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `String tidak sah: mesti sepadan dengan corak ${_issue.pattern}`;
+        return `${Nouns[_issue.format] ?? issue2.format} tidak sah`;
+      }
+      case "not_multiple_of":
+        return `Nombor tidak sah: perlu gandaan ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Kunci tidak dikenali: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Kunci tidak sah dalam ${issue2.origin}`;
+      case "invalid_union":
+        return "Input tidak sah";
+      case "invalid_element":
+        return `Nilai tidak sah dalam ${issue2.origin}`;
+      default:
+        return `Input tidak sah`;
+    }
+  };
+};
+function ms_default() {
+  return {
+    localeError: error22()
+  };
+}
+// node_modules/zod/v4/locales/nl.js
+var error23 = () => {
+  const Sizable = {
+    string: { unit: "tekens" },
+    file: { unit: "bytes" },
+    array: { unit: "elementen" },
+    set: { unit: "elementen" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "getal";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "invoer",
+    email: "emailadres",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO datum en tijd",
+    date: "ISO datum",
+    time: "ISO tijd",
+    duration: "ISO duur",
+    ipv4: "IPv4-adres",
+    ipv6: "IPv6-adres",
+    cidrv4: "IPv4-bereik",
+    cidrv6: "IPv6-bereik",
+    base64: "base64-gecodeerde tekst",
+    base64url: "base64 URL-gecodeerde tekst",
+    json_string: "JSON string",
+    e164: "E.164-nummer",
+    jwt: "JWT",
+    template_literal: "invoer"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Ongeldige invoer: verwacht ${issue2.expected}, ontving ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Ongeldige invoer: verwacht ${stringifyPrimitive(issue2.values[0])}`;
+        return `Ongeldige optie: verwacht één van ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Te lang: verwacht dat ${issue2.origin ?? "waarde"} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elementen"} bevat`;
+        return `Te lang: verwacht dat ${issue2.origin ?? "waarde"} ${adj}${issue2.maximum.toString()} is`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Te kort: verwacht dat ${issue2.origin} ${adj}${issue2.minimum.toString()} ${sizing.unit} bevat`;
+        }
+        return `Te kort: verwacht dat ${issue2.origin} ${adj}${issue2.minimum.toString()} is`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `Ongeldige tekst: moet met "${_issue.prefix}" beginnen`;
+        }
+        if (_issue.format === "ends_with")
+          return `Ongeldige tekst: moet op "${_issue.suffix}" eindigen`;
+        if (_issue.format === "includes")
+          return `Ongeldige tekst: moet "${_issue.includes}" bevatten`;
+        if (_issue.format === "regex")
+          return `Ongeldige tekst: moet overeenkomen met patroon ${_issue.pattern}`;
+        return `Ongeldig: ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Ongeldig getal: moet een veelvoud van ${issue2.divisor} zijn`;
+      case "unrecognized_keys":
+        return `Onbekende key${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Ongeldige key in ${issue2.origin}`;
+      case "invalid_union":
+        return "Ongeldige invoer";
+      case "invalid_element":
+        return `Ongeldige waarde in ${issue2.origin}`;
+      default:
+        return `Ongeldige invoer`;
+    }
+  };
+};
+function nl_default() {
+  return {
+    localeError: error23()
+  };
+}
+// node_modules/zod/v4/locales/no.js
+var error24 = () => {
+  const Sizable = {
+    string: { unit: "tegn", verb: "å ha" },
+    file: { unit: "bytes", verb: "å ha" },
+    array: { unit: "elementer", verb: "å inneholde" },
+    set: { unit: "elementer", verb: "å inneholde" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "tall";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "liste";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "input",
+    email: "e-postadresse",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO dato- og klokkeslett",
+    date: "ISO-dato",
+    time: "ISO-klokkeslett",
+    duration: "ISO-varighet",
+    ipv4: "IPv4-område",
+    ipv6: "IPv6-område",
+    cidrv4: "IPv4-spekter",
+    cidrv6: "IPv6-spekter",
+    base64: "base64-enkodet streng",
+    base64url: "base64url-enkodet streng",
+    json_string: "JSON-streng",
+    e164: "E.164-nummer",
+    jwt: "JWT",
+    template_literal: "input"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Ugyldig input: forventet ${issue2.expected}, fikk ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Ugyldig verdi: forventet ${stringifyPrimitive(issue2.values[0])}`;
+        return `Ugyldig valg: forventet en av ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `For stor(t): forventet ${issue2.origin ?? "value"} til å ha ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elementer"}`;
+        return `For stor(t): forventet ${issue2.origin ?? "value"} til å ha ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `For lite(n): forventet ${issue2.origin} til å ha ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `For lite(n): forventet ${issue2.origin} til å ha ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Ugyldig streng: må starte med "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Ugyldig streng: må ende med "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Ugyldig streng: må inneholde "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Ugyldig streng: må matche mønsteret ${_issue.pattern}`;
+        return `Ugyldig ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Ugyldig tall: må være et multiplum av ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `${issue2.keys.length > 1 ? "Ukjente nøkler" : "Ukjent nøkkel"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Ugyldig nøkkel i ${issue2.origin}`;
+      case "invalid_union":
+        return "Ugyldig input";
+      case "invalid_element":
+        return `Ugyldig verdi i ${issue2.origin}`;
+      default:
+        return `Ugyldig input`;
+    }
+  };
+};
+function no_default() {
+  return {
+    localeError: error24()
+  };
+}
+// node_modules/zod/v4/locales/ota.js
+var error25 = () => {
+  const Sizable = {
+    string: { unit: "harf", verb: "olmalıdır" },
+    file: { unit: "bayt", verb: "olmalıdır" },
+    array: { unit: "unsur", verb: "olmalıdır" },
+    set: { unit: "unsur", verb: "olmalıdır" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "numara";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "saf";
+        }
+        if (data === null) {
+          return "gayb";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "giren",
+    email: "epostagâh",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO hengâmı",
+    date: "ISO tarihi",
+    time: "ISO zamanı",
+    duration: "ISO müddeti",
+    ipv4: "IPv4 nişânı",
+    ipv6: "IPv6 nişânı",
+    cidrv4: "IPv4 menzili",
+    cidrv6: "IPv6 menzili",
+    base64: "base64-şifreli metin",
+    base64url: "base64url-şifreli metin",
+    json_string: "JSON metin",
+    e164: "E.164 sayısı",
+    jwt: "JWT",
+    template_literal: "giren"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Fâsit giren: umulan ${issue2.expected}, alınan ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Fâsit giren: umulan ${stringifyPrimitive(issue2.values[0])}`;
+        return `Fâsit tercih: mûteberler ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Fazla büyük: ${issue2.origin ?? "value"}, ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elements"} sahip olmalıydı.`;
+        return `Fazla büyük: ${issue2.origin ?? "value"}, ${adj}${issue2.maximum.toString()} olmalıydı.`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Fazla küçük: ${issue2.origin}, ${adj}${issue2.minimum.toString()} ${sizing.unit} sahip olmalıydı.`;
+        }
+        return `Fazla küçük: ${issue2.origin}, ${adj}${issue2.minimum.toString()} olmalıydı.`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Fâsit metin: "${_issue.prefix}" ile başlamalı.`;
+        if (_issue.format === "ends_with")
+          return `Fâsit metin: "${_issue.suffix}" ile bitmeli.`;
+        if (_issue.format === "includes")
+          return `Fâsit metin: "${_issue.includes}" ihtivâ etmeli.`;
+        if (_issue.format === "regex")
+          return `Fâsit metin: ${_issue.pattern} nakşına uymalı.`;
+        return `Fâsit ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Fâsit sayı: ${issue2.divisor} katı olmalıydı.`;
+      case "unrecognized_keys":
+        return `Tanınmayan anahtar ${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `${issue2.origin} için tanınmayan anahtar var.`;
+      case "invalid_union":
+        return "Giren tanınamadı.";
+      case "invalid_element":
+        return `${issue2.origin} için tanınmayan kıymet var.`;
+      default:
+        return `Kıymet tanınamadı.`;
+    }
+  };
+};
+function ota_default() {
+  return {
+    localeError: error25()
+  };
+}
+// node_modules/zod/v4/locales/ps.js
+var error26 = () => {
+  const Sizable = {
+    string: { unit: "توکي", verb: "ولري" },
+    file: { unit: "بایټس", verb: "ولري" },
+    array: { unit: "توکي", verb: "ولري" },
+    set: { unit: "توکي", verb: "ولري" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "عدد";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "ارې";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "ورودي",
+    email: "بریښنالیک",
+    url: "یو آر ال",
+    emoji: "ایموجي",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "نیټه او وخت",
+    date: "نېټه",
+    time: "وخت",
+    duration: "موده",
+    ipv4: "د IPv4 پته",
+    ipv6: "د IPv6 پته",
+    cidrv4: "د IPv4 ساحه",
+    cidrv6: "د IPv6 ساحه",
+    base64: "base64-encoded متن",
+    base64url: "base64url-encoded متن",
+    json_string: "JSON متن",
+    e164: "د E.164 شمېره",
+    jwt: "JWT",
+    template_literal: "ورودي"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `ناسم ورودي: باید ${issue2.expected} وای, مګر ${parsedType3(issue2.input)} ترلاسه شو`;
+      case "invalid_value":
+        if (issue2.values.length === 1) {
+          return `ناسم ورودي: باید ${stringifyPrimitive(issue2.values[0])} وای`;
+        }
+        return `ناسم انتخاب: باید یو له ${joinValues(issue2.values, "|")} څخه وای`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `ډیر لوی: ${issue2.origin ?? "ارزښت"} باید ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "عنصرونه"} ولري`;
+        }
+        return `ډیر لوی: ${issue2.origin ?? "ارزښت"} باید ${adj}${issue2.maximum.toString()} وي`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `ډیر کوچنی: ${issue2.origin} باید ${adj}${issue2.minimum.toString()} ${sizing.unit} ولري`;
+        }
+        return `ډیر کوچنی: ${issue2.origin} باید ${adj}${issue2.minimum.toString()} وي`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `ناسم متن: باید د "${_issue.prefix}" سره پیل شي`;
+        }
+        if (_issue.format === "ends_with") {
+          return `ناسم متن: باید د "${_issue.suffix}" سره پای ته ورسيږي`;
+        }
+        if (_issue.format === "includes") {
+          return `ناسم متن: باید "${_issue.includes}" ولري`;
+        }
+        if (_issue.format === "regex") {
+          return `ناسم متن: باید د ${_issue.pattern} سره مطابقت ولري`;
+        }
+        return `${Nouns[_issue.format] ?? issue2.format} ناسم دی`;
+      }
+      case "not_multiple_of":
+        return `ناسم عدد: باید د ${issue2.divisor} مضرب وي`;
+      case "unrecognized_keys":
+        return `ناسم ${issue2.keys.length > 1 ? "کلیډونه" : "کلیډ"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `ناسم کلیډ په ${issue2.origin} کې`;
+      case "invalid_union":
+        return `ناسمه ورودي`;
+      case "invalid_element":
+        return `ناسم عنصر په ${issue2.origin} کې`;
+      default:
+        return `ناسمه ورودي`;
+    }
+  };
+};
+function ps_default() {
+  return {
+    localeError: error26()
+  };
+}
+// node_modules/zod/v4/locales/pl.js
+var error27 = () => {
+  const Sizable = {
+    string: { unit: "znaków", verb: "mieć" },
+    file: { unit: "bajtów", verb: "mieć" },
+    array: { unit: "elementów", verb: "mieć" },
+    set: { unit: "elementów", verb: "mieć" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "liczba";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "tablica";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "wyrażenie",
+    email: "adres email",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "data i godzina w formacie ISO",
+    date: "data w formacie ISO",
+    time: "godzina w formacie ISO",
+    duration: "czas trwania ISO",
+    ipv4: "adres IPv4",
+    ipv6: "adres IPv6",
+    cidrv4: "zakres IPv4",
+    cidrv6: "zakres IPv6",
+    base64: "ciąg znaków zakodowany w formacie base64",
+    base64url: "ciąg znaków zakodowany w formacie base64url",
+    json_string: "ciąg znaków w formacie JSON",
+    e164: "liczba E.164",
+    jwt: "JWT",
+    template_literal: "wejście"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Nieprawidłowe dane wejściowe: oczekiwano ${issue2.expected}, otrzymano ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Nieprawidłowe dane wejściowe: oczekiwano ${stringifyPrimitive(issue2.values[0])}`;
+        return `Nieprawidłowa opcja: oczekiwano jednej z wartości ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Za duża wartość: oczekiwano, że ${issue2.origin ?? "wartość"} będzie mieć ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elementów"}`;
+        }
+        return `Zbyt duż(y/a/e): oczekiwano, że ${issue2.origin ?? "wartość"} będzie wynosić ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Za mała wartość: oczekiwano, że ${issue2.origin ?? "wartość"} będzie mieć ${adj}${issue2.minimum.toString()} ${sizing.unit ?? "elementów"}`;
+        }
+        return `Zbyt mał(y/a/e): oczekiwano, że ${issue2.origin ?? "wartość"} będzie wynosić ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Nieprawidłowy ciąg znaków: musi zaczynać się od "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Nieprawidłowy ciąg znaków: musi kończyć się na "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Nieprawidłowy ciąg znaków: musi zawierać "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Nieprawidłowy ciąg znaków: musi odpowiadać wzorcowi ${_issue.pattern}`;
+        return `Nieprawidłow(y/a/e) ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Nieprawidłowa liczba: musi być wielokrotnością ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Nierozpoznane klucze${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Nieprawidłowy klucz w ${issue2.origin}`;
+      case "invalid_union":
+        return "Nieprawidłowe dane wejściowe";
+      case "invalid_element":
+        return `Nieprawidłowa wartość w ${issue2.origin}`;
+      default:
+        return `Nieprawidłowe dane wejściowe`;
+    }
+  };
+};
+function pl_default() {
+  return {
+    localeError: error27()
+  };
+}
+// node_modules/zod/v4/locales/pt.js
+var error28 = () => {
+  const Sizable = {
+    string: { unit: "caracteres", verb: "ter" },
+    file: { unit: "bytes", verb: "ter" },
+    array: { unit: "itens", verb: "ter" },
+    set: { unit: "itens", verb: "ter" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "número";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "nulo";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "padrão",
+    email: "endereço de e-mail",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "data e hora ISO",
+    date: "data ISO",
+    time: "hora ISO",
+    duration: "duração ISO",
+    ipv4: "endereço IPv4",
+    ipv6: "endereço IPv6",
+    cidrv4: "faixa de IPv4",
+    cidrv6: "faixa de IPv6",
+    base64: "texto codificado em base64",
+    base64url: "URL codificada em base64",
+    json_string: "texto JSON",
+    e164: "número E.164",
+    jwt: "JWT",
+    template_literal: "entrada"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Tipo inválido: esperado ${issue2.expected}, recebido ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Entrada inválida: esperado ${stringifyPrimitive(issue2.values[0])}`;
+        return `Opção inválida: esperada uma das ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Muito grande: esperado que ${issue2.origin ?? "valor"} tivesse ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elementos"}`;
+        return `Muito grande: esperado que ${issue2.origin ?? "valor"} fosse ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Muito pequeno: esperado que ${issue2.origin} tivesse ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Muito pequeno: esperado que ${issue2.origin} fosse ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Texto inválido: deve começar com "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Texto inválido: deve terminar com "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Texto inválido: deve incluir "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Texto inválido: deve corresponder ao padrão ${_issue.pattern}`;
+        return `${Nouns[_issue.format] ?? issue2.format} inválido`;
+      }
+      case "not_multiple_of":
+        return `Número inválido: deve ser múltiplo de ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Chave${issue2.keys.length > 1 ? "s" : ""} desconhecida${issue2.keys.length > 1 ? "s" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Chave inválida em ${issue2.origin}`;
+      case "invalid_union":
+        return "Entrada inválida";
+      case "invalid_element":
+        return `Valor inválido em ${issue2.origin}`;
+      default:
+        return `Campo inválido`;
+    }
+  };
+};
+function pt_default() {
+  return {
+    localeError: error28()
+  };
+}
+// node_modules/zod/v4/locales/ru.js
+function getRussianPlural(count2, one, few, many) {
+  const absCount = Math.abs(count2);
+  const lastDigit = absCount % 10;
+  const lastTwoDigits = absCount % 100;
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+    return many;
+  }
+  if (lastDigit === 1) {
+    return one;
+  }
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return few;
+  }
+  return many;
+}
+var error29 = () => {
+  const Sizable = {
+    string: {
+      unit: {
+        one: "символ",
+        few: "символа",
+        many: "символов"
+      },
+      verb: "иметь"
+    },
+    file: {
+      unit: {
+        one: "байт",
+        few: "байта",
+        many: "байт"
+      },
+      verb: "иметь"
+    },
+    array: {
+      unit: {
+        one: "элемент",
+        few: "элемента",
+        many: "элементов"
+      },
+      verb: "иметь"
+    },
+    set: {
+      unit: {
+        one: "элемент",
+        few: "элемента",
+        many: "элементов"
+      },
+      verb: "иметь"
+    }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "число";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "массив";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "ввод",
+    email: "email адрес",
+    url: "URL",
+    emoji: "эмодзи",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO дата и время",
+    date: "ISO дата",
+    time: "ISO время",
+    duration: "ISO длительность",
+    ipv4: "IPv4 адрес",
+    ipv6: "IPv6 адрес",
+    cidrv4: "IPv4 диапазон",
+    cidrv6: "IPv6 диапазон",
+    base64: "строка в формате base64",
+    base64url: "строка в формате base64url",
+    json_string: "JSON строка",
+    e164: "номер E.164",
+    jwt: "JWT",
+    template_literal: "ввод"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Неверный ввод: ожидалось ${issue2.expected}, получено ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Неверный ввод: ожидалось ${stringifyPrimitive(issue2.values[0])}`;
+        return `Неверный вариант: ожидалось одно из ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          const maxValue = Number(issue2.maximum);
+          const unit = getRussianPlural(maxValue, sizing.unit.one, sizing.unit.few, sizing.unit.many);
+          return `Слишком большое значение: ожидалось, что ${issue2.origin ?? "значение"} будет иметь ${adj}${issue2.maximum.toString()} ${unit}`;
+        }
+        return `Слишком большое значение: ожидалось, что ${issue2.origin ?? "значение"} будет ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          const minValue = Number(issue2.minimum);
+          const unit = getRussianPlural(minValue, sizing.unit.one, sizing.unit.few, sizing.unit.many);
+          return `Слишком маленькое значение: ожидалось, что ${issue2.origin} будет иметь ${adj}${issue2.minimum.toString()} ${unit}`;
+        }
+        return `Слишком маленькое значение: ожидалось, что ${issue2.origin} будет ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Неверная строка: должна начинаться с "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Неверная строка: должна заканчиваться на "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Неверная строка: должна содержать "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Неверная строка: должна соответствовать шаблону ${_issue.pattern}`;
+        return `Неверный ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Неверное число: должно быть кратным ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Нераспознанн${issue2.keys.length > 1 ? "ые" : "ый"} ключ${issue2.keys.length > 1 ? "и" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Неверный ключ в ${issue2.origin}`;
+      case "invalid_union":
+        return "Неверные входные данные";
+      case "invalid_element":
+        return `Неверное значение в ${issue2.origin}`;
+      default:
+        return `Неверные входные данные`;
+    }
+  };
+};
+function ru_default() {
+  return {
+    localeError: error29()
+  };
+}
+// node_modules/zod/v4/locales/sl.js
+var error30 = () => {
+  const Sizable = {
+    string: { unit: "znakov", verb: "imeti" },
+    file: { unit: "bajtov", verb: "imeti" },
+    array: { unit: "elementov", verb: "imeti" },
+    set: { unit: "elementov", verb: "imeti" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "število";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "tabela";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "vnos",
+    email: "e-poštni naslov",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO datum in čas",
+    date: "ISO datum",
+    time: "ISO čas",
+    duration: "ISO trajanje",
+    ipv4: "IPv4 naslov",
+    ipv6: "IPv6 naslov",
+    cidrv4: "obseg IPv4",
+    cidrv6: "obseg IPv6",
+    base64: "base64 kodiran niz",
+    base64url: "base64url kodiran niz",
+    json_string: "JSON niz",
+    e164: "E.164 številka",
+    jwt: "JWT",
+    template_literal: "vnos"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Neveljaven vnos: pričakovano ${issue2.expected}, prejeto ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Neveljaven vnos: pričakovano ${stringifyPrimitive(issue2.values[0])}`;
+        return `Neveljavna možnost: pričakovano eno izmed ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Preveliko: pričakovano, da bo ${issue2.origin ?? "vrednost"} imelo ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "elementov"}`;
+        return `Preveliko: pričakovano, da bo ${issue2.origin ?? "vrednost"} ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Premajhno: pričakovano, da bo ${issue2.origin} imelo ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Premajhno: pričakovano, da bo ${issue2.origin} ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `Neveljaven niz: mora se začeti z "${_issue.prefix}"`;
+        }
+        if (_issue.format === "ends_with")
+          return `Neveljaven niz: mora se končati z "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Neveljaven niz: mora vsebovati "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Neveljaven niz: mora ustrezati vzorcu ${_issue.pattern}`;
+        return `Neveljaven ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Neveljavno število: mora biti večkratnik ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Neprepoznan${issue2.keys.length > 1 ? "i ključi" : " ključ"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Neveljaven ključ v ${issue2.origin}`;
+      case "invalid_union":
+        return "Neveljaven vnos";
+      case "invalid_element":
+        return `Neveljavna vrednost v ${issue2.origin}`;
+      default:
+        return "Neveljaven vnos";
+    }
+  };
+};
+function sl_default() {
+  return {
+    localeError: error30()
+  };
+}
+// node_modules/zod/v4/locales/sv.js
+var error31 = () => {
+  const Sizable = {
+    string: { unit: "tecken", verb: "att ha" },
+    file: { unit: "bytes", verb: "att ha" },
+    array: { unit: "objekt", verb: "att innehålla" },
+    set: { unit: "objekt", verb: "att innehålla" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "antal";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "lista";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "reguljärt uttryck",
+    email: "e-postadress",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO-datum och tid",
+    date: "ISO-datum",
+    time: "ISO-tid",
+    duration: "ISO-varaktighet",
+    ipv4: "IPv4-intervall",
+    ipv6: "IPv6-intervall",
+    cidrv4: "IPv4-spektrum",
+    cidrv6: "IPv6-spektrum",
+    base64: "base64-kodad sträng",
+    base64url: "base64url-kodad sträng",
+    json_string: "JSON-sträng",
+    e164: "E.164-nummer",
+    jwt: "JWT",
+    template_literal: "mall-literal"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Ogiltig inmatning: förväntat ${issue2.expected}, fick ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Ogiltig inmatning: förväntat ${stringifyPrimitive(issue2.values[0])}`;
+        return `Ogiltigt val: förväntade en av ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `För stor(t): förväntade ${issue2.origin ?? "värdet"} att ha ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "element"}`;
+        }
+        return `För stor(t): förväntat ${issue2.origin ?? "värdet"} att ha ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `För lite(t): förväntade ${issue2.origin ?? "värdet"} att ha ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `För lite(t): förväntade ${issue2.origin ?? "värdet"} att ha ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `Ogiltig sträng: måste börja med "${_issue.prefix}"`;
+        }
+        if (_issue.format === "ends_with")
+          return `Ogiltig sträng: måste sluta med "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Ogiltig sträng: måste innehålla "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Ogiltig sträng: måste matcha mönstret "${_issue.pattern}"`;
+        return `Ogiltig(t) ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Ogiltigt tal: måste vara en multipel av ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `${issue2.keys.length > 1 ? "Okända nycklar" : "Okänd nyckel"}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Ogiltig nyckel i ${issue2.origin ?? "värdet"}`;
+      case "invalid_union":
+        return "Ogiltig input";
+      case "invalid_element":
+        return `Ogiltigt värde i ${issue2.origin ?? "värdet"}`;
+      default:
+        return `Ogiltig input`;
+    }
+  };
+};
+function sv_default() {
+  return {
+    localeError: error31()
+  };
+}
+// node_modules/zod/v4/locales/ta.js
+var error32 = () => {
+  const Sizable = {
+    string: { unit: "எழுத்துக்கள்", verb: "கொண்டிருக்க வேண்டும்" },
+    file: { unit: "பைட்டுகள்", verb: "கொண்டிருக்க வேண்டும்" },
+    array: { unit: "உறுப்புகள்", verb: "கொண்டிருக்க வேண்டும்" },
+    set: { unit: "உறுப்புகள்", verb: "கொண்டிருக்க வேண்டும்" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "எண் அல்லாதது" : "எண்";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "அணி";
+        }
+        if (data === null) {
+          return "வெறுமை";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "உள்ளீடு",
+    email: "மின்னஞ்சல் முகவரி",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO தேதி நேரம்",
+    date: "ISO தேதி",
+    time: "ISO நேரம்",
+    duration: "ISO கால அளவு",
+    ipv4: "IPv4 முகவரி",
+    ipv6: "IPv6 முகவரி",
+    cidrv4: "IPv4 வரம்பு",
+    cidrv6: "IPv6 வரம்பு",
+    base64: "base64-encoded சரம்",
+    base64url: "base64url-encoded சரம்",
+    json_string: "JSON சரம்",
+    e164: "E.164 எண்",
+    jwt: "JWT",
+    template_literal: "input"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `தவறான உள்ளீடு: எதிர்பார்க்கப்பட்டது ${issue2.expected}, பெறப்பட்டது ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `தவறான உள்ளீடு: எதிர்பார்க்கப்பட்டது ${stringifyPrimitive(issue2.values[0])}`;
+        return `தவறான விருப்பம்: எதிர்பார்க்கப்பட்டது ${joinValues(issue2.values, "|")} இல் ஒன்று`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `மிக பெரியது: எதிர்பார்க்கப்பட்டது ${issue2.origin ?? "மதிப்பு"} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "உறுப்புகள்"} ஆக இருக்க வேண்டும்`;
+        }
+        return `மிக பெரியது: எதிர்பார்க்கப்பட்டது ${issue2.origin ?? "மதிப்பு"} ${adj}${issue2.maximum.toString()} ஆக இருக்க வேண்டும்`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `மிகச் சிறியது: எதிர்பார்க்கப்பட்டது ${issue2.origin} ${adj}${issue2.minimum.toString()} ${sizing.unit} ஆக இருக்க வேண்டும்`;
+        }
+        return `மிகச் சிறியது: எதிர்பார்க்கப்பட்டது ${issue2.origin} ${adj}${issue2.minimum.toString()} ஆக இருக்க வேண்டும்`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `தவறான சரம்: "${_issue.prefix}" இல் தொடங்க வேண்டும்`;
+        if (_issue.format === "ends_with")
+          return `தவறான சரம்: "${_issue.suffix}" இல் முடிவடைய வேண்டும்`;
+        if (_issue.format === "includes")
+          return `தவறான சரம்: "${_issue.includes}" ஐ உள்ளடக்க வேண்டும்`;
+        if (_issue.format === "regex")
+          return `தவறான சரம்: ${_issue.pattern} முறைபாட்டுடன் பொருந்த வேண்டும்`;
+        return `தவறான ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `தவறான எண்: ${issue2.divisor} இன் பலமாக இருக்க வேண்டும்`;
+      case "unrecognized_keys":
+        return `அடையாளம் தெரியாத விசை${issue2.keys.length > 1 ? "கள்" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `${issue2.origin} இல் தவறான விசை`;
+      case "invalid_union":
+        return "தவறான உள்ளீடு";
+      case "invalid_element":
+        return `${issue2.origin} இல் தவறான மதிப்பு`;
+      default:
+        return `தவறான உள்ளீடு`;
+    }
+  };
+};
+function ta_default() {
+  return {
+    localeError: error32()
+  };
+}
+// node_modules/zod/v4/locales/th.js
+var error33 = () => {
+  const Sizable = {
+    string: { unit: "ตัวอักษร", verb: "ควรมี" },
+    file: { unit: "ไบต์", verb: "ควรมี" },
+    array: { unit: "รายการ", verb: "ควรมี" },
+    set: { unit: "รายการ", verb: "ควรมี" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType3 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "ไม่ใช่ตัวเลข (NaN)" : "ตัวเลข";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "อาร์เรย์ (Array)";
+        }
+        if (data === null) {
+          return "ไม่มีค่า (null)";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "ข้อมูลที่ป้อน",
+    email: "ที่อยู่อีเมล",
+    url: "URL",
+    emoji: "อิโมจิ",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "วันที่เวลาแบบ ISO",
+    date: "วันที่แบบ ISO",
+    time: "เวลาแบบ ISO",
+    duration: "ช่วงเวลาแบบ ISO",
+    ipv4: "ที่อยู่ IPv4",
+    ipv6: "ที่อยู่ IPv6",
+    cidrv4: "ช่วง IP แบบ IPv4",
+    cidrv6: "ช่วง IP แบบ IPv6",
+    base64: "ข้อความแบบ Base64",
+    base64url: "ข้อความแบบ Base64 สำหรับ URL",
+    json_string: "ข้อความแบบ JSON",
+    e164: "เบอร์โทรศัพท์ระหว่างประเทศ (E.164)",
+    jwt: "โทเคน JWT",
+    template_literal: "ข้อมูลที่ป้อน"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `ประเภทข้อมูลไม่ถูกต้อง: ควรเป็น ${issue2.expected} แต่ได้รับ ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `ค่าไม่ถูกต้อง: ควรเป็น ${stringifyPrimitive(issue2.values[0])}`;
+        return `ตัวเลือกไม่ถูกต้อง: ควรเป็นหนึ่งใน ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "ไม่เกิน" : "น้อยกว่า";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `เกินกำหนด: ${issue2.origin ?? "ค่า"} ควรมี${adj} ${issue2.maximum.toString()} ${sizing.unit ?? "รายการ"}`;
+        return `เกินกำหนด: ${issue2.origin ?? "ค่า"} ควรมี${adj} ${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? "อย่างน้อย" : "มากกว่า";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `น้อยกว่ากำหนด: ${issue2.origin} ควรมี${adj} ${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `น้อยกว่ากำหนด: ${issue2.origin} ควรมี${adj} ${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `รูปแบบไม่ถูกต้อง: ข้อความต้องขึ้นต้นด้วย "${_issue.prefix}"`;
+        }
+        if (_issue.format === "ends_with")
+          return `รูปแบบไม่ถูกต้อง: ข้อความต้องลงท้ายด้วย "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `รูปแบบไม่ถูกต้อง: ข้อความต้องมี "${_issue.includes}" อยู่ในข้อความ`;
+        if (_issue.format === "regex")
+          return `รูปแบบไม่ถูกต้อง: ต้องตรงกับรูปแบบที่กำหนด ${_issue.pattern}`;
+        return `รูปแบบไม่ถูกต้อง: ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `ตัวเลขไม่ถูกต้อง: ต้องเป็นจำนวนที่หารด้วย ${issue2.divisor} ได้ลงตัว`;
+      case "unrecognized_keys":
+        return `พบคีย์ที่ไม่รู้จัก: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `คีย์ไม่ถูกต้องใน ${issue2.origin}`;
+      case "invalid_union":
+        return "ข้อมูลไม่ถูกต้อง: ไม่ตรงกับรูปแบบยูเนียนที่กำหนดไว้";
+      case "invalid_element":
+        return `ข้อมูลไม่ถูกต้องใน ${issue2.origin}`;
+      default:
+        return `ข้อมูลไม่ถูกต้อง`;
+    }
+  };
+};
+function th_default() {
+  return {
+    localeError: error33()
+  };
+}
+// node_modules/zod/v4/locales/tr.js
+var parsedType3 = (data) => {
+  const t = typeof data;
+  switch (t) {
+    case "number": {
+      return Number.isNaN(data) ? "NaN" : "number";
+    }
+    case "object": {
+      if (Array.isArray(data)) {
+        return "array";
+      }
+      if (data === null) {
+        return "null";
+      }
+      if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+        return data.constructor.name;
+      }
+    }
+  }
+  return t;
+};
+var error34 = () => {
+  const Sizable = {
+    string: { unit: "karakter", verb: "olmalı" },
+    file: { unit: "bayt", verb: "olmalı" },
+    array: { unit: "öğe", verb: "olmalı" },
+    set: { unit: "öğe", verb: "olmalı" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const Nouns = {
+    regex: "girdi",
+    email: "e-posta adresi",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO tarih ve saat",
+    date: "ISO tarih",
+    time: "ISO saat",
+    duration: "ISO süre",
+    ipv4: "IPv4 adresi",
+    ipv6: "IPv6 adresi",
+    cidrv4: "IPv4 aralığı",
+    cidrv6: "IPv6 aralığı",
+    base64: "base64 ile şifrelenmiş metin",
+    base64url: "base64url ile şifrelenmiş metin",
+    json_string: "JSON dizesi",
+    e164: "E.164 sayısı",
+    jwt: "JWT",
+    template_literal: "Şablon dizesi"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Geçersiz değer: beklenen ${issue2.expected}, alınan ${parsedType3(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Geçersiz değer: beklenen ${stringifyPrimitive(issue2.values[0])}`;
+        return `Geçersiz seçenek: aşağıdakilerden biri olmalı: ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Çok büyük: beklenen ${issue2.origin ?? "değer"} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "öğe"}`;
+        return `Çok büyük: beklenen ${issue2.origin ?? "değer"} ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Çok küçük: beklenen ${issue2.origin} ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        return `Çok küçük: beklenen ${issue2.origin} ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Geçersiz metin: "${_issue.prefix}" ile başlamalı`;
+        if (_issue.format === "ends_with")
+          return `Geçersiz metin: "${_issue.suffix}" ile bitmeli`;
+        if (_issue.format === "includes")
+          return `Geçersiz metin: "${_issue.includes}" içermeli`;
+        if (_issue.format === "regex")
+          return `Geçersiz metin: ${_issue.pattern} desenine uymalı`;
+        return `Geçersiz ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Geçersiz sayı: ${issue2.divisor} ile tam bölünebilmeli`;
+      case "unrecognized_keys":
+        return `Tanınmayan anahtar${issue2.keys.length > 1 ? "lar" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `${issue2.origin} içinde geçersiz anahtar`;
+      case "invalid_union":
+        return "Geçersiz değer";
+      case "invalid_element":
+        return `${issue2.origin} içinde geçersiz değer`;
+      default:
+        return `Geçersiz değer`;
+    }
+  };
+};
+function tr_default() {
+  return {
+    localeError: error34()
+  };
+}
+// node_modules/zod/v4/locales/ua.js
+var error35 = () => {
+  const Sizable = {
+    string: { unit: "символів", verb: "матиме" },
+    file: { unit: "байтів", verb: "матиме" },
+    array: { unit: "елементів", verb: "матиме" },
+    set: { unit: "елементів", verb: "матиме" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType4 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "число";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "масив";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "вхідні дані",
+    email: "адреса електронної пошти",
+    url: "URL",
+    emoji: "емодзі",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "дата та час ISO",
+    date: "дата ISO",
+    time: "час ISO",
+    duration: "тривалість ISO",
+    ipv4: "адреса IPv4",
+    ipv6: "адреса IPv6",
+    cidrv4: "діапазон IPv4",
+    cidrv6: "діапазон IPv6",
+    base64: "рядок у кодуванні base64",
+    base64url: "рядок у кодуванні base64url",
+    json_string: "рядок JSON",
+    e164: "номер E.164",
+    jwt: "JWT",
+    template_literal: "вхідні дані"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Неправильні вхідні дані: очікується ${issue2.expected}, отримано ${parsedType4(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Неправильні вхідні дані: очікується ${stringifyPrimitive(issue2.values[0])}`;
+        return `Неправильна опція: очікується одне з ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Занадто велике: очікується, що ${issue2.origin ?? "значення"} ${sizing.verb} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "елементів"}`;
+        return `Занадто велике: очікується, що ${issue2.origin ?? "значення"} буде ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Занадто мале: очікується, що ${issue2.origin} ${sizing.verb} ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Занадто мале: очікується, що ${issue2.origin} буде ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Неправильний рядок: повинен починатися з "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Неправильний рядок: повинен закінчуватися на "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Неправильний рядок: повинен містити "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Неправильний рядок: повинен відповідати шаблону ${_issue.pattern}`;
+        return `Неправильний ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `Неправильне число: повинно бути кратним ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Нерозпізнаний ключ${issue2.keys.length > 1 ? "і" : ""}: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Неправильний ключ у ${issue2.origin}`;
+      case "invalid_union":
+        return "Неправильні вхідні дані";
+      case "invalid_element":
+        return `Неправильне значення у ${issue2.origin}`;
+      default:
+        return `Неправильні вхідні дані`;
+    }
+  };
+};
+function ua_default() {
+  return {
+    localeError: error35()
+  };
+}
+// node_modules/zod/v4/locales/ur.js
+var error36 = () => {
+  const Sizable = {
+    string: { unit: "حروف", verb: "ہونا" },
+    file: { unit: "بائٹس", verb: "ہونا" },
+    array: { unit: "آئٹمز", verb: "ہونا" },
+    set: { unit: "آئٹمز", verb: "ہونا" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType4 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "نمبر";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "آرے";
+        }
+        if (data === null) {
+          return "نل";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "ان پٹ",
+    email: "ای میل ایڈریس",
+    url: "یو آر ایل",
+    emoji: "ایموجی",
+    uuid: "یو یو آئی ڈی",
+    uuidv4: "یو یو آئی ڈی وی 4",
+    uuidv6: "یو یو آئی ڈی وی 6",
+    nanoid: "نینو آئی ڈی",
+    guid: "جی یو آئی ڈی",
+    cuid: "سی یو آئی ڈی",
+    cuid2: "سی یو آئی ڈی 2",
+    ulid: "یو ایل آئی ڈی",
+    xid: "ایکس آئی ڈی",
+    ksuid: "کے ایس یو آئی ڈی",
+    datetime: "آئی ایس او ڈیٹ ٹائم",
+    date: "آئی ایس او تاریخ",
+    time: "آئی ایس او وقت",
+    duration: "آئی ایس او مدت",
+    ipv4: "آئی پی وی 4 ایڈریس",
+    ipv6: "آئی پی وی 6 ایڈریس",
+    cidrv4: "آئی پی وی 4 رینج",
+    cidrv6: "آئی پی وی 6 رینج",
+    base64: "بیس 64 ان کوڈڈ سٹرنگ",
+    base64url: "بیس 64 یو آر ایل ان کوڈڈ سٹرنگ",
+    json_string: "جے ایس او این سٹرنگ",
+    e164: "ای 164 نمبر",
+    jwt: "جے ڈبلیو ٹی",
+    template_literal: "ان پٹ"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `غلط ان پٹ: ${issue2.expected} متوقع تھا، ${parsedType4(issue2.input)} موصول ہوا`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `غلط ان پٹ: ${stringifyPrimitive(issue2.values[0])} متوقع تھا`;
+        return `غلط آپشن: ${joinValues(issue2.values, "|")} میں سے ایک متوقع تھا`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `بہت بڑا: ${issue2.origin ?? "ویلیو"} کے ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "عناصر"} ہونے متوقع تھے`;
+        return `بہت بڑا: ${issue2.origin ?? "ویلیو"} کا ${adj}${issue2.maximum.toString()} ہونا متوقع تھا`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `بہت چھوٹا: ${issue2.origin} کے ${adj}${issue2.minimum.toString()} ${sizing.unit} ہونے متوقع تھے`;
+        }
+        return `بہت چھوٹا: ${issue2.origin} کا ${adj}${issue2.minimum.toString()} ہونا متوقع تھا`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `غلط سٹرنگ: "${_issue.prefix}" سے شروع ہونا چاہیے`;
+        }
+        if (_issue.format === "ends_with")
+          return `غلط سٹرنگ: "${_issue.suffix}" پر ختم ہونا چاہیے`;
+        if (_issue.format === "includes")
+          return `غلط سٹرنگ: "${_issue.includes}" شامل ہونا چاہیے`;
+        if (_issue.format === "regex")
+          return `غلط سٹرنگ: پیٹرن ${_issue.pattern} سے میچ ہونا چاہیے`;
+        return `غلط ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `غلط نمبر: ${issue2.divisor} کا مضاعف ہونا چاہیے`;
+      case "unrecognized_keys":
+        return `غیر تسلیم شدہ کی${issue2.keys.length > 1 ? "ز" : ""}: ${joinValues(issue2.keys, "، ")}`;
+      case "invalid_key":
+        return `${issue2.origin} میں غلط کی`;
+      case "invalid_union":
+        return "غلط ان پٹ";
+      case "invalid_element":
+        return `${issue2.origin} میں غلط ویلیو`;
+      default:
+        return `غلط ان پٹ`;
+    }
+  };
+};
+function ur_default() {
+  return {
+    localeError: error36()
+  };
+}
+// node_modules/zod/v4/locales/vi.js
+var error37 = () => {
+  const Sizable = {
+    string: { unit: "ký tự", verb: "có" },
+    file: { unit: "byte", verb: "có" },
+    array: { unit: "phần tử", verb: "có" },
+    set: { unit: "phần tử", verb: "có" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType4 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "số";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "mảng";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "đầu vào",
+    email: "địa chỉ email",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ngày giờ ISO",
+    date: "ngày ISO",
+    time: "giờ ISO",
+    duration: "khoảng thời gian ISO",
+    ipv4: "địa chỉ IPv4",
+    ipv6: "địa chỉ IPv6",
+    cidrv4: "dải IPv4",
+    cidrv6: "dải IPv6",
+    base64: "chuỗi mã hóa base64",
+    base64url: "chuỗi mã hóa base64url",
+    json_string: "chuỗi JSON",
+    e164: "số E.164",
+    jwt: "JWT",
+    template_literal: "đầu vào"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `Đầu vào không hợp lệ: mong đợi ${issue2.expected}, nhận được ${parsedType4(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `Đầu vào không hợp lệ: mong đợi ${stringifyPrimitive(issue2.values[0])}`;
+        return `Tùy chọn không hợp lệ: mong đợi một trong các giá trị ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `Quá lớn: mong đợi ${issue2.origin ?? "giá trị"} ${sizing.verb} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "phần tử"}`;
+        return `Quá lớn: mong đợi ${issue2.origin ?? "giá trị"} ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `Quá nhỏ: mong đợi ${issue2.origin} ${sizing.verb} ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `Quá nhỏ: mong đợi ${issue2.origin} ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `Chuỗi không hợp lệ: phải bắt đầu bằng "${_issue.prefix}"`;
+        if (_issue.format === "ends_with")
+          return `Chuỗi không hợp lệ: phải kết thúc bằng "${_issue.suffix}"`;
+        if (_issue.format === "includes")
+          return `Chuỗi không hợp lệ: phải bao gồm "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `Chuỗi không hợp lệ: phải khớp với mẫu ${_issue.pattern}`;
+        return `${Nouns[_issue.format] ?? issue2.format} không hợp lệ`;
+      }
+      case "not_multiple_of":
+        return `Số không hợp lệ: phải là bội số của ${issue2.divisor}`;
+      case "unrecognized_keys":
+        return `Khóa không được nhận dạng: ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `Khóa không hợp lệ trong ${issue2.origin}`;
+      case "invalid_union":
+        return "Đầu vào không hợp lệ";
+      case "invalid_element":
+        return `Giá trị không hợp lệ trong ${issue2.origin}`;
+      default:
+        return `Đầu vào không hợp lệ`;
+    }
+  };
+};
+function vi_default() {
+  return {
+    localeError: error37()
+  };
+}
+// node_modules/zod/v4/locales/zh-CN.js
+var error38 = () => {
+  const Sizable = {
+    string: { unit: "字符", verb: "包含" },
+    file: { unit: "字节", verb: "包含" },
+    array: { unit: "项", verb: "包含" },
+    set: { unit: "项", verb: "包含" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType4 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "非数字(NaN)" : "数字";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "数组";
+        }
+        if (data === null) {
+          return "空值(null)";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "输入",
+    email: "电子邮件",
+    url: "URL",
+    emoji: "表情符号",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO日期时间",
+    date: "ISO日期",
+    time: "ISO时间",
+    duration: "ISO时长",
+    ipv4: "IPv4地址",
+    ipv6: "IPv6地址",
+    cidrv4: "IPv4网段",
+    cidrv6: "IPv6网段",
+    base64: "base64编码字符串",
+    base64url: "base64url编码字符串",
+    json_string: "JSON字符串",
+    e164: "E.164号码",
+    jwt: "JWT",
+    template_literal: "输入"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `无效输入：期望 ${issue2.expected}，实际接收 ${parsedType4(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `无效输入：期望 ${stringifyPrimitive(issue2.values[0])}`;
+        return `无效选项：期望以下之一 ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `数值过大：期望 ${issue2.origin ?? "值"} ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "个元素"}`;
+        return `数值过大：期望 ${issue2.origin ?? "值"} ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `数值过小：期望 ${issue2.origin} ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `数值过小：期望 ${issue2.origin} ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with")
+          return `无效字符串：必须以 "${_issue.prefix}" 开头`;
+        if (_issue.format === "ends_with")
+          return `无效字符串：必须以 "${_issue.suffix}" 结尾`;
+        if (_issue.format === "includes")
+          return `无效字符串：必须包含 "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `无效字符串：必须满足正则表达式 ${_issue.pattern}`;
+        return `无效${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `无效数字：必须是 ${issue2.divisor} 的倍数`;
+      case "unrecognized_keys":
+        return `出现未知的键(key): ${joinValues(issue2.keys, ", ")}`;
+      case "invalid_key":
+        return `${issue2.origin} 中的键(key)无效`;
+      case "invalid_union":
+        return "无效输入";
+      case "invalid_element":
+        return `${issue2.origin} 中包含无效值(value)`;
+      default:
+        return `无效输入`;
+    }
+  };
+};
+function zh_CN_default() {
+  return {
+    localeError: error38()
+  };
+}
+// node_modules/zod/v4/locales/zh-TW.js
+var error39 = () => {
+  const Sizable = {
+    string: { unit: "字元", verb: "擁有" },
+    file: { unit: "位元組", verb: "擁有" },
+    array: { unit: "項目", verb: "擁有" },
+    set: { unit: "項目", verb: "擁有" }
+  };
+  function getSizing(origin) {
+    return Sizable[origin] ?? null;
+  }
+  const parsedType4 = (data) => {
+    const t = typeof data;
+    switch (t) {
+      case "number": {
+        return Number.isNaN(data) ? "NaN" : "number";
+      }
+      case "object": {
+        if (Array.isArray(data)) {
+          return "array";
+        }
+        if (data === null) {
+          return "null";
+        }
+        if (Object.getPrototypeOf(data) !== Object.prototype && data.constructor) {
+          return data.constructor.name;
+        }
+      }
+    }
+    return t;
+  };
+  const Nouns = {
+    regex: "輸入",
+    email: "郵件地址",
+    url: "URL",
+    emoji: "emoji",
+    uuid: "UUID",
+    uuidv4: "UUIDv4",
+    uuidv6: "UUIDv6",
+    nanoid: "nanoid",
+    guid: "GUID",
+    cuid: "cuid",
+    cuid2: "cuid2",
+    ulid: "ULID",
+    xid: "XID",
+    ksuid: "KSUID",
+    datetime: "ISO 日期時間",
+    date: "ISO 日期",
+    time: "ISO 時間",
+    duration: "ISO 期間",
+    ipv4: "IPv4 位址",
+    ipv6: "IPv6 位址",
+    cidrv4: "IPv4 範圍",
+    cidrv6: "IPv6 範圍",
+    base64: "base64 編碼字串",
+    base64url: "base64url 編碼字串",
+    json_string: "JSON 字串",
+    e164: "E.164 數值",
+    jwt: "JWT",
+    template_literal: "輸入"
+  };
+  return (issue2) => {
+    switch (issue2.code) {
+      case "invalid_type":
+        return `無效的輸入值：預期為 ${issue2.expected}，但收到 ${parsedType4(issue2.input)}`;
+      case "invalid_value":
+        if (issue2.values.length === 1)
+          return `無效的輸入值：預期為 ${stringifyPrimitive(issue2.values[0])}`;
+        return `無效的選項：預期為以下其中之一 ${joinValues(issue2.values, "|")}`;
+      case "too_big": {
+        const adj = issue2.inclusive ? "<=" : "<";
+        const sizing = getSizing(issue2.origin);
+        if (sizing)
+          return `數值過大：預期 ${issue2.origin ?? "值"} 應為 ${adj}${issue2.maximum.toString()} ${sizing.unit ?? "個元素"}`;
+        return `數值過大：預期 ${issue2.origin ?? "值"} 應為 ${adj}${issue2.maximum.toString()}`;
+      }
+      case "too_small": {
+        const adj = issue2.inclusive ? ">=" : ">";
+        const sizing = getSizing(issue2.origin);
+        if (sizing) {
+          return `數值過小：預期 ${issue2.origin} 應為 ${adj}${issue2.minimum.toString()} ${sizing.unit}`;
+        }
+        return `數值過小：預期 ${issue2.origin} 應為 ${adj}${issue2.minimum.toString()}`;
+      }
+      case "invalid_format": {
+        const _issue = issue2;
+        if (_issue.format === "starts_with") {
+          return `無效的字串：必須以 "${_issue.prefix}" 開頭`;
+        }
+        if (_issue.format === "ends_with")
+          return `無效的字串：必須以 "${_issue.suffix}" 結尾`;
+        if (_issue.format === "includes")
+          return `無效的字串：必須包含 "${_issue.includes}"`;
+        if (_issue.format === "regex")
+          return `無效的字串：必須符合格式 ${_issue.pattern}`;
+        return `無效的 ${Nouns[_issue.format] ?? issue2.format}`;
+      }
+      case "not_multiple_of":
+        return `無效的數字：必須為 ${issue2.divisor} 的倍數`;
+      case "unrecognized_keys":
+        return `無法識別的鍵值${issue2.keys.length > 1 ? "們" : ""}：${joinValues(issue2.keys, "、")}`;
+      case "invalid_key":
+        return `${issue2.origin} 中有無效的鍵值`;
+      case "invalid_union":
+        return "無效的輸入值";
+      case "invalid_element":
+        return `${issue2.origin} 中有無效的值`;
+      default:
+        return `無效的輸入值`;
+    }
+  };
+};
+function zh_TW_default() {
+  return {
+    localeError: error39()
+  };
+}
+// node_modules/zod/v4/core/registries.js
+var $output = Symbol("ZodOutput");
+var $input = Symbol("ZodInput");
+
+class $ZodRegistry {
+  constructor() {
+    this._map = new Map;
+    this._idmap = new Map;
+  }
+  add(schema, ..._meta) {
+    const meta = _meta[0];
+    this._map.set(schema, meta);
+    if (meta && typeof meta === "object" && "id" in meta) {
+      if (this._idmap.has(meta.id)) {
+        throw new Error(`ID ${meta.id} already exists in the registry`);
+      }
+      this._idmap.set(meta.id, schema);
+    }
+    return this;
+  }
+  clear() {
+    this._map = new Map;
+    this._idmap = new Map;
+    return this;
+  }
+  remove(schema) {
+    const meta = this._map.get(schema);
+    if (meta && typeof meta === "object" && "id" in meta) {
+      this._idmap.delete(meta.id);
+    }
+    this._map.delete(schema);
+    return this;
+  }
+  get(schema) {
+    const p2 = schema._zod.parent;
+    if (p2) {
+      const pm = { ...this.get(p2) ?? {} };
+      delete pm.id;
+      return { ...pm, ...this._map.get(schema) };
+    }
+    return this._map.get(schema);
+  }
+  has(schema) {
+    return this._map.has(schema);
+  }
+}
+function registry() {
+  return new $ZodRegistry;
+}
+var globalRegistry = /* @__PURE__ */ registry();
+// node_modules/zod/v4/core/api.js
+function _string(Class2, params) {
+  return new Class2({
+    type: "string",
+    ...normalizeParams(params)
+  });
+}
+function _coercedString(Class2, params) {
+  return new Class2({
+    type: "string",
+    coerce: true,
+    ...normalizeParams(params)
+  });
+}
+function _email(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "email",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _guid(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "guid",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _uuid(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "uuid",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _uuidv4(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "uuid",
+    check: "string_format",
+    abort: false,
+    version: "v4",
+    ...normalizeParams(params)
+  });
+}
+function _uuidv6(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "uuid",
+    check: "string_format",
+    abort: false,
+    version: "v6",
+    ...normalizeParams(params)
+  });
+}
+function _uuidv7(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "uuid",
+    check: "string_format",
+    abort: false,
+    version: "v7",
+    ...normalizeParams(params)
+  });
+}
+function _url(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "url",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _emoji2(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "emoji",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _nanoid(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "nanoid",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _cuid(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "cuid",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _cuid2(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "cuid2",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _ulid(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "ulid",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _xid(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "xid",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _ksuid(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "ksuid",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _ipv4(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "ipv4",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _ipv6(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "ipv6",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _cidrv4(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "cidrv4",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _cidrv6(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "cidrv6",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _base64(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "base64",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _base64url(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "base64url",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _e164(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "e164",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+function _jwt(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "jwt",
+    check: "string_format",
+    abort: false,
+    ...normalizeParams(params)
+  });
+}
+var TimePrecision = {
+  Any: null,
+  Minute: -1,
+  Second: 0,
+  Millisecond: 3,
+  Microsecond: 6
+};
+function _isoDateTime(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "datetime",
+    check: "string_format",
+    offset: false,
+    local: false,
+    precision: null,
+    ...normalizeParams(params)
+  });
+}
+function _isoDate(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "date",
+    check: "string_format",
+    ...normalizeParams(params)
+  });
+}
+function _isoTime(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "time",
+    check: "string_format",
+    precision: null,
+    ...normalizeParams(params)
+  });
+}
+function _isoDuration(Class2, params) {
+  return new Class2({
+    type: "string",
+    format: "duration",
+    check: "string_format",
+    ...normalizeParams(params)
+  });
+}
+function _number(Class2, params) {
+  return new Class2({
+    type: "number",
+    checks: [],
+    ...normalizeParams(params)
+  });
+}
+function _coercedNumber(Class2, params) {
+  return new Class2({
+    type: "number",
+    coerce: true,
+    checks: [],
+    ...normalizeParams(params)
+  });
+}
+function _int(Class2, params) {
+  return new Class2({
+    type: "number",
+    check: "number_format",
+    abort: false,
+    format: "safeint",
+    ...normalizeParams(params)
+  });
+}
+function _float32(Class2, params) {
+  return new Class2({
+    type: "number",
+    check: "number_format",
+    abort: false,
+    format: "float32",
+    ...normalizeParams(params)
+  });
+}
+function _float64(Class2, params) {
+  return new Class2({
+    type: "number",
+    check: "number_format",
+    abort: false,
+    format: "float64",
+    ...normalizeParams(params)
+  });
+}
+function _int32(Class2, params) {
+  return new Class2({
+    type: "number",
+    check: "number_format",
+    abort: false,
+    format: "int32",
+    ...normalizeParams(params)
+  });
+}
+function _uint32(Class2, params) {
+  return new Class2({
+    type: "number",
+    check: "number_format",
+    abort: false,
+    format: "uint32",
+    ...normalizeParams(params)
+  });
+}
+function _boolean(Class2, params) {
+  return new Class2({
+    type: "boolean",
+    ...normalizeParams(params)
+  });
+}
+function _coercedBoolean(Class2, params) {
+  return new Class2({
+    type: "boolean",
+    coerce: true,
+    ...normalizeParams(params)
+  });
+}
+function _bigint(Class2, params) {
+  return new Class2({
+    type: "bigint",
+    ...normalizeParams(params)
+  });
+}
+function _coercedBigint(Class2, params) {
+  return new Class2({
+    type: "bigint",
+    coerce: true,
+    ...normalizeParams(params)
+  });
+}
+function _int64(Class2, params) {
+  return new Class2({
+    type: "bigint",
+    check: "bigint_format",
+    abort: false,
+    format: "int64",
+    ...normalizeParams(params)
+  });
+}
+function _uint64(Class2, params) {
+  return new Class2({
+    type: "bigint",
+    check: "bigint_format",
+    abort: false,
+    format: "uint64",
+    ...normalizeParams(params)
+  });
+}
+function _symbol(Class2, params) {
+  return new Class2({
+    type: "symbol",
+    ...normalizeParams(params)
+  });
+}
+function _undefined2(Class2, params) {
+  return new Class2({
+    type: "undefined",
+    ...normalizeParams(params)
+  });
+}
+function _null2(Class2, params) {
+  return new Class2({
+    type: "null",
+    ...normalizeParams(params)
+  });
+}
+function _any(Class2) {
+  return new Class2({
+    type: "any"
+  });
+}
+function _unknown(Class2) {
+  return new Class2({
+    type: "unknown"
+  });
+}
+function _never(Class2, params) {
+  return new Class2({
+    type: "never",
+    ...normalizeParams(params)
+  });
+}
+function _void(Class2, params) {
+  return new Class2({
+    type: "void",
+    ...normalizeParams(params)
+  });
+}
+function _date(Class2, params) {
+  return new Class2({
+    type: "date",
+    ...normalizeParams(params)
+  });
+}
+function _coercedDate(Class2, params) {
+  return new Class2({
+    type: "date",
+    coerce: true,
+    ...normalizeParams(params)
+  });
+}
+function _nan(Class2, params) {
+  return new Class2({
+    type: "nan",
+    ...normalizeParams(params)
+  });
+}
+function _lt(value, params) {
+  return new $ZodCheckLessThan({
+    check: "less_than",
+    ...normalizeParams(params),
+    value,
+    inclusive: false
+  });
+}
+function _lte(value, params) {
+  return new $ZodCheckLessThan({
+    check: "less_than",
+    ...normalizeParams(params),
+    value,
+    inclusive: true
+  });
+}
+function _gt(value, params) {
+  return new $ZodCheckGreaterThan({
+    check: "greater_than",
+    ...normalizeParams(params),
+    value,
+    inclusive: false
+  });
+}
+function _gte(value, params) {
+  return new $ZodCheckGreaterThan({
+    check: "greater_than",
+    ...normalizeParams(params),
+    value,
+    inclusive: true
+  });
+}
+function _positive(params) {
+  return _gt(0, params);
+}
+function _negative(params) {
+  return _lt(0, params);
+}
+function _nonpositive(params) {
+  return _lte(0, params);
+}
+function _nonnegative(params) {
+  return _gte(0, params);
+}
+function _multipleOf(value, params) {
+  return new $ZodCheckMultipleOf({
+    check: "multiple_of",
+    ...normalizeParams(params),
+    value
+  });
+}
+function _maxSize(maximum, params) {
+  return new $ZodCheckMaxSize({
+    check: "max_size",
+    ...normalizeParams(params),
+    maximum
+  });
+}
+function _minSize(minimum, params) {
+  return new $ZodCheckMinSize({
+    check: "min_size",
+    ...normalizeParams(params),
+    minimum
+  });
+}
+function _size(size4, params) {
+  return new $ZodCheckSizeEquals({
+    check: "size_equals",
+    ...normalizeParams(params),
+    size: size4
+  });
+}
+function _maxLength(maximum, params) {
+  const ch = new $ZodCheckMaxLength({
+    check: "max_length",
+    ...normalizeParams(params),
+    maximum
+  });
+  return ch;
+}
+function _minLength(minimum, params) {
+  return new $ZodCheckMinLength({
+    check: "min_length",
+    ...normalizeParams(params),
+    minimum
+  });
+}
+function _length(length2, params) {
+  return new $ZodCheckLengthEquals({
+    check: "length_equals",
+    ...normalizeParams(params),
+    length: length2
+  });
+}
+function _regex(pattern, params) {
+  return new $ZodCheckRegex({
+    check: "string_format",
+    format: "regex",
+    ...normalizeParams(params),
+    pattern
+  });
+}
+function _lowercase(params) {
+  return new $ZodCheckLowerCase({
+    check: "string_format",
+    format: "lowercase",
+    ...normalizeParams(params)
+  });
+}
+function _uppercase(params) {
+  return new $ZodCheckUpperCase({
+    check: "string_format",
+    format: "uppercase",
+    ...normalizeParams(params)
+  });
+}
+function _includes(includes, params) {
+  return new $ZodCheckIncludes({
+    check: "string_format",
+    format: "includes",
+    ...normalizeParams(params),
+    includes
+  });
+}
+function _startsWith(prefix3, params) {
+  return new $ZodCheckStartsWith({
+    check: "string_format",
+    format: "starts_with",
+    ...normalizeParams(params),
+    prefix: prefix3
+  });
+}
+function _endsWith(suffix2, params) {
+  return new $ZodCheckEndsWith({
+    check: "string_format",
+    format: "ends_with",
+    ...normalizeParams(params),
+    suffix: suffix2
+  });
+}
+function _property(property, schema, params) {
+  return new $ZodCheckProperty({
+    check: "property",
+    property,
+    schema,
+    ...normalizeParams(params)
+  });
+}
+function _mime(types, params) {
+  return new $ZodCheckMimeType({
+    check: "mime_type",
+    mime: types,
+    ...normalizeParams(params)
+  });
+}
+function _overwrite(tx) {
+  return new $ZodCheckOverwrite({
+    check: "overwrite",
+    tx
+  });
+}
+function _normalize(form) {
+  return _overwrite((input) => input.normalize(form));
+}
+function _trim() {
+  return _overwrite((input) => input.trim());
+}
+function _toLowerCase() {
+  return _overwrite((input) => input.toLowerCase());
+}
+function _toUpperCase() {
+  return _overwrite((input) => input.toUpperCase());
+}
+function _array(Class2, element, params) {
+  return new Class2({
+    type: "array",
+    element,
+    ...normalizeParams(params)
+  });
+}
+function _union(Class2, options, params) {
+  return new Class2({
+    type: "union",
+    options,
+    ...normalizeParams(params)
+  });
+}
+function _discriminatedUnion(Class2, discriminator, options, params) {
+  return new Class2({
+    type: "union",
+    options,
+    discriminator,
+    ...normalizeParams(params)
+  });
+}
+function _intersection(Class2, left, right) {
+  return new Class2({
+    type: "intersection",
+    left,
+    right
+  });
+}
+function _tuple(Class2, items, _paramsOrRest, _params) {
+  const hasRest = _paramsOrRest instanceof $ZodType;
+  const params = hasRest ? _params : _paramsOrRest;
+  const rest = hasRest ? _paramsOrRest : null;
+  return new Class2({
+    type: "tuple",
+    items,
+    rest,
+    ...normalizeParams(params)
+  });
+}
+function _record(Class2, keyType, valueType, params) {
+  return new Class2({
+    type: "record",
+    keyType,
+    valueType,
+    ...normalizeParams(params)
+  });
+}
+function _map(Class2, keyType, valueType, params) {
+  return new Class2({
+    type: "map",
+    keyType,
+    valueType,
+    ...normalizeParams(params)
+  });
+}
+function _set(Class2, valueType, params) {
+  return new Class2({
+    type: "set",
+    valueType,
+    ...normalizeParams(params)
+  });
+}
+function _enum(Class2, values2, params) {
+  const entries = Array.isArray(values2) ? Object.fromEntries(values2.map((v2) => [v2, v2])) : values2;
+  return new Class2({
+    type: "enum",
+    entries,
+    ...normalizeParams(params)
+  });
+}
+function _nativeEnum(Class2, entries, params) {
+  return new Class2({
+    type: "enum",
+    entries,
+    ...normalizeParams(params)
+  });
+}
+function _literal(Class2, value, params) {
+  return new Class2({
+    type: "literal",
+    values: Array.isArray(value) ? value : [value],
+    ...normalizeParams(params)
+  });
+}
+function _file(Class2, params) {
+  return new Class2({
+    type: "file",
+    ...normalizeParams(params)
+  });
+}
+function _transform(Class2, fn) {
+  return new Class2({
+    type: "transform",
+    transform: fn
+  });
+}
+function _optional(Class2, innerType) {
+  return new Class2({
+    type: "optional",
+    innerType
+  });
+}
+function _nullable(Class2, innerType) {
+  return new Class2({
+    type: "nullable",
+    innerType
+  });
+}
+function _default(Class2, innerType, defaultValue2) {
+  return new Class2({
+    type: "default",
+    innerType,
+    get defaultValue() {
+      return typeof defaultValue2 === "function" ? defaultValue2() : defaultValue2;
+    }
+  });
+}
+function _nonoptional(Class2, innerType, params) {
+  return new Class2({
+    type: "nonoptional",
+    innerType,
+    ...normalizeParams(params)
+  });
+}
+function _success(Class2, innerType) {
+  return new Class2({
+    type: "success",
+    innerType
+  });
+}
+function _catch(Class2, innerType, catchValue) {
+  return new Class2({
+    type: "catch",
+    innerType,
+    catchValue: typeof catchValue === "function" ? catchValue : () => catchValue
+  });
+}
+function _pipe(Class2, in_, out) {
+  return new Class2({
+    type: "pipe",
+    in: in_,
+    out
+  });
+}
+function _readonly(Class2, innerType) {
+  return new Class2({
+    type: "readonly",
+    innerType
+  });
+}
+function _templateLiteral(Class2, parts, params) {
+  return new Class2({
+    type: "template_literal",
+    parts,
+    ...normalizeParams(params)
+  });
+}
+function _lazy(Class2, getter) {
+  return new Class2({
+    type: "lazy",
+    getter
+  });
+}
+function _promise(Class2, innerType) {
+  return new Class2({
+    type: "promise",
+    innerType
+  });
+}
+function _custom(Class2, fn, _params) {
+  const norm = normalizeParams(_params);
+  norm.abort ?? (norm.abort = true);
+  const schema = new Class2({
+    type: "custom",
+    check: "custom",
+    fn,
+    ...norm
+  });
+  return schema;
+}
+function _refine(Class2, fn, _params) {
+  const schema = new Class2({
+    type: "custom",
+    check: "custom",
+    fn,
+    ...normalizeParams(_params)
+  });
+  return schema;
+}
+function _stringbool(Classes, _params) {
+  const params = normalizeParams(_params);
+  let truthyArray = params.truthy ?? ["true", "1", "yes", "on", "y", "enabled"];
+  let falsyArray = params.falsy ?? ["false", "0", "no", "off", "n", "disabled"];
+  if (params.case !== "sensitive") {
+    truthyArray = truthyArray.map((v2) => typeof v2 === "string" ? v2.toLowerCase() : v2);
+    falsyArray = falsyArray.map((v2) => typeof v2 === "string" ? v2.toLowerCase() : v2);
+  }
+  const truthySet = new Set(truthyArray);
+  const falsySet = new Set(falsyArray);
+  const _Pipe = Classes.Pipe ?? $ZodPipe;
+  const _Boolean = Classes.Boolean ?? $ZodBoolean;
+  const _String = Classes.String ?? $ZodString;
+  const _Transform = Classes.Transform ?? $ZodTransform;
+  const tx = new _Transform({
+    type: "transform",
+    transform: (input, payload) => {
+      let data = input;
+      if (params.case !== "sensitive")
+        data = data.toLowerCase();
+      if (truthySet.has(data)) {
+        return true;
+      } else if (falsySet.has(data)) {
+        return false;
+      } else {
+        payload.issues.push({
+          code: "invalid_value",
+          expected: "stringbool",
+          values: [...truthySet, ...falsySet],
+          input: payload.value,
+          inst: tx
+        });
+        return {};
+      }
+    },
+    error: params.error
+  });
+  const innerPipe = new _Pipe({
+    type: "pipe",
+    in: new _String({ type: "string", error: params.error }),
+    out: tx,
+    error: params.error
+  });
+  const outerPipe = new _Pipe({
+    type: "pipe",
+    in: innerPipe,
+    out: new _Boolean({
+      type: "boolean",
+      error: params.error
+    }),
+    error: params.error
+  });
+  return outerPipe;
+}
+function _stringFormat(Class2, format2, fnOrRegex, _params = {}) {
+  const params = normalizeParams(_params);
+  const def = {
+    ...normalizeParams(_params),
+    check: "string_format",
+    type: "string",
+    format: format2,
+    fn: typeof fnOrRegex === "function" ? fnOrRegex : (val) => fnOrRegex.test(val),
+    ...params
+  };
+  if (fnOrRegex instanceof RegExp) {
+    def.pattern = fnOrRegex;
+  }
+  const inst = new Class2(def);
+  return inst;
+}
+
+// node_modules/zod/v4/core/function.js
+class $ZodFunction {
+  constructor(def) {
+    this._def = def;
+    this.def = def;
+  }
+  implement(func) {
+    if (typeof func !== "function") {
+      throw new Error("implement() must be called with a function");
+    }
+    const impl = (...args) => {
+      const parsedArgs = this._def.input ? parse3(this._def.input, args, undefined, { callee: impl }) : args;
+      if (!Array.isArray(parsedArgs)) {
+        throw new Error("Invalid arguments schema: not an array or tuple schema.");
+      }
+      const output = func(...parsedArgs);
+      return this._def.output ? parse3(this._def.output, output, undefined, { callee: impl }) : output;
+    };
+    return impl;
+  }
+  implementAsync(func) {
+    if (typeof func !== "function") {
+      throw new Error("implement() must be called with a function");
+    }
+    const impl = async (...args) => {
+      const parsedArgs = this._def.input ? await parseAsync(this._def.input, args, undefined, { callee: impl }) : args;
+      if (!Array.isArray(parsedArgs)) {
+        throw new Error("Invalid arguments schema: not an array or tuple schema.");
+      }
+      const output = await func(...parsedArgs);
+      return this._def.output ? parseAsync(this._def.output, output, undefined, { callee: impl }) : output;
+    };
+    return impl;
+  }
+  input(...args) {
+    const F2 = this.constructor;
+    if (Array.isArray(args[0])) {
+      return new F2({
+        type: "function",
+        input: new $ZodTuple({
+          type: "tuple",
+          items: args[0],
+          rest: args[1]
+        }),
+        output: this._def.output
+      });
+    }
+    return new F2({
+      type: "function",
+      input: args[0],
+      output: this._def.output
+    });
+  }
+  output(output) {
+    const F2 = this.constructor;
+    return new F2({
+      type: "function",
+      input: this._def.input,
+      output
+    });
+  }
+}
+function _function(params) {
+  return new $ZodFunction({
+    type: "function",
+    input: Array.isArray(params?.input) ? _tuple($ZodTuple, params?.input) : params?.input ?? _array($ZodArray, _unknown($ZodUnknown)),
+    output: params?.output ?? _unknown($ZodUnknown)
+  });
+}
+// node_modules/zod/v4/core/to-json-schema.js
+class JSONSchemaGenerator {
+  constructor(params) {
+    this.counter = 0;
+    this.metadataRegistry = params?.metadata ?? globalRegistry;
+    this.target = params?.target ?? "draft-2020-12";
+    this.unrepresentable = params?.unrepresentable ?? "throw";
+    this.override = params?.override ?? (() => {
+    });
+    this.io = params?.io ?? "output";
+    this.seen = new Map;
+  }
+  process(schema, _params = { path: [], schemaPath: [] }) {
+    var _a;
+    const def = schema._zod.def;
+    const formatMap = {
+      guid: "uuid",
+      url: "uri",
+      datetime: "date-time",
+      json_string: "json-string",
+      regex: ""
+    };
+    const seen = this.seen.get(schema);
+    if (seen) {
+      seen.count++;
+      const isCycle = _params.schemaPath.includes(schema);
+      if (isCycle) {
+        seen.cycle = _params.path;
+      }
+      return seen.schema;
+    }
+    const result = { schema: {}, count: 1, cycle: undefined, path: _params.path };
+    this.seen.set(schema, result);
+    const overrideSchema = schema._zod.toJSONSchema?.();
+    if (overrideSchema) {
+      result.schema = overrideSchema;
+    } else {
+      const params = {
+        ..._params,
+        schemaPath: [..._params.schemaPath, schema],
+        path: _params.path
+      };
+      const parent = schema._zod.parent;
+      if (parent) {
+        result.ref = parent;
+        this.process(parent, params);
+        this.seen.get(parent).isParent = true;
+      } else {
+        const _json = result.schema;
+        switch (def.type) {
+          case "string": {
+            const json = _json;
+            json.type = "string";
+            const { minimum, maximum, format: format2, patterns, contentEncoding } = schema._zod.bag;
+            if (typeof minimum === "number")
+              json.minLength = minimum;
+            if (typeof maximum === "number")
+              json.maxLength = maximum;
+            if (format2) {
+              json.format = formatMap[format2] ?? format2;
+              if (json.format === "")
+                delete json.format;
+            }
+            if (contentEncoding)
+              json.contentEncoding = contentEncoding;
+            if (patterns && patterns.size > 0) {
+              const regexes = [...patterns];
+              if (regexes.length === 1)
+                json.pattern = regexes[0].source;
+              else if (regexes.length > 1) {
+                result.schema.allOf = [
+                  ...regexes.map((regex) => ({
+                    ...this.target === "draft-7" ? { type: "string" } : {},
+                    pattern: regex.source
+                  }))
+                ];
+              }
+            }
+            break;
+          }
+          case "number": {
+            const json = _json;
+            const { minimum, maximum, format: format2, multipleOf, exclusiveMaximum, exclusiveMinimum } = schema._zod.bag;
+            if (typeof format2 === "string" && format2.includes("int"))
+              json.type = "integer";
+            else
+              json.type = "number";
+            if (typeof exclusiveMinimum === "number")
+              json.exclusiveMinimum = exclusiveMinimum;
+            if (typeof minimum === "number") {
+              json.minimum = minimum;
+              if (typeof exclusiveMinimum === "number") {
+                if (exclusiveMinimum >= minimum)
+                  delete json.minimum;
+                else
+                  delete json.exclusiveMinimum;
+              }
+            }
+            if (typeof exclusiveMaximum === "number")
+              json.exclusiveMaximum = exclusiveMaximum;
+            if (typeof maximum === "number") {
+              json.maximum = maximum;
+              if (typeof exclusiveMaximum === "number") {
+                if (exclusiveMaximum <= maximum)
+                  delete json.maximum;
+                else
+                  delete json.exclusiveMaximum;
+              }
+            }
+            if (typeof multipleOf === "number")
+              json.multipleOf = multipleOf;
+            break;
+          }
+          case "boolean": {
+            const json = _json;
+            json.type = "boolean";
+            break;
+          }
+          case "bigint": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("BigInt cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "symbol": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("Symbols cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "null": {
+            _json.type = "null";
+            break;
+          }
+          case "any": {
+            break;
+          }
+          case "unknown": {
+            break;
+          }
+          case "undefined": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("Undefined cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "void": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("Void cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "never": {
+            _json.not = {};
+            break;
+          }
+          case "date": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("Date cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "array": {
+            const json = _json;
+            const { minimum, maximum } = schema._zod.bag;
+            if (typeof minimum === "number")
+              json.minItems = minimum;
+            if (typeof maximum === "number")
+              json.maxItems = maximum;
+            json.type = "array";
+            json.items = this.process(def.element, { ...params, path: [...params.path, "items"] });
+            break;
+          }
+          case "object": {
+            const json = _json;
+            json.type = "object";
+            json.properties = {};
+            const shape = def.shape;
+            for (const key in shape) {
+              json.properties[key] = this.process(shape[key], {
+                ...params,
+                path: [...params.path, "properties", key]
+              });
+            }
+            const allKeys2 = new Set(Object.keys(shape));
+            const requiredKeys = new Set([...allKeys2].filter((key) => {
+              const v2 = def.shape[key]._zod;
+              if (this.io === "input") {
+                return v2.optin === undefined;
+              } else {
+                return v2.optout === undefined;
+              }
+            }));
+            if (requiredKeys.size > 0) {
+              json.required = Array.from(requiredKeys);
+            }
+            if (def.catchall?._zod.def.type === "never") {
+              json.additionalProperties = false;
+            } else if (!def.catchall) {
+              if (this.io === "output")
+                json.additionalProperties = false;
+            } else if (def.catchall) {
+              json.additionalProperties = this.process(def.catchall, {
+                ...params,
+                path: [...params.path, "additionalProperties"]
+              });
+            }
+            break;
+          }
+          case "union": {
+            const json = _json;
+            json.anyOf = def.options.map((x2, i2) => this.process(x2, {
+              ...params,
+              path: [...params.path, "anyOf", i2]
+            }));
+            break;
+          }
+          case "intersection": {
+            const json = _json;
+            const a2 = this.process(def.left, {
+              ...params,
+              path: [...params.path, "allOf", 0]
+            });
+            const b = this.process(def.right, {
+              ...params,
+              path: [...params.path, "allOf", 1]
+            });
+            const isSimpleIntersection = (val) => ("allOf" in val) && Object.keys(val).length === 1;
+            const allOf = [
+              ...isSimpleIntersection(a2) ? a2.allOf : [a2],
+              ...isSimpleIntersection(b) ? b.allOf : [b]
+            ];
+            json.allOf = allOf;
+            break;
+          }
+          case "tuple": {
+            const json = _json;
+            json.type = "array";
+            const prefixItems = def.items.map((x2, i2) => this.process(x2, { ...params, path: [...params.path, "prefixItems", i2] }));
+            if (this.target === "draft-2020-12") {
+              json.prefixItems = prefixItems;
+            } else {
+              json.items = prefixItems;
+            }
+            if (def.rest) {
+              const rest = this.process(def.rest, {
+                ...params,
+                path: [...params.path, "items"]
+              });
+              if (this.target === "draft-2020-12") {
+                json.items = rest;
+              } else {
+                json.additionalItems = rest;
+              }
+            }
+            if (def.rest) {
+              json.items = this.process(def.rest, {
+                ...params,
+                path: [...params.path, "items"]
+              });
+            }
+            const { minimum, maximum } = schema._zod.bag;
+            if (typeof minimum === "number")
+              json.minItems = minimum;
+            if (typeof maximum === "number")
+              json.maxItems = maximum;
+            break;
+          }
+          case "record": {
+            const json = _json;
+            json.type = "object";
+            json.propertyNames = this.process(def.keyType, { ...params, path: [...params.path, "propertyNames"] });
+            json.additionalProperties = this.process(def.valueType, {
+              ...params,
+              path: [...params.path, "additionalProperties"]
+            });
+            break;
+          }
+          case "map": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("Map cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "set": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("Set cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "enum": {
+            const json = _json;
+            const values2 = getEnumValues(def.entries);
+            if (values2.every((v2) => typeof v2 === "number"))
+              json.type = "number";
+            if (values2.every((v2) => typeof v2 === "string"))
+              json.type = "string";
+            json.enum = values2;
+            break;
+          }
+          case "literal": {
+            const json = _json;
+            const vals = [];
+            for (const val of def.values) {
+              if (val === undefined) {
+                if (this.unrepresentable === "throw") {
+                  throw new Error("Literal `undefined` cannot be represented in JSON Schema");
+                } else {
+                }
+              } else if (typeof val === "bigint") {
+                if (this.unrepresentable === "throw") {
+                  throw new Error("BigInt literals cannot be represented in JSON Schema");
+                } else {
+                  vals.push(Number(val));
+                }
+              } else {
+                vals.push(val);
+              }
+            }
+            if (vals.length === 0) {
+            } else if (vals.length === 1) {
+              const val = vals[0];
+              json.type = val === null ? "null" : typeof val;
+              json.const = val;
+            } else {
+              if (vals.every((v2) => typeof v2 === "number"))
+                json.type = "number";
+              if (vals.every((v2) => typeof v2 === "string"))
+                json.type = "string";
+              if (vals.every((v2) => typeof v2 === "boolean"))
+                json.type = "string";
+              if (vals.every((v2) => v2 === null))
+                json.type = "null";
+              json.enum = vals;
+            }
+            break;
+          }
+          case "file": {
+            const json = _json;
+            const file = {
+              type: "string",
+              format: "binary",
+              contentEncoding: "binary"
+            };
+            const { minimum, maximum, mime } = schema._zod.bag;
+            if (minimum !== undefined)
+              file.minLength = minimum;
+            if (maximum !== undefined)
+              file.maxLength = maximum;
+            if (mime) {
+              if (mime.length === 1) {
+                file.contentMediaType = mime[0];
+                Object.assign(json, file);
+              } else {
+                json.anyOf = mime.map((m2) => {
+                  const mFile = { ...file, contentMediaType: m2 };
+                  return mFile;
+                });
+              }
+            } else {
+              Object.assign(json, file);
+            }
+            break;
+          }
+          case "transform": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("Transforms cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "nullable": {
+            const inner = this.process(def.innerType, params);
+            _json.anyOf = [inner, { type: "null" }];
+            break;
+          }
+          case "nonoptional": {
+            this.process(def.innerType, params);
+            result.ref = def.innerType;
+            break;
+          }
+          case "success": {
+            const json = _json;
+            json.type = "boolean";
+            break;
+          }
+          case "default": {
+            this.process(def.innerType, params);
+            result.ref = def.innerType;
+            _json.default = JSON.parse(JSON.stringify(def.defaultValue));
+            break;
+          }
+          case "prefault": {
+            this.process(def.innerType, params);
+            result.ref = def.innerType;
+            if (this.io === "input")
+              _json._prefault = JSON.parse(JSON.stringify(def.defaultValue));
+            break;
+          }
+          case "catch": {
+            this.process(def.innerType, params);
+            result.ref = def.innerType;
+            let catchValue;
+            try {
+              catchValue = def.catchValue(undefined);
+            } catch {
+              throw new Error("Dynamic catch values are not supported in JSON Schema");
+            }
+            _json.default = catchValue;
+            break;
+          }
+          case "nan": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("NaN cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          case "template_literal": {
+            const json = _json;
+            const pattern = schema._zod.pattern;
+            if (!pattern)
+              throw new Error("Pattern not found in template literal");
+            json.type = "string";
+            json.pattern = pattern.source;
+            break;
+          }
+          case "pipe": {
+            const innerType = this.io === "input" ? def.in._zod.def.type === "transform" ? def.out : def.in : def.out;
+            this.process(innerType, params);
+            result.ref = innerType;
+            break;
+          }
+          case "readonly": {
+            this.process(def.innerType, params);
+            result.ref = def.innerType;
+            _json.readOnly = true;
+            break;
+          }
+          case "promise": {
+            this.process(def.innerType, params);
+            result.ref = def.innerType;
+            break;
+          }
+          case "optional": {
+            this.process(def.innerType, params);
+            result.ref = def.innerType;
+            break;
+          }
+          case "lazy": {
+            const innerType = schema._zod.innerType;
+            this.process(innerType, params);
+            result.ref = innerType;
+            break;
+          }
+          case "custom": {
+            if (this.unrepresentable === "throw") {
+              throw new Error("Custom types cannot be represented in JSON Schema");
+            }
+            break;
+          }
+          default: {
+          }
+        }
+      }
+    }
+    const meta = this.metadataRegistry.get(schema);
+    if (meta)
+      Object.assign(result.schema, meta);
+    if (this.io === "input" && isTransforming(schema)) {
+      delete result.schema.examples;
+      delete result.schema.default;
+    }
+    if (this.io === "input" && result.schema._prefault)
+      (_a = result.schema).default ?? (_a.default = result.schema._prefault);
+    delete result.schema._prefault;
+    const _result = this.seen.get(schema);
+    return _result.schema;
+  }
+  emit(schema, _params) {
+    const params = {
+      cycles: _params?.cycles ?? "ref",
+      reused: _params?.reused ?? "inline",
+      external: _params?.external ?? undefined
+    };
+    const root2 = this.seen.get(schema);
+    if (!root2)
+      throw new Error("Unprocessed schema. This is a bug in Zod.");
+    const makeURI = (entry) => {
+      const defsSegment = this.target === "draft-2020-12" ? "$defs" : "definitions";
+      if (params.external) {
+        const externalId = params.external.registry.get(entry[0])?.id;
+        const uriGenerator = params.external.uri ?? ((id2) => id2);
+        if (externalId) {
+          return { ref: uriGenerator(externalId) };
+        }
+        const id = entry[1].defId ?? entry[1].schema.id ?? `schema${this.counter++}`;
+        entry[1].defId = id;
+        return { defId: id, ref: `${uriGenerator("__shared")}#/${defsSegment}/${id}` };
+      }
+      if (entry[1] === root2) {
+        return { ref: "#" };
+      }
+      const uriPrefix = `#`;
+      const defUriPrefix = `${uriPrefix}/${defsSegment}/`;
+      const defId = entry[1].schema.id ?? `__schema${this.counter++}`;
+      return { defId, ref: defUriPrefix + defId };
+    };
+    const extractToDef = (entry) => {
+      if (entry[1].schema.$ref) {
+        return;
+      }
+      const seen = entry[1];
+      const { ref, defId } = makeURI(entry);
+      seen.def = { ...seen.schema };
+      if (defId)
+        seen.defId = defId;
+      const schema2 = seen.schema;
+      for (const key in schema2) {
+        delete schema2[key];
+      }
+      schema2.$ref = ref;
+    };
+    if (params.cycles === "throw") {
+      for (const entry of this.seen.entries()) {
+        const seen = entry[1];
+        if (seen.cycle) {
+          throw new Error("Cycle detected: " + `#/${seen.cycle?.join("/")}/<root>` + '\n\nSet the `cycles` parameter to `"ref"` to resolve cyclical schemas with defs.');
+        }
+      }
+    }
+    for (const entry of this.seen.entries()) {
+      const seen = entry[1];
+      if (schema === entry[0]) {
+        extractToDef(entry);
+        continue;
+      }
+      if (params.external) {
+        const ext = params.external.registry.get(entry[0])?.id;
+        if (schema !== entry[0] && ext) {
+          extractToDef(entry);
+          continue;
+        }
+      }
+      const id = this.metadataRegistry.get(entry[0])?.id;
+      if (id) {
+        extractToDef(entry);
+        continue;
+      }
+      if (seen.cycle) {
+        extractToDef(entry);
+        continue;
+      }
+      if (seen.count > 1) {
+        if (params.reused === "ref") {
+          extractToDef(entry);
+          continue;
+        }
+      }
+    }
+    const flattenRef = (zodSchema, params2) => {
+      const seen = this.seen.get(zodSchema);
+      const schema2 = seen.def ?? seen.schema;
+      const _cached = { ...schema2 };
+      if (seen.ref === null) {
+        return;
+      }
+      const ref = seen.ref;
+      seen.ref = null;
+      if (ref) {
+        flattenRef(ref, params2);
+        const refSchema = this.seen.get(ref).schema;
+        if (refSchema.$ref && params2.target === "draft-7") {
+          schema2.allOf = schema2.allOf ?? [];
+          schema2.allOf.push(refSchema);
+        } else {
+          Object.assign(schema2, refSchema);
+          Object.assign(schema2, _cached);
+        }
+      }
+      if (!seen.isParent)
+        this.override({
+          zodSchema,
+          jsonSchema: schema2,
+          path: seen.path ?? []
+        });
+    };
+    for (const entry of [...this.seen.entries()].reverse()) {
+      flattenRef(entry[0], { target: this.target });
+    }
+    const result = {};
+    if (this.target === "draft-2020-12") {
+      result.$schema = "https://json-schema.org/draft/2020-12/schema";
+    } else if (this.target === "draft-7") {
+      result.$schema = "http://json-schema.org/draft-07/schema#";
+    } else {
+      console.warn(`Invalid target: ${this.target}`);
+    }
+    if (params.external?.uri) {
+      const id = params.external.registry.get(schema)?.id;
+      if (!id)
+        throw new Error("Schema is missing an `id` property");
+      result.$id = params.external.uri(id);
+    }
+    Object.assign(result, root2.def);
+    const defs = params.external?.defs ?? {};
+    for (const entry of this.seen.entries()) {
+      const seen = entry[1];
+      if (seen.def && seen.defId) {
+        defs[seen.defId] = seen.def;
+      }
+    }
+    if (params.external) {
+    } else {
+      if (Object.keys(defs).length > 0) {
+        if (this.target === "draft-2020-12") {
+          result.$defs = defs;
+        } else {
+          result.definitions = defs;
+        }
+      }
+    }
+    try {
+      return JSON.parse(JSON.stringify(result));
+    } catch (_err) {
+      throw new Error("Error converting schema to JSON.");
+    }
+  }
+}
+function toJSONSchema(input, _params) {
+  if (input instanceof $ZodRegistry) {
+    const gen2 = new JSONSchemaGenerator(_params);
+    const defs = {};
+    for (const entry of input._idmap.entries()) {
+      const [_2, schema] = entry;
+      gen2.process(schema);
+    }
+    const schemas = {};
+    const external = {
+      registry: input,
+      uri: _params?.uri,
+      defs
+    };
+    for (const entry of input._idmap.entries()) {
+      const [key, schema] = entry;
+      schemas[key] = gen2.emit(schema, {
+        ..._params,
+        external
+      });
+    }
+    if (Object.keys(defs).length > 0) {
+      const defsSegment = gen2.target === "draft-2020-12" ? "$defs" : "definitions";
+      schemas.__shared = {
+        [defsSegment]: defs
+      };
+    }
+    return { schemas };
+  }
+  const gen = new JSONSchemaGenerator(_params);
+  gen.process(input);
+  return gen.emit(input, _params);
+}
+function isTransforming(_schema, _ctx) {
+  const ctx = _ctx ?? { seen: new Set };
+  if (ctx.seen.has(_schema))
+    return false;
+  ctx.seen.add(_schema);
+  const schema = _schema;
+  const def = schema._zod.def;
+  switch (def.type) {
+    case "string":
+    case "number":
+    case "bigint":
+    case "boolean":
+    case "date":
+    case "symbol":
+    case "undefined":
+    case "null":
+    case "any":
+    case "unknown":
+    case "never":
+    case "void":
+    case "literal":
+    case "enum":
+    case "nan":
+    case "file":
+    case "template_literal":
+      return false;
+    case "array": {
+      return isTransforming(def.element, ctx);
+    }
+    case "object": {
+      for (const key in def.shape) {
+        if (isTransforming(def.shape[key], ctx))
+          return true;
+      }
+      return false;
+    }
+    case "union": {
+      for (const option of def.options) {
+        if (isTransforming(option, ctx))
+          return true;
+      }
+      return false;
+    }
+    case "intersection": {
+      return isTransforming(def.left, ctx) || isTransforming(def.right, ctx);
+    }
+    case "tuple": {
+      for (const item of def.items) {
+        if (isTransforming(item, ctx))
+          return true;
+      }
+      if (def.rest && isTransforming(def.rest, ctx))
+        return true;
+      return false;
+    }
+    case "record": {
+      return isTransforming(def.keyType, ctx) || isTransforming(def.valueType, ctx);
+    }
+    case "map": {
+      return isTransforming(def.keyType, ctx) || isTransforming(def.valueType, ctx);
+    }
+    case "set": {
+      return isTransforming(def.valueType, ctx);
+    }
+    case "promise":
+    case "optional":
+    case "nonoptional":
+    case "nullable":
+    case "readonly":
+      return isTransforming(def.innerType, ctx);
+    case "lazy":
+      return isTransforming(def.getter(), ctx);
+    case "default": {
+      return isTransforming(def.innerType, ctx);
+    }
+    case "prefault": {
+      return isTransforming(def.innerType, ctx);
+    }
+    case "custom": {
+      return false;
+    }
+    case "transform": {
+      return true;
+    }
+    case "pipe": {
+      return isTransforming(def.in, ctx) || isTransforming(def.out, ctx);
+    }
+    case "success": {
+      return false;
+    }
+    case "catch": {
+      return false;
+    }
+    default:
+  }
+  throw new Error(`Unknown schema type: ${def.type}`);
+}
+// node_modules/zod/v4/core/json-schema.js
+var exports_json_schema = {};
+// node_modules/zod/v4/classic/iso.js
+var exports_iso = {};
+__export(exports_iso, {
+  time: () => time2,
+  duration: () => duration2,
+  datetime: () => datetime2,
+  date: () => date2,
+  ZodISOTime: () => ZodISOTime,
+  ZodISODuration: () => ZodISODuration,
+  ZodISODateTime: () => ZodISODateTime,
+  ZodISODate: () => ZodISODate
+});
+var ZodISODateTime = /* @__PURE__ */ $constructor("ZodISODateTime", (inst, def) => {
+  $ZodISODateTime.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function datetime2(params) {
+  return _isoDateTime(ZodISODateTime, params);
+}
+var ZodISODate = /* @__PURE__ */ $constructor("ZodISODate", (inst, def) => {
+  $ZodISODate.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function date2(params) {
+  return _isoDate(ZodISODate, params);
+}
+var ZodISOTime = /* @__PURE__ */ $constructor("ZodISOTime", (inst, def) => {
+  $ZodISOTime.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function time2(params) {
+  return _isoTime(ZodISOTime, params);
+}
+var ZodISODuration = /* @__PURE__ */ $constructor("ZodISODuration", (inst, def) => {
+  $ZodISODuration.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function duration2(params) {
+  return _isoDuration(ZodISODuration, params);
+}
+
+// node_modules/zod/v4/classic/errors.js
+var initializer2 = (inst, issues) => {
+  $ZodError.init(inst, issues);
+  inst.name = "ZodError";
+  Object.defineProperties(inst, {
+    format: {
+      value: (mapper) => formatError(inst, mapper)
+    },
+    flatten: {
+      value: (mapper) => flattenError(inst, mapper)
+    },
+    addIssue: {
+      value: (issue2) => inst.issues.push(issue2)
+    },
+    addIssues: {
+      value: (issues2) => inst.issues.push(...issues2)
+    },
+    isEmpty: {
+      get() {
+        return inst.issues.length === 0;
+      }
+    }
+  });
+};
+var ZodError = $constructor("ZodError", initializer2);
+var ZodRealError = $constructor("ZodError", initializer2, {
+  Parent: Error
+});
+
+// node_modules/zod/v4/classic/parse.js
+var parse5 = /* @__PURE__ */ _parse(ZodRealError);
+var parseAsync2 = /* @__PURE__ */ _parseAsync(ZodRealError);
+var safeParse2 = /* @__PURE__ */ _safeParse(ZodRealError);
+var safeParseAsync2 = /* @__PURE__ */ _safeParseAsync(ZodRealError);
+
+// node_modules/zod/v4/classic/schemas.js
+var ZodType = /* @__PURE__ */ $constructor("ZodType", (inst, def) => {
+  $ZodType.init(inst, def);
+  inst.def = def;
+  Object.defineProperty(inst, "_def", { value: def });
+  inst.check = (...checks2) => {
+    return inst.clone({
+      ...def,
+      checks: [
+        ...def.checks ?? [],
+        ...checks2.map((ch) => typeof ch === "function" ? { _zod: { check: ch, def: { check: "custom" }, onattach: [] } } : ch)
+      ]
+    });
+  };
+  inst.clone = (def2, params) => clone(inst, def2, params);
+  inst.brand = () => inst;
+  inst.register = (reg, meta) => {
+    reg.add(inst, meta);
+    return inst;
+  };
+  inst.parse = (data, params) => parse5(inst, data, params, { callee: inst.parse });
+  inst.safeParse = (data, params) => safeParse2(inst, data, params);
+  inst.parseAsync = async (data, params) => parseAsync2(inst, data, params, { callee: inst.parseAsync });
+  inst.safeParseAsync = async (data, params) => safeParseAsync2(inst, data, params);
+  inst.spa = inst.safeParseAsync;
+  inst.refine = (check, params) => inst.check(refine(check, params));
+  inst.superRefine = (refinement) => inst.check(superRefine(refinement));
+  inst.overwrite = (fn) => inst.check(_overwrite(fn));
+  inst.optional = () => optional(inst);
+  inst.nullable = () => nullable(inst);
+  inst.nullish = () => optional(nullable(inst));
+  inst.nonoptional = (params) => nonoptional(inst, params);
+  inst.array = () => array(inst);
+  inst.or = (arg) => union([inst, arg]);
+  inst.and = (arg) => intersection(inst, arg);
+  inst.transform = (tx) => pipe(inst, transform(tx));
+  inst.default = (def2) => _default2(inst, def2);
+  inst.prefault = (def2) => prefault(inst, def2);
+  inst.catch = (params) => _catch2(inst, params);
+  inst.pipe = (target) => pipe(inst, target);
+  inst.readonly = () => readonly(inst);
+  inst.describe = (description) => {
+    const cl = inst.clone();
+    globalRegistry.add(cl, { description });
+    return cl;
+  };
+  Object.defineProperty(inst, "description", {
+    get() {
+      return globalRegistry.get(inst)?.description;
+    },
+    configurable: true
+  });
+  inst.meta = (...args) => {
+    if (args.length === 0) {
+      return globalRegistry.get(inst);
+    }
+    const cl = inst.clone();
+    globalRegistry.add(cl, args[0]);
+    return cl;
+  };
+  inst.isOptional = () => inst.safeParse(undefined).success;
+  inst.isNullable = () => inst.safeParse(null).success;
+  return inst;
+});
+var _ZodString = /* @__PURE__ */ $constructor("_ZodString", (inst, def) => {
+  $ZodString.init(inst, def);
+  ZodType.init(inst, def);
+  const bag = inst._zod.bag;
+  inst.format = bag.format ?? null;
+  inst.minLength = bag.minimum ?? null;
+  inst.maxLength = bag.maximum ?? null;
+  inst.regex = (...args) => inst.check(_regex(...args));
+  inst.includes = (...args) => inst.check(_includes(...args));
+  inst.startsWith = (...args) => inst.check(_startsWith(...args));
+  inst.endsWith = (...args) => inst.check(_endsWith(...args));
+  inst.min = (...args) => inst.check(_minLength(...args));
+  inst.max = (...args) => inst.check(_maxLength(...args));
+  inst.length = (...args) => inst.check(_length(...args));
+  inst.nonempty = (...args) => inst.check(_minLength(1, ...args));
+  inst.lowercase = (params) => inst.check(_lowercase(params));
+  inst.uppercase = (params) => inst.check(_uppercase(params));
+  inst.trim = () => inst.check(_trim());
+  inst.normalize = (...args) => inst.check(_normalize(...args));
+  inst.toLowerCase = () => inst.check(_toLowerCase());
+  inst.toUpperCase = () => inst.check(_toUpperCase());
+});
+var ZodString = /* @__PURE__ */ $constructor("ZodString", (inst, def) => {
+  $ZodString.init(inst, def);
+  _ZodString.init(inst, def);
+  inst.email = (params) => inst.check(_email(ZodEmail, params));
+  inst.url = (params) => inst.check(_url(ZodURL, params));
+  inst.jwt = (params) => inst.check(_jwt(ZodJWT, params));
+  inst.emoji = (params) => inst.check(_emoji2(ZodEmoji, params));
+  inst.guid = (params) => inst.check(_guid(ZodGUID, params));
+  inst.uuid = (params) => inst.check(_uuid(ZodUUID, params));
+  inst.uuidv4 = (params) => inst.check(_uuidv4(ZodUUID, params));
+  inst.uuidv6 = (params) => inst.check(_uuidv6(ZodUUID, params));
+  inst.uuidv7 = (params) => inst.check(_uuidv7(ZodUUID, params));
+  inst.nanoid = (params) => inst.check(_nanoid(ZodNanoID, params));
+  inst.guid = (params) => inst.check(_guid(ZodGUID, params));
+  inst.cuid = (params) => inst.check(_cuid(ZodCUID, params));
+  inst.cuid2 = (params) => inst.check(_cuid2(ZodCUID2, params));
+  inst.ulid = (params) => inst.check(_ulid(ZodULID, params));
+  inst.base64 = (params) => inst.check(_base64(ZodBase64, params));
+  inst.base64url = (params) => inst.check(_base64url(ZodBase64URL, params));
+  inst.xid = (params) => inst.check(_xid(ZodXID, params));
+  inst.ksuid = (params) => inst.check(_ksuid(ZodKSUID, params));
+  inst.ipv4 = (params) => inst.check(_ipv4(ZodIPv4, params));
+  inst.ipv6 = (params) => inst.check(_ipv6(ZodIPv6, params));
+  inst.cidrv4 = (params) => inst.check(_cidrv4(ZodCIDRv4, params));
+  inst.cidrv6 = (params) => inst.check(_cidrv6(ZodCIDRv6, params));
+  inst.e164 = (params) => inst.check(_e164(ZodE164, params));
+  inst.datetime = (params) => inst.check(datetime2(params));
+  inst.date = (params) => inst.check(date2(params));
+  inst.time = (params) => inst.check(time2(params));
+  inst.duration = (params) => inst.check(duration2(params));
+});
+function string2(params) {
+  return _string(ZodString, params);
+}
+var ZodStringFormat = /* @__PURE__ */ $constructor("ZodStringFormat", (inst, def) => {
+  $ZodStringFormat.init(inst, def);
+  _ZodString.init(inst, def);
+});
+var ZodEmail = /* @__PURE__ */ $constructor("ZodEmail", (inst, def) => {
+  $ZodEmail.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function email2(params) {
+  return _email(ZodEmail, params);
+}
+var ZodGUID = /* @__PURE__ */ $constructor("ZodGUID", (inst, def) => {
+  $ZodGUID.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function guid2(params) {
+  return _guid(ZodGUID, params);
+}
+var ZodUUID = /* @__PURE__ */ $constructor("ZodUUID", (inst, def) => {
+  $ZodUUID.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function uuid2(params) {
+  return _uuid(ZodUUID, params);
+}
+function uuidv4(params) {
+  return _uuidv4(ZodUUID, params);
+}
+function uuidv6(params) {
+  return _uuidv6(ZodUUID, params);
+}
+function uuidv7(params) {
+  return _uuidv7(ZodUUID, params);
+}
+var ZodURL = /* @__PURE__ */ $constructor("ZodURL", (inst, def) => {
+  $ZodURL.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function url(params) {
+  return _url(ZodURL, params);
+}
+var ZodEmoji = /* @__PURE__ */ $constructor("ZodEmoji", (inst, def) => {
+  $ZodEmoji.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function emoji2(params) {
+  return _emoji2(ZodEmoji, params);
+}
+var ZodNanoID = /* @__PURE__ */ $constructor("ZodNanoID", (inst, def) => {
+  $ZodNanoID.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function nanoid2(params) {
+  return _nanoid(ZodNanoID, params);
+}
+var ZodCUID = /* @__PURE__ */ $constructor("ZodCUID", (inst, def) => {
+  $ZodCUID.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function cuid3(params) {
+  return _cuid(ZodCUID, params);
+}
+var ZodCUID2 = /* @__PURE__ */ $constructor("ZodCUID2", (inst, def) => {
+  $ZodCUID2.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function cuid22(params) {
+  return _cuid2(ZodCUID2, params);
+}
+var ZodULID = /* @__PURE__ */ $constructor("ZodULID", (inst, def) => {
+  $ZodULID.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function ulid2(params) {
+  return _ulid(ZodULID, params);
+}
+var ZodXID = /* @__PURE__ */ $constructor("ZodXID", (inst, def) => {
+  $ZodXID.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function xid2(params) {
+  return _xid(ZodXID, params);
+}
+var ZodKSUID = /* @__PURE__ */ $constructor("ZodKSUID", (inst, def) => {
+  $ZodKSUID.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function ksuid2(params) {
+  return _ksuid(ZodKSUID, params);
+}
+var ZodIPv4 = /* @__PURE__ */ $constructor("ZodIPv4", (inst, def) => {
+  $ZodIPv4.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function ipv42(params) {
+  return _ipv4(ZodIPv4, params);
+}
+var ZodIPv6 = /* @__PURE__ */ $constructor("ZodIPv6", (inst, def) => {
+  $ZodIPv6.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function ipv62(params) {
+  return _ipv6(ZodIPv6, params);
+}
+var ZodCIDRv4 = /* @__PURE__ */ $constructor("ZodCIDRv4", (inst, def) => {
+  $ZodCIDRv4.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function cidrv42(params) {
+  return _cidrv4(ZodCIDRv4, params);
+}
+var ZodCIDRv6 = /* @__PURE__ */ $constructor("ZodCIDRv6", (inst, def) => {
+  $ZodCIDRv6.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function cidrv62(params) {
+  return _cidrv6(ZodCIDRv6, params);
+}
+var ZodBase64 = /* @__PURE__ */ $constructor("ZodBase64", (inst, def) => {
+  $ZodBase64.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function base642(params) {
+  return _base64(ZodBase64, params);
+}
+var ZodBase64URL = /* @__PURE__ */ $constructor("ZodBase64URL", (inst, def) => {
+  $ZodBase64URL.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function base64url2(params) {
+  return _base64url(ZodBase64URL, params);
+}
+var ZodE164 = /* @__PURE__ */ $constructor("ZodE164", (inst, def) => {
+  $ZodE164.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function e1642(params) {
+  return _e164(ZodE164, params);
+}
+var ZodJWT = /* @__PURE__ */ $constructor("ZodJWT", (inst, def) => {
+  $ZodJWT.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function jwt(params) {
+  return _jwt(ZodJWT, params);
+}
+var ZodCustomStringFormat = /* @__PURE__ */ $constructor("ZodCustomStringFormat", (inst, def) => {
+  $ZodCustomStringFormat.init(inst, def);
+  ZodStringFormat.init(inst, def);
+});
+function stringFormat(format2, fnOrRegex, _params = {}) {
+  return _stringFormat(ZodCustomStringFormat, format2, fnOrRegex, _params);
+}
+var ZodNumber = /* @__PURE__ */ $constructor("ZodNumber", (inst, def) => {
+  $ZodNumber.init(inst, def);
+  ZodType.init(inst, def);
+  inst.gt = (value, params) => inst.check(_gt(value, params));
+  inst.gte = (value, params) => inst.check(_gte(value, params));
+  inst.min = (value, params) => inst.check(_gte(value, params));
+  inst.lt = (value, params) => inst.check(_lt(value, params));
+  inst.lte = (value, params) => inst.check(_lte(value, params));
+  inst.max = (value, params) => inst.check(_lte(value, params));
+  inst.int = (params) => inst.check(int(params));
+  inst.safe = (params) => inst.check(int(params));
+  inst.positive = (params) => inst.check(_gt(0, params));
+  inst.nonnegative = (params) => inst.check(_gte(0, params));
+  inst.negative = (params) => inst.check(_lt(0, params));
+  inst.nonpositive = (params) => inst.check(_lte(0, params));
+  inst.multipleOf = (value, params) => inst.check(_multipleOf(value, params));
+  inst.step = (value, params) => inst.check(_multipleOf(value, params));
+  inst.finite = () => inst;
+  const bag = inst._zod.bag;
+  inst.minValue = Math.max(bag.minimum ?? Number.NEGATIVE_INFINITY, bag.exclusiveMinimum ?? Number.NEGATIVE_INFINITY) ?? null;
+  inst.maxValue = Math.min(bag.maximum ?? Number.POSITIVE_INFINITY, bag.exclusiveMaximum ?? Number.POSITIVE_INFINITY) ?? null;
+  inst.isInt = (bag.format ?? "").includes("int") || Number.isSafeInteger(bag.multipleOf ?? 0.5);
+  inst.isFinite = true;
+  inst.format = bag.format ?? null;
+});
+function number2(params) {
+  return _number(ZodNumber, params);
+}
+var ZodNumberFormat = /* @__PURE__ */ $constructor("ZodNumberFormat", (inst, def) => {
+  $ZodNumberFormat.init(inst, def);
+  ZodNumber.init(inst, def);
+});
+function int(params) {
+  return _int(ZodNumberFormat, params);
+}
+function float32(params) {
+  return _float32(ZodNumberFormat, params);
+}
+function float64(params) {
+  return _float64(ZodNumberFormat, params);
+}
+function int32(params) {
+  return _int32(ZodNumberFormat, params);
+}
+function uint32(params) {
+  return _uint32(ZodNumberFormat, params);
+}
+var ZodBoolean = /* @__PURE__ */ $constructor("ZodBoolean", (inst, def) => {
+  $ZodBoolean.init(inst, def);
+  ZodType.init(inst, def);
+});
+function boolean2(params) {
+  return _boolean(ZodBoolean, params);
+}
+var ZodBigInt = /* @__PURE__ */ $constructor("ZodBigInt", (inst, def) => {
+  $ZodBigInt.init(inst, def);
+  ZodType.init(inst, def);
+  inst.gte = (value, params) => inst.check(_gte(value, params));
+  inst.min = (value, params) => inst.check(_gte(value, params));
+  inst.gt = (value, params) => inst.check(_gt(value, params));
+  inst.gte = (value, params) => inst.check(_gte(value, params));
+  inst.min = (value, params) => inst.check(_gte(value, params));
+  inst.lt = (value, params) => inst.check(_lt(value, params));
+  inst.lte = (value, params) => inst.check(_lte(value, params));
+  inst.max = (value, params) => inst.check(_lte(value, params));
+  inst.positive = (params) => inst.check(_gt(BigInt(0), params));
+  inst.negative = (params) => inst.check(_lt(BigInt(0), params));
+  inst.nonpositive = (params) => inst.check(_lte(BigInt(0), params));
+  inst.nonnegative = (params) => inst.check(_gte(BigInt(0), params));
+  inst.multipleOf = (value, params) => inst.check(_multipleOf(value, params));
+  const bag = inst._zod.bag;
+  inst.minValue = bag.minimum ?? null;
+  inst.maxValue = bag.maximum ?? null;
+  inst.format = bag.format ?? null;
+});
+function bigint2(params) {
+  return _bigint(ZodBigInt, params);
+}
+var ZodBigIntFormat = /* @__PURE__ */ $constructor("ZodBigIntFormat", (inst, def) => {
+  $ZodBigIntFormat.init(inst, def);
+  ZodBigInt.init(inst, def);
+});
+function int64(params) {
+  return _int64(ZodBigIntFormat, params);
+}
+function uint64(params) {
+  return _uint64(ZodBigIntFormat, params);
+}
+var ZodSymbol = /* @__PURE__ */ $constructor("ZodSymbol", (inst, def) => {
+  $ZodSymbol.init(inst, def);
+  ZodType.init(inst, def);
+});
+function symbol(params) {
+  return _symbol(ZodSymbol, params);
+}
+var ZodUndefined = /* @__PURE__ */ $constructor("ZodUndefined", (inst, def) => {
+  $ZodUndefined.init(inst, def);
+  ZodType.init(inst, def);
+});
+function _undefined3(params) {
+  return _undefined2(ZodUndefined, params);
+}
+var ZodNull = /* @__PURE__ */ $constructor("ZodNull", (inst, def) => {
+  $ZodNull.init(inst, def);
+  ZodType.init(inst, def);
+});
+function _null3(params) {
+  return _null2(ZodNull, params);
+}
+var ZodAny = /* @__PURE__ */ $constructor("ZodAny", (inst, def) => {
+  $ZodAny.init(inst, def);
+  ZodType.init(inst, def);
+});
+function any() {
+  return _any(ZodAny);
+}
+var ZodUnknown = /* @__PURE__ */ $constructor("ZodUnknown", (inst, def) => {
+  $ZodUnknown.init(inst, def);
+  ZodType.init(inst, def);
+});
+function unknown() {
+  return _unknown(ZodUnknown);
+}
+var ZodNever = /* @__PURE__ */ $constructor("ZodNever", (inst, def) => {
+  $ZodNever.init(inst, def);
+  ZodType.init(inst, def);
+});
+function never(params) {
+  return _never(ZodNever, params);
+}
+var ZodVoid = /* @__PURE__ */ $constructor("ZodVoid", (inst, def) => {
+  $ZodVoid.init(inst, def);
+  ZodType.init(inst, def);
+});
+function _void2(params) {
+  return _void(ZodVoid, params);
+}
+var ZodDate = /* @__PURE__ */ $constructor("ZodDate", (inst, def) => {
+  $ZodDate.init(inst, def);
+  ZodType.init(inst, def);
+  inst.min = (value, params) => inst.check(_gte(value, params));
+  inst.max = (value, params) => inst.check(_lte(value, params));
+  const c2 = inst._zod.bag;
+  inst.minDate = c2.minimum ? new Date(c2.minimum) : null;
+  inst.maxDate = c2.maximum ? new Date(c2.maximum) : null;
+});
+function date3(params) {
+  return _date(ZodDate, params);
+}
+var ZodArray = /* @__PURE__ */ $constructor("ZodArray", (inst, def) => {
+  $ZodArray.init(inst, def);
+  ZodType.init(inst, def);
+  inst.element = def.element;
+  inst.min = (minLength, params) => inst.check(_minLength(minLength, params));
+  inst.nonempty = (params) => inst.check(_minLength(1, params));
+  inst.max = (maxLength, params) => inst.check(_maxLength(maxLength, params));
+  inst.length = (len, params) => inst.check(_length(len, params));
+  inst.unwrap = () => inst.element;
+});
+function array(element, params) {
+  return _array(ZodArray, element, params);
+}
+function keyof(schema) {
+  const shape = schema._zod.def.shape;
+  return literal(Object.keys(shape));
+}
+var ZodObject = /* @__PURE__ */ $constructor("ZodObject", (inst, def) => {
+  $ZodObject.init(inst, def);
+  ZodType.init(inst, def);
+  exports_util.defineLazy(inst, "shape", () => def.shape);
+  inst.keyof = () => _enum2(Object.keys(inst._zod.def.shape));
+  inst.catchall = (catchall) => inst.clone({ ...inst._zod.def, catchall });
+  inst.passthrough = () => inst.clone({ ...inst._zod.def, catchall: unknown() });
+  inst.loose = () => inst.clone({ ...inst._zod.def, catchall: unknown() });
+  inst.strict = () => inst.clone({ ...inst._zod.def, catchall: never() });
+  inst.strip = () => inst.clone({ ...inst._zod.def, catchall: undefined });
+  inst.extend = (incoming) => {
+    return exports_util.extend(inst, incoming);
+  };
+  inst.merge = (other) => exports_util.merge(inst, other);
+  inst.pick = (mask) => exports_util.pick(inst, mask);
+  inst.omit = (mask) => exports_util.omit(inst, mask);
+  inst.partial = (...args) => exports_util.partial(ZodOptional, inst, args[0]);
+  inst.required = (...args) => exports_util.required(ZodNonOptional, inst, args[0]);
+});
+function object(shape, params) {
+  const def = {
+    type: "object",
+    get shape() {
+      exports_util.assignProp(this, "shape", { ...shape });
+      return this.shape;
+    },
+    ...exports_util.normalizeParams(params)
+  };
+  return new ZodObject(def);
+}
+function strictObject(shape, params) {
+  return new ZodObject({
+    type: "object",
+    get shape() {
+      exports_util.assignProp(this, "shape", { ...shape });
+      return this.shape;
+    },
+    catchall: never(),
+    ...exports_util.normalizeParams(params)
+  });
+}
+function looseObject(shape, params) {
+  return new ZodObject({
+    type: "object",
+    get shape() {
+      exports_util.assignProp(this, "shape", { ...shape });
+      return this.shape;
+    },
+    catchall: unknown(),
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodUnion = /* @__PURE__ */ $constructor("ZodUnion", (inst, def) => {
+  $ZodUnion.init(inst, def);
+  ZodType.init(inst, def);
+  inst.options = def.options;
+});
+function union(options, params) {
+  return new ZodUnion({
+    type: "union",
+    options,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodDiscriminatedUnion = /* @__PURE__ */ $constructor("ZodDiscriminatedUnion", (inst, def) => {
+  ZodUnion.init(inst, def);
+  $ZodDiscriminatedUnion.init(inst, def);
+});
+function discriminatedUnion(discriminator, options, params) {
+  return new ZodDiscriminatedUnion({
+    type: "union",
+    options,
+    discriminator,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodIntersection = /* @__PURE__ */ $constructor("ZodIntersection", (inst, def) => {
+  $ZodIntersection.init(inst, def);
+  ZodType.init(inst, def);
+});
+function intersection(left, right) {
+  return new ZodIntersection({
+    type: "intersection",
+    left,
+    right
+  });
+}
+var ZodTuple = /* @__PURE__ */ $constructor("ZodTuple", (inst, def) => {
+  $ZodTuple.init(inst, def);
+  ZodType.init(inst, def);
+  inst.rest = (rest) => inst.clone({
+    ...inst._zod.def,
+    rest
+  });
+});
+function tuple(items, _paramsOrRest, _params) {
+  const hasRest = _paramsOrRest instanceof $ZodType;
+  const params = hasRest ? _params : _paramsOrRest;
+  const rest = hasRest ? _paramsOrRest : null;
+  return new ZodTuple({
+    type: "tuple",
+    items,
+    rest,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodRecord = /* @__PURE__ */ $constructor("ZodRecord", (inst, def) => {
+  $ZodRecord.init(inst, def);
+  ZodType.init(inst, def);
+  inst.keyType = def.keyType;
+  inst.valueType = def.valueType;
+});
+function record(keyType, valueType, params) {
+  return new ZodRecord({
+    type: "record",
+    keyType,
+    valueType,
+    ...exports_util.normalizeParams(params)
+  });
+}
+function partialRecord(keyType, valueType, params) {
+  return new ZodRecord({
+    type: "record",
+    keyType: union([keyType, never()]),
+    valueType,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodMap = /* @__PURE__ */ $constructor("ZodMap", (inst, def) => {
+  $ZodMap.init(inst, def);
+  ZodType.init(inst, def);
+  inst.keyType = def.keyType;
+  inst.valueType = def.valueType;
+});
+function map(keyType, valueType, params) {
+  return new ZodMap({
+    type: "map",
+    keyType,
+    valueType,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodSet = /* @__PURE__ */ $constructor("ZodSet", (inst, def) => {
+  $ZodSet.init(inst, def);
+  ZodType.init(inst, def);
+  inst.min = (...args) => inst.check(_minSize(...args));
+  inst.nonempty = (params) => inst.check(_minSize(1, params));
+  inst.max = (...args) => inst.check(_maxSize(...args));
+  inst.size = (...args) => inst.check(_size(...args));
+});
+function set2(valueType, params) {
+  return new ZodSet({
+    type: "set",
+    valueType,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodEnum = /* @__PURE__ */ $constructor("ZodEnum", (inst, def) => {
+  $ZodEnum.init(inst, def);
+  ZodType.init(inst, def);
+  inst.enum = def.entries;
+  inst.options = Object.values(def.entries);
+  const keys2 = new Set(Object.keys(def.entries));
+  inst.extract = (values2, params) => {
+    const newEntries = {};
+    for (const value of values2) {
+      if (keys2.has(value)) {
+        newEntries[value] = def.entries[value];
+      } else
+        throw new Error(`Key ${value} not found in enum`);
+    }
+    return new ZodEnum({
+      ...def,
+      checks: [],
+      ...exports_util.normalizeParams(params),
+      entries: newEntries
+    });
+  };
+  inst.exclude = (values2, params) => {
+    const newEntries = { ...def.entries };
+    for (const value of values2) {
+      if (keys2.has(value)) {
+        delete newEntries[value];
+      } else
+        throw new Error(`Key ${value} not found in enum`);
+    }
+    return new ZodEnum({
+      ...def,
+      checks: [],
+      ...exports_util.normalizeParams(params),
+      entries: newEntries
+    });
+  };
+});
+function _enum2(values2, params) {
+  const entries = Array.isArray(values2) ? Object.fromEntries(values2.map((v2) => [v2, v2])) : values2;
+  return new ZodEnum({
+    type: "enum",
+    entries,
+    ...exports_util.normalizeParams(params)
+  });
+}
+function nativeEnum(entries, params) {
+  return new ZodEnum({
+    type: "enum",
+    entries,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodLiteral = /* @__PURE__ */ $constructor("ZodLiteral", (inst, def) => {
+  $ZodLiteral.init(inst, def);
+  ZodType.init(inst, def);
+  inst.values = new Set(def.values);
+  Object.defineProperty(inst, "value", {
+    get() {
+      if (def.values.length > 1) {
+        throw new Error("This schema contains multiple valid literal values. Use `.values` instead.");
+      }
+      return def.values[0];
+    }
+  });
+});
+function literal(value, params) {
+  return new ZodLiteral({
+    type: "literal",
+    values: Array.isArray(value) ? value : [value],
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodFile = /* @__PURE__ */ $constructor("ZodFile", (inst, def) => {
+  $ZodFile.init(inst, def);
+  ZodType.init(inst, def);
+  inst.min = (size4, params) => inst.check(_minSize(size4, params));
+  inst.max = (size4, params) => inst.check(_maxSize(size4, params));
+  inst.mime = (types, params) => inst.check(_mime(Array.isArray(types) ? types : [types], params));
+});
+function file(params) {
+  return _file(ZodFile, params);
+}
+var ZodTransform = /* @__PURE__ */ $constructor("ZodTransform", (inst, def) => {
+  $ZodTransform.init(inst, def);
+  ZodType.init(inst, def);
+  inst._zod.parse = (payload, _ctx) => {
+    payload.addIssue = (issue2) => {
+      if (typeof issue2 === "string") {
+        payload.issues.push(exports_util.issue(issue2, payload.value, def));
+      } else {
+        const _issue = issue2;
+        if (_issue.fatal)
+          _issue.continue = false;
+        _issue.code ?? (_issue.code = "custom");
+        _issue.input ?? (_issue.input = payload.value);
+        _issue.inst ?? (_issue.inst = inst);
+        _issue.continue ?? (_issue.continue = true);
+        payload.issues.push(exports_util.issue(_issue));
+      }
+    };
+    const output = def.transform(payload.value, payload);
+    if (output instanceof Promise) {
+      return output.then((output2) => {
+        payload.value = output2;
+        return payload;
+      });
+    }
+    payload.value = output;
+    return payload;
+  };
+});
+function transform(fn) {
+  return new ZodTransform({
+    type: "transform",
+    transform: fn
+  });
+}
+var ZodOptional = /* @__PURE__ */ $constructor("ZodOptional", (inst, def) => {
+  $ZodOptional.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.innerType;
+});
+function optional(innerType) {
+  return new ZodOptional({
+    type: "optional",
+    innerType
+  });
+}
+var ZodNullable = /* @__PURE__ */ $constructor("ZodNullable", (inst, def) => {
+  $ZodNullable.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.innerType;
+});
+function nullable(innerType) {
+  return new ZodNullable({
+    type: "nullable",
+    innerType
+  });
+}
+function nullish2(innerType) {
+  return optional(nullable(innerType));
+}
+var ZodDefault = /* @__PURE__ */ $constructor("ZodDefault", (inst, def) => {
+  $ZodDefault.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.innerType;
+  inst.removeDefault = inst.unwrap;
+});
+function _default2(innerType, defaultValue2) {
+  return new ZodDefault({
+    type: "default",
+    innerType,
+    get defaultValue() {
+      return typeof defaultValue2 === "function" ? defaultValue2() : defaultValue2;
+    }
+  });
+}
+var ZodPrefault = /* @__PURE__ */ $constructor("ZodPrefault", (inst, def) => {
+  $ZodPrefault.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.innerType;
+});
+function prefault(innerType, defaultValue2) {
+  return new ZodPrefault({
+    type: "prefault",
+    innerType,
+    get defaultValue() {
+      return typeof defaultValue2 === "function" ? defaultValue2() : defaultValue2;
+    }
+  });
+}
+var ZodNonOptional = /* @__PURE__ */ $constructor("ZodNonOptional", (inst, def) => {
+  $ZodNonOptional.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.innerType;
+});
+function nonoptional(innerType, params) {
+  return new ZodNonOptional({
+    type: "nonoptional",
+    innerType,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodSuccess = /* @__PURE__ */ $constructor("ZodSuccess", (inst, def) => {
+  $ZodSuccess.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.innerType;
+});
+function success(innerType) {
+  return new ZodSuccess({
+    type: "success",
+    innerType
+  });
+}
+var ZodCatch = /* @__PURE__ */ $constructor("ZodCatch", (inst, def) => {
+  $ZodCatch.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.innerType;
+  inst.removeCatch = inst.unwrap;
+});
+function _catch2(innerType, catchValue) {
+  return new ZodCatch({
+    type: "catch",
+    innerType,
+    catchValue: typeof catchValue === "function" ? catchValue : () => catchValue
+  });
+}
+var ZodNaN = /* @__PURE__ */ $constructor("ZodNaN", (inst, def) => {
+  $ZodNaN.init(inst, def);
+  ZodType.init(inst, def);
+});
+function nan(params) {
+  return _nan(ZodNaN, params);
+}
+var ZodPipe = /* @__PURE__ */ $constructor("ZodPipe", (inst, def) => {
+  $ZodPipe.init(inst, def);
+  ZodType.init(inst, def);
+  inst.in = def.in;
+  inst.out = def.out;
+});
+function pipe(in_, out) {
+  return new ZodPipe({
+    type: "pipe",
+    in: in_,
+    out
+  });
+}
+var ZodReadonly = /* @__PURE__ */ $constructor("ZodReadonly", (inst, def) => {
+  $ZodReadonly.init(inst, def);
+  ZodType.init(inst, def);
+});
+function readonly(innerType) {
+  return new ZodReadonly({
+    type: "readonly",
+    innerType
+  });
+}
+var ZodTemplateLiteral = /* @__PURE__ */ $constructor("ZodTemplateLiteral", (inst, def) => {
+  $ZodTemplateLiteral.init(inst, def);
+  ZodType.init(inst, def);
+});
+function templateLiteral(parts, params) {
+  return new ZodTemplateLiteral({
+    type: "template_literal",
+    parts,
+    ...exports_util.normalizeParams(params)
+  });
+}
+var ZodLazy = /* @__PURE__ */ $constructor("ZodLazy", (inst, def) => {
+  $ZodLazy.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.getter();
+});
+function lazy(getter) {
+  return new ZodLazy({
+    type: "lazy",
+    getter
+  });
+}
+var ZodPromise = /* @__PURE__ */ $constructor("ZodPromise", (inst, def) => {
+  $ZodPromise.init(inst, def);
+  ZodType.init(inst, def);
+  inst.unwrap = () => inst._zod.def.innerType;
+});
+function promise(innerType) {
+  return new ZodPromise({
+    type: "promise",
+    innerType
+  });
+}
+var ZodCustom = /* @__PURE__ */ $constructor("ZodCustom", (inst, def) => {
+  $ZodCustom.init(inst, def);
+  ZodType.init(inst, def);
+});
+function check(fn) {
+  const ch = new $ZodCheck({
+    check: "custom"
+  });
+  ch._zod.check = fn;
+  return ch;
+}
+function custom(fn, _params) {
+  return _custom(ZodCustom, fn ?? (() => true), _params);
+}
+function refine(fn, _params = {}) {
+  return _refine(ZodCustom, fn, _params);
+}
+function superRefine(fn) {
+  const ch = check((payload) => {
+    payload.addIssue = (issue2) => {
+      if (typeof issue2 === "string") {
+        payload.issues.push(exports_util.issue(issue2, payload.value, ch._zod.def));
+      } else {
+        const _issue = issue2;
+        if (_issue.fatal)
+          _issue.continue = false;
+        _issue.code ?? (_issue.code = "custom");
+        _issue.input ?? (_issue.input = payload.value);
+        _issue.inst ?? (_issue.inst = ch);
+        _issue.continue ?? (_issue.continue = !ch._zod.def.abort);
+        payload.issues.push(exports_util.issue(_issue));
+      }
+    };
+    return fn(payload.value, payload);
+  });
+  return ch;
+}
+function _instanceof(cls, params = {
+  error: `Input not instance of ${cls.name}`
+}) {
+  const inst = new ZodCustom({
+    type: "custom",
+    check: "custom",
+    fn: (data) => data instanceof cls,
+    abort: true,
+    ...exports_util.normalizeParams(params)
+  });
+  inst._zod.bag.Class = cls;
+  return inst;
+}
+var stringbool = (...args) => _stringbool({
+  Pipe: ZodPipe,
+  Boolean: ZodBoolean,
+  String: ZodString,
+  Transform: ZodTransform
+}, ...args);
+function json(params) {
+  const jsonSchema = lazy(() => {
+    return union([string2(params), number2(), boolean2(), _null3(), array(jsonSchema), record(string2(), jsonSchema)]);
+  });
+  return jsonSchema;
+}
+function preprocess(fn, schema) {
+  return pipe(transform(fn), schema);
+}
+// node_modules/zod/v4/classic/compat.js
+var ZodIssueCode = {
+  invalid_type: "invalid_type",
+  too_big: "too_big",
+  too_small: "too_small",
+  invalid_format: "invalid_format",
+  not_multiple_of: "not_multiple_of",
+  unrecognized_keys: "unrecognized_keys",
+  invalid_union: "invalid_union",
+  invalid_key: "invalid_key",
+  invalid_element: "invalid_element",
+  invalid_value: "invalid_value",
+  custom: "custom"
+};
+function setErrorMap(map2) {
+  config({
+    customError: map2
+  });
+}
+function getErrorMap() {
+  return config().customError;
+}
+var ZodFirstPartyTypeKind;
+(function(ZodFirstPartyTypeKind2) {
+})(ZodFirstPartyTypeKind || (ZodFirstPartyTypeKind = {}));
+// node_modules/zod/v4/classic/coerce.js
+var exports_coerce = {};
+__export(exports_coerce, {
+  string: () => string3,
+  number: () => number3,
+  date: () => date4,
+  boolean: () => boolean3,
+  bigint: () => bigint3
+});
+function string3(params) {
+  return _coercedString(ZodString, params);
+}
+function number3(params) {
+  return _coercedNumber(ZodNumber, params);
+}
+function boolean3(params) {
+  return _coercedBoolean(ZodBoolean, params);
+}
+function bigint3(params) {
+  return _coercedBigint(ZodBigInt, params);
+}
+function date4(params) {
+  return _coercedDate(ZodDate, params);
+}
+
+// node_modules/zod/v4/classic/external.js
+config(en_default());
+// src/utils/smartCrop/smartCrop.types.ts
+class InvalidCropMetadataError extends Error {
+  type = "InvalidCropMetadataError";
+  cropData = "string";
+  constructor(message, cropData) {
+    super(message);
+    this.cropData = cropData;
+  }
+}
+function verifyCropMetadata(metadata) {
+  const PointOfInterestSchema = exports_external.object({
+    x: exports_external.number(),
+    y: exports_external.number()
+  });
+  const SubjectAreaSchema = exports_external.object({
+    x: exports_external.number(),
+    y: exports_external.number(),
+    width: exports_external.number(),
+    height: exports_external.number()
+  });
+  const DetectedObjectSchema = exports_external.object({
+    class: exports_external.array(exports_external.string()),
+    confidence: exports_external.number(),
+    subjectArea: SubjectAreaSchema
+  });
+  const ManualCropMetadataSchema = exports_external.object({
+    manualCropMetadata: exports_external.object({
+      pointOfInterest: PointOfInterestSchema,
+      subjectArea: SubjectAreaSchema
+    })
+  });
+  const VisionCropMetadataSchema = exports_external.object({
+    manualCropMetadata: exports_external.null(),
+    visionCropMetadata: exports_external.object({
+      category: exports_external.string(),
+      pointOfInterest: PointOfInterestSchema,
+      subjectArea: SubjectAreaSchema,
+      detectedObjects: exports_external.array(DetectedObjectSchema),
+      version: exports_external.string()
+    })
+  });
+  const manualResult = ManualCropMetadataSchema.safeParse(metadata);
+  if (manualResult.success) {
+    return Result.ok(manualResult.data);
+  }
+  const visionResult = VisionCropMetadataSchema.safeParse(metadata);
+  if (visionResult.success) {
+    return Result.ok(visionResult.data);
+  }
+  return Result.error(new InvalidCropMetadataError("Invalid crop metadata format", JSON.stringify(metadata)));
+}
+function convertVisionToManualCropMetadata(visionMetadata) {
+  return {
+    manualCropMetadata: {
+      pointOfInterest: visionMetadata.visionCropMetadata.pointOfInterest,
+      subjectArea: visionMetadata.visionCropMetadata.subjectArea
+    }
+  };
+}
+
+// src/utils/smartCrop/getVision.ts
+class VisionNotFoundError extends Error {
+  type = "VisionNotFoundError";
+}
+class AuthorizationError extends Error {
+  type = "AuthorizationError";
+}
+async function getVision({
+  baseUrl,
+  connectorId,
+  asset,
+  authorization
+}) {
+  try {
+    const url2 = `${baseUrl}external-media/${await sha256Concat(connectorId, asset)}/vision`;
+    const response = await fetch(url2, {
+      headers: {
+        Authorization: "Bearer " + authorization
+      }
+    });
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new AuthorizationError(`Authorization failed for ${baseUrl}`);
+      }
+      if (response.status === 404) {
+        throw new VisionNotFoundError(`Vision not found for ${asset}`);
+      }
+      throw new Error(`HTTP error! status: ${response.status} on ${url2}`);
+    }
+    const data = await response.json();
+    return verifyCropMetadata(data);
+  } catch (error40) {
+    return Result.error(error40 instanceof Error ? error40 : new Error(`Unknown error occurred for ${baseUrl}`));
+  }
+}
+
+// src/utils/smartCrop/setVision.ts
+init_dist();
+class SettingVisonBotFoundError extends Error {
+  requestBody;
+  responseBody;
+  url;
+  type = "SettingVisonBotFoundError";
+  constructor(message, requestBody, responseBody, url2) {
+    super(message);
+    this.requestBody = requestBody;
+    this.responseBody = responseBody;
+    this.url = url2;
+  }
+}
+
+class AuthorizationError2 extends Error {
+  type = "AuthorizationError";
+}
+
+class BadRequestError extends Error {
+  responseBody;
+  requestBody;
+  type = "BadRequestError";
+  constructor(message, responseBody, requestBody) {
+    super(message);
+    this.responseBody = responseBody;
+    this.requestBody = requestBody;
+  }
+}
+async function setVision({
+  baseUrl,
+  connectorId,
+  asset,
+  authorization,
+  metadata,
+  skipUpload = false
+}) {
+  try {
+    const url2 = `${baseUrl}external-media/${await sha256Concat(connectorId, asset)}/vision`;
+    const response = await fetch(url2, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + authorization,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(metadata.manualCropMetadata == null ? convertVisionToManualCropMetadata(metadata) : metadata)
+    });
+    if (!response.ok) {
+      if (response.status === 400) {
+        throw new BadRequestError(`Bad request for ${baseUrl}`, await response.text(), JSON.stringify(metadata.manualCropMetadata == null ? convertVisionToManualCropMetadata(metadata) : metadata));
+      }
+      if (response.status === 401) {
+        throw new AuthorizationError2(`Authorization failed for ${baseUrl}`);
+      }
+      if (response.status === 404) {
+        if (skipUpload) {
+          throw new SettingVisonBotFoundError(`Not found for ${asset} after upload attempt`, JSON.stringify({
+            url: url2,
+            headers: {
+              Authorization: "Bearer " + authorization,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(metadata)
+          }), await response.text(), url2);
+        }
+        const uploadResult = await uploadImage({
+          baseUrl,
+          connectorId,
+          asset,
+          authorization
+        });
+        return uploadResult.map(async () => {
+          return await setVision({
+            baseUrl,
+            connectorId,
+            asset,
+            authorization,
+            metadata,
+            skipUpload: true
+          });
+        });
+      }
+      throw new Error(`HTTP error! status: ${response.status} on ${url2}`);
+    }
+    return Result.ok(undefined);
+  } catch (error40) {
+    return Result.error(error40 instanceof Error ? error40 : new Error(`Unknown error occurred for ${baseUrl}`));
+  }
+}
+function base64ToBlob(base64Data, contentType = "") {
+  const byteCharacters = atob(base64Data);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i2 = 0;i2 < byteCharacters.length; i2++) {
+    byteNumbers[i2] = byteCharacters.charCodeAt(i2);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  return new Blob([byteArray], { type: contentType });
+}
+async function uploadImage({
+  baseUrl,
+  connectorId,
+  asset,
+  authorization
+}) {
+  try {
+    const url2 = `${baseUrl}external-media/${await sha256Concat(connectorId, asset)}/vision`;
+    const base64Image = "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAADtJREFUKFNjZGBg+M9ABGAkS+EnLi642XzfvqHYAzcRWRFMBbJisEJsitAV00ghyBri3AhzD1G+JhTmAJCTHwEL6mXhAAAAAElFTkSuQmCC";
+    const imageBlob = base64ToBlob(base64Image, "image/png");
+    const imageFile = new File([imageBlob], "image.png", { type: "image/png" });
+    const formData = new FormData;
+    formData.append("file", imageFile);
+    const response = await fetch(url2, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + authorization
+      },
+      body: formData
+    });
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new AuthorizationError2(`Authorization failed for ${baseUrl}`);
+      }
+      throw new Error(`HTTP error! status: ${response.status} on ${url2}`);
+    }
+    return Result.ok(undefined);
+  } catch (error40) {
+    return Result.error(error40 instanceof Error ? error40 : new Error(`Unknown error occurred during image upload for ${baseUrl}`));
+  }
+}
+
+// src/utils/getMediaConnectorsAPI.ts
+init_dist();
+async function getMediaConnectorsAPI(baseUrl, authToken) {
+  try {
+    const response = await fetch(`${baseUrl}connectors`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      return Result.error(new Error(`Failed to fetch connectors: ${response.statusText}`));
+    }
+    const connectorResponse = await response.json();
+    return Result.ok(connectorResponse);
+  } catch (error40) {
+    return Result.error(error40 instanceof Error ? error40 : new Error(`Unknown error occurred: ${String(error40)}`));
+  }
+}
+
+// src/components/DownloadModalNew.tsx
+init_documentHandler();
+
+// src/components/ConnectorFolderBrowser.tsx
+var import_react260 = __toESM(require_react(), 1);
 var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
-function ConnectorReplacementModal({
+function ConnectorFolderBrowser({
   opened,
   onClose,
-  missingConnectors,
-  availableConnectors,
-  onReplace,
-  nameMatches = {}
+  initialSelection = null
 }) {
-  const [replacements, setReplacements] = import_react258.useState({});
-  const mediaConnectors = availableConnectors.filter((c2) => c2.type === "media");
-  import_react258.useEffect(() => {
-    if (opened && Object.keys(nameMatches).length > 0) {
-      setReplacements(nameMatches);
+  const raiseError2 = appStore((store) => store.raiseError);
+  const [browserState, setBrowserState] = import_react260.useState("loading");
+  const [connectors, setConnectors] = import_react260.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react260.useState(null);
+  const [localConnectorId, setLocalConnectorId] = import_react260.useState(null);
+  const [currentPath, setCurrentPath] = import_react260.useState("/");
+  const [folders, setFolders] = import_react260.useState([]);
+  const [selectedFolders, setSelectedFolders] = import_react260.useState(new Set);
+  const [persistentSelections, setPersistentSelections] = import_react260.useState(new Set);
+  const [isLoadingFolders, setIsLoadingFolders] = import_react260.useState(false);
+  const [error40, setError] = import_react260.useState(null);
+  const [fileCount, setFileCount] = import_react260.useState(0);
+  const CONNECTOR_SESSION_KEY = "tempDownloadModal_connectorId";
+  import_react260.useEffect(() => {
+    if (opened) {
+      const selectedPaths = initialSelection?.selectedFolders || [];
+      setPersistentSelections(new Set(selectedPaths));
+      if (initialSelection?.connectorId) {
+        setSelectedConnectorId(initialSelection.connectorId);
+      }
+      loadConnectors();
+    } else {
+      cleanupAndResetState();
     }
-  }, [opened, nameMatches]);
-  const allSelected = missingConnectors.every((connector) => replacements[connector.id] !== undefined);
-  const handleReplace = () => {
-    const replacementArray = Object.entries(replacements).map(([original, replacement]) => ({
-      original,
-      replacement
-    }));
-    onReplace(replacementArray);
-    onClose();
+  }, [opened, initialSelection]);
+  import_react260.useEffect(() => {
+    if (browserState === "connectorSelection") {
+      const savedConnectorId = sessionStorage.getItem(CONNECTOR_SESSION_KEY);
+      if (savedConnectorId && connectors.some((c2) => c2.id === savedConnectorId)) {
+        setSelectedConnectorId(savedConnectorId);
+      }
+    }
+  }, [browserState, connectors]);
+  const resetState = () => {
+    setBrowserState("loading");
+    setConnectors([]);
+    setSelectedConnectorId(null);
+    setLocalConnectorId(null);
+    setCurrentPath("/");
+    setFolders([]);
+    setSelectedFolders(new Set);
+    setPersistentSelections(new Set);
+    setIsLoadingFolders(false);
+    setError(null);
+    setFileCount(0);
+  };
+  const cleanupAndResetState = async () => {
+    if (localConnectorId) {
+      try {
+        const studioResult = await getStudio();
+        if (studioResult.isOk()) {
+          const unregisterResult = await unregisterConnector(studioResult.value, localConnectorId);
+          if (!unregisterResult.isOk()) {
+            raiseError2(new Error(unregisterResult.error?.message || "Failed to unregister connector"));
+          }
+        }
+      } catch (error41) {
+        raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+      }
+    }
+    resetState();
+  };
+  const loadConnectors = async () => {
+    try {
+      setError(null);
+      setBrowserState("loading");
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+      const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+      const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
+      const connectorsResult = await getMediaConnectorsAPI(baseUrl, token2);
+      if (!connectorsResult.isOk()) {
+        throw new Error(connectorsResult.error?.message || "Failed to fetch connectors");
+      }
+      const connectorResponse = connectorsResult.value;
+      const mediaConnectors = connectorResponse.data.filter((connector) => connector.type === "media" && connector.enabled);
+      setConnectors(mediaConnectors);
+      if (selectedConnectorId && mediaConnectors.some((c2) => c2.id === selectedConnectorId)) {
+        await proceedWithConnector(selectedConnectorId, studioResult.value);
+      } else {
+        setBrowserState("connectorSelection");
+      }
+    } catch (error41) {
+      const errorMessage = error41 instanceof Error ? error41.message : String(error41);
+      setError(errorMessage);
+      raiseError2(new Error(errorMessage));
+    }
+  };
+  const proceedWithConnector = async (connectorId, studio2) => {
+    try {
+      setError(null);
+      setIsLoadingFolders(true);
+      sessionStorage.setItem(CONNECTOR_SESSION_KEY, connectorId);
+      const registerResult = await registerConnector(studio2, connectorId);
+      if (!registerResult.isOk()) {
+        throw new Error(registerResult.error?.message || "Failed to register connector");
+      }
+      const localId = registerResult.value;
+      setLocalConnectorId(localId);
+      setBrowserState("folderBrowsing");
+      await loadFolders(localId, "/", "");
+    } catch (error41) {
+      const errorMessage = error41 instanceof Error ? error41.message : String(error41);
+      setError(errorMessage);
+      raiseError2(new Error(errorMessage));
+      setIsLoadingFolders(false);
+    }
+  };
+  const handleConnectorSelect = async () => {
+    if (!selectedConnectorId)
+      return;
+    const studioResult = await getStudio();
+    if (!studioResult.isOk()) {
+      setError(studioResult.error?.message || "Failed to get studio");
+      raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+      return;
+    }
+    await proceedWithConnector(selectedConnectorId, studioResult.value);
+  };
+  const updateSelectedFoldersForCurrentPath = (folderData, path) => {
+    const currentPathSelections = new Set;
+    folderData.forEach((folder) => {
+      const folderPath = path === "/" ? `/${folder.name}` : `${path}/${folder.name}`;
+      if (persistentSelections.has(folderPath)) {
+        currentPathSelections.add(folderPath);
+      }
+    });
+    setSelectedFolders(currentPathSelections);
+  };
+  const loadFolders = async (connectorId, path, pageToken = "") => {
+    try {
+      setIsLoadingFolders(true);
+      setError(null);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+      const queryResult = await queryMediaConnectorSimple(studioResult.value, connectorId, path, pageToken);
+      if (!queryResult.isOk()) {
+        throw new Error(queryResult.error?.message || "Failed to query media connector");
+      }
+      const queryPage = queryResult.value;
+      const folderData = queryPage.data.filter((item) => item.type === "folder" || item.type == 1);
+      const fileData = queryPage.data.filter((item) => item.type === "file" || item.type == 0);
+      if (pageToken === "") {
+        setFolders(folderData);
+        setFileCount(fileData.length);
+        updateSelectedFoldersForCurrentPath(folderData, path);
+      } else {
+        setFolders((prev2) => {
+          const newFolders = [...prev2, ...folderData];
+          updateSelectedFoldersForCurrentPath(newFolders, path);
+          return newFolders;
+        });
+        setFileCount((prev2) => prev2 + fileData.length);
+      }
+      if (queryPage.nextPageToken) {
+        setTimeout(() => {
+          loadFolders(connectorId, path, queryPage.nextPageToken);
+        }, 100);
+      } else {
+        setIsLoadingFolders(false);
+      }
+    } catch (error41) {
+      const errorMessage = error41 instanceof Error ? error41.message : String(error41);
+      setError(errorMessage);
+      raiseError2(new Error(errorMessage));
+      setIsLoadingFolders(false);
+    }
+  };
+  const navigateToFolder = async (folderName) => {
+    if (!localConnectorId)
+      return;
+    const newPath = currentPath === "/" ? `/${folderName}` : `${currentPath}/${folderName}`;
+    setCurrentPath(newPath);
+    setFolders([]);
+    await loadFolders(localConnectorId, newPath, "");
+  };
+  const navigateBack = async () => {
+    if (!localConnectorId || currentPath === "/")
+      return;
+    const pathParts = currentPath.split("/").filter(Boolean);
+    pathParts.pop();
+    const newPath = pathParts.length === 0 ? "/" : `/${pathParts.join("/")}`;
+    setCurrentPath(newPath);
+    setFolders([]);
+    await loadFolders(localConnectorId, newPath, "");
+  };
+  const toggleFolderSelection = (folderName) => {
+    const folderPath = currentPath === "/" ? `/${folderName}` : `${currentPath}/${folderName}`;
+    const newSelected = new Set(selectedFolders);
+    const newPersistent = new Set(persistentSelections);
+    if (newSelected.has(folderPath)) {
+      newSelected.delete(folderPath);
+      newPersistent.delete(folderPath);
+    } else {
+      newSelected.add(folderPath);
+      newPersistent.add(folderPath);
+    }
+    setSelectedFolders(newSelected);
+    setPersistentSelections(newPersistent);
+  };
+  const toggleCurrentFolderSelection = () => {
+    const newPersistent = new Set(persistentSelections);
+    if (newPersistent.has(currentPath)) {
+      newPersistent.delete(currentPath);
+    } else {
+      newPersistent.add(currentPath);
+    }
+    setPersistentSelections(newPersistent);
+  };
+  const handleSelectFolders = async () => {
+    const selectedPaths = Array.from(persistentSelections);
+    if (localConnectorId) {
+      try {
+        const studioResult = await getStudio();
+        if (studioResult.isOk()) {
+          const unregisterResult = await unregisterConnector(studioResult.value, localConnectorId);
+          if (!unregisterResult.isOk()) {
+            raiseError2(new Error(unregisterResult.error?.message || "Failed to unregister connector"));
+          }
+        }
+      } catch (error41) {
+        raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+      }
+    }
+    const selectedConnector = connectors.find((c2) => c2.id === selectedConnectorId);
+    const connectorName = selectedConnector?.name || "";
+    const selection = {
+      selectedFolders: selectedPaths,
+      connectorId: selectedConnectorId || "",
+      connectorName
+    };
+    resetState();
+    onClose(selection);
+  };
+  const renderBreadcrumbs = () => {
+    const pathParts = currentPath.split("/").filter(Boolean);
+    const breadcrumbItems = [
+      /* @__PURE__ */ jsx_runtime20.jsx(Anchor, {
+        onClick: () => {
+          if (localConnectorId) {
+            setCurrentPath("/");
+            setFolders([]);
+            loadFolders(localConnectorId, "/", "");
+          }
+        },
+        children: "Root"
+      }, "root")
+    ];
+    pathParts.forEach((part, index4) => {
+      const partPath = `/${pathParts.slice(0, index4 + 1).join("/")}`;
+      breadcrumbItems.push(/* @__PURE__ */ jsx_runtime20.jsx(Anchor, {
+        onClick: () => {
+          if (localConnectorId) {
+            setCurrentPath(partPath);
+            setFolders([]);
+            loadFolders(localConnectorId, partPath, "");
+          }
+        },
+        children: part
+      }, partPath));
+    });
+    return /* @__PURE__ */ jsx_runtime20.jsx(Breadcrumbs, {
+      children: breadcrumbItems
+    });
   };
   return /* @__PURE__ */ jsx_runtime20.jsx(Modal, {
     opened,
-    onClose,
-    title: "Missing Connectors Detected",
-    size: "lg",
-    centered: true,
+    onClose: async () => {
+      await cleanupAndResetState();
+      onClose(null);
+    },
+    title: "Select Folders for Smart Crops",
+    fullScreen: true,
+    styles: {
+      content: {
+        height: "100vh"
+      },
+      body: {
+        padding: "2rem",
+        height: "calc(100vh - 80px)",
+        display: "flex",
+        flexDirection: "column"
+      },
+      header: {
+        padding: "1.5rem 2rem 1rem 2rem"
+      },
+      title: {
+        fontSize: "1.5rem",
+        fontWeight: 600
+      }
+    },
     children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+      gap: "lg",
       children: [
-        /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-          size: "sm",
-          children: "The following connectors in your document were not found in your current environment. Please select replacement connectors:"
+        error40 && /* @__PURE__ */ jsx_runtime20.jsx(Alert, {
+          icon: /* @__PURE__ */ jsx_runtime20.jsx(IconAlertCircle, {
+            size: "1rem"
+          }),
+          title: "Error",
+          color: "red",
+          children: error40
         }),
-        /* @__PURE__ */ jsx_runtime20.jsxs(Table, {
+        browserState === "loading" && /* @__PURE__ */ jsx_runtime20.jsx(Center, {
+          children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+            align: "center",
+            gap: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime20.jsx(Loader, {
+                size: "lg"
+              }),
+              /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+                children: "Loading connectors..."
+              })
+            ]
+          })
+        }),
+        browserState === "connectorSelection" && /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+          gap: "md",
+          align: "center",
           children: [
-            /* @__PURE__ */ jsx_runtime20.jsx(Table.Thead, {
-              children: /* @__PURE__ */ jsx_runtime20.jsxs(Table.Tr, {
+            /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+              size: "md",
+              ta: "center",
+              children: "Choose a connector to browse folders"
+            }),
+            /* @__PURE__ */ jsx_runtime20.jsx(Select, {
+              label: "Choose Connector",
+              placeholder: "Select a connector",
+              data: connectors.map((c2) => ({ value: c2.id, label: c2.name })),
+              value: selectedConnectorId,
+              onChange: setSelectedConnectorId,
+              style: { width: "300px" }
+            }),
+            /* @__PURE__ */ jsx_runtime20.jsx(Button, {
+              onClick: handleConnectorSelect,
+              disabled: !selectedConnectorId,
+              loading: isLoadingFolders,
+              style: { marginLeft: "-50px" },
+              children: "Select"
+            })
+          ]
+        }),
+        browserState === "folderBrowsing" && /* @__PURE__ */ jsx_runtime20.jsxs(jsx_runtime20.Fragment, {
+          children: [
+            /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+              size: "sm",
+              c: "dimmed",
+              ta: "center",
+              children: "Select folders to copy smart crops. All files directly under the selected folders will be included. Subfolders will not be automatically included."
+            }),
+            /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
+              gap: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime20.jsx(ActionIcon, {
+                  variant: "subtle",
+                  onClick: navigateBack,
+                  disabled: currentPath === "/",
+                  children: /* @__PURE__ */ jsx_runtime20.jsx(IconArrowBigLeftFilled, {
+                    size: 20
+                  })
+                }),
+                renderBreadcrumbs()
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime20.jsx(Group, {
+              justify: "space-between",
+              align: "center",
+              children: /* @__PURE__ */ jsx_runtime20.jsxs(Text, {
+                size: "sm",
+                c: "dimmed",
                 children: [
-                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Th, {
-                    children: "Original Connector"
+                  "Files: ",
+                  fileCount
+                ]
+              })
+            }),
+            /* @__PURE__ */ jsx_runtime20.jsx(ScrollArea, {
+              style: { flex: 1, minHeight: "400px" },
+              children: folders.length === 0 && isLoadingFolders ? /* @__PURE__ */ jsx_runtime20.jsx(Center, {
+                h: 200,
+                children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+                  align: "center",
+                  gap: "md",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime20.jsx(Loader, {
+                      size: "lg"
+                    }),
+                    /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+                      c: "dimmed",
+                      children: "Loading folders..."
+                    })
+                  ]
+                })
+              }) : folders.length === 0 && !isLoadingFolders ? /* @__PURE__ */ jsx_runtime20.jsx(Center, {
+                h: 200,
+                children: /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+                  c: "dimmed",
+                  children: "No folders found"
+                })
+              }) : /* @__PURE__ */ jsx_runtime20.jsxs(SimpleGrid, {
+                cols: 4,
+                spacing: "md",
+                children: [
+                  folders.map((folder) => {
+                    const folderPath = currentPath === "/" ? `/${folder.name}` : `${currentPath}/${folder.name}`;
+                    const isSelected = selectedFolders.has(folderPath);
+                    return /* @__PURE__ */ jsx_runtime20.jsxs(Card, {
+                      shadow: "sm",
+                      padding: "md",
+                      radius: "md",
+                      style: {
+                        cursor: "pointer",
+                        position: "relative",
+                        border: isSelected ? "2px solid #228be6" : undefined
+                      },
+                      onClick: () => navigateToFolder(folder.name),
+                      children: [
+                        /* @__PURE__ */ jsx_runtime20.jsx(Checkbox, {
+                          checked: isSelected,
+                          onChange: () => toggleFolderSelection(folder.name),
+                          style: {
+                            position: "absolute",
+                            top: "8px",
+                            right: "8px"
+                          },
+                          onClick: (e) => e.stopPropagation()
+                        }),
+                        /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+                          align: "center",
+                          gap: "xs",
+                          children: [
+                            /* @__PURE__ */ jsx_runtime20.jsx(IconFolder, {
+                              size: 32
+                            }),
+                            /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+                              size: "sm",
+                              ta: "center",
+                              lineClamp: 2,
+                              children: folder.name
+                            })
+                          ]
+                        })
+                      ]
+                    }, folder.id);
                   }),
-                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Th, {
-                    children: "ID"
-                  }),
-                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Th, {
-                    children: "Replace With"
+                  isLoadingFolders && folders.length > 0 && /* @__PURE__ */ jsx_runtime20.jsx(Card, {
+                    shadow: "sm",
+                    padding: "md",
+                    radius: "md",
+                    style: { opacity: 0.7 },
+                    children: /* @__PURE__ */ jsx_runtime20.jsx(Center, {
+                      h: "100%",
+                      children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+                        align: "center",
+                        gap: "xs",
+                        children: [
+                          /* @__PURE__ */ jsx_runtime20.jsx(Loader, {
+                            size: "sm"
+                          }),
+                          /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+                            size: "xs",
+                            c: "dimmed",
+                            children: "Loading..."
+                          })
+                        ]
+                      })
+                    })
                   })
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime20.jsx(Table.Tbody, {
-              children: missingConnectors.map((connector) => /* @__PURE__ */ jsx_runtime20.jsxs(Table.Tr, {
-                children: [
-                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Td, {
-                    children: connector.name
-                  }),
-                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Td, {
-                    children: connector.id
-                  }),
-                  /* @__PURE__ */ jsx_runtime20.jsx(Table.Td, {
-                    children: /* @__PURE__ */ jsx_runtime20.jsx(Select, {
-                      data: mediaConnectors.map((c2) => ({
-                        value: c2.id,
-                        label: c2.name
-                      })),
-                      placeholder: "Select a connector",
-                      value: replacements[connector.id],
-                      onChange: (value) => {
-                        if (value) {
-                          setReplacements((prev2) => ({
-                            ...prev2,
-                            [connector.id]: value
-                          }));
-                        }
-                      }
-                    })
+            persistentSelections.size > 0 && /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+              gap: "xs",
+              children: [
+                /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+                  size: "sm",
+                  fw: 500,
+                  children: "Selected folders:"
+                }),
+                /* @__PURE__ */ jsx_runtime20.jsx(ScrollArea, {
+                  h: 80,
+                  children: /* @__PURE__ */ jsx_runtime20.jsx(Stack, {
+                    gap: "xs",
+                    children: Array.from(persistentSelections).map((path) => /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+                      size: "xs",
+                      c: "dimmed",
+                      children: path
+                    }, path))
                   })
-                ]
-              }, connector.id))
-            })
-          ]
-        }),
-        /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
-          justify: "flex-end",
-          children: [
-            /* @__PURE__ */ jsx_runtime20.jsx(Button, {
-              onClick: onClose,
-              variant: "outline",
-              children: "Cancel"
+                })
+              ]
             }),
-            /* @__PURE__ */ jsx_runtime20.jsx(Button, {
-              onClick: handleReplace,
-              disabled: !allSelected,
-              children: "Replace Connectors"
+            /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
+              justify: "space-between",
+              mt: "xl",
+              children: [
+                /* @__PURE__ */ jsx_runtime20.jsx(Button, {
+                  variant: "default",
+                  onClick: async () => {
+                    await cleanupAndResetState();
+                    onClose(null);
+                  },
+                  children: "Cancel"
+                }),
+                /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
+                  gap: "md",
+                  children: [
+                    currentPath !== "/" && /* @__PURE__ */ jsx_runtime20.jsx(Button, {
+                      variant: "outline",
+                      onClick: toggleCurrentFolderSelection,
+                      children: persistentSelections.has(currentPath) ? "Remove Current Folder" : "Add Current Folder"
+                    }),
+                    /* @__PURE__ */ jsx_runtime20.jsxs(Button, {
+                      onClick: handleSelectFolders,
+                      disabled: persistentSelections.size === 0,
+                      children: [
+                        "Select (",
+                        persistentSelections.size,
+                        ")"
+                      ]
+                    })
+                  ]
+                })
+              ]
             })
           ]
         })
@@ -55319,83 +67306,1024 @@ function ConnectorReplacementModal({
   });
 }
 
-// src/components/DownloadModal.tsx
+// src/components/ConnectorSelectionModal.tsx
+var import_react261 = __toESM(require_react(), 1);
 var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
-function DownloadModal({ opened, onClose }) {
-  const fileInputRef = import_react259.useRef(null);
-  const raiseError2 = appStore((store) => store.raiseError);
-  const [replacementModalOpened, setReplacementModalOpened] = import_react259.useState(false);
-  const [missingConnectors, setMissingConnectors] = import_react259.useState([]);
-  const [availableConnectors, setAvailableConnectors] = import_react259.useState([]);
-  const [pendingJsonContent, setPendingJsonContent] = import_react259.useState("");
-  const [nameMatches, setNameMatches] = import_react259.useState({});
-  const [fontMigrationProgress, setFontMigrationProgress] = import_react259.useState(null);
-  const [showPackageWarning, setShowPackageWarning] = import_react259.useState(false);
-  const [isDownloading, setIsDownloading] = import_react259.useState(false);
-  const handleDownloadDocumentJson = async () => {
-    setIsDownloading(true);
-    try {
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
-        return;
+function ConnectorSelectionModal({
+  opened,
+  onClose,
+  connectors,
+  smartCropsConnectorName,
+  onSelect
+}) {
+  const [selectedConnectorId, setSelectedConnectorId] = import_react261.useState("");
+  import_react261.useEffect(() => {
+    if (opened && smartCropsConnectorName) {
+      const matchingConnector = connectors.find((connector) => connector.name === smartCropsConnectorName);
+      if (matchingConnector) {
+        setSelectedConnectorId(matchingConnector.id);
       }
-      const documentResult = await getCurrentDocumentState(studioResult.value);
-      if (!documentResult.isOk()) {
-        raiseError2(new Error(documentResult.error?.message || "Failed to get document state"));
-        return;
-      }
-      const templateName = await getTemplateName(studioResult.value);
-      const documentData = { ...documentResult.value };
-      const fileName = `${templateName}.json`;
-      downloadJsonFile(documentData, fileName);
+    }
+  }, [opened, smartCropsConnectorName, connectors]);
+  import_react261.useEffect(() => {
+    if (!opened) {
+      setSelectedConnectorId("");
+    }
+  }, [opened]);
+  const handleContinue = () => {
+    if (selectedConnectorId) {
+      onSelect(selectedConnectorId);
       onClose();
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
-    } finally {
-      setIsDownloading(false);
     }
   };
-  const handleDownloadTemplatePackage = async () => {
-    setIsDownloading(true);
+  const handleClose = () => {
+    setSelectedConnectorId("");
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+    opened,
+    onClose: handleClose,
+    title: "Select Connector for Smart Crops",
+    centered: true,
+    size: "md",
+    styles: {
+      content: {
+        minHeight: "300px"
+      },
+      body: {
+        padding: "2rem"
+      },
+      header: {
+        padding: "1.5rem 2rem 1rem 2rem"
+      },
+      title: {
+        fontSize: "1.5rem",
+        fontWeight: 600
+      }
+    },
+    children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+      gap: "xl",
+      children: [
+        /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+          size: "md",
+          children: "Select the connector where you want to upload the smart crops data:"
+        }),
+        /* @__PURE__ */ jsx_runtime21.jsx(Select, {
+          label: "Connector",
+          placeholder: "Choose a connector",
+          data: connectors.map((connector) => ({
+            value: connector.id,
+            label: connector.name
+          })),
+          value: selectedConnectorId,
+          onChange: (value) => setSelectedConnectorId(value || ""),
+          searchable: true,
+          required: true
+        }),
+        /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+          justify: "flex-end",
+          mt: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+              variant: "outline",
+              onClick: handleClose,
+              children: "Cancel"
+            }),
+            /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+              onClick: handleContinue,
+              disabled: !selectedConnectorId,
+              color: "blue",
+              children: "Continue"
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+
+// src/components/DownloadModal/ReplaceConnectorsModal.tsx
+var import_react262 = __toESM(require_react(), 1);
+var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+function ReplaceConnectorsModal({
+  opened,
+  onClose,
+  connectorsToReplace,
+  availableConnectors,
+  onReplace
+}) {
+  const [replacements, setReplacements] = import_react262.useState({});
+  import_react262.useEffect(() => {
+    if (opened && connectorsToReplace.length > 0) {
+      const autoReplacements = {};
+      connectorsToReplace.forEach((docConnector) => {
+        const matchingConnector = availableConnectors.find((connector) => connector.name === docConnector.name);
+        if (matchingConnector) {
+          autoReplacements[docConnector.id] = matchingConnector.id;
+        }
+      });
+      setReplacements(autoReplacements);
+    }
+  }, [opened, connectorsToReplace, availableConnectors]);
+  import_react262.useEffect(() => {
+    if (!opened) {
+      setReplacements({});
+    }
+  }, [opened]);
+  const allSelected = connectorsToReplace.every((connector) => replacements[connector.id] !== undefined);
+  const handleReplacementChange = (connectorId, replacementId) => {
+    setReplacements((prev2) => {
+      const updated = { ...prev2 };
+      if (replacementId) {
+        updated[connectorId] = replacementId;
+      } else {
+        delete updated[connectorId];
+      }
+      return updated;
+    });
+  };
+  const handleContinue = () => {
+    const replacementMap = new Map;
+    Object.entries(replacements).forEach(([original, replacement]) => {
+      replacementMap.set(original, replacement);
+    });
+    onReplace(replacementMap);
+    onClose();
+  };
+  const handleClose = () => {
+    setReplacements({});
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
+    opened,
+    onClose: handleClose,
+    title: "Replace Connectors",
+    centered: true,
+    size: "lg",
+    styles: {
+      content: {
+        minHeight: "400px"
+      },
+      body: {
+        padding: "2rem"
+      },
+      header: {
+        padding: "1.5rem 2rem 1rem 2rem"
+      },
+      title: {
+        fontSize: "1.5rem",
+        fontWeight: 600
+      }
+    },
+    children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
+      gap: "xl",
+      children: [
+        /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+          size: "md",
+          children: "The following connectors from the document need to be replaced with available connectors:"
+        }),
+        /* @__PURE__ */ jsx_runtime22.jsxs(Table, {
+          children: [
+            /* @__PURE__ */ jsx_runtime22.jsx(Table.Thead, {
+              children: /* @__PURE__ */ jsx_runtime22.jsxs(Table.Tr, {
+                children: [
+                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Th, {
+                    children: "Document Connector"
+                  }),
+                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Th, {
+                    children: "Original ID"
+                  }),
+                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Th, {
+                    children: "Replace With"
+                  })
+                ]
+              })
+            }),
+            /* @__PURE__ */ jsx_runtime22.jsx(Table.Tbody, {
+              children: connectorsToReplace.map((connector) => /* @__PURE__ */ jsx_runtime22.jsxs(Table.Tr, {
+                children: [
+                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
+                    children: connector.name
+                  }),
+                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
+                    style: { fontFamily: "monospace", fontSize: "0.8rem" },
+                    children: connector.id
+                  }),
+                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
+                    children: /* @__PURE__ */ jsx_runtime22.jsx(Select, {
+                      data: availableConnectors.map((c2) => ({
+                        value: c2.id,
+                        label: c2.name
+                      })),
+                      placeholder: "Select a connector",
+                      value: replacements[connector.id] || null,
+                      onChange: (value) => handleReplacementChange(connector.id, value),
+                      searchable: true,
+                      required: true
+                    })
+                  })
+                ]
+              }, connector.id))
+            })
+          ]
+        }),
+        /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+          justify: "flex-end",
+          mt: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+              variant: "outline",
+              onClick: handleClose,
+              children: "Cancel"
+            }),
+            /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+              onClick: handleContinue,
+              disabled: !allSelected,
+              color: "blue",
+              children: "Continue"
+            })
+          ]
+        })
+      ]
+    })
+  });
+}
+
+// src/components/DownloadModal/InitialScreen.tsx
+var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+function InitialScreen({
+  error: error40,
+  onDownload,
+  onUpload,
+  onJsonDownload,
+  onJsonUpload
+}) {
+  return /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+    gap: "xl",
+    children: [
+      /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center", marginBottom: "1rem" },
+        children: "Choose an action for document management."
+      }),
+      error40 && /* @__PURE__ */ jsx_runtime23.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime23.jsx(IconAlertCircle, {
+          size: "1rem"
+        }),
+        title: "Error",
+        color: "red",
+        style: { marginBottom: "1rem" },
+        children: error40
+      }),
+      /* @__PURE__ */ jsx_runtime23.jsxs(SimpleGrid, {
+        cols: 2,
+        spacing: "xl",
+        style: { marginTop: "1rem" },
+        children: [
+          /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+            onClick: onDownload,
+            color: "blue",
+            fullWidth: true,
+            size: "lg",
+            style: {
+              height: "80px",
+              fontSize: "1rem",
+              fontWeight: 500
+            },
+            children: /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+              gap: "md",
+              style: { flexDirection: "column" },
+              children: [
+                /* @__PURE__ */ jsx_runtime23.jsx(IconDownload, {
+                  size: 28
+                }),
+                /* @__PURE__ */ jsx_runtime23.jsx("span", {
+                  children: "Download"
+                })
+              ]
+            })
+          }),
+          /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+            onClick: onUpload,
+            color: "green",
+            fullWidth: true,
+            size: "lg",
+            style: {
+              height: "80px",
+              fontSize: "1rem",
+              fontWeight: 500
+            },
+            children: /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+              gap: "md",
+              style: { flexDirection: "column" },
+              children: [
+                /* @__PURE__ */ jsx_runtime23.jsx(IconUpload, {
+                  size: 28
+                }),
+                /* @__PURE__ */ jsx_runtime23.jsx("span", {
+                  children: "Upload"
+                })
+              ]
+            })
+          })
+        ]
+      }),
+      /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+        gap: "xs",
+        mt: "md",
+        children: [
+          /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+            size: "sm",
+            fw: 500,
+            c: "dimmed",
+            children: "Quick Actions:"
+          }),
+          /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+            justify: "flex-start",
+            children: [
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+                label: "Download document JSON",
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                  onClick: onJsonDownload,
+                  color: "gray",
+                  variant: "subtle",
+                  size: "lg",
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconFileDownload, {
+                    size: 20
+                  })
+                })
+              }),
+              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
+                label: "Upload document JSON",
+                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
+                  onClick: onJsonUpload,
+                  color: "gray",
+                  variant: "subtle",
+                  size: "lg",
+                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconFileUpload, {
+                    size: 20
+                  })
+                })
+              })
+            ]
+          })
+        ]
+      })
+    ]
+  });
+}
+
+// src/components/DownloadModal/DownloadSettingsScreen.tsx
+var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+function DownloadSettingsScreen({
+  error: error40,
+  folderName,
+  folderNameError,
+  downloadSettings,
+  fontStylesCount,
+  connectorSelection,
+  onFolderNameChange,
+  onSettingChange,
+  onAddFolder,
+  onRemoveFolderPath,
+  onBack,
+  onDownload
+}) {
+  return /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+    gap: "xl",
+    children: [
+      /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center", marginBottom: "1rem" },
+        children: "Download Settings"
+      }),
+      error40 && /* @__PURE__ */ jsx_runtime24.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime24.jsx(IconAlertCircle, {
+          size: "1rem"
+        }),
+        title: "Error",
+        color: "red",
+        style: { marginBottom: "1rem" },
+        children: error40
+      }),
+      /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+        gap: "md",
+        children: [
+          /* @__PURE__ */ jsx_runtime24.jsx(TextInput, {
+            label: "Folder Name",
+            value: folderName,
+            onChange: (event) => onFolderNameChange(event.currentTarget.value),
+            error: folderNameError,
+            placeholder: "Enter folder name",
+            description: "Only letters, numbers, hyphens, and underscores are allowed"
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+            label: "Add Timestamp",
+            checked: downloadSettings.addTimestamp,
+            onChange: (event) => onSettingChange("addTimestamp", event.currentTarget.checked)
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+            gap: "xs",
+            children: [
+              /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                label: `Include fonts${downloadSettings.includeFonts && fontStylesCount > 0 ? ` (${fontStylesCount} styles)` : ""}`,
+                checked: downloadSettings.includeFonts,
+                onChange: (event) => onSettingChange("includeFonts", event.currentTarget.checked)
+              }),
+              downloadSettings.includeFonts && /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                label: "Use original font file names (Default: unchecked because duplicate font names will cause false positives of missing files during upload)",
+                checked: downloadSettings.useOriginalFontFileNames,
+                onChange: (event) => onSettingChange("useOriginalFontFileNames", event.currentTarget.checked),
+                style: { marginLeft: "40px" }
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+            gap: "xs",
+            children: [
+              /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                label: "Include GraFx Media",
+                checked: downloadSettings.includeGrafxMedia,
+                onChange: (event) => onSettingChange("includeGrafxMedia", event.currentTarget.checked)
+              }),
+              downloadSettings.includeGrafxMedia && /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                size: "sm",
+                c: "red",
+                children: "Not implemented"
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+            gap: "xs",
+            children: [
+              /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                label: "Include smart crops",
+                checked: downloadSettings.includeSmartCrops,
+                onChange: (event) => onSettingChange("includeSmartCrops", event.currentTarget.checked)
+              }),
+              downloadSettings.includeSmartCrops && /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                gap: "xs",
+                style: { marginLeft: "1.5rem" },
+                children: [
+                  /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                    variant: "outline",
+                    size: "sm",
+                    style: { width: "fit-content" },
+                    onClick: onAddFolder,
+                    children: "Add folders"
+                  }),
+                  connectorSelection && connectorSelection.selectedFolders.length > 0 && /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                    gap: "xs",
+                    children: [
+                      /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                        size: "xs",
+                        fw: 500,
+                        children: "Selected folders:"
+                      }),
+                      connectorSelection.selectedFolders.map((path, index4) => /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+                        gap: "xs",
+                        style: { marginLeft: "0.5rem" },
+                        children: [
+                          /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+                            size: "xs",
+                            variant: "subtle",
+                            color: "red",
+                            onClick: () => onRemoveFolderPath(path),
+                            children: /* @__PURE__ */ jsx_runtime24.jsx(IconCircleX, {
+                              size: 12
+                            })
+                          }),
+                          /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                            size: "xs",
+                            c: "dimmed",
+                            style: { flex: 1 },
+                            children: path
+                          })
+                        ]
+                      }, index4))
+                    ]
+                  })
+                ]
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+            label: "Remove Toolbar data",
+            checked: downloadSettings.removeToolbarData,
+            onChange: (event) => onSettingChange("removeToolbarData", event.currentTarget.checked)
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsx(Title, {
+            order: 5,
+            children: "Experimental"
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsx(Tooltip, {
+            label: "Experimental: May cause issues with your document",
+            position: "right",
+            withArrow: true,
+            children: /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+              label: "Remove unused Connectors",
+              color: "red",
+              checked: downloadSettings.removeUnusedConnectors,
+              onChange: (event) => onSettingChange("removeUnusedConnectors", event.currentTarget.checked)
+            })
+          })
+        ]
+      }),
+      /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+        justify: "space-between",
+        mt: "xl",
+        children: [
+          /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+            variant: "default",
+            onClick: onBack,
+            children: "Back"
+          }),
+          /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+            onClick: onDownload,
+            color: "blue",
+            children: "Download"
+          })
+        ]
+      })
+    ]
+  });
+}
+
+// src/components/DownloadModal/DownloadTasksScreen.tsx
+var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
+function DownloadTasksScreen({
+  downloadFiles,
+  tasks,
+  uploadTasks,
+  onClose
+}) {
+  const allTasks = [
+    ...downloadFiles.map((file2) => ({
+      id: file2.id,
+      name: `Downloading: ${file2.name}`,
+      type: "download",
+      status: file2.status === "downloading" ? "processing" : file2.status,
+      error: file2.error
+    })),
+    ...tasks,
+    ...uploadTasks
+  ];
+  const allComplete = allTasks.every((task) => task.status === "complete" || task.status === "error" || task.status === "info");
+  return /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
+    gap: "xl",
+    children: [
+      /* @__PURE__ */ jsx_runtime25.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center", marginBottom: "1rem" },
+        children: "Processing Tasks"
+      }),
+      /* @__PURE__ */ jsx_runtime25.jsx(List, {
+        spacing: "md",
+        size: "sm",
+        children: allTasks.map((task) => /* @__PURE__ */ jsx_runtime25.jsx(List.Item, {
+          icon: task.status === "pending" || task.status === "processing" ? /* @__PURE__ */ jsx_runtime25.jsx(Loader, {
+            size: "sm"
+          }) : task.status === "complete" ? /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+            label: "Successfully completed",
+            children: /* @__PURE__ */ jsx_runtime25.jsx(IconCircleCheckFilled, {
+              size: 20,
+              color: "green"
+            })
+          }) : task.status === "info" ? /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+            label: task.tooltip || "Information",
+            children: /* @__PURE__ */ jsx_runtime25.jsx(IconInfoCircleFilled, {
+              size: 20,
+              color: "blue"
+            })
+          }) : /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+            label: task.error || "Task failed",
+            children: /* @__PURE__ */ jsx_runtime25.jsx(IconExclamationCircle, {
+              size: 20,
+              color: "red"
+            })
+          }),
+          children: /* @__PURE__ */ jsx_runtime25.jsx(Text, {
+            size: "sm",
+            children: task.name
+          })
+        }, task.id))
+      }),
+      allComplete && /* @__PURE__ */ jsx_runtime25.jsx(Group, {
+        justify: "center",
+        mt: "xl",
+        children: /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+          onClick: onClose,
+          color: "blue",
+          children: "Close"
+        })
+      })
+    ]
+  });
+}
+
+// src/components/DownloadModal/UploadTasksScreen.tsx
+var import_react263 = __toESM(require_react(), 1);
+var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
+function UploadTasksScreen({
+  error: error40,
+  onBack,
+  onContinue
+}) {
+  const [dontShowAgain, setDontShowAgain] = import_react263.useState(false);
+  const handleContinue = () => {
+    if (dontShowAgain) {
+      localStorage.setItem("tempSlowUploadInstructions", "true");
+    }
+    onContinue();
+  };
+  return /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
+    gap: "xl",
+    children: [
+      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center", marginBottom: "1rem" },
+        children: "Upload Instructions"
+      }),
+      error40 && /* @__PURE__ */ jsx_runtime26.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime26.jsx(IconAlertCircle, {
+          size: "1rem"
+        }),
+        title: "Error",
+        color: "red",
+        style: { marginBottom: "1rem" },
+        children: error40
+      }),
+      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center" },
+        children: "Please choose the folder that contains your package.json."
+      }),
+      /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
+        label: "Don't show this message again",
+        checked: dontShowAgain,
+        onChange: (event) => setDontShowAgain(event.currentTarget.checked)
+      }),
+      /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
+        justify: "space-between",
+        mt: "xl",
+        children: [
+          /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+            variant: "default",
+            onClick: onBack,
+            children: "Back"
+          }),
+          /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+            onClick: handleContinue,
+            color: "green",
+            children: "Continue"
+          })
+        ]
+      })
+    ]
+  });
+}
+
+// src/components/DownloadModal/types.ts
+class InvalidPackageJsonError extends Error {
+  _tag = "InvalidPackageJsonError";
+  constructor(message) {
+    super(message);
+    this.name = "InvalidPackageJsonError";
+  }
+}
+
+class NoPackageJsonError extends Error {
+  _tag = "NoPackageJsonError";
+  constructor(message) {
+    super(message);
+    this.name = "NoPackageJsonError";
+  }
+}
+
+class MissingDocumentFileError extends Error {
+  _tag = "MissingDocumentFileError";
+  constructor(message) {
+    super(message);
+    this.name = "MissingDocumentFileError";
+  }
+}
+
+class InvalidDocumentJsonError extends Error {
+  _tag = "InvalidDocumentJsonError";
+  constructor(message) {
+    super(message);
+    this.name = "InvalidDocumentJsonError";
+  }
+}
+
+class MissingFontFileError extends Error {
+  _tag = "MissingFontFileError";
+  constructor(message) {
+    super(message);
+    this.name = "MissingFontFileError";
+  }
+}
+
+class FontAlreadyExistsError extends Error {
+  _tag = "FontAlreadyExistsError";
+  constructor(message) {
+    super(message);
+    this.name = "FontAlreadyExistsError";
+  }
+}
+
+class MissingSmartCropsFileError extends Error {
+  _tag = "MissingSmartCropsFileError";
+  constructor(message) {
+    super(message);
+    this.name = "MissingSmartCropsFileError";
+  }
+}
+
+class InvalidSmartCropsJsonError extends Error {
+  _tag = "InvalidSmartCropsJsonError";
+  constructor(message) {
+    super(message);
+    this.name = "InvalidSmartCropsJsonError";
+  }
+}
+
+class FailedToFetchConnectorsError extends Error {
+  _tag = "FailedToFetchConnectorsError";
+  constructor(message) {
+    super(message);
+    this.name = "FailedToFetchConnectorsError";
+  }
+}
+
+// src/components/DownloadModal/utils.ts
+init_dist();
+var FontDataSchema = exports_external.object({
+  filePath: exports_external.string(),
+  details: exports_external.object({
+    id: exports_external.string(),
+    name: exports_external.string(),
+    familyId: exports_external.string(),
+    familyName: exports_external.string(),
+    dateCreated: exports_external.string(),
+    extension: exports_external.string(),
+    fileName: exports_external.string(),
+    fileSize: exports_external.number()
+  })
+});
+var DocumentSchema = exports_external.object({
+  id: exports_external.string(),
+  name: exports_external.string().nullable(),
+  filePath: exports_external.string(),
+  smartCrops: exports_external.object({
+    filePath: exports_external.string()
+  }).optional(),
+  fonts: exports_external.array(FontDataSchema)
+});
+var StudioPackageSchema = exports_external.object({
+  engineVersion: exports_external.string(),
+  source: exports_external.string(),
+  documents: exports_external.array(DocumentSchema)
+});
+function verifyStudioPackage(packageData) {
+  try {
+    const result = StudioPackageSchema.safeParse(packageData);
+    if (result.success) {
+      return Result.ok(result.data);
+    } else {
+      return Result.error(new InvalidPackageJsonError(`Invalid package.json structure: ${result.error.message}`));
+    }
+  } catch (error40) {
+    return Result.error(new InvalidPackageJsonError(`Failed to parse package.json: ${error40 instanceof Error ? error40.message : String(error40)}`));
+  }
+}
+async function loadFilesFromDirectory(directoryHandle) {
+  try {
+    const files = [];
+    async function collectFiles(dirHandle, path = "") {
+      for await (const [name, handle] of dirHandle.entries()) {
+        const currentPath = path ? `${path}/${name}` : name;
+        if (handle.kind === "file") {
+          const fileHandle = handle;
+          const file2 = await fileHandle.getFile();
+          const fileWithPath = new File([file2], currentPath, {
+            type: file2.type,
+            lastModified: file2.lastModified
+          });
+          files.push(fileWithPath);
+        } else if (handle.kind === "directory") {
+          const subDirHandle = handle;
+          await collectFiles(subDirHandle, currentPath);
+        }
+      }
+    }
+    await collectFiles(directoryHandle);
+    const packageJsonFile = files.find((file2) => file2.name === "package.json");
+    if (!packageJsonFile) {
+      return Result.error(new NoPackageJsonError("package.json file not found in the selected directory"));
+    }
+    try {
+      const packageJsonText = await packageJsonFile.text();
+      const packageJsonData = JSON.parse(packageJsonText);
+      const validationResult = verifyStudioPackage(packageJsonData);
+      if (!validationResult.isOk()) {
+        return Result.error(validationResult.error || new Error("Unknown validation error"));
+      }
+      const studioPackage = validationResult.value;
+      for (const document2 of studioPackage.documents) {
+        const documentFile = files.find((file2) => file2.name === document2.filePath);
+        if (!documentFile) {
+          return Result.error(new MissingDocumentFileError(`Document file not found: ${document2.filePath}`));
+        }
+        try {
+          const documentText = await documentFile.text();
+          JSON.parse(documentText);
+        } catch (error40) {
+          return Result.error(new InvalidDocumentJsonError(`Invalid JSON in document file ${document2.filePath}: ${error40 instanceof Error ? error40.message : String(error40)}`));
+        }
+      }
+      for (const document2 of studioPackage.documents) {
+        for (const font of document2.fonts) {
+          const fontFile = files.find((file2) => file2.name === font.filePath);
+          if (!fontFile) {
+            return Result.error(new MissingFontFileError(`Font file not found: ${font.filePath}`));
+          }
+        }
+      }
+      return Result.ok(files);
+    } catch (error40) {
+      return Result.error(new InvalidPackageJsonError(`Failed to parse package.json: ${error40 instanceof Error ? error40.message : String(error40)}`));
+    }
+  } catch (error40) {
+    return Result.error(new Error(`Failed to read directory: ${error40 instanceof Error ? error40.message : String(error40)}`));
+  }
+}
+var sanitizeFolderName = (name) => {
+  return name.replace(/[^a-zA-Z0-9\-_]/g, "");
+};
+var generateTimestamp = () => {
+  const now2 = new Date;
+  const isoString = now2.toISOString();
+  const sanitizedFolderName = isoString.replace(/[-:.]/g, "_").replace("Z", "");
+  return sanitizedFolderName;
+};
+var validateFolderName = (name) => {
+  const illegalChars = name.match(/[^a-zA-Z0-9\-_]/g);
+  if (illegalChars) {
+    const uniqueChars = [...new Set(illegalChars)];
+    return `Illegal characters: ${uniqueChars.join(", ")}`;
+  }
+  return "";
+};
+var getDocumentId = () => {
+  const urlPath = window.location.href;
+  const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
+  return templateIdMatch ? templateIdMatch[1] : "document";
+};
+
+// src/components/DownloadModalNew.tsx
+var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
+function DownloadModalNew({ opened, onClose }) {
+  const fileInputRef = import_react264.useRef(null);
+  const raiseError2 = appStore((store) => store.raiseError);
+  const [modalState, setModalState] = import_react264.useState("initial");
+  const [error40, setError] = import_react264.useState(null);
+  const [downloadSettings, setDownloadSettings] = import_react264.useState({
+    includeFonts: false,
+    includeGrafxMedia: false,
+    includeSmartCrops: false,
+    removeToolbarData: false,
+    removeUnusedConnectors: false,
+    useOriginalFontFileNames: false,
+    addTimestamp: false
+  });
+  const [folderName, setFolderName] = import_react264.useState("");
+  const [folderNameError, setFolderNameError] = import_react264.useState("");
+  const [downloadFiles, setDownloadFiles] = import_react264.useState([]);
+  const [tasks, setTasks] = import_react264.useState([]);
+  const [fontFamilies, setFontFamilies] = import_react264.useState(null);
+  const [fontStylesCount, setFontStylesCount] = import_react264.useState(0);
+  const [folderBrowserOpened, setFolderBrowserOpened] = import_react264.useState(false);
+  const [connectorSelection, setConnectorSelection] = import_react264.useState(null);
+  const [uploadTasks, setUploadTasks] = import_react264.useState([]);
+  const [connectorSelectionModalOpened, setConnectorSelectionModalOpened] = import_react264.useState(false);
+  const [replaceConnectorsModalOpened, setReplaceConnectorsModalOpened] = import_react264.useState(false);
+  const [availableConnectors, setAvailableConnectors] = import_react264.useState([]);
+  const [connectorsToReplace, setConnectorsToReplace] = import_react264.useState([]);
+  const [selectedVisionConnector, setSelectedVisionConnector] = import_react264.useState("");
+  const [smartCropsData, setSmartCropsData] = import_react264.useState(null);
+  const [documentData, setDocumentData] = import_react264.useState(null);
+  const [packageJsonTaskId, setPackageJsonTaskId] = import_react264.useState("");
+  const [currentFiles, setCurrentFiles] = import_react264.useState([]);
+  const [currentStudioPackage, setCurrentStudioPackage] = import_react264.useState(null);
+  const [currentStudio, setCurrentStudio] = import_react264.useState(null);
+  const [currentToken, setCurrentToken] = import_react264.useState("");
+  const [currentBaseUrl, setCurrentBaseUrl] = import_react264.useState("");
+  import_react264.useEffect(() => {
+    const messageListener = (event) => {
+      if (event.source !== window)
+        return;
+      if (event.data.type === "DOWNLOAD_COMPLETE") {
+        const { downloadId, success: success2, error: error41 } = event.data.data;
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === downloadId ? {
+          ...f2,
+          status: success2 ? "complete" : "error",
+          error: error41 || undefined
+        } : f2));
+      }
+    };
+    window.addEventListener("message", messageListener);
+    return () => {
+      window.removeEventListener("message", messageListener);
+    };
+  }, []);
+  import_react264.useEffect(() => {
+    const fetchFontFamilies = async () => {
+      if (!downloadSettings.includeFonts) {
+        setFontFamilies(null);
+        setFontStylesCount(0);
+        return;
+      }
+      try {
+        const studioResult = await getStudio();
+        if (!studioResult.isOk()) {
+          raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+          return;
+        }
+        const fontFamiliesResult = await getFontFamilies(studioResult.value);
+        if (!fontFamiliesResult.isOk()) {
+          raiseError2(new Error(fontFamiliesResult.error?.message || "Failed to get font families"));
+          return;
+        }
+        const families = fontFamiliesResult.value;
+        setFontFamilies(families);
+        const totalStyles = families.reduce((total, family) => total + family.fontStyles.length, 0);
+        setFontStylesCount(totalStyles);
+      } catch (error41) {
+        raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+      }
+    };
+    fetchFontFamilies();
+  }, [downloadSettings.includeFonts, raiseError2]);
+  const processDocumentForDownload = (documentData2, settings) => {
+    let processedDocument = JSON.parse(JSON.stringify(documentData2));
+    if (settings.removeToolbarData) {
+      processedDocument = removeToolbarData(processedDocument);
+    }
+    if (settings.removeUnusedConnectors) {
+      processedDocument = removeUnusedConnectors(processedDocument);
+    }
+    return processedDocument;
+  };
+  const removeToolbarData = (documentData2) => {
+    if (documentData2.layouts && documentData2.layouts.length > 0 && documentData2.layouts[0].privateData && documentData2.layouts[0].privateData.toolbar) {
+      const processedDocument = { ...documentData2 };
+      processedDocument.layouts = [...documentData2.layouts];
+      processedDocument.layouts[0] = {
+        ...documentData2.layouts[0],
+        privateData: { ...documentData2.layouts[0].privateData }
+      };
+      delete processedDocument.layouts[0].privateData.toolbar;
+      return processedDocument;
+    }
+    return documentData2;
+  };
+  const removeUnusedConnectors = (documentData2) => {
+    if (!documentData2.connectors || !Array.isArray(documentData2.connectors)) {
+      return documentData2;
+    }
+    const grafxConnectors = documentData2.connectors.filter((connector) => connector.source && connector.source.source === "grafx" && connector.source.id != null);
+    if (grafxConnectors.length === 0) {
+      return documentData2;
+    }
+    const documentWithoutConnectors = { ...documentData2 };
+    delete documentWithoutConnectors.connectors;
+    const searchableJsonString = JSON.stringify(documentWithoutConnectors);
+    const usedConnectorIds = new Set;
+    for (const connector of grafxConnectors) {
+      if (searchableJsonString.includes(connector.id)) {
+        usedConnectorIds.add(connector.id);
+      }
+    }
+    const processedDocument = { ...documentData2 };
+    processedDocument.connectors = documentData2.connectors.filter((connector) => {
+      if (!connector.source || connector.source.source !== "grafx" || connector.source.id == null) {
+        return true;
+      }
+      return usedConnectorIds.has(connector.id);
+    });
+    return processedDocument;
+  };
+  const getDocumentName = async () => {
     try {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
-        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
-        return;
-      }
-      const documentResult = await getCurrentDocumentState(studioResult.value);
-      if (!documentResult.isOk()) {
-        raiseError2(new Error(documentResult.error?.message || "Failed to get document state"));
-        return;
+        return "document";
       }
       const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
       const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
-      const templateName = await getTemplateName(studioResult.value);
-      const documentData = { ...documentResult.value };
-      if (!documentData.properties) {
-        documentData.properties = {};
-      }
-      documentData.properties.token = token2;
-      documentData.properties.baseUrl = baseUrl;
-      const fileName = `${templateName}.packageJson`;
-      downloadJsonFile(documentData, fileName);
-      setShowPackageWarning(true);
-      setTimeout(() => setShowPackageWarning(false), 5000);
-      onClose();
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
-    } finally {
-      setIsDownloading(false);
-    }
-  };
-  const getTemplateName = async (studio2) => {
-    try {
-      const token2 = (await studio2.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
-      const baseUrl = (await studio2.configuration.getValue("ENVIRONMENT_API")).parsedData;
       const urlPath = window.location.href;
       const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
-      let templateName = "document";
       if (templateIdMatch && templateIdMatch[1]) {
         const templateId = templateIdMatch[1];
         try {
@@ -55408,40 +68336,454 @@ function DownloadModal({ opened, onClose }) {
           if (templateResponse.ok) {
             const templateData = await templateResponse.json();
             if (templateData && templateData.data && templateData.data.name) {
-              templateName = templateData.data.name;
+              return templateData.data.name;
             }
           }
-        } catch (error) {
-          raiseError2(error instanceof Error ? error : new Error("Failed to fetch template name"));
+        } catch (error41) {
         }
+        return templateId;
       }
-      return templateName;
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      return "document";
+    } catch (error41) {
       return "document";
     }
   };
-  const downloadJsonFile = (data, fileName) => {
-    const jsonStr = JSON.stringify(data, null, 2);
-    const blob = new Blob([jsonStr], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a2 = document.createElement("a");
-    a2.href = url;
-    a2.download = fileName;
-    document.body.appendChild(a2);
-    a2.click();
-    setTimeout(() => {
-      document.body.removeChild(a2);
-      URL.revokeObjectURL(url);
-    }, 0);
+  const handleClose = () => {
+    createdBlobUrls.forEach((url2) => {
+      URL.revokeObjectURL(url2);
+    });
+    setCreatedBlobUrls([]);
+    setTasks([]);
+    setUploadTasks([]);
+    setModalState("initial");
+    setError(null);
+    setFolderName("");
+    setFolderNameError("");
+    setDownloadFiles([]);
+    setConnectorSelection(null);
+    onClose();
+  };
+  const handleDownload = async () => {
+    setError(null);
+    try {
+      const documentName = await getDocumentName();
+      const sanitizedName = sanitizeFolderName(documentName);
+      setFolderName(sanitizedName);
+      setFolderNameError("");
+    } catch (error41) {
+      setFolderName("document");
+      setFolderNameError("");
+    }
+    setModalState("downloadSettings");
   };
   const handleUpload = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+    const skipInstructions = localStorage.getItem("tempSlowUploadInstructions");
+    if (skipInstructions === "true") {
+      handleDirectoryPicker();
+    } else {
+      setModalState("uploadInstructions");
     }
   };
-  const handleDownloadFonts = async () => {
-    setIsDownloading(true);
+  const handleDirectoryPicker = async () => {
+    try {
+      if (!window.showDirectoryPicker) {
+        raiseError2(new Error("File System Access API is not supported in this browser"));
+        return;
+      }
+      const directoryHandle = await window.showDirectoryPicker();
+      setModalState("uploading");
+      const filesResult = await loadFilesFromDirectory(directoryHandle);
+      if (!filesResult.isOk()) {
+        setError(filesResult.error?.message || "Failed to load files from directory");
+        setModalState("uploadInstructions");
+        return;
+      }
+      await processUploadFiles(filesResult.value);
+    } catch (error41) {
+      if (error41 instanceof Error && error41.name === "AbortError") {
+        setModalState("initial");
+        return;
+      }
+      raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+      setModalState("initial");
+    }
+  };
+  const processUploadFiles = async (files) => {
+    try {
+      const packageJsonFile = files.find((file2) => file2.name === "package.json");
+      if (!packageJsonFile) {
+        raiseError2(new NoPackageJsonError("package.json not found"));
+        return;
+      }
+      const packageJsonText = await packageJsonFile.text();
+      const packageJsonData = JSON.parse(packageJsonText);
+      const validationResult = verifyStudioPackage(packageJsonData);
+      if (!validationResult.isOk()) {
+        raiseError2(validationResult.error || new Error("Package validation failed"));
+        return;
+      }
+      const studioPackage = validationResult.value;
+      setUploadTasks([]);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const token2 = (await studio2.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+      const baseUrl = (await studio2.configuration.getValue("ENVIRONMENT_API")).parsedData;
+      if (!token2 || !baseUrl) {
+        raiseError2(new Error("Failed to get authentication token or base URL"));
+        return;
+      }
+      const packageTaskId = "package-processing";
+      setPackageJsonTaskId(packageTaskId);
+      setUploadTasks([
+        {
+          id: packageTaskId,
+          name: "Processing package.json",
+          type: "package_processing",
+          status: "processing"
+        }
+      ]);
+      setCurrentFiles(files);
+      setCurrentStudioPackage(studioPackage);
+      setCurrentStudio(studio2);
+      setCurrentToken(token2);
+      setCurrentBaseUrl(baseUrl);
+      await processPackageJsonWorkflow(files, studioPackage, studio2, token2, baseUrl, packageTaskId);
+    } catch (error41) {
+      raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+    }
+  };
+  const processPackageJsonWorkflow = async (files, studioPackage, studio2, token2, baseUrl, packageTaskId) => {
+    try {
+      const updatePackageTaskStatus = (status, error41) => {
+        setUploadTasks((prev2) => prev2.map((task) => task.id === packageTaskId ? { ...task, status, error: error41 } : task));
+      };
+      let smartCropsFileData = null;
+      for (const document2 of studioPackage.documents) {
+        if (document2.smartCrops) {
+          const smartCropsFile = files.find((file2) => file2.name === document2.smartCrops.filePath);
+          if (!smartCropsFile) {
+            const error41 = new MissingSmartCropsFileError(`Smart crops file not found: ${document2.smartCrops.filePath}`);
+            raiseError2(error41);
+            updatePackageTaskStatus("error", error41.message);
+            return;
+          }
+          try {
+            const smartCropsText = await smartCropsFile.text();
+            smartCropsFileData = JSON.parse(smartCropsText);
+            setSmartCropsData(smartCropsFileData);
+          } catch (parseError) {
+            const error41 = new InvalidSmartCropsJsonError(`Invalid smart crops JSON: ${parseError instanceof Error ? parseError.message : String(parseError)}`);
+            raiseError2(error41);
+            updatePackageTaskStatus("error", error41.message);
+            return;
+          }
+        }
+      }
+      if (smartCropsFileData && smartCropsFileData.crops && smartCropsFileData.crops.length > 0) {
+        const connectorsResult = await getMediaConnectorsAPI(baseUrl, token2);
+        if (!connectorsResult.isOk()) {
+          const error41 = new FailedToFetchConnectorsError(`Failed to fetch connectors: ${connectorsResult.error?.message}`);
+          raiseError2(error41);
+          updatePackageTaskStatus("error", error41.message);
+          return;
+        }
+        const mediaConnectors = connectorsResult.value.data.filter((connector) => connector.enabled && connector.type === "media");
+        setAvailableConnectors(mediaConnectors);
+        setConnectorSelectionModalOpened(true);
+        return;
+      }
+      await continuePackageProcessing(files, studioPackage, studio2, token2, baseUrl, packageTaskId);
+    } catch (error41) {
+      const errorMessage = error41 instanceof Error ? error41.message : String(error41);
+      raiseError2(error41 instanceof Error ? error41 : new Error(errorMessage));
+      setUploadTasks((prev2) => prev2.map((task) => task.id === packageTaskId ? { ...task, status: "error", error: errorMessage } : task));
+    }
+  };
+  const continuePackageProcessing = async (files, studioPackage, studio2, token2, baseUrl, packageTaskId) => {
+    try {
+      const updatePackageTaskStatus = (status, error41) => {
+        setUploadTasks((prev2) => prev2.map((task) => task.id === packageTaskId ? { ...task, status, error: error41 } : task));
+      };
+      let parsedDocumentData = null;
+      for (const document2 of studioPackage.documents) {
+        const documentFile = files.find((file2) => file2.name === document2.filePath);
+        if (!documentFile) {
+          const error41 = new MissingDocumentFileError(`Document file not found: ${document2.filePath}`);
+          raiseError2(error41);
+          updatePackageTaskStatus("error", error41.message);
+          return;
+        }
+        try {
+          const documentText = await documentFile.text();
+          parsedDocumentData = JSON.parse(documentText);
+          setDocumentData(parsedDocumentData);
+        } catch (parseError) {
+          const error41 = new InvalidDocumentJsonError(`Invalid document JSON: ${parseError instanceof Error ? parseError.message : String(parseError)}`);
+          raiseError2(error41);
+          updatePackageTaskStatus("error", error41.message);
+          return;
+        }
+      }
+      const connectorsResult = await getMediaConnectorsAPI(baseUrl, token2);
+      if (!connectorsResult.isOk()) {
+        const error41 = new FailedToFetchConnectorsError(`Failed to fetch connectors: ${connectorsResult.error?.message}`);
+        raiseError2(error41);
+        updatePackageTaskStatus("error", error41.message);
+        return;
+      }
+      const mediaConnectors = connectorsResult.value.data.filter((connector) => connector.enabled && connector.type === "media");
+      setAvailableConnectors(mediaConnectors);
+      const currentDocumentData = documentData || parsedDocumentData;
+      if (currentDocumentData && currentDocumentData.connectors) {
+        const documentConnectors = currentDocumentData.connectors;
+        const connectorsNeedingReplacement = documentConnectors.filter((connector) => connector.source.source === "grafx" && connector.source.id);
+        if (connectorsNeedingReplacement.length > 0) {
+          setConnectorsToReplace(connectorsNeedingReplacement);
+          setReplaceConnectorsModalOpened(true);
+          return;
+        }
+      }
+      updatePackageTaskStatus("complete");
+      await startTaskProcessing(files, studioPackage, studio2, token2, baseUrl);
+    } catch (error41) {
+      const errorMessage = error41 instanceof Error ? error41.message : String(error41);
+      raiseError2(error41 instanceof Error ? error41 : new Error(errorMessage));
+      setUploadTasks((prev2) => prev2.map((task) => task.id === packageTaskId ? { ...task, status: "error", error: errorMessage } : task));
+    }
+  };
+  const handleConnectorSelection = async (connectorId) => {
+    setSelectedVisionConnector(connectorId);
+    setConnectorSelectionModalOpened(false);
+    if (currentFiles.length > 0 && currentStudioPackage && currentStudio && currentToken && currentBaseUrl) {
+      await continuePackageProcessing(currentFiles, currentStudioPackage, currentStudio, currentToken, currentBaseUrl, packageJsonTaskId);
+    }
+  };
+  const handleConnectorReplacement = async (replacementMap) => {
+    setReplaceConnectorsModalOpened(false);
+    if (documentData) {
+      let documentJsonString = JSON.stringify(documentData);
+      replacementMap.forEach((newId, oldId) => {
+        const regex = new RegExp(oldId, "g");
+        documentJsonString = documentJsonString.replace(regex, newId);
+      });
+      const updatedDocumentData = JSON.parse(documentJsonString);
+      setDocumentData(updatedDocumentData);
+      setUploadTasks((prev2) => prev2.map((task) => task.id === packageJsonTaskId ? { ...task, status: "complete" } : task));
+      setUploadTasks((prev2) => [
+        ...prev2,
+        {
+          id: "document-load",
+          name: "Loading document",
+          type: "document_load",
+          status: "pending"
+        }
+      ]);
+      if (currentFiles.length > 0 && currentStudioPackage && currentStudio && currentToken && currentBaseUrl) {
+        await startTaskProcessing(currentFiles, currentStudioPackage, currentStudio, currentToken, currentBaseUrl);
+      }
+    }
+  };
+  const startTaskProcessing = async (files, studioPackage, studio2, token2, baseUrl) => {
+    try {
+      for (const document2 of studioPackage.documents) {
+        for (const fontInfo of document2.fonts) {
+          const fontFile = files.find((file2) => file2.name === fontInfo.filePath);
+          if (!fontFile) {
+            const taskId2 = `font-upload-${fontInfo.details.id}`;
+            setUploadTasks((prev2) => [
+              ...prev2,
+              {
+                id: taskId2,
+                name: `Font missing: ${fontInfo.details.familyName} ${fontInfo.details.name}`,
+                type: "font_upload",
+                status: "error",
+                error: `Font file not found: ${fontInfo.filePath}`
+              }
+            ]);
+            continue;
+          }
+          const taskId = `font-upload-${fontInfo.details.id}`;
+          setUploadTasks((prev2) => [
+            ...prev2,
+            {
+              id: taskId,
+              name: `Uploading font: ${fontInfo.details.familyName} ${fontInfo.details.name}`,
+              type: "font_upload",
+              status: "processing"
+            }
+          ]);
+          try {
+            await uploadFont(fontFile, fontInfo.details, token2, baseUrl, taskId);
+          } catch (error41) {
+          }
+        }
+      }
+      if (smartCropsData && smartCropsData.crops && selectedVisionConnector) {
+        for (const crop of smartCropsData.crops) {
+          const taskId = `smart-crop-${crop.assetId}`;
+          setUploadTasks((prev2) => [
+            ...prev2,
+            {
+              id: taskId,
+              name: `Uploading smart crop: ${crop.assetId}`,
+              type: "smart_crop_upload",
+              status: "processing"
+            }
+          ]);
+          try {
+            const visionResult = await setVision({
+              baseUrl,
+              connectorId: selectedVisionConnector,
+              asset: crop.assetId,
+              authorization: token2,
+              metadata: crop.metadata
+            });
+            if (visionResult.isOk()) {
+              setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? { ...task, status: "complete" } : task));
+            } else {
+              setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? {
+                ...task,
+                status: "error",
+                error: visionResult.error?.message || "Failed to set vision data"
+              } : task));
+            }
+          } catch (error41) {
+            setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? {
+              ...task,
+              status: "error",
+              error: error41 instanceof Error ? error41.message : String(error41)
+            } : task));
+          }
+        }
+      }
+      if (documentData) {
+        setUploadTasks((prev2) => prev2.map((task) => task.id === "document-load" ? { ...task, status: "processing" } : task));
+        try {
+          const loadResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(documentData));
+          if (loadResult.isOk()) {
+            setUploadTasks((prev2) => prev2.map((task) => task.id === "document-load" ? { ...task, status: "complete" } : task));
+          } else {
+            setUploadTasks((prev2) => prev2.map((task) => task.id === "document-load" ? {
+              ...task,
+              status: "error",
+              error: loadResult.error?.message || "Failed to load document"
+            } : task));
+          }
+        } catch (error41) {
+          setUploadTasks((prev2) => prev2.map((task) => task.id === "document-load" ? {
+            ...task,
+            status: "error",
+            error: error41 instanceof Error ? error41.message : String(error41)
+          } : task));
+        }
+      }
+    } catch (error41) {
+      raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+    }
+  };
+  const uploadFont = async (fontFile, fontDetails, token2, baseUrl, taskId) => {
+    try {
+      const fontFamiliesResponse = await fetch(`${baseUrl}font-families?sortBy=Name&sortOrder=asc`, {
+        headers: {
+          Authorization: `Bearer ${token2}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (!fontFamiliesResponse.ok) {
+        throw new Error(`Failed to fetch font families: ${fontFamiliesResponse.statusText}`);
+      }
+      const fontFamiliesData = await fontFamiliesResponse.json();
+      const targetFamily = fontFamiliesData.data.find((tf) => tf.name === fontDetails.familyName);
+      if (targetFamily) {
+        const targetStylesResponse = await fetch(`${baseUrl}font-families/${targetFamily.id}/styles`, {
+          headers: {
+            Authorization: `Bearer ${token2}`,
+            "Content-Type": "application/json"
+          }
+        });
+        if (targetStylesResponse.ok) {
+          const targetStylesData = await targetStylesResponse.json();
+          const targetStyle = targetStylesData.data.find((ts) => ts.name === fontDetails.name);
+          if (targetStyle) {
+            setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? {
+              ...task,
+              status: "info",
+              tooltip: "Font already exists, skipping"
+            } : task));
+            return;
+          }
+        }
+      }
+      const formData = new FormData;
+      const renamedFile = new File([fontFile], fontDetails.fileName, {
+        type: fontFile.type,
+        lastModified: fontFile.lastModified
+      });
+      formData.append("file", renamedFile);
+      const uploadResponse = await fetch(`${baseUrl}font-styles/temp`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token2}`
+        },
+        body: formData
+      });
+      if (!uploadResponse.ok) {
+        throw new Error(`Failed to upload font: ${uploadResponse.statusText}`);
+      }
+      const uploadData = await uploadResponse.json();
+      if (!uploadData.data.preloadedData.length) {
+        throw new Error("No preloaded font data received");
+      }
+      const preloadedFont = uploadData.data.preloadedData[0];
+      const patchResponse = await fetch(`${baseUrl}font-styles/temp/${uploadData.batchId}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token2}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          {
+            fontStyleId: preloadedFont.id,
+            familyName: fontDetails.familyName,
+            styleName: fontDetails.name
+          }
+        ])
+      });
+      if (!patchResponse.ok) {
+        throw new Error(`Failed to patch font: ${patchResponse.statusText}`);
+      }
+      const confirmResponse = await fetch(`${baseUrl}font-styles/temp/${uploadData.batchId}/confirm`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token2}`
+        }
+      });
+      if (!confirmResponse.ok) {
+        throw new Error(`Failed to confirm font upload: ${confirmResponse.statusText}`);
+      }
+      setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? { ...task, status: "complete" } : task));
+    } catch (error41) {
+      const errorMessage = error41 instanceof Error ? error41.message : String(error41);
+      if (error41 instanceof FontAlreadyExistsError) {
+        setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? {
+          ...task,
+          status: "info",
+          tooltip: "Font already exists, skipping"
+        } : task));
+      } else {
+        setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? {
+          ...task,
+          status: "error",
+          error: errorMessage
+        } : task));
+      }
+    }
+  };
+  const handleJsonDownload = async () => {
     try {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
@@ -55453,406 +68795,485 @@ function DownloadModal({ opened, onClose }) {
         raiseError2(new Error(documentResult.error?.message || "Failed to get document state"));
         return;
       }
-      const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
-      const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
-      const documentData = documentResult.value;
-      if (!documentData.stylekit?.fontFamilies || !Array.isArray(documentData.stylekit.fontFamilies)) {
-        raiseError2(new Error("No fonts found in document"));
-        return;
-      }
-      const fontFamilies = documentData.stylekit.fontFamilies;
-      if (fontFamilies.length === 0) {
-        raiseError2(new Error("No fonts found in document"));
-        return;
-      }
-      await downloadDocumentFonts(fontFamilies, token2, baseUrl);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
-    } finally {
-      setIsDownloading(false);
+      const documentData2 = documentResult.value;
+      const documentName = await getDocumentName();
+      const jsonStr = JSON.stringify(documentData2, null, 2);
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const url2 = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url2;
+      link.download = `${documentName}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url2);
+    } catch (error41) {
+      raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
     }
   };
-  const downloadDocumentFonts = async (fontFamilies, token2, baseUrl) => {
-    try {
-      const downloadedFonts = new Set;
-      const ledgerEntries = [];
-      const templateName = await getTemplateName({
-        configuration: {
-          getValue: async (key) => ({
-            parsedData: key === "GRAFX_AUTH_TOKEN" ? token2 : baseUrl
-          })
-        }
-      });
-      const fontsToDownload = [];
-      for (const family of fontFamilies) {
-        for (const style2 of family.fontStyles) {
-          try {
-            const fontStyleResponse = await fetch(`${baseUrl}font-families/${family.fontFamilyId}/styles`, {
-              headers: {
-                Authorization: `Bearer ${token2}`,
-                "Content-Type": "application/json"
-              }
-            });
-            if (fontStyleResponse.ok) {
-              const fontStylesData = await fontStyleResponse.json();
-              const fontStyleDetails = fontStylesData.data.find((fs) => fs.id === style2.fontStyleId);
-              if (fontStyleDetails) {
-                const lastDotIndex = fontStyleDetails.fileName.lastIndexOf(".");
-                const fontBaseName = fontStyleDetails.fileName.slice(0, lastDotIndex);
-                if (!downloadedFonts.has(fontBaseName)) {
-                  downloadedFonts.add(fontBaseName);
-                  const displayName = style2.name + fontStyleDetails.fileName.slice(lastDotIndex);
-                  ledgerEntries.push(`${displayName} -> ${fontBaseName}`);
-                  fontsToDownload.push({
-                    family,
-                    style: style2,
-                    fileName: fontBaseName + fontStyleDetails.fileName.slice(lastDotIndex)
-                  });
-                }
-              }
-            }
-          } catch (error) {
-            raiseError2(error instanceof Error ? error : new Error(`Failed to get font style details for ${style2.name}`));
-          }
-        }
-      }
-      for (let i2 = 0;i2 < fontsToDownload.length; i2++) {
-        const { style: style2, fileName } = fontsToDownload[i2];
-        try {
-          const fontDownloadResponse = await fetch(`${baseUrl}font-styles/${style2.fontStyleId}/download`, {
-            headers: {
-              Authorization: `Bearer ${token2}`
-            }
-          });
-          if (fontDownloadResponse.ok) {
-            const fontBlob = await fontDownloadResponse.blob();
-            const url = URL.createObjectURL(fontBlob);
-            const a2 = document.createElement("a");
-            a2.href = url;
-            a2.download = fileName;
-            document.body.appendChild(a2);
-            a2.click();
-            setTimeout(() => {
-              document.body.removeChild(a2);
-              URL.revokeObjectURL(url);
-            }, 100 * i2);
-          } else {
-            raiseError2(new Error(`Failed to download font: ${style2.name}`));
-          }
-        } catch (error) {
-          raiseError2(error instanceof Error ? error : new Error(`Error downloading font ${style2.name}`));
-        }
-      }
-      if (ledgerEntries.length > 0) {
-        const ledgerContent = `# Font Ledger for ${templateName}
-
-This file maps the display names to actual font file names:
-
-${ledgerEntries.join(`
-`)}`;
-        const ledgerBlob = new Blob([ledgerContent], { type: "text/markdown" });
-        const ledgerUrl = URL.createObjectURL(ledgerBlob);
-        const ledgerLink = document.createElement("a");
-        ledgerLink.href = ledgerUrl;
-        ledgerLink.download = `${templateName}_font_ledger.md`;
-        document.body.appendChild(ledgerLink);
-        ledgerLink.click();
-        setTimeout(() => {
-          document.body.removeChild(ledgerLink);
-          URL.revokeObjectURL(ledgerUrl);
-        }, 1000);
-      }
-      onClose();
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+  const collectSmartCropsDataWithTasks = async (studio2, connectorSelection2) => {
+    const smartCropsData2 = {
+      connectorId: connectorSelection2.connectorId,
+      connectorName: connectorSelection2.connectorName,
+      crops: []
+    };
+    const token2 = (await studio2.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+    const baseUrl = (await studio2.configuration.getValue("ENVIRONMENT_API")).parsedData;
+    if (!token2 || !baseUrl) {
+      throw new Error("Failed to get authentication token or base URL");
     }
-  };
-  const migrateFonts = async (sourceFontFamilies, sourceToken, sourceBaseUrl, targetToken, targetBaseUrl) => {
+    const registerResult = await registerConnector(studio2, connectorSelection2.connectorId);
+    if (!registerResult.isOk()) {
+      throw new Error(`Failed to register connector: ${registerResult.error?.message}`);
+    }
+    const localConnectorId = registerResult.value;
+    let hasErrors = false;
     try {
-      setFontMigrationProgress({
-        total: 0,
-        completed: 0,
-        status: "checking"
-      });
-      const targetFontsResponse = await fetch(`${targetBaseUrl}font-families?sortBy=Name&sortOrder=asc`, {
-        headers: {
-          Authorization: `Bearer ${targetToken}`,
-          "Content-Type": "application/json"
-        }
-      });
-      if (!targetFontsResponse.ok) {
-        throw new Error(`Failed to fetch target fonts: ${targetFontsResponse.statusText}`);
-      }
-      const targetFontsData = await targetFontsResponse.json();
-      const fontsToMigrate = [];
-      for (const sourceFamily of sourceFontFamilies) {
-        const targetFamily = targetFontsData.data.find((tf) => tf.name === sourceFamily.name);
-        if (targetFamily) {
-          const targetStylesResponse = await fetch(`${targetBaseUrl}font-families/${targetFamily.id}/styles`, {
-            headers: {
-              Authorization: `Bearer ${targetToken}`,
-              "Content-Type": "application/json"
-            }
-          });
-          if (targetStylesResponse.ok) {
-            const targetStylesData = await targetStylesResponse.json();
-            for (const sourceStyle of sourceFamily.fontStyles) {
-              const targetStyle = targetStylesData.data.find((ts) => ts.name === sourceStyle.name);
-              if (!targetStyle) {
-                fontsToMigrate.push({
-                  sourceFamily,
-                  sourceStyle,
-                  targetExists: false
-                });
-              }
-            }
+      for (const folderPath of connectorSelection2.selectedFolders) {
+        const folderTaskId = `query-folder-${folderPath.replace(/[^a-zA-Z0-9]/g, "-")}`;
+        setTasks((prev2) => [
+          ...prev2,
+          {
+            id: folderTaskId,
+            name: `Getting files: ${folderPath}`,
+            type: "query_folder",
+            status: "processing"
           }
-        } else {
-          for (const sourceStyle of sourceFamily.fontStyles) {
-            fontsToMigrate.push({
-              sourceFamily,
-              sourceStyle,
-              targetExists: false
-            });
-          }
-        }
-      }
-      setFontMigrationProgress({
-        total: fontsToMigrate.length,
-        completed: 0,
-        status: "downloading"
-      });
-      for (let i2 = 0;i2 < fontsToMigrate.length; i2++) {
-        const fontToMigrate = fontsToMigrate[i2];
-        setFontMigrationProgress({
-          total: fontsToMigrate.length,
-          completed: i2,
-          status: "downloading",
-          current: `${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`
-        });
+        ]);
         try {
-          const fontDownloadResponse = await fetch(`${sourceBaseUrl}font-styles/${fontToMigrate.sourceStyle.fontStyleId}/download`, {
-            headers: {
-              Authorization: `Bearer ${sourceToken}`
-            }
-          });
-          if (!fontDownloadResponse.ok) {
-            raiseError2(new Error(`Failed to download font: ${fontDownloadResponse.statusText}`));
+          const queryResult = await queryMediaConnectorSimple(studio2, localConnectorId, folderPath, "");
+          if (!queryResult.isOk()) {
+            hasErrors = true;
+            setTasks((prev2) => prev2.map((task) => task.id === folderTaskId ? {
+              ...task,
+              status: "error",
+              error: `Failed to query folder: ${queryResult.error?.message}`
+            } : task));
             continue;
           }
-          const fontBlob = await fontDownloadResponse.blob();
-          const formData = new FormData;
-          formData.append("file", fontBlob, `${fontToMigrate.sourceFamily.name}-${fontToMigrate.sourceStyle.name}.ttf`);
-          const uploadResponse = await fetch(`${targetBaseUrl}font-styles/temp`, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${targetToken}`
-            },
-            body: formData
-          });
-          if (!uploadResponse.ok) {
-            raiseError2(new Error(`Failed to upload font: ${uploadResponse.statusText}`));
-            continue;
-          }
-          const uploadData = await uploadResponse.json();
-          if (uploadData.data.preloadedData.length > 0) {
-            const preloadedFont = uploadData.data.preloadedData[0];
-            const patchResponse = await fetch(`${targetBaseUrl}font-styles/temp/${uploadData.batchId}`, {
-              method: "PATCH",
-              headers: {
-                Authorization: `Bearer ${targetToken}`,
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify([
-                {
-                  fontStyleId: preloadedFont.id,
-                  familyName: fontToMigrate.sourceFamily.name,
-                  styleName: fontToMigrate.sourceStyle.name
-                }
-              ])
-            });
-            if (patchResponse.ok) {
-              const confirmResponse = await fetch(`${targetBaseUrl}font-styles/temp/${uploadData.batchId}/confirm`, {
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${targetToken}`
-                }
+          setTasks((prev2) => prev2.map((task) => task.id === folderTaskId ? { ...task, status: "complete" } : task));
+          const queryPage = queryResult.value;
+          const files = queryPage.data.filter((item) => item.type === "file" || item.type === 0);
+          for (const file2 of files) {
+            const visionTaskId = `vision-${file2.id}`;
+            setTasks((prev2) => [
+              ...prev2,
+              {
+                id: visionTaskId,
+                name: `Getting Vision Data: ${file2.name || file2.id}`,
+                type: "get_vision",
+                status: "processing"
+              }
+            ]);
+            try {
+              const visionResult = await getVision({
+                baseUrl,
+                connectorId: connectorSelection2.connectorId,
+                asset: file2.id,
+                authorization: token2
               });
-              if (!confirmResponse.ok) {
-                raiseError2(new Error(`Failed to confirm font upload: ${confirmResponse.statusText}`));
+              if (visionResult.isOk()) {
+                smartCropsData2.crops.push({
+                  assetId: file2.id,
+                  metadata: visionResult.value
+                });
+                setTasks((prev2) => prev2.map((task) => task.id === visionTaskId ? { ...task, status: "complete" } : task));
+              } else {
+                const error41 = visionResult.error;
+                if (error41 && error41.type === "VisionNotFoundError") {
+                  setTasks((prev2) => prev2.map((task) => task.id === visionTaskId ? {
+                    ...task,
+                    status: "info",
+                    tooltip: "Skipped no vision data"
+                  } : task));
+                } else {
+                  hasErrors = true;
+                  setTasks((prev2) => prev2.map((task) => task.id === visionTaskId ? {
+                    ...task,
+                    status: "error",
+                    error: error41?.message || "Failed to get vision data"
+                  } : task));
+                }
               }
+            } catch (error41) {
+              hasErrors = true;
+              setTasks((prev2) => prev2.map((task) => task.id === visionTaskId ? {
+                ...task,
+                status: "error",
+                error: error41 instanceof Error ? error41.message : String(error41)
+              } : task));
             }
           }
-        } catch (error) {
-          raiseError2(error instanceof Error ? error : new Error(`Error migrating font ${fontToMigrate.sourceFamily.name} - ${fontToMigrate.sourceStyle.name}`));
+        } catch (error41) {
+          hasErrors = true;
+          setTasks((prev2) => prev2.map((task) => task.id === folderTaskId ? {
+            ...task,
+            status: "error",
+            error: error41 instanceof Error ? error41.message : String(error41)
+          } : task));
         }
       }
-      setFontMigrationProgress({
-        total: fontsToMigrate.length,
-        completed: fontsToMigrate.length,
-        status: "complete"
-      });
-      setTimeout(() => {
-        setFontMigrationProgress(null);
-      }, 3000);
-    } catch (error) {
-      setFontMigrationProgress({
-        total: 0,
-        completed: 0,
-        status: "error",
-        error: error instanceof Error ? error.message : String(error)
-      });
-      setTimeout(() => {
-        setFontMigrationProgress(null);
-      }, 5000);
+    } finally {
+      try {
+        await unregisterConnector(studio2, localConnectorId);
+      } catch (error41) {
+        console.warn("Failed to unregister connector:", error41);
+      }
+    }
+    if (hasErrors) {
+      throw new Error("Smart crops data collection failed due to errors in folder querying or vision data retrieval");
+    }
+    return smartCropsData2;
+  };
+  const onJsonUpload = async () => {
+    try {
+      if (fileInputRef.current) {
+        fileInputRef.current.click();
+      }
+    } catch (error41) {
+      raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
     }
   };
   const handleFileChange = async (event) => {
-    const file = event.target.files?.[0];
-    if (!file)
+    const file2 = event.target.files?.[0];
+    if (!file2)
       return;
     try {
+      if (!file2.name.toLowerCase().endsWith(".json")) {
+        raiseError2(new Error("Please select a valid JSON file"));
+        return;
+      }
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
       const reader = new FileReader;
       reader.onload = async (e) => {
-        const content = e.target?.result;
-        setPendingJsonContent(content);
         try {
-          const jsonData = JSON.parse(content);
-          const isPackageFile = file.name.endsWith(".packageJson");
-          const hasStoredCredentials = jsonData.properties?.token && jsonData.properties?.baseUrl;
-          if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
-            const studioResult = await getStudio();
-            if (!studioResult.isOk()) {
-              raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
-              return;
-            }
-            const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
-            const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
-            try {
-              const response = await fetch(`${baseUrl}connectors`, {
-                headers: {
-                  Authorization: `Bearer ${token2}`,
-                  "Content-Type": "application/json"
-                }
-              });
-              if (!response.ok) {
-                throw new Error(`Failed to fetch connectors: ${response.statusText}`);
-              }
-              const connectorResponse = await response.json();
-              setAvailableConnectors(connectorResponse.data);
-              const documentConnectors = jsonData.connectors;
-              const missingConnectorsList = [];
-              const nameMatchesMap = {};
-              for (const docConnector of documentConnectors) {
-                if (docConnector.source.source === "grafx" && docConnector.source.id) {
-                  const sourceId = docConnector.source.id;
-                  const foundConnector = connectorResponse.data.find((c2) => c2.id === sourceId);
-                  if (!foundConnector) {
-                    const nameMatch = connectorResponse.data.find((c2) => c2.name === docConnector.name);
-                    if (nameMatch) {
-                      nameMatchesMap[docConnector.id] = nameMatch.id;
-                      docConnector.source.id = nameMatch.id;
-                      missingConnectorsList.push(docConnector);
-                    } else {
-                      missingConnectorsList.push(docConnector);
-                    }
-                  }
-                }
-              }
-              setNameMatches(nameMatchesMap);
-              if (missingConnectorsList.length > 0) {
-                const allHaveMatches = missingConnectorsList.every((connector) => nameMatchesMap[connector.id] !== undefined);
-                if (!allHaveMatches) {
-                  setMissingConnectors(missingConnectorsList);
-                  setReplacementModalOpened(true);
-                  return;
-                }
-              }
-              const updatedContent = JSON.stringify(jsonData);
-              await loadDocument(studioResult.value, updatedContent, isPackageFile && hasStoredCredentials);
-            } catch (error) {
-              raiseError2(error instanceof Error ? error : new Error(String(error)));
-            }
-          } else {
-            const studioResult = await getStudio();
-            if (!studioResult.isOk()) {
-              raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
-              return;
-            }
-            await loadDocument(studioResult.value, content, isPackageFile && hasStoredCredentials);
+          const content = e.target?.result;
+          if (!content) {
+            raiseError2(new Error("Failed to read file content"));
+            return;
           }
-        } catch (parseError) {
-          raiseError2(new Error(`Invalid JSON format: ${parseError instanceof Error ? parseError.message : String(parseError)}`));
+          try {
+            JSON.parse(content);
+          } catch (parseError) {
+            raiseError2(new Error(`Invalid JSON format: ${parseError instanceof Error ? parseError.message : String(parseError)}`));
+            return;
+          }
+          const loadResult = await loadDocumentFromJsonStr(studioResult.value, content);
+          if (!loadResult.isOk()) {
+            raiseError2(new Error(loadResult.error?.message || "Failed to load document from JSON"));
+            return;
+          }
+          onClose();
+        } catch (error41) {
+          raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
         }
       };
-      reader.readAsText(file);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      reader.onerror = () => {
+        raiseError2(new Error("Failed to read the selected file"));
+      };
+      reader.readAsText(file2);
+    } catch (error41) {
+      raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
     }
     if (event.target) {
       event.target.value = "";
     }
   };
-  const loadDocument = async (studio2, content, isPackageFile = false) => {
+  const handleFolderNameChange = (value) => {
+    setFolderName(value);
+    const error41 = validateFolderName(value);
+    setFolderNameError(error41);
+  };
+  const [createdBlobUrls, setCreatedBlobUrls] = import_react264.useState([]);
+  import_react264.useEffect(() => {
+    return () => {
+      createdBlobUrls.forEach((url2) => {
+        URL.revokeObjectURL(url2);
+      });
+    };
+  }, [createdBlobUrls]);
+  const downloadFontFile = async (fontStyleId, file2, folder, fontDataForPackage, useOriginalFontFileNames) => {
     try {
-      const jsonData = JSON.parse(content);
-      if (isPackageFile && jsonData.properties?.token && jsonData.properties?.baseUrl) {
-        const targetToken = (await studio2.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
-        const targetBaseUrl = (await studio2.configuration.getValue("ENVIRONMENT_API")).parsedData;
-        const sourceToken = jsonData.properties.token;
-        const sourceBaseUrl = jsonData.properties.baseUrl;
-        if (jsonData.stylekit?.fontFamilies && Array.isArray(jsonData.stylekit.fontFamilies)) {
-          const sourceFontFamilies = jsonData.stylekit.fontFamilies;
-          if (sourceFontFamilies.length > 0) {
-            await migrateFonts(sourceFontFamilies, sourceToken, sourceBaseUrl, targetToken, targetBaseUrl);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+      const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+      const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
+      let fontFamily;
+      let fontStyle;
+      if (fontFamilies) {
+        for (const family of fontFamilies) {
+          const style2 = family.fontStyles.find((s2) => s2.fontStyleId === fontStyleId);
+          if (style2) {
+            fontFamily = family;
+            fontStyle = style2;
+            break;
           }
         }
-        delete jsonData.properties.token;
-        delete jsonData.properties.baseUrl;
-        content = JSON.stringify(jsonData);
       }
-      const loadResult = await loadDocumentFromJsonStr(studio2, content);
-      if (!loadResult.isOk()) {
-        raiseError2(new Error(loadResult.error?.message || "Failed to load document"));
-        return;
+      if (!fontFamily || !fontStyle) {
+        throw new Error(`Font style ${fontStyleId} not found`);
       }
-      onClose();
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      const fontStyleResponse = await fetch(`${baseUrl}font-families/${fontFamily.fontFamilyId}/styles`, {
+        headers: {
+          Authorization: `Bearer ${token2}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (!fontStyleResponse.ok) {
+        throw new Error(`Failed to fetch font style details: ${fontStyleResponse.statusText}`);
+      }
+      const fontStylesData = await fontStyleResponse.json();
+      const fontStyleDetails = fontStylesData.data.find((fs) => fs.id === fontStyleId);
+      if (!fontStyleDetails) {
+        throw new Error(`Font style details not found for ${fontStyleId}`);
+      }
+      const fontDownloadResponse = await fetch(`${baseUrl}font-styles/${fontStyleId}/download`, {
+        headers: {
+          Authorization: `Bearer ${token2}`
+        }
+      });
+      if (!fontDownloadResponse.ok) {
+        throw new Error(`Failed to download font: ${fontDownloadResponse.statusText}`);
+      }
+      const fontBlob = await fontDownloadResponse.blob();
+      const blobUrl = URL.createObjectURL(fontBlob);
+      setCreatedBlobUrls((prev2) => [...prev2, blobUrl]);
+      const actualFileName = useOriginalFontFileNames ? `fonts/${fontStyleDetails.fileName}` : `fonts/${fontStyleDetails.id}`;
+      setDownloadFiles((prev2) => prev2.map((f2) => f2.id === file2.id ? { ...f2, name: actualFileName } : f2));
+      fontDataForPackage.push({
+        filePath: actualFileName,
+        details: fontStyleDetails
+      });
+      await sendDownloadRequest(blobUrl, `Bearer ${token2}`, folder, actualFileName, file2.id);
+    } catch (error41) {
+      throw error41;
     }
   };
-  const handleConnectorReplacements = async (replacements) => {
-    try {
-      const jsonData = JSON.parse(pendingJsonContent);
-      if (jsonData.connectors && Array.isArray(jsonData.connectors)) {
-        const documentConnectors = jsonData.connectors;
-        for (const docConnector of documentConnectors) {
-          if (docConnector.source.source === "grafx") {
-            const replacement = replacements.find((r3) => r3.original === docConnector.id);
-            if (replacement) {
-              docConnector.source.id = replacement.replacement;
-            }
-          }
-        }
+  const startDownloadProcess = async (files, documentData2, documentId, documentName, folder, connectorSelection2) => {
+    const fontDataForPackage = [];
+    let smartCropsFilePath;
+    const documentJsonFile = files.find((f2) => f2.id === "document-json");
+    const fontFiles = files.filter((f2) => f2.id.startsWith("font-"));
+    const smartCropsFile = files.find((f2) => f2.id === "smart-crops");
+    const packageFile = files.find((f2) => f2.id === "studio-package");
+    if (documentJsonFile) {
+      try {
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === documentJsonFile.id ? { ...f2, status: "downloading" } : f2));
+        const processedDocumentData = processDocumentForDownload(documentData2, downloadSettings);
+        const jsonStr = JSON.stringify(processedDocumentData, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json" });
+        const blobUrl = URL.createObjectURL(blob);
+        setCreatedBlobUrls((prev2) => [...prev2, blobUrl]);
+        await sendDownloadRequest(blobUrl, "", folder, documentJsonFile.name, documentJsonFile.id);
+      } catch (error41) {
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === documentJsonFile.id ? {
+          ...f2,
+          status: "error",
+          error: error41 instanceof Error ? error41.message : String(error41)
+        } : f2));
+      }
+    }
+    for (const file2 of fontFiles) {
+      try {
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === file2.id ? { ...f2, status: "downloading" } : f2));
+        const fontStyleId = file2.id.replace("font-", "");
+        await downloadFontFile(fontStyleId, file2, folder, fontDataForPackage, downloadSettings.useOriginalFontFileNames);
+      } catch (error41) {
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === file2.id ? {
+          ...f2,
+          status: "error",
+          error: error41 instanceof Error ? error41.message : String(error41)
+        } : f2));
+      }
+    }
+    if (smartCropsFile && connectorSelection2) {
+      try {
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === smartCropsFile.id ? { ...f2, status: "downloading" } : f2));
         const studioResult = await getStudio();
         if (!studioResult.isOk()) {
-          raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
-          return;
+          throw new Error("Failed to get studio for smart crops collection");
         }
-        const updatedContent = JSON.stringify(jsonData);
-        const isPackageFile = pendingJsonContent.includes('"token"') && pendingJsonContent.includes('"baseUrl"');
-        await loadDocument(studioResult.value, updatedContent, isPackageFile);
+        const smartCropsData2 = await collectSmartCropsDataWithTasks(studioResult.value, connectorSelection2);
+        const smartCropsStr = JSON.stringify(smartCropsData2, null, 2);
+        const blob = new Blob([smartCropsStr], { type: "application/json" });
+        const blobUrl = URL.createObjectURL(blob);
+        setCreatedBlobUrls((prev2) => [...prev2, blobUrl]);
+        smartCropsFilePath = smartCropsFile.name;
+        await sendDownloadRequest(blobUrl, "", folder, smartCropsFile.name, smartCropsFile.id);
+      } catch (error41) {
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === smartCropsFile.id ? {
+          ...f2,
+          status: "error",
+          error: error41 instanceof Error ? error41.message : String(error41)
+        } : f2));
       }
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    }
+    if (packageFile) {
+      try {
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === packageFile.id ? { ...f2, status: "downloading" } : f2));
+        const documentEntry = {
+          id: documentId,
+          name: documentName,
+          filePath: `${documentId}.json`,
+          fonts: fontDataForPackage
+        };
+        if (smartCropsFilePath) {
+          documentEntry.smartCrops = {
+            filePath: smartCropsFilePath
+          };
+        }
+        const manifest = {
+          engineVersion: documentData2.engineVersion || "unknown",
+          source: window.location.href,
+          documents: [documentEntry]
+        };
+        const manifestStr = JSON.stringify(manifest, null, 2);
+        const blob = new Blob([manifestStr], { type: "application/json" });
+        const blobUrl = URL.createObjectURL(blob);
+        setCreatedBlobUrls((prev2) => [...prev2, blobUrl]);
+        await sendDownloadRequest(blobUrl, "", folder, packageFile.name, packageFile.id);
+      } catch (error41) {
+        setDownloadFiles((prev2) => prev2.map((f2) => f2.id === packageFile.id ? {
+          ...f2,
+          status: "error",
+          error: error41 instanceof Error ? error41.message : String(error41)
+        } : f2));
+      }
     }
   };
-  return /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
+  const sendDownloadRequest = async (url2, authorization, folder, filename, downloadId) => {
+    return new Promise((resolve, reject) => {
+      const requestId = `download_${Date.now()}_${Math.random()}`;
+      const responseListener = (event) => {
+        if (event.source !== window)
+          return;
+        if (event.data.type === "DOWNLOAD_RESPONSE" && event.data.requestId === requestId) {
+          window.removeEventListener("message", responseListener);
+          if (event.data.response.success) {
+            resolve();
+          } else {
+            reject(new Error(event.data.response.error));
+          }
+        }
+      };
+      window.addEventListener("message", responseListener);
+      window.postMessage({
+        type: "START_DOWNLOAD",
+        requestId,
+        data: {
+          url: url2,
+          authorization,
+          folder,
+          filename,
+          downloadId
+        }
+      }, "*");
+      setTimeout(() => {
+        window.removeEventListener("message", responseListener);
+        reject(new Error("Download request timeout"));
+      }, 30000);
+    });
+  };
+  const handleSettingChange = (setting, value) => {
+    setDownloadSettings((prev2) => ({
+      ...prev2,
+      [setting]: value
+    }));
+    if (setting === "includeSmartCrops" && !value) {
+      setConnectorSelection(null);
+    }
+  };
+  const handleDownloadWithSettings = async () => {
+    if (folderNameError) {
+      setError("Please fix folder name errors before downloading");
+      return;
+    }
+    if (!folderName.trim()) {
+      setError("Folder name is required");
+      return;
+    }
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error(studioResult.error?.message || "Failed to get studio"));
+        return;
+      }
+      const documentResult = await getCurrentDocumentState(studioResult.value);
+      if (!documentResult.isOk()) {
+        raiseError2(new Error(documentResult.error?.message || "Failed to get document state"));
+        return;
+      }
+      const documentData2 = documentResult.value;
+      const documentId = getDocumentId();
+      const documentName = await getDocumentName();
+      const finalFolderName = downloadSettings.addTimestamp ? `${folderName}_${generateTimestamp()}` : folderName;
+      const filesToDownload = [
+        {
+          id: "document-json",
+          name: `${documentId}.json`,
+          status: "pending"
+        },
+        {
+          id: "studio-package",
+          name: "package.studio",
+          status: "pending"
+        }
+      ];
+      if (downloadSettings.includeFonts && fontFamilies && fontFamilies.length > 0) {
+        for (const family of fontFamilies) {
+          for (const style2 of family.fontStyles) {
+            filesToDownload.push({
+              id: `font-${style2.fontStyleId}`,
+              name: `fonts/${style2.name}.ttf`,
+              status: "pending"
+            });
+          }
+        }
+      }
+      if (downloadSettings.includeSmartCrops && connectorSelection && connectorSelection.selectedFolders.length > 0) {
+        filesToDownload.push({
+          id: "smart-crops",
+          name: "smart-crops.json",
+          status: "pending"
+        });
+      }
+      setDownloadFiles(filesToDownload);
+      setTasks([]);
+      setModalState("tasks");
+      await startDownloadProcess(filesToDownload, documentData2, documentId, documentName, finalFolderName, connectorSelection);
+    } catch (error41) {
+      raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+    }
+  };
+  const handleFolderSelection = (selection) => {
+    setConnectorSelection(selection);
+    setFolderBrowserOpened(false);
+  };
+  const handleRemoveFolderPath = (pathToRemove) => {
+    setConnectorSelection((prev2) => {
+      if (!prev2)
+        return null;
+      const updatedFolders = prev2.selectedFolders.filter((path) => path !== pathToRemove);
+      if (updatedFolders.length === 0)
+        return null;
+      return {
+        ...prev2,
+        selectedFolders: updatedFolders
+      };
+    });
+  };
+  return /* @__PURE__ */ jsx_runtime27.jsxs(jsx_runtime27.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime21.jsxs(Modal, {
+      /* @__PURE__ */ jsx_runtime27.jsx(Modal, {
         opened,
-        onClose,
-        title: "Document Upload/Download",
+        onClose: handleClose,
+        title: modalState === "initial" ? "Document Upload/Download" : modalState === "downloadSettings" ? "Download Settings" : modalState === "tasks" ? "Tasks Processing" : modalState === "uploadInstructions" ? "Upload Instructions" : modalState === "uploading" ? "Uploading Files" : "Downloading Files",
         centered: true,
         size: "50%",
         styles: {
@@ -55870,184 +69291,76 @@ ${ledgerEntries.join(`
             fontWeight: 600
           }
         },
-        children: [
-          /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
-            gap: "xl",
-            children: [
-              /* @__PURE__ */ jsx_runtime21.jsx(Text, {
-                size: "md",
-                style: { textAlign: "center", marginBottom: "1rem" },
-                children: "Choose an action for document management. Downloads transfer JSON only, not assets."
-              }),
-              /* @__PURE__ */ jsx_runtime21.jsxs(SimpleGrid, {
-                cols: 2,
-                spacing: "xl",
-                style: { marginTop: "1rem" },
-                children: [
-                  /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                    onClick: handleDownloadDocumentJson,
-                    color: "blue",
-                    loading: isDownloading,
-                    disabled: isDownloading,
-                    fullWidth: true,
-                    size: "lg",
-                    style: {
-                      height: "80px",
-                      fontSize: "1rem",
-                      fontWeight: 500
-                    },
-                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                      gap: "md",
-                      style: { flexDirection: "column" },
-                      children: [
-                        /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
-                          size: 28
-                        }),
-                        /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                          children: "Download Document JSON"
-                        })
-                      ]
-                    })
-                  }),
-                  /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                    onClick: handleDownloadTemplatePackage,
-                    color: "blue",
-                    loading: isDownloading,
-                    disabled: isDownloading,
-                    fullWidth: true,
-                    size: "lg",
-                    style: {
-                      height: "80px",
-                      fontSize: "1rem",
-                      fontWeight: 500
-                    },
-                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                      gap: "md",
-                      style: { flexDirection: "column" },
-                      children: [
-                        /* @__PURE__ */ jsx_runtime21.jsx(IconDownload, {
-                          size: 28
-                        }),
-                        /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                          children: "Download Template Package"
-                        })
-                      ]
-                    })
-                  }),
-                  /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                    onClick: handleUpload,
-                    color: "green",
-                    disabled: isDownloading,
-                    fullWidth: true,
-                    size: "lg",
-                    style: {
-                      height: "80px",
-                      fontSize: "1rem",
-                      fontWeight: 500
-                    },
-                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                      gap: "md",
-                      style: { flexDirection: "column" },
-                      children: [
-                        /* @__PURE__ */ jsx_runtime21.jsx(IconUpload, {
-                          size: 28
-                        }),
-                        /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                          children: "Upload JSON/Package"
-                        })
-                      ]
-                    })
-                  }),
-                  /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                    onClick: handleDownloadFonts,
-                    color: "blue",
-                    loading: isDownloading,
-                    disabled: isDownloading,
-                    fullWidth: true,
-                    size: "lg",
-                    style: {
-                      height: "80px",
-                      fontSize: "1rem",
-                      fontWeight: 500
-                    },
-                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
-                      gap: "md",
-                      style: { flexDirection: "column" },
-                      children: [
-                        /* @__PURE__ */ jsx_runtime21.jsx(IconFileText, {
-                          size: 28
-                        }),
-                        /* @__PURE__ */ jsx_runtime21.jsx("span", {
-                          children: "Download Document Fonts"
-                        })
-                      ]
-                    })
-                  })
-                ]
-              })
-            ]
-          }),
-          showPackageWarning && /* @__PURE__ */ jsx_runtime21.jsx(Alert, {
-            icon: /* @__PURE__ */ jsx_runtime21.jsx(IconAlertCircle, {
-              size: "1rem"
-            }),
-            title: "Package Warning",
-            color: "orange",
-            style: { marginTop: "1rem" },
-            children: "Package is only active for a short-period."
-          }),
-          fontMigrationProgress && /* @__PURE__ */ jsx_runtime21.jsxs(Alert, {
-            icon: fontMigrationProgress.status === "error" ? /* @__PURE__ */ jsx_runtime21.jsx(IconAlertCircle, {
-              size: "1rem"
-            }) : /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
-              size: "sm"
-            }),
-            title: fontMigrationProgress.status === "checking" ? "Checking Fonts" : fontMigrationProgress.status === "downloading" || fontMigrationProgress.status === "uploading" ? `Number of Fonts To Move: ${fontMigrationProgress.completed}/${fontMigrationProgress.total}` : fontMigrationProgress.status === "complete" ? "Font Migration Complete" : "Font Migration Error",
-            color: fontMigrationProgress.status === "error" ? "red" : fontMigrationProgress.status === "complete" ? "green" : "blue",
-            style: { marginTop: "1rem" },
-            children: [
-              fontMigrationProgress.current && /* @__PURE__ */ jsx_runtime21.jsxs(Text, {
-                size: "sm",
-                children: [
-                  "Current: ",
-                  fontMigrationProgress.current
-                ]
-              }),
-              fontMigrationProgress.error && /* @__PURE__ */ jsx_runtime21.jsx(Text, {
-                size: "sm",
-                style: { color: "red" },
-                children: fontMigrationProgress.error
-              })
-            ]
-          })
-        ]
+        children: modalState === "initial" ? /* @__PURE__ */ jsx_runtime27.jsx(InitialScreen, {
+          error: error40,
+          onDownload: handleDownload,
+          onUpload: handleUpload,
+          onJsonDownload: handleJsonDownload,
+          onJsonUpload
+        }) : modalState === "downloadSettings" ? /* @__PURE__ */ jsx_runtime27.jsx(DownloadSettingsScreen, {
+          error: error40,
+          folderName,
+          folderNameError,
+          downloadSettings,
+          fontStylesCount,
+          connectorSelection,
+          onFolderNameChange: handleFolderNameChange,
+          onSettingChange: handleSettingChange,
+          onAddFolder: () => setFolderBrowserOpened(true),
+          onRemoveFolderPath: handleRemoveFolderPath,
+          onBack: () => setModalState("initial"),
+          onDownload: handleDownloadWithSettings
+        }) : modalState === "tasks" || modalState === "uploading" ? /* @__PURE__ */ jsx_runtime27.jsx(DownloadTasksScreen, {
+          downloadFiles,
+          tasks,
+          uploadTasks,
+          onClose: handleClose
+        }) : modalState === "uploadInstructions" ? /* @__PURE__ */ jsx_runtime27.jsx(UploadTasksScreen, {
+          error: error40,
+          onBack: () => setModalState("initial"),
+          onContinue: handleDirectoryPicker
+        }) : null
       }),
-      /* @__PURE__ */ jsx_runtime21.jsx("input", {
+      /* @__PURE__ */ jsx_runtime27.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
-        accept: ".json,.packageJson",
+        accept: ".json",
         onChange: handleFileChange
       }),
-      /* @__PURE__ */ jsx_runtime21.jsx(ConnectorReplacementModal, {
-        opened: replacementModalOpened,
-        onClose: () => setReplacementModalOpened(false),
-        missingConnectors,
+      /* @__PURE__ */ jsx_runtime27.jsx(ConnectorFolderBrowser, {
+        opened: folderBrowserOpened,
+        initialSelection: connectorSelection,
+        onClose: (selection) => {
+          handleFolderSelection(selection);
+          setFolderBrowserOpened(false);
+        }
+      }),
+      /* @__PURE__ */ jsx_runtime27.jsx(ConnectorSelectionModal, {
+        opened: connectorSelectionModalOpened,
+        onClose: () => setConnectorSelectionModalOpened(false),
+        connectors: availableConnectors,
+        smartCropsConnectorName: smartCropsData?.connectorName,
+        onSelect: handleConnectorSelection
+      }),
+      /* @__PURE__ */ jsx_runtime27.jsx(ReplaceConnectorsModal, {
+        opened: replaceConnectorsModalOpened,
+        onClose: () => setReplaceConnectorsModalOpened(false),
+        connectorsToReplace,
         availableConnectors,
-        onReplace: handleConnectorReplacements,
-        nameMatches
+        onReplace: handleConnectorReplacement
       })
     ]
   });
 }
 
 // src/components/MagicLayoutsModal.tsx
-var import_react260 = __toESM(require_react(), 1);
+var import_react265 = __toESM(require_react(), 1);
 var import_studio_sdk3 = __toESM(require_main(), 1);
 
 // src/studio/actions/magicLayout.js
 function magicLayoutScript(debug = false) {
-  const version2 = 1;
+  const version3 = 1;
   const layoutSizingData = "%DATA1%";
   const layoutFramesData = "%DATA2%";
   const muggleToVariableMagic = "%DATA3%";
@@ -56082,10 +69395,10 @@ function magicLayoutScript(debug = false) {
 }
 
 // src/components/MagicLayoutsModal.tsx
-var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
 function MagicLayoutsModal({ opened, onClose }) {
-  const [isProcessing, setIsProcessing] = import_react260.useState(true);
-  const [isComplete, setIsComplete] = import_react260.useState(false);
+  const [isProcessing, setIsProcessing] = import_react265.useState(true);
+  const [isComplete, setIsComplete] = import_react265.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
   const gatherAllChildren = async (childrenLayoutIds, onlyLeafs, skipUnavailable = true, recur = 0) => {
     const leafNames = [];
@@ -56344,7 +69657,7 @@ magicLayoutScript(false)`;
     });
     return updateResult;
   };
-  import_react260.useEffect(() => {
+  import_react265.useEffect(() => {
     if (!opened) {
       setIsProcessing(true);
       setIsComplete(false);
@@ -56355,8 +69668,8 @@ magicLayoutScript(false)`;
         await runMagicProcess();
         setIsProcessing(false);
         setIsComplete(true);
-      } catch (error) {
-        console.error("Magic process failed:", error);
+      } catch (error40) {
+        console.error("Magic process failed:", error40);
         setIsProcessing(false);
       }
     };
@@ -56365,7 +69678,7 @@ magicLayoutScript(false)`;
   const handleClose = () => {
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime28.jsx(Modal, {
     opened,
     onClose: handleClose,
     title: "Magic Layouts",
@@ -56373,31 +69686,31 @@ magicLayoutScript(false)`;
     size: "md",
     closeOnClickOutside: false,
     closeOnEscape: false,
-    children: /* @__PURE__ */ jsx_runtime22.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime28.jsx(Stack, {
       align: "center",
       gap: "lg",
       p: "lg",
-      children: isProcessing ? /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
+      children: isProcessing ? /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
+          /* @__PURE__ */ jsx_runtime28.jsx(Loader, {
             size: "lg",
             color: "purple"
           }),
-          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime28.jsx(Text, {
             size: "lg",
             fw: 500,
             children: "Creating Magic ✨"
           })
         ]
-      }) : /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
+      }) : /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime28.jsx(Text, {
             size: "lg",
             fw: 500,
             c: "green",
             children: "Magic Created ✨"
           }),
-          /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime28.jsx(Button, {
             onClick: handleClose,
             color: "purple",
             size: "md",
@@ -56411,21 +69724,21 @@ magicLayoutScript(false)`;
 }
 
 // src/components/ConnectorCleanupModal.tsx
-var import_react261 = __toESM(require_react(), 1);
-var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+var import_react266 = __toESM(require_react(), 1);
+var jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
 function ConnectorCleanupModal({
   opened,
   onClose
 }) {
-  const [connectors, setConnectors] = import_react261.useState([]);
-  const [selectedConnectors, setSelectedConnectors] = import_react261.useState(new Set);
-  const [isLoading, setIsLoading] = import_react261.useState(false);
-  const [isDeleting, setIsDeleting] = import_react261.useState(false);
-  const [isMergeModalOpen, setIsMergeModalOpen] = import_react261.useState(false);
-  const [mergeTargetId, setMergeTargetId] = import_react261.useState(null);
-  const [isMerging, setIsMerging] = import_react261.useState(false);
+  const [connectors, setConnectors] = import_react266.useState([]);
+  const [selectedConnectors, setSelectedConnectors] = import_react266.useState(new Set);
+  const [isLoading, setIsLoading] = import_react266.useState(false);
+  const [isDeleting, setIsDeleting] = import_react266.useState(false);
+  const [isMergeModalOpen, setIsMergeModalOpen] = import_react266.useState(false);
+  const [mergeTargetId, setMergeTargetId] = import_react266.useState(null);
+  const [isMerging, setIsMerging] = import_react266.useState(false);
   const { raiseError: raiseError2 } = useAppStore();
-  import_react261.useEffect(() => {
+  import_react266.useEffect(() => {
     if (opened) {
       loadConnectors();
     }
@@ -56445,8 +69758,8 @@ function ConnectorCleanupModal({
         return;
       }
       setConnectors(connectorsResult.value);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     } finally {
       setIsLoading(false);
     }
@@ -56486,8 +69799,8 @@ function ConnectorCleanupModal({
         }
       }
       await loadConnectors();
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     } finally {
       setIsDeleting(false);
     }
@@ -56522,8 +69835,8 @@ function ConnectorCleanupModal({
       setIsMergeModalOpen(false);
       setMergeTargetId(null);
       await loadConnectors();
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     } finally {
       setIsMerging(false);
     }
@@ -56543,47 +69856,47 @@ function ConnectorCleanupModal({
   };
   const hasSelectedConnectors = selectedConnectors.size > 0;
   const isAllSelected = selectedConnectors.size === connectors.length && connectors.length > 0;
-  return /* @__PURE__ */ jsx_runtime23.jsxs(jsx_runtime23.Fragment, {
+  return /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime29.jsx(Modal, {
         opened,
         onClose,
         title: "Connector Cleanup",
         size: "xl",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime29.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime29.jsx(Text, {
               size: "sm",
               c: "dimmed",
               children: "Manage and remove unused connectors from your document."
             }),
-            isLoading ? /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+            isLoading ? /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
               justify: "center",
               p: "xl",
               children: [
-                /* @__PURE__ */ jsx_runtime23.jsx(Loader, {
+                /* @__PURE__ */ jsx_runtime29.jsx(Loader, {
                   size: "md"
                 }),
-                /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime29.jsx(Text, {
                   children: "Loading connectors..."
                 })
               ]
-            }) : /* @__PURE__ */ jsx_runtime23.jsx(jsx_runtime23.Fragment, {
-              children: connectors.length === 0 ? /* @__PURE__ */ jsx_runtime23.jsx(Alert, {
-                icon: /* @__PURE__ */ jsx_runtime23.jsx(IconAlertCircle, {
+            }) : /* @__PURE__ */ jsx_runtime29.jsx(jsx_runtime29.Fragment, {
+              children: connectors.length === 0 ? /* @__PURE__ */ jsx_runtime29.jsx(Alert, {
+                icon: /* @__PURE__ */ jsx_runtime29.jsx(IconAlertCircle, {
                   size: 16
                 }),
                 color: "blue",
                 children: "No connectors found in this document."
-              }) : /* @__PURE__ */ jsx_runtime23.jsxs(jsx_runtime23.Fragment, {
+              }) : /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+                  /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
                     justify: "space-between",
                     children: [
-                      /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+                      /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
                         children: [
-                          /* @__PURE__ */ jsx_runtime23.jsxs(Button, {
+                          /* @__PURE__ */ jsx_runtime29.jsxs(Button, {
                             onClick: handleDeleteSelected,
                             disabled: !hasSelectedConnectors || isDeleting || isMerging,
                             color: "red",
@@ -56594,7 +69907,7 @@ function ConnectorCleanupModal({
                               ")"
                             ]
                           }),
-                          /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                          /* @__PURE__ */ jsx_runtime29.jsx(Button, {
                             onClick: handleMergeConnectors,
                             disabled: selectedConnectors.size < 2 || isDeleting || isMerging,
                             color: "blue",
@@ -56603,7 +69916,7 @@ function ConnectorCleanupModal({
                           })
                         ]
                       }),
-                      /* @__PURE__ */ jsx_runtime23.jsx(Checkbox, {
+                      /* @__PURE__ */ jsx_runtime29.jsx(Checkbox, {
                         label: `Select All (${connectors.length})`,
                         checked: isAllSelected,
                         indeterminate: hasSelectedConnectors && !isAllSelected,
@@ -56612,62 +69925,62 @@ function ConnectorCleanupModal({
                       })
                     ]
                   }),
-                  /* @__PURE__ */ jsx_runtime23.jsx(ScrollArea, {
+                  /* @__PURE__ */ jsx_runtime29.jsx(ScrollArea, {
                     h: 400,
-                    children: /* @__PURE__ */ jsx_runtime23.jsxs(Table, {
+                    children: /* @__PURE__ */ jsx_runtime29.jsxs(Table, {
                       striped: true,
                       highlightOnHover: true,
                       children: [
-                        /* @__PURE__ */ jsx_runtime23.jsx(Table.Thead, {
-                          children: /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
+                        /* @__PURE__ */ jsx_runtime29.jsx(Table.Thead, {
+                          children: /* @__PURE__ */ jsx_runtime29.jsxs(Table.Tr, {
                             children: [
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
                                 w: 50
                               }),
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
                                 children: "Name"
                               }),
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
                                 children: "Type"
                               }),
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
                                 children: "ID"
                               }),
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
                                 children: "Usage"
                               })
                             ]
                           })
                         }),
-                        /* @__PURE__ */ jsx_runtime23.jsx(Table.Tbody, {
-                          children: connectors.map((connector) => /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
+                        /* @__PURE__ */ jsx_runtime29.jsx(Table.Tbody, {
+                          children: connectors.map((connector) => /* @__PURE__ */ jsx_runtime29.jsxs(Table.Tr, {
                             children: [
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime23.jsx(Checkbox, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime29.jsx(Checkbox, {
                                   checked: selectedConnectors.has(connector.id),
                                   onChange: () => handleConnectorToggle(connector.id),
                                   disabled: isDeleting
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
                                 children: connector.name
                               }),
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime29.jsx(Text, {
                                   tt: "capitalize",
                                   children: connector.type
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime29.jsx(Text, {
                                   size: "xs",
                                   c: "dimmed",
                                   ff: "monospace",
                                   children: connector.id
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime29.jsx(Text, {
                                   size: "sm",
                                   children: formatUsageCount(connector.usesInTemplate)
                                 })
@@ -56681,9 +69994,9 @@ function ConnectorCleanupModal({
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime23.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime29.jsx(Group, {
               justify: "flex-end",
-              children: /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+              children: /* @__PURE__ */ jsx_runtime29.jsx(Button, {
                 onClick: onClose,
                 variant: "outline",
                 children: "Close"
@@ -56692,27 +70005,27 @@ function ConnectorCleanupModal({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime29.jsx(Modal, {
         opened: isMergeModalOpen,
         onClose: handleMergeCancel,
         title: "Merge All Connectors together",
         centered: true,
         size: "md",
-        children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime29.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime29.jsx(Text, {
               size: "sm",
               c: "dimmed",
               children: "Select the connector to merge all selected connectors into. The other connectors will be removed and all references will be updated."
             }),
-            /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+            /* @__PURE__ */ jsx_runtime29.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime29.jsx(Text, {
                   fw: 500,
                   children: "Merge into:"
                 }),
-                /* @__PURE__ */ jsx_runtime23.jsx(Select, {
+                /* @__PURE__ */ jsx_runtime29.jsx(Select, {
                   placeholder: "Select target connector",
                   data: Array.from(selectedConnectors).map((id) => {
                     const connector = connectors.find((c2) => c2.id === id);
@@ -56727,17 +70040,17 @@ function ConnectorCleanupModal({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
               justify: "flex-end",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime29.jsx(Button, {
                   onClick: handleMergeCancel,
                   variant: "outline",
                   disabled: isMerging,
                   children: "Cancel"
                 }),
-                /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime29.jsx(Button, {
                   onClick: handleMergeConfirm,
                   disabled: !mergeTargetId || isMerging,
                   loading: isMerging,
@@ -56754,62 +70067,62 @@ function ConnectorCleanupModal({
 }
 
 // src/components/ManualCropManager/ManualCropManagerModal.tsx
-var import_react267 = __toESM(require_react(), 1);
+var import_react272 = __toESM(require_react(), 1);
 
 // src/components/ManualCropManager/LayoutViewer.tsx
-var import_react262 = __toESM(require_react(), 1);
+var import_react267 = __toESM(require_react(), 1);
 init_getManualCropsFromDocByConnector();
-var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
 function LayoutViewer({
   selectedLayoutIds,
   onSelectionChange,
   selectedConnectorId,
   onRefreshFunctionReady
 }) {
-  const [layouts, setLayouts] = import_react262.useState([]);
-  const [searchQuery, setSearchQuery] = import_react262.useState("");
-  const [isLoading, setIsLoading] = import_react262.useState(true);
-  const [expandedLayouts, setExpandedLayouts] = import_react262.useState(new Set);
-  const [isInitialized, setIsInitialized] = import_react262.useState(false);
-  const [activeFilters, setActiveFilters] = import_react262.useState([]);
-  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react262.useState(false);
+  const [layouts, setLayouts] = import_react267.useState([]);
+  const [searchQuery, setSearchQuery] = import_react267.useState("");
+  const [isLoading, setIsLoading] = import_react267.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react267.useState(new Set);
+  const [isInitialized, setIsInitialized] = import_react267.useState(false);
+  const [activeFilters, setActiveFilters] = import_react267.useState([]);
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react267.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react262.useEffect(() => {
+  import_react267.useEffect(() => {
     const storedExpanded = sessionStorage.getItem("tempManualCropManager_layoutsExpanded");
     if (storedExpanded) {
       try {
         const expandedIds = JSON.parse(storedExpanded);
         setExpandedLayouts(new Set(expandedIds));
-      } catch (error) {
+      } catch (error40) {
         setExpandedLayouts(new Set);
       }
     }
     setIsInitialized(true);
   }, []);
-  import_react262.useEffect(() => {
+  import_react267.useEffect(() => {
     const storedFilters = localStorage.getItem("tempManualCropManager_layoutViewerFilters");
     if (storedFilters) {
       try {
         const filters = JSON.parse(storedFilters);
         setActiveFilters(filters);
-      } catch (error) {
+      } catch (error40) {
         setActiveFilters([]);
       }
     }
   }, []);
-  import_react262.useEffect(() => {
+  import_react267.useEffect(() => {
     loadLayouts();
   }, []);
-  import_react262.useEffect(() => {
+  import_react267.useEffect(() => {
     if (isInitialized) {
       const expandedIds = Array.from(expandedLayouts);
       sessionStorage.setItem("tempManualCropManager_layoutsExpanded", JSON.stringify(expandedIds));
     }
   }, [expandedLayouts, isInitialized]);
-  import_react262.useEffect(() => {
+  import_react267.useEffect(() => {
     localStorage.setItem("tempManualCropManager_layoutViewerFilters", JSON.stringify(activeFilters));
   }, [activeFilters]);
-  import_react262.useEffect(() => {
+  import_react267.useEffect(() => {
     if (selectedConnectorId) {
       updateManualCropIndicators();
     }
@@ -56830,13 +70143,13 @@ function LayoutViewer({
       const layoutsData = layoutsResult.value;
       const layoutNodes = buildLayoutTree(layoutsData);
       setLayouts(layoutNodes);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to load layouts"));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to load layouts"));
     } finally {
       setIsLoading(false);
     }
   };
-  const updateManualCropIndicators = import_react262.useCallback(async () => {
+  const updateManualCropIndicators = import_react267.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -56857,11 +70170,11 @@ function LayoutViewer({
       const cropsData = cropsResult.value;
       const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
       setLayouts((prevLayouts) => updateLayoutCropIndicators(prevLayouts, layoutsWithCrops));
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to update manual crop indicators"));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to update manual crop indicators"));
     }
   }, [selectedConnectorId, raiseError2]);
-  import_react262.useEffect(() => {
+  import_react267.useEffect(() => {
     if (onRefreshFunctionReady) {
       onRefreshFunctionReady(updateManualCropIndicators);
     }
@@ -56928,7 +70241,7 @@ function LayoutViewer({
     };
     return filterLayouts(layouts2);
   };
-  const filteredLayouts = import_react262.useMemo(() => {
+  const filteredLayouts = import_react267.useMemo(() => {
     let processedLayouts = layouts;
     if (activeFilters.length > 0) {
       processedLayouts = applyFilters(layouts, activeFilters);
@@ -57017,77 +70330,77 @@ function LayoutViewer({
     return "indeterminate";
   };
   if (isLoading) {
-    return /* @__PURE__ */ jsx_runtime24.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime30.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime24.jsx(Loader, {
+      children: /* @__PURE__ */ jsx_runtime30.jsx(Loader, {
         size: "sm"
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime24.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime30.jsxs(Box, {
     style: { height: "100%", display: "flex", flexDirection: "column" },
     children: [
-      /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime30.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-        children: /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
           gap: "xs",
           children: [
-            /* @__PURE__ */ jsx_runtime24.jsx(TextInput, {
+            /* @__PURE__ */ jsx_runtime30.jsx(TextInput, {
               placeholder: "Search layouts...",
               value: searchQuery,
               onChange: (e) => setSearchQuery(e.target.value),
-              leftSection: /* @__PURE__ */ jsx_runtime24.jsx(IconSearch, {
+              leftSection: /* @__PURE__ */ jsx_runtime30.jsx(IconSearch, {
                 size: 16
               }),
               size: "sm"
             }),
-            /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
               gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: expandAll,
                   children: "Expand All"
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: collapseAll,
                   children: "Collapse All"
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: deselectAll,
                   children: "Deselect All"
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsxs(Popover, {
+                /* @__PURE__ */ jsx_runtime30.jsxs(Popover, {
                   opened: isFilterPopoverOpen,
                   onClose: () => setIsFilterPopoverOpen(false),
                   position: "bottom-start",
                   withArrow: true,
                   children: [
-                    /* @__PURE__ */ jsx_runtime24.jsx(Popover.Target, {
-                      children: /* @__PURE__ */ jsx_runtime24.jsx(Tooltip, {
+                    /* @__PURE__ */ jsx_runtime30.jsx(Popover.Target, {
+                      children: /* @__PURE__ */ jsx_runtime30.jsx(Tooltip, {
                         label: "Filter",
                         position: "top",
-                        children: /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+                        children: /* @__PURE__ */ jsx_runtime30.jsx(ActionIcon, {
                           variant: "subtle",
                           size: "xs",
                           onClick: () => setIsFilterPopoverOpen(!isFilterPopoverOpen),
                           color: activeFilters.length > 0 ? "yellow" : "gray",
-                          children: activeFilters.length > 0 ? /* @__PURE__ */ jsx_runtime24.jsx(IconFilterFilled, {
+                          children: activeFilters.length > 0 ? /* @__PURE__ */ jsx_runtime30.jsx(IconFilterFilled, {
                             size: 14
-                          }) : /* @__PURE__ */ jsx_runtime24.jsx(IconFilter, {
+                          }) : /* @__PURE__ */ jsx_runtime30.jsx(IconFilter, {
                             size: 14
                           })
                         })
                       })
                     }),
-                    /* @__PURE__ */ jsx_runtime24.jsx(Popover.Dropdown, {
-                      children: /* @__PURE__ */ jsx_runtime24.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime30.jsx(Popover.Dropdown, {
+                      children: /* @__PURE__ */ jsx_runtime30.jsx(MultiSelect, {
                         label: "Filter layouts",
                         placeholder: "Select filters",
                         data: [
@@ -57107,11 +70420,11 @@ function LayoutViewer({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime24.jsx(ScrollArea, {
+      /* @__PURE__ */ jsx_runtime30.jsx(ScrollArea, {
         style: { flex: 1 },
-        children: /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+        children: /* @__PURE__ */ jsx_runtime30.jsx(Box, {
           p: "md",
-          children: /* @__PURE__ */ jsx_runtime24.jsx(LayoutTree, {
+          children: /* @__PURE__ */ jsx_runtime30.jsx(LayoutTree, {
             layouts: filteredLayouts,
             selectedLayoutIds,
             expandedLayouts,
@@ -57134,9 +70447,9 @@ function LayoutTree({
   onToggleChildrenSelection,
   getCheckboxState
 }) {
-  return /* @__PURE__ */ jsx_runtime24.jsx(Stack, {
+  return /* @__PURE__ */ jsx_runtime30.jsx(Stack, {
     gap: "xs",
-    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime24.jsx(LayoutTreeItem, {
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime30.jsx(LayoutTreeItem, {
       layout,
       selectedLayoutIds,
       expandedLayouts,
@@ -57161,9 +70474,9 @@ function LayoutTreeItem({
   const isSelected = selectedLayoutIds.includes(layout.id);
   const checkboxState = getCheckboxState(layout);
   const isFilteredParent = layout.isFilteredParent || false;
-  return /* @__PURE__ */ jsx_runtime24.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime30.jsxs(Box, {
     children: [
-      /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
         gap: "xs",
         style: {
           marginLeft: layout.level * 10,
@@ -57173,22 +70486,22 @@ function LayoutTreeItem({
           opacity: isFilteredParent ? 0.5 : 1
         },
         children: [
-          hasChildren ? /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+          hasChildren ? /* @__PURE__ */ jsx_runtime30.jsx(ActionIcon, {
             variant: "subtle",
             size: "xs",
             onClick: (e) => {
               e.stopPropagation();
               onToggleExpanded(layout.id);
             },
-            children: isExpanded ? /* @__PURE__ */ jsx_runtime24.jsx(IconChevronDown, {
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime30.jsx(IconChevronDown, {
               size: 12
-            }) : /* @__PURE__ */ jsx_runtime24.jsx(IconChevronRight, {
+            }) : /* @__PURE__ */ jsx_runtime30.jsx(IconChevronRight, {
               size: 12
             })
-          }) : /* @__PURE__ */ jsx_runtime24.jsx(Box, {
+          }) : /* @__PURE__ */ jsx_runtime30.jsx(Box, {
             style: { width: 20 }
           }),
-          hasChildren && /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+          hasChildren && /* @__PURE__ */ jsx_runtime30.jsx(Checkbox, {
             checked: checkboxState === "checked",
             indeterminate: checkboxState === "indeterminate",
             onChange: () => onToggleChildrenSelection(layout),
@@ -57196,14 +70509,14 @@ function LayoutTreeItem({
             onClick: (e) => e.stopPropagation(),
             disabled: isFilteredParent
           }),
-          isFilteredParent ? /* @__PURE__ */ jsx_runtime24.jsx(IconEyeClosed, {
+          isFilteredParent ? /* @__PURE__ */ jsx_runtime30.jsx(IconEyeClosed, {
             size: 14,
             color: "gray"
-          }) : /* @__PURE__ */ jsx_runtime24.jsx(IconCrop, {
+          }) : /* @__PURE__ */ jsx_runtime30.jsx(IconCrop, {
             size: 14,
             color: layout.hasManualCrops ? "orange" : "gray"
           }),
-          /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime30.jsx(Text, {
             size: "sm",
             style: {
               flex: 1,
@@ -57215,7 +70528,7 @@ function LayoutTreeItem({
           })
         ]
       }),
-      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime24.jsx(LayoutTree, {
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime30.jsx(LayoutTree, {
         layouts: layout.children,
         selectedLayoutIds,
         expandedLayouts,
@@ -57229,7 +70542,7 @@ function LayoutTreeItem({
 }
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
-var import_react266 = __toESM(require_react(), 1);
+var import_react271 = __toESM(require_react(), 1);
 init_documentHandler();
 init_getManualCropsFromDocByConnector();
 
@@ -57273,8 +70586,8 @@ function setManualCropsForLayout(documentState, layoutId, connectorId, manualCro
       };
     }
     return Result.ok(updatedDocumentState);
-  } catch (error) {
-    return Result.error(error instanceof Error ? error : new Error("Failed to set manual crops for layout"));
+  } catch (error40) {
+    return Result.error(error40 instanceof Error ? error40 : new Error("Failed to set manual crops for layout"));
   }
 }
 
@@ -57305,15 +70618,15 @@ function deleteSingleManualCropForLayout(documentState, layoutId, connectorId, f
       delete frameProperty.perAssetCrop;
     }
     return Result.ok(updatedDocumentState);
-  } catch (error) {
-    return Result.error(error instanceof Error ? error : new Error("Failed to delete single manual crop for layout"));
+  } catch (error40) {
+    return Result.error(error40 instanceof Error ? error40 : new Error("Failed to delete single manual crop for layout"));
   }
 }
 
 // src/components/ManualCropManager/CopyCropToLayerModal.tsx
-var import_react263 = __toESM(require_react(), 1);
+var import_react268 = __toESM(require_react(), 1);
 init_getManualCropsFromDocByConnector();
-var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
 function CopyCropToLayerModal({
   opened,
   onClose,
@@ -57322,20 +70635,20 @@ function CopyCropToLayerModal({
   selectedConnectorId,
   onCopy
 }) {
-  const [layouts, setLayouts] = import_react263.useState([]);
-  const [searchQuery, setSearchQuery] = import_react263.useState("");
-  const [isLoading, setIsLoading] = import_react263.useState(true);
-  const [expandedLayouts, setExpandedLayouts] = import_react263.useState(new Set);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react263.useState([]);
+  const [layouts, setLayouts] = import_react268.useState([]);
+  const [searchQuery, setSearchQuery] = import_react268.useState("");
+  const [isLoading, setIsLoading] = import_react268.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react268.useState(new Set);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react268.useState([]);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react263.useEffect(() => {
+  import_react268.useEffect(() => {
     if (opened) {
       loadLayouts();
       setSelectedLayoutIds([]);
       setSearchQuery("");
     }
   }, [opened]);
-  import_react263.useEffect(() => {
+  import_react268.useEffect(() => {
     if (selectedConnectorId && opened) {
       updateManualCropIndicators();
     }
@@ -57356,8 +70669,8 @@ function CopyCropToLayerModal({
       const layoutsData = layoutsResult.value;
       const layoutNodes = buildLayoutTree(layoutsData);
       setLayouts(layoutNodes);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to load layouts"));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to load layouts"));
     } finally {
       setIsLoading(false);
     }
@@ -57383,8 +70696,8 @@ function CopyCropToLayerModal({
       const cropsData = cropsResult.value;
       const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
       setLayouts((prevLayouts) => updateLayoutCropIndicators(prevLayouts, layoutsWithCrops));
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to update manual crop indicators"));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to update manual crop indicators"));
     }
   };
   const updateLayoutCropIndicators = (layouts2, layoutsWithCrops) => {
@@ -57422,7 +70735,7 @@ function CopyCropToLayerModal({
     });
     return rootLayouts;
   };
-  const filteredLayouts = import_react263.useMemo(() => {
+  const filteredLayouts = import_react268.useMemo(() => {
     if (!searchQuery.trim())
       return layouts;
     const filterLayouts = (layouts2) => {
@@ -57481,63 +70794,63 @@ function CopyCropToLayerModal({
     try {
       await onCopy(selectedLayoutIds, checkedCrops);
       onClose();
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to copy crops"));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to copy crops"));
     }
   };
   if (isLoading) {
-    return /* @__PURE__ */ jsx_runtime25.jsx(Modal, {
+    return /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
       opened,
       onClose,
       title: "Copy Crops to Layouts",
       size: "lg",
-      children: /* @__PURE__ */ jsx_runtime25.jsx(Center, {
+      children: /* @__PURE__ */ jsx_runtime31.jsx(Center, {
         style: { height: 400 },
-        children: /* @__PURE__ */ jsx_runtime25.jsx(Loader, {
+        children: /* @__PURE__ */ jsx_runtime31.jsx(Loader, {
           size: "sm"
         })
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime25.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
     opened,
     onClose,
     title: "Copy Crops to Layouts",
     size: "lg",
-    children: /* @__PURE__ */ jsx_runtime25.jsxs(Box, {
+    children: /* @__PURE__ */ jsx_runtime31.jsxs(Box, {
       style: { height: 500, display: "flex", flexDirection: "column" },
       children: [
-        /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+        /* @__PURE__ */ jsx_runtime31.jsx(Box, {
           p: "md",
           style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-          children: /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
+          children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
             gap: "xs",
             children: [
-              /* @__PURE__ */ jsx_runtime25.jsx(TextInput, {
+              /* @__PURE__ */ jsx_runtime31.jsx(TextInput, {
                 placeholder: "Search layouts...",
                 value: searchQuery,
                 onChange: (e) => setSearchQuery(e.target.value),
-                leftSection: /* @__PURE__ */ jsx_runtime25.jsx(IconSearch, {
+                leftSection: /* @__PURE__ */ jsx_runtime31.jsx(IconSearch, {
                   size: 16
                 }),
                 size: "sm"
               }),
-              /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+              /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
                 gap: "xs",
                 children: [
-                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: expandAll,
                     children: "Expand All"
                   }),
-                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: collapseAll,
                     children: "Collapse All"
                   }),
-                  /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: deselectAll,
@@ -57548,11 +70861,11 @@ function CopyCropToLayerModal({
             ]
           })
         }),
-        /* @__PURE__ */ jsx_runtime25.jsx(ScrollArea, {
+        /* @__PURE__ */ jsx_runtime31.jsx(ScrollArea, {
           style: { flex: 1 },
-          children: /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+          children: /* @__PURE__ */ jsx_runtime31.jsx(Box, {
             p: "md",
-            children: /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTree, {
+            children: /* @__PURE__ */ jsx_runtime31.jsx(CopyLayoutTree, {
               layouts: filteredLayouts,
               selectedLayoutIds,
               expandedLayouts,
@@ -57562,27 +70875,27 @@ function CopyCropToLayerModal({
             })
           })
         }),
-        /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
           justify: "space-between",
           p: "md",
           style: { borderTop: "1px solid var(--mantine-color-gray-3)" },
           children: [
-            /* @__PURE__ */ jsx_runtime25.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Text, {
               size: "sm",
               children: [
                 "Layouts Selected: ",
                 selectedLayoutIds.length
               ]
             }),
-            /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   variant: "outline",
                   onClick: onClose,
                   children: "Close"
                 }),
-                /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   onClick: handleCopy,
                   disabled: selectedLayoutIds.length === 0,
                   color: "blue",
@@ -57604,9 +70917,9 @@ function CopyLayoutTree({
   onToggleExpanded,
   onToggleSelection
 }) {
-  return /* @__PURE__ */ jsx_runtime25.jsx(Stack, {
+  return /* @__PURE__ */ jsx_runtime31.jsx(Stack, {
     gap: "xs",
-    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTreeItem, {
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime31.jsx(CopyLayoutTreeItem, {
       layout,
       selectedLayoutIds,
       expandedLayouts,
@@ -57628,9 +70941,9 @@ function CopyLayoutTreeItem({
   const isExpanded = expandedLayouts.has(layout.id);
   const isSelected = selectedLayoutIds.includes(layout.id);
   const isSourceLayout = layout.id === sourceLayoutId;
-  return /* @__PURE__ */ jsx_runtime25.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime31.jsxs(Box, {
     children: [
-      /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
         gap: "xs",
         style: {
           paddingLeft: layout.level * 20,
@@ -57640,26 +70953,26 @@ function CopyLayoutTreeItem({
           opacity: isSourceLayout ? 0.5 : 1
         },
         children: [
-          hasChildren ? /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+          hasChildren ? /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
             variant: "subtle",
             size: "xs",
             onClick: (e) => {
               e.stopPropagation();
               onToggleExpanded(layout.id);
             },
-            children: isExpanded ? /* @__PURE__ */ jsx_runtime25.jsx(IconChevronDown, {
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime31.jsx(IconChevronDown, {
               size: 12
-            }) : /* @__PURE__ */ jsx_runtime25.jsx(IconChevronRight, {
+            }) : /* @__PURE__ */ jsx_runtime31.jsx(IconChevronRight, {
               size: 12
             })
-          }) : /* @__PURE__ */ jsx_runtime25.jsx(Box, {
+          }) : /* @__PURE__ */ jsx_runtime31.jsx(Box, {
             style: { width: 20 }
           }),
-          /* @__PURE__ */ jsx_runtime25.jsx(IconCrop, {
+          /* @__PURE__ */ jsx_runtime31.jsx(IconCrop, {
             size: 14,
             color: layout.hasManualCrops ? "orange" : "gray"
           }),
-          /* @__PURE__ */ jsx_runtime25.jsxs(Text, {
+          /* @__PURE__ */ jsx_runtime31.jsxs(Text, {
             size: "sm",
             style: {
               flex: 1,
@@ -57675,7 +70988,7 @@ function CopyLayoutTreeItem({
           })
         ]
       }),
-      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime25.jsx(CopyLayoutTree, {
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime31.jsx(CopyLayoutTree, {
         layouts: layout.children,
         selectedLayoutIds,
         expandedLayouts,
@@ -57688,8 +71001,8 @@ function CopyLayoutTreeItem({
 }
 
 // src/components/ManualCropManager/CopyAndAddRowModal.tsx
-var import_react264 = __toESM(require_react(), 1);
-var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
+var import_react269 = __toESM(require_react(), 1);
+var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
 function CopyAndAddRowModal2({
   opened,
   onClose,
@@ -57698,10 +71011,10 @@ function CopyAndAddRowModal2({
   existingCrops,
   onAddCopy
 }) {
-  const [newName, setNewName] = import_react264.useState("");
-  const [error, setError] = import_react264.useState(null);
-  const [isLoading, setIsLoading] = import_react264.useState(false);
-  import_react264.default.useEffect(() => {
+  const [newName, setNewName] = import_react269.useState("");
+  const [error40, setError] = import_react269.useState(null);
+  const [isLoading, setIsLoading] = import_react269.useState(false);
+  import_react269.default.useEffect(() => {
     if (opened) {
       setNewName(crop.name);
       setError(null);
@@ -57727,36 +71040,36 @@ function CopyAndAddRowModal2({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime26.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime32.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Add Row",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime32.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime26.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime32.jsx(Text, {
           size: "sm",
           children: "Enter a name for the new manual crop:"
         }),
-        /* @__PURE__ */ jsx_runtime26.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime32.jsx(TextInput, {
           label: "Asset Name",
           placeholder: "Enter asset name",
           value: newName,
           onChange: handleNameChange,
-          error,
+          error: error40,
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime32.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime32.jsx(Button, {
               onClick: handleCreate,
               loading: isLoading,
               disabled: !newName.trim(),
@@ -57770,8 +71083,8 @@ function CopyAndAddRowModal2({
 }
 
 // src/components/ManualCropManager/CopyAndReplaceModal.tsx
-var import_react265 = __toESM(require_react(), 1);
-var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
+var import_react270 = __toESM(require_react(), 1);
+var jsx_runtime33 = __toESM(require_jsx_runtime(), 1);
 function CopyAndReplaceModal2({
   opened,
   onClose,
@@ -57780,14 +71093,14 @@ function CopyAndReplaceModal2({
   existingCrops,
   onAddCopy
 }) {
-  const [searchText, setSearchText] = import_react265.useState("");
-  const [replaceText, setReplaceText] = import_react265.useState("");
-  const [errors, setErrors] = import_react265.useState({});
-  const [isLoading, setIsLoading] = import_react265.useState(false);
-  const [previewCrop, setPreviewCrop] = import_react265.useState(null);
-  const [previewNewName, setPreviewNewName] = import_react265.useState("");
-  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react265.useState(false);
-  import_react265.useEffect(() => {
+  const [searchText, setSearchText] = import_react270.useState("");
+  const [replaceText, setReplaceText] = import_react270.useState("");
+  const [errors3, setErrors] = import_react270.useState({});
+  const [isLoading, setIsLoading] = import_react270.useState(false);
+  const [previewCrop, setPreviewCrop] = import_react270.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react270.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react270.useState(false);
+  import_react270.useEffect(() => {
     if (opened) {
       setSearchText("");
       setReplaceText("");
@@ -57800,7 +71113,7 @@ function CopyAndReplaceModal2({
       }
     }
   }, [opened, crops]);
-  import_react265.useEffect(() => {
+  import_react270.useEffect(() => {
     if (previewCrop) {
       const newName = previewCrop.name.replace(new RegExp(searchText, "g"), replaceText);
       setPreviewNewName(newName);
@@ -57849,42 +71162,42 @@ function CopyAndReplaceModal2({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime27.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime33.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Replace",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime33.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime33.jsx(Text, {
           size: "sm",
           children: "Enter search and replace text to create copies with modified names:"
         }),
-        /* @__PURE__ */ jsx_runtime27.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime33.jsx(TextInput, {
           label: "Search",
           placeholder: "Text to search for",
           value: searchText,
           onChange: handleSearchChange,
-          error: errors.searchText,
+          error: errors3.searchText,
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime27.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime33.jsx(TextInput, {
           label: "Replace",
           placeholder: "Text to replace with",
           value: replaceText,
           onChange: handleReplaceChange,
           required: true
         }),
-        previewCrop && /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+        previewCrop && /* @__PURE__ */ jsx_runtime33.jsxs(Stack, {
           gap: "xs",
           children: [
-            /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime33.jsx(Text, {
               size: "sm",
               fw: 500,
               children: "Preview:"
             }),
-            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime33.jsxs(Text, {
               size: "sm",
               c: "dimmed",
               children: [
@@ -57892,24 +71205,24 @@ function CopyAndReplaceModal2({
                 previewCrop.frameName
               ]
             }),
-            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime33.jsxs(Text, {
               size: "sm",
               children: [
                 "Original:",
                 " ",
-                /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime33.jsx(Text, {
                   span: true,
                   c: "blue",
                   children: previewCrop.name
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime27.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime33.jsxs(Text, {
               size: "sm",
               children: [
                 "New:",
                 " ",
-                /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime33.jsx(Text, {
                   span: true,
                   c: isPreviewNameDifferent ? "green" : "dimmed",
                   children: previewNewName
@@ -57918,27 +71231,27 @@ function CopyAndReplaceModal2({
             })
           ]
         }),
-        Object.keys(errors).length > 0 && /* @__PURE__ */ jsx_runtime27.jsx(Alert, {
+        Object.keys(errors3).length > 0 && /* @__PURE__ */ jsx_runtime33.jsx(Alert, {
           color: "red",
           title: "Validation Errors",
-          children: /* @__PURE__ */ jsx_runtime27.jsx(Stack, {
+          children: /* @__PURE__ */ jsx_runtime33.jsx(Stack, {
             gap: "xs",
-            children: Object.entries(errors).map(([key, message]) => /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+            children: Object.entries(errors3).map(([key, message]) => /* @__PURE__ */ jsx_runtime33.jsx(Text, {
               size: "sm",
               children: message
             }, key))
           })
         }),
-        /* @__PURE__ */ jsx_runtime27.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime33.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime33.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime33.jsx(Button, {
               onClick: handleCopyAndReplace,
               loading: isLoading,
               disabled: !searchText.trim() || !isPreviewNameDifferent,
@@ -57952,7 +71265,7 @@ function CopyAndReplaceModal2({
 }
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
-var jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime34 = __toESM(require_jsx_runtime(), 1);
 function CropRow({
   crop,
   layoutId,
@@ -57962,8 +71275,8 @@ function CropRow({
   onCheckChange,
   isDeleted
 }) {
-  const [localCrop, setLocalCrop] = import_react266.useState(crop);
-  import_react266.useEffect(() => {
+  const [localCrop, setLocalCrop] = import_react271.useState(crop);
+  import_react271.useEffect(() => {
     setLocalCrop(crop);
   }, [crop]);
   const handleFieldChange = (field, value) => {
@@ -57989,30 +71302,30 @@ function CropRow({
   if (isDeleted) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime28.jsxs(Table.Tr, {
+  return /* @__PURE__ */ jsx_runtime34.jsxs(Table.Tr, {
     children: [
-      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime28.jsx(Checkbox, {
+      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(Checkbox, {
           checked: isChecked,
           onChange: (event) => onCheckChange(layoutId, cropIndex, event.currentTarget.checked)
         })
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(Text, {
           size: "sm",
           children: localCrop.frameName
         })
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
           value: localCrop.name,
           onChange: (e) => handleFieldChange("name", e.target.value),
           size: "xs",
           style: { width: "100%" }
         })
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
           value: localCrop.left.toString(),
           onChange: (e) => handleFieldChange("left", e.target.value),
           size: "xs",
@@ -58021,8 +71334,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
           value: localCrop.top.toString(),
           onChange: (e) => handleFieldChange("top", e.target.value),
           size: "xs",
@@ -58031,8 +71344,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
           value: localCrop.width.toString(),
           onChange: (e) => handleFieldChange("width", e.target.value),
           size: "xs",
@@ -58041,8 +71354,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime28.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
           value: localCrop.height.toString(),
           onChange: (e) => handleFieldChange("height", e.target.value),
           size: "xs",
@@ -58060,23 +71373,23 @@ function ManualCropEditor({
   onModalClose,
   onCropsSaved
 }) {
-  const [layoutCrops, setLayoutCrops] = import_react266.useState(new Map);
-  const [isLoading, setIsLoading] = import_react266.useState(false);
-  const [saveState, setSaveState] = import_react266.useState("idle");
-  const [saveMessage, setSaveMessage] = import_react266.useState("");
-  const [originalDocumentState, setOriginalDocumentState] = import_react266.useState(null);
-  const [changedRows, setChangedRows] = import_react266.useState(new Map);
-  const [checkedRows, setCheckedRows] = import_react266.useState(new Set);
-  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react266.useState(false);
-  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react266.useState("");
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react266.useState(false);
-  const [currentCropForCopy, setCurrentCropForCopy] = import_react266.useState(null);
-  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react266.useState("");
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react266.useState(false);
-  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react266.useState([]);
-  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react266.useState("");
+  const [layoutCrops, setLayoutCrops] = import_react271.useState(new Map);
+  const [isLoading, setIsLoading] = import_react271.useState(false);
+  const [saveState, setSaveState] = import_react271.useState("idle");
+  const [saveMessage, setSaveMessage] = import_react271.useState("");
+  const [originalDocumentState, setOriginalDocumentState] = import_react271.useState(null);
+  const [changedRows, setChangedRows] = import_react271.useState(new Map);
+  const [checkedRows, setCheckedRows] = import_react271.useState(new Set);
+  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react271.useState(false);
+  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react271.useState("");
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react271.useState(false);
+  const [currentCropForCopy, setCurrentCropForCopy] = import_react271.useState(null);
+  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react271.useState("");
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react271.useState(false);
+  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react271.useState([]);
+  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react271.useState("");
   const raiseError2 = appStore((store) => store.raiseError);
-  const loadCropsForSelectedLayouts = import_react266.useCallback(async () => {
+  const loadCropsForSelectedLayouts = import_react271.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -58112,13 +71425,13 @@ function ManualCropEditor({
         }
       });
       setLayoutCrops(layoutCropsMap);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to load manual crops"));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to load manual crops"));
     } finally {
       setIsLoading(false);
     }
   }, [selectedConnectorId, selectedLayoutIds, raiseError2]);
-  import_react266.useEffect(() => {
+  import_react271.useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
       loadCropsForSelectedLayouts();
     } else {
@@ -58127,7 +71440,7 @@ function ManualCropEditor({
     setChangedRows(new Map);
     setCheckedRows(new Set);
   }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
-  const handleCropChange = import_react266.useCallback((layoutId, cropIndex, updatedCrop) => {
+  const handleCropChange = import_react271.useCallback((layoutId, cropIndex, updatedCrop) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
@@ -58135,7 +71448,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, []);
-  const handleCheckChange = import_react266.useCallback((layoutId, cropIndex, checked) => {
+  const handleCheckChange = import_react271.useCallback((layoutId, cropIndex, checked) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
@@ -58147,10 +71460,10 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const getCheckedSnapshotsCountForLayout = import_react266.useCallback((layoutId) => {
+  const getCheckedSnapshotsCountForLayout = import_react271.useCallback((layoutId) => {
     return Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`)).length;
   }, [checkedRows]);
-  const getCheckedCropsForLayout = import_react266.useCallback((layoutId) => {
+  const getCheckedCropsForLayout = import_react271.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
     if (!layoutCrop)
       return [];
@@ -58173,7 +71486,7 @@ function ManualCropEditor({
     });
     return checkedCrops;
   }, [checkedRows, layoutCrops, changedRows]);
-  const deleteCheckedSnapshots = import_react266.useCallback((layoutId) => {
+  const deleteCheckedSnapshots = import_react271.useCallback((layoutId) => {
     const checkedRowsForLayout = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`));
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
@@ -58196,13 +71509,13 @@ function ManualCropEditor({
       return newSet;
     });
   }, [checkedRows]);
-  const setCopyModalOpened = import_react266.useCallback((opened, layoutId) => {
+  const setCopyModalOpened = import_react271.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       setCurrentCopySourceLayoutId(layoutId);
     }
     setCopyCropToLayerModalOpened(opened);
   }, []);
-  const setCopyAndAddRowModalOpened = import_react266.useCallback((opened, layoutId) => {
+  const setCopyAndAddRowModalOpened = import_react271.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       const checkedCrops = getCheckedCropsForLayout(layoutId);
       if (checkedCrops.length === 1) {
@@ -58216,7 +71529,7 @@ function ManualCropEditor({
       setCurrentLayoutIdForCopy("");
     }
   }, [getCheckedCropsForLayout]);
-  const setCopyAndReplaceModalOpened = import_react266.useCallback((opened, layoutId) => {
+  const setCopyAndReplaceModalOpened = import_react271.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       const checkedCrops = getCheckedCropsForLayout(layoutId);
       if (checkedCrops.length > 0) {
@@ -58230,7 +71543,7 @@ function ManualCropEditor({
       setCurrentLayoutIdForReplace("");
     }
   }, [getCheckedCropsForLayout]);
-  const deselectAllRows = import_react266.useCallback((layoutId) => {
+  const deselectAllRows = import_react271.useCallback((layoutId) => {
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
       Array.from(prev2).forEach((rowKey) => {
@@ -58241,7 +71554,7 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const copyCropsToLayers = import_react266.useCallback(async (targetLayoutIds, checkedCrops) => {
+  const copyCropsToLayers = import_react271.useCallback(async (targetLayoutIds, checkedCrops) => {
     const missingLayoutIds = targetLayoutIds.filter((id) => !layoutCrops.has(id));
     let layoutNamesMap = new Map;
     if (missingLayoutIds.length > 0) {
@@ -58259,8 +71572,8 @@ function ManualCropEditor({
             });
           }
         }
-      } catch (error) {
-        raiseError2(error instanceof Error ? error : new Error("Failed to load layout names"));
+      } catch (error40) {
+        raiseError2(error40 instanceof Error ? error40 : new Error("Failed to load layout names"));
       }
     }
     setLayoutCrops((prevLayoutCrops) => {
@@ -58317,7 +71630,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, [layoutCrops, raiseError2]);
-  const addCopyOfCrop = import_react266.useCallback((originalCrop, newName) => {
+  const addCopyOfCrop = import_react271.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForCopy;
     if (!layoutId)
       return;
@@ -58360,7 +71673,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, [currentLayoutIdForCopy, layoutCrops]);
-  const addCopyOfCropForReplace = import_react266.useCallback((originalCrop, newName) => {
+  const addCopyOfCropForReplace = import_react271.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForReplace;
     if (!layoutId)
       return;
@@ -58529,8 +71842,8 @@ function ManualCropEditor({
       if (onCropsSaved) {
         onCropsSaved();
       }
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to save crop changes"));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to save crop changes"));
       setSaveState("error");
       setSaveMessage("Error reverting changes...");
       if (originalDocumentState) {
@@ -58559,29 +71872,29 @@ function ManualCropEditor({
     }
   };
   if (saveState !== "idle") {
-    return /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime34.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime28.jsxs(Stack, {
+      children: /* @__PURE__ */ jsx_runtime34.jsxs(Stack, {
         align: "center",
         gap: "md",
         children: [
-          saveState === "saving" && /* @__PURE__ */ jsx_runtime28.jsx(Loader, {
+          saveState === "saving" && /* @__PURE__ */ jsx_runtime34.jsx(Loader, {
             size: "lg"
           }),
-          /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime34.jsx(Text, {
             size: "lg",
             fw: 500,
             children: saveMessage
           }),
-          saveState === "success" && /* @__PURE__ */ jsx_runtime28.jsxs(Group, {
+          saveState === "success" && /* @__PURE__ */ jsx_runtime34.jsxs(Group, {
             gap: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime34.jsx(Button, {
                 onClick: handleOkayClick,
                 color: "blue",
                 children: "Okay"
               }),
-              /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime34.jsx(Button, {
                 onClick: handleCloseClick,
                 variant: "outline",
                 children: "Close"
@@ -58593,24 +71906,24 @@ function ManualCropEditor({
     });
   }
   if (selectedLayoutIds.length === 0) {
-    return /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime34.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+      children: /* @__PURE__ */ jsx_runtime34.jsx(Text, {
         c: "dimmed",
         children: "Select layouts from the Layout Viewer to view their manual crops"
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime28.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime34.jsxs(Box, {
     style: { height: "100%", display: "flex", flexDirection: "column" },
     children: [
-      /* @__PURE__ */ jsx_runtime28.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime34.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-        children: /* @__PURE__ */ jsx_runtime28.jsx(Group, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(Group, {
           justify: "flex-end",
           align: "center",
-          children: /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+          children: /* @__PURE__ */ jsx_runtime34.jsx(Button, {
             onClick: saveCropChanges,
             disabled: changedRows.size === 0,
             color: "blue",
@@ -58619,89 +71932,89 @@ function ManualCropEditor({
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(ScrollArea, {
+      /* @__PURE__ */ jsx_runtime34.jsx(ScrollArea, {
         style: { flex: 1 },
-        children: /* @__PURE__ */ jsx_runtime28.jsx(Box, {
+        children: /* @__PURE__ */ jsx_runtime34.jsx(Box, {
           p: "md",
-          children: isLoading ? /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+          children: isLoading ? /* @__PURE__ */ jsx_runtime34.jsx(Center, {
             style: { height: 200 },
-            children: /* @__PURE__ */ jsx_runtime28.jsx(Loader, {
+            children: /* @__PURE__ */ jsx_runtime34.jsx(Loader, {
               size: "sm"
             })
-          }) : layoutCrops.size === 0 ? /* @__PURE__ */ jsx_runtime28.jsx(Center, {
+          }) : layoutCrops.size === 0 ? /* @__PURE__ */ jsx_runtime34.jsx(Center, {
             style: { height: 200 },
-            children: /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+            children: /* @__PURE__ */ jsx_runtime34.jsx(Text, {
               c: "dimmed",
               children: selectedConnectorId ? "No manual crops found for the selected layouts and connector" : "Select a connector to view manual crops"
             })
-          }) : /* @__PURE__ */ jsx_runtime28.jsx(Stack, {
+          }) : /* @__PURE__ */ jsx_runtime34.jsx(Stack, {
             gap: "lg",
             children: Array.from(layoutCrops.values()).map((layoutCrop) => {
               const checkedSnapshotsCount = getCheckedSnapshotsCountForLayout(layoutCrop.layoutId);
-              return /* @__PURE__ */ jsx_runtime28.jsxs(Paper, {
+              return /* @__PURE__ */ jsx_runtime34.jsxs(Paper, {
                 p: "md",
                 withBorder: true,
                 children: [
-                  /* @__PURE__ */ jsx_runtime28.jsxs(Group, {
+                  /* @__PURE__ */ jsx_runtime34.jsxs(Group, {
                     justify: "space-between",
                     align: "center",
                     mb: "md",
                     children: [
-                      /* @__PURE__ */ jsx_runtime28.jsx(Title, {
+                      /* @__PURE__ */ jsx_runtime34.jsx(Title, {
                         order: 4,
                         children: layoutCrop.layoutName
                       }),
-                      /* @__PURE__ */ jsx_runtime28.jsx(Group, {
+                      /* @__PURE__ */ jsx_runtime34.jsx(Group, {
                         gap: "xs",
-                        children: checkedSnapshotsCount > 0 && /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
+                        children: checkedSnapshotsCount > 0 && /* @__PURE__ */ jsx_runtime34.jsxs(jsx_runtime34.Fragment, {
                           children: [
-                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
                               color: "red",
                               variant: "filled",
                               onClick: () => deleteCheckedSnapshots(layoutCrop.layoutId),
                               title: "Delete selected",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconTrash, {
+                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconTrash, {
                                 size: 16
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
                               color: "blue",
                               variant: "filled",
                               onClick: () => setCopyModalOpened(true, layoutCrop.layoutId),
                               title: "Copy to layer",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconCopy, {
+                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconCopy, {
                                 size: 16
                               })
                             }),
-                            checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                            checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
                               color: "blue",
                               variant: "filled",
                               onClick: () => setCopyAndAddRowModalOpened(true, layoutCrop.layoutId),
                               title: "Copy and add row",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconCopyPlus, {
+                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconCopyPlus, {
                                 size: 16
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
                               color: "blue",
                               variant: "filled",
                               onClick: () => setCopyAndReplaceModalOpened(true, layoutCrop.layoutId),
                               title: "Copy and replace",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconReplace, {
+                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconReplace, {
                                 size: 16
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(ActionIcon, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
                               color: "blue",
                               variant: "filled",
                               onClick: () => deselectAllRows(layoutCrop.layoutId),
                               title: "Deselect all",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime28.jsx(IconDeselect, {
+                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconDeselect, {
                                 size: 16
                               })
                             })
@@ -58710,47 +72023,47 @@ function ManualCropEditor({
                       })
                     ]
                   }),
-                  layoutCrop.crops.length === 0 ? /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+                  layoutCrop.crops.length === 0 ? /* @__PURE__ */ jsx_runtime34.jsx(Text, {
                     c: "dimmed",
                     size: "sm",
                     children: "No manual crops for this layout"
-                  }) : /* @__PURE__ */ jsx_runtime28.jsxs(Table, {
+                  }) : /* @__PURE__ */ jsx_runtime34.jsxs(Table, {
                     striped: true,
                     highlightOnHover: true,
                     children: [
-                      /* @__PURE__ */ jsx_runtime28.jsx(Table.Thead, {
-                        children: /* @__PURE__ */ jsx_runtime28.jsxs(Table.Tr, {
+                      /* @__PURE__ */ jsx_runtime34.jsx(Table.Thead, {
+                        children: /* @__PURE__ */ jsx_runtime34.jsxs(Table.Tr, {
                           children: [
-                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
                               style: { width: 40 }
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
                               children: "Frame Name"
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
                               children: "Asset Name"
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
                               children: "Left"
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
                               children: "Top"
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
                               children: "Width"
                             }),
-                            /* @__PURE__ */ jsx_runtime28.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
                               children: "Height"
                             })
                           ]
                         })
                       }),
-                      /* @__PURE__ */ jsx_runtime28.jsx(Table.Tbody, {
+                      /* @__PURE__ */ jsx_runtime34.jsx(Table.Tbody, {
                         children: layoutCrop.crops.map((crop, index4) => {
                           const rowKey = `${layoutCrop.layoutId}-${index4}`;
                           const changedRow = changedRows.get(rowKey);
                           const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
-                          return /* @__PURE__ */ jsx_runtime28.jsx(CropRow, {
+                          return /* @__PURE__ */ jsx_runtime34.jsx(CropRow, {
                             crop,
                             layoutId: layoutCrop.layoutId,
                             cropIndex: index4,
@@ -58769,7 +72082,7 @@ function ManualCropEditor({
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(CopyCropToLayerModal, {
+      /* @__PURE__ */ jsx_runtime34.jsx(CopyCropToLayerModal, {
         opened: copyCropToLayerModalOpened,
         onClose: () => setCopyCropToLayerModalOpened(false),
         sourceLayoutId: currentCopySourceLayoutId,
@@ -58777,7 +72090,7 @@ function ManualCropEditor({
         selectedConnectorId,
         onCopy: copyCropsToLayers
       }),
-      currentCropForCopy && /* @__PURE__ */ jsx_runtime28.jsx(CopyAndAddRowModal2, {
+      currentCropForCopy && /* @__PURE__ */ jsx_runtime34.jsx(CopyAndAddRowModal2, {
         opened: copyAndAddRowModalOpened,
         onClose: () => setCopyAndAddRowModalOpened(false),
         crop: currentCropForCopy,
@@ -58785,7 +72098,7 @@ function ManualCropEditor({
         existingCrops: layoutCrops.get(currentLayoutIdForCopy)?.crops || [],
         onAddCopy: addCopyOfCrop
       }),
-      currentCropsForReplace.length > 0 && /* @__PURE__ */ jsx_runtime28.jsx(CopyAndReplaceModal2, {
+      currentCropsForReplace.length > 0 && /* @__PURE__ */ jsx_runtime34.jsx(CopyAndReplaceModal2, {
         opened: copyAndReplaceModalOpened,
         onClose: () => setCopyAndReplaceModalOpened(false),
         crops: currentCropsForReplace,
@@ -58798,18 +72111,18 @@ function ManualCropEditor({
 }
 
 // src/components/ManualCropManager/ManualCropManagerModal.tsx
-var jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime35 = __toESM(require_jsx_runtime(), 1);
 function ManualCropManagerModal({
   opened,
   onClose
 }) {
-  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react267.useState(false);
-  const [layoutViewerWidth, setLayoutViewerWidth] = import_react267.useState(400);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react267.useState([]);
-  const [selectedConnectorId, setSelectedConnectorId] = import_react267.useState("");
-  const [isResizing, setIsResizing] = import_react267.useState(false);
-  const [connectors, setConnectors] = import_react267.useState([]);
-  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react267.useState(null);
+  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react272.useState(false);
+  const [layoutViewerWidth, setLayoutViewerWidth] = import_react272.useState(400);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react272.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react272.useState("");
+  const [isResizing, setIsResizing] = import_react272.useState(false);
+  const [connectors, setConnectors] = import_react272.useState([]);
+  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react272.useState(null);
   const enableToolbar = appStore((state) => state.enableToolbar);
   const disableToolbar = appStore((state) => state.disableToolbar);
   const raiseError2 = appStore((state) => state.raiseError);
@@ -58836,18 +72149,18 @@ function ManualCropManagerModal({
         setSelectedConnectorId(firstConnectorId);
         sessionStorage.setItem("tempManualCropManager_selectedConnectorId", firstConnectorId);
       }
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error("Failed to load connectors"));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to load connectors"));
     }
   };
-  import_react267.useEffect(() => {
+  import_react272.useEffect(() => {
     if (opened) {
       const storedSelected = sessionStorage.getItem("tempManualCropManager_layoutsSelected");
       if (storedSelected) {
         try {
           const selectedIds = JSON.parse(storedSelected);
           setSelectedLayoutIds(selectedIds);
-        } catch (error) {
+        } catch (error40) {
           setSelectedLayoutIds([]);
         }
       } else {
@@ -58860,7 +72173,7 @@ function ManualCropManagerModal({
       enableToolbar();
     }
   }, [opened]);
-  import_react267.useEffect(() => {
+  import_react272.useEffect(() => {
     sessionStorage.setItem("tempManualCropManager_layoutsSelected", JSON.stringify(selectedLayoutIds));
   }, [selectedLayoutIds]);
   const handleMouseDown = (e) => {
@@ -58878,7 +72191,7 @@ function ManualCropManagerModal({
   const handleMouseUp = () => {
     setIsResizing(false);
   };
-  import_react267.useEffect(() => {
+  import_react272.useEffect(() => {
     if (isResizing) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
@@ -58904,10 +72217,10 @@ function ManualCropManagerModal({
     enableToolbar();
     onClose();
   };
-  const handleLayoutViewerRefreshReady = import_react267.useCallback((refreshFn) => {
+  const handleLayoutViewerRefreshReady = import_react272.useCallback((refreshFn) => {
     setLayoutViewerRefresh(() => refreshFn);
   }, []);
-  const handleCropsSaved = import_react267.useCallback(async () => {
+  const handleCropsSaved = import_react272.useCallback(async () => {
     if (layoutViewerRefresh) {
       layoutViewerRefresh();
     }
@@ -58926,47 +72239,47 @@ function ManualCropManagerModal({
             }
           }
         }
-      } catch (error) {
-        console.warn("Failed to auto-select layouts with new crops:", error);
+      } catch (error40) {
+        console.warn("Failed to auto-select layouts with new crops:", error40);
       }
     }
   }, [layoutViewerRefresh, selectedConnectorId, selectedLayoutIds]);
-  return /* @__PURE__ */ jsx_runtime29.jsxs(Modal, {
+  return /* @__PURE__ */ jsx_runtime35.jsxs(Modal, {
     opened,
     onClose: handleClose,
     fullScreen: true,
     padding: 0,
     withCloseButton: false,
     children: [
-      /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Box, {
         style: {
           padding: "16px 24px",
           borderBottom: "1px solid var(--mantine-color-gray-3)",
           backgroundColor: "var(--mantine-color-gray-0)"
         },
-        children: /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+        children: /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
           justify: "space-between",
           align: "center",
           children: [
-            /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
               gap: "lg",
               align: "center",
               children: [
-                /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime35.jsx(Text, {
                   size: "lg",
                   fw: 600,
                   children: "Manual Crop Manager"
                 }),
-                /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
                   gap: "md",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime35.jsx(Text, {
                       size: "sm",
                       fw: 500,
                       children: "Show crops for connector:"
                     }),
-                    /* @__PURE__ */ jsx_runtime29.jsx(Select, {
+                    /* @__PURE__ */ jsx_runtime35.jsx(Select, {
                       placeholder: "Select connector",
                       data: connectors.map((connector) => ({
                         value: connector.id,
@@ -58981,11 +72294,11 @@ function ManualCropManagerModal({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime29.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime35.jsx(Button, {
               variant: "subtle",
               color: "gray",
               size: "sm",
-              leftSection: /* @__PURE__ */ jsx_runtime29.jsx(IconX, {
+              leftSection: /* @__PURE__ */ jsx_runtime35.jsx(IconX, {
                 size: 16
               }),
               onClick: handleClose,
@@ -58994,10 +72307,10 @@ function ManualCropManagerModal({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime29.jsxs(Box, {
+      /* @__PURE__ */ jsx_runtime35.jsxs(Box, {
         style: { display: "flex", height: "calc(100vh - 120px)" },
         children: [
-          /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+          /* @__PURE__ */ jsx_runtime35.jsx(Box, {
             style: {
               width: isLayoutViewerCollapsed ? 40 : layoutViewerWidth,
               minWidth: isLayoutViewerCollapsed ? 40 : 200,
@@ -59007,54 +72320,54 @@ function ManualCropManagerModal({
               flexDirection: "column",
               transition: isLayoutViewerCollapsed ? "width 0.2s ease" : "none"
             },
-            children: isLayoutViewerCollapsed ? /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+            children: isLayoutViewerCollapsed ? /* @__PURE__ */ jsx_runtime35.jsx(Box, {
               style: {
                 padding: "8px",
                 display: "flex",
                 justifyContent: "center"
               },
-              children: /* @__PURE__ */ jsx_runtime29.jsx(Tooltip, {
+              children: /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
                 label: "Expand Layout Viewer",
                 position: "right",
-                children: /* @__PURE__ */ jsx_runtime29.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
                   variant: "subtle",
                   onClick: toggleLayoutViewer,
                   size: "sm",
-                  children: /* @__PURE__ */ jsx_runtime29.jsx(IconChevronRight, {
+                  children: /* @__PURE__ */ jsx_runtime35.jsx(IconChevronRight, {
                     size: 16
                   })
                 })
               })
-            }) : /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
+            }) : /* @__PURE__ */ jsx_runtime35.jsxs(jsx_runtime35.Fragment, {
               children: [
-                /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
                   justify: "space-between",
                   p: "md",
                   style: {
                     borderBottom: "1px solid var(--mantine-color-gray-3)"
                   },
                   children: [
-                    /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+                    /* @__PURE__ */ jsx_runtime35.jsx(Box, {
                       style: { fontSize: "14px", fontWeight: 500 },
                       children: "Layout Viewer"
                     }),
-                    /* @__PURE__ */ jsx_runtime29.jsx(Tooltip, {
+                    /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
                       label: "Collapse Layout Viewer",
                       position: "left",
-                      children: /* @__PURE__ */ jsx_runtime29.jsx(ActionIcon, {
+                      children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
                         variant: "subtle",
                         onClick: toggleLayoutViewer,
                         size: "sm",
-                        children: /* @__PURE__ */ jsx_runtime29.jsx(IconChevronLeft, {
+                        children: /* @__PURE__ */ jsx_runtime35.jsx(IconChevronLeft, {
                           size: 16
                         })
                       })
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+                /* @__PURE__ */ jsx_runtime35.jsx(Box, {
                   style: { flex: 1, overflow: "hidden" },
-                  children: /* @__PURE__ */ jsx_runtime29.jsx(LayoutViewer, {
+                  children: /* @__PURE__ */ jsx_runtime35.jsx(LayoutViewer, {
                     selectedLayoutIds,
                     onSelectionChange: setSelectedLayoutIds,
                     selectedConnectorId,
@@ -59064,7 +72377,7 @@ function ManualCropManagerModal({
               ]
             })
           }),
-          !isLayoutViewerCollapsed && /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+          !isLayoutViewerCollapsed && /* @__PURE__ */ jsx_runtime35.jsx(Box, {
             style: {
               width: 4,
               cursor: "col-resize",
@@ -59073,9 +72386,9 @@ function ManualCropManagerModal({
             },
             onMouseDown: handleMouseDown
           }),
-          /* @__PURE__ */ jsx_runtime29.jsx(Box, {
+          /* @__PURE__ */ jsx_runtime35.jsx(Box, {
             style: { flex: 1, display: "flex", flexDirection: "column" },
-            children: /* @__PURE__ */ jsx_runtime29.jsx(ManualCropEditor, {
+            children: /* @__PURE__ */ jsx_runtime35.jsx(ManualCropEditor, {
               selectedLayoutIds,
               selectedConnectorId,
               onModalClose: handleClose,
@@ -59089,29 +72402,29 @@ function ManualCropManagerModal({
 }
 
 // src/components/OutTemplateModal.tsx
-var import_react268 = __toESM(require_react(), 1);
+var import_react273 = __toESM(require_react(), 1);
 init_documentHandler();
 var import_json_2_csv = __toESM(require_converter(), 1);
 var import_jszip = __toESM(require_lib(), 1);
-var jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime36 = __toESM(require_jsx_runtime(), 1);
 function OutTemplateModal({ opened, onClose }) {
   const raiseError2 = appStore((store) => store.raiseError);
-  const fileInputRef = import_react268.useRef(null);
-  const [loading, setLoading] = import_react268.useState(true);
-  const [outputSettings, setOutputSettings] = import_react268.useState([]);
-  const [selectedOutputIds, setSelectedOutputIds] = import_react268.useState([]);
-  const [layouts, setLayouts] = import_react268.useState([]);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react268.useState([]);
-  const [isCreatingOutput, setIsCreatingOutput] = import_react268.useState(false);
-  const [variableData, setVariableData] = import_react268.useState(null);
-  const [outputTasks, setOutputTasks] = import_react268.useState([]);
+  const fileInputRef = import_react273.useRef(null);
+  const [loading, setLoading] = import_react273.useState(true);
+  const [outputSettings, setOutputSettings] = import_react273.useState([]);
+  const [selectedOutputIds, setSelectedOutputIds] = import_react273.useState([]);
+  const [layouts, setLayouts] = import_react273.useState([]);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react273.useState([]);
+  const [isCreatingOutput, setIsCreatingOutput] = import_react273.useState(false);
+  const [variableData, setVariableData] = import_react273.useState(null);
+  const [outputTasks, setOutputTasks] = import_react273.useState([]);
   const getEnvironmentId = () => {
     try {
       const urlPath = window.location.href;
       const environmentIdMatch = urlPath.match(/environments\/([\w-]+)\/studio/);
       return environmentIdMatch ? environmentIdMatch[1] : null;
-    } catch (error) {
-      console.error("Failed to extract environment ID from URL:", error);
+    } catch (error40) {
+      console.error("Failed to extract environment ID from URL:", error40);
       return null;
     }
   };
@@ -59130,7 +72443,7 @@ function OutTemplateModal({ opened, onClose }) {
     const storageKey = `tempOutTemplate_selectedOutputIds_${environmentId}`;
     localStorage.setItem(storageKey, JSON.stringify(outputIds));
   };
-  import_react268.useEffect(() => {
+  import_react273.useEffect(() => {
     if (opened) {
       setLoading(true);
       setOutputSettings([]);
@@ -59166,8 +72479,8 @@ function OutTemplateModal({ opened, onClose }) {
       setOutputSettings(settingsData.data);
       const savedOutputIds = loadSelectedOutputs();
       setSelectedOutputIds(savedOutputIds);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     } finally {
       setLoading(false);
     }
@@ -59193,11 +72506,11 @@ function OutTemplateModal({ opened, onClose }) {
       selectedResult.onSuccess((selectedLayout) => {
         setSelectedLayoutIds([selectedLayout.id]);
       });
-      selectedResult.onFailure((error) => {
-        raiseError2(new Error(error instanceof Error ? error.message : "Failed to get selected layout"));
+      selectedResult.onFailure((error40) => {
+        raiseError2(new Error(error40 instanceof Error ? error40.message : "Failed to get selected layout"));
       });
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     }
   };
   const handleAttachVariableSheet = () => {
@@ -59206,8 +72519,8 @@ function OutTemplateModal({ opened, onClose }) {
     }
   };
   const handleFileChange = async (event) => {
-    const file = event.target.files?.[0];
-    if (!file)
+    const file2 = event.target.files?.[0];
+    if (!file2)
       return;
     try {
       const reader = new FileReader;
@@ -59215,20 +72528,20 @@ function OutTemplateModal({ opened, onClose }) {
         const content = e.target?.result;
         try {
           let jsonData;
-          if (file.name.toLowerCase().endsWith(".csv")) {
+          if (file2.name.toLowerCase().endsWith(".csv")) {
             jsonData = import_json_2_csv.csv2json(content);
           } else {
             jsonData = JSON.parse(content);
           }
           setVariableData(jsonData);
-          raiseError2(new Error(`Variable sheet loaded successfully: ${file.name}`));
+          raiseError2(new Error(`Variable sheet loaded successfully: ${file2.name}`));
         } catch (parseError) {
           raiseError2(new Error(`Failed to parse file: ${parseError instanceof Error ? parseError.message : String(parseError)}`));
         }
       };
-      reader.readAsText(file);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      reader.readAsText(file2);
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     }
     if (event.target) {
       event.target.value = "";
@@ -59257,16 +72570,16 @@ function OutTemplateModal({ opened, onClose }) {
       });
       const jsonString = JSON.stringify(variableData2, null, 2);
       const blob = new Blob([jsonString], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
+      const url2 = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href = url2;
       link.download = `variables-${new Date().toISOString().split("T")[0]}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      URL.revokeObjectURL(url2);
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     }
   };
   const handleDownloadVariableCSV = async () => {
@@ -59291,16 +72604,16 @@ function OutTemplateModal({ opened, onClose }) {
       });
       const csvData = import_json_2_csv.json2csv([variableObject]);
       const blob = new Blob([csvData], { type: "text/csv" });
-      const url = URL.createObjectURL(blob);
+      const url2 = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href = url2;
       link.download = `variables-${new Date().toISOString().split("T")[0]}.csv`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      URL.revokeObjectURL(url2);
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     }
   };
   const handleCreateOutput = async () => {
@@ -59358,8 +72671,8 @@ function OutTemplateModal({ opened, onClose }) {
       for (const task of newTasks) {
         processOutputTask(task, documentJson, engineVersion, token2, baseUrl);
       }
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     } finally {
       setIsCreatingOutput(false);
     }
@@ -59407,8 +72720,8 @@ function OutTemplateModal({ opened, onClose }) {
       const taskResponse = await outputResponse.json();
       updateTaskStatus(task.id, "loading", undefined, undefined, taskResponse.links.taskInfo);
       pollTaskStatus(task.id, taskResponse.links.taskInfo, token2);
-    } catch (error) {
-      updateTaskStatus(task.id, "error", undefined, error instanceof Error ? error.message : String(error));
+    } catch (error40) {
+      updateTaskStatus(task.id, "error", undefined, error40 instanceof Error ? error40.message : String(error40));
     }
   };
   const updateTaskStatus = (taskId, status, downloadUrl, errorMessage, taskInfoUrl) => {
@@ -59438,8 +72751,8 @@ function OutTemplateModal({ opened, onClose }) {
         } else {
           updateTaskStatus(taskId, "error", undefined, `Task polling failed: ${response.statusText}`);
         }
-      } catch (error) {
-        updateTaskStatus(taskId, "error", undefined, error instanceof Error ? error.message : String(error));
+      } catch (error40) {
+        updateTaskStatus(taskId, "error", undefined, error40 instanceof Error ? error40.message : String(error40));
       }
     };
     poll();
@@ -59471,16 +72784,16 @@ function OutTemplateModal({ opened, onClose }) {
         }
       }
       const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
+      const url2 = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href = url2;
       link.download = filename;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      URL.revokeObjectURL(url2);
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     }
   };
   const generateErrorReport = async (task) => {
@@ -59509,8 +72822,8 @@ ${errorDetails}
             }
           }
         }
-      } catch (error) {
-        console.warn("Failed to fetch additional error details:", error);
+      } catch (error40) {
+        console.warn("Failed to fetch additional error details:", error40);
       }
     }
     return `# Error Report for ${task.outputSettingName} - ${task.layoutName}
@@ -59537,16 +72850,16 @@ ${errorDetails}
     try {
       const errorReport = await generateErrorReport(task);
       const blob = new Blob([errorReport], { type: "text/markdown" });
-      const url = URL.createObjectURL(blob);
+      const url2 = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href = url2;
       link.download = `error-report-${task.outputSettingName}-${task.layoutName}-${new Date().toISOString().split("T")[0]}.md`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      URL.revokeObjectURL(url2);
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     }
   };
   const handleDownloadAllErrors = async () => {
@@ -59561,16 +72874,16 @@ ${errorDetails}
         zip.file(`error-report-${index4 + 1}.md`, errorReport);
       }
       const zipBlob = await zip.generateAsync({ type: "blob" });
-      const url = URL.createObjectURL(zipBlob);
+      const url2 = URL.createObjectURL(zipBlob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href = url2;
       link.download = `output-errors-${new Date().toISOString().split("T")[0]}.zip`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      URL.revokeObjectURL(url2);
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     }
   };
   const handleDownloadDocumentState = async () => {
@@ -59588,22 +72901,22 @@ ${errorDetails}
       const documentJson = documentResult.value;
       const jsonString = JSON.stringify(documentJson, null, 2);
       const blob = new Blob([jsonString], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
+      const url2 = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href = url2;
       link.download = `document-state-${new Date().toISOString().split("T")[0]}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      raiseError2(error instanceof Error ? error : new Error(String(error)));
+      URL.revokeObjectURL(url2);
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error(String(error40)));
     }
   };
   const hasErrors = outputTasks.some((task) => task.status === "error");
   const allTasksComplete = outputTasks.length > 0 && outputTasks.every((task) => task.status !== "loading");
   const hasTasksProcessing = outputTasks.some((task) => task.status === "loading");
-  return /* @__PURE__ */ jsx_runtime30.jsxs(Modal, {
+  return /* @__PURE__ */ jsx_runtime36.jsxs(Modal, {
     opened,
     onClose,
     withCloseButton: false,
@@ -59618,47 +72931,47 @@ ${errorDetails}
       }
     },
     children: [
-      loading ? /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+      loading ? /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
         justify: "center",
         style: { minHeight: "400px" },
         children: [
-          /* @__PURE__ */ jsx_runtime30.jsx(Loader, {
+          /* @__PURE__ */ jsx_runtime36.jsx(Loader, {
             size: "lg"
           }),
-          /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime36.jsx(Text, {
             children: "Loading output settings..."
           })
         ]
-      }) : /* @__PURE__ */ jsx_runtime30.jsxs(Grid, {
+      }) : /* @__PURE__ */ jsx_runtime36.jsxs(Grid, {
         children: [
-          /* @__PURE__ */ jsx_runtime30.jsx(Grid.Col, {
+          /* @__PURE__ */ jsx_runtime36.jsx(Grid.Col, {
             span: 6,
-            children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                   size: "xl",
                   fw: 600,
                   children: "Output Settings"
                 }),
-                /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                   c: "dimmed",
                   children: "Pick your output settings to output the template."
                 }),
-                hasTasksProcessing ? /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+                hasTasksProcessing ? /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                   justify: "center",
                   style: { minHeight: "300px" },
                   children: [
-                    /* @__PURE__ */ jsx_runtime30.jsx(Loader, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Loader, {
                       size: "lg"
                     }),
-                    /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                       children: "Tasks Processing"
                     })
                   ]
-                }) : /* @__PURE__ */ jsx_runtime30.jsxs(jsx_runtime30.Fragment, {
+                }) : /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
                   children: [
-                    /* @__PURE__ */ jsx_runtime30.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(MultiSelect, {
                       label: "Output Settings",
                       placeholder: "Select output settings",
                       data: outputSettings.map((setting) => ({
@@ -59671,16 +72984,16 @@ ${errorDetails}
                         saveSelectedOutputs(values2);
                       }
                     }),
-                    /* @__PURE__ */ jsx_runtime30.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(MultiSelect, {
                       label: "Selected Layouts",
                       placeholder: "Select layouts",
                       data: layouts,
                       value: selectedLayoutIds,
                       onChange: setSelectedLayoutIds
                     }),
-                    /* @__PURE__ */ jsx_runtime30.jsx(Stack, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Stack, {
                       gap: "sm",
-                      children: /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                      children: /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                         size: "lg",
                         disabled: selectedOutputIds.length === 0 || selectedLayoutIds.length === 0,
                         loading: isCreatingOutput,
@@ -59698,46 +73011,46 @@ ${errorDetails}
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime30.jsx(Grid.Col, {
+          /* @__PURE__ */ jsx_runtime36.jsx(Grid.Col, {
             span: 6,
-            children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                   size: "xl",
                   fw: 600,
                   children: "Output Tasks"
                 }),
-                isCreatingOutput && /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+                isCreatingOutput && /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                   justify: "center",
                   style: { minHeight: "100px" },
                   children: [
-                    /* @__PURE__ */ jsx_runtime30.jsx(Loader, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Loader, {
                       size: "lg"
                     }),
-                    /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                       children: "Creating Output..."
                     })
                   ]
                 }),
-                outputTasks.length === 0 && !isCreatingOutput ? /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                outputTasks.length === 0 && !isCreatingOutput ? /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                   c: "dimmed",
                   children: "No tasks created yet"
-                }) : /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+                }) : /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
                   gap: "sm",
                   children: [
-                    outputTasks.map((task) => /* @__PURE__ */ jsx_runtime30.jsx(Card, {
+                    outputTasks.map((task) => /* @__PURE__ */ jsx_runtime36.jsx(Card, {
                       withBorder: true,
                       padding: "sm",
-                      children: /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+                      children: /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                         justify: "space-between",
                         align: "center",
                         children: [
-                          /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+                          /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
                             gap: 4,
                             style: { flex: 1 },
                             children: [
-                              /* @__PURE__ */ jsx_runtime30.jsxs(Text, {
+                              /* @__PURE__ */ jsx_runtime36.jsxs(Text, {
                                 size: "sm",
                                 fw: 500,
                                 children: [
@@ -59746,38 +73059,38 @@ ${errorDetails}
                                   task.layoutName
                                 ]
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                                 size: "xs",
                                 c: "dimmed",
                                 children: task.outputSettingName
                               })
                             ]
                           }),
-                          task.status === "loading" && /* @__PURE__ */ jsx_runtime30.jsx(ActionIcon, {
+                          task.status === "loading" && /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                             size: "lg",
                             variant: "light",
                             loading: true,
-                            children: /* @__PURE__ */ jsx_runtime30.jsx(IconLoader, {
+                            children: /* @__PURE__ */ jsx_runtime36.jsx(IconLoader, {
                               size: 16
                             })
                           }),
-                          task.status === "success" && /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                          task.status === "success" && /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                             size: "sm",
                             variant: "light",
                             color: "green",
                             onClick: () => handleTaskDownload(task),
-                            leftSection: /* @__PURE__ */ jsx_runtime30.jsx(IconDownload, {
+                            leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconDownload, {
                               size: 16
                             }),
                             children: "Download File"
                           }),
-                          task.status === "error" && /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                          task.status === "error" && /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                             size: "sm",
                             variant: "light",
                             color: "red",
                             title: task.errorMessage,
                             onClick: () => handleErrorReportDownload(task),
-                            leftSection: /* @__PURE__ */ jsx_runtime30.jsx(IconAlertTriangle, {
+                            leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconAlertTriangle, {
                               size: 16
                             }),
                             children: "Download Report"
@@ -59785,18 +73098,18 @@ ${errorDetails}
                         ]
                       })
                     }, task.id)),
-                    hasErrors && /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+                    hasErrors && /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                       gap: "sm",
                       style: { marginTop: "1rem" },
                       children: [
-                        /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                           variant: "outline",
                           color: "red",
                           size: "sm",
                           onClick: handleDownloadAllErrors,
                           children: "Download All Error Reports"
                         }),
-                        /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                           variant: "outline",
                           color: "gray",
                           size: "sm",
@@ -59805,17 +73118,17 @@ ${errorDetails}
                         })
                       ]
                     }),
-                    allTasksComplete && /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+                    allTasksComplete && /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                       justify: "center",
                       style: { marginTop: "1rem" },
                       children: [
-                        /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                           size: "lg",
                           c: "green",
                           fw: 500,
                           children: "All tasks completed"
                         }),
-                        /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                           onClick: onClose,
                           children: "Close Modal"
                         })
@@ -59828,7 +73141,7 @@ ${errorDetails}
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime30.jsx("input", {
+      /* @__PURE__ */ jsx_runtime36.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
@@ -59840,179 +73153,557 @@ ${errorDetails}
 }
 
 // src/components/ToolbarSettingsModal.tsx
-var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
-var defaultConfig = {
-  showSnapshot: false,
-  showFramePositionViewer: false,
-  showLayoutManager: false,
-  showMagicLayouts: false,
-  showAspectLock: true,
-  showLayoutImageMapper: true,
-  showUploadDownload: true,
-  showTestError: false,
-  showConnectorCleanup: false,
-  showManualCropManager: true,
-  showOutput: true
-};
+var import_react274 = __toESM(require_react(), 1);
+
+// src/utils/appConfig.ts
+init_dist();
+
+class ManifestRequestError extends Error {
+  _tag = "ManifestRequestError";
+  constructor(message) {
+    super(message);
+    this.name = "ManifestRequestError";
+  }
+}
+
+class ParseManifestError extends Error {
+  _tag = "ParseManifestError";
+  constructor(message) {
+    super(message);
+    this.name = "ParseManifestError";
+  }
+}
+function appConfigFromFullConfig(fullConfig) {
+  const config2 = {};
+  for (const [key, value] of Object.entries(fullConfig)) {
+    config2[key] = value.enabled;
+  }
+  return config2;
+}
+async function getDefaultConfig() {
+  try {
+    const response = await fetch("https://raw.githubusercontent.com/spicy-labs/studio-toolbar-plus/main/manifest.json");
+    if (!response.ok) {
+      return Result.error(new ManifestRequestError(`Failed to fetch manifest: ${response.status} ${response.statusText}`));
+    }
+    const manifestData = await response.json();
+    if (!manifestData.version || typeof manifestData.version !== "string") {
+      return Result.error(new ParseManifestError("Invalid or missing version in manifest"));
+    }
+    const version3 = manifestData.version;
+    if (!manifestData.appConfig || typeof manifestData.appConfig !== "object") {
+      return Result.error(new ParseManifestError("Invalid or missing appConfig in manifest"));
+    }
+    const appConfig = manifestData.appConfig;
+    for (const [key, value] of Object.entries(appConfig)) {
+      if (!value || typeof value !== "object" || typeof value.enabled !== "boolean" || !["none", "sponsored", "deprecated", "experimental"].includes(value.status)) {
+        return Result.error(new ParseManifestError(`Invalid toolbarConfig entry for ${key}: expected {enabled: boolean, status: "none" | "sponsored" | "deprecated" | "experimental"}`));
+      }
+    }
+    return Result.ok([appConfig, manifestData.version]);
+  } catch (error40) {
+    if (error40 instanceof ManifestRequestError || error40 instanceof ParseManifestError) {
+      return Result.error(error40);
+    }
+    return Result.error(new ManifestRequestError(`Network or parsing error: ${error40 instanceof Error ? error40.message : String(error40)}`));
+  }
+}
+
+// src/utils/checkVersions.ts
+init_dist();
+
+class FromIsNotSemanticError extends Error {
+  _tag = "FromIsNotSemanticError";
+  constructor(message) {
+    super(message);
+    this.name = "FromIsNotSemanticError";
+  }
+}
+
+class ToIsNotSemanticError extends Error {
+  _tag = "ToIsNotSemanticError";
+  constructor(message) {
+    super(message);
+    this.name = "ToIsNotSemanticError";
+  }
+}
+
+class UnknownError extends Error {
+  _tag = "UnknownError";
+  constructor(message) {
+    super(message);
+    this.name = "UnknownError";
+  }
+}
+function checkVersions(from2, to) {
+  try {
+    const fromParts = from2.split(".").map(Number);
+    if (fromParts.length !== 3 || fromParts.some((part) => isNaN(part) || part < 0)) {
+      return Result.error(new FromIsNotSemanticError(`Invalid semantic version format for 'from': ${from2}. Expected format: x.y.z where x, y, z are non-negative numbers.`));
+    }
+    const toParts = to.split(".").map(Number);
+    if (toParts.length !== 3 || toParts.some((part) => isNaN(part) || part < 0)) {
+      return Result.error(new ToIsNotSemanticError(`Invalid semantic version format for 'to': ${to}. Expected format: x.y.z where x, y, z are non-negative numbers.`));
+    }
+    const [fromMajor, fromMinor, fromPatch] = fromParts;
+    const [toMajor, toMinor, toPatch] = toParts;
+    if (fromMajor > toMajor) {
+      return Result.ok("greater");
+    } else if (fromMajor < toMajor) {
+      return Result.ok("less");
+    }
+    if (fromMinor > toMinor) {
+      return Result.ok("greater");
+    } else if (fromMinor < toMinor) {
+      return Result.ok("less");
+    }
+    if (fromPatch > toPatch) {
+      return Result.ok("greater");
+    } else if (fromPatch < toPatch) {
+      return Result.ok("less");
+    }
+    return Result.ok("equal");
+  } catch (error40) {
+    return Result.error(new UnknownError(`Unexpected error during version comparison: ${error40 instanceof Error ? error40.message : String(error40)}`));
+  }
+}
+
+// src/components/ToolbarSettingsModal.tsx
+init_dist();
+var jsx_runtime37 = __toESM(require_jsx_runtime(), 1);
 function ToolbarSettingsModal({
   opened,
   onClose,
-  config,
-  onConfigChange,
-  onReloadConfig
+  onReloadConfig,
+  updateInfo
 }) {
-  const handleToggle = (key, value) => {
-    const newConfig = { ...config, [key]: value };
-    onConfigChange(newConfig);
+  const [defaultConfig, setDefaultConfig] = import_react274.useState(null);
+  const [githubVersion, setGithubVersion] = import_react274.useState(null);
+  const [config2, setConfig2] = import_react274.useState(null);
+  const [errorOnGetDefaultConfig, setErrorOnGetDefaultConfig] = import_react274.useState(null);
+  const getStatusIcon = (appKey) => {
+    if (!defaultConfig)
+      return null;
+    const appInfo = defaultConfig[appKey];
+    const appStatus = appInfo ? appInfo.status : "none";
+    const statusConfig = {
+      none: {
+        icon: /* @__PURE__ */ jsx_runtime37.jsx(IconRosetteFilled, {
+          size: 16,
+          color: "blue"
+        }),
+        tooltip: "Production-ready, no sponsorship"
+      },
+      sponsored: {
+        icon: /* @__PURE__ */ jsx_runtime37.jsx(IconRosetteDiscountCheckFilled, {
+          size: 16,
+          color: "green"
+        }),
+        tooltip: "Production-ready, under active sponsorship"
+      },
+      deprecated: {
+        icon: /* @__PURE__ */ jsx_runtime37.jsx(IconCircleRectangleFilled, {
+          size: 16,
+          color: "red"
+        }),
+        tooltip: "Production-ready but deprecated; scheduled for removal in future versions"
+      },
+      experimental: {
+        icon: /* @__PURE__ */ jsx_runtime37.jsx(IconRadioactiveFilled, {
+          size: 16,
+          color: "purple"
+        }),
+        tooltip: "Experimental; may cause issues or instability"
+      }
+    };
+    const config3 = statusConfig[appStatus];
+    if (!config3)
+      return null;
+    return /* @__PURE__ */ jsx_runtime37.jsx(Tooltip, {
+      label: config3.tooltip,
+      position: "top",
+      withArrow: true,
+      children: config3.icon
+    });
   };
-  const handleSave = () => {
-    localStorage.setItem("tempUserConfig", JSON.stringify(config));
+  import_react274.useEffect(() => {
+    if (opened) {
+      if (!defaultConfig && !errorOnGetDefaultConfig) {
+        const loadDefaultConfig = async () => {
+          const result = await getDefaultConfig();
+          result.fold(([appConfig, githubVersion2]) => {
+            setDefaultConfig(appConfig);
+            setGithubVersion(githubVersion2);
+            const localConfig = localStorage.getItem("tempUserConfig");
+            Result.try(() => JSON.parse(localConfig)).fold((parsedConfig) => {
+              setConfig2({
+                ...appConfigFromFullConfig(appConfig),
+                ...parsedConfig
+              });
+            }, (error40) => {
+              setConfig2(appConfigFromFullConfig(appConfig));
+            });
+          }, (error40) => setErrorOnGetDefaultConfig(error40));
+        };
+        loadDefaultConfig();
+      }
+    }
+  }, [opened, defaultConfig, errorOnGetDefaultConfig]);
+  const handleToggle = (key, value) => {
+    if (config2 == null)
+      return;
+    const newConfig = { ...config2, [key]: value };
+    setConfig2(newConfig);
+  };
+  const handleClose = () => {
+    setConfig2(null);
+    setDefaultConfig(null);
+    setGithubVersion(null);
+    setErrorOnGetDefaultConfig(null);
     onClose();
-    onReloadConfig();
+  };
+  const handleSave = async () => {
+    localStorage.setItem("tempUserConfig", JSON.stringify(config2));
+    if (config2 == null) {
+      handleClose();
+      return;
+    }
+    onReloadConfig(config2);
+    handleClose();
   };
   const handleReset = () => {
-    onConfigChange(defaultConfig);
+    if (defaultConfig) {
+      localStorage.removeItem("tempUserConfig");
+      onReloadConfig(appConfigFromFullConfig(defaultConfig));
+    }
   };
-  return /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
+  const isLoading = (!config2 || !defaultConfig) && !errorOnGetDefaultConfig;
+  console.log(config2, defaultConfig);
+  return /* @__PURE__ */ jsx_runtime37.jsx(Modal, {
     opened,
     onClose,
     title: "Toolbar Settings",
     centered: true,
-    size: "md",
-    children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
-      children: [
-        /* @__PURE__ */ jsx_runtime31.jsx(Text, {
-          size: "sm",
-          c: "dimmed",
-          children: "Configure which tools are visible in the toolbar."
-        }),
-        /* @__PURE__ */ jsx_runtime31.jsx(ScrollArea.Autosize, {
-          mah: 400,
-          children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
-            gap: "md",
-            children: [
-              /* @__PURE__ */ jsx_runtime31.jsx(Title, {
-                order: 5,
-                children: "Available Tools"
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Snapshot Image Position",
-                description: "Tool for capturing frame snapshots",
-                checked: config.showSnapshot,
-                onChange: (event) => handleToggle("showSnapshot", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Frame Position Viewer",
-                description: "View and analyze frame positions",
-                checked: config.showFramePositionViewer,
-                onChange: (event) => handleToggle("showFramePositionViewer", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Layout Manager",
-                description: "Manage layout properties and hierarchy",
-                checked: config.showLayoutManager,
-                onChange: (event) => handleToggle("showLayoutManager", false)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Magic Layouts",
-                description: "Automated layout generation and management",
-                checked: config.showMagicLayouts,
-                onChange: (event) => handleToggle("showMagicLayouts", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Aspect Lock",
-                description: "Lock aspect ratios for layouts",
-                checked: config.showAspectLock,
-                onChange: (event) => handleToggle("showAspectLock", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Layout Image Mapper",
-                description: "Map images to layout variables",
-                checked: config.showLayoutImageMapper,
-                onChange: (event) => handleToggle("showLayoutImageMapper", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Upload/Download Document",
-                description: "Upload and download document JSON",
-                checked: config.showUploadDownload,
-                onChange: (event) => handleToggle("showUploadDownload", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Test Error",
-                description: "Test error handling functionality",
-                checked: config.showTestError,
-                onChange: (event) => handleToggle("showTestError", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Connector Cleanup",
-                description: "Manage and remove unused connectors",
-                checked: config.showConnectorCleanup,
-                onChange: (event) => handleToggle("showConnectorCleanup", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Manual Crop Manager",
-                description: "Manage manual crops for layouts and connectors",
-                checked: config.showManualCropManager,
-                onChange: (event) => handleToggle("showManualCropManager", event.currentTarget.checked)
-              }),
-              /* @__PURE__ */ jsx_runtime31.jsx(Switch, {
-                label: "Output",
-                description: "Generate output files from layouts",
-                checked: config.showOutput,
-                onChange: (event) => handleToggle("showOutput", event.currentTarget.checked)
-              })
-            ]
-          })
-        }),
-        /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
-          justify: "space-between",
-          mt: "xl",
+    size: "lg",
+    children: /* @__PURE__ */ jsx_runtime37.jsx(Stack, {
+      children: isLoading ? /* @__PURE__ */ jsx_runtime37.jsx(Center, {
+        style: { minHeight: "400px" },
+        children: /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
+          align: "center",
+          gap: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime31.jsx(Button, {
-              variant: "subtle",
-              onClick: handleReset,
-              children: "Reset to Default"
+            /* @__PURE__ */ jsx_runtime37.jsx(Loader, {
+              size: "lg"
             }),
-            /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
-              children: [
-                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
-                  variant: "default",
-                  onClick: onClose,
-                  children: "Cancel"
-                }),
-                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
-                  onClick: handleSave,
-                  children: "Save & Apply"
-                })
-              ]
+            /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+              children: "Loading toolbar settings..."
             })
           ]
         })
-      ]
+      }) : errorOnGetDefaultConfig ? /* @__PURE__ */ jsx_runtime37.jsx(Center, {
+        style: { minHeight: "400px" },
+        children: /* @__PURE__ */ jsx_runtime37.jsx(Alert, {
+          variant: "light",
+          color: "red",
+          title: "Error",
+          icon: /* @__PURE__ */ jsx_runtime37.jsx(IconBugFilled, {}),
+          children: errorOnGetDefaultConfig.message
+        })
+      }) : config2 && defaultConfig ? /* @__PURE__ */ jsx_runtime37.jsxs(jsx_runtime37.Fragment, {
+        children: [
+          githubVersion && updateInfo && (() => {
+            const versionComparison = checkVersions(updateInfo.currentVersion, githubVersion);
+            if (versionComparison.isOk()) {
+              const result = versionComparison.value;
+              const disclaimer = /* @__PURE__ */ jsx_runtime37.jsxs(jsx_runtime37.Fragment, {
+                children: [
+                  "The Toolbar is released under the MIT license and is primarily supported by the community. Individual apps may have varying support focus. Apps marked with the",
+                  " ",
+                  /* @__PURE__ */ jsx_runtime37.jsx(IconRosetteDiscountCheckFilled, {
+                    style: { display: "inline", verticalAlign: "middle" },
+                    size: 16
+                  }),
+                  " ",
+                  "icon indicate active sponsorship."
+                ]
+              });
+              if (result === "equal" || result === "greater") {
+                return /* @__PURE__ */ jsx_runtime37.jsxs(Alert, {
+                  variant: "light",
+                  color: "green",
+                  title: "Up to Date",
+                  icon: /* @__PURE__ */ jsx_runtime37.jsx(IconInfoCircle, {}),
+                  children: [
+                    "Toolbar is on most up-to-date version:",
+                    " ",
+                    updateInfo.currentVersion,
+                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
+                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
+                    disclaimer
+                  ]
+                });
+              } else {
+                return /* @__PURE__ */ jsx_runtime37.jsxs(Alert, {
+                  variant: "light",
+                  color: "red",
+                  title: "Update Available",
+                  icon: /* @__PURE__ */ jsx_runtime37.jsx(IconInfoCircle, {}),
+                  children: [
+                    "Toolbar is on an older version:",
+                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
+                    " current: ",
+                    updateInfo.currentVersion,
+                    " < latest:",
+                    " ",
+                    githubVersion,
+                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
+                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
+                    disclaimer
+                  ]
+                });
+              }
+            }
+            return null;
+          })(),
+          /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+            size: "sm",
+            c: "dimmed",
+            children: "Configure which tools are visible in the toolbar."
+          }),
+          /* @__PURE__ */ jsx_runtime37.jsx(Title, {
+            order: 5,
+            children: "Available Tools"
+          }),
+          /* @__PURE__ */ jsx_runtime37.jsx(ScrollArea.Autosize, {
+            mah: 400,
+            children: /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
+              gap: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showSnapshot"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Snapshot Image Position"
+                      })
+                    ]
+                  }),
+                  description: "Tool for capturing frame snapshots",
+                  checked: config2.showSnapshot,
+                  onChange: (event) => handleToggle("showSnapshot", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showFramePositionViewer"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Frame Position Viewer"
+                      })
+                    ]
+                  }),
+                  description: "View and analyze frame positions",
+                  checked: config2.showFramePositionViewer,
+                  onChange: (event) => handleToggle("showFramePositionViewer", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showLayoutManager"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Layout Manager"
+                      })
+                    ]
+                  }),
+                  description: "Manage layout properties and hierarchy",
+                  checked: config2.showLayoutManager,
+                  onChange: (event) => handleToggle("showLayoutManager", false)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showMagicLayouts"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Magic Layouts"
+                      })
+                    ]
+                  }),
+                  description: "Automated layout generation and management",
+                  checked: config2.showMagicLayouts,
+                  onChange: (event) => handleToggle("showMagicLayouts", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showAspectLock"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Aspect Lock"
+                      })
+                    ]
+                  }),
+                  description: "Lock aspect ratios for layouts",
+                  checked: config2.showAspectLock,
+                  onChange: (event) => handleToggle("showAspectLock", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showLayoutImageMapper"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Layout Image Mapper"
+                      })
+                    ]
+                  }),
+                  description: "Map images to layout variables",
+                  checked: config2.showLayoutImageMapper,
+                  onChange: (event) => handleToggle("showLayoutImageMapper", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showUploadDownload"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Upload/Download Document"
+                      })
+                    ]
+                  }),
+                  description: "Upload and download document JSON",
+                  checked: config2.showUploadDownload,
+                  onChange: (event) => handleToggle("showUploadDownload", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showTestError"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Test Error"
+                      })
+                    ]
+                  }),
+                  description: "Test error handling functionality",
+                  checked: config2.showTestError,
+                  onChange: (event) => handleToggle("showTestError", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showConnectorCleanup"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Connector Cleanup"
+                      })
+                    ]
+                  }),
+                  description: "Manage and remove unused connectors",
+                  checked: config2.showConnectorCleanup,
+                  onChange: (event) => handleToggle("showConnectorCleanup", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showManualCropManager"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Manual Crop Manager"
+                      })
+                    ]
+                  }),
+                  description: "Manage manual crops for layouts and connectors",
+                  checked: config2.showManualCropManager,
+                  onChange: (event) => handleToggle("showManualCropManager", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showOutput"),
+                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        children: "Output"
+                      })
+                    ]
+                  }),
+                  description: "Generate output files from layouts",
+                  checked: config2.showOutput,
+                  onChange: (event) => handleToggle("showOutput", event.currentTarget.checked)
+                })
+              ]
+            })
+          }),
+          /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+            justify: "space-between",
+            mt: "xl",
+            children: [
+              /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                variant: "subtle",
+                onClick: handleReset,
+                children: "Reset to Default"
+              }),
+              /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                children: [
+                  /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                    variant: "default",
+                    onClick: handleClose,
+                    children: "Cancel"
+                  }),
+                  /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                    onClick: handleSave,
+                    children: "Save & Apply"
+                  })
+                ]
+              })
+            ]
+          })
+        ]
+      }) : null
     })
   });
 }
 
 // src/components/Toolbar.tsx
-var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
+init_dist();
+var jsx_runtime38 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react269.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react269.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react269.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react269.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react269.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react269.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react269.useState(false);
-  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react269.useState(false);
-  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react269.useState(false);
-  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react269.useState(false);
-  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = import_react269.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react269.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react269.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react269.useState("");
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react269.useState(false);
-  const [appConfig, setAppConfig] = import_react269.useState(defaultConfig);
-  const [updateInfo, setUpdateInfo] = import_react269.useState(null);
+  const [visible2, setVisible] = import_react275.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react275.useState(false);
+  const [isDownloadModalNewOpen, setIsDownloadModalNewOpen] = import_react275.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react275.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react275.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react275.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react275.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react275.useState(false);
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react275.useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react275.useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react275.useState(false);
+  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = import_react275.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react275.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react275.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react275.useState("");
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react275.useState(false);
+  const [appConfig, setAppConfig] = import_react275.useState(null);
+  const [updateInfo, setUpdateInfo] = import_react275.useState(null);
+  const getActionIconColor = (appKey) => {
+    const appInfo = appConfig[appKey];
+    const appStatus = appInfo ? appInfo.status : "none";
+    switch (appStatus) {
+      case "none":
+        return "blue";
+      case "sponsored":
+        return "blue";
+      case "deprecated":
+        return "dark";
+      case "experimental":
+        return "purple";
+      default:
+        return "blue";
+    }
+  };
   const effects = appStore((store) => store.effects);
   const raiseError2 = appStore((store) => store.raiseError);
   const disableToolbar = appStore((store) => store.disableToolbar);
@@ -60033,30 +73724,39 @@ function Toolbar() {
   const handleUploadDownloadClick = () => {
     setIsDownloadUploadModalOpen(true);
   };
+  const handleDownloadModalNewClick = () => {
+    setIsDownloadModalNewOpen(true);
+  };
   const handleDismissUpdate = () => {
     if (updateInfo) {
       localStorage.setItem("toolbarplus_last_notified_version", updateInfo.latestVersion);
     }
     setIsUpdateModalOpen(false);
   };
-  const reloadConfig = () => {
-    const savedConfig = localStorage.getItem("tempUserConfig");
-    if (savedConfig) {
-      try {
-        const parsedConfig = JSON.parse(savedConfig);
-        setAppConfig({ ...defaultConfig, ...parsedConfig });
-      } catch (error) {
-        console.error("Failed to parse saved config:", error);
-        setAppConfig(defaultConfig);
-      }
-    } else {
-      setAppConfig(defaultConfig);
-    }
+  const reloadConfig = (config2) => {
+    setAppConfig(config2);
   };
-  import_react269.useEffect(() => {
-    reloadConfig();
+  import_react275.useEffect(() => {
+    (async () => {
+      const localConfig = localStorage.getItem("tempUserConfig");
+      Result.try(() => {
+        if (localConfig) {
+          return JSON.parse(localConfig);
+        }
+        throw new Error("Local config not found");
+      }).fold((parsedConfig) => {
+        console.log(parsedConfig);
+        setAppConfig(parsedConfig);
+      }, async (error40) => {
+        (await getDefaultConfig()).fold(([appConfig2, githubVersion]) => {
+          reloadConfig(appConfigFromFullConfig(appConfig2));
+        }, (error41) => {
+          raiseError2(error41);
+        });
+      });
+    })();
   }, []);
-  import_react269.useEffect(() => {
+  import_react275.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -60125,14 +73825,14 @@ function Toolbar() {
       setIsAspectLockSuccessModalOpen(true);
     }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
   };
-  return /* @__PURE__ */ jsx_runtime32.jsxs(jsx_runtime32.Fragment, {
+  return /* @__PURE__ */ jsx_runtime38.jsxs(jsx_runtime38.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime32.jsx(Transition, {
+      /* @__PURE__ */ jsx_runtime38.jsx(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_runtime32.jsx(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_runtime38.jsx(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -60149,185 +73849,185 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
+          children: appConfig && /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
             gap: "lg",
             children: [
-              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showSnapshot"),
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconCameraPlus, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showFramePositionViewer"),
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconPhotoCog, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Magic Layouts",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "purple",
+                  color: getActionIconColor("showMagicLayouts"),
                   size: "lg",
                   "aria-label": "Magic Layouts",
                   onClick: handleMagicLayouts,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconSparkles, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconSparkles, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Layout Manager",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showLayoutManager"),
                   size: "lg",
                   "aria-label": "Layout Manager",
                   onClick: handleLayoutManager,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconListTree, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconListTree, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Aspect Lock",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showAspectLock"),
                   size: "lg",
                   "aria-label": "Aspect Lock",
                   onClick: handleAspectLock,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconPlaystationSquare, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconPlaystationSquare, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
-                label: "Upload/Download Document",
+              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+                label: "Upload/Download Template",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showUploadDownload"),
                   size: "lg",
                   "aria-label": "Upload/Download",
-                  onClick: handleUploadDownloadClick,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconArrowsTransferUpDown, {
+                  onClick: handleDownloadModalNewClick,
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconArrowsTransferUpDown, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Layout Image Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showLayoutImageMapper"),
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconMapBolt, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showTestError && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showTestError && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "red",
+                  color: getActionIconColor("showTestError"),
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconBug, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconBug, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Connector Cleanup",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showConnectorCleanup"),
                   size: "lg",
                   "aria-label": "Connector Cleanup",
                   onClick: handleConnectorCleanup,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconPlug, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconPlug, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Manual Crop Manager",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showManualCropManager"),
                   size: "lg",
                   "aria-label": "Manual Crop Manager",
                   onClick: handleManualCropManager,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconCrop, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconCrop, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showOutput && /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              appConfig.showOutput && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Output",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
-                  color: "blue",
+                  color: getActionIconColor("showOutput"),
                   size: "lg",
                   "aria-label": "Output",
                   onClick: handleOutTemplate,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconDownload, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconDownload, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
                 label: "Settings",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                   variant: "filled",
                   color: "gray",
                   size: "lg",
                   "aria-label": "Settings",
                   onClick: handleSettings,
-                  children: /* @__PURE__ */ jsx_runtime32.jsx(IconSettings, {
+                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconSettings, {
                     size: 20
                   })
                 })
@@ -60336,45 +74036,45 @@ function Toolbar() {
           })
         })
       }),
-      appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime32.jsx(DownloadModal, {
+      appConfig?.showUploadDownload && /* @__PURE__ */ jsx_runtime38.jsx(DownloadModal, {
         opened: isDownloadUploadModalOpen,
         onClose: () => setIsDownloadUploadModalOpen(false)
       }),
-      /* @__PURE__ */ jsx_runtime32.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime38.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime32.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime32.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime38.jsx(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }),
-            /* @__PURE__ */ jsx_runtime32.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime38.jsxs(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_runtime32.jsx("br", {}),
+                /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }),
-            /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }),
-                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_runtime32.jsx(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_runtime38.jsx(IconExternalLink, {
                     size: 16
                   }),
                   color: "blue",
@@ -60385,55 +74085,55 @@ function Toolbar() {
           ]
         })
       }),
-      isFramePositionViewerOpen && appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime32.jsx(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && appConfig?.showFramePositionViewer && /* @__PURE__ */ jsx_runtime38.jsx(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }),
-      isAddFrameSnapshotModalOpen && appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime32.jsx(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && appConfig?.showSnapshot && /* @__PURE__ */ jsx_runtime38.jsx(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }),
-      isLayoutManagerOpen && appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime32.jsx(LayoutManagerModal, {
+      isLayoutManagerOpen && appConfig?.showLayoutManager && /* @__PURE__ */ jsx_runtime38.jsx(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }),
-      isMagicLayoutsModalOpen && appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime32.jsx(MagicLayoutsModal, {
+      isMagicLayoutsModalOpen && appConfig?.showMagicLayouts && /* @__PURE__ */ jsx_runtime38.jsx(MagicLayoutsModal, {
         opened: isMagicLayoutsModalOpen,
         onClose: () => setIsMagicLayoutsModalOpen(false)
       }),
-      appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime32.jsx(ConnectorCleanupModal, {
+      appConfig?.showConnectorCleanup && /* @__PURE__ */ jsx_runtime38.jsx(ConnectorCleanupModal, {
         opened: isConnectorCleanupModalOpen,
         onClose: () => setIsConnectorCleanupModalOpen(false)
       }),
-      appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime32.jsx(ManualCropManagerModal, {
+      appConfig?.showManualCropManager && /* @__PURE__ */ jsx_runtime38.jsx(ManualCropManagerModal, {
         opened: isManualCropManagerModalOpen,
         onClose: () => setIsManualCropManagerModalOpen(false)
       }),
-      appConfig.showOutput && /* @__PURE__ */ jsx_runtime32.jsx(OutTemplateModal, {
+      appConfig?.showOutput && /* @__PURE__ */ jsx_runtime38.jsx(OutTemplateModal, {
         opened: isOutTemplateModalOpen,
         onClose: () => setIsOutTemplateModalOpen(false)
       }),
-      appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime32.jsxs(Modal, {
+      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime38.jsxs(Modal, {
         opened: isAspectLockConfirmModalOpen,
         onClose: () => setIsAspectLockConfirmModalOpen(false),
         title: "Confirm Aspect Lock Change",
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime32.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Text, {
             children: "Turn Aspect Lock On?"
           }),
-          /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                 variant: "default",
                 onClick: () => handleConfirmAspectLock(false),
                 children: "No"
               }),
-              /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                 color: "blue",
                 onClick: () => handleConfirmAspectLock(true),
                 children: "Yes"
@@ -60442,7 +74142,7 @@ function Toolbar() {
           })
         ]
       }),
-      appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime32.jsxs(Modal, {
+      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime38.jsxs(Modal, {
         opened: isAspectLockSuccessModalOpen,
         onClose: () => {
           setIsAspectLockSuccessModalOpen(false);
@@ -60452,13 +74152,13 @@ function Toolbar() {
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime32.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Text, {
             children: aspectLockSuccessMessage
           }),
-          /* @__PURE__ */ jsx_runtime32.jsx(Group, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Group, {
             justify: "flex-end",
             mt: "md",
-            children: /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+            children: /* @__PURE__ */ jsx_runtime38.jsx(Button, {
               onClick: () => {
                 setIsAspectLockSuccessModalOpen(false);
                 setAspectLockSuccessMessage("");
@@ -60468,24 +74168,27 @@ function Toolbar() {
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime32.jsx(ToolbarSettingsModal, {
+      /* @__PURE__ */ jsx_runtime38.jsx(DownloadModalNew, {
+        opened: isDownloadModalNewOpen,
+        onClose: () => setIsDownloadModalNewOpen(false)
+      }),
+      appConfig && /* @__PURE__ */ jsx_runtime38.jsx(ToolbarSettingsModal, {
         opened: isSettingsModalOpen,
         onClose: () => setIsSettingsModalOpen(false),
-        config: appConfig,
-        onConfigChange: setAppConfig,
-        onReloadConfig: reloadConfig
+        onReloadConfig: reloadConfig,
+        updateInfo: updateInfo ?? undefined
       })
     ]
   });
 }
 
 // src/components/AlertsContainer.tsx
-var import_react270 = __toESM(require_react(), 1);
-var jsx_runtime33 = __toESM(require_jsx_runtime(), 1);
+var import_react276 = __toESM(require_react(), 1);
+var jsx_runtime39 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react270.useEffect(() => {
+  import_react276.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -60500,7 +74203,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime33.jsx(Box, {
+  return /* @__PURE__ */ jsx_runtime39.jsx(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -60508,10 +74211,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_runtime33.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime39.jsx(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime33.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime33.jsx(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime39.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime39.jsx(IconInfoCircle, {
           size: "1rem"
         }),
         title: "Toolbar Error",
@@ -60531,7 +74234,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_runtime34 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime40 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -60552,16 +74255,16 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime34.jsx(import_react271.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime34.jsx(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime40.jsx(import_react277.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime40.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime34.jsx(import_react271.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime34.jsxs(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime40.jsx(import_react277.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime40.jsxs(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_runtime34.jsx(Toolbar, {}),
-        /* @__PURE__ */ jsx_runtime34.jsx(AlertsContainer, {})
+        /* @__PURE__ */ jsx_runtime40.jsx(Toolbar, {}),
+        /* @__PURE__ */ jsx_runtime40.jsx(AlertsContainer, {})
       ]
     })
   }));
@@ -60586,4 +74289,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=0D004F23C249943064756E2164756E21
+//# debugId=846D5D7BAA50D2C264756E2164756E21
