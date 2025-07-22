@@ -25,6 +25,7 @@ import {
   IconCrop,
   IconFileExport,
   IconDownload,
+  IconPhotoSearch,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
@@ -40,6 +41,8 @@ import type { AppConfig, AppInfo } from "../utils/appConfig";
 import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
 import { saveLayoutSizingToAction } from "../studio/studioAdapter";
 import { Result } from "typescript-result";
+import { ConnectorFolderBrowser } from "./ConnectorFolderBrowser";
+import { ConnectorFolderBrowserMode } from "./ConnectorFolderBrowser";
 
 export function Toolbar() {
   const [visible, setVisible] = useState(false);
@@ -65,6 +68,7 @@ export function Toolbar() {
     useState(false); // State for the success modal
   const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = useState(""); // State for the dynamic success message
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isImageBrowserOpen, setIsImageBrowserOpen] = useState(false);
   const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
   const [updateInfo, setUpdateInfo] = useState<{
     currentVersion: string;
@@ -470,6 +474,19 @@ export function Toolbar() {
                     </ActionIcon>
                   </Tooltip>
                 )}
+                <Tooltip label="Images" position="bottom" withArrow>
+                  <ActionIcon
+                    variant="filled"
+                    color="gray"
+                    size="lg"
+                    aria-label="Images"
+                    onClick={() => {
+                      setIsImageBrowserOpen(true);
+                    }}
+                  >
+                    <IconPhotoSearch size={20} />
+                  </ActionIcon>
+                </Tooltip>
                 <Tooltip label="Settings" position="bottom" withArrow>
                   <ActionIcon
                     variant="filled"
@@ -630,6 +647,14 @@ export function Toolbar() {
       <DownloadModalNew
         opened={isDownloadModalNewOpen}
         onClose={() => setIsDownloadModalNewOpen(false)}
+      />
+
+      <ConnectorFolderBrowser
+        opened={isImageBrowserOpen}
+        mode={ConnectorFolderBrowserMode.FileSelection}
+        onClose={(selection) => {
+          setIsImageBrowserOpen(false);
+        }}
       />
 
       {/* Toolbar Settings Modal */}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FixedSizeList as List } from "react-window";
 import {
   Modal,
   Text,
@@ -16,21 +17,34 @@ import {
   Anchor,
   ActionIcon,
   Center,
+  Tooltip,
 } from "@mantine/core";
 import {
   IconAlertCircle,
   IconFolder,
+  IconFile,
   IconArrowBigLeftFilled,
+  IconExclamationCircle,
+  IconEyeCheck,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { getStudio } from "../studio/studioAdapter";
-import { queryMediaConnectorSimple } from "../studio/mediaConnectorHandler";
+import {
+  queryMediaConnectorSimple,
+  downloadMediaConnector,
+} from "../studio/mediaConnectorHandler";
 import {
   registerConnector,
   unregisterConnector,
 } from "../studio/connectorAdapter";
 import type { Connector } from "../types/connectorTypes";
+import type { MediaDownloadType } from "@chili-publish/studio-sdk";
 import { getMediaConnectorsAPI } from "../utils/getMediaConnectorsAPI";
+import { getVision } from "../utils/smartCrop/getVision";
+import { setVision } from "../utils/smartCrop/setVision";
+import type { CropMetadata } from "../utils/smartCrop/smartCrop.types";
+import type { TaskItem } from "./DownloadModal/types";
+import { DownloadTasksScreen } from "./DownloadModal/DownloadTasksScreen";
 
 // Define types for the component
 export type QueryPage<T> = {
@@ -52,19 +66,42 @@ export interface ConnectorFolderSelection {
   connectorName: string;
 }
 
-interface ConnectorFolderBrowserProps {
+export interface ConnectorFileSelection {
+  selectedFile: string;
+  folderPath: string;
+  connectorId: string;
+  connectorName: string;
+}
+
+export enum ConnectorFolderBrowserMode {
+  FolderSelection,
+  FileSelection,
+  SmartCropSelection,
+}
+
+interface ConnectorFolderBrowserProps<
+  T extends
+    ConnectorFolderBrowserMode = ConnectorFolderBrowserMode.FolderSelection,
+> {
   opened: boolean;
-  onClose: (selection: ConnectorFolderSelection | null) => void;
-  initialSelection?: ConnectorFolderSelection | null;
+  mode: T;
+  onClose: T extends ConnectorFolderBrowserMode.FileSelection
+    ? (selection: ConnectorFileSelection | null) => void
+    : (selection: ConnectorFolderSelection | null) => void;
+  initialSelection?: T extends ConnectorFolderBrowserMode.FileSelection
+    ? ConnectorFileSelection | null
+    : ConnectorFolderSelection | null;
 }
 
 type BrowserState = "loading" | "connectorSelection" | "folderBrowsing";
+type DisplayMode = "grid" | "list";
 
-export function ConnectorFolderBrowser({
+export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
   opened,
+  mode,
   onClose,
   initialSelection = null,
-}: ConnectorFolderBrowserProps) {
+}: ConnectorFolderBrowserProps<T>) {
   const raiseError = appStore((store) => store.raiseError);
 
   // State management
@@ -73,29 +110,98 @@ export function ConnectorFolderBrowser({
   const [selectedConnectorId, setSelectedConnectorId] = useState<string | null>(
     null,
   );
+  const [displayMode, setDisplayMode] = useState<DisplayMode>("list");
   const [localConnectorId, setLocalConnectorId] = useState<string | null>(null);
   const [currentPath, setCurrentPath] = useState<string>("/");
   const [folders, setFolders] = useState<Media[]>([]);
+  const [files, setFiles] = useState<Media[]>([]);
   const [selectedFolders, setSelectedFolders] = useState<Set<string>>(
     new Set(),
   );
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
   // Persistent selection storage across navigation
   const [persistentSelections, setPersistentSelections] = useState<Set<string>>(
     new Set(),
   );
+  // Smart crop selection mode state
+  const [smartCropMode, setSmartCropMode] = useState<boolean>(false);
+  const [sourceFile, setSourceFile] = useState<string | null>(null);
+  const [targetSelectedFiles, setTargetSelectedFiles] = useState<Set<string>>(
+    new Set(),
+  );
   const [isLoadingFolders, setIsLoadingFolders] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fileCount, setFileCount] = useState<number>(0);
+  // Thumbnail state
+  const [thumbnailUrls, setThumbnailUrls] = useState<Map<string, string>>(
+    new Map(),
+  );
+  const [thumbnailErrors, setThumbnailErrors] = useState<Map<string, string>>(
+    new Map(),
+  );
+  const [loadingThumbnails, setLoadingThumbnails] = useState<Set<string>>(
+    new Set(),
+  );
+  // Vision data caching state
+  const [visionDataCache, setVisionDataCache] = useState<Map<string, boolean>>(
+    new Map(),
+  );
+  const [loadingVisionData, setLoadingVisionData] = useState<Set<string>>(
+    new Set(),
+  );
+  // Task processing state
+  const [copyTasks, setCopyTasks] = useState<TaskItem[]>([]);
+  const [showTaskModal, setShowTaskModal] = useState<boolean>(false);
+  // Pagination state for lazy loading
+  const [hasMorePages, setHasMorePages] = useState(false);
+  const [nextPageToken, setNextPageToken] = useState<string>("");
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  // react-window configuration
+  const [itemSize, setItemSize] = useState(60);
+  // Blob URL cleanup timeout
+  const [cleanupTimeoutId, setCleanupTimeoutId] =
+    useState<NodeJS.Timeout | null>(null);
 
   // Session storage key for connector selection
   const CONNECTOR_SESSION_KEY = "tempDownloadModal_connectorId";
 
+  // Cleanup blob URLs when component unmounts (fallback)
+  useEffect(() => {
+    return () => {
+      // Cancel any pending cleanup timeout
+      if (cleanupTimeoutId) {
+        clearTimeout(cleanupTimeoutId);
+      }
+      // Cleanup all thumbnail URLs on unmount
+      // Note: We can't log here reliably due to stale closures
+      thumbnailUrls.forEach((url) => {
+        URL.revokeObjectURL(url);
+      });
+    };
+  }, []);
+
   // Load connectors when modal opens and initialize pre-selected paths
   useEffect(() => {
     if (opened) {
-      // Initialize persistent selections with pre-selected paths
-      const selectedPaths = initialSelection?.selectedFolders || [];
-      setPersistentSelections(new Set(selectedPaths));
+      // Cancel any pending cleanup timeout when reopening
+      // if (cleanupTimeoutId) {
+      //   clearTimeout(cleanupTimeoutId);
+      //   setCleanupTimeoutId(null);
+      // }
+
+      if (mode === ConnectorFolderBrowserMode.FolderSelection) {
+        // Initialize persistent selections with pre-selected paths for folder mode
+        const folderSelection =
+          initialSelection as ConnectorFolderSelection | null;
+        const selectedPaths = folderSelection?.selectedFolders || [];
+        setPersistentSelections(new Set(selectedPaths));
+      } else {
+        // Initialize selected file for file mode
+        const fileSelection = initialSelection as ConnectorFileSelection | null;
+        if (fileSelection?.selectedFile) {
+          setSelectedFile(fileSelection.selectedFile);
+          setCurrentPath(fileSelection.folderPath);
+        }
+      }
 
       // Set the connector ID if provided
       if (initialSelection?.connectorId) {
@@ -104,10 +210,31 @@ export function ConnectorFolderBrowser({
 
       loadConnectors();
     } else {
-      // Reset state when modal closes
+      // // Set cleanup timeout when modal closes (3 minutes)
+      // // Capture current thumbnailUrls to avoid stale closure
+      // const currentThumbnailUrls = thumbnailUrls;
+      // const timeoutId = setTimeout(
+      //   () => {
+      //     console.log(
+      //       `[Cleanup] Timeout expired, revoking ${currentThumbnailUrls.size} blob URLs`,
+      //     );
+      //     currentThumbnailUrls.forEach((url, key) => {
+      //       console.log(`[Cleanup] Timeout revoking URL for ${key}: ${url}`);
+      //       URL.revokeObjectURL(url);
+      //     });
+      //     setThumbnailUrls(new Map());
+      //     setThumbnailErrors(new Map());
+      //     setCleanupTimeoutId(null);
+      //   },
+      //   3 * 60 * 1000,
+      // ); // 3 minutes
+
+      // setCleanupTimeoutId(timeoutId);
+
+      // Reset state when modal closes (but keep thumbnails)
       cleanupAndResetState();
     }
-  }, [opened, initialSelection]);
+  }, [opened]);
 
   // Load preselected connector from session storage
   useEffect(() => {
@@ -125,15 +252,28 @@ export function ConnectorFolderBrowser({
   const resetState = () => {
     setBrowserState("loading");
     setConnectors([]);
-    setSelectedConnectorId(null);
+    // setSelectedConnectorId(null);
     setLocalConnectorId(null);
-    setCurrentPath("/");
+    // setCurrentPath("/");
     setFolders([]);
     setSelectedFolders(new Set());
     setPersistentSelections(new Set());
     setIsLoadingFolders(false);
     setError(null);
-    setFileCount(0);
+    // Reset smart crop mode state
+    setSmartCropMode(false);
+    setSourceFile(null);
+    setTargetSelectedFiles(new Set());
+    // Reset pagination state
+    setHasMorePages(false);
+    setNextPageToken("");
+    setIsLoadingMore(false);
+    // Reset thumbnail loading state but keep URLs for caching
+    setThumbnailErrors(new Map());
+    setLoadingThumbnails(new Set());
+    // Reset vision data cache
+    setVisionDataCache(new Map());
+    setLoadingVisionData(new Set());
   };
 
   const cleanupAndResetState = async () => {
@@ -161,6 +301,13 @@ export function ConnectorFolderBrowser({
         raiseError(error instanceof Error ? error : new Error(String(error)));
       }
     }
+
+    thumbnailUrls.forEach((url, key) => {
+      console.log(`[Cleanup] Timeout revoking URL for ${key}: ${url}`);
+      URL.revokeObjectURL(url);
+    });
+    setThumbnailUrls(new Map());
+
     resetState();
   };
 
@@ -239,13 +386,194 @@ export function ConnectorFolderBrowser({
       setBrowserState("folderBrowsing");
 
       // Load initial folders
-      await loadFolders(localId, "/", "");
+      await loadFolders(localId, selectedConnectorId, "/", "");
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
       setError(errorMessage);
       raiseError(new Error(errorMessage));
       setIsLoadingFolders(false);
+    }
+  };
+
+  // Wrapper function for setSelectedConnectorId that resets related state
+  const setSelectedConnectorIdWithReset = (connectorId: string | null) => {
+    setSelectedConnectorId(connectorId);
+    setCurrentPath("/");
+    setSelectedFolders(new Set());
+    setSelectedFile(null);
+    setPersistentSelections(new Set());
+    // Reset pagination state when switching connectors
+    setHasMorePages(false);
+    setNextPageToken("");
+    setIsLoadingMore(false);
+    // Reset thumbnail state when switching connectors but keep URLs for caching
+    setThumbnailErrors(new Map());
+    setLoadingThumbnails(new Set());
+    // Reset vision data cache when switching connectors
+    setVisionDataCache(new Map());
+    setLoadingVisionData(new Set());
+  };
+
+  // Function to load vision data for a file
+  const loadVisionData = async (
+    file: Media,
+    localConnectorId: string,
+    connectorId: string,
+  ) => {
+    if (!(file.type === "file" || (file.type as unknown) == 0)) {
+      return;
+    }
+
+    const fileKey = `${localConnectorId}-${file.id}`;
+
+    // Skip if already loading, loaded, or errored
+    if (loadingVisionData.has(fileKey) || visionDataCache.has(fileKey)) {
+      return;
+    }
+
+    // Mark as loading
+    setLoadingVisionData((prev) => new Set(prev).add(fileKey));
+
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+
+      // Get token and baseUrl from configuration
+      const token = (
+        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
+      ).parsedData as string;
+      const baseUrl = (
+        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
+      ).parsedData as string;
+
+      const visionResult = await getVision({
+        baseUrl,
+        connectorId,
+        asset: file.id,
+        authorization: token,
+      });
+
+      if (visionResult.isOk()) {
+        // Vision data exists
+        setVisionDataCache((prev) => {
+          const newMap = new Map(prev);
+          newMap.set(fileKey, true);
+          return newMap;
+        });
+      } else {
+        // Check if it's a VisionNotFoundError
+        if ((visionResult.error as any)?.type === "VisionNotFoundError") {
+          // Don't cache anything for VisionNotFoundError - just don't show icon
+          setVisionDataCache((prev) => {
+            const newMap = new Map(prev);
+            newMap.set(fileKey, false);
+            return newMap;
+          });
+        } else {
+          // Other errors - don't cache
+          console.warn(
+            `Failed to load vision data for ${file.name}:`,
+            visionResult.error?.message,
+          );
+        }
+      }
+    } catch (error) {
+      console.warn(`Failed to load vision data for ${file.name}:`, error);
+    } finally {
+      // Remove from loading set
+      setLoadingVisionData((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(fileKey);
+        return newSet;
+      });
+    }
+  };
+
+  // Function to load thumbnail for a file
+  const loadThumbnail = async (file: Media, connectorId: string) => {
+    const fileKey = `${connectorId}-${file.id}`;
+
+    // Skip if already loading, loaded, or errored
+    if (
+      loadingThumbnails.has(fileKey) ||
+      thumbnailUrls.has(fileKey) ||
+      thumbnailErrors.has(fileKey)
+    ) {
+      return;
+    }
+
+    // Mark as loading
+    setLoadingThumbnails((prev) => new Set(prev).add(fileKey));
+
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+
+      const downloadResult = await downloadMediaConnector({
+        studio: studioResult.value,
+        connectorId: connectorId,
+        assetId: file.id,
+        downloadType: "thumbnail" as MediaDownloadType,
+        metadata: {},
+      });
+
+      if (!downloadResult.isOk()) {
+        throw new Error(
+          downloadResult.error?.message || "Failed to download thumbnail",
+        );
+      }
+
+      // Convert the Uint8Array to a blob and create object URL
+      const uint8Array = downloadResult.value as Uint8Array;
+      console.log(
+        `[Thumbnail] Downloaded ${file.name}: ${uint8Array.length} bytes`,
+      );
+
+      // Try to detect content type from the first few bytes
+      let contentType = "image/jpeg"; // default
+      if (uint8Array.length > 4) {
+        const header = Array.from(uint8Array.slice(0, 4))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+        if (header.startsWith("ffd8")) contentType = "image/jpeg";
+        else if (header.startsWith("8950")) contentType = "image/png";
+        else if (header.startsWith("4749")) contentType = "image/gif";
+        else if (header.startsWith("5249")) contentType = "image/webp";
+        console.log(
+          `[Thumbnail] Detected content type for ${file.name}: ${contentType} (header: ${header})`,
+        );
+      }
+
+      const blob = new Blob([uint8Array], { type: contentType });
+      const thumbnailUrl = URL.createObjectURL(blob);
+
+      console.log(
+        `[Thumbnail] Created blob URL for ${file.name}: ${thumbnailUrl}`,
+      );
+
+      // Update thumbnail URLs
+      setThumbnailUrls((prev) => {
+        const newMap = new Map(prev);
+        newMap.set(fileKey, thumbnailUrl);
+        console.log(`[Thumbnail] Stored URL for ${fileKey}: ${thumbnailUrl}`);
+        return newMap;
+      });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      setThumbnailErrors((prev) => new Map(prev).set(fileKey, errorMessage));
+    } finally {
+      // Remove from loading set
+      setLoadingThumbnails((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(fileKey);
+        return newSet;
+      });
     }
   };
 
@@ -284,11 +612,24 @@ export function ConnectorFolderBrowser({
 
   const loadFolders = async (
     connectorId: string,
+    selectedConnectorId: string | null,
     path: string,
     pageToken: string = "",
+    append: boolean = false,
   ) => {
     try {
-      setIsLoadingFolders(true);
+      if (selectedConnectorId == null) {
+        setError("Connector not selected.");
+        raiseError(new Error("Connector not selected."));
+        return;
+      }
+
+      // Set appropriate loading state
+      if (append) {
+        setIsLoadingMore(true);
+      } else {
+        setIsLoadingFolders(true);
+      }
       setError(null);
 
       const studioResult = await getStudio();
@@ -319,37 +660,211 @@ export function ConnectorFolderBrowser({
         (item) => item.type === "file" || (item.type as unknown) == 0,
       );
 
-      if (pageToken === "") {
-        // First page - replace folders and reset file count
-        setFolders(folderData);
-        setFileCount(fileData.length);
-        // Update selectedFolders based on persistent selections for current path
-        updateSelectedFoldersForCurrentPath(folderData, path);
-      } else {
-        // Additional pages - append folders and add to file count
+      if (append) {
+        // Additional pages - append folders and files
         setFolders((prev) => {
           const newFolders = [...prev, ...folderData];
-          updateSelectedFoldersForCurrentPath(newFolders, path);
+          if (mode === ConnectorFolderBrowserMode.FolderSelection) {
+            updateSelectedFoldersForCurrentPath(newFolders, path);
+          }
           return newFolders;
         });
-        setFileCount((prev) => prev + fileData.length);
+        setFiles((prev) => [...prev, ...fileData]);
+        // Load thumbnails and vision data for new files in file selection mode
+        if (mode === ConnectorFolderBrowserMode.FileSelection) {
+          fileData.forEach((file) => {
+            loadThumbnail(file, connectorId);
+            loadVisionData(file, connectorId, selectedConnectorId);
+          });
+        }
+      } else {
+        // First page - replace folders and files
+        setFolders(folderData);
+        setFiles(fileData);
+        // Update selectedFolders based on persistent selections for current path
+        if (mode === ConnectorFolderBrowserMode.FolderSelection) {
+          updateSelectedFoldersForCurrentPath(folderData, path);
+        }
+        // Load thumbnails and vision data for files in file selection mode
+        if (mode === ConnectorFolderBrowserMode.FileSelection) {
+          fileData.forEach((file) => {
+            loadThumbnail(file, connectorId);
+            loadVisionData(file, connectorId, selectedConnectorId);
+          });
+        }
       }
 
-      // If there are more pages, automatically load them
+      // Update pagination state
       if (queryPage.nextPageToken) {
-        // Continue loading in the background
-        setTimeout(() => {
-          loadFolders(connectorId, path, queryPage.nextPageToken);
-        }, 100); // Small delay to prevent overwhelming the API
+        setHasMorePages(true);
+        setNextPageToken(queryPage.nextPageToken);
       } else {
-        setIsLoadingFolders(false);
+        setHasMorePages(false);
+        setNextPageToken("");
       }
+
+      // Clear loading states
+      setIsLoadingFolders(false);
+      setIsLoadingMore(false);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
       setError(errorMessage);
       raiseError(new Error(errorMessage));
       setIsLoadingFolders(false);
+      setIsLoadingMore(false);
+    }
+  };
+
+  // Function to load more items when scrolling
+  const loadMoreItems = async () => {
+    if (
+      !localConnectorId ||
+      !hasMorePages ||
+      isLoadingMore ||
+      nextPageToken === ""
+    ) {
+      return;
+    }
+
+    await loadFolders(
+      localConnectorId,
+      selectedConnectorId,
+      currentPath,
+      nextPageToken,
+      true,
+    );
+  };
+
+  // react-window item renderer for list view
+  const ListItem = ({
+    index,
+    style,
+  }: {
+    index: number;
+    style: React.CSSProperties;
+  }) => {
+    const allItems = [
+      ...folders,
+      ...(mode === ConnectorFolderBrowserMode.FileSelection ? files : []),
+    ];
+    const item = allItems[index];
+
+    if (!item) return null;
+
+    const isFolder = item.type === "folder" || (item.type as unknown) == 1;
+    const isFile = item.type === "file" || (item.type as unknown) == 0;
+
+    if (isFolder) {
+      const folderPath =
+        currentPath === "/" ? `/${item.name}` : `${currentPath}/${item.name}`;
+      const isSelected = selectedFolders.has(folderPath);
+
+      return (
+        <div style={style}>
+          <Card
+            shadow="sm"
+            padding="sm"
+            radius="sm"
+            style={{
+              cursor: "pointer",
+              border: isSelected ? "2px solid #228be6" : undefined,
+              margin: "2px",
+              height: itemSize - 4, // Account for margin
+            }}
+            onClick={() => navigateToFolder(item.name)}
+          >
+            <Group gap="md" align="center">
+              {mode === ConnectorFolderBrowserMode.FolderSelection && (
+                <Checkbox
+                  checked={isSelected}
+                  onChange={() => toggleFolderSelection(item.name)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
+              <IconFolder size={24} />
+              <Text size="sm" style={{ flex: 1 }}>
+                {item.name}
+              </Text>
+            </Group>
+          </Card>
+        </div>
+      );
+    }
+
+    if (isFile && mode === ConnectorFolderBrowserMode.FileSelection) {
+      const isSelected = selectedFile === item.name;
+      const isSourceFile = smartCropMode && sourceFile === item.name;
+      const isTargetSelected =
+        smartCropMode && targetSelectedFiles.has(item.name);
+
+      return (
+        <div style={style}>
+          <Card
+            shadow="sm"
+            padding="sm"
+            radius="sm"
+            style={{
+              cursor: smartCropMode && isSourceFile ? "default" : "pointer",
+              border: isSelected
+                ? "2px solid #228be6"
+                : isTargetSelected
+                  ? "2px solid #40c057"
+                  : undefined,
+              margin: "2px",
+              height: itemSize - 4, // Account for margin
+              opacity: isSourceFile ? 0.5 : 1,
+              backgroundColor: isSourceFile ? "#f8f9fa" : undefined,
+            }}
+            onClick={() => {
+              if (smartCropMode) {
+                if (!isSourceFile) {
+                  handleTargetFileToggle(item.name);
+                }
+              } else {
+                handleFileSelection(item.name);
+              }
+            }}
+          >
+            <Group gap="md" align="center">
+              {smartCropMode && !isSourceFile && (
+                <Checkbox
+                  checked={isTargetSelected}
+                  onChange={() => handleTargetFileToggle(item.name)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
+              {renderFileIcon(item, 24)}
+              <Group gap="md" justify="flex-start">
+                <Text size="sm" style={{ flex: 1, userSelect: "text" }}>
+                  {item.name}
+                </Text>
+                {renderVisionIcon(item)}
+              </Group>
+            </Group>
+          </Card>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  // react-window scroll handler for infinite loading
+  const handleItemsRendered = ({
+    visibleStopIndex,
+  }: {
+    visibleStopIndex: number;
+  }) => {
+    const allItems = [
+      ...folders,
+      ...(mode === ConnectorFolderBrowserMode.FileSelection ? files : []),
+    ];
+    const totalItems = allItems.length;
+
+    // Load more when we're near the end (within 5 items)
+    if (visibleStopIndex >= totalItems - 5 && hasMorePages && !isLoadingMore) {
+      loadMoreItems();
     }
   };
 
@@ -360,8 +875,12 @@ export function ConnectorFolderBrowser({
       currentPath === "/" ? `/${folderName}` : `${currentPath}/${folderName}`;
     setCurrentPath(newPath);
     setFolders([]);
+    // Clear selected file when navigating in file mode (but not in smart crop mode)
+    if (mode === ConnectorFolderBrowserMode.FileSelection && !smartCropMode) {
+      setSelectedFile(null);
+    }
     // Don't reset selectedFolders here - let updateSelectedFoldersForCurrentPath handle it
-    await loadFolders(localConnectorId, newPath, "");
+    await loadFolders(localConnectorId, selectedConnectorId, newPath, "");
   };
 
   const navigateBack = async () => {
@@ -373,8 +892,12 @@ export function ConnectorFolderBrowser({
 
     setCurrentPath(newPath);
     setFolders([]);
+    // Clear selected file when navigating in file mode (but not in smart crop mode)
+    if (mode === ConnectorFolderBrowserMode.FileSelection && !smartCropMode) {
+      setSelectedFile(null);
+    }
     // Don't reset selectedFolders here - let updateSelectedFoldersForCurrentPath handle it
-    await loadFolders(localConnectorId, newPath, "");
+    await loadFolders(localConnectorId, selectedConnectorId, newPath, "");
   };
 
   const toggleFolderSelection = (folderName: string) => {
@@ -407,9 +930,183 @@ export function ConnectorFolderBrowser({
     setPersistentSelections(newPersistent);
   };
 
-  const handleSelectFolders = async () => {
-    const selectedPaths = Array.from(persistentSelections);
+  const handleFileSelection = (fileName: string) => {
+    setSelectedFile(fileName);
+  };
 
+  const handleEnterSmartCropMode = () => {
+    if (selectedFile) {
+      setSmartCropMode(true);
+      setSourceFile(selectedFile);
+      setTargetSelectedFiles(new Set());
+    }
+  };
+
+  const handleExitSmartCropMode = () => {
+    setSmartCropMode(false);
+    setSourceFile(null);
+    setTargetSelectedFiles(new Set());
+  };
+
+  const handleTargetFileToggle = (fileName: string) => {
+    const newTargetFiles = new Set(targetSelectedFiles);
+    if (newTargetFiles.has(fileName)) {
+      newTargetFiles.delete(fileName);
+    } else {
+      newTargetFiles.add(fileName);
+    }
+    setTargetSelectedFiles(newTargetFiles);
+  };
+
+  const handleCopyVisionData = async () => {
+    if (!sourceFile || !localConnectorId || targetSelectedFiles.size === 0) {
+      return;
+    }
+
+    try {
+      // Reset tasks and show modal
+      setCopyTasks([]);
+      setShowTaskModal(true);
+
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+
+      // Get token and baseUrl from configuration
+      const token = (
+        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
+      ).parsedData as string;
+      const baseUrl = (
+        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
+      ).parsedData as string;
+
+      // Step 1: Get vision data from source file
+      const sourceFileObj = files.find((f) => f.name === sourceFile);
+      if (!sourceFileObj) {
+        throw new Error(`Source file ${sourceFile} not found`);
+      }
+
+      const getVisionTaskId = `get-vision-${sourceFileObj.id}`;
+      setCopyTasks([
+        {
+          id: getVisionTaskId,
+          name: `Getting vision data from: ${sourceFile}`,
+          type: "get_vision",
+          status: "processing",
+        },
+      ]);
+
+      const visionResult = await getVision({
+        baseUrl,
+        connectorId: selectedConnectorId!,
+        asset: sourceFileObj.id,
+        authorization: token,
+      });
+
+      if (!visionResult.isOk()) {
+        setCopyTasks((prev) =>
+          prev.map((task) =>
+            task.id === getVisionTaskId
+              ? {
+                  ...task,
+                  status: "error",
+                  error:
+                    visionResult.error?.message || "Failed to get vision data",
+                }
+              : task,
+          ),
+        );
+        return;
+      }
+
+      // Mark get vision task as complete
+      setCopyTasks((prev) =>
+        prev.map((task) =>
+          task.id === getVisionTaskId ? { ...task, status: "complete" } : task,
+        ),
+      );
+
+      const sourceVisionData = visionResult.value;
+
+      // Step 2: Set vision data for each target file
+      for (const targetFileName of targetSelectedFiles) {
+        const targetFileObj = files.find((f) => f.name === targetFileName);
+        if (!targetFileObj) {
+          continue;
+        }
+
+        const setVisionTaskId = `set-vision-${targetFileObj.id}`;
+        setCopyTasks((prev) => [
+          ...prev,
+          {
+            id: setVisionTaskId,
+            name: `Copying vision data to: ${targetFileName}`,
+            type: "smart_crop_upload",
+            status: "processing",
+          },
+        ]);
+
+        try {
+          const setResult = await setVision({
+            baseUrl,
+            connectorId: selectedConnectorId!,
+            asset: targetFileObj.id,
+            authorization: token,
+            metadata: sourceVisionData,
+          });
+
+          if (setResult.isOk()) {
+            setCopyTasks((prev) =>
+              prev.map((task) =>
+                task.id === setVisionTaskId
+                  ? { ...task, status: "complete" }
+                  : task,
+              ),
+            );
+
+            // Update vision cache for target file
+            const fileKey = `${localConnectorId}-${targetFileObj.id}`;
+            setVisionDataCache((prev) => {
+              const newMap = new Map(prev);
+              newMap.set(fileKey, true);
+              return newMap;
+            });
+          } else {
+            setCopyTasks((prev) =>
+              prev.map((task) =>
+                task.id === setVisionTaskId
+                  ? {
+                      ...task,
+                      status: "error",
+                      error:
+                        setResult.error?.message || "Failed to set vision data",
+                    }
+                  : task,
+              ),
+            );
+          }
+        } catch (error) {
+          setCopyTasks((prev) =>
+            prev.map((task) =>
+              task.id === setVisionTaskId
+                ? {
+                    ...task,
+                    status: "error",
+                    error:
+                      error instanceof Error ? error.message : String(error),
+                  }
+                : task,
+            ),
+          );
+        }
+      }
+    } catch (error) {
+      raiseError(error instanceof Error ? error : new Error(String(error)));
+    }
+  };
+
+  const handleSelection = async () => {
     // Cleanup connector before closing
     if (localConnectorId) {
       try {
@@ -439,14 +1136,35 @@ export function ConnectorFolderBrowser({
     );
     const connectorName = selectedConnector?.name || "";
 
-    const selection: ConnectorFolderSelection = {
-      selectedFolders: selectedPaths,
-      connectorId: selectedConnectorId || "",
-      connectorName: connectorName,
-    };
-
-    resetState();
-    onClose(selection);
+    if (mode === ConnectorFolderBrowserMode.FolderSelection) {
+      const selectedPaths = Array.from(persistentSelections);
+      const selection: ConnectorFolderSelection = {
+        selectedFolders: selectedPaths,
+        connectorId: selectedConnectorId || "",
+        connectorName: connectorName,
+      };
+      resetState();
+      (onClose as (selection: ConnectorFolderSelection | null) => void)(
+        selection,
+      );
+    } else {
+      // File selection mode
+      if (selectedFile) {
+        const selection: ConnectorFileSelection = {
+          selectedFile: selectedFile,
+          folderPath: currentPath,
+          connectorId: selectedConnectorId || "",
+          connectorName: connectorName,
+        };
+        resetState();
+        (onClose as (selection: ConnectorFileSelection | null) => void)(
+          selection,
+        );
+      } else {
+        resetState();
+        (onClose as (selection: ConnectorFileSelection | null) => void)(null);
+      }
+    }
   };
 
   const renderBreadcrumbs = () => {
@@ -458,8 +1176,15 @@ export function ConnectorFolderBrowser({
           if (localConnectorId) {
             setCurrentPath("/");
             setFolders([]);
+            // Clear selected file when navigating in file mode (but not in smart crop mode)
+            if (
+              mode === ConnectorFolderBrowserMode.FileSelection &&
+              !smartCropMode
+            ) {
+              setSelectedFile(null);
+            }
             // Don't reset selectedFolders here - let updateSelectedFoldersForCurrentPath handle it
-            loadFolders(localConnectorId, "/", "");
+            loadFolders(localConnectorId, selectedConnectorId, "/", "");
           }
         }}
       >
@@ -476,8 +1201,15 @@ export function ConnectorFolderBrowser({
             if (localConnectorId) {
               setCurrentPath(partPath);
               setFolders([]);
+              // Clear selected file when navigating in file mode (but not in smart crop mode)
+              if (
+                mode === ConnectorFolderBrowserMode.FileSelection &&
+                !smartCropMode
+              ) {
+                setSelectedFile(null);
+              }
               // Don't reset selectedFolders here - let updateSelectedFoldersForCurrentPath handle it
-              loadFolders(localConnectorId, partPath, "");
+              loadFolders(localConnectorId, selectedConnectorId, partPath, "");
             }
           }}
         >
@@ -489,231 +1221,527 @@ export function ConnectorFolderBrowser({
     return <Breadcrumbs>{breadcrumbItems}</Breadcrumbs>;
   };
 
-  return (
-    <Modal
-      opened={opened}
-      onClose={async () => {
-        await cleanupAndResetState();
-        onClose(null);
-      }}
-      title="Select Folders for Smart Crops"
-      fullScreen
-      styles={{
-        content: {
-          height: "100vh",
-        },
-        body: {
-          padding: "2rem",
-          height: "calc(100vh - 80px)",
-          display: "flex",
-          flexDirection: "column",
-        },
-        header: {
-          padding: "1.5rem 2rem 1rem 2rem",
-        },
-        title: {
-          fontSize: "1.5rem",
-          fontWeight: 600,
-        },
-      }}
-    >
-      <Stack gap="lg">
-        {error && (
-          <Alert
-            icon={<IconAlertCircle size="1rem" />}
-            title="Error"
-            color="red"
-          >
-            {error}
-          </Alert>
-        )}
+  // Helper function to render vision icon
+  const renderVisionIcon = (file: Media) => {
+    if (!localConnectorId) return null;
 
-        {browserState === "loading" && (
-          <Center>
-            <Stack align="center" gap="md">
-              <Loader size="lg" />
-              <Text>Loading connectors...</Text>
-            </Stack>
-          </Center>
-        )}
+    const fileKey = `${localConnectorId}-${file.id}`;
+    const hasVisionData = visionDataCache.get(fileKey);
+    const isLoadingVision = loadingVisionData.has(fileKey);
 
-        {browserState === "connectorSelection" && (
-          <Stack gap="md" align="center">
-            <Text size="md" ta="center">
-              Choose a connector to browse folders
-            </Text>
+    if (isLoadingVision) {
+      return <Loader size={16} />;
+    }
 
-            <Select
-              label="Choose Connector"
-              placeholder="Select a connector"
-              data={connectors.map((c) => ({ value: c.id, label: c.name }))}
-              value={selectedConnectorId}
-              onChange={setSelectedConnectorId}
-              style={{ width: "300px" }}
-            />
+    if (hasVisionData) {
+      return (
+        <Tooltip label="Vision data available">
+          <IconEyeCheck size={16} color="green" />
+        </Tooltip>
+      );
+    }
 
-            <Button
-              onClick={handleConnectorSelect}
-              disabled={!selectedConnectorId}
-              loading={isLoadingFolders}
-              style={{ marginLeft: "-50px" }}
+    return null;
+  };
+
+  // Helper function to render file icon/thumbnail
+  const renderFileIcon = (file: Media, size: number = 24) => {
+    if (!localConnectorId) return <IconFile size={size} />;
+
+    const fileKey = `${localConnectorId}-${file.id}`;
+    const thumbnailUrl = thumbnailUrls.get(fileKey);
+    const thumbnailError = thumbnailErrors.get(fileKey);
+    const isLoading = loadingThumbnails.has(fileKey);
+
+    if (isLoading) {
+      return <Loader size={size} />;
+    }
+
+    if (thumbnailError) {
+      return (
+        <Tooltip label={thumbnailError}>
+          <IconExclamationCircle size={size} color="red" />
+        </Tooltip>
+      );
+    }
+
+    if (thumbnailUrl) {
+      console.log(
+        `[Render] Using thumbnail URL for ${file.name}: ${thumbnailUrl}`,
+      );
+      return (
+        <img
+          src={thumbnailUrl}
+          alt={file.name}
+          style={{
+            width: size,
+            height: size,
+            objectFit: "cover",
+            borderRadius: "4px",
+          }}
+          onLoad={() =>
+            console.log(`[Image] Successfully loaded: ${thumbnailUrl}`)
+          }
+          onError={(e) => {
+            console.error(`[Image] Failed to load: ${thumbnailUrl}`, e);
+            console.log(`[Image] Current thumbnailUrls map:`, thumbnailUrls);
+          }}
+        />
+      );
+    }
+
+    return <IconFile size={size} />;
+  };
+
+  // Helper function to render folders and files in grid mode
+  const renderGridView = () => {
+    return (
+      <SimpleGrid cols={4} spacing="md">
+        {folders.map((folder) => {
+          const folderPath =
+            currentPath === "/"
+              ? `/${folder.name}`
+              : `${currentPath}/${folder.name}`;
+          const isSelected = selectedFolders.has(folderPath);
+
+          return (
+            <Card
+              key={folder.id}
+              shadow="sm"
+              padding="md"
+              radius="md"
+              style={{
+                cursor: "pointer",
+                position: "relative",
+                border: isSelected ? "2px solid #228be6" : undefined,
+              }}
+              onClick={() => navigateToFolder(folder.name)}
             >
-              Select
-            </Button>
-          </Stack>
-        )}
+              {mode === ConnectorFolderBrowserMode.FolderSelection && (
+                <Checkbox
+                  checked={isSelected}
+                  onChange={() => toggleFolderSelection(folder.name)}
+                  style={{
+                    position: "absolute",
+                    top: "8px",
+                    right: "8px",
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
 
-        {browserState === "folderBrowsing" && (
-          <>
-            <Text size="sm" c="dimmed" ta="center">
-              Select folders to copy smart crops. All files directly under the
-              selected folders will be included. Subfolders will not be
-              automatically included.
-            </Text>
+              <Stack align="center" gap="xs">
+                <IconFolder size={32} />
+                <Text size="sm" ta="center" lineClamp={2}>
+                  {folder.name}
+                </Text>
+              </Stack>
+            </Card>
+          );
+        })}
 
-            <Group gap="md">
-              <ActionIcon
-                variant="subtle"
-                onClick={navigateBack}
-                disabled={currentPath === "/"}
+        {mode === ConnectorFolderBrowserMode.FileSelection &&
+          files.map((file) => {
+            const isSelected = selectedFile === file.name;
+            const isSourceFile = smartCropMode && sourceFile === file.name;
+            const isTargetSelected =
+              smartCropMode && targetSelectedFiles.has(file.name);
+
+            return (
+              <Card
+                key={file.id}
+                shadow="sm"
+                padding="md"
+                radius="md"
+                style={{
+                  cursor: smartCropMode && isSourceFile ? "default" : "pointer",
+                  position: "relative",
+                  border: isSelected
+                    ? "2px solid #228be6"
+                    : isTargetSelected
+                      ? "2px solid #40c057"
+                      : undefined,
+                  opacity: isSourceFile ? 0.5 : 1,
+                  backgroundColor: isSourceFile ? "#f8f9fa" : undefined,
+                }}
+                onClick={() => {
+                  if (smartCropMode) {
+                    if (!isSourceFile) {
+                      handleTargetFileToggle(file.name);
+                    }
+                  } else {
+                    handleFileSelection(file.name);
+                  }
+                }}
               >
-                <IconArrowBigLeftFilled size={20} />
-              </ActionIcon>
-              {renderBreadcrumbs()}
-            </Group>
+                {smartCropMode && !isSourceFile && (
+                  <Checkbox
+                    checked={isTargetSelected}
+                    onChange={() => handleTargetFileToggle(file.name)}
+                    style={{
+                      position: "absolute",
+                      top: "8px",
+                      right: "8px",
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                )}
 
-            {/* File count display */}
-            <Group justify="space-between" align="center">
-              <Text size="sm" c="dimmed">
-                Files: {fileCount}
+                <Stack align="center" gap="xs">
+                  {renderFileIcon(file, 32)}
+                  <Group gap="xs" justify="flex-end">
+                    <Text size="sm" ta="center" lineClamp={2}>
+                      {file.name}
+                    </Text>
+                    {renderVisionIcon(file)}
+                  </Group>
+                </Stack>
+              </Card>
+            );
+          })}
+
+        {isLoadingMore && (
+          <Card shadow="sm" padding="md" radius="md" style={{ opacity: 0.7 }}>
+            <Center h="100%">
+              <Stack align="center" gap="xs">
+                <Loader size="sm" />
+                <Text size="xs" c="dimmed">
+                  Loading more...
+                </Text>
+              </Stack>
+            </Center>
+          </Card>
+        )}
+      </SimpleGrid>
+    );
+  };
+
+  return (
+    <>
+      <Modal
+        opened={opened}
+        onClose={async () => {
+          await cleanupAndResetState();
+          onClose(null);
+        }}
+        title={
+          mode === ConnectorFolderBrowserMode.FolderSelection
+            ? "Select Folders for Smart Crops"
+            : "Select File"
+        }
+        fullScreen
+        styles={{
+          content: {
+            height: "100vh",
+          },
+          body: {
+            padding: "1rem",
+            height: "calc(100vh - 80px)",
+            display: "flex",
+            flexDirection: "column",
+          },
+          header: {
+            padding: "1.5rem 2rem 1rem 2rem",
+          },
+          title: {
+            fontSize: "1.5rem",
+            fontWeight: 600,
+          },
+        }}
+      >
+        <Stack gap="sm">
+          {error && (
+            <Alert
+              icon={<IconAlertCircle size="1rem" />}
+              title="Error"
+              color="red"
+            >
+              {error}
+            </Alert>
+          )}
+
+          {browserState === "loading" && (
+            <Center>
+              <Stack align="center" gap="md">
+                <Loader size="lg" />
+                <Text>Loading connectors...</Text>
+              </Stack>
+            </Center>
+          )}
+
+          {browserState === "connectorSelection" && (
+            <Stack gap="md" align="center">
+              <Text size="md" ta="center">
+                {mode === ConnectorFolderBrowserMode.FolderSelection
+                  ? "Choose a connector to browse folders"
+                  : "Choose a connector to browse files"}
               </Text>
-            </Group>
 
-            <ScrollArea style={{ flex: 1, minHeight: "400px" }}>
-              {folders.length === 0 && isLoadingFolders ? (
-                <Center h={200}>
-                  <Stack align="center" gap="md">
-                    <Loader size="lg" />
-                    <Text c="dimmed">Loading folders...</Text>
-                  </Stack>
-                </Center>
-              ) : folders.length === 0 && !isLoadingFolders ? (
-                <Center h={200}>
-                  <Text c="dimmed">No folders found</Text>
-                </Center>
-              ) : (
-                <SimpleGrid cols={4} spacing="md">
-                  {folders.map((folder) => {
-                    const folderPath =
-                      currentPath === "/"
-                        ? `/${folder.name}`
-                        : `${currentPath}/${folder.name}`;
-                    const isSelected = selectedFolders.has(folderPath);
+              <Select
+                label="Choose Connector"
+                placeholder="Select a connector"
+                data={connectors.map((c) => ({ value: c.id, label: c.name }))}
+                value={selectedConnectorId}
+                onChange={setSelectedConnectorId}
+                style={{ width: "300px" }}
+              />
 
-                    return (
+              <Button
+                onClick={handleConnectorSelect}
+                disabled={!selectedConnectorId}
+                loading={isLoadingFolders}
+                style={{ marginLeft: "-50px" }}
+              >
+                Select
+              </Button>
+            </Stack>
+          )}
+
+          {browserState === "folderBrowsing" && (
+            <>
+              {/* Combined navigation and connector selection */}
+              <Group justify="space-between" align="center">
+                <Group gap="md">
+                  <ActionIcon
+                    variant="subtle"
+                    onClick={navigateBack}
+                    disabled={currentPath === "/"}
+                  >
+                    <IconArrowBigLeftFilled size={20} />
+                  </ActionIcon>
+                  {renderBreadcrumbs()}
+                </Group>
+
+                <Select
+                  label="Change Connector"
+                  placeholder="Select a connector"
+                  data={connectors.map((c) => ({ value: c.id, label: c.name }))}
+                  value={selectedConnectorId}
+                  onChange={async (value) => {
+                    if (value && value !== selectedConnectorId) {
+                      // Reset state and switch to new connector
+                      setSelectedConnectorIdWithReset(value);
+
+                      // Cleanup current connector if exists
+                      if (localConnectorId) {
+                        try {
+                          const studioResult = await getStudio();
+                          if (studioResult.isOk()) {
+                            await unregisterConnector(
+                              studioResult.value,
+                              localConnectorId,
+                            );
+                          }
+                        } catch (error) {
+                          raiseError(
+                            error instanceof Error
+                              ? error
+                              : new Error(String(error)),
+                          );
+                        }
+                      }
+
+                      // Proceed with new connector
+                      const studioResult = await getStudio();
+                      if (studioResult.isOk()) {
+                        await proceedWithConnector(value, studioResult.value);
+                      }
+                    }
+                  }}
+                  style={{ width: "250px" }}
+                />
+              </Group>
+
+              {/* Toolbar for file selection mode when a file is selected */}
+              {mode === ConnectorFolderBrowserMode.FileSelection &&
+                selectedFile &&
+                !smartCropMode && (
+                  <Group gap="md">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleEnterSmartCropMode}
+                    >
+                      Copy Smart Crop
+                    </Button>
+                  </Group>
+                )}
+
+              {/* Toolbar for smart crop mode */}
+              {smartCropMode && (
+                <Group gap="md">
+                  <Button
+                    variant="filled"
+                    size="sm"
+                    disabled={targetSelectedFiles.size === 0}
+                    onClick={handleCopyVisionData}
+                  >
+                    Copy
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleExitSmartCropMode}
+                  >
+                    Cancel
+                  </Button>
+                </Group>
+              )}
+
+              <div style={{ flex: 1, minHeight: "500px" }}>
+                {folders.length === 0 && isLoadingFolders ? (
+                  <Center h={200}>
+                    <Stack align="center" gap="md">
+                      <Loader size="lg" />
+                      <Text c="dimmed">Loading folders...</Text>
+                    </Stack>
+                  </Center>
+                ) : folders.length === 0 &&
+                  files.length === 0 &&
+                  !isLoadingFolders ? (
+                  <Center h={200}>
+                    <Text c="dimmed">
+                      {mode === ConnectorFolderBrowserMode.FolderSelection
+                        ? "No folders found"
+                        : "No folders or files found"}
+                    </Text>
+                  </Center>
+                ) : displayMode === "list" ? (
+                  <div style={{ height: "800px", minHeight: "500px" }}>
+                    <List
+                      height={800}
+                      width="100%"
+                      itemCount={
+                        folders.length +
+                        (mode === ConnectorFolderBrowserMode.FileSelection
+                          ? files.length
+                          : 0)
+                      }
+                      itemSize={itemSize}
+                      onItemsRendered={handleItemsRendered}
+                    >
+                      {ListItem}
+                    </List>
+                    {isLoadingMore && (
                       <Card
-                        key={folder.id}
                         shadow="sm"
                         padding="md"
                         radius="md"
-                        style={{
-                          cursor: "pointer",
-                          position: "relative",
-                          border: isSelected ? "2px solid #228be6" : undefined,
-                        }}
-                        onClick={() => navigateToFolder(folder.name)}
+                        style={{ opacity: 0.7, margin: "2px" }}
                       >
-                        <Checkbox
-                          checked={isSelected}
-                          onChange={() => toggleFolderSelection(folder.name)}
-                          style={{
-                            position: "absolute",
-                            top: "8px",
-                            right: "8px",
-                          }}
-                          onClick={(e) => e.stopPropagation()}
-                        />
-
-                        <Stack align="center" gap="xs">
-                          <IconFolder size={32} />
-                          <Text size="sm" ta="center" lineClamp={2}>
-                            {folder.name}
-                          </Text>
-                        </Stack>
-                      </Card>
-                    );
-                  })}
-
-                  {isLoadingFolders && folders.length > 0 && (
-                    <Card
-                      shadow="sm"
-                      padding="md"
-                      radius="md"
-                      style={{ opacity: 0.7 }}
-                    >
-                      <Center h="100%">
-                        <Stack align="center" gap="xs">
+                        <Group gap="md" align="center">
                           <Loader size="sm" />
-                          <Text size="xs" c="dimmed">
-                            Loading...
+                          <Text size="sm" c="dimmed">
+                            Loading more...
                           </Text>
-                        </Stack>
-                      </Center>
-                    </Card>
-                  )}
-                </SimpleGrid>
-              )}
-            </ScrollArea>
-
-            {persistentSelections.size > 0 && (
-              <Stack gap="xs">
-                <Text size="sm" fw={500}>
-                  Selected folders:
-                </Text>
-                <ScrollArea h={80}>
-                  <Stack gap="xs">
-                    {Array.from(persistentSelections).map((path) => (
-                      <Text key={path} size="xs" c="dimmed">
-                        {path}
-                      </Text>
-                    ))}
-                  </Stack>
-                </ScrollArea>
-              </Stack>
-            )}
-
-            <Group justify="space-between" mt="xl">
-              <Button
-                variant="default"
-                onClick={async () => {
-                  await cleanupAndResetState();
-                  onClose(null);
-                }}
-              >
-                Cancel
-              </Button>
-              <Group gap="md">
-                {currentPath !== "/" && (
-                  <Button
-                    variant="outline"
-                    onClick={toggleCurrentFolderSelection}
-                  >
-                    {persistentSelections.has(currentPath)
-                      ? "Remove Current Folder"
-                      : "Add Current Folder"}
-                  </Button>
+                        </Group>
+                      </Card>
+                    )}
+                  </div>
+                ) : (
+                  renderGridView()
                 )}
-                <Button
-                  onClick={handleSelectFolders}
-                  disabled={persistentSelections.size === 0}
-                >
-                  Select ({persistentSelections.size})
-                </Button>
-              </Group>
-            </Group>
-          </>
-        )}
-      </Stack>
-    </Modal>
+              </div>
+
+              {mode === ConnectorFolderBrowserMode.FolderSelection &&
+                persistentSelections.size > 0 && (
+                  <Stack gap="xs">
+                    <Text size="sm" fw={500}>
+                      Selected folders:
+                    </Text>
+                    <ScrollArea h={80}>
+                      <Stack gap="xs">
+                        {Array.from(persistentSelections).map((path) => (
+                          <Text key={path} size="xs" c="dimmed">
+                            {path}
+                          </Text>
+                        ))}
+                      </Stack>
+                    </ScrollArea>
+                  </Stack>
+                )}
+
+              {mode === ConnectorFolderBrowserMode.FileSelection &&
+                selectedFile && (
+                  <Stack gap="xs">
+                    <Text size="sm" fw={500}>
+                      Selected file:
+                    </Text>
+                    <Text size="xs" c="dimmed">
+                      {selectedFile}
+                    </Text>
+                  </Stack>
+                )}
+
+              {mode === ConnectorFolderBrowserMode.FolderSelection && (
+                <Group justify="space-between" mt="xl">
+                  <Button
+                    variant="default"
+                    onClick={async () => {
+                      await cleanupAndResetState();
+                      onClose(null);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Group gap="md">
+                    {currentPath !== "/" && (
+                      <Button
+                        variant="outline"
+                        onClick={toggleCurrentFolderSelection}
+                      >
+                        {persistentSelections.has(currentPath)
+                          ? "Remove Current Folder"
+                          : "Add Current Folder"}
+                      </Button>
+                    )}
+                    <Button
+                      onClick={handleSelection}
+                      disabled={persistentSelections.size === 0}
+                    >
+                      Select ({persistentSelections.size})
+                    </Button>
+                  </Group>
+                </Group>
+              )}
+            </>
+          )}
+        </Stack>
+      </Modal>
+
+      {/* Task Progress Modal */}
+      <Modal
+        opened={showTaskModal}
+        onClose={() => {
+          const allComplete = copyTasks.every(
+            (task) =>
+              task.status === "complete" ||
+              task.status === "error" ||
+              task.status === "info",
+          );
+          if (allComplete) {
+            setShowTaskModal(false);
+            setCopyTasks([]);
+            // Exit smart crop mode after successful copy
+            handleExitSmartCropMode();
+          }
+        }}
+        title="Copying Vision Data"
+        size="lg"
+        closeOnClickOutside={false}
+        closeOnEscape={false}
+      >
+        <DownloadTasksScreen
+          downloadFiles={[]}
+          tasks={copyTasks}
+          uploadTasks={[]}
+          onClose={() => {
+            setShowTaskModal(false);
+            setCopyTasks([]);
+            handleExitSmartCropMode();
+          }}
+        />
+      </Modal>
+    </>
   );
 }
