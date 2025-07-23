@@ -60,55 +60,54 @@ export type Media = {
   [key: string]: any;
 };
 
-export interface ConnectorFolderSelection {
+export interface ImageBrowserFolderSelection {
   selectedFolders: string[];
   connectorId: string;
   connectorName: string;
 }
 
-export interface ConnectorFileSelection {
+export interface ImageBrowserFileSelection {
   selectedFile: string;
   folderPath: string;
   connectorId: string;
   connectorName: string;
 }
 
-export enum ConnectorFolderBrowserMode {
+export enum ImageBrowserMode {
   FolderSelection,
   FileSelection,
   SmartCropSelection,
 }
 
-interface ConnectorFolderBrowserProps<
-  T extends
-    ConnectorFolderBrowserMode = ConnectorFolderBrowserMode.FolderSelection,
+interface ImageBrowserProps<
+  T extends ImageBrowserMode = ImageBrowserMode.FolderSelection,
 > {
   opened: boolean;
   mode: T;
-  onClose: T extends ConnectorFolderBrowserMode.FileSelection
-    ? (selection: ConnectorFileSelection | null) => void
-    : (selection: ConnectorFolderSelection | null) => void;
-  initialSelection?: T extends ConnectorFolderBrowserMode.FileSelection
-    ? ConnectorFileSelection | null
-    : ConnectorFolderSelection | null;
+  onClose: T extends ImageBrowserMode.FileSelection
+    ? (selection: ImageBrowserFileSelection | null) => void
+    : (selection: ImageBrowserFolderSelection | null) => void;
+  initialSelection?: T extends ImageBrowserMode.FileSelection
+    ? ImageBrowserFileSelection | null
+    : ImageBrowserFolderSelection | null;
 }
 
 type BrowserState = "loading" | "connectorSelection" | "folderBrowsing";
 type DisplayMode = "grid" | "list";
 
-export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
+export function ImageBrowser<T extends ImageBrowserMode>({
   opened,
   mode,
   onClose,
   initialSelection = null,
-}: ConnectorFolderBrowserProps<T>) {
+}: ImageBrowserProps<T>) {
   const raiseError = appStore((store) => store.raiseError);
 
   // State management
   const [browserState, setBrowserState] = useState<BrowserState>("loading");
   const [connectors, setConnectors] = useState<Connector[]>([]);
   const [selectedConnectorId, setSelectedConnectorId] = useState<string | null>(
-    null,
+    null
   );
   const [displayMode, setDisplayMode] = useState<DisplayMode>("list");
   const [localConnectorId, setLocalConnectorId] = useState<string | null>(null);
@@ -116,37 +115,37 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
   const [folders, setFolders] = useState<Media[]>([]);
   const [files, setFiles] = useState<Media[]>([]);
   const [selectedFolders, setSelectedFolders] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   // Persistent selection storage across navigation
   const [persistentSelections, setPersistentSelections] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   // Smart crop selection mode state
   const [smartCropMode, setSmartCropMode] = useState<boolean>(false);
   const [sourceFile, setSourceFile] = useState<string | null>(null);
   const [targetSelectedFiles, setTargetSelectedFiles] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   const [isLoadingFolders, setIsLoadingFolders] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // Thumbnail state
   const [thumbnailUrls, setThumbnailUrls] = useState<Map<string, string>>(
-    new Map(),
+    new Map()
   );
   const [thumbnailErrors, setThumbnailErrors] = useState<Map<string, string>>(
-    new Map(),
+    new Map()
   );
   const [loadingThumbnails, setLoadingThumbnails] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   // Vision data caching state
   const [visionDataCache, setVisionDataCache] = useState<Map<string, boolean>>(
-    new Map(),
+    new Map()
   );
   const [loadingVisionData, setLoadingVisionData] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   // Task processing state
   const [copyTasks, setCopyTasks] = useState<TaskItem[]>([]);
@@ -188,15 +187,16 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
       //   setCleanupTimeoutId(null);
       // }
 
-      if (mode === ConnectorFolderBrowserMode.FolderSelection) {
+      if (mode === ImageBrowserMode.FolderSelection) {
         // Initialize persistent selections with pre-selected paths for folder mode
         const folderSelection =
-          initialSelection as ConnectorFolderSelection | null;
+          initialSelection as ImageBrowserFolderSelection | null;
         const selectedPaths = folderSelection?.selectedFolders || [];
         setPersistentSelections(new Set(selectedPaths));
       } else {
         // Initialize selected file for file mode
-        const fileSelection = initialSelection as ConnectorFileSelection | null;
+        const fileSelection =
+          initialSelection as ImageBrowserFileSelection | null;
         if (fileSelection?.selectedFile) {
           setSelectedFile(fileSelection.selectedFile);
           setCurrentPath(fileSelection.folderPath);
@@ -284,15 +284,15 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
         if (studioResult.isOk()) {
           const unregisterResult = await unregisterConnector(
             studioResult.value,
-            localConnectorId,
+            localConnectorId
           );
           if (!unregisterResult.isOk()) {
             // Log error but don't throw - we still want to reset state
             raiseError(
               new Error(
                 unregisterResult.error?.message ||
-                  "Failed to unregister connector",
-              ),
+                  "Failed to unregister connector"
+              )
             );
           }
         }
@@ -333,7 +333,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
       const connectorsResult = await getMediaConnectorsAPI(baseUrl, token);
       if (!connectorsResult.isOk()) {
         throw new Error(
-          connectorsResult.error?.message || "Failed to fetch connectors",
+          connectorsResult.error?.message || "Failed to fetch connectors"
         );
       }
 
@@ -341,7 +341,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
 
       // Filter for media connectors that are enabled
       const mediaConnectors = connectorResponse.data.filter(
-        (connector) => connector.type === "media" && connector.enabled,
+        (connector) => connector.type === "media" && connector.enabled
       );
 
       setConnectors(mediaConnectors);
@@ -377,7 +377,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
       const registerResult = await registerConnector(studio, connectorId);
       if (!registerResult.isOk()) {
         throw new Error(
-          registerResult.error?.message || "Failed to register connector",
+          registerResult.error?.message || "Failed to register connector"
         );
       }
 
@@ -419,7 +419,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
   const loadVisionData = async (
     file: Media,
     localConnectorId: string,
-    connectorId: string,
+    connectorId: string
   ) => {
     if (!(file.type === "file" || (file.type as unknown) == 0)) {
       return;
@@ -476,7 +476,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
           // Other errors - don't cache
           console.warn(
             `Failed to load vision data for ${file.name}:`,
-            visionResult.error?.message,
+            visionResult.error?.message
           );
         }
       }
@@ -524,14 +524,14 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
 
       if (!downloadResult.isOk()) {
         throw new Error(
-          downloadResult.error?.message || "Failed to download thumbnail",
+          downloadResult.error?.message || "Failed to download thumbnail"
         );
       }
 
       // Convert the Uint8Array to a blob and create object URL
       const uint8Array = downloadResult.value as Uint8Array;
       console.log(
-        `[Thumbnail] Downloaded ${file.name}: ${uint8Array.length} bytes`,
+        `[Thumbnail] Downloaded ${file.name}: ${uint8Array.length} bytes`
       );
 
       // Try to detect content type from the first few bytes
@@ -545,7 +545,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
         else if (header.startsWith("4749")) contentType = "image/gif";
         else if (header.startsWith("5249")) contentType = "image/webp";
         console.log(
-          `[Thumbnail] Detected content type for ${file.name}: ${contentType} (header: ${header})`,
+          `[Thumbnail] Detected content type for ${file.name}: ${contentType} (header: ${header})`
         );
       }
 
@@ -553,7 +553,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
       const thumbnailUrl = URL.createObjectURL(blob);
 
       console.log(
-        `[Thumbnail] Created blob URL for ${file.name}: ${thumbnailUrl}`,
+        `[Thumbnail] Created blob URL for ${file.name}: ${thumbnailUrl}`
       );
 
       // Update thumbnail URLs
@@ -584,7 +584,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
     if (!studioResult.isOk()) {
       setError(studioResult.error?.message || "Failed to get studio");
       raiseError(
-        new Error(studioResult.error?.message || "Failed to get studio"),
+        new Error(studioResult.error?.message || "Failed to get studio")
       );
       return;
     }
@@ -595,7 +595,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
   // Helper function to update selectedFolders based on persistent selections
   const updateSelectedFoldersForCurrentPath = (
     folderData: Media[],
-    path: string,
+    path: string
   ) => {
     const currentPathSelections = new Set<string>();
 
@@ -615,7 +615,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
     selectedConnectorId: string | null,
     path: string,
     pageToken: string = "",
-    append: boolean = false,
+    append: boolean = false
   ) => {
     try {
       if (selectedConnectorId == null) {
@@ -641,12 +641,12 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
         studioResult.value,
         connectorId,
         path,
-        pageToken,
+        pageToken
       );
 
       if (!queryResult.isOk()) {
         throw new Error(
-          queryResult.error?.message || "Failed to query media connector",
+          queryResult.error?.message || "Failed to query media connector"
         );
       }
 
@@ -654,44 +654,44 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
 
       // Filter for folders and files separately
       const folderData = queryPage.data.filter(
-        (item) => item.type === "folder" || (item.type as unknown) == 1,
+        (item) => item.type === "folder" || (item.type as unknown) == 1
       );
       const fileData = queryPage.data.filter(
-        (item) => item.type === "file" || (item.type as unknown) == 0,
+        (item) => item.type === "file" || (item.type as unknown) == 0
       );
 
       if (append) {
         // Additional pages - append folders and files
         setFolders((prev) => {
           const newFolders = [...prev, ...folderData];
-          if (mode === ConnectorFolderBrowserMode.FolderSelection) {
+          if (mode === ImageBrowserMode.FolderSelection) {
             updateSelectedFoldersForCurrentPath(newFolders, path);
           }
           return newFolders;
         });
         setFiles((prev) => [...prev, ...fileData]);
-        // Load thumbnails and vision data for new files in file selection mode
-        if (mode === ConnectorFolderBrowserMode.FileSelection) {
-          fileData.forEach((file) => {
-            loadThumbnail(file, connectorId);
+        // Load thumbnails for files in both modes, but vision data only in file selection mode
+        fileData.forEach((file) => {
+          loadThumbnail(file, connectorId);
+          if (mode === ImageBrowserMode.FileSelection) {
             loadVisionData(file, connectorId, selectedConnectorId);
-          });
-        }
+          }
+        });
       } else {
         // First page - replace folders and files
         setFolders(folderData);
         setFiles(fileData);
         // Update selectedFolders based on persistent selections for current path
-        if (mode === ConnectorFolderBrowserMode.FolderSelection) {
+        if (mode === ImageBrowserMode.FolderSelection) {
           updateSelectedFoldersForCurrentPath(folderData, path);
         }
-        // Load thumbnails and vision data for files in file selection mode
-        if (mode === ConnectorFolderBrowserMode.FileSelection) {
-          fileData.forEach((file) => {
-            loadThumbnail(file, connectorId);
+        // Load thumbnails for files in both modes, but vision data only in file selection mode
+        fileData.forEach((file) => {
+          loadThumbnail(file, connectorId);
+          if (mode === ImageBrowserMode.FileSelection) {
             loadVisionData(file, connectorId, selectedConnectorId);
-          });
-        }
+          }
+        });
       }
 
       // Update pagination state
@@ -732,7 +732,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
       selectedConnectorId,
       currentPath,
       nextPageToken,
-      true,
+      true
     );
   };
 
@@ -746,7 +746,8 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
   }) => {
     const allItems = [
       ...folders,
-      ...(mode === ConnectorFolderBrowserMode.FileSelection ? files : []),
+      // Show files in both FileSelection mode and FolderSelection mode
+      ...files,
     ];
     const item = allItems[index];
 
@@ -775,7 +776,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
             onClick={() => navigateToFolder(item.name)}
           >
             <Group gap="md" align="center">
-              {mode === ConnectorFolderBrowserMode.FolderSelection && (
+              {mode === ImageBrowserMode.FolderSelection && (
                 <Checkbox
                   checked={isSelected}
                   onChange={() => toggleFolderSelection(item.name)}
@@ -792,11 +793,14 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
       );
     }
 
-    if (isFile && mode === ConnectorFolderBrowserMode.FileSelection) {
+    if (isFile) {
       const isSelected = selectedFile === item.name;
       const isSourceFile = smartCropMode && sourceFile === item.name;
       const isTargetSelected =
         smartCropMode && targetSelectedFiles.has(item.name);
+
+      // In folder mode, files are not selectable
+      const isFileSelectable = mode === ImageBrowserMode.FileSelection;
 
       return (
         <div style={style}>
@@ -805,18 +809,31 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
             padding="sm"
             radius="sm"
             style={{
-              cursor: smartCropMode && isSourceFile ? "default" : "pointer",
-              border: isSelected
-                ? "2px solid #228be6"
-                : isTargetSelected
-                  ? "2px solid #40c057"
-                  : undefined,
+              cursor: !isFileSelectable
+                ? "default"
+                : smartCropMode && isSourceFile
+                  ? "default"
+                  : "pointer",
+              border:
+                isFileSelectable && isSelected
+                  ? "2px solid #228be6"
+                  : isFileSelectable && isTargetSelected
+                    ? "2px solid #40c057"
+                    : undefined,
               margin: "2px",
               height: itemSize - 4, // Account for margin
-              opacity: isSourceFile ? 0.5 : 1,
-              backgroundColor: isSourceFile ? "#f8f9fa" : undefined,
+              opacity: !isFileSelectable ? 0.6 : isSourceFile ? 0.5 : 1,
+              backgroundColor: !isFileSelectable
+                ? "#f8f9fa"
+                : isSourceFile
+                  ? "#f8f9fa"
+                  : undefined,
             }}
             onClick={() => {
+              if (!isFileSelectable) {
+                // Files are not selectable in folder mode
+                return;
+              }
               if (smartCropMode) {
                 if (!isSourceFile) {
                   handleTargetFileToggle(item.name);
@@ -827,7 +844,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
             }}
           >
             <Group gap="md" align="center">
-              {smartCropMode && !isSourceFile && (
+              {isFileSelectable && smartCropMode && !isSourceFile && (
                 <Checkbox
                   checked={isTargetSelected}
                   onChange={() => handleTargetFileToggle(item.name)}
@@ -839,7 +856,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                 <Text size="sm" style={{ flex: 1, userSelect: "text" }}>
                   {item.name}
                 </Text>
-                {renderVisionIcon(item)}
+                {isFileSelectable && renderVisionIcon(item)}
               </Group>
             </Group>
           </Card>
@@ -858,7 +875,8 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
   }) => {
     const allItems = [
       ...folders,
-      ...(mode === ConnectorFolderBrowserMode.FileSelection ? files : []),
+      // Show files in both FileSelection mode and FolderSelection mode
+      ...files,
     ];
     const totalItems = allItems.length;
 
@@ -876,7 +894,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
     setCurrentPath(newPath);
     setFolders([]);
     // Clear selected file when navigating in file mode (but not in smart crop mode)
-    if (mode === ConnectorFolderBrowserMode.FileSelection && !smartCropMode) {
+    if (mode === ImageBrowserMode.FileSelection && !smartCropMode) {
       setSelectedFile(null);
     }
     // Don't reset selectedFolders here - let updateSelectedFoldersForCurrentPath handle it
@@ -893,7 +911,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
     setCurrentPath(newPath);
     setFolders([]);
     // Clear selected file when navigating in file mode (but not in smart crop mode)
-    if (mode === ConnectorFolderBrowserMode.FileSelection && !smartCropMode) {
+    if (mode === ImageBrowserMode.FileSelection && !smartCropMode) {
       setSelectedFile(null);
     }
     // Don't reset selectedFolders here - let updateSelectedFoldersForCurrentPath handle it
@@ -928,6 +946,11 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
     }
 
     setPersistentSelections(newPersistent);
+  };
+
+  const clearAllFolderSelections = () => {
+    setPersistentSelections(new Set());
+    setSelectedFolders(new Set());
   };
 
   const handleFileSelection = (fileName: string) => {
@@ -1014,8 +1037,8 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                   error:
                     visionResult.error?.message || "Failed to get vision data",
                 }
-              : task,
-          ),
+              : task
+          )
         );
         return;
       }
@@ -1023,8 +1046,8 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
       // Mark get vision task as complete
       setCopyTasks((prev) =>
         prev.map((task) =>
-          task.id === getVisionTaskId ? { ...task, status: "complete" } : task,
-        ),
+          task.id === getVisionTaskId ? { ...task, status: "complete" } : task
+        )
       );
 
       const sourceVisionData = visionResult.value;
@@ -1061,8 +1084,8 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
               prev.map((task) =>
                 task.id === setVisionTaskId
                   ? { ...task, status: "complete" }
-                  : task,
-              ),
+                  : task
+              )
             );
 
             // Update vision cache for target file
@@ -1082,8 +1105,8 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                       error:
                         setResult.error?.message || "Failed to set vision data",
                     }
-                  : task,
-              ),
+                  : task
+              )
             );
           }
         } catch (error) {
@@ -1096,8 +1119,8 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                     error:
                       error instanceof Error ? error.message : String(error),
                   }
-                : task,
-            ),
+                : task
+            )
           );
         }
       }
@@ -1114,14 +1137,14 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
         if (studioResult.isOk()) {
           const unregisterResult = await unregisterConnector(
             studioResult.value,
-            localConnectorId,
+            localConnectorId
           );
           if (!unregisterResult.isOk()) {
             raiseError(
               new Error(
                 unregisterResult.error?.message ||
-                  "Failed to unregister connector",
-              ),
+                  "Failed to unregister connector"
+              )
             );
           }
         }
@@ -1132,37 +1155,39 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
 
     // Find the connector name from the connectors list
     const selectedConnector = connectors.find(
-      (c) => c.id === selectedConnectorId,
+      (c) => c.id === selectedConnectorId
     );
     const connectorName = selectedConnector?.name || "";
 
-    if (mode === ConnectorFolderBrowserMode.FolderSelection) {
+    if (mode === ImageBrowserMode.FolderSelection) {
       const selectedPaths = Array.from(persistentSelections);
-      const selection: ConnectorFolderSelection = {
+      const selection: ImageBrowserFolderSelection = {
         selectedFolders: selectedPaths,
         connectorId: selectedConnectorId || "",
         connectorName: connectorName,
       };
       resetState();
-      (onClose as (selection: ConnectorFolderSelection | null) => void)(
-        selection,
+      (onClose as (selection: ImageBrowserFolderSelection | null) => void)(
+        selection
       );
     } else {
       // File selection mode
       if (selectedFile) {
-        const selection: ConnectorFileSelection = {
+        const selection: ImageBrowserFileSelection = {
           selectedFile: selectedFile,
           folderPath: currentPath,
           connectorId: selectedConnectorId || "",
           connectorName: connectorName,
         };
         resetState();
-        (onClose as (selection: ConnectorFileSelection | null) => void)(
-          selection,
+        (onClose as (selection: ImageBrowserFileSelection | null) => void)(
+          selection
         );
       } else {
         resetState();
-        (onClose as (selection: ConnectorFileSelection | null) => void)(null);
+        (onClose as (selection: ImageBrowserFileSelection | null) => void)(
+          null
+        );
       }
     }
   };
@@ -1177,10 +1202,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
             setCurrentPath("/");
             setFolders([]);
             // Clear selected file when navigating in file mode (but not in smart crop mode)
-            if (
-              mode === ConnectorFolderBrowserMode.FileSelection &&
-              !smartCropMode
-            ) {
+            if (mode === ImageBrowserMode.FileSelection && !smartCropMode) {
               setSelectedFile(null);
             }
             // Don't reset selectedFolders here - let updateSelectedFoldersForCurrentPath handle it
@@ -1202,10 +1224,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
               setCurrentPath(partPath);
               setFolders([]);
               // Clear selected file when navigating in file mode (but not in smart crop mode)
-              if (
-                mode === ConnectorFolderBrowserMode.FileSelection &&
-                !smartCropMode
-              ) {
+              if (mode === ImageBrowserMode.FileSelection && !smartCropMode) {
                 setSelectedFile(null);
               }
               // Don't reset selectedFolders here - let updateSelectedFoldersForCurrentPath handle it
@@ -1214,7 +1233,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
           }}
         >
           {part}
-        </Anchor>,
+        </Anchor>
       );
     });
 
@@ -1267,7 +1286,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
 
     if (thumbnailUrl) {
       console.log(
-        `[Render] Using thumbnail URL for ${file.name}: ${thumbnailUrl}`,
+        `[Render] Using thumbnail URL for ${file.name}: ${thumbnailUrl}`
       );
       return (
         <img
@@ -1317,7 +1336,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
               }}
               onClick={() => navigateToFolder(folder.name)}
             >
-              {mode === ConnectorFolderBrowserMode.FolderSelection && (
+              {mode === ImageBrowserMode.FolderSelection && (
                 <Checkbox
                   checked={isSelected}
                   onChange={() => toggleFolderSelection(folder.name)}
@@ -1340,65 +1359,80 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
           );
         })}
 
-        {mode === ConnectorFolderBrowserMode.FileSelection &&
-          files.map((file) => {
-            const isSelected = selectedFile === file.name;
-            const isSourceFile = smartCropMode && sourceFile === file.name;
-            const isTargetSelected =
-              smartCropMode && targetSelectedFiles.has(file.name);
+        {files.map((file) => {
+          const isSelected = selectedFile === file.name;
+          const isSourceFile = smartCropMode && sourceFile === file.name;
+          const isTargetSelected =
+            smartCropMode && targetSelectedFiles.has(file.name);
 
-            return (
-              <Card
-                key={file.id}
-                shadow="sm"
-                padding="md"
-                radius="md"
-                style={{
-                  cursor: smartCropMode && isSourceFile ? "default" : "pointer",
-                  position: "relative",
-                  border: isSelected
+          // In folder mode, files are not selectable
+          const isFileSelectable = mode === ImageBrowserMode.FileSelection;
+
+          return (
+            <Card
+              key={file.id}
+              shadow="sm"
+              padding="md"
+              radius="md"
+              style={{
+                cursor: !isFileSelectable
+                  ? "default"
+                  : smartCropMode && isSourceFile
+                    ? "default"
+                    : "pointer",
+                position: "relative",
+                border:
+                  isFileSelectable && isSelected
                     ? "2px solid #228be6"
-                    : isTargetSelected
+                    : isFileSelectable && isTargetSelected
                       ? "2px solid #40c057"
                       : undefined,
-                  opacity: isSourceFile ? 0.5 : 1,
-                  backgroundColor: isSourceFile ? "#f8f9fa" : undefined,
-                }}
-                onClick={() => {
-                  if (smartCropMode) {
-                    if (!isSourceFile) {
-                      handleTargetFileToggle(file.name);
-                    }
-                  } else {
-                    handleFileSelection(file.name);
+                opacity: !isFileSelectable ? 0.6 : isSourceFile ? 0.5 : 1,
+                backgroundColor: !isFileSelectable
+                  ? "#f8f9fa"
+                  : isSourceFile
+                    ? "#f8f9fa"
+                    : undefined,
+              }}
+              onClick={() => {
+                if (!isFileSelectable) {
+                  // Files are not selectable in folder mode
+                  return;
+                }
+                if (smartCropMode) {
+                  if (!isSourceFile) {
+                    handleTargetFileToggle(file.name);
                   }
-                }}
-              >
-                {smartCropMode && !isSourceFile && (
-                  <Checkbox
-                    checked={isTargetSelected}
-                    onChange={() => handleTargetFileToggle(file.name)}
-                    style={{
-                      position: "absolute",
-                      top: "8px",
-                      right: "8px",
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                )}
+                } else {
+                  handleFileSelection(file.name);
+                }
+              }}
+            >
+              {isFileSelectable && smartCropMode && !isSourceFile && (
+                <Checkbox
+                  checked={isTargetSelected}
+                  onChange={() => handleTargetFileToggle(file.name)}
+                  style={{
+                    position: "absolute",
+                    top: "8px",
+                    right: "8px",
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
 
-                <Stack align="center" gap="xs">
-                  {renderFileIcon(file, 32)}
-                  <Group gap="xs" justify="flex-end">
-                    <Text size="sm" ta="center" lineClamp={2}>
-                      {file.name}
-                    </Text>
-                    {renderVisionIcon(file)}
-                  </Group>
-                </Stack>
-              </Card>
-            );
-          })}
+              <Stack align="center" gap="xs">
+                {renderFileIcon(file, 32)}
+                <Group gap="xs" justify="flex-end">
+                  <Text size="sm" ta="center" lineClamp={2}>
+                    {file.name}
+                  </Text>
+                  {isFileSelectable && renderVisionIcon(file)}
+                </Group>
+              </Stack>
+            </Card>
+          );
+        })}
 
         {isLoadingMore && (
           <Card shadow="sm" padding="md" radius="md" style={{ opacity: 0.7 }}>
@@ -1425,7 +1459,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
           onClose(null);
         }}
         title={
-          mode === ConnectorFolderBrowserMode.FolderSelection
+          mode === ImageBrowserMode.FolderSelection
             ? "Select Folders for Smart Crops"
             : "Select File"
         }
@@ -1472,7 +1506,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
           {browserState === "connectorSelection" && (
             <Stack gap="md" align="center">
               <Text size="md" ta="center">
-                {mode === ConnectorFolderBrowserMode.FolderSelection
+                {mode === ImageBrowserMode.FolderSelection
                   ? "Choose a connector to browse folders"
                   : "Choose a connector to browse files"}
               </Text>
@@ -1529,14 +1563,14 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                           if (studioResult.isOk()) {
                             await unregisterConnector(
                               studioResult.value,
-                              localConnectorId,
+                              localConnectorId
                             );
                           }
                         } catch (error) {
                           raiseError(
                             error instanceof Error
                               ? error
-                              : new Error(String(error)),
+                              : new Error(String(error))
                           );
                         }
                       }
@@ -1553,7 +1587,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
               </Group>
 
               {/* Toolbar for file selection mode when a file is selected */}
-              {mode === ConnectorFolderBrowserMode.FileSelection &&
+              {mode === ImageBrowserMode.FileSelection &&
                 selectedFile &&
                 !smartCropMode && (
                   <Group gap="md">
@@ -1588,6 +1622,40 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                 </Group>
               )}
 
+              {/* Toolbar for folder selection mode when folders are selected */}
+              {mode === ImageBrowserMode.FolderSelection &&
+                persistentSelections.size > 0 && (
+                  <Group justify="space-between">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={clearAllFolderSelections}
+                    >
+                      Cancel
+                    </Button>
+                    <Group gap="md">
+                      {currentPath !== "/" && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={toggleCurrentFolderSelection}
+                        >
+                          {persistentSelections.has(currentPath)
+                            ? "Remove Current Folder"
+                            : "Add Current Folder"}
+                        </Button>
+                      )}
+                      <Button
+                        size="sm"
+                        onClick={handleSelection}
+                        disabled={persistentSelections.size === 0}
+                      >
+                        Select ({persistentSelections.size})
+                      </Button>
+                    </Group>
+                  </Group>
+                )}
+
               <div style={{ flex: 1, minHeight: "500px" }}>
                 {folders.length === 0 && isLoadingFolders ? (
                   <Center h={200}>
@@ -1601,7 +1669,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                   !isLoadingFolders ? (
                   <Center h={200}>
                     <Text c="dimmed">
-                      {mode === ConnectorFolderBrowserMode.FolderSelection
+                      {mode === ImageBrowserMode.FolderSelection
                         ? "No folders found"
                         : "No folders or files found"}
                     </Text>
@@ -1611,12 +1679,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                     <List
                       height={800}
                       width="100%"
-                      itemCount={
-                        folders.length +
-                        (mode === ConnectorFolderBrowserMode.FileSelection
-                          ? files.length
-                          : 0)
-                      }
+                      itemCount={folders.length + files.length}
                       itemSize={itemSize}
                       onItemsRendered={handleItemsRendered}
                     >
@@ -1643,7 +1706,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                 )}
               </div>
 
-              {mode === ConnectorFolderBrowserMode.FolderSelection &&
+              {mode === ImageBrowserMode.FolderSelection &&
                 persistentSelections.size > 0 && (
                   <Stack gap="xs">
                     <Text size="sm" fw={500}>
@@ -1661,48 +1724,15 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
                   </Stack>
                 )}
 
-              {mode === ConnectorFolderBrowserMode.FileSelection &&
-                selectedFile && (
-                  <Stack gap="xs">
-                    <Text size="sm" fw={500}>
-                      Selected file:
-                    </Text>
-                    <Text size="xs" c="dimmed">
-                      {selectedFile}
-                    </Text>
-                  </Stack>
-                )}
-
-              {mode === ConnectorFolderBrowserMode.FolderSelection && (
-                <Group justify="space-between" mt="xl">
-                  <Button
-                    variant="default"
-                    onClick={async () => {
-                      await cleanupAndResetState();
-                      onClose(null);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                  <Group gap="md">
-                    {currentPath !== "/" && (
-                      <Button
-                        variant="outline"
-                        onClick={toggleCurrentFolderSelection}
-                      >
-                        {persistentSelections.has(currentPath)
-                          ? "Remove Current Folder"
-                          : "Add Current Folder"}
-                      </Button>
-                    )}
-                    <Button
-                      onClick={handleSelection}
-                      disabled={persistentSelections.size === 0}
-                    >
-                      Select ({persistentSelections.size})
-                    </Button>
-                  </Group>
-                </Group>
+              {mode === ImageBrowserMode.FileSelection && selectedFile && (
+                <Stack gap="xs">
+                  <Text size="sm" fw={500}>
+                    Selected file:
+                  </Text>
+                  <Text size="xs" c="dimmed">
+                    {selectedFile}
+                  </Text>
+                </Stack>
               )}
             </>
           )}
@@ -1717,7 +1747,7 @@ export function ConnectorFolderBrowser<T extends ConnectorFolderBrowserMode>({
             (task) =>
               task.status === "complete" ||
               task.status === "error" ||
-              task.status === "info",
+              task.status === "info"
           );
           if (allComplete) {
             setShowTaskModal(false);

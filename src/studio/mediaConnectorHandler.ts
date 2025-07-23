@@ -1,12 +1,40 @@
 import type SDK from "@chili-publish/studio-sdk";
 import { handleStudioFunc } from "./utils";
 import { ConnectorType } from "@chili-publish/studio-sdk/lib/src/next/types/ConnectorTypes";
-import type { ConnectorInstance } from "@chili-publish/studio-sdk";
+import type {
+  ConnectorInstance,
+  MediaDownloadType,
+  MetaData,
+} from "@chili-publish/studio-sdk";
+import { Result } from "typescript-result";
+
+type DownloadMediaConnectorProps = {
+  studio: SDK;
+  connectorId: string;
+  assetId: string;
+  downloadType: MediaDownloadType;
+  metadata: MetaData;
+};
+
+export async function downloadMediaConnector({
+  studio,
+  connectorId,
+  assetId,
+  downloadType,
+  metadata = {},
+}: DownloadMediaConnectorProps & { studio: SDK }) {
+  return Result.wrap(studio.mediaConnector.download)(
+    connectorId,
+    assetId,
+    downloadType,
+    metadata,
+  );
+}
 
 export async function getAllMediaConnectors(studio: SDK) {
   return handleStudioFunc(
     studio.next.connector.getAllByType,
-    ConnectorType.media
+    ConnectorType.media,
   );
 }
 
@@ -24,7 +52,7 @@ export async function queryMediaConnectorSimple(
   studio: SDK,
   connectorId: string,
   path: string,
-  pageToken = ""
+  pageToken = "",
 ) {
   const queryOptions = {
     collection: path,
@@ -35,6 +63,6 @@ export async function queryMediaConnectorSimple(
   return handleStudioFunc(
     studio.mediaConnector.query,
     connectorId,
-    queryOptions
+    queryOptions,
   );
 }

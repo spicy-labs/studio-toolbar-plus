@@ -41,8 +41,8 @@ import type { AppConfig, AppInfo } from "../utils/appConfig";
 import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
 import { saveLayoutSizingToAction } from "../studio/studioAdapter";
 import { Result } from "typescript-result";
-import { ConnectorFolderBrowser } from "./ConnectorFolderBrowser";
-import { ConnectorFolderBrowserMode } from "./ConnectorFolderBrowser";
+import { ImageBrowser } from "./ImageBrowser";
+import { ImageBrowserMode } from "./ImageBrowser";
 
 export function Toolbar() {
   const [visible, setVisible] = useState(false);
@@ -128,7 +128,7 @@ export function Toolbar() {
       // Fallback for local storage if chrome API isn't available
       localStorage.setItem(
         "toolbarplus_last_notified_version",
-        updateInfo.latestVersion
+        updateInfo.latestVersion,
       );
     }
     setIsUpdateModalOpen(false);
@@ -160,9 +160,9 @@ export function Toolbar() {
             },
             (error) => {
               raiseError(error);
-            }
+            },
           );
-        }
+        },
       );
     })();
   }, []);
@@ -269,11 +269,12 @@ export function Toolbar() {
         setAspectLockSuccessMessage(
           value
             ? "Success in turning Aspect Ratio On"
-            : "Success in turning Aspect Ratio Off"
+            : "Success in turning Aspect Ratio Off",
         );
         setIsAspectLockSuccessModalOpen(true); // Open success modal on success
       },
-      (err) => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
+      (err) =>
+        raiseError(err ?? Error(`Error setting aspect lock to ${value}`)),
     );
   };
 
@@ -474,19 +475,21 @@ export function Toolbar() {
                     </ActionIcon>
                   </Tooltip>
                 )}
-                <Tooltip label="Images" position="bottom" withArrow>
-                  <ActionIcon
-                    variant="filled"
-                    color="gray"
-                    size="lg"
-                    aria-label="Images"
-                    onClick={() => {
-                      setIsImageBrowserOpen(true);
-                    }}
-                  >
-                    <IconPhotoSearch size={20} />
-                  </ActionIcon>
-                </Tooltip>
+                {appConfig.showConnectorFolderBrowser && (
+                  <Tooltip label="Image Browser" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showConnectorFolderBrowser")}
+                      size="lg"
+                      aria-label="Image Browser"
+                      onClick={() => {
+                        setIsImageBrowserOpen(true);
+                      }}
+                    >
+                      <IconPhotoSearch size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
                 <Tooltip label="Settings" position="bottom" withArrow>
                   <ActionIcon
                     variant="filled"
@@ -644,18 +647,22 @@ export function Toolbar() {
       )}
 
       {/* Download Modal New */}
-      <DownloadModalNew
-        opened={isDownloadModalNewOpen}
-        onClose={() => setIsDownloadModalNewOpen(false)}
-      />
+      {appConfig?.showUploadDownload && (
+        <DownloadModalNew
+          opened={isDownloadModalNewOpen}
+          onClose={() => setIsDownloadModalNewOpen(false)}
+        />
+      )}
 
-      <ConnectorFolderBrowser
-        opened={isImageBrowserOpen}
-        mode={ConnectorFolderBrowserMode.FileSelection}
-        onClose={(selection) => {
-          setIsImageBrowserOpen(false);
-        }}
-      />
+      {appConfig?.showConnectorFolderBrowser && (
+        <ImageBrowser
+          opened={isImageBrowserOpen}
+          mode={ImageBrowserMode.FileSelection}
+          onClose={(selection) => {
+            setIsImageBrowserOpen(false);
+          }}
+        />
+      )}
 
       {/* Toolbar Settings Modal */}
       {appConfig && (

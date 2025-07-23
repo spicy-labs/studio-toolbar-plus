@@ -28,6 +28,7 @@ export type AppConfigKeys =
   | "showTestError"
   | "showConnectorCleanup"
   | "showManualCropManager"
+  | "showConnectorFolderBrowser"
   | "showOutput";
 
 export type AppStatus = "none" | "sponsored" | "deprecated" | "experimental";
@@ -59,14 +60,14 @@ export async function getDefaultConfig(): Promise<
   try {
     // Make API request to GitHub manifest.json
     const response = await fetch(
-      "https://raw.githubusercontent.com/spicy-labs/studio-toolbar-plus/main/manifest.json",
+      "https://raw.githubusercontent.com/spicy-labs/studio-toolbar-plus/main/manifest.json"
     );
 
     if (!response.ok) {
       return Result.error(
         new ManifestRequestError(
-          `Failed to fetch manifest: ${response.status} ${response.statusText}`,
-        ),
+          `Failed to fetch manifest: ${response.status} ${response.statusText}`
+        )
       );
     }
 
@@ -75,7 +76,7 @@ export async function getDefaultConfig(): Promise<
     // Parse the JSON to get the current version
     if (!manifestData.version || typeof manifestData.version !== "string") {
       return Result.error(
-        new ParseManifestError("Invalid or missing version in manifest"),
+        new ParseManifestError("Invalid or missing version in manifest")
       );
     }
 
@@ -84,7 +85,7 @@ export async function getDefaultConfig(): Promise<
     // Parse the JSON to get the default AppConfig
     if (!manifestData.appConfig || typeof manifestData.appConfig !== "object") {
       return Result.error(
-        new ParseManifestError("Invalid or missing appConfig in manifest"),
+        new ParseManifestError("Invalid or missing appConfig in manifest")
       );
     }
 
@@ -97,13 +98,13 @@ export async function getDefaultConfig(): Promise<
         typeof value !== "object" ||
         typeof value.enabled !== "boolean" ||
         !["none", "sponsored", "deprecated", "experimental"].includes(
-          value.status,
+          value.status
         )
       ) {
         return Result.error(
           new ParseManifestError(
-            `Invalid toolbarConfig entry for ${key}: expected {enabled: boolean, status: "none" | "sponsored" | "deprecated" | "experimental"}`,
-          ),
+            `Invalid toolbarConfig entry for ${key}: expected {enabled: boolean, status: "none" | "sponsored" | "deprecated" | "experimental"}`
+          )
         );
       }
     }
@@ -119,8 +120,8 @@ export async function getDefaultConfig(): Promise<
 
     return Result.error(
       new ManifestRequestError(
-        `Network or parsing error: ${error instanceof Error ? error.message : String(error)}`,
-      ),
+        `Network or parsing error: ${error instanceof Error ? error.message : String(error)}`
+      )
     );
   }
 }

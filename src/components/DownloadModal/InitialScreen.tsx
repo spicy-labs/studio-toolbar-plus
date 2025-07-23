@@ -15,6 +15,7 @@ import {
   IconAlertCircle,
   IconFileDownload,
   IconFileUpload,
+  IconSettings,
 } from "@tabler/icons-react";
 
 interface InitialScreenProps {
@@ -23,6 +24,7 @@ interface InitialScreenProps {
   onUpload: () => void;
   onJsonDownload: () => void;
   onJsonUpload: () => void;
+  onDefaultSettings: () => void;
 }
 
 export function InitialScreen({
@@ -31,6 +33,7 @@ export function InitialScreen({
   onUpload,
   onJsonDownload,
   onJsonUpload,
+  onDefaultSettings,
 }: InitialScreenProps) {
   return (
     <Stack gap="xl">
@@ -90,25 +93,37 @@ export function InitialScreen({
         <Text size="sm" fw={500} c="dimmed">
           Quick Actions:
         </Text>
-        <Group justify="flex-start">
-          <Tooltip label="Download document JSON">
+        <Group justify="space-between">
+          <Group justify="flex-start">
+            <Tooltip label="Download document JSON">
+              <ActionIcon
+                onClick={onJsonDownload}
+                color="gray"
+                variant="subtle"
+                size="lg"
+              >
+                <IconFileDownload size={20} />
+              </ActionIcon>
+            </Tooltip>
+            <Tooltip label="Upload document JSON">
+              <ActionIcon
+                onClick={onJsonUpload}
+                color="gray"
+                variant="subtle"
+                size="lg"
+              >
+                <IconFileUpload size={20} />
+              </ActionIcon>
+            </Tooltip>
+          </Group>
+          <Tooltip label="Default Settings">
             <ActionIcon
-              onClick={onJsonDownload}
+              onClick={onDefaultSettings}
               color="gray"
               variant="subtle"
               size="lg"
             >
-              <IconFileDownload size={20} />
-            </ActionIcon>
-          </Tooltip>
-          <Tooltip label="Upload document JSON">
-            <ActionIcon
-              onClick={onJsonUpload}
-              color="gray"
-              variant="subtle"
-              size="lg"
-            >
-              <IconFileUpload size={20} />
+              <IconSettings size={20} />
             </ActionIcon>
           </Tooltip>
         </Group>

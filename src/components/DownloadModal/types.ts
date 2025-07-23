@@ -1,4 +1,4 @@
-import type { ConnectorFolderSelection } from "../ConnectorFolderBrowser";
+import type { ImageBrowserFolderSelection } from "../ImageBrowser";
 import type { FontData } from "../../types/fontTypes";
 
 export type ModalState =

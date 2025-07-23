@@ -416,6 +416,23 @@ export function ToolbarSettingsModal({
                 <Switch
                   label={
                     <Group gap="xs">
+                      {getStatusIcon("showConnectorFolderBrowser")}
+                      <Text>Image Browser</Text>
+                    </Group>
+                  }
+                  description="Browse and select images from connectors"
+                  checked={config.showConnectorFolderBrowser}
+                  onChange={(event) =>
+                    handleToggle(
+                      "showConnectorFolderBrowser",
+                      event.currentTarget.checked,
+                    )
+                  }
+                />
+
+                <Switch
+                  label={
+                    <Group gap="xs">
                       {getStatusIcon("showOutput")}
                       <Text>Output</Text>
                     </Group>

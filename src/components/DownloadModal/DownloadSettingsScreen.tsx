@@ -16,7 +16,7 @@ import {
   IconCircleX,
   IconRadioactiveFilled,
 } from "@tabler/icons-react";
-import type { ConnectorFolderSelection } from "../ConnectorFolderBrowser";
+import type { ImageBrowserFolderSelection } from "../ImageBrowser";
 
 interface DownloadSettings {
   includeFonts: boolean;
@@ -34,7 +34,7 @@ interface DownloadSettingsScreenProps {
   folderNameError: string;
   downloadSettings: DownloadSettings;
   fontStylesCount: number;
-  connectorSelection: ConnectorFolderSelection | null;
+  connectorSelection: ImageBrowserFolderSelection | null;
   onFolderNameChange: (value: string) => void;
   onSettingChange: (setting: keyof DownloadSettings, value: boolean) => void;
   onAddFolder: () => void;
@@ -107,7 +107,7 @@ export function DownloadSettingsScreen({
               onChange={(event) =>
                 onSettingChange(
                   "useOriginalFontFileNames",
-                  event.currentTarget.checked
+                  event.currentTarget.checked,
                 )
               }
               style={{ marginLeft: "40px" }}
@@ -173,7 +173,7 @@ export function DownloadSettingsScreen({
                             {path}
                           </Text>
                         </Group>
-                      )
+                      ),
                     )}
                   </Stack>
                 )}
@@ -202,7 +202,7 @@ export function DownloadSettingsScreen({
             onChange={(event) =>
               onSettingChange(
                 "removeUnusedConnectors",
-                event.currentTarget.checked
+                event.currentTarget.checked,
               )
             }
           />
