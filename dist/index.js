@@ -14434,6 +14434,13 @@ var init_IconExternalLink = __esm(() => {
   IconExternalLink = createReactComponent("outline", "external-link", "IconExternalLink", [["path", { d: "M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6", key: "svg-0" }], ["path", { d: "M11 13l9 -9", key: "svg-1" }], ["path", { d: "M15 4h5v5", key: "svg-2" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconEyeCheck.mjs
+var IconEyeCheck;
+var init_IconEyeCheck = __esm(() => {
+  init_createReactComponent();
+  IconEyeCheck = createReactComponent("outline", "eye-check", "IconEyeCheck", [["path", { d: "M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0", key: "svg-0" }], ["path", { d: "M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032", key: "svg-1" }], ["path", { d: "M15 19l2 2l4 -4", key: "svg-2" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconEyeClosed.mjs
 var IconEyeClosed;
 var init_IconEyeClosed = __esm(() => {
@@ -14453,6 +14460,13 @@ var IconFileUpload;
 var init_IconFileUpload = __esm(() => {
   init_createReactComponent();
   IconFileUpload = createReactComponent("outline", "file-upload", "IconFileUpload", [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M12 11v6", key: "svg-2" }], ["path", { d: "M9.5 13.5l2.5 -2.5l2.5 2.5", key: "svg-3" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconFile.mjs
+var IconFile;
+var init_IconFile = __esm(() => {
+  init_createReactComponent();
+  IconFile = createReactComponent("outline", "file", "IconFile", [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFilter.mjs
@@ -14523,6 +14537,13 @@ var IconPhotoCog;
 var init_IconPhotoCog = __esm(() => {
   init_createReactComponent();
   IconPhotoCog = createReactComponent("outline", "photo-cog", "IconPhotoCog", [["path", { d: "M15 8h.01", key: "svg-0" }], ["path", { d: "M12 21h-6a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6", key: "svg-1" }], ["path", { d: "M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3", key: "svg-2" }], ["path", { d: "M14 14l1 -1c.48 -.461 1.016 -.684 1.551 -.67", key: "svg-3" }], ["path", { d: "M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-4" }], ["path", { d: "M19.001 15.5v1.5", key: "svg-5" }], ["path", { d: "M19.001 21v1.5", key: "svg-6" }], ["path", { d: "M22.032 17.25l-1.299 .75", key: "svg-7" }], ["path", { d: "M17.27 20l-1.3 .75", key: "svg-8" }], ["path", { d: "M15.97 17.25l1.3 .75", key: "svg-9" }], ["path", { d: "M20.733 20l1.3 .75", key: "svg-10" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconPhotoSearch.mjs
+var IconPhotoSearch;
+var init_IconPhotoSearch = __esm(() => {
+  init_createReactComponent();
+  IconPhotoSearch = createReactComponent("outline", "photo-search", "IconPhotoSearch", [["path", { d: "M15 8h.01", key: "svg-0" }], ["path", { d: "M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5", key: "svg-1" }], ["path", { d: "M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0", key: "svg-2" }], ["path", { d: "M20.2 20.2l1.8 1.8", key: "svg-3" }], ["path", { d: "M3 16l5 -5c.928 -.893 2.072 -.893 3 0l2 2", key: "svg-4" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPlaystationSquare.mjs
@@ -19763,11 +19784,11 @@ var require_nodejsUtils = __commonJS((exports, module) => {
         return new Buffer(data, encoding);
       }
     },
-    allocBuffer: function(size4) {
+    allocBuffer: function(size5) {
       if (Buffer.alloc) {
-        return Buffer.alloc(size4);
+        return Buffer.alloc(size5);
       } else {
-        var buf = new Buffer(size4);
+        var buf = new Buffer(size5);
         buf.fill(0);
         return buf;
       }
@@ -21137,8 +21158,8 @@ var require_DataWorker = __commonJS((exports, module) => {
     if (this.isPaused || this.isFinished) {
       return false;
     }
-    var size4 = DEFAULT_BLOCK_SIZE;
-    var data = null, nextIndex = Math.min(this.max, this.index + size4);
+    var size5 = DEFAULT_BLOCK_SIZE;
+    var data = null, nextIndex = Math.min(this.max, this.index + size5);
     if (this.index >= this.max) {
       return this.end();
     } else {
@@ -21390,14 +21411,14 @@ var require_common = __commonJS((exports) => {
     }
     return obj;
   };
-  exports.shrinkBuf = function(buf, size4) {
-    if (buf.length === size4) {
+  exports.shrinkBuf = function(buf, size5) {
+    if (buf.length === size5) {
       return buf;
     }
     if (buf.subarray) {
-      return buf.subarray(0, size4);
+      return buf.subarray(0, size5);
     }
-    buf.length = size4;
+    buf.length = size5;
     return buf;
   };
   var fnTyped = {
@@ -22206,10 +22227,10 @@ var require_deflate = __commonJS((exports) => {
     s2.pending_buf[s2.pending++] = b >>> 8 & 255;
     s2.pending_buf[s2.pending++] = b & 255;
   }
-  function read_buf(strm, buf, start, size4) {
+  function read_buf(strm, buf, start, size5) {
     var len = strm.avail_in;
-    if (len > size4) {
-      len = size4;
+    if (len > size5) {
+      len = size5;
     }
     if (len === 0) {
       return 0;
@@ -26085,17 +26106,17 @@ var require_DataReader = __commonJS((exports, module) => {
     },
     byteAt: function() {
     },
-    readInt: function(size4) {
+    readInt: function(size5) {
       var result = 0, i2;
-      this.checkOffset(size4);
-      for (i2 = this.index + size4 - 1;i2 >= this.index; i2--) {
+      this.checkOffset(size5);
+      for (i2 = this.index + size5 - 1;i2 >= this.index; i2--) {
         result = (result << 8) + this.byteAt(i2);
       }
-      this.index += size4;
+      this.index += size5;
       return result;
     },
-    readString: function(size4) {
-      return utils.transformTo("string", this.readData(size4));
+    readString: function(size5) {
+      return utils.transformTo("string", this.readData(size5));
     },
     readData: function() {
     },
@@ -26138,13 +26159,13 @@ var require_ArrayReader = __commonJS((exports, module) => {
     var sig0 = sig.charCodeAt(0), sig1 = sig.charCodeAt(1), sig2 = sig.charCodeAt(2), sig3 = sig.charCodeAt(3), data = this.readData(4);
     return sig0 === data[0] && sig1 === data[1] && sig2 === data[2] && sig3 === data[3];
   };
-  ArrayReader.prototype.readData = function(size4) {
-    this.checkOffset(size4);
-    if (size4 === 0) {
+  ArrayReader.prototype.readData = function(size5) {
+    this.checkOffset(size5);
+    if (size5 === 0) {
       return [];
     }
-    var result = this.data.slice(this.zero + this.index, this.zero + this.index + size4);
-    this.index += size4;
+    var result = this.data.slice(this.zero + this.index, this.zero + this.index + size5);
+    this.index += size5;
     return result;
   };
   module.exports = ArrayReader;
@@ -26168,10 +26189,10 @@ var require_StringReader = __commonJS((exports, module) => {
     var data = this.readData(4);
     return sig === data;
   };
-  StringReader.prototype.readData = function(size4) {
-    this.checkOffset(size4);
-    var result = this.data.slice(this.zero + this.index, this.zero + this.index + size4);
-    this.index += size4;
+  StringReader.prototype.readData = function(size5) {
+    this.checkOffset(size5);
+    var result = this.data.slice(this.zero + this.index, this.zero + this.index + size5);
+    this.index += size5;
     return result;
   };
   module.exports = StringReader;
@@ -26185,13 +26206,13 @@ var require_Uint8ArrayReader = __commonJS((exports, module) => {
     ArrayReader.call(this, data);
   }
   utils.inherits(Uint8ArrayReader, ArrayReader);
-  Uint8ArrayReader.prototype.readData = function(size4) {
-    this.checkOffset(size4);
-    if (size4 === 0) {
+  Uint8ArrayReader.prototype.readData = function(size5) {
+    this.checkOffset(size5);
+    if (size5 === 0) {
       return new Uint8Array(0);
     }
-    var result = this.data.subarray(this.zero + this.index, this.zero + this.index + size4);
-    this.index += size4;
+    var result = this.data.subarray(this.zero + this.index, this.zero + this.index + size5);
+    this.index += size5;
     return result;
   };
   module.exports = Uint8ArrayReader;
@@ -26205,10 +26226,10 @@ var require_NodeBufferReader = __commonJS((exports, module) => {
     Uint8ArrayReader.call(this, data);
   }
   utils.inherits(NodeBufferReader, Uint8ArrayReader);
-  NodeBufferReader.prototype.readData = function(size4) {
-    this.checkOffset(size4);
-    var result = this.data.slice(this.zero + this.index, this.zero + this.index + size4);
-    this.index += size4;
+  NodeBufferReader.prototype.readData = function(size5) {
+    this.checkOffset(size5);
+    var result = this.data.slice(this.zero + this.index, this.zero + this.index + size5);
+    this.index += size5;
     return result;
   };
   module.exports = NodeBufferReader;
@@ -26685,7 +26706,7 @@ var require_lib = __commonJS((exports, module) => {
 });
 
 // src/index.tsx
-var import_react277 = __toESM(require_react(), 1);
+var import_react279 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -28040,7 +28061,16 @@ function createEmptyEnvelope() {
   return {
     layoutMaps: [],
     frameMaps: [],
-    layoutSizes: {}
+    layoutSizes: {},
+    defaultDownloadSettings: {
+      includeFonts: true,
+      includeGrafxMedia: false,
+      includeSmartCrops: false,
+      removeToolbarData: false,
+      removeUnusedConnectors: false,
+      useOriginalFontFileNames: false,
+      addTimestamp: true
+    }
   };
 }
 
@@ -43646,6 +43676,18 @@ var Grid = factory((_props, ref) => {
 Grid.classes = classes27;
 Grid.displayName = "@mantine/core/Grid";
 Grid.Col = GridCol;
+// node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function(n) {
+    for (var e = 1;e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r3 in t)
+        ({}).hasOwnProperty.call(t, r3) && (n[r3] = t[r3]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+
 // node_modules/@mantine/core/esm/components/List/List.mjs
 var import_jsx_runtime146 = __toESM(require_jsx_runtime(), 1);
 var import_react183 = __toESM(require_react(), 1);
@@ -48406,9 +48448,11 @@ init_IconDownload();
 init_IconExchange();
 init_IconExclamationCircle();
 init_IconExternalLink();
+init_IconEyeCheck();
 init_IconEyeClosed();
 init_IconFileDownload();
 init_IconFileUpload();
+init_IconFile();
 init_IconFilter();
 init_IconFolder();
 init_IconGripVertical();
@@ -48419,6 +48463,7 @@ init_IconLoader();
 init_IconMapBolt();
 init_IconPencil();
 init_IconPhotoCog();
+init_IconPhotoSearch();
 init_IconPlaystationSquare();
 init_IconPlug();
 init_IconPlus();
@@ -54064,7 +54109,7 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react275 = __toESM(require_react(), 1);
+var import_react277 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
 var import_react257 = __toESM(require_react(), 1);
@@ -55411,7 +55456,7 @@ function LayoutManagerModal({
 }
 
 // src/components/DownloadModalNew.tsx
-var import_react264 = __toESM(require_react(), 1);
+var import_react266 = __toESM(require_react(), 1);
 init_documentHandler();
 
 // src/studio/fontHandler.ts
@@ -55422,6 +55467,16 @@ async function getFontFamilies(studio2) {
 
 // src/studio/mediaConnectorHandler.ts
 init_utils();
+init_dist();
+async function downloadMediaConnector({
+  studio: studio2,
+  connectorId,
+  assetId,
+  downloadType,
+  metadata = {}
+}) {
+  return Result.wrap(studio2.mediaConnector.download)(connectorId, assetId, downloadType, metadata);
+}
 var baseQueryOptions = {
   pageSize: 15,
   filter: [""]
@@ -66762,31 +66817,676 @@ async function getMediaConnectorsAPI(baseUrl, authToken) {
 // src/components/DownloadModalNew.tsx
 init_documentHandler();
 
-// src/components/ConnectorFolderBrowser.tsx
+// src/components/ImageBrowser.tsx
+var import_react261 = __toESM(require_react(), 1);
+
+// node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+function _assertThisInitialized(e) {
+  if (e === undefined)
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+
+// node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(t2, e2) {
+    return t2.__proto__ = e2, t2;
+  }, _setPrototypeOf(t, e);
+}
+
+// node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+function _inheritsLoose(t, o2) {
+  t.prototype = Object.create(o2.prototype), t.prototype.constructor = t, _setPrototypeOf(t, o2);
+}
+
+// node_modules/memoize-one/dist/memoize-one.esm.js
+var safeIsNaN = Number.isNaN || function ponyfill(value) {
+  return typeof value === "number" && value !== value;
+};
+function isEqual(first, second) {
+  if (first === second) {
+    return true;
+  }
+  if (safeIsNaN(first) && safeIsNaN(second)) {
+    return true;
+  }
+  return false;
+}
+function areInputsEqual(newInputs, lastInputs) {
+  if (newInputs.length !== lastInputs.length) {
+    return false;
+  }
+  for (var i2 = 0;i2 < newInputs.length; i2++) {
+    if (!isEqual(newInputs[i2], lastInputs[i2])) {
+      return false;
+    }
+  }
+  return true;
+}
+function memoizeOne(resultFn, isEqual2) {
+  if (isEqual2 === undefined) {
+    isEqual2 = areInputsEqual;
+  }
+  var lastThis;
+  var lastArgs = [];
+  var lastResult;
+  var calledOnce = false;
+  function memoized() {
+    var newArgs = [];
+    for (var _i = 0;_i < arguments.length; _i++) {
+      newArgs[_i] = arguments[_i];
+    }
+    if (calledOnce && lastThis === this && isEqual2(newArgs, lastArgs)) {
+      return lastResult;
+    }
+    lastResult = resultFn.apply(this, newArgs);
+    calledOnce = true;
+    lastThis = this;
+    lastArgs = newArgs;
+    return lastResult;
+  }
+  return memoized;
+}
+var memoize_one_esm_default = memoizeOne;
+
+// node_modules/react-window/dist/index.esm.js
 var import_react260 = __toESM(require_react(), 1);
+var hasNativePerformanceNow = typeof performance === "object" && typeof performance.now === "function";
+var now2 = hasNativePerformanceNow ? function() {
+  return performance.now();
+} : function() {
+  return Date.now();
+};
+function cancelTimeout2(timeoutID) {
+  cancelAnimationFrame(timeoutID.id);
+}
+function requestTimeout(callback, delay) {
+  var start = now2();
+  function tick() {
+    if (now2() - start >= delay) {
+      callback.call(null);
+    } else {
+      timeoutID.id = requestAnimationFrame(tick);
+    }
+  }
+  var timeoutID = {
+    id: requestAnimationFrame(tick)
+  };
+  return timeoutID;
+}
+var size4 = -1;
+function getScrollbarSize(recalculate) {
+  if (recalculate === undefined) {
+    recalculate = false;
+  }
+  if (size4 === -1 || recalculate) {
+    var div = document.createElement("div");
+    var style2 = div.style;
+    style2.width = "50px";
+    style2.height = "50px";
+    style2.overflow = "scroll";
+    document.body.appendChild(div);
+    size4 = div.offsetWidth - div.clientWidth;
+    document.body.removeChild(div);
+  }
+  return size4;
+}
+var cachedRTLResult = null;
+function getRTLOffsetType(recalculate) {
+  if (recalculate === undefined) {
+    recalculate = false;
+  }
+  if (cachedRTLResult === null || recalculate) {
+    var outerDiv = document.createElement("div");
+    var outerStyle = outerDiv.style;
+    outerStyle.width = "50px";
+    outerStyle.height = "50px";
+    outerStyle.overflow = "scroll";
+    outerStyle.direction = "rtl";
+    var innerDiv = document.createElement("div");
+    var innerStyle = innerDiv.style;
+    innerStyle.width = "100px";
+    innerStyle.height = "100px";
+    outerDiv.appendChild(innerDiv);
+    document.body.appendChild(outerDiv);
+    if (outerDiv.scrollLeft > 0) {
+      cachedRTLResult = "positive-descending";
+    } else {
+      outerDiv.scrollLeft = 1;
+      if (outerDiv.scrollLeft === 0) {
+        cachedRTLResult = "negative";
+      } else {
+        cachedRTLResult = "positive-ascending";
+      }
+    }
+    document.body.removeChild(outerDiv);
+    return cachedRTLResult;
+  }
+  return cachedRTLResult;
+}
+if (false) {
+}
+var IS_SCROLLING_DEBOUNCE_INTERVAL$1 = 150;
+var defaultItemKey$1 = function defaultItemKey(index4, data) {
+  return index4;
+};
+if (false) {
+}
+function createListComponent(_ref) {
+  var _class;
+  var { getItemOffset, getEstimatedTotalSize, getItemSize, getOffsetForIndexAndAlignment, getStartIndexForOffset, getStopIndexForStartIndex, initInstanceProps, shouldResetStyleCacheOnItemSizeChange, validateProps } = _ref;
+  return _class = /* @__PURE__ */ function(_PureComponent) {
+    _inheritsLoose(List2, _PureComponent);
+    function List2(props) {
+      var _this;
+      _this = _PureComponent.call(this, props) || this;
+      _this._instanceProps = initInstanceProps(_this.props, _assertThisInitialized(_this));
+      _this._outerRef = undefined;
+      _this._resetIsScrollingTimeoutId = null;
+      _this.state = {
+        instance: _assertThisInitialized(_this),
+        isScrolling: false,
+        scrollDirection: "forward",
+        scrollOffset: typeof _this.props.initialScrollOffset === "number" ? _this.props.initialScrollOffset : 0,
+        scrollUpdateWasRequested: false
+      };
+      _this._callOnItemsRendered = undefined;
+      _this._callOnItemsRendered = memoize_one_esm_default(function(overscanStartIndex, overscanStopIndex, visibleStartIndex, visibleStopIndex) {
+        return _this.props.onItemsRendered({
+          overscanStartIndex,
+          overscanStopIndex,
+          visibleStartIndex,
+          visibleStopIndex
+        });
+      });
+      _this._callOnScroll = undefined;
+      _this._callOnScroll = memoize_one_esm_default(function(scrollDirection, scrollOffset, scrollUpdateWasRequested) {
+        return _this.props.onScroll({
+          scrollDirection,
+          scrollOffset,
+          scrollUpdateWasRequested
+        });
+      });
+      _this._getItemStyle = undefined;
+      _this._getItemStyle = function(index4) {
+        var _this$props = _this.props, direction = _this$props.direction, itemSize = _this$props.itemSize, layout = _this$props.layout;
+        var itemStyleCache = _this._getItemStyleCache(shouldResetStyleCacheOnItemSizeChange && itemSize, shouldResetStyleCacheOnItemSizeChange && layout, shouldResetStyleCacheOnItemSizeChange && direction);
+        var style2;
+        if (itemStyleCache.hasOwnProperty(index4)) {
+          style2 = itemStyleCache[index4];
+        } else {
+          var _offset = getItemOffset(_this.props, index4, _this._instanceProps);
+          var size5 = getItemSize(_this.props, index4, _this._instanceProps);
+          var isHorizontal = direction === "horizontal" || layout === "horizontal";
+          var isRtl = direction === "rtl";
+          var offsetHorizontal = isHorizontal ? _offset : 0;
+          itemStyleCache[index4] = style2 = {
+            position: "absolute",
+            left: isRtl ? undefined : offsetHorizontal,
+            right: isRtl ? offsetHorizontal : undefined,
+            top: !isHorizontal ? _offset : 0,
+            height: !isHorizontal ? size5 : "100%",
+            width: isHorizontal ? size5 : "100%"
+          };
+        }
+        return style2;
+      };
+      _this._getItemStyleCache = undefined;
+      _this._getItemStyleCache = memoize_one_esm_default(function(_2, __, ___) {
+        return {};
+      });
+      _this._onScrollHorizontal = function(event) {
+        var _event$currentTarget = event.currentTarget, clientWidth = _event$currentTarget.clientWidth, scrollLeft = _event$currentTarget.scrollLeft, scrollWidth = _event$currentTarget.scrollWidth;
+        _this.setState(function(prevState) {
+          if (prevState.scrollOffset === scrollLeft) {
+            return null;
+          }
+          var direction = _this.props.direction;
+          var scrollOffset = scrollLeft;
+          if (direction === "rtl") {
+            switch (getRTLOffsetType()) {
+              case "negative":
+                scrollOffset = -scrollLeft;
+                break;
+              case "positive-descending":
+                scrollOffset = scrollWidth - clientWidth - scrollLeft;
+                break;
+            }
+          }
+          scrollOffset = Math.max(0, Math.min(scrollOffset, scrollWidth - clientWidth));
+          return {
+            isScrolling: true,
+            scrollDirection: prevState.scrollOffset < scrollOffset ? "forward" : "backward",
+            scrollOffset,
+            scrollUpdateWasRequested: false
+          };
+        }, _this._resetIsScrollingDebounced);
+      };
+      _this._onScrollVertical = function(event) {
+        var _event$currentTarget2 = event.currentTarget, clientHeight = _event$currentTarget2.clientHeight, scrollHeight = _event$currentTarget2.scrollHeight, scrollTop = _event$currentTarget2.scrollTop;
+        _this.setState(function(prevState) {
+          if (prevState.scrollOffset === scrollTop) {
+            return null;
+          }
+          var scrollOffset = Math.max(0, Math.min(scrollTop, scrollHeight - clientHeight));
+          return {
+            isScrolling: true,
+            scrollDirection: prevState.scrollOffset < scrollOffset ? "forward" : "backward",
+            scrollOffset,
+            scrollUpdateWasRequested: false
+          };
+        }, _this._resetIsScrollingDebounced);
+      };
+      _this._outerRefSetter = function(ref) {
+        var outerRef = _this.props.outerRef;
+        _this._outerRef = ref;
+        if (typeof outerRef === "function") {
+          outerRef(ref);
+        } else if (outerRef != null && typeof outerRef === "object" && outerRef.hasOwnProperty("current")) {
+          outerRef.current = ref;
+        }
+      };
+      _this._resetIsScrollingDebounced = function() {
+        if (_this._resetIsScrollingTimeoutId !== null) {
+          cancelTimeout2(_this._resetIsScrollingTimeoutId);
+        }
+        _this._resetIsScrollingTimeoutId = requestTimeout(_this._resetIsScrolling, IS_SCROLLING_DEBOUNCE_INTERVAL$1);
+      };
+      _this._resetIsScrolling = function() {
+        _this._resetIsScrollingTimeoutId = null;
+        _this.setState({
+          isScrolling: false
+        }, function() {
+          _this._getItemStyleCache(-1, null);
+        });
+      };
+      return _this;
+    }
+    List2.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
+      validateSharedProps$1(nextProps, prevState);
+      validateProps(nextProps);
+      return null;
+    };
+    var _proto = List2.prototype;
+    _proto.scrollTo = function scrollTo(scrollOffset) {
+      scrollOffset = Math.max(0, scrollOffset);
+      this.setState(function(prevState) {
+        if (prevState.scrollOffset === scrollOffset) {
+          return null;
+        }
+        return {
+          scrollDirection: prevState.scrollOffset < scrollOffset ? "forward" : "backward",
+          scrollOffset,
+          scrollUpdateWasRequested: true
+        };
+      }, this._resetIsScrollingDebounced);
+    };
+    _proto.scrollToItem = function scrollToItem(index4, align) {
+      if (align === undefined) {
+        align = "auto";
+      }
+      var _this$props2 = this.props, itemCount = _this$props2.itemCount, layout = _this$props2.layout;
+      var scrollOffset = this.state.scrollOffset;
+      index4 = Math.max(0, Math.min(index4, itemCount - 1));
+      var scrollbarSize = 0;
+      if (this._outerRef) {
+        var outerRef = this._outerRef;
+        if (layout === "vertical") {
+          scrollbarSize = outerRef.scrollWidth > outerRef.clientWidth ? getScrollbarSize() : 0;
+        } else {
+          scrollbarSize = outerRef.scrollHeight > outerRef.clientHeight ? getScrollbarSize() : 0;
+        }
+      }
+      this.scrollTo(getOffsetForIndexAndAlignment(this.props, index4, align, scrollOffset, this._instanceProps, scrollbarSize));
+    };
+    _proto.componentDidMount = function componentDidMount() {
+      var _this$props3 = this.props, direction = _this$props3.direction, initialScrollOffset = _this$props3.initialScrollOffset, layout = _this$props3.layout;
+      if (typeof initialScrollOffset === "number" && this._outerRef != null) {
+        var outerRef = this._outerRef;
+        if (direction === "horizontal" || layout === "horizontal") {
+          outerRef.scrollLeft = initialScrollOffset;
+        } else {
+          outerRef.scrollTop = initialScrollOffset;
+        }
+      }
+      this._callPropsCallbacks();
+    };
+    _proto.componentDidUpdate = function componentDidUpdate() {
+      var _this$props4 = this.props, direction = _this$props4.direction, layout = _this$props4.layout;
+      var _this$state = this.state, scrollOffset = _this$state.scrollOffset, scrollUpdateWasRequested = _this$state.scrollUpdateWasRequested;
+      if (scrollUpdateWasRequested && this._outerRef != null) {
+        var outerRef = this._outerRef;
+        if (direction === "horizontal" || layout === "horizontal") {
+          if (direction === "rtl") {
+            switch (getRTLOffsetType()) {
+              case "negative":
+                outerRef.scrollLeft = -scrollOffset;
+                break;
+              case "positive-ascending":
+                outerRef.scrollLeft = scrollOffset;
+                break;
+              default:
+                var { clientWidth, scrollWidth } = outerRef;
+                outerRef.scrollLeft = scrollWidth - clientWidth - scrollOffset;
+                break;
+            }
+          } else {
+            outerRef.scrollLeft = scrollOffset;
+          }
+        } else {
+          outerRef.scrollTop = scrollOffset;
+        }
+      }
+      this._callPropsCallbacks();
+    };
+    _proto.componentWillUnmount = function componentWillUnmount() {
+      if (this._resetIsScrollingTimeoutId !== null) {
+        cancelTimeout2(this._resetIsScrollingTimeoutId);
+      }
+    };
+    _proto.render = function render() {
+      var _this$props5 = this.props, children = _this$props5.children, className = _this$props5.className, direction = _this$props5.direction, height = _this$props5.height, innerRef = _this$props5.innerRef, innerElementType = _this$props5.innerElementType, innerTagName = _this$props5.innerTagName, itemCount = _this$props5.itemCount, itemData = _this$props5.itemData, _this$props5$itemKey = _this$props5.itemKey, itemKey = _this$props5$itemKey === undefined ? defaultItemKey$1 : _this$props5$itemKey, layout = _this$props5.layout, outerElementType = _this$props5.outerElementType, outerTagName = _this$props5.outerTagName, style2 = _this$props5.style, useIsScrolling = _this$props5.useIsScrolling, width = _this$props5.width;
+      var isScrolling = this.state.isScrolling;
+      var isHorizontal = direction === "horizontal" || layout === "horizontal";
+      var onScroll = isHorizontal ? this._onScrollHorizontal : this._onScrollVertical;
+      var _this$_getRangeToRend = this._getRangeToRender(), startIndex = _this$_getRangeToRend[0], stopIndex = _this$_getRangeToRend[1];
+      var items = [];
+      if (itemCount > 0) {
+        for (var _index = startIndex;_index <= stopIndex; _index++) {
+          items.push(import_react260.createElement(children, {
+            data: itemData,
+            key: itemKey(_index, itemData),
+            index: _index,
+            isScrolling: useIsScrolling ? isScrolling : undefined,
+            style: this._getItemStyle(_index)
+          }));
+        }
+      }
+      var estimatedTotalSize = getEstimatedTotalSize(this.props, this._instanceProps);
+      return import_react260.createElement(outerElementType || outerTagName || "div", {
+        className,
+        onScroll,
+        ref: this._outerRefSetter,
+        style: _extends({
+          position: "relative",
+          height,
+          width,
+          overflow: "auto",
+          WebkitOverflowScrolling: "touch",
+          willChange: "transform",
+          direction
+        }, style2)
+      }, import_react260.createElement(innerElementType || innerTagName || "div", {
+        children: items,
+        ref: innerRef,
+        style: {
+          height: isHorizontal ? "100%" : estimatedTotalSize,
+          pointerEvents: isScrolling ? "none" : undefined,
+          width: isHorizontal ? estimatedTotalSize : "100%"
+        }
+      }));
+    };
+    _proto._callPropsCallbacks = function _callPropsCallbacks() {
+      if (typeof this.props.onItemsRendered === "function") {
+        var itemCount = this.props.itemCount;
+        if (itemCount > 0) {
+          var _this$_getRangeToRend2 = this._getRangeToRender(), _overscanStartIndex = _this$_getRangeToRend2[0], _overscanStopIndex = _this$_getRangeToRend2[1], _visibleStartIndex = _this$_getRangeToRend2[2], _visibleStopIndex = _this$_getRangeToRend2[3];
+          this._callOnItemsRendered(_overscanStartIndex, _overscanStopIndex, _visibleStartIndex, _visibleStopIndex);
+        }
+      }
+      if (typeof this.props.onScroll === "function") {
+        var _this$state2 = this.state, _scrollDirection = _this$state2.scrollDirection, _scrollOffset = _this$state2.scrollOffset, _scrollUpdateWasRequested = _this$state2.scrollUpdateWasRequested;
+        this._callOnScroll(_scrollDirection, _scrollOffset, _scrollUpdateWasRequested);
+      }
+    };
+    _proto._getRangeToRender = function _getRangeToRender() {
+      var _this$props6 = this.props, itemCount = _this$props6.itemCount, overscanCount = _this$props6.overscanCount;
+      var _this$state3 = this.state, isScrolling = _this$state3.isScrolling, scrollDirection = _this$state3.scrollDirection, scrollOffset = _this$state3.scrollOffset;
+      if (itemCount === 0) {
+        return [0, 0, 0, 0];
+      }
+      var startIndex = getStartIndexForOffset(this.props, scrollOffset, this._instanceProps);
+      var stopIndex = getStopIndexForStartIndex(this.props, startIndex, scrollOffset, this._instanceProps);
+      var overscanBackward = !isScrolling || scrollDirection === "backward" ? Math.max(1, overscanCount) : 1;
+      var overscanForward = !isScrolling || scrollDirection === "forward" ? Math.max(1, overscanCount) : 1;
+      return [Math.max(0, startIndex - overscanBackward), Math.max(0, Math.min(itemCount - 1, stopIndex + overscanForward)), startIndex, stopIndex];
+    };
+    return List2;
+  }(import_react260.PureComponent), _class.defaultProps = {
+    direction: "ltr",
+    itemData: undefined,
+    layout: "vertical",
+    overscanCount: 2,
+    useIsScrolling: false
+  }, _class;
+}
+var validateSharedProps$1 = function validateSharedProps(_ref2, _ref3) {
+  var { children, direction, height, layout, innerTagName, outerTagName, width } = _ref2;
+  var instance = _ref3.instance;
+  if (false) {
+    var isHorizontal;
+    switch (direction) {
+      case "horizontal":
+      case "vertical":
+      case "ltr":
+      case "rtl":
+      default:
+    }
+    switch (layout) {
+      case "horizontal":
+      case "vertical":
+      default:
+    }
+  }
+};
+var FixedSizeList = /* @__PURE__ */ createListComponent({
+  getItemOffset: function getItemOffset(_ref, index4) {
+    var itemSize = _ref.itemSize;
+    return index4 * itemSize;
+  },
+  getItemSize: function getItemSize(_ref2, index4) {
+    var itemSize = _ref2.itemSize;
+    return itemSize;
+  },
+  getEstimatedTotalSize: function getEstimatedTotalSize(_ref3) {
+    var { itemCount, itemSize } = _ref3;
+    return itemSize * itemCount;
+  },
+  getOffsetForIndexAndAlignment: function getOffsetForIndexAndAlignment(_ref4, index4, align, scrollOffset, instanceProps, scrollbarSize) {
+    var { direction, height, itemCount, itemSize, layout, width } = _ref4;
+    var isHorizontal = direction === "horizontal" || layout === "horizontal";
+    var size5 = isHorizontal ? width : height;
+    var lastItemOffset = Math.max(0, itemCount * itemSize - size5);
+    var maxOffset = Math.min(lastItemOffset, index4 * itemSize);
+    var minOffset = Math.max(0, index4 * itemSize - size5 + itemSize + scrollbarSize);
+    if (align === "smart") {
+      if (scrollOffset >= minOffset - size5 && scrollOffset <= maxOffset + size5) {
+        align = "auto";
+      } else {
+        align = "center";
+      }
+    }
+    switch (align) {
+      case "start":
+        return maxOffset;
+      case "end":
+        return minOffset;
+      case "center": {
+        var middleOffset = Math.round(minOffset + (maxOffset - minOffset) / 2);
+        if (middleOffset < Math.ceil(size5 / 2)) {
+          return 0;
+        } else if (middleOffset > lastItemOffset + Math.floor(size5 / 2)) {
+          return lastItemOffset;
+        } else {
+          return middleOffset;
+        }
+      }
+      case "auto":
+      default:
+        if (scrollOffset >= minOffset && scrollOffset <= maxOffset) {
+          return scrollOffset;
+        } else if (scrollOffset < minOffset) {
+          return minOffset;
+        } else {
+          return maxOffset;
+        }
+    }
+  },
+  getStartIndexForOffset: function getStartIndexForOffset(_ref5, offset4) {
+    var { itemCount, itemSize } = _ref5;
+    return Math.max(0, Math.min(itemCount - 1, Math.floor(offset4 / itemSize)));
+  },
+  getStopIndexForStartIndex: function getStopIndexForStartIndex(_ref6, startIndex, scrollOffset) {
+    var { direction, height, itemCount, itemSize, layout, width } = _ref6;
+    var isHorizontal = direction === "horizontal" || layout === "horizontal";
+    var offset4 = startIndex * itemSize;
+    var size5 = isHorizontal ? width : height;
+    var numVisibleItems = Math.ceil((size5 + scrollOffset - offset4) / itemSize);
+    return Math.max(0, Math.min(itemCount - 1, startIndex + numVisibleItems - 1));
+  },
+  initInstanceProps: function initInstanceProps(props) {
+  },
+  shouldResetStyleCacheOnItemSizeChange: true,
+  validateProps: function validateProps(_ref7) {
+    var itemSize = _ref7.itemSize;
+    if (false) {
+    }
+  }
+});
+
+// src/components/DownloadModal/DownloadTasksScreen.tsx
 var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
-function ConnectorFolderBrowser({
+function DownloadTasksScreen({
+  downloadFiles,
+  tasks,
+  uploadTasks,
+  onClose
+}) {
+  const allTasks = [
+    ...downloadFiles.map((file2) => ({
+      id: file2.id,
+      name: `Downloading: ${file2.name}`,
+      type: "download",
+      status: file2.status === "downloading" ? "processing" : file2.status,
+      error: file2.error
+    })),
+    ...tasks,
+    ...uploadTasks
+  ];
+  const allComplete = allTasks.every((task) => task.status === "complete" || task.status === "error" || task.status === "info");
+  return /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+    gap: "xl",
+    children: [
+      /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center", marginBottom: "1rem" },
+        children: "Processing Tasks"
+      }),
+      /* @__PURE__ */ jsx_runtime20.jsx(List, {
+        spacing: "md",
+        size: "sm",
+        children: allTasks.map((task) => /* @__PURE__ */ jsx_runtime20.jsx(List.Item, {
+          icon: task.status === "pending" || task.status === "processing" ? /* @__PURE__ */ jsx_runtime20.jsx(Loader, {
+            size: "sm"
+          }) : task.status === "complete" ? /* @__PURE__ */ jsx_runtime20.jsx(Tooltip, {
+            label: "Successfully completed",
+            children: /* @__PURE__ */ jsx_runtime20.jsx(IconCircleCheckFilled, {
+              size: 20,
+              color: "green"
+            })
+          }) : task.status === "info" ? /* @__PURE__ */ jsx_runtime20.jsx(Tooltip, {
+            label: task.tooltip || "Information",
+            children: /* @__PURE__ */ jsx_runtime20.jsx(IconInfoCircleFilled, {
+              size: 20,
+              color: "blue"
+            })
+          }) : /* @__PURE__ */ jsx_runtime20.jsx(Tooltip, {
+            label: task.error || "Task failed",
+            children: /* @__PURE__ */ jsx_runtime20.jsx(IconExclamationCircle, {
+              size: 20,
+              color: "red"
+            })
+          }),
+          children: /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+            size: "sm",
+            children: task.name
+          })
+        }, task.id))
+      }),
+      allComplete && /* @__PURE__ */ jsx_runtime20.jsx(Group, {
+        justify: "center",
+        mt: "xl",
+        children: /* @__PURE__ */ jsx_runtime20.jsx(Button, {
+          onClick: onClose,
+          color: "blue",
+          children: "Close"
+        })
+      })
+    ]
+  });
+}
+
+// src/components/ImageBrowser.tsx
+var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
+function ImageBrowser({
   opened,
+  mode,
   onClose,
   initialSelection = null
 }) {
   const raiseError2 = appStore((store) => store.raiseError);
-  const [browserState, setBrowserState] = import_react260.useState("loading");
-  const [connectors, setConnectors] = import_react260.useState([]);
-  const [selectedConnectorId, setSelectedConnectorId] = import_react260.useState(null);
-  const [localConnectorId, setLocalConnectorId] = import_react260.useState(null);
-  const [currentPath, setCurrentPath] = import_react260.useState("/");
-  const [folders, setFolders] = import_react260.useState([]);
-  const [selectedFolders, setSelectedFolders] = import_react260.useState(new Set);
-  const [persistentSelections, setPersistentSelections] = import_react260.useState(new Set);
-  const [isLoadingFolders, setIsLoadingFolders] = import_react260.useState(false);
-  const [error40, setError] = import_react260.useState(null);
-  const [fileCount, setFileCount] = import_react260.useState(0);
+  const [browserState, setBrowserState] = import_react261.useState("loading");
+  const [connectors, setConnectors] = import_react261.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react261.useState(null);
+  const [displayMode, setDisplayMode] = import_react261.useState("list");
+  const [localConnectorId, setLocalConnectorId] = import_react261.useState(null);
+  const [currentPath, setCurrentPath] = import_react261.useState("/");
+  const [folders, setFolders] = import_react261.useState([]);
+  const [files, setFiles] = import_react261.useState([]);
+  const [selectedFolders, setSelectedFolders] = import_react261.useState(new Set);
+  const [selectedFile, setSelectedFile] = import_react261.useState(null);
+  const [persistentSelections, setPersistentSelections] = import_react261.useState(new Set);
+  const [smartCropMode, setSmartCropMode] = import_react261.useState(false);
+  const [sourceFile, setSourceFile] = import_react261.useState(null);
+  const [targetSelectedFiles, setTargetSelectedFiles] = import_react261.useState(new Set);
+  const [isLoadingFolders, setIsLoadingFolders] = import_react261.useState(false);
+  const [error40, setError] = import_react261.useState(null);
+  const [thumbnailUrls, setThumbnailUrls] = import_react261.useState(new Map);
+  const [thumbnailErrors, setThumbnailErrors] = import_react261.useState(new Map);
+  const [loadingThumbnails, setLoadingThumbnails] = import_react261.useState(new Set);
+  const [visionDataCache, setVisionDataCache] = import_react261.useState(new Map);
+  const [loadingVisionData, setLoadingVisionData] = import_react261.useState(new Set);
+  const [copyTasks, setCopyTasks] = import_react261.useState([]);
+  const [showTaskModal, setShowTaskModal] = import_react261.useState(false);
+  const [hasMorePages, setHasMorePages] = import_react261.useState(false);
+  const [nextPageToken, setNextPageToken] = import_react261.useState("");
+  const [isLoadingMore, setIsLoadingMore] = import_react261.useState(false);
+  const [itemSize, setItemSize] = import_react261.useState(60);
+  const [cleanupTimeoutId, setCleanupTimeoutId] = import_react261.useState(null);
   const CONNECTOR_SESSION_KEY = "tempDownloadModal_connectorId";
-  import_react260.useEffect(() => {
+  import_react261.useEffect(() => {
+    return () => {
+      if (cleanupTimeoutId) {
+        clearTimeout(cleanupTimeoutId);
+      }
+      thumbnailUrls.forEach((url2) => {
+        URL.revokeObjectURL(url2);
+      });
+    };
+  }, []);
+  import_react261.useEffect(() => {
     if (opened) {
-      const selectedPaths = initialSelection?.selectedFolders || [];
-      setPersistentSelections(new Set(selectedPaths));
+      if (mode === 0 /* FolderSelection */) {
+        const folderSelection = initialSelection;
+        const selectedPaths = folderSelection?.selectedFolders || [];
+        setPersistentSelections(new Set(selectedPaths));
+      } else {
+        const fileSelection = initialSelection;
+        if (fileSelection?.selectedFile) {
+          setSelectedFile(fileSelection.selectedFile);
+          setCurrentPath(fileSelection.folderPath);
+        }
+      }
       if (initialSelection?.connectorId) {
         setSelectedConnectorId(initialSelection.connectorId);
       }
@@ -66794,8 +67494,8 @@ function ConnectorFolderBrowser({
     } else {
       cleanupAndResetState();
     }
-  }, [opened, initialSelection]);
-  import_react260.useEffect(() => {
+  }, [opened]);
+  import_react261.useEffect(() => {
     if (browserState === "connectorSelection") {
       const savedConnectorId = sessionStorage.getItem(CONNECTOR_SESSION_KEY);
       if (savedConnectorId && connectors.some((c2) => c2.id === savedConnectorId)) {
@@ -66806,15 +67506,22 @@ function ConnectorFolderBrowser({
   const resetState = () => {
     setBrowserState("loading");
     setConnectors([]);
-    setSelectedConnectorId(null);
     setLocalConnectorId(null);
-    setCurrentPath("/");
     setFolders([]);
     setSelectedFolders(new Set);
     setPersistentSelections(new Set);
     setIsLoadingFolders(false);
     setError(null);
-    setFileCount(0);
+    setSmartCropMode(false);
+    setSourceFile(null);
+    setTargetSelectedFiles(new Set);
+    setHasMorePages(false);
+    setNextPageToken("");
+    setIsLoadingMore(false);
+    setThumbnailErrors(new Map);
+    setLoadingThumbnails(new Set);
+    setVisionDataCache(new Map);
+    setLoadingVisionData(new Set);
   };
   const cleanupAndResetState = async () => {
     if (localConnectorId) {
@@ -66830,6 +67537,11 @@ function ConnectorFolderBrowser({
         raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
       }
     }
+    thumbnailUrls.forEach((url2, key) => {
+      console.log(`[Cleanup] Timeout revoking URL for ${key}: ${url2}`);
+      URL.revokeObjectURL(url2);
+    });
+    setThumbnailUrls(new Map);
     resetState();
   };
   const loadConnectors = async () => {
@@ -66872,12 +67584,131 @@ function ConnectorFolderBrowser({
       const localId = registerResult.value;
       setLocalConnectorId(localId);
       setBrowserState("folderBrowsing");
-      await loadFolders(localId, "/", "");
+      await loadFolders(localId, selectedConnectorId, "/", "");
     } catch (error41) {
       const errorMessage = error41 instanceof Error ? error41.message : String(error41);
       setError(errorMessage);
       raiseError2(new Error(errorMessage));
       setIsLoadingFolders(false);
+    }
+  };
+  const setSelectedConnectorIdWithReset = (connectorId) => {
+    setSelectedConnectorId(connectorId);
+    setCurrentPath("/");
+    setSelectedFolders(new Set);
+    setSelectedFile(null);
+    setPersistentSelections(new Set);
+    setHasMorePages(false);
+    setNextPageToken("");
+    setIsLoadingMore(false);
+    setThumbnailErrors(new Map);
+    setLoadingThumbnails(new Set);
+    setVisionDataCache(new Map);
+    setLoadingVisionData(new Set);
+  };
+  const loadVisionData = async (file2, localConnectorId2, connectorId) => {
+    if (!(file2.type === "file" || file2.type == 0)) {
+      return;
+    }
+    const fileKey = `${localConnectorId2}-${file2.id}`;
+    if (loadingVisionData.has(fileKey) || visionDataCache.has(fileKey)) {
+      return;
+    }
+    setLoadingVisionData((prev2) => new Set(prev2).add(fileKey));
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+      const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+      const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
+      const visionResult = await getVision({
+        baseUrl,
+        connectorId,
+        asset: file2.id,
+        authorization: token2
+      });
+      if (visionResult.isOk()) {
+        setVisionDataCache((prev2) => {
+          const newMap = new Map(prev2);
+          newMap.set(fileKey, true);
+          return newMap;
+        });
+      } else {
+        if (visionResult.error?.type === "VisionNotFoundError") {
+          setVisionDataCache((prev2) => {
+            const newMap = new Map(prev2);
+            newMap.set(fileKey, false);
+            return newMap;
+          });
+        } else {
+          console.warn(`Failed to load vision data for ${file2.name}:`, visionResult.error?.message);
+        }
+      }
+    } catch (error41) {
+      console.warn(`Failed to load vision data for ${file2.name}:`, error41);
+    } finally {
+      setLoadingVisionData((prev2) => {
+        const newSet = new Set(prev2);
+        newSet.delete(fileKey);
+        return newSet;
+      });
+    }
+  };
+  const loadThumbnail = async (file2, connectorId) => {
+    const fileKey = `${connectorId}-${file2.id}`;
+    if (loadingThumbnails.has(fileKey) || thumbnailUrls.has(fileKey) || thumbnailErrors.has(fileKey)) {
+      return;
+    }
+    setLoadingThumbnails((prev2) => new Set(prev2).add(fileKey));
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+      const downloadResult = await downloadMediaConnector({
+        studio: studioResult.value,
+        connectorId,
+        assetId: file2.id,
+        downloadType: "thumbnail",
+        metadata: {}
+      });
+      if (!downloadResult.isOk()) {
+        throw new Error(downloadResult.error?.message || "Failed to download thumbnail");
+      }
+      const uint8Array = downloadResult.value;
+      console.log(`[Thumbnail] Downloaded ${file2.name}: ${uint8Array.length} bytes`);
+      let contentType = "image/jpeg";
+      if (uint8Array.length > 4) {
+        const header = Array.from(uint8Array.slice(0, 4)).map((b) => b.toString(16).padStart(2, "0")).join("");
+        if (header.startsWith("ffd8"))
+          contentType = "image/jpeg";
+        else if (header.startsWith("8950"))
+          contentType = "image/png";
+        else if (header.startsWith("4749"))
+          contentType = "image/gif";
+        else if (header.startsWith("5249"))
+          contentType = "image/webp";
+        console.log(`[Thumbnail] Detected content type for ${file2.name}: ${contentType} (header: ${header})`);
+      }
+      const blob = new Blob([uint8Array], { type: contentType });
+      const thumbnailUrl = URL.createObjectURL(blob);
+      console.log(`[Thumbnail] Created blob URL for ${file2.name}: ${thumbnailUrl}`);
+      setThumbnailUrls((prev2) => {
+        const newMap = new Map(prev2);
+        newMap.set(fileKey, thumbnailUrl);
+        console.log(`[Thumbnail] Stored URL for ${fileKey}: ${thumbnailUrl}`);
+        return newMap;
+      });
+    } catch (error41) {
+      const errorMessage = error41 instanceof Error ? error41.message : String(error41);
+      setThumbnailErrors((prev2) => new Map(prev2).set(fileKey, errorMessage));
+    } finally {
+      setLoadingThumbnails((prev2) => {
+        const newSet = new Set(prev2);
+        newSet.delete(fileKey);
+        return newSet;
+      });
     }
   };
   const handleConnectorSelect = async () => {
@@ -66901,9 +67732,18 @@ function ConnectorFolderBrowser({
     });
     setSelectedFolders(currentPathSelections);
   };
-  const loadFolders = async (connectorId, path, pageToken = "") => {
+  const loadFolders = async (connectorId, selectedConnectorId2, path, pageToken = "", append2 = false) => {
     try {
-      setIsLoadingFolders(true);
+      if (selectedConnectorId2 == null) {
+        setError("Connector not selected.");
+        raiseError2(new Error("Connector not selected."));
+        return;
+      }
+      if (append2) {
+        setIsLoadingMore(true);
+      } else {
+        setIsLoadingFolders(true);
+      }
       setError(null);
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
@@ -66916,30 +67756,178 @@ function ConnectorFolderBrowser({
       const queryPage = queryResult.value;
       const folderData = queryPage.data.filter((item) => item.type === "folder" || item.type == 1);
       const fileData = queryPage.data.filter((item) => item.type === "file" || item.type == 0);
-      if (pageToken === "") {
-        setFolders(folderData);
-        setFileCount(fileData.length);
-        updateSelectedFoldersForCurrentPath(folderData, path);
-      } else {
+      if (append2) {
         setFolders((prev2) => {
           const newFolders = [...prev2, ...folderData];
-          updateSelectedFoldersForCurrentPath(newFolders, path);
+          if (mode === 0 /* FolderSelection */) {
+            updateSelectedFoldersForCurrentPath(newFolders, path);
+          }
           return newFolders;
         });
-        setFileCount((prev2) => prev2 + fileData.length);
+        setFiles((prev2) => [...prev2, ...fileData]);
+        fileData.forEach((file2) => {
+          loadThumbnail(file2, connectorId);
+          if (mode === 1 /* FileSelection */) {
+            loadVisionData(file2, connectorId, selectedConnectorId2);
+          }
+        });
+      } else {
+        setFolders(folderData);
+        setFiles(fileData);
+        if (mode === 0 /* FolderSelection */) {
+          updateSelectedFoldersForCurrentPath(folderData, path);
+        }
+        fileData.forEach((file2) => {
+          loadThumbnail(file2, connectorId);
+          if (mode === 1 /* FileSelection */) {
+            loadVisionData(file2, connectorId, selectedConnectorId2);
+          }
+        });
       }
       if (queryPage.nextPageToken) {
-        setTimeout(() => {
-          loadFolders(connectorId, path, queryPage.nextPageToken);
-        }, 100);
+        setHasMorePages(true);
+        setNextPageToken(queryPage.nextPageToken);
       } else {
-        setIsLoadingFolders(false);
+        setHasMorePages(false);
+        setNextPageToken("");
       }
+      setIsLoadingFolders(false);
+      setIsLoadingMore(false);
     } catch (error41) {
       const errorMessage = error41 instanceof Error ? error41.message : String(error41);
       setError(errorMessage);
       raiseError2(new Error(errorMessage));
       setIsLoadingFolders(false);
+      setIsLoadingMore(false);
+    }
+  };
+  const loadMoreItems = async () => {
+    if (!localConnectorId || !hasMorePages || isLoadingMore || nextPageToken === "") {
+      return;
+    }
+    await loadFolders(localConnectorId, selectedConnectorId, currentPath, nextPageToken, true);
+  };
+  const ListItem2 = ({
+    index: index4,
+    style: style2
+  }) => {
+    const allItems = [
+      ...folders,
+      ...files
+    ];
+    const item = allItems[index4];
+    if (!item)
+      return null;
+    const isFolder = item.type === "folder" || item.type == 1;
+    const isFile = item.type === "file" || item.type == 0;
+    if (isFolder) {
+      const folderPath = currentPath === "/" ? `/${item.name}` : `${currentPath}/${item.name}`;
+      const isSelected = selectedFolders.has(folderPath);
+      return /* @__PURE__ */ jsx_runtime21.jsx("div", {
+        style: style2,
+        children: /* @__PURE__ */ jsx_runtime21.jsx(Card, {
+          shadow: "sm",
+          padding: "sm",
+          radius: "sm",
+          style: {
+            cursor: "pointer",
+            border: isSelected ? "2px solid #228be6" : undefined,
+            margin: "2px",
+            height: itemSize - 4
+          },
+          onClick: () => navigateToFolder(item.name),
+          children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+            gap: "md",
+            align: "center",
+            children: [
+              mode === 0 /* FolderSelection */ && /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+                checked: isSelected,
+                onChange: () => toggleFolderSelection(item.name),
+                onClick: (e) => e.stopPropagation()
+              }),
+              /* @__PURE__ */ jsx_runtime21.jsx(IconFolder, {
+                size: 24
+              }),
+              /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                size: "sm",
+                style: { flex: 1 },
+                children: item.name
+              })
+            ]
+          })
+        })
+      });
+    }
+    if (isFile) {
+      const isSelected = selectedFile === item.name;
+      const isSourceFile = smartCropMode && sourceFile === item.name;
+      const isTargetSelected = smartCropMode && targetSelectedFiles.has(item.name);
+      const isFileSelectable = mode === 1 /* FileSelection */;
+      return /* @__PURE__ */ jsx_runtime21.jsx("div", {
+        style: style2,
+        children: /* @__PURE__ */ jsx_runtime21.jsx(Card, {
+          shadow: "sm",
+          padding: "sm",
+          radius: "sm",
+          style: {
+            cursor: !isFileSelectable ? "default" : smartCropMode && isSourceFile ? "default" : "pointer",
+            border: isFileSelectable && isSelected ? "2px solid #228be6" : isFileSelectable && isTargetSelected ? "2px solid #40c057" : undefined,
+            margin: "2px",
+            height: itemSize - 4,
+            opacity: !isFileSelectable ? 0.6 : isSourceFile ? 0.5 : 1,
+            backgroundColor: !isFileSelectable ? "#f8f9fa" : isSourceFile ? "#f8f9fa" : undefined
+          },
+          onClick: () => {
+            if (!isFileSelectable) {
+              return;
+            }
+            if (smartCropMode) {
+              if (!isSourceFile) {
+                handleTargetFileToggle(item.name);
+              }
+            } else {
+              handleFileSelection(item.name);
+            }
+          },
+          children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+            gap: "md",
+            align: "center",
+            children: [
+              isFileSelectable && smartCropMode && !isSourceFile && /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+                checked: isTargetSelected,
+                onChange: () => handleTargetFileToggle(item.name),
+                onClick: (e) => e.stopPropagation()
+              }),
+              renderFileIcon(item, 24),
+              /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                gap: "md",
+                justify: "flex-start",
+                children: [
+                  /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                    size: "sm",
+                    style: { flex: 1, userSelect: "text" },
+                    children: item.name
+                  }),
+                  isFileSelectable && renderVisionIcon(item)
+                ]
+              })
+            ]
+          })
+        })
+      });
+    }
+    return null;
+  };
+  const handleItemsRendered = ({
+    visibleStopIndex
+  }) => {
+    const allItems = [
+      ...folders,
+      ...files
+    ];
+    const totalItems = allItems.length;
+    if (visibleStopIndex >= totalItems - 5 && hasMorePages && !isLoadingMore) {
+      loadMoreItems();
     }
   };
   const navigateToFolder = async (folderName) => {
@@ -66948,7 +67936,10 @@ function ConnectorFolderBrowser({
     const newPath = currentPath === "/" ? `/${folderName}` : `${currentPath}/${folderName}`;
     setCurrentPath(newPath);
     setFolders([]);
-    await loadFolders(localConnectorId, newPath, "");
+    if (mode === 1 /* FileSelection */ && !smartCropMode) {
+      setSelectedFile(null);
+    }
+    await loadFolders(localConnectorId, selectedConnectorId, newPath, "");
   };
   const navigateBack = async () => {
     if (!localConnectorId || currentPath === "/")
@@ -66958,7 +67949,10 @@ function ConnectorFolderBrowser({
     const newPath = pathParts.length === 0 ? "/" : `/${pathParts.join("/")}`;
     setCurrentPath(newPath);
     setFolders([]);
-    await loadFolders(localConnectorId, newPath, "");
+    if (mode === 1 /* FileSelection */ && !smartCropMode) {
+      setSelectedFile(null);
+    }
+    await loadFolders(localConnectorId, selectedConnectorId, newPath, "");
   };
   const toggleFolderSelection = (folderName) => {
     const folderPath = currentPath === "/" ? `/${folderName}` : `${currentPath}/${folderName}`;
@@ -66983,8 +67977,127 @@ function ConnectorFolderBrowser({
     }
     setPersistentSelections(newPersistent);
   };
-  const handleSelectFolders = async () => {
-    const selectedPaths = Array.from(persistentSelections);
+  const clearAllFolderSelections = () => {
+    setPersistentSelections(new Set);
+    setSelectedFolders(new Set);
+  };
+  const handleFileSelection = (fileName) => {
+    setSelectedFile(fileName);
+  };
+  const handleEnterSmartCropMode = () => {
+    if (selectedFile) {
+      setSmartCropMode(true);
+      setSourceFile(selectedFile);
+      setTargetSelectedFiles(new Set);
+    }
+  };
+  const handleExitSmartCropMode = () => {
+    setSmartCropMode(false);
+    setSourceFile(null);
+    setTargetSelectedFiles(new Set);
+  };
+  const handleTargetFileToggle = (fileName) => {
+    const newTargetFiles = new Set(targetSelectedFiles);
+    if (newTargetFiles.has(fileName)) {
+      newTargetFiles.delete(fileName);
+    } else {
+      newTargetFiles.add(fileName);
+    }
+    setTargetSelectedFiles(newTargetFiles);
+  };
+  const handleCopyVisionData = async () => {
+    if (!sourceFile || !localConnectorId || targetSelectedFiles.size === 0) {
+      return;
+    }
+    try {
+      setCopyTasks([]);
+      setShowTaskModal(true);
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+      const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
+      const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
+      const sourceFileObj = files.find((f2) => f2.name === sourceFile);
+      if (!sourceFileObj) {
+        throw new Error(`Source file ${sourceFile} not found`);
+      }
+      const getVisionTaskId = `get-vision-${sourceFileObj.id}`;
+      setCopyTasks([
+        {
+          id: getVisionTaskId,
+          name: `Getting vision data from: ${sourceFile}`,
+          type: "get_vision",
+          status: "processing"
+        }
+      ]);
+      const visionResult = await getVision({
+        baseUrl,
+        connectorId: selectedConnectorId,
+        asset: sourceFileObj.id,
+        authorization: token2
+      });
+      if (!visionResult.isOk()) {
+        setCopyTasks((prev2) => prev2.map((task) => task.id === getVisionTaskId ? {
+          ...task,
+          status: "error",
+          error: visionResult.error?.message || "Failed to get vision data"
+        } : task));
+        return;
+      }
+      setCopyTasks((prev2) => prev2.map((task) => task.id === getVisionTaskId ? { ...task, status: "complete" } : task));
+      const sourceVisionData = visionResult.value;
+      for (const targetFileName of targetSelectedFiles) {
+        const targetFileObj = files.find((f2) => f2.name === targetFileName);
+        if (!targetFileObj) {
+          continue;
+        }
+        const setVisionTaskId = `set-vision-${targetFileObj.id}`;
+        setCopyTasks((prev2) => [
+          ...prev2,
+          {
+            id: setVisionTaskId,
+            name: `Copying vision data to: ${targetFileName}`,
+            type: "smart_crop_upload",
+            status: "processing"
+          }
+        ]);
+        try {
+          const setResult = await setVision({
+            baseUrl,
+            connectorId: selectedConnectorId,
+            asset: targetFileObj.id,
+            authorization: token2,
+            metadata: sourceVisionData
+          });
+          if (setResult.isOk()) {
+            setCopyTasks((prev2) => prev2.map((task) => task.id === setVisionTaskId ? { ...task, status: "complete" } : task));
+            const fileKey = `${localConnectorId}-${targetFileObj.id}`;
+            setVisionDataCache((prev2) => {
+              const newMap = new Map(prev2);
+              newMap.set(fileKey, true);
+              return newMap;
+            });
+          } else {
+            setCopyTasks((prev2) => prev2.map((task) => task.id === setVisionTaskId ? {
+              ...task,
+              status: "error",
+              error: setResult.error?.message || "Failed to set vision data"
+            } : task));
+          }
+        } catch (error41) {
+          setCopyTasks((prev2) => prev2.map((task) => task.id === setVisionTaskId ? {
+            ...task,
+            status: "error",
+            error: error41 instanceof Error ? error41.message : String(error41)
+          } : task));
+        }
+      }
+    } catch (error41) {
+      raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+    }
+  };
+  const handleSelection = async () => {
     if (localConnectorId) {
       try {
         const studioResult = await getStudio();
@@ -67000,23 +68113,43 @@ function ConnectorFolderBrowser({
     }
     const selectedConnector = connectors.find((c2) => c2.id === selectedConnectorId);
     const connectorName = selectedConnector?.name || "";
-    const selection = {
-      selectedFolders: selectedPaths,
-      connectorId: selectedConnectorId || "",
-      connectorName
-    };
-    resetState();
-    onClose(selection);
+    if (mode === 0 /* FolderSelection */) {
+      const selectedPaths = Array.from(persistentSelections);
+      const selection = {
+        selectedFolders: selectedPaths,
+        connectorId: selectedConnectorId || "",
+        connectorName
+      };
+      resetState();
+      onClose(selection);
+    } else {
+      if (selectedFile) {
+        const selection = {
+          selectedFile,
+          folderPath: currentPath,
+          connectorId: selectedConnectorId || "",
+          connectorName
+        };
+        resetState();
+        onClose(selection);
+      } else {
+        resetState();
+        onClose(null);
+      }
+    }
   };
   const renderBreadcrumbs = () => {
     const pathParts = currentPath.split("/").filter(Boolean);
     const breadcrumbItems = [
-      /* @__PURE__ */ jsx_runtime20.jsx(Anchor, {
+      /* @__PURE__ */ jsx_runtime21.jsx(Anchor, {
         onClick: () => {
           if (localConnectorId) {
             setCurrentPath("/");
             setFolders([]);
-            loadFolders(localConnectorId, "/", "");
+            if (mode === 1 /* FileSelection */ && !smartCropMode) {
+              setSelectedFile(null);
+            }
+            loadFolders(localConnectorId, selectedConnectorId, "/", "");
           }
         },
         children: "Root"
@@ -67024,276 +68157,502 @@ function ConnectorFolderBrowser({
     ];
     pathParts.forEach((part, index4) => {
       const partPath = `/${pathParts.slice(0, index4 + 1).join("/")}`;
-      breadcrumbItems.push(/* @__PURE__ */ jsx_runtime20.jsx(Anchor, {
+      breadcrumbItems.push(/* @__PURE__ */ jsx_runtime21.jsx(Anchor, {
         onClick: () => {
           if (localConnectorId) {
             setCurrentPath(partPath);
             setFolders([]);
-            loadFolders(localConnectorId, partPath, "");
+            if (mode === 1 /* FileSelection */ && !smartCropMode) {
+              setSelectedFile(null);
+            }
+            loadFolders(localConnectorId, selectedConnectorId, partPath, "");
           }
         },
         children: part
       }, partPath));
     });
-    return /* @__PURE__ */ jsx_runtime20.jsx(Breadcrumbs, {
+    return /* @__PURE__ */ jsx_runtime21.jsx(Breadcrumbs, {
       children: breadcrumbItems
     });
   };
-  return /* @__PURE__ */ jsx_runtime20.jsx(Modal, {
-    opened,
-    onClose: async () => {
-      await cleanupAndResetState();
-      onClose(null);
-    },
-    title: "Select Folders for Smart Crops",
-    fullScreen: true,
-    styles: {
-      content: {
-        height: "100vh"
-      },
-      body: {
-        padding: "2rem",
-        height: "calc(100vh - 80px)",
-        display: "flex",
-        flexDirection: "column"
-      },
-      header: {
-        padding: "1.5rem 2rem 1rem 2rem"
-      },
-      title: {
-        fontSize: "1.5rem",
-        fontWeight: 600
-      }
-    },
-    children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
-      gap: "lg",
+  const renderVisionIcon = (file2) => {
+    if (!localConnectorId)
+      return null;
+    const fileKey = `${localConnectorId}-${file2.id}`;
+    const hasVisionData = visionDataCache.get(fileKey);
+    const isLoadingVision = loadingVisionData.has(fileKey);
+    if (isLoadingVision) {
+      return /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+        size: 16
+      });
+    }
+    if (hasVisionData) {
+      return /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+        label: "Vision data available",
+        children: /* @__PURE__ */ jsx_runtime21.jsx(IconEyeCheck, {
+          size: 16,
+          color: "green"
+        })
+      });
+    }
+    return null;
+  };
+  const renderFileIcon = (file2, size5 = 24) => {
+    if (!localConnectorId)
+      return /* @__PURE__ */ jsx_runtime21.jsx(IconFile, {
+        size: size5
+      });
+    const fileKey = `${localConnectorId}-${file2.id}`;
+    const thumbnailUrl = thumbnailUrls.get(fileKey);
+    const thumbnailError = thumbnailErrors.get(fileKey);
+    const isLoading = loadingThumbnails.has(fileKey);
+    if (isLoading) {
+      return /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+        size: size5
+      });
+    }
+    if (thumbnailError) {
+      return /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+        label: thumbnailError,
+        children: /* @__PURE__ */ jsx_runtime21.jsx(IconExclamationCircle, {
+          size: size5,
+          color: "red"
+        })
+      });
+    }
+    if (thumbnailUrl) {
+      console.log(`[Render] Using thumbnail URL for ${file2.name}: ${thumbnailUrl}`);
+      return /* @__PURE__ */ jsx_runtime21.jsx("img", {
+        src: thumbnailUrl,
+        alt: file2.name,
+        style: {
+          width: size5,
+          height: size5,
+          objectFit: "cover",
+          borderRadius: "4px"
+        },
+        onLoad: () => console.log(`[Image] Successfully loaded: ${thumbnailUrl}`),
+        onError: (e) => {
+          console.error(`[Image] Failed to load: ${thumbnailUrl}`, e);
+          console.log(`[Image] Current thumbnailUrls map:`, thumbnailUrls);
+        }
+      });
+    }
+    return /* @__PURE__ */ jsx_runtime21.jsx(IconFile, {
+      size: size5
+    });
+  };
+  const renderGridView = () => {
+    return /* @__PURE__ */ jsx_runtime21.jsxs(SimpleGrid, {
+      cols: 4,
+      spacing: "md",
       children: [
-        error40 && /* @__PURE__ */ jsx_runtime20.jsx(Alert, {
-          icon: /* @__PURE__ */ jsx_runtime20.jsx(IconAlertCircle, {
-            size: "1rem"
-          }),
-          title: "Error",
-          color: "red",
-          children: error40
-        }),
-        browserState === "loading" && /* @__PURE__ */ jsx_runtime20.jsx(Center, {
-          children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
-            align: "center",
-            gap: "md",
+        folders.map((folder) => {
+          const folderPath = currentPath === "/" ? `/${folder.name}` : `${currentPath}/${folder.name}`;
+          const isSelected = selectedFolders.has(folderPath);
+          return /* @__PURE__ */ jsx_runtime21.jsxs(Card, {
+            shadow: "sm",
+            padding: "md",
+            radius: "md",
+            style: {
+              cursor: "pointer",
+              position: "relative",
+              border: isSelected ? "2px solid #228be6" : undefined
+            },
+            onClick: () => navigateToFolder(folder.name),
             children: [
-              /* @__PURE__ */ jsx_runtime20.jsx(Loader, {
-                size: "lg"
+              mode === 0 /* FolderSelection */ && /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+                checked: isSelected,
+                onChange: () => toggleFolderSelection(folder.name),
+                style: {
+                  position: "absolute",
+                  top: "8px",
+                  right: "8px"
+                },
+                onClick: (e) => e.stopPropagation()
               }),
-              /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-                children: "Loading connectors..."
+              /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                align: "center",
+                gap: "xs",
+                children: [
+                  /* @__PURE__ */ jsx_runtime21.jsx(IconFolder, {
+                    size: 32
+                  }),
+                  /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                    size: "sm",
+                    ta: "center",
+                    lineClamp: 2,
+                    children: folder.name
+                  })
+                ]
               })
             ]
-          })
+          }, folder.id);
         }),
-        browserState === "connectorSelection" && /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
-          gap: "md",
-          align: "center",
-          children: [
-            /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-              size: "md",
-              ta: "center",
-              children: "Choose a connector to browse folders"
-            }),
-            /* @__PURE__ */ jsx_runtime20.jsx(Select, {
-              label: "Choose Connector",
-              placeholder: "Select a connector",
-              data: connectors.map((c2) => ({ value: c2.id, label: c2.name })),
-              value: selectedConnectorId,
-              onChange: setSelectedConnectorId,
-              style: { width: "300px" }
-            }),
-            /* @__PURE__ */ jsx_runtime20.jsx(Button, {
-              onClick: handleConnectorSelect,
-              disabled: !selectedConnectorId,
-              loading: isLoadingFolders,
-              style: { marginLeft: "-50px" },
-              children: "Select"
-            })
-          ]
-        }),
-        browserState === "folderBrowsing" && /* @__PURE__ */ jsx_runtime20.jsxs(jsx_runtime20.Fragment, {
-          children: [
-            /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-              size: "sm",
-              c: "dimmed",
-              ta: "center",
-              children: "Select folders to copy smart crops. All files directly under the selected folders will be included. Subfolders will not be automatically included."
-            }),
-            /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
-              gap: "md",
-              children: [
-                /* @__PURE__ */ jsx_runtime20.jsx(ActionIcon, {
-                  variant: "subtle",
-                  onClick: navigateBack,
-                  disabled: currentPath === "/",
-                  children: /* @__PURE__ */ jsx_runtime20.jsx(IconArrowBigLeftFilled, {
-                    size: 20
-                  })
-                }),
-                renderBreadcrumbs()
-              ]
-            }),
-            /* @__PURE__ */ jsx_runtime20.jsx(Group, {
-              justify: "space-between",
-              align: "center",
-              children: /* @__PURE__ */ jsx_runtime20.jsxs(Text, {
-                size: "sm",
-                c: "dimmed",
+        files.map((file2) => {
+          const isSelected = selectedFile === file2.name;
+          const isSourceFile = smartCropMode && sourceFile === file2.name;
+          const isTargetSelected = smartCropMode && targetSelectedFiles.has(file2.name);
+          const isFileSelectable = mode === 1 /* FileSelection */;
+          return /* @__PURE__ */ jsx_runtime21.jsxs(Card, {
+            shadow: "sm",
+            padding: "md",
+            radius: "md",
+            style: {
+              cursor: !isFileSelectable ? "default" : smartCropMode && isSourceFile ? "default" : "pointer",
+              position: "relative",
+              border: isFileSelectable && isSelected ? "2px solid #228be6" : isFileSelectable && isTargetSelected ? "2px solid #40c057" : undefined,
+              opacity: !isFileSelectable ? 0.6 : isSourceFile ? 0.5 : 1,
+              backgroundColor: !isFileSelectable ? "#f8f9fa" : isSourceFile ? "#f8f9fa" : undefined
+            },
+            onClick: () => {
+              if (!isFileSelectable) {
+                return;
+              }
+              if (smartCropMode) {
+                if (!isSourceFile) {
+                  handleTargetFileToggle(file2.name);
+                }
+              } else {
+                handleFileSelection(file2.name);
+              }
+            },
+            children: [
+              isFileSelectable && smartCropMode && !isSourceFile && /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+                checked: isTargetSelected,
+                onChange: () => handleTargetFileToggle(file2.name),
+                style: {
+                  position: "absolute",
+                  top: "8px",
+                  right: "8px"
+                },
+                onClick: (e) => e.stopPropagation()
+              }),
+              /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                align: "center",
+                gap: "xs",
                 children: [
-                  "Files: ",
-                  fileCount
+                  renderFileIcon(file2, 32),
+                  /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                    gap: "xs",
+                    justify: "flex-end",
+                    children: [
+                      /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                        size: "sm",
+                        ta: "center",
+                        lineClamp: 2,
+                        children: file2.name
+                      }),
+                      isFileSelectable && renderVisionIcon(file2)
+                    ]
+                  })
+                ]
+              })
+            ]
+          }, file2.id);
+        }),
+        isLoadingMore && /* @__PURE__ */ jsx_runtime21.jsx(Card, {
+          shadow: "sm",
+          padding: "md",
+          radius: "md",
+          style: { opacity: 0.7 },
+          children: /* @__PURE__ */ jsx_runtime21.jsx(Center, {
+            h: "100%",
+            children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+              align: "center",
+              gap: "xs",
+              children: [
+                /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+                  size: "sm"
+                }),
+                /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                  size: "xs",
+                  c: "dimmed",
+                  children: "Loading more..."
+                })
+              ]
+            })
+          })
+        })
+      ]
+    });
+  };
+  return /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
+    children: [
+      /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+        opened,
+        onClose: async () => {
+          await cleanupAndResetState();
+          onClose(null);
+        },
+        title: mode === 0 /* FolderSelection */ ? "Select Folders for Smart Crops" : "Select File",
+        fullScreen: true,
+        styles: {
+          content: {
+            height: "100vh"
+          },
+          body: {
+            padding: "1rem",
+            height: "calc(100vh - 80px)",
+            display: "flex",
+            flexDirection: "column"
+          },
+          header: {
+            padding: "1.5rem 2rem 1rem 2rem"
+          },
+          title: {
+            fontSize: "1.5rem",
+            fontWeight: 600
+          }
+        },
+        children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+          gap: "sm",
+          children: [
+            error40 && /* @__PURE__ */ jsx_runtime21.jsx(Alert, {
+              icon: /* @__PURE__ */ jsx_runtime21.jsx(IconAlertCircle, {
+                size: "1rem"
+              }),
+              title: "Error",
+              color: "red",
+              children: error40
+            }),
+            browserState === "loading" && /* @__PURE__ */ jsx_runtime21.jsx(Center, {
+              children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                align: "center",
+                gap: "md",
+                children: [
+                  /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+                    size: "lg"
+                  }),
+                  /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                    children: "Loading connectors..."
+                  })
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime20.jsx(ScrollArea, {
-              style: { flex: 1, minHeight: "400px" },
-              children: folders.length === 0 && isLoadingFolders ? /* @__PURE__ */ jsx_runtime20.jsx(Center, {
-                h: 200,
-                children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+            browserState === "connectorSelection" && /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+              gap: "md",
+              align: "center",
+              children: [
+                /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                  size: "md",
+                  ta: "center",
+                  children: mode === 0 /* FolderSelection */ ? "Choose a connector to browse folders" : "Choose a connector to browse files"
+                }),
+                /* @__PURE__ */ jsx_runtime21.jsx(Select, {
+                  label: "Choose Connector",
+                  placeholder: "Select a connector",
+                  data: connectors.map((c2) => ({ value: c2.id, label: c2.name })),
+                  value: selectedConnectorId,
+                  onChange: setSelectedConnectorId,
+                  style: { width: "300px" }
+                }),
+                /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                  onClick: handleConnectorSelect,
+                  disabled: !selectedConnectorId,
+                  loading: isLoadingFolders,
+                  style: { marginLeft: "-50px" },
+                  children: "Select"
+                })
+              ]
+            }),
+            browserState === "folderBrowsing" && /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
+              children: [
+                /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                  justify: "space-between",
                   align: "center",
-                  gap: "md",
                   children: [
-                    /* @__PURE__ */ jsx_runtime20.jsx(Loader, {
-                      size: "lg"
+                    /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                      gap: "md",
+                      children: [
+                        /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                          variant: "subtle",
+                          onClick: navigateBack,
+                          disabled: currentPath === "/",
+                          children: /* @__PURE__ */ jsx_runtime21.jsx(IconArrowBigLeftFilled, {
+                            size: 20
+                          })
+                        }),
+                        renderBreadcrumbs()
+                      ]
                     }),
-                    /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-                      c: "dimmed",
-                      children: "Loading folders..."
+                    /* @__PURE__ */ jsx_runtime21.jsx(Select, {
+                      label: "Change Connector",
+                      placeholder: "Select a connector",
+                      data: connectors.map((c2) => ({ value: c2.id, label: c2.name })),
+                      value: selectedConnectorId,
+                      onChange: async (value) => {
+                        if (value && value !== selectedConnectorId) {
+                          setSelectedConnectorIdWithReset(value);
+                          if (localConnectorId) {
+                            try {
+                              const studioResult2 = await getStudio();
+                              if (studioResult2.isOk()) {
+                                await unregisterConnector(studioResult2.value, localConnectorId);
+                              }
+                            } catch (error41) {
+                              raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
+                            }
+                          }
+                          const studioResult = await getStudio();
+                          if (studioResult.isOk()) {
+                            await proceedWithConnector(value, studioResult.value);
+                          }
+                        }
+                      },
+                      style: { width: "250px" }
                     })
                   ]
-                })
-              }) : folders.length === 0 && !isLoadingFolders ? /* @__PURE__ */ jsx_runtime20.jsx(Center, {
-                h: 200,
-                children: /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-                  c: "dimmed",
-                  children: "No folders found"
-                })
-              }) : /* @__PURE__ */ jsx_runtime20.jsxs(SimpleGrid, {
-                cols: 4,
-                spacing: "md",
-                children: [
-                  folders.map((folder) => {
-                    const folderPath = currentPath === "/" ? `/${folder.name}` : `${currentPath}/${folder.name}`;
-                    const isSelected = selectedFolders.has(folderPath);
-                    return /* @__PURE__ */ jsx_runtime20.jsxs(Card, {
-                      shadow: "sm",
-                      padding: "md",
-                      radius: "md",
-                      style: {
-                        cursor: "pointer",
-                        position: "relative",
-                        border: isSelected ? "2px solid #228be6" : undefined
-                      },
-                      onClick: () => navigateToFolder(folder.name),
+                }),
+                mode === 1 /* FileSelection */ && selectedFile && !smartCropMode && /* @__PURE__ */ jsx_runtime21.jsx(Group, {
+                  gap: "md",
+                  children: /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    variant: "outline",
+                    size: "sm",
+                    onClick: handleEnterSmartCropMode,
+                    children: "Copy Smart Crop"
+                  })
+                }),
+                smartCropMode && /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                  gap: "md",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                      variant: "filled",
+                      size: "sm",
+                      disabled: targetSelectedFiles.size === 0,
+                      onClick: handleCopyVisionData,
+                      children: "Copy"
+                    }),
+                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                      variant: "outline",
+                      size: "sm",
+                      onClick: handleExitSmartCropMode,
+                      children: "Cancel"
+                    })
+                  ]
+                }),
+                mode === 0 /* FolderSelection */ && persistentSelections.size > 0 && /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                  justify: "space-between",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                      variant: "default",
+                      size: "sm",
+                      onClick: clearAllFolderSelections,
+                      children: "Cancel"
+                    }),
+                    /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                      gap: "md",
                       children: [
-                        /* @__PURE__ */ jsx_runtime20.jsx(Checkbox, {
-                          checked: isSelected,
-                          onChange: () => toggleFolderSelection(folder.name),
-                          style: {
-                            position: "absolute",
-                            top: "8px",
-                            right: "8px"
-                          },
-                          onClick: (e) => e.stopPropagation()
+                        currentPath !== "/" && /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                          variant: "outline",
+                          size: "sm",
+                          onClick: toggleCurrentFolderSelection,
+                          children: persistentSelections.has(currentPath) ? "Remove Current Folder" : "Add Current Folder"
                         }),
-                        /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
-                          align: "center",
-                          gap: "xs",
+                        /* @__PURE__ */ jsx_runtime21.jsxs(Button, {
+                          size: "sm",
+                          onClick: handleSelection,
+                          disabled: persistentSelections.size === 0,
                           children: [
-                            /* @__PURE__ */ jsx_runtime20.jsx(IconFolder, {
-                              size: 32
-                            }),
-                            /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-                              size: "sm",
-                              ta: "center",
-                              lineClamp: 2,
-                              children: folder.name
-                            })
+                            "Select (",
+                            persistentSelections.size,
+                            ")"
                           ]
                         })
                       ]
-                    }, folder.id);
-                  }),
-                  isLoadingFolders && folders.length > 0 && /* @__PURE__ */ jsx_runtime20.jsx(Card, {
-                    shadow: "sm",
-                    padding: "md",
-                    radius: "md",
-                    style: { opacity: 0.7 },
-                    children: /* @__PURE__ */ jsx_runtime20.jsx(Center, {
-                      h: "100%",
-                      children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
-                        align: "center",
+                    })
+                  ]
+                }),
+                /* @__PURE__ */ jsx_runtime21.jsx("div", {
+                  style: { flex: 1, minHeight: "500px" },
+                  children: folders.length === 0 && isLoadingFolders ? /* @__PURE__ */ jsx_runtime21.jsx(Center, {
+                    h: 200,
+                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                      align: "center",
+                      gap: "md",
+                      children: [
+                        /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+                          size: "lg"
+                        }),
+                        /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                          c: "dimmed",
+                          children: "Loading folders..."
+                        })
+                      ]
+                    })
+                  }) : folders.length === 0 && files.length === 0 && !isLoadingFolders ? /* @__PURE__ */ jsx_runtime21.jsx(Center, {
+                    h: 200,
+                    children: /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                      c: "dimmed",
+                      children: mode === 0 /* FolderSelection */ ? "No folders found" : "No folders or files found"
+                    })
+                  }) : displayMode === "list" ? /* @__PURE__ */ jsx_runtime21.jsxs("div", {
+                    style: { height: "800px", minHeight: "500px" },
+                    children: [
+                      /* @__PURE__ */ jsx_runtime21.jsx(FixedSizeList, {
+                        height: 800,
+                        width: "100%",
+                        itemCount: folders.length + files.length,
+                        itemSize,
+                        onItemsRendered: handleItemsRendered,
+                        children: ListItem2
+                      }),
+                      isLoadingMore && /* @__PURE__ */ jsx_runtime21.jsx(Card, {
+                        shadow: "sm",
+                        padding: "md",
+                        radius: "md",
+                        style: { opacity: 0.7, margin: "2px" },
+                        children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                          gap: "md",
+                          align: "center",
+                          children: [
+                            /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+                              size: "sm"
+                            }),
+                            /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                              size: "sm",
+                              c: "dimmed",
+                              children: "Loading more..."
+                            })
+                          ]
+                        })
+                      })
+                    ]
+                  }) : renderGridView()
+                }),
+                mode === 0 /* FolderSelection */ && persistentSelections.size > 0 && /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                  gap: "xs",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                      size: "sm",
+                      fw: 500,
+                      children: "Selected folders:"
+                    }),
+                    /* @__PURE__ */ jsx_runtime21.jsx(ScrollArea, {
+                      h: 80,
+                      children: /* @__PURE__ */ jsx_runtime21.jsx(Stack, {
                         gap: "xs",
-                        children: [
-                          /* @__PURE__ */ jsx_runtime20.jsx(Loader, {
-                            size: "sm"
-                          }),
-                          /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-                            size: "xs",
-                            c: "dimmed",
-                            children: "Loading..."
-                          })
-                        ]
+                        children: Array.from(persistentSelections).map((path) => /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                          size: "xs",
+                          c: "dimmed",
+                          children: path
+                        }, path))
                       })
                     })
-                  })
-                ]
-              })
-            }),
-            persistentSelections.size > 0 && /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
-              gap: "xs",
-              children: [
-                /* @__PURE__ */ jsx_runtime20.jsx(Text, {
-                  size: "sm",
-                  fw: 500,
-                  children: "Selected folders:"
+                  ]
                 }),
-                /* @__PURE__ */ jsx_runtime20.jsx(ScrollArea, {
-                  h: 80,
-                  children: /* @__PURE__ */ jsx_runtime20.jsx(Stack, {
-                    gap: "xs",
-                    children: Array.from(persistentSelections).map((path) => /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+                mode === 1 /* FileSelection */ && selectedFile && /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                  gap: "xs",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                      size: "sm",
+                      fw: 500,
+                      children: "Selected file:"
+                    }),
+                    /* @__PURE__ */ jsx_runtime21.jsx(Text, {
                       size: "xs",
                       c: "dimmed",
-                      children: path
-                    }, path))
-                  })
-                })
-              ]
-            }),
-            /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
-              justify: "space-between",
-              mt: "xl",
-              children: [
-                /* @__PURE__ */ jsx_runtime20.jsx(Button, {
-                  variant: "default",
-                  onClick: async () => {
-                    await cleanupAndResetState();
-                    onClose(null);
-                  },
-                  children: "Cancel"
-                }),
-                /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
-                  gap: "md",
-                  children: [
-                    currentPath !== "/" && /* @__PURE__ */ jsx_runtime20.jsx(Button, {
-                      variant: "outline",
-                      onClick: toggleCurrentFolderSelection,
-                      children: persistentSelections.has(currentPath) ? "Remove Current Folder" : "Add Current Folder"
-                    }),
-                    /* @__PURE__ */ jsx_runtime20.jsxs(Button, {
-                      onClick: handleSelectFolders,
-                      disabled: persistentSelections.size === 0,
-                      children: [
-                        "Select (",
-                        persistentSelections.size,
-                        ")"
-                      ]
+                      children: selectedFile
                     })
                   ]
                 })
@@ -67301,14 +68660,39 @@ function ConnectorFolderBrowser({
             })
           ]
         })
-      ]
-    })
+      }),
+      /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+        opened: showTaskModal,
+        onClose: () => {
+          const allComplete = copyTasks.every((task) => task.status === "complete" || task.status === "error" || task.status === "info");
+          if (allComplete) {
+            setShowTaskModal(false);
+            setCopyTasks([]);
+            handleExitSmartCropMode();
+          }
+        },
+        title: "Copying Vision Data",
+        size: "lg",
+        closeOnClickOutside: false,
+        closeOnEscape: false,
+        children: /* @__PURE__ */ jsx_runtime21.jsx(DownloadTasksScreen, {
+          downloadFiles: [],
+          tasks: copyTasks,
+          uploadTasks: [],
+          onClose: () => {
+            setShowTaskModal(false);
+            setCopyTasks([]);
+            handleExitSmartCropMode();
+          }
+        })
+      })
+    ]
   });
 }
 
 // src/components/ConnectorSelectionModal.tsx
-var import_react261 = __toESM(require_react(), 1);
-var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
+var import_react262 = __toESM(require_react(), 1);
+var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
 function ConnectorSelectionModal({
   opened,
   onClose,
@@ -67316,8 +68700,8 @@ function ConnectorSelectionModal({
   smartCropsConnectorName,
   onSelect
 }) {
-  const [selectedConnectorId, setSelectedConnectorId] = import_react261.useState("");
-  import_react261.useEffect(() => {
+  const [selectedConnectorId, setSelectedConnectorId] = import_react262.useState("");
+  import_react262.useEffect(() => {
     if (opened && smartCropsConnectorName) {
       const matchingConnector = connectors.find((connector) => connector.name === smartCropsConnectorName);
       if (matchingConnector) {
@@ -67325,7 +68709,7 @@ function ConnectorSelectionModal({
       }
     }
   }, [opened, smartCropsConnectorName, connectors]);
-  import_react261.useEffect(() => {
+  import_react262.useEffect(() => {
     if (!opened) {
       setSelectedConnectorId("");
     }
@@ -67340,7 +68724,7 @@ function ConnectorSelectionModal({
     setSelectedConnectorId("");
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
     opened,
     onClose: handleClose,
     title: "Select Connector for Smart Crops",
@@ -67361,14 +68745,14 @@ function ConnectorSelectionModal({
         fontWeight: 600
       }
     },
-    children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
       gap: "xl",
       children: [
-        /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime22.jsx(Text, {
           size: "md",
           children: "Select the connector where you want to upload the smart crops data:"
         }),
-        /* @__PURE__ */ jsx_runtime21.jsx(Select, {
+        /* @__PURE__ */ jsx_runtime22.jsx(Select, {
           label: "Connector",
           placeholder: "Choose a connector",
           data: connectors.map((connector) => ({
@@ -67380,16 +68764,16 @@ function ConnectorSelectionModal({
           searchable: true,
           required: true
         }),
-        /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime22.jsx(Button, {
               variant: "outline",
               onClick: handleClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime22.jsx(Button, {
               onClick: handleContinue,
               disabled: !selectedConnectorId,
               color: "blue",
@@ -67403,8 +68787,8 @@ function ConnectorSelectionModal({
 }
 
 // src/components/DownloadModal/ReplaceConnectorsModal.tsx
-var import_react262 = __toESM(require_react(), 1);
-var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+var import_react263 = __toESM(require_react(), 1);
+var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
 function ReplaceConnectorsModal({
   opened,
   onClose,
@@ -67412,9 +68796,9 @@ function ReplaceConnectorsModal({
   availableConnectors,
   onReplace
 }) {
-  const [replacements, setReplacements] = import_react262.useState({});
-  const [replacementMap, setReplacementMap] = import_react262.useState(new Map);
-  import_react262.useEffect(() => {
+  const [replacements, setReplacements] = import_react263.useState({});
+  const [replacementMap, setReplacementMap] = import_react263.useState(new Map);
+  import_react263.useEffect(() => {
     if (opened && connectorsToReplace.length > 0) {
       const connectorsSources = new Map;
       for (const connector of connectorsToReplace) {
@@ -67435,7 +68819,7 @@ function ReplaceConnectorsModal({
       setReplacementMap(newReplacementMap);
     }
   }, [opened, connectorsToReplace, availableConnectors]);
-  import_react262.useEffect(() => {
+  import_react263.useEffect(() => {
     if (!opened) {
       setReplacements({});
       setReplacementMap(new Map);
@@ -67467,7 +68851,7 @@ function ReplaceConnectorsModal({
     setReplacements({});
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
     opened,
     onClose: handleClose,
     title: "Replace Connectors",
@@ -67488,42 +68872,42 @@ function ReplaceConnectorsModal({
         fontWeight: 600
       }
     },
-    children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
       gap: "xl",
       children: [
-        /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime23.jsx(Text, {
           size: "md",
           children: "The following connectors from the document need to be replaced with available connectors:"
         }),
-        /* @__PURE__ */ jsx_runtime22.jsxs(Table, {
+        /* @__PURE__ */ jsx_runtime23.jsxs(Table, {
           children: [
-            /* @__PURE__ */ jsx_runtime22.jsx(Table.Thead, {
-              children: /* @__PURE__ */ jsx_runtime22.jsxs(Table.Tr, {
+            /* @__PURE__ */ jsx_runtime23.jsx(Table.Thead, {
+              children: /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
                     children: "Document Connector"
                   }),
-                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
                     children: "Original ID"
                   }),
-                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
                     children: "Replace With"
                   })
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime22.jsx(Table.Tbody, {
-              children: Array.from(replacementMap.entries()).map(([connectorId, connector]) => /* @__PURE__ */ jsx_runtime22.jsxs(Table.Tr, {
+            /* @__PURE__ */ jsx_runtime23.jsx(Table.Tbody, {
+              children: Array.from(replacementMap.entries()).map(([connectorId, connector]) => /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
+                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
                     children: connector.name
                   }),
-                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
+                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
                     style: { fontFamily: "monospace", fontSize: "0.8rem" },
                     children: connectorId
                   }),
-                  /* @__PURE__ */ jsx_runtime22.jsx(Table.Td, {
-                    children: /* @__PURE__ */ jsx_runtime22.jsx(Select, {
+                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                    children: /* @__PURE__ */ jsx_runtime23.jsx(Select, {
                       data: availableConnectors.map((c2) => ({
                         value: c2.id,
                         label: c2.name
@@ -67540,16 +68924,16 @@ function ReplaceConnectorsModal({
             })
           ]
         }),
-        /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime23.jsx(Button, {
               variant: "outline",
               onClick: handleClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime23.jsx(Button, {
               onClick: handleContinue,
               disabled: !allSelected,
               color: "blue",
@@ -67562,25 +68946,309 @@ function ReplaceConnectorsModal({
   });
 }
 
+// src/components/DownloadModal/DefaultSettingsModal.tsx
+var import_react264 = __toESM(require_react(), 1);
+var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+function DefaultSettingsModal({
+  opened,
+  onClose
+}) {
+  const raiseError2 = appStore((store) => store.raiseError);
+  const [error40, setError] = import_react264.useState(null);
+  const [isLoading, setIsLoading] = import_react264.useState(false);
+  const [isSaving, setIsSaving] = import_react264.useState(false);
+  const [folderBrowserOpened, setFolderBrowserOpened] = import_react264.useState(false);
+  const [defaultSettings, setDefaultSettings] = import_react264.useState({
+    includeFonts: true,
+    includeGrafxMedia: false,
+    includeSmartCrops: false,
+    removeToolbarData: false,
+    removeUnusedConnectors: false,
+    useOriginalFontFileNames: false,
+    addTimestamp: true
+  });
+  import_react264.useEffect(() => {
+    if (opened) {
+      loadDefaultSettings();
+    }
+  }, [opened]);
+  const loadDefaultSettings = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const toolbarDataResult = await loadToolbarDataFromDoc();
+      if (toolbarDataResult.isOk()) {
+        const toolbarData = toolbarDataResult.value;
+        if (toolbarData.defaultDownloadSettings) {
+          setDefaultSettings(toolbarData.defaultDownloadSettings);
+        }
+      } else {
+        console.warn("Failed to load toolbar data, using defaults");
+      }
+    } catch (error41) {
+      console.warn("Error loading default settings:", error41);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleSettingChange = (setting, value) => {
+    setDefaultSettings((prev2) => ({
+      ...prev2,
+      [setting]: value
+    }));
+    if (setting === "includeSmartCrops" && !value) {
+      setDefaultSettings((prev2) => ({
+        ...prev2,
+        smartCropsConnectorSelection: undefined
+      }));
+    }
+  };
+  const handleFolderSelection = (selection) => {
+    setDefaultSettings((prev2) => ({
+      ...prev2,
+      smartCropsConnectorSelection: selection || undefined
+    }));
+    setFolderBrowserOpened(false);
+  };
+  const handleRemoveFolderPath = (pathToRemove) => {
+    setDefaultSettings((prev2) => {
+      if (!prev2.smartCropsConnectorSelection)
+        return prev2;
+      const updatedFolders = prev2.smartCropsConnectorSelection.selectedFolders.filter((path) => path !== pathToRemove);
+      if (updatedFolders.length === 0) {
+        return {
+          ...prev2,
+          smartCropsConnectorSelection: undefined
+        };
+      }
+      return {
+        ...prev2,
+        smartCropsConnectorSelection: {
+          ...prev2.smartCropsConnectorSelection,
+          selectedFolders: updatedFolders
+        }
+      };
+    });
+  };
+  const handleSave = async () => {
+    setIsSaving(true);
+    setError(null);
+    try {
+      const saveResult = await saveToolbarDataToDoc("defaultDownloadSettings", defaultSettings);
+      if (saveResult.isOk()) {
+        onClose();
+      } else {
+        setError(saveResult.error?.message || "Failed to save default settings");
+      }
+    } catch (error41) {
+      const errorMessage = error41 instanceof Error ? error41.message : String(error41);
+      setError(errorMessage);
+      raiseError2(error41 instanceof Error ? error41 : new Error(errorMessage));
+    } finally {
+      setIsSaving(false);
+    }
+  };
+  const handleClose = () => {
+    setError(null);
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime24.jsxs(jsx_runtime24.Fragment, {
+    children: [
+      /* @__PURE__ */ jsx_runtime24.jsx(Modal, {
+        opened,
+        onClose: handleClose,
+        title: "Default Download Settings for Template",
+        size: "lg",
+        styles: {
+          title: {
+            fontSize: "1.5rem",
+            fontWeight: 600
+          }
+        },
+        children: /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+          gap: "xl",
+          children: [
+            /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+              size: "md",
+              style: { textAlign: "center", marginBottom: "1rem" },
+              children: "Configure default settings for downloads with this template. These settings will be used as defaults when you start a new download with this template."
+            }),
+            error40 && /* @__PURE__ */ jsx_runtime24.jsx(Alert, {
+              icon: /* @__PURE__ */ jsx_runtime24.jsx(IconAlertCircle, {
+                size: "1rem"
+              }),
+              title: "Error",
+              color: "red",
+              style: { marginBottom: "1rem" },
+              children: error40
+            }),
+            isLoading ? /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+              size: "sm",
+              c: "dimmed",
+              style: { textAlign: "center" },
+              children: "Loading current settings..."
+            }) : /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+              gap: "md",
+              children: [
+                /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                  label: "Include fonts",
+                  checked: defaultSettings.includeFonts,
+                  onChange: (event) => handleSettingChange("includeFonts", event.currentTarget.checked)
+                }),
+                defaultSettings.includeFonts && /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                  label: "Use original font file names (Default: unchecked because duplicate font names will cause false positives of missing files during upload)",
+                  checked: defaultSettings.useOriginalFontFileNames,
+                  onChange: (event) => handleSettingChange("useOriginalFontFileNames", event.currentTarget.checked),
+                  style: { marginLeft: "40px" }
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+                  gap: "xs",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                      label: "Include GraFx Media",
+                      checked: defaultSettings.includeGrafxMedia,
+                      onChange: (event) => handleSettingChange("includeGrafxMedia", event.currentTarget.checked)
+                    }),
+                    defaultSettings.includeGrafxMedia && /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                      size: "sm",
+                      c: "red",
+                      children: "Not implemented"
+                    })
+                  ]
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                  gap: "xs",
+                  children: [
+                    /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                      label: "Include smart crops",
+                      checked: defaultSettings.includeSmartCrops,
+                      onChange: (event) => handleSettingChange("includeSmartCrops", event.currentTarget.checked)
+                    }),
+                    defaultSettings.includeSmartCrops && /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                      gap: "xs",
+                      style: { marginLeft: "1.5rem" },
+                      children: [
+                        /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                          variant: "outline",
+                          size: "sm",
+                          style: { width: "fit-content" },
+                          onClick: () => setFolderBrowserOpened(true),
+                          children: "Add folders"
+                        }),
+                        defaultSettings.smartCropsConnectorSelection && defaultSettings.smartCropsConnectorSelection.selectedFolders.length > 0 && /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                          gap: "xs",
+                          children: [
+                            /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                              size: "xs",
+                              fw: 500,
+                              children: "Selected folders:"
+                            }),
+                            defaultSettings.smartCropsConnectorSelection.selectedFolders.map((path, index4) => /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+                              gap: "xs",
+                              style: { marginLeft: "0.5rem" },
+                              children: [
+                                /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+                                  size: "xs",
+                                  variant: "subtle",
+                                  color: "red",
+                                  onClick: () => handleRemoveFolderPath(path),
+                                  children: /* @__PURE__ */ jsx_runtime24.jsx(IconCircleX, {
+                                    size: 12
+                                  })
+                                }),
+                                /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                                  size: "xs",
+                                  c: "dimmed",
+                                  style: { flex: 1 },
+                                  children: path
+                                })
+                              ]
+                            }, index4))
+                          ]
+                        })
+                      ]
+                    })
+                  ]
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                  label: "Add timestamp to folder name",
+                  checked: defaultSettings.addTimestamp,
+                  onChange: (event) => handleSettingChange("addTimestamp", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                  label: "Remove Toolbar data",
+                  checked: defaultSettings.removeToolbarData,
+                  onChange: (event) => handleSettingChange("removeToolbarData", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Title, {
+                  order: 5,
+                  children: "Experimental"
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Tooltip, {
+                  label: "Experimental: May cause issues with your document",
+                  position: "right",
+                  withArrow: true,
+                  children: /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                    label: "Remove unused Connectors",
+                    color: "red",
+                    checked: defaultSettings.removeUnusedConnectors,
+                    onChange: (event) => handleSettingChange("removeUnusedConnectors", event.currentTarget.checked)
+                  })
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+              justify: "space-between",
+              mt: "xl",
+              children: [
+                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  variant: "default",
+                  onClick: handleClose,
+                  disabled: isSaving,
+                  children: "Cancel"
+                }),
+                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  onClick: handleSave,
+                  color: "blue",
+                  loading: isSaving,
+                  disabled: isLoading,
+                  children: "Save Default Settings"
+                })
+              ]
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime24.jsx(ImageBrowser, {
+        opened: folderBrowserOpened,
+        mode: 0 /* FolderSelection */,
+        initialSelection: defaultSettings.smartCropsConnectorSelection,
+        onClose: handleFolderSelection
+      })
+    ]
+  });
+}
+
 // src/components/DownloadModal/InitialScreen.tsx
-var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
 function InitialScreen({
   error: error40,
   onDownload,
   onUpload,
   onJsonDownload,
-  onJsonUpload
+  onJsonUpload,
+  onDefaultSettings
 }) {
-  return /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+  return /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
     gap: "xl",
     children: [
-      /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime25.jsx(Text, {
         size: "md",
         style: { textAlign: "center", marginBottom: "1rem" },
         children: "Choose an action for document management."
       }),
-      error40 && /* @__PURE__ */ jsx_runtime23.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime23.jsx(IconAlertCircle, {
+      error40 && /* @__PURE__ */ jsx_runtime25.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime25.jsx(IconAlertCircle, {
           size: "1rem"
         }),
         title: "Error",
@@ -67588,12 +69256,12 @@ function InitialScreen({
         style: { marginBottom: "1rem" },
         children: error40
       }),
-      /* @__PURE__ */ jsx_runtime23.jsxs(SimpleGrid, {
+      /* @__PURE__ */ jsx_runtime25.jsxs(SimpleGrid, {
         cols: 2,
         spacing: "xl",
         style: { marginTop: "1rem" },
         children: [
-          /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime25.jsx(Button, {
             onClick: onDownload,
             color: "blue",
             fullWidth: true,
@@ -67603,20 +69271,20 @@ function InitialScreen({
               fontSize: "1rem",
               fontWeight: 500
             },
-            children: /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+            children: /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
               gap: "md",
               style: { flexDirection: "column" },
               children: [
-                /* @__PURE__ */ jsx_runtime23.jsx(IconDownload, {
+                /* @__PURE__ */ jsx_runtime25.jsx(IconDownload, {
                   size: 28
                 }),
-                /* @__PURE__ */ jsx_runtime23.jsx("span", {
+                /* @__PURE__ */ jsx_runtime25.jsx("span", {
                   children: "Download"
                 })
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime25.jsx(Button, {
             onClick: onUpload,
             color: "green",
             fullWidth: true,
@@ -67626,14 +69294,14 @@ function InitialScreen({
               fontSize: "1rem",
               fontWeight: 500
             },
-            children: /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+            children: /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
               gap: "md",
               style: { flexDirection: "column" },
               children: [
-                /* @__PURE__ */ jsx_runtime23.jsx(IconUpload, {
+                /* @__PURE__ */ jsx_runtime25.jsx(IconUpload, {
                   size: 28
                 }),
-                /* @__PURE__ */ jsx_runtime23.jsx("span", {
+                /* @__PURE__ */ jsx_runtime25.jsx("span", {
                   children: "Upload"
                 })
               ]
@@ -67641,39 +69309,56 @@ function InitialScreen({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+      /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
         gap: "xs",
         mt: "md",
         children: [
-          /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime25.jsx(Text, {
             size: "sm",
             fw: 500,
             c: "dimmed",
             children: "Quick Actions:"
           }),
-          /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
-            justify: "flex-start",
+          /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+            justify: "space-between",
             children: [
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
-                label: "Download document JSON",
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
-                  onClick: onJsonDownload,
-                  color: "gray",
-                  variant: "subtle",
-                  size: "lg",
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconFileDownload, {
-                    size: 20
+              /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+                justify: "flex-start",
+                children: [
+                  /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+                    label: "Download document JSON",
+                    children: /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+                      onClick: onJsonDownload,
+                      color: "gray",
+                      variant: "subtle",
+                      size: "lg",
+                      children: /* @__PURE__ */ jsx_runtime25.jsx(IconFileDownload, {
+                        size: 20
+                      })
+                    })
+                  }),
+                  /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+                    label: "Upload document JSON",
+                    children: /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+                      onClick: onJsonUpload,
+                      color: "gray",
+                      variant: "subtle",
+                      size: "lg",
+                      children: /* @__PURE__ */ jsx_runtime25.jsx(IconFileUpload, {
+                        size: 20
+                      })
+                    })
                   })
-                })
+                ]
               }),
-              /* @__PURE__ */ jsx_runtime23.jsx(Tooltip, {
-                label: "Upload document JSON",
-                children: /* @__PURE__ */ jsx_runtime23.jsx(ActionIcon, {
-                  onClick: onJsonUpload,
+              /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+                label: "Default Settings",
+                children: /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+                  onClick: onDefaultSettings,
                   color: "gray",
                   variant: "subtle",
                   size: "lg",
-                  children: /* @__PURE__ */ jsx_runtime23.jsx(IconFileUpload, {
+                  children: /* @__PURE__ */ jsx_runtime25.jsx(IconSettings, {
                     size: 20
                   })
                 })
@@ -67687,7 +69372,7 @@ function InitialScreen({
 }
 
 // src/components/DownloadModal/DownloadSettingsScreen.tsx
-var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
 function DownloadSettingsScreen({
   error: error40,
   folderName,
@@ -67702,16 +69387,16 @@ function DownloadSettingsScreen({
   onBack,
   onDownload
 }) {
-  return /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+  return /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
     gap: "xl",
     children: [
-      /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
         size: "md",
         style: { textAlign: "center", marginBottom: "1rem" },
         children: "Download Settings"
       }),
-      error40 && /* @__PURE__ */ jsx_runtime24.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime24.jsx(IconAlertCircle, {
+      error40 && /* @__PURE__ */ jsx_runtime26.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime26.jsx(IconAlertCircle, {
           size: "1rem"
         }),
         title: "Error",
@@ -67719,10 +69404,10 @@ function DownloadSettingsScreen({
         style: { marginBottom: "1rem" },
         children: error40
       }),
-      /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+      /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
         gap: "md",
         children: [
-          /* @__PURE__ */ jsx_runtime24.jsx(TextInput, {
+          /* @__PURE__ */ jsx_runtime26.jsx(TextInput, {
             label: "Folder Name",
             value: folderName,
             onChange: (event) => onFolderNameChange(event.currentTarget.value),
@@ -67730,20 +69415,20 @@ function DownloadSettingsScreen({
             placeholder: "Enter folder name",
             description: "Only letters, numbers, hyphens, and underscores are allowed"
           }),
-          /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+          /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
             label: "Add Timestamp",
             checked: downloadSettings.addTimestamp,
             onChange: (event) => onSettingChange("addTimestamp", event.currentTarget.checked)
           }),
-          /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+          /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
             gap: "xs",
             children: [
-              /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+              /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
                 label: `Include fonts${downloadSettings.includeFonts && fontStylesCount > 0 ? ` (${fontStylesCount} styles)` : ""}`,
                 checked: downloadSettings.includeFonts,
                 onChange: (event) => onSettingChange("includeFonts", event.currentTarget.checked)
               }),
-              downloadSettings.includeFonts && /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+              downloadSettings.includeFonts && /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
                 label: "Use original font file names (Default: unchecked because duplicate font names will cause false positives of missing files during upload)",
                 checked: downloadSettings.useOriginalFontFileNames,
                 onChange: (event) => onSettingChange("useOriginalFontFileNames", event.currentTarget.checked),
@@ -67751,62 +69436,62 @@ function DownloadSettingsScreen({
               })
             ]
           }),
-          /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
             gap: "xs",
             children: [
-              /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+              /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
                 label: "Include GraFx Media",
                 checked: downloadSettings.includeGrafxMedia,
                 onChange: (event) => onSettingChange("includeGrafxMedia", event.currentTarget.checked)
               }),
-              downloadSettings.includeGrafxMedia && /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+              downloadSettings.includeGrafxMedia && /* @__PURE__ */ jsx_runtime26.jsx(Text, {
                 size: "sm",
                 c: "red",
                 children: "Not implemented"
               })
             ]
           }),
-          /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+          /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
             gap: "xs",
             children: [
-              /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+              /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
                 label: "Include smart crops",
                 checked: downloadSettings.includeSmartCrops,
                 onChange: (event) => onSettingChange("includeSmartCrops", event.currentTarget.checked)
               }),
-              downloadSettings.includeSmartCrops && /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+              downloadSettings.includeSmartCrops && /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
                 gap: "xs",
                 style: { marginLeft: "1.5rem" },
                 children: [
-                  /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime26.jsx(Button, {
                     variant: "outline",
                     size: "sm",
                     style: { width: "fit-content" },
                     onClick: onAddFolder,
                     children: "Add folders"
                   }),
-                  connectorSelection && connectorSelection.selectedFolders.length > 0 && /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                  connectorSelection && connectorSelection.selectedFolders.length > 0 && /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
                     gap: "xs",
                     children: [
-                      /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
                         size: "xs",
                         fw: 500,
                         children: "Selected folders:"
                       }),
-                      connectorSelection.selectedFolders.map((path, index4) => /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+                      connectorSelection.selectedFolders.map((path, index4) => /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
                         gap: "xs",
                         style: { marginLeft: "0.5rem" },
                         children: [
-                          /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+                          /* @__PURE__ */ jsx_runtime26.jsx(ActionIcon, {
                             size: "xs",
                             variant: "subtle",
                             color: "red",
                             onClick: () => onRemoveFolderPath(path),
-                            children: /* @__PURE__ */ jsx_runtime24.jsx(IconCircleX, {
+                            children: /* @__PURE__ */ jsx_runtime26.jsx(IconCircleX, {
                               size: 12
                             })
                           }),
-                          /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                          /* @__PURE__ */ jsx_runtime26.jsx(Text, {
                             size: "xs",
                             c: "dimmed",
                             style: { flex: 1 },
@@ -67820,20 +69505,20 @@ function DownloadSettingsScreen({
               })
             ]
           }),
-          /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+          /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
             label: "Remove Toolbar data",
             checked: downloadSettings.removeToolbarData,
             onChange: (event) => onSettingChange("removeToolbarData", event.currentTarget.checked)
           }),
-          /* @__PURE__ */ jsx_runtime24.jsx(Title, {
+          /* @__PURE__ */ jsx_runtime26.jsx(Title, {
             order: 5,
             children: "Experimental"
           }),
-          /* @__PURE__ */ jsx_runtime24.jsx(Tooltip, {
+          /* @__PURE__ */ jsx_runtime26.jsx(Tooltip, {
             label: "Experimental: May cause issues with your document",
             position: "right",
             withArrow: true,
-            children: /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+            children: /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
               label: "Remove unused Connectors",
               color: "red",
               checked: downloadSettings.removeUnusedConnectors,
@@ -67841,140 +69526,6 @@ function DownloadSettingsScreen({
             })
           })
         ]
-      }),
-      /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
-        justify: "space-between",
-        mt: "xl",
-        children: [
-          /* @__PURE__ */ jsx_runtime24.jsx(Button, {
-            variant: "default",
-            onClick: onBack,
-            children: "Back"
-          }),
-          /* @__PURE__ */ jsx_runtime24.jsx(Button, {
-            onClick: onDownload,
-            color: "blue",
-            children: "Download"
-          })
-        ]
-      })
-    ]
-  });
-}
-
-// src/components/DownloadModal/DownloadTasksScreen.tsx
-var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
-function DownloadTasksScreen({
-  downloadFiles,
-  tasks,
-  uploadTasks,
-  onClose
-}) {
-  const allTasks = [
-    ...downloadFiles.map((file2) => ({
-      id: file2.id,
-      name: `Downloading: ${file2.name}`,
-      type: "download",
-      status: file2.status === "downloading" ? "processing" : file2.status,
-      error: file2.error
-    })),
-    ...tasks,
-    ...uploadTasks
-  ];
-  const allComplete = allTasks.every((task) => task.status === "complete" || task.status === "error" || task.status === "info");
-  return /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
-    gap: "xl",
-    children: [
-      /* @__PURE__ */ jsx_runtime25.jsx(Text, {
-        size: "md",
-        style: { textAlign: "center", marginBottom: "1rem" },
-        children: "Processing Tasks"
-      }),
-      /* @__PURE__ */ jsx_runtime25.jsx(List, {
-        spacing: "md",
-        size: "sm",
-        children: allTasks.map((task) => /* @__PURE__ */ jsx_runtime25.jsx(List.Item, {
-          icon: task.status === "pending" || task.status === "processing" ? /* @__PURE__ */ jsx_runtime25.jsx(Loader, {
-            size: "sm"
-          }) : task.status === "complete" ? /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
-            label: "Successfully completed",
-            children: /* @__PURE__ */ jsx_runtime25.jsx(IconCircleCheckFilled, {
-              size: 20,
-              color: "green"
-            })
-          }) : task.status === "info" ? /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
-            label: task.tooltip || "Information",
-            children: /* @__PURE__ */ jsx_runtime25.jsx(IconInfoCircleFilled, {
-              size: 20,
-              color: "blue"
-            })
-          }) : /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
-            label: task.error || "Task failed",
-            children: /* @__PURE__ */ jsx_runtime25.jsx(IconExclamationCircle, {
-              size: 20,
-              color: "red"
-            })
-          }),
-          children: /* @__PURE__ */ jsx_runtime25.jsx(Text, {
-            size: "sm",
-            children: task.name
-          })
-        }, task.id))
-      }),
-      allComplete && /* @__PURE__ */ jsx_runtime25.jsx(Group, {
-        justify: "center",
-        mt: "xl",
-        children: /* @__PURE__ */ jsx_runtime25.jsx(Button, {
-          onClick: onClose,
-          color: "blue",
-          children: "Close"
-        })
-      })
-    ]
-  });
-}
-
-// src/components/DownloadModal/UploadTasksScreen.tsx
-var import_react263 = __toESM(require_react(), 1);
-var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
-function UploadTasksScreen({
-  error: error40,
-  onBack,
-  onContinue
-}) {
-  const [dontShowAgain, setDontShowAgain] = import_react263.useState(false);
-  const handleContinue = () => {
-    if (dontShowAgain) {
-      localStorage.setItem("tempSlowUploadInstructions", "true");
-    }
-    onContinue();
-  };
-  return /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
-    gap: "xl",
-    children: [
-      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
-        size: "md",
-        style: { textAlign: "center", marginBottom: "1rem" },
-        children: "Upload Instructions"
-      }),
-      error40 && /* @__PURE__ */ jsx_runtime26.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime26.jsx(IconAlertCircle, {
-          size: "1rem"
-        }),
-        title: "Error",
-        color: "red",
-        style: { marginBottom: "1rem" },
-        children: error40
-      }),
-      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
-        size: "md",
-        style: { textAlign: "center" },
-        children: "Please choose the folder that contains your package.json."
-      }),
-      /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
-        label: "Don't show this message again",
-        checked: dontShowAgain,
-        onChange: (event) => setDontShowAgain(event.currentTarget.checked)
       }),
       /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
         justify: "space-between",
@@ -67986,6 +69537,68 @@ function UploadTasksScreen({
             children: "Back"
           }),
           /* @__PURE__ */ jsx_runtime26.jsx(Button, {
+            onClick: onDownload,
+            color: "blue",
+            children: "Download"
+          })
+        ]
+      })
+    ]
+  });
+}
+
+// src/components/DownloadModal/UploadTasksScreen.tsx
+var import_react265 = __toESM(require_react(), 1);
+var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
+function UploadTasksScreen({
+  error: error40,
+  onBack,
+  onContinue
+}) {
+  const [dontShowAgain, setDontShowAgain] = import_react265.useState(false);
+  const handleContinue = () => {
+    if (dontShowAgain) {
+      localStorage.setItem("tempSlowUploadInstructions", "true");
+    }
+    onContinue();
+  };
+  return /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+    gap: "xl",
+    children: [
+      /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center", marginBottom: "1rem" },
+        children: "Upload Instructions"
+      }),
+      error40 && /* @__PURE__ */ jsx_runtime27.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime27.jsx(IconAlertCircle, {
+          size: "1rem"
+        }),
+        title: "Error",
+        color: "red",
+        style: { marginBottom: "1rem" },
+        children: error40
+      }),
+      /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center" },
+        children: "Please choose the folder that contains your package.json."
+      }),
+      /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
+        label: "Don't show this message again",
+        checked: dontShowAgain,
+        onChange: (event) => setDontShowAgain(event.currentTarget.checked)
+      }),
+      /* @__PURE__ */ jsx_runtime27.jsxs(Group, {
+        justify: "space-between",
+        mt: "xl",
+        children: [
+          /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+            variant: "default",
+            onClick: onBack,
+            children: "Back"
+          }),
+          /* @__PURE__ */ jsx_runtime27.jsx(Button, {
             onClick: handleContinue,
             color: "green",
             children: "Continue"
@@ -68175,8 +69788,8 @@ var sanitizeFolderName = (name) => {
   return name.replace(/[^a-zA-Z0-9\-_]/g, "");
 };
 var generateTimestamp = () => {
-  const now2 = new Date;
-  const isoString = now2.toISOString();
+  const now3 = new Date;
+  const isoString = now3.toISOString();
   const sanitizedFolderName = isoString.replace(/[-:.]/g, "_").replace("Z", "");
   return sanitizedFolderName;
 };
@@ -68195,13 +69808,13 @@ var getDocumentId = () => {
 };
 
 // src/components/DownloadModalNew.tsx
-var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
 function DownloadModalNew({ opened, onClose }) {
-  const fileInputRef = import_react264.useRef(null);
+  const fileInputRef = import_react266.useRef(null);
   const raiseError2 = appStore((store) => store.raiseError);
-  const [modalState, setModalState] = import_react264.useState("initial");
-  const [error40, setError] = import_react264.useState(null);
-  const [downloadSettings, setDownloadSettings] = import_react264.useState({
+  const [modalState, setModalState] = import_react266.useState("initial");
+  const [error40, setError] = import_react266.useState(null);
+  const [downloadSettings, setDownloadSettings] = import_react266.useState({
     includeFonts: false,
     includeGrafxMedia: false,
     includeSmartCrops: false,
@@ -68210,29 +69823,30 @@ function DownloadModalNew({ opened, onClose }) {
     useOriginalFontFileNames: false,
     addTimestamp: false
   });
-  const [folderName, setFolderName] = import_react264.useState("");
-  const [folderNameError, setFolderNameError] = import_react264.useState("");
-  const [downloadFiles, setDownloadFiles] = import_react264.useState([]);
-  const [tasks, setTasks] = import_react264.useState([]);
-  const [fontFamilies, setFontFamilies] = import_react264.useState(null);
-  const [fontStylesCount, setFontStylesCount] = import_react264.useState(0);
-  const [folderBrowserOpened, setFolderBrowserOpened] = import_react264.useState(false);
-  const [connectorSelection, setConnectorSelection] = import_react264.useState(null);
-  const [uploadTasks, setUploadTasks] = import_react264.useState([]);
-  const [connectorSelectionModalOpened, setConnectorSelectionModalOpened] = import_react264.useState(false);
-  const [replaceConnectorsModalOpened, setReplaceConnectorsModalOpened] = import_react264.useState(false);
-  const [availableConnectors, setAvailableConnectors] = import_react264.useState([]);
-  const [connectorsToReplace, setConnectorsToReplace] = import_react264.useState([]);
-  const [selectedVisionConnector, setSelectedVisionConnector] = import_react264.useState("");
-  const [smartCropsData, setSmartCropsData] = import_react264.useState(null);
-  const [documentData, setDocumentData] = import_react264.useState(null);
-  const [packageJsonTaskId, setPackageJsonTaskId] = import_react264.useState("");
-  const [currentFiles, setCurrentFiles] = import_react264.useState([]);
-  const [currentStudioPackage, setCurrentStudioPackage] = import_react264.useState(null);
-  const [currentStudio, setCurrentStudio] = import_react264.useState(null);
-  const [currentToken, setCurrentToken] = import_react264.useState("");
-  const [currentBaseUrl, setCurrentBaseUrl] = import_react264.useState("");
-  import_react264.useEffect(() => {
+  const [folderName, setFolderName] = import_react266.useState("");
+  const [folderNameError, setFolderNameError] = import_react266.useState("");
+  const [downloadFiles, setDownloadFiles] = import_react266.useState([]);
+  const [tasks, setTasks] = import_react266.useState([]);
+  const [fontFamilies, setFontFamilies] = import_react266.useState(null);
+  const [fontStylesCount, setFontStylesCount] = import_react266.useState(0);
+  const [folderBrowserOpened, setFolderBrowserOpened] = import_react266.useState(false);
+  const [connectorSelection, setConnectorSelection] = import_react266.useState(null);
+  const [uploadTasks, setUploadTasks] = import_react266.useState([]);
+  const [connectorSelectionModalOpened, setConnectorSelectionModalOpened] = import_react266.useState(false);
+  const [replaceConnectorsModalOpened, setReplaceConnectorsModalOpened] = import_react266.useState(false);
+  const [availableConnectors, setAvailableConnectors] = import_react266.useState([]);
+  const [connectorsToReplace, setConnectorsToReplace] = import_react266.useState([]);
+  const [selectedVisionConnector, setSelectedVisionConnector] = import_react266.useState("");
+  const [smartCropsData, setSmartCropsData] = import_react266.useState(null);
+  const [documentData, setDocumentData] = import_react266.useState(null);
+  const [packageJsonTaskId, setPackageJsonTaskId] = import_react266.useState("");
+  const [currentFiles, setCurrentFiles] = import_react266.useState([]);
+  const [currentStudioPackage, setCurrentStudioPackage] = import_react266.useState(null);
+  const [currentStudio, setCurrentStudio] = import_react266.useState(null);
+  const [currentToken, setCurrentToken] = import_react266.useState("");
+  const [currentBaseUrl, setCurrentBaseUrl] = import_react266.useState("");
+  const [isDefaultSettingsModalOpen, setIsDefaultSettingsModalOpen] = import_react266.useState(false);
+  import_react266.useEffect(() => {
     const messageListener = (event) => {
       if (event.source !== window)
         return;
@@ -68250,7 +69864,7 @@ function DownloadModalNew({ opened, onClose }) {
       window.removeEventListener("message", messageListener);
     };
   }, []);
-  import_react264.useEffect(() => {
+  import_react266.useEffect(() => {
     const fetchFontFamilies = async () => {
       if (!downloadSettings.includeFonts) {
         setFontFamilies(null);
@@ -68379,6 +69993,13 @@ function DownloadModalNew({ opened, onClose }) {
   const handleDownload = async () => {
     setError(null);
     try {
+      const { settings, connectorSelection: connectorSelection2 } = await loadDefaultSettings();
+      setDownloadSettings(settings);
+      setConnectorSelection(connectorSelection2);
+    } catch (error41) {
+      console.warn("Failed to load default settings:", error41);
+    }
+    try {
       const documentName = await getDocumentName();
       const sanitizedName = sanitizeFolderName(documentName);
       setFolderName(sanitizedName);
@@ -68396,6 +70017,39 @@ function DownloadModalNew({ opened, onClose }) {
     } else {
       setModalState("uploadInstructions");
     }
+  };
+  const handleDefaultSettings = () => {
+    setIsDefaultSettingsModalOpen(true);
+  };
+  const loadDefaultSettings = async () => {
+    const defaultFallback = {
+      includeFonts: true,
+      includeGrafxMedia: false,
+      includeSmartCrops: false,
+      removeToolbarData: false,
+      removeUnusedConnectors: false,
+      useOriginalFontFileNames: false,
+      addTimestamp: true
+    };
+    try {
+      const toolbarDataResult = await loadToolbarDataFromDoc();
+      if (toolbarDataResult.isOk()) {
+        const toolbarData = toolbarDataResult.value;
+        if (toolbarData.defaultDownloadSettings) {
+          const { smartCropsConnectorSelection, ...settings } = toolbarData.defaultDownloadSettings;
+          return {
+            settings,
+            connectorSelection: smartCropsConnectorSelection || null
+          };
+        }
+      }
+    } catch (error41) {
+      console.warn("Failed to load default settings, using fallback:", error41);
+    }
+    return {
+      settings: defaultFallback,
+      connectorSelection: null
+    };
   };
   const handleDirectoryPicker = async () => {
     try {
@@ -69009,8 +70663,8 @@ function DownloadModalNew({ opened, onClose }) {
     const error41 = validateFolderName(value);
     setFolderNameError(error41);
   };
-  const [createdBlobUrls, setCreatedBlobUrls] = import_react264.useState([]);
-  import_react264.useEffect(() => {
+  const [createdBlobUrls, setCreatedBlobUrls] = import_react266.useState([]);
+  import_react266.useEffect(() => {
     return () => {
       createdBlobUrls.forEach((url2) => {
         URL.revokeObjectURL(url2);
@@ -69289,9 +70943,9 @@ function DownloadModalNew({ opened, onClose }) {
       };
     });
   };
-  return /* @__PURE__ */ jsx_runtime27.jsxs(jsx_runtime27.Fragment, {
+  return /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime27.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime28.jsx(Modal, {
         opened,
         onClose: handleClose,
         title: modalState === "initial" ? "Document Upload/Download" : modalState === "downloadSettings" ? "Download Settings" : modalState === "tasks" ? "Tasks Processing" : modalState === "uploadInstructions" ? "Upload Instructions" : modalState === "uploading" ? "Uploading Files" : "Downloading Files",
@@ -69312,13 +70966,14 @@ function DownloadModalNew({ opened, onClose }) {
             fontWeight: 600
           }
         },
-        children: modalState === "initial" ? /* @__PURE__ */ jsx_runtime27.jsx(InitialScreen, {
+        children: modalState === "initial" ? /* @__PURE__ */ jsx_runtime28.jsx(InitialScreen, {
           error: error40,
           onDownload: handleDownload,
           onUpload: handleUpload,
           onJsonDownload: handleJsonDownload,
-          onJsonUpload
-        }) : modalState === "downloadSettings" ? /* @__PURE__ */ jsx_runtime27.jsx(DownloadSettingsScreen, {
+          onJsonUpload,
+          onDefaultSettings: handleDefaultSettings
+        }) : modalState === "downloadSettings" ? /* @__PURE__ */ jsx_runtime28.jsx(DownloadSettingsScreen, {
           error: error40,
           folderName,
           folderNameError,
@@ -69331,40 +70986,41 @@ function DownloadModalNew({ opened, onClose }) {
           onRemoveFolderPath: handleRemoveFolderPath,
           onBack: () => setModalState("initial"),
           onDownload: handleDownloadWithSettings
-        }) : modalState === "tasks" || modalState === "uploading" ? /* @__PURE__ */ jsx_runtime27.jsx(DownloadTasksScreen, {
+        }) : modalState === "tasks" || modalState === "uploading" ? /* @__PURE__ */ jsx_runtime28.jsx(DownloadTasksScreen, {
           downloadFiles,
           tasks,
           uploadTasks,
           onClose: handleClose
-        }) : modalState === "uploadInstructions" ? /* @__PURE__ */ jsx_runtime27.jsx(UploadTasksScreen, {
+        }) : modalState === "uploadInstructions" ? /* @__PURE__ */ jsx_runtime28.jsx(UploadTasksScreen, {
           error: error40,
           onBack: () => setModalState("initial"),
           onContinue: handleDirectoryPicker
         }) : null
       }),
-      /* @__PURE__ */ jsx_runtime27.jsx("input", {
+      /* @__PURE__ */ jsx_runtime28.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
         accept: ".json",
         onChange: handleFileChange
       }),
-      /* @__PURE__ */ jsx_runtime27.jsx(ConnectorFolderBrowser, {
+      /* @__PURE__ */ jsx_runtime28.jsx(ImageBrowser, {
         opened: folderBrowserOpened,
+        mode: 0 /* FolderSelection */,
         initialSelection: connectorSelection,
         onClose: (selection) => {
           handleFolderSelection(selection);
           setFolderBrowserOpened(false);
         }
       }),
-      /* @__PURE__ */ jsx_runtime27.jsx(ConnectorSelectionModal, {
+      /* @__PURE__ */ jsx_runtime28.jsx(ConnectorSelectionModal, {
         opened: connectorSelectionModalOpened,
         onClose: () => setConnectorSelectionModalOpened(false),
         connectors: availableConnectors,
         smartCropsConnectorName: smartCropsData?.connectorName,
         onSelect: handleConnectorSelection
       }),
-      /* @__PURE__ */ jsx_runtime27.jsx(ReplaceConnectorsModal, {
+      /* @__PURE__ */ jsx_runtime28.jsx(ReplaceConnectorsModal, {
         opened: replaceConnectorsModalOpened,
         onClose: () => setReplaceConnectorsModalOpened(false),
         connectorsToReplace,
@@ -69372,13 +71028,17 @@ function DownloadModalNew({ opened, onClose }) {
         onReplace: (replacementMap) => {
           handleConnectorReplacement(replacementMap);
         }
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(DefaultSettingsModal, {
+        opened: isDefaultSettingsModalOpen,
+        onClose: () => setIsDefaultSettingsModalOpen(false)
       })
     ]
   });
 }
 
 // src/components/MagicLayoutsModal.tsx
-var import_react265 = __toESM(require_react(), 1);
+var import_react267 = __toESM(require_react(), 1);
 var import_studio_sdk3 = __toESM(require_main(), 1);
 
 // src/studio/actions/magicLayout.js
@@ -69418,10 +71078,10 @@ function magicLayoutScript(debug = false) {
 }
 
 // src/components/MagicLayoutsModal.tsx
-var jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
 function MagicLayoutsModal({ opened, onClose }) {
-  const [isProcessing, setIsProcessing] = import_react265.useState(true);
-  const [isComplete, setIsComplete] = import_react265.useState(false);
+  const [isProcessing, setIsProcessing] = import_react267.useState(true);
+  const [isComplete, setIsComplete] = import_react267.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
   const gatherAllChildren = async (childrenLayoutIds, onlyLeafs, skipUnavailable = true, recur = 0) => {
     const leafNames = [];
@@ -69680,7 +71340,7 @@ magicLayoutScript(false)`;
     });
     return updateResult;
   };
-  import_react265.useEffect(() => {
+  import_react267.useEffect(() => {
     if (!opened) {
       setIsProcessing(true);
       setIsComplete(false);
@@ -69701,7 +71361,7 @@ magicLayoutScript(false)`;
   const handleClose = () => {
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime28.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime29.jsx(Modal, {
     opened,
     onClose: handleClose,
     title: "Magic Layouts",
@@ -69709,31 +71369,31 @@ magicLayoutScript(false)`;
     size: "md",
     closeOnClickOutside: false,
     closeOnEscape: false,
-    children: /* @__PURE__ */ jsx_runtime28.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime29.jsx(Stack, {
       align: "center",
       gap: "lg",
       p: "lg",
-      children: isProcessing ? /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
+      children: isProcessing ? /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime28.jsx(Loader, {
+          /* @__PURE__ */ jsx_runtime29.jsx(Loader, {
             size: "lg",
             color: "purple"
           }),
-          /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime29.jsx(Text, {
             size: "lg",
             fw: 500,
             children: "Creating Magic ✨"
           })
         ]
-      }) : /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
+      }) : /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime29.jsx(Text, {
             size: "lg",
             fw: 500,
             c: "green",
             children: "Magic Created ✨"
           }),
-          /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime29.jsx(Button, {
             onClick: handleClose,
             color: "purple",
             size: "md",
@@ -69747,21 +71407,21 @@ magicLayoutScript(false)`;
 }
 
 // src/components/ConnectorCleanupModal.tsx
-var import_react266 = __toESM(require_react(), 1);
-var jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
+var import_react268 = __toESM(require_react(), 1);
+var jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
 function ConnectorCleanupModal({
   opened,
   onClose
 }) {
-  const [connectors, setConnectors] = import_react266.useState([]);
-  const [selectedConnectors, setSelectedConnectors] = import_react266.useState(new Set);
-  const [isLoading, setIsLoading] = import_react266.useState(false);
-  const [isDeleting, setIsDeleting] = import_react266.useState(false);
-  const [isMergeModalOpen, setIsMergeModalOpen] = import_react266.useState(false);
-  const [mergeTargetId, setMergeTargetId] = import_react266.useState(null);
-  const [isMerging, setIsMerging] = import_react266.useState(false);
+  const [connectors, setConnectors] = import_react268.useState([]);
+  const [selectedConnectors, setSelectedConnectors] = import_react268.useState(new Set);
+  const [isLoading, setIsLoading] = import_react268.useState(false);
+  const [isDeleting, setIsDeleting] = import_react268.useState(false);
+  const [isMergeModalOpen, setIsMergeModalOpen] = import_react268.useState(false);
+  const [mergeTargetId, setMergeTargetId] = import_react268.useState(null);
+  const [isMerging, setIsMerging] = import_react268.useState(false);
   const { raiseError: raiseError2 } = useAppStore();
-  import_react266.useEffect(() => {
+  import_react268.useEffect(() => {
     if (opened) {
       loadConnectors();
     }
@@ -69879,47 +71539,47 @@ function ConnectorCleanupModal({
   };
   const hasSelectedConnectors = selectedConnectors.size > 0;
   const isAllSelected = selectedConnectors.size === connectors.length && connectors.length > 0;
-  return /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
+  return /* @__PURE__ */ jsx_runtime30.jsxs(jsx_runtime30.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime29.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime30.jsx(Modal, {
         opened,
         onClose,
         title: "Connector Cleanup",
         size: "xl",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime29.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime30.jsx(Text, {
               size: "sm",
               c: "dimmed",
               children: "Manage and remove unused connectors from your document."
             }),
-            isLoading ? /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+            isLoading ? /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
               justify: "center",
               p: "xl",
               children: [
-                /* @__PURE__ */ jsx_runtime29.jsx(Loader, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Loader, {
                   size: "md"
                 }),
-                /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Text, {
                   children: "Loading connectors..."
                 })
               ]
-            }) : /* @__PURE__ */ jsx_runtime29.jsx(jsx_runtime29.Fragment, {
-              children: connectors.length === 0 ? /* @__PURE__ */ jsx_runtime29.jsx(Alert, {
-                icon: /* @__PURE__ */ jsx_runtime29.jsx(IconAlertCircle, {
+            }) : /* @__PURE__ */ jsx_runtime30.jsx(jsx_runtime30.Fragment, {
+              children: connectors.length === 0 ? /* @__PURE__ */ jsx_runtime30.jsx(Alert, {
+                icon: /* @__PURE__ */ jsx_runtime30.jsx(IconAlertCircle, {
                   size: 16
                 }),
                 color: "blue",
                 children: "No connectors found in this document."
-              }) : /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
+              }) : /* @__PURE__ */ jsx_runtime30.jsxs(jsx_runtime30.Fragment, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+                  /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
                     justify: "space-between",
                     children: [
-                      /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+                      /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
                         children: [
-                          /* @__PURE__ */ jsx_runtime29.jsxs(Button, {
+                          /* @__PURE__ */ jsx_runtime30.jsxs(Button, {
                             onClick: handleDeleteSelected,
                             disabled: !hasSelectedConnectors || isDeleting || isMerging,
                             color: "red",
@@ -69930,7 +71590,7 @@ function ConnectorCleanupModal({
                               ")"
                             ]
                           }),
-                          /* @__PURE__ */ jsx_runtime29.jsx(Button, {
+                          /* @__PURE__ */ jsx_runtime30.jsx(Button, {
                             onClick: handleMergeConnectors,
                             disabled: selectedConnectors.size < 2 || isDeleting || isMerging,
                             color: "blue",
@@ -69939,7 +71599,7 @@ function ConnectorCleanupModal({
                           })
                         ]
                       }),
-                      /* @__PURE__ */ jsx_runtime29.jsx(Checkbox, {
+                      /* @__PURE__ */ jsx_runtime30.jsx(Checkbox, {
                         label: `Select All (${connectors.length})`,
                         checked: isAllSelected,
                         indeterminate: hasSelectedConnectors && !isAllSelected,
@@ -69948,62 +71608,62 @@ function ConnectorCleanupModal({
                       })
                     ]
                   }),
-                  /* @__PURE__ */ jsx_runtime29.jsx(ScrollArea, {
+                  /* @__PURE__ */ jsx_runtime30.jsx(ScrollArea, {
                     h: 400,
-                    children: /* @__PURE__ */ jsx_runtime29.jsxs(Table, {
+                    children: /* @__PURE__ */ jsx_runtime30.jsxs(Table, {
                       striped: true,
                       highlightOnHover: true,
                       children: [
-                        /* @__PURE__ */ jsx_runtime29.jsx(Table.Thead, {
-                          children: /* @__PURE__ */ jsx_runtime29.jsxs(Table.Tr, {
+                        /* @__PURE__ */ jsx_runtime30.jsx(Table.Thead, {
+                          children: /* @__PURE__ */ jsx_runtime30.jsxs(Table.Tr, {
                             children: [
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
                                 w: 50
                               }),
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
                                 children: "Name"
                               }),
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
                                 children: "Type"
                               }),
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
                                 children: "ID"
                               }),
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
                                 children: "Usage"
                               })
                             ]
                           })
                         }),
-                        /* @__PURE__ */ jsx_runtime29.jsx(Table.Tbody, {
-                          children: connectors.map((connector) => /* @__PURE__ */ jsx_runtime29.jsxs(Table.Tr, {
+                        /* @__PURE__ */ jsx_runtime30.jsx(Table.Tbody, {
+                          children: connectors.map((connector) => /* @__PURE__ */ jsx_runtime30.jsxs(Table.Tr, {
                             children: [
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime29.jsx(Checkbox, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime30.jsx(Checkbox, {
                                   checked: selectedConnectors.has(connector.id),
                                   onChange: () => handleConnectorToggle(connector.id),
                                   disabled: isDeleting
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
                                 children: connector.name
                               }),
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime30.jsx(Text, {
                                   tt: "capitalize",
                                   children: connector.type
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime30.jsx(Text, {
                                   size: "xs",
                                   c: "dimmed",
                                   ff: "monospace",
                                   children: connector.id
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime29.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime30.jsx(Text, {
                                   size: "sm",
                                   children: formatUsageCount(connector.usesInTemplate)
                                 })
@@ -70017,9 +71677,9 @@ function ConnectorCleanupModal({
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime29.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime30.jsx(Group, {
               justify: "flex-end",
-              children: /* @__PURE__ */ jsx_runtime29.jsx(Button, {
+              children: /* @__PURE__ */ jsx_runtime30.jsx(Button, {
                 onClick: onClose,
                 variant: "outline",
                 children: "Close"
@@ -70028,27 +71688,27 @@ function ConnectorCleanupModal({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime29.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime30.jsx(Modal, {
         opened: isMergeModalOpen,
         onClose: handleMergeCancel,
         title: "Merge All Connectors together",
         centered: true,
         size: "md",
-        children: /* @__PURE__ */ jsx_runtime29.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime30.jsx(Text, {
               size: "sm",
               c: "dimmed",
               children: "Select the connector to merge all selected connectors into. The other connectors will be removed and all references will be updated."
             }),
-            /* @__PURE__ */ jsx_runtime29.jsxs(Stack, {
+            /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Text, {
                   fw: 500,
                   children: "Merge into:"
                 }),
-                /* @__PURE__ */ jsx_runtime29.jsx(Select, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Select, {
                   placeholder: "Select target connector",
                   data: Array.from(selectedConnectors).map((id) => {
                     const connector = connectors.find((c2) => c2.id === id);
@@ -70063,17 +71723,17 @@ function ConnectorCleanupModal({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime29.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
               justify: "flex-end",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime29.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
                   onClick: handleMergeCancel,
                   variant: "outline",
                   disabled: isMerging,
                   children: "Cancel"
                 }),
-                /* @__PURE__ */ jsx_runtime29.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
                   onClick: handleMergeConfirm,
                   disabled: !mergeTargetId || isMerging,
                   loading: isMerging,
@@ -70090,27 +71750,27 @@ function ConnectorCleanupModal({
 }
 
 // src/components/ManualCropManager/ManualCropManagerModal.tsx
-var import_react272 = __toESM(require_react(), 1);
+var import_react274 = __toESM(require_react(), 1);
 
 // src/components/ManualCropManager/LayoutViewer.tsx
-var import_react267 = __toESM(require_react(), 1);
+var import_react269 = __toESM(require_react(), 1);
 init_getManualCropsFromDocByConnector();
-var jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
 function LayoutViewer({
   selectedLayoutIds,
   onSelectionChange,
   selectedConnectorId,
   onRefreshFunctionReady
 }) {
-  const [layouts, setLayouts] = import_react267.useState([]);
-  const [searchQuery, setSearchQuery] = import_react267.useState("");
-  const [isLoading, setIsLoading] = import_react267.useState(true);
-  const [expandedLayouts, setExpandedLayouts] = import_react267.useState(new Set);
-  const [isInitialized, setIsInitialized] = import_react267.useState(false);
-  const [activeFilters, setActiveFilters] = import_react267.useState([]);
-  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react267.useState(false);
+  const [layouts, setLayouts] = import_react269.useState([]);
+  const [searchQuery, setSearchQuery] = import_react269.useState("");
+  const [isLoading, setIsLoading] = import_react269.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react269.useState(new Set);
+  const [isInitialized, setIsInitialized] = import_react269.useState(false);
+  const [activeFilters, setActiveFilters] = import_react269.useState([]);
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react269.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react267.useEffect(() => {
+  import_react269.useEffect(() => {
     const storedExpanded = sessionStorage.getItem("tempManualCropManager_layoutsExpanded");
     if (storedExpanded) {
       try {
@@ -70122,7 +71782,7 @@ function LayoutViewer({
     }
     setIsInitialized(true);
   }, []);
-  import_react267.useEffect(() => {
+  import_react269.useEffect(() => {
     const storedFilters = localStorage.getItem("tempManualCropManager_layoutViewerFilters");
     if (storedFilters) {
       try {
@@ -70133,19 +71793,19 @@ function LayoutViewer({
       }
     }
   }, []);
-  import_react267.useEffect(() => {
+  import_react269.useEffect(() => {
     loadLayouts();
   }, []);
-  import_react267.useEffect(() => {
+  import_react269.useEffect(() => {
     if (isInitialized) {
       const expandedIds = Array.from(expandedLayouts);
       sessionStorage.setItem("tempManualCropManager_layoutsExpanded", JSON.stringify(expandedIds));
     }
   }, [expandedLayouts, isInitialized]);
-  import_react267.useEffect(() => {
+  import_react269.useEffect(() => {
     localStorage.setItem("tempManualCropManager_layoutViewerFilters", JSON.stringify(activeFilters));
   }, [activeFilters]);
-  import_react267.useEffect(() => {
+  import_react269.useEffect(() => {
     if (selectedConnectorId) {
       updateManualCropIndicators();
     }
@@ -70172,7 +71832,7 @@ function LayoutViewer({
       setIsLoading(false);
     }
   };
-  const updateManualCropIndicators = import_react267.useCallback(async () => {
+  const updateManualCropIndicators = import_react269.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -70197,7 +71857,7 @@ function LayoutViewer({
       raiseError2(error40 instanceof Error ? error40 : new Error("Failed to update manual crop indicators"));
     }
   }, [selectedConnectorId, raiseError2]);
-  import_react267.useEffect(() => {
+  import_react269.useEffect(() => {
     if (onRefreshFunctionReady) {
       onRefreshFunctionReady(updateManualCropIndicators);
     }
@@ -70264,7 +71924,7 @@ function LayoutViewer({
     };
     return filterLayouts(layouts2);
   };
-  const filteredLayouts = import_react267.useMemo(() => {
+  const filteredLayouts = import_react269.useMemo(() => {
     let processedLayouts = layouts;
     if (activeFilters.length > 0) {
       processedLayouts = applyFilters(layouts, activeFilters);
@@ -70353,77 +72013,77 @@ function LayoutViewer({
     return "indeterminate";
   };
   if (isLoading) {
-    return /* @__PURE__ */ jsx_runtime30.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime31.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime30.jsx(Loader, {
+      children: /* @__PURE__ */ jsx_runtime31.jsx(Loader, {
         size: "sm"
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime30.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime31.jsxs(Box, {
     style: { height: "100%", display: "flex", flexDirection: "column" },
     children: [
-      /* @__PURE__ */ jsx_runtime30.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime31.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-        children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
           gap: "xs",
           children: [
-            /* @__PURE__ */ jsx_runtime30.jsx(TextInput, {
+            /* @__PURE__ */ jsx_runtime31.jsx(TextInput, {
               placeholder: "Search layouts...",
               value: searchQuery,
               onChange: (e) => setSearchQuery(e.target.value),
-              leftSection: /* @__PURE__ */ jsx_runtime30.jsx(IconSearch, {
+              leftSection: /* @__PURE__ */ jsx_runtime31.jsx(IconSearch, {
                 size: 16
               }),
               size: "sm"
             }),
-            /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
               gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: expandAll,
                   children: "Expand All"
                 }),
-                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: collapseAll,
                   children: "Collapse All"
                 }),
-                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: deselectAll,
                   children: "Deselect All"
                 }),
-                /* @__PURE__ */ jsx_runtime30.jsxs(Popover, {
+                /* @__PURE__ */ jsx_runtime31.jsxs(Popover, {
                   opened: isFilterPopoverOpen,
                   onClose: () => setIsFilterPopoverOpen(false),
                   position: "bottom-start",
                   withArrow: true,
                   children: [
-                    /* @__PURE__ */ jsx_runtime30.jsx(Popover.Target, {
-                      children: /* @__PURE__ */ jsx_runtime30.jsx(Tooltip, {
+                    /* @__PURE__ */ jsx_runtime31.jsx(Popover.Target, {
+                      children: /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
                         label: "Filter",
                         position: "top",
-                        children: /* @__PURE__ */ jsx_runtime30.jsx(ActionIcon, {
+                        children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
                           variant: "subtle",
                           size: "xs",
                           onClick: () => setIsFilterPopoverOpen(!isFilterPopoverOpen),
                           color: activeFilters.length > 0 ? "yellow" : "gray",
-                          children: activeFilters.length > 0 ? /* @__PURE__ */ jsx_runtime30.jsx(IconFilterFilled, {
+                          children: activeFilters.length > 0 ? /* @__PURE__ */ jsx_runtime31.jsx(IconFilterFilled, {
                             size: 14
-                          }) : /* @__PURE__ */ jsx_runtime30.jsx(IconFilter, {
+                          }) : /* @__PURE__ */ jsx_runtime31.jsx(IconFilter, {
                             size: 14
                           })
                         })
                       })
                     }),
-                    /* @__PURE__ */ jsx_runtime30.jsx(Popover.Dropdown, {
-                      children: /* @__PURE__ */ jsx_runtime30.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime31.jsx(Popover.Dropdown, {
+                      children: /* @__PURE__ */ jsx_runtime31.jsx(MultiSelect, {
                         label: "Filter layouts",
                         placeholder: "Select filters",
                         data: [
@@ -70443,11 +72103,11 @@ function LayoutViewer({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime30.jsx(ScrollArea, {
+      /* @__PURE__ */ jsx_runtime31.jsx(ScrollArea, {
         style: { flex: 1 },
-        children: /* @__PURE__ */ jsx_runtime30.jsx(Box, {
+        children: /* @__PURE__ */ jsx_runtime31.jsx(Box, {
           p: "md",
-          children: /* @__PURE__ */ jsx_runtime30.jsx(LayoutTree, {
+          children: /* @__PURE__ */ jsx_runtime31.jsx(LayoutTree, {
             layouts: filteredLayouts,
             selectedLayoutIds,
             expandedLayouts,
@@ -70470,9 +72130,9 @@ function LayoutTree({
   onToggleChildrenSelection,
   getCheckboxState
 }) {
-  return /* @__PURE__ */ jsx_runtime30.jsx(Stack, {
+  return /* @__PURE__ */ jsx_runtime31.jsx(Stack, {
     gap: "xs",
-    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime30.jsx(LayoutTreeItem, {
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime31.jsx(LayoutTreeItem, {
       layout,
       selectedLayoutIds,
       expandedLayouts,
@@ -70497,9 +72157,9 @@ function LayoutTreeItem({
   const isSelected = selectedLayoutIds.includes(layout.id);
   const checkboxState = getCheckboxState(layout);
   const isFilteredParent = layout.isFilteredParent || false;
-  return /* @__PURE__ */ jsx_runtime30.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime31.jsxs(Box, {
     children: [
-      /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
         gap: "xs",
         style: {
           marginLeft: layout.level * 10,
@@ -70509,22 +72169,22 @@ function LayoutTreeItem({
           opacity: isFilteredParent ? 0.5 : 1
         },
         children: [
-          hasChildren ? /* @__PURE__ */ jsx_runtime30.jsx(ActionIcon, {
+          hasChildren ? /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
             variant: "subtle",
             size: "xs",
             onClick: (e) => {
               e.stopPropagation();
               onToggleExpanded(layout.id);
             },
-            children: isExpanded ? /* @__PURE__ */ jsx_runtime30.jsx(IconChevronDown, {
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime31.jsx(IconChevronDown, {
               size: 12
-            }) : /* @__PURE__ */ jsx_runtime30.jsx(IconChevronRight, {
+            }) : /* @__PURE__ */ jsx_runtime31.jsx(IconChevronRight, {
               size: 12
             })
-          }) : /* @__PURE__ */ jsx_runtime30.jsx(Box, {
+          }) : /* @__PURE__ */ jsx_runtime31.jsx(Box, {
             style: { width: 20 }
           }),
-          hasChildren && /* @__PURE__ */ jsx_runtime30.jsx(Checkbox, {
+          hasChildren && /* @__PURE__ */ jsx_runtime31.jsx(Checkbox, {
             checked: checkboxState === "checked",
             indeterminate: checkboxState === "indeterminate",
             onChange: () => onToggleChildrenSelection(layout),
@@ -70532,14 +72192,14 @@ function LayoutTreeItem({
             onClick: (e) => e.stopPropagation(),
             disabled: isFilteredParent
           }),
-          isFilteredParent ? /* @__PURE__ */ jsx_runtime30.jsx(IconEyeClosed, {
+          isFilteredParent ? /* @__PURE__ */ jsx_runtime31.jsx(IconEyeClosed, {
             size: 14,
             color: "gray"
-          }) : /* @__PURE__ */ jsx_runtime30.jsx(IconCrop, {
+          }) : /* @__PURE__ */ jsx_runtime31.jsx(IconCrop, {
             size: 14,
             color: layout.hasManualCrops ? "orange" : "gray"
           }),
-          /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime31.jsx(Text, {
             size: "sm",
             style: {
               flex: 1,
@@ -70551,7 +72211,7 @@ function LayoutTreeItem({
           })
         ]
       }),
-      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime30.jsx(LayoutTree, {
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime31.jsx(LayoutTree, {
         layouts: layout.children,
         selectedLayoutIds,
         expandedLayouts,
@@ -70565,7 +72225,7 @@ function LayoutTreeItem({
 }
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
-var import_react271 = __toESM(require_react(), 1);
+var import_react273 = __toESM(require_react(), 1);
 init_documentHandler();
 init_getManualCropsFromDocByConnector();
 
@@ -70647,9 +72307,9 @@ function deleteSingleManualCropForLayout(documentState, layoutId, connectorId, f
 }
 
 // src/components/ManualCropManager/CopyCropToLayerModal.tsx
-var import_react268 = __toESM(require_react(), 1);
+var import_react270 = __toESM(require_react(), 1);
 init_getManualCropsFromDocByConnector();
-var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
 function CopyCropToLayerModal({
   opened,
   onClose,
@@ -70658,20 +72318,20 @@ function CopyCropToLayerModal({
   selectedConnectorId,
   onCopy
 }) {
-  const [layouts, setLayouts] = import_react268.useState([]);
-  const [searchQuery, setSearchQuery] = import_react268.useState("");
-  const [isLoading, setIsLoading] = import_react268.useState(true);
-  const [expandedLayouts, setExpandedLayouts] = import_react268.useState(new Set);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react268.useState([]);
+  const [layouts, setLayouts] = import_react270.useState([]);
+  const [searchQuery, setSearchQuery] = import_react270.useState("");
+  const [isLoading, setIsLoading] = import_react270.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react270.useState(new Set);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react270.useState([]);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react268.useEffect(() => {
+  import_react270.useEffect(() => {
     if (opened) {
       loadLayouts();
       setSelectedLayoutIds([]);
       setSearchQuery("");
     }
   }, [opened]);
-  import_react268.useEffect(() => {
+  import_react270.useEffect(() => {
     if (selectedConnectorId && opened) {
       updateManualCropIndicators();
     }
@@ -70758,7 +72418,7 @@ function CopyCropToLayerModal({
     });
     return rootLayouts;
   };
-  const filteredLayouts = import_react268.useMemo(() => {
+  const filteredLayouts = import_react270.useMemo(() => {
     if (!searchQuery.trim())
       return layouts;
     const filterLayouts = (layouts2) => {
@@ -70822,58 +72482,58 @@ function CopyCropToLayerModal({
     }
   };
   if (isLoading) {
-    return /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
+    return /* @__PURE__ */ jsx_runtime32.jsx(Modal, {
       opened,
       onClose,
       title: "Copy Crops to Layouts",
       size: "lg",
-      children: /* @__PURE__ */ jsx_runtime31.jsx(Center, {
+      children: /* @__PURE__ */ jsx_runtime32.jsx(Center, {
         style: { height: 400 },
-        children: /* @__PURE__ */ jsx_runtime31.jsx(Loader, {
+        children: /* @__PURE__ */ jsx_runtime32.jsx(Loader, {
           size: "sm"
         })
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime32.jsx(Modal, {
     opened,
     onClose,
     title: "Copy Crops to Layouts",
     size: "lg",
-    children: /* @__PURE__ */ jsx_runtime31.jsxs(Box, {
+    children: /* @__PURE__ */ jsx_runtime32.jsxs(Box, {
       style: { height: 500, display: "flex", flexDirection: "column" },
       children: [
-        /* @__PURE__ */ jsx_runtime31.jsx(Box, {
+        /* @__PURE__ */ jsx_runtime32.jsx(Box, {
           p: "md",
           style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-          children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
+          children: /* @__PURE__ */ jsx_runtime32.jsxs(Stack, {
             gap: "xs",
             children: [
-              /* @__PURE__ */ jsx_runtime31.jsx(TextInput, {
+              /* @__PURE__ */ jsx_runtime32.jsx(TextInput, {
                 placeholder: "Search layouts...",
                 value: searchQuery,
                 onChange: (e) => setSearchQuery(e.target.value),
-                leftSection: /* @__PURE__ */ jsx_runtime31.jsx(IconSearch, {
+                leftSection: /* @__PURE__ */ jsx_runtime32.jsx(IconSearch, {
                   size: 16
                 }),
                 size: "sm"
               }),
-              /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
+              /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
                 gap: "xs",
                 children: [
-                  /* @__PURE__ */ jsx_runtime31.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime32.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: expandAll,
                     children: "Expand All"
                   }),
-                  /* @__PURE__ */ jsx_runtime31.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime32.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: collapseAll,
                     children: "Collapse All"
                   }),
-                  /* @__PURE__ */ jsx_runtime31.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime32.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: deselectAll,
@@ -70884,11 +72544,11 @@ function CopyCropToLayerModal({
             ]
           })
         }),
-        /* @__PURE__ */ jsx_runtime31.jsx(ScrollArea, {
+        /* @__PURE__ */ jsx_runtime32.jsx(ScrollArea, {
           style: { flex: 1 },
-          children: /* @__PURE__ */ jsx_runtime31.jsx(Box, {
+          children: /* @__PURE__ */ jsx_runtime32.jsx(Box, {
             p: "md",
-            children: /* @__PURE__ */ jsx_runtime31.jsx(CopyLayoutTree, {
+            children: /* @__PURE__ */ jsx_runtime32.jsx(CopyLayoutTree, {
               layouts: filteredLayouts,
               selectedLayoutIds,
               expandedLayouts,
@@ -70898,27 +72558,27 @@ function CopyCropToLayerModal({
             })
           })
         }),
-        /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
           justify: "space-between",
           p: "md",
           style: { borderTop: "1px solid var(--mantine-color-gray-3)" },
           children: [
-            /* @__PURE__ */ jsx_runtime31.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime32.jsxs(Text, {
               size: "sm",
               children: [
                 "Layouts Selected: ",
                 selectedLayoutIds.length
               ]
             }),
-            /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
                   variant: "outline",
                   onClick: onClose,
                   children: "Close"
                 }),
-                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
                   onClick: handleCopy,
                   disabled: selectedLayoutIds.length === 0,
                   color: "blue",
@@ -70940,9 +72600,9 @@ function CopyLayoutTree({
   onToggleExpanded,
   onToggleSelection
 }) {
-  return /* @__PURE__ */ jsx_runtime31.jsx(Stack, {
+  return /* @__PURE__ */ jsx_runtime32.jsx(Stack, {
     gap: "xs",
-    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime31.jsx(CopyLayoutTreeItem, {
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime32.jsx(CopyLayoutTreeItem, {
       layout,
       selectedLayoutIds,
       expandedLayouts,
@@ -70964,9 +72624,9 @@ function CopyLayoutTreeItem({
   const isExpanded = expandedLayouts.has(layout.id);
   const isSelected = selectedLayoutIds.includes(layout.id);
   const isSourceLayout = layout.id === sourceLayoutId;
-  return /* @__PURE__ */ jsx_runtime31.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime32.jsxs(Box, {
     children: [
-      /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
         gap: "xs",
         style: {
           paddingLeft: layout.level * 20,
@@ -70976,26 +72636,26 @@ function CopyLayoutTreeItem({
           opacity: isSourceLayout ? 0.5 : 1
         },
         children: [
-          hasChildren ? /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+          hasChildren ? /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
             variant: "subtle",
             size: "xs",
             onClick: (e) => {
               e.stopPropagation();
               onToggleExpanded(layout.id);
             },
-            children: isExpanded ? /* @__PURE__ */ jsx_runtime31.jsx(IconChevronDown, {
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime32.jsx(IconChevronDown, {
               size: 12
-            }) : /* @__PURE__ */ jsx_runtime31.jsx(IconChevronRight, {
+            }) : /* @__PURE__ */ jsx_runtime32.jsx(IconChevronRight, {
               size: 12
             })
-          }) : /* @__PURE__ */ jsx_runtime31.jsx(Box, {
+          }) : /* @__PURE__ */ jsx_runtime32.jsx(Box, {
             style: { width: 20 }
           }),
-          /* @__PURE__ */ jsx_runtime31.jsx(IconCrop, {
+          /* @__PURE__ */ jsx_runtime32.jsx(IconCrop, {
             size: 14,
             color: layout.hasManualCrops ? "orange" : "gray"
           }),
-          /* @__PURE__ */ jsx_runtime31.jsxs(Text, {
+          /* @__PURE__ */ jsx_runtime32.jsxs(Text, {
             size: "sm",
             style: {
               flex: 1,
@@ -71011,7 +72671,7 @@ function CopyLayoutTreeItem({
           })
         ]
       }),
-      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime31.jsx(CopyLayoutTree, {
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime32.jsx(CopyLayoutTree, {
         layouts: layout.children,
         selectedLayoutIds,
         expandedLayouts,
@@ -71024,8 +72684,8 @@ function CopyLayoutTreeItem({
 }
 
 // src/components/ManualCropManager/CopyAndAddRowModal.tsx
-var import_react269 = __toESM(require_react(), 1);
-var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
+var import_react271 = __toESM(require_react(), 1);
+var jsx_runtime33 = __toESM(require_jsx_runtime(), 1);
 function CopyAndAddRowModal2({
   opened,
   onClose,
@@ -71034,10 +72694,10 @@ function CopyAndAddRowModal2({
   existingCrops,
   onAddCopy
 }) {
-  const [newName, setNewName] = import_react269.useState("");
-  const [error40, setError] = import_react269.useState(null);
-  const [isLoading, setIsLoading] = import_react269.useState(false);
-  import_react269.default.useEffect(() => {
+  const [newName, setNewName] = import_react271.useState("");
+  const [error40, setError] = import_react271.useState(null);
+  const [isLoading, setIsLoading] = import_react271.useState(false);
+  import_react271.default.useEffect(() => {
     if (opened) {
       setNewName(crop.name);
       setError(null);
@@ -71063,18 +72723,18 @@ function CopyAndAddRowModal2({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime32.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime33.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Add Row",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime32.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime33.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime32.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime33.jsx(Text, {
           size: "sm",
           children: "Enter a name for the new manual crop:"
         }),
-        /* @__PURE__ */ jsx_runtime32.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime33.jsx(TextInput, {
           label: "Asset Name",
           placeholder: "Enter asset name",
           value: newName,
@@ -71083,16 +72743,16 @@ function CopyAndAddRowModal2({
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime33.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime33.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime33.jsx(Button, {
               onClick: handleCreate,
               loading: isLoading,
               disabled: !newName.trim(),
@@ -71106,8 +72766,8 @@ function CopyAndAddRowModal2({
 }
 
 // src/components/ManualCropManager/CopyAndReplaceModal.tsx
-var import_react270 = __toESM(require_react(), 1);
-var jsx_runtime33 = __toESM(require_jsx_runtime(), 1);
+var import_react272 = __toESM(require_react(), 1);
+var jsx_runtime34 = __toESM(require_jsx_runtime(), 1);
 function CopyAndReplaceModal2({
   opened,
   onClose,
@@ -71116,14 +72776,14 @@ function CopyAndReplaceModal2({
   existingCrops,
   onAddCopy
 }) {
-  const [searchText, setSearchText] = import_react270.useState("");
-  const [replaceText, setReplaceText] = import_react270.useState("");
-  const [errors3, setErrors] = import_react270.useState({});
-  const [isLoading, setIsLoading] = import_react270.useState(false);
-  const [previewCrop, setPreviewCrop] = import_react270.useState(null);
-  const [previewNewName, setPreviewNewName] = import_react270.useState("");
-  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react270.useState(false);
-  import_react270.useEffect(() => {
+  const [searchText, setSearchText] = import_react272.useState("");
+  const [replaceText, setReplaceText] = import_react272.useState("");
+  const [errors3, setErrors] = import_react272.useState({});
+  const [isLoading, setIsLoading] = import_react272.useState(false);
+  const [previewCrop, setPreviewCrop] = import_react272.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react272.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react272.useState(false);
+  import_react272.useEffect(() => {
     if (opened) {
       setSearchText("");
       setReplaceText("");
@@ -71136,7 +72796,7 @@ function CopyAndReplaceModal2({
       }
     }
   }, [opened, crops]);
-  import_react270.useEffect(() => {
+  import_react272.useEffect(() => {
     if (previewCrop) {
       const newName = previewCrop.name.replace(new RegExp(searchText, "g"), replaceText);
       setPreviewNewName(newName);
@@ -71185,18 +72845,18 @@ function CopyAndReplaceModal2({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime33.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime34.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Replace",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime33.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime34.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime33.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime34.jsx(Text, {
           size: "sm",
           children: "Enter search and replace text to create copies with modified names:"
         }),
-        /* @__PURE__ */ jsx_runtime33.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
           label: "Search",
           placeholder: "Text to search for",
           value: searchText,
@@ -71205,22 +72865,22 @@ function CopyAndReplaceModal2({
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime33.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
           label: "Replace",
           placeholder: "Text to replace with",
           value: replaceText,
           onChange: handleReplaceChange,
           required: true
         }),
-        previewCrop && /* @__PURE__ */ jsx_runtime33.jsxs(Stack, {
+        previewCrop && /* @__PURE__ */ jsx_runtime34.jsxs(Stack, {
           gap: "xs",
           children: [
-            /* @__PURE__ */ jsx_runtime33.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime34.jsx(Text, {
               size: "sm",
               fw: 500,
               children: "Preview:"
             }),
-            /* @__PURE__ */ jsx_runtime33.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime34.jsxs(Text, {
               size: "sm",
               c: "dimmed",
               children: [
@@ -71228,24 +72888,24 @@ function CopyAndReplaceModal2({
                 previewCrop.frameName
               ]
             }),
-            /* @__PURE__ */ jsx_runtime33.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime34.jsxs(Text, {
               size: "sm",
               children: [
                 "Original:",
                 " ",
-                /* @__PURE__ */ jsx_runtime33.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime34.jsx(Text, {
                   span: true,
                   c: "blue",
                   children: previewCrop.name
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime33.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime34.jsxs(Text, {
               size: "sm",
               children: [
                 "New:",
                 " ",
-                /* @__PURE__ */ jsx_runtime33.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime34.jsx(Text, {
                   span: true,
                   c: isPreviewNameDifferent ? "green" : "dimmed",
                   children: previewNewName
@@ -71254,27 +72914,27 @@ function CopyAndReplaceModal2({
             })
           ]
         }),
-        Object.keys(errors3).length > 0 && /* @__PURE__ */ jsx_runtime33.jsx(Alert, {
+        Object.keys(errors3).length > 0 && /* @__PURE__ */ jsx_runtime34.jsx(Alert, {
           color: "red",
           title: "Validation Errors",
-          children: /* @__PURE__ */ jsx_runtime33.jsx(Stack, {
+          children: /* @__PURE__ */ jsx_runtime34.jsx(Stack, {
             gap: "xs",
-            children: Object.entries(errors3).map(([key, message]) => /* @__PURE__ */ jsx_runtime33.jsx(Text, {
+            children: Object.entries(errors3).map(([key, message]) => /* @__PURE__ */ jsx_runtime34.jsx(Text, {
               size: "sm",
               children: message
             }, key))
           })
         }),
-        /* @__PURE__ */ jsx_runtime33.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime34.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime33.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime34.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime33.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime34.jsx(Button, {
               onClick: handleCopyAndReplace,
               loading: isLoading,
               disabled: !searchText.trim() || !isPreviewNameDifferent,
@@ -71288,7 +72948,7 @@ function CopyAndReplaceModal2({
 }
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
-var jsx_runtime34 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime35 = __toESM(require_jsx_runtime(), 1);
 function CropRow({
   crop,
   layoutId,
@@ -71298,8 +72958,8 @@ function CropRow({
   onCheckChange,
   isDeleted
 }) {
-  const [localCrop, setLocalCrop] = import_react271.useState(crop);
-  import_react271.useEffect(() => {
+  const [localCrop, setLocalCrop] = import_react273.useState(crop);
+  import_react273.useEffect(() => {
     setLocalCrop(crop);
   }, [crop]);
   const handleFieldChange = (field, value) => {
@@ -71325,30 +72985,30 @@ function CropRow({
   if (isDeleted) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime34.jsxs(Table.Tr, {
+  return /* @__PURE__ */ jsx_runtime35.jsxs(Table.Tr, {
     children: [
-      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime34.jsx(Checkbox, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(Checkbox, {
           checked: isChecked,
           onChange: (event) => onCheckChange(layoutId, cropIndex, event.currentTarget.checked)
         })
       }),
-      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(Text, {
           size: "sm",
           children: localCrop.frameName
         })
       }),
-      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
           value: localCrop.name,
           onChange: (e) => handleFieldChange("name", e.target.value),
           size: "xs",
           style: { width: "100%" }
         })
       }),
-      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
           value: localCrop.left.toString(),
           onChange: (e) => handleFieldChange("left", e.target.value),
           size: "xs",
@@ -71357,8 +73017,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
           value: localCrop.top.toString(),
           onChange: (e) => handleFieldChange("top", e.target.value),
           size: "xs",
@@ -71367,8 +73027,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
           value: localCrop.width.toString(),
           onChange: (e) => handleFieldChange("width", e.target.value),
           size: "xs",
@@ -71377,8 +73037,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime34.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
           value: localCrop.height.toString(),
           onChange: (e) => handleFieldChange("height", e.target.value),
           size: "xs",
@@ -71396,23 +73056,23 @@ function ManualCropEditor({
   onModalClose,
   onCropsSaved
 }) {
-  const [layoutCrops, setLayoutCrops] = import_react271.useState(new Map);
-  const [isLoading, setIsLoading] = import_react271.useState(false);
-  const [saveState, setSaveState] = import_react271.useState("idle");
-  const [saveMessage, setSaveMessage] = import_react271.useState("");
-  const [originalDocumentState, setOriginalDocumentState] = import_react271.useState(null);
-  const [changedRows, setChangedRows] = import_react271.useState(new Map);
-  const [checkedRows, setCheckedRows] = import_react271.useState(new Set);
-  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react271.useState(false);
-  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react271.useState("");
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react271.useState(false);
-  const [currentCropForCopy, setCurrentCropForCopy] = import_react271.useState(null);
-  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react271.useState("");
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react271.useState(false);
-  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react271.useState([]);
-  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react271.useState("");
+  const [layoutCrops, setLayoutCrops] = import_react273.useState(new Map);
+  const [isLoading, setIsLoading] = import_react273.useState(false);
+  const [saveState, setSaveState] = import_react273.useState("idle");
+  const [saveMessage, setSaveMessage] = import_react273.useState("");
+  const [originalDocumentState, setOriginalDocumentState] = import_react273.useState(null);
+  const [changedRows, setChangedRows] = import_react273.useState(new Map);
+  const [checkedRows, setCheckedRows] = import_react273.useState(new Set);
+  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react273.useState(false);
+  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react273.useState("");
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react273.useState(false);
+  const [currentCropForCopy, setCurrentCropForCopy] = import_react273.useState(null);
+  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react273.useState("");
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react273.useState(false);
+  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react273.useState([]);
+  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react273.useState("");
   const raiseError2 = appStore((store) => store.raiseError);
-  const loadCropsForSelectedLayouts = import_react271.useCallback(async () => {
+  const loadCropsForSelectedLayouts = import_react273.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -71454,7 +73114,7 @@ function ManualCropEditor({
       setIsLoading(false);
     }
   }, [selectedConnectorId, selectedLayoutIds, raiseError2]);
-  import_react271.useEffect(() => {
+  import_react273.useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
       loadCropsForSelectedLayouts();
     } else {
@@ -71463,7 +73123,7 @@ function ManualCropEditor({
     setChangedRows(new Map);
     setCheckedRows(new Set);
   }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
-  const handleCropChange = import_react271.useCallback((layoutId, cropIndex, updatedCrop) => {
+  const handleCropChange = import_react273.useCallback((layoutId, cropIndex, updatedCrop) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
@@ -71471,7 +73131,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, []);
-  const handleCheckChange = import_react271.useCallback((layoutId, cropIndex, checked) => {
+  const handleCheckChange = import_react273.useCallback((layoutId, cropIndex, checked) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
@@ -71483,10 +73143,10 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const getCheckedSnapshotsCountForLayout = import_react271.useCallback((layoutId) => {
+  const getCheckedSnapshotsCountForLayout = import_react273.useCallback((layoutId) => {
     return Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`)).length;
   }, [checkedRows]);
-  const getCheckedCropsForLayout = import_react271.useCallback((layoutId) => {
+  const getCheckedCropsForLayout = import_react273.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
     if (!layoutCrop)
       return [];
@@ -71509,7 +73169,7 @@ function ManualCropEditor({
     });
     return checkedCrops;
   }, [checkedRows, layoutCrops, changedRows]);
-  const deleteCheckedSnapshots = import_react271.useCallback((layoutId) => {
+  const deleteCheckedSnapshots = import_react273.useCallback((layoutId) => {
     const checkedRowsForLayout = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`));
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
@@ -71532,13 +73192,13 @@ function ManualCropEditor({
       return newSet;
     });
   }, [checkedRows]);
-  const setCopyModalOpened = import_react271.useCallback((opened, layoutId) => {
+  const setCopyModalOpened = import_react273.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       setCurrentCopySourceLayoutId(layoutId);
     }
     setCopyCropToLayerModalOpened(opened);
   }, []);
-  const setCopyAndAddRowModalOpened = import_react271.useCallback((opened, layoutId) => {
+  const setCopyAndAddRowModalOpened = import_react273.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       const checkedCrops = getCheckedCropsForLayout(layoutId);
       if (checkedCrops.length === 1) {
@@ -71552,7 +73212,7 @@ function ManualCropEditor({
       setCurrentLayoutIdForCopy("");
     }
   }, [getCheckedCropsForLayout]);
-  const setCopyAndReplaceModalOpened = import_react271.useCallback((opened, layoutId) => {
+  const setCopyAndReplaceModalOpened = import_react273.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       const checkedCrops = getCheckedCropsForLayout(layoutId);
       if (checkedCrops.length > 0) {
@@ -71566,7 +73226,7 @@ function ManualCropEditor({
       setCurrentLayoutIdForReplace("");
     }
   }, [getCheckedCropsForLayout]);
-  const deselectAllRows = import_react271.useCallback((layoutId) => {
+  const deselectAllRows = import_react273.useCallback((layoutId) => {
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
       Array.from(prev2).forEach((rowKey) => {
@@ -71577,7 +73237,100 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const copyCropsToLayers = import_react271.useCallback(async (targetLayoutIds, checkedCrops) => {
+  const selectAllRowsForLayout = import_react273.useCallback((layoutId) => {
+    const layoutCrop = layoutCrops.get(layoutId);
+    if (!layoutCrop)
+      return;
+    setCheckedRows((prev2) => {
+      const newSet = new Set(prev2);
+      layoutCrop.crops.forEach((_2, index4) => {
+        const rowKey = `${layoutId}-${index4}`;
+        const changedRow = changedRows.get(rowKey);
+        const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
+        if (!isDeleted) {
+          newSet.add(rowKey);
+        }
+      });
+      return newSet;
+    });
+  }, [layoutCrops, changedRows]);
+  const getLayoutCheckboxState = import_react273.useCallback((layoutId) => {
+    const layoutCrop = layoutCrops.get(layoutId);
+    if (!layoutCrop || layoutCrop.crops.length === 0)
+      return "unchecked";
+    const nonDeletedCrops = layoutCrop.crops.filter((_2, index4) => {
+      const rowKey = `${layoutId}-${index4}`;
+      const changedRow = changedRows.get(rowKey);
+      const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
+      return !isDeleted;
+    });
+    if (nonDeletedCrops.length === 0)
+      return "unchecked";
+    const checkedCount = nonDeletedCrops.filter((_2, originalIndex) => {
+      const cropIndex = layoutCrop.crops.findIndex((crop, idx) => {
+        const rowKey2 = `${layoutId}-${idx}`;
+        const changedRow = changedRows.get(rowKey2);
+        const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
+        return !isDeleted && crop === nonDeletedCrops[originalIndex];
+      });
+      const rowKey = `${layoutId}-${cropIndex}`;
+      return checkedRows.has(rowKey);
+    }).length;
+    if (checkedCount === 0)
+      return "unchecked";
+    if (checkedCount === nonDeletedCrops.length)
+      return "checked";
+    return "indeterminate";
+  }, [layoutCrops, checkedRows, changedRows]);
+  const handleLayoutCheckboxChange = import_react273.useCallback((layoutId, checked) => {
+    if (checked) {
+      selectAllRowsForLayout(layoutId);
+    } else {
+      deselectAllRows(layoutId);
+    }
+  }, [selectAllRowsForLayout, deselectAllRows]);
+  const getAllChildLayoutIds = import_react273.useCallback((parentLayoutId, allLayouts) => {
+    const childIds = [];
+    const collectChildren = (layoutId) => {
+      allLayouts.forEach((layout) => {
+        if (layout.parentId === layoutId) {
+          childIds.push(layout.id);
+          collectChildren(layout.id);
+        }
+      });
+    };
+    collectChildren(parentLayoutId);
+    return childIds;
+  }, []);
+  const copySelectedCropsToChildren = import_react273.useCallback(async (sourceLayoutId) => {
+    try {
+      const studio2 = getStudio();
+      if (!studio2) {
+        raiseError2(new Error("Studio not available"));
+        return;
+      }
+      const layoutsResult = await getAllLayouts(studio2);
+      if (layoutsResult.isError()) {
+        raiseError2(layoutsResult.error);
+        return;
+      }
+      const allLayouts = layoutsResult.value;
+      const childLayoutIds = getAllChildLayoutIds(sourceLayoutId, allLayouts);
+      if (childLayoutIds.length === 0) {
+        raiseError2(new Error("No child layouts found for this layout"));
+        return;
+      }
+      const selectedCrops = getCheckedCropsForLayout(sourceLayoutId);
+      if (selectedCrops.length === 0) {
+        raiseError2(new Error("No crops selected to copy"));
+        return;
+      }
+      await copyCropsToLayers(childLayoutIds, selectedCrops);
+    } catch (error40) {
+      raiseError2(error40 instanceof Error ? error40 : new Error("Failed to copy crops to child layouts"));
+    }
+  }, [getAllChildLayoutIds, getCheckedCropsForLayout, copyCropsToLayers]);
+  const copyCropsToLayers = import_react273.useCallback(async (targetLayoutIds, checkedCrops) => {
     const missingLayoutIds = targetLayoutIds.filter((id) => !layoutCrops.has(id));
     let layoutNamesMap = new Map;
     if (missingLayoutIds.length > 0) {
@@ -71653,7 +73406,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, [layoutCrops, raiseError2]);
-  const addCopyOfCrop = import_react271.useCallback((originalCrop, newName) => {
+  const addCopyOfCrop = import_react273.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForCopy;
     if (!layoutId)
       return;
@@ -71696,7 +73449,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, [currentLayoutIdForCopy, layoutCrops]);
-  const addCopyOfCropForReplace = import_react271.useCallback((originalCrop, newName) => {
+  const addCopyOfCropForReplace = import_react273.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForReplace;
     if (!layoutId)
       return;
@@ -71895,29 +73648,29 @@ function ManualCropEditor({
     }
   };
   if (saveState !== "idle") {
-    return /* @__PURE__ */ jsx_runtime34.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime35.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime34.jsxs(Stack, {
+      children: /* @__PURE__ */ jsx_runtime35.jsxs(Stack, {
         align: "center",
         gap: "md",
         children: [
-          saveState === "saving" && /* @__PURE__ */ jsx_runtime34.jsx(Loader, {
+          saveState === "saving" && /* @__PURE__ */ jsx_runtime35.jsx(Loader, {
             size: "lg"
           }),
-          /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime35.jsx(Text, {
             size: "lg",
             fw: 500,
             children: saveMessage
           }),
-          saveState === "success" && /* @__PURE__ */ jsx_runtime34.jsxs(Group, {
+          saveState === "success" && /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
             gap: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime34.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime35.jsx(Button, {
                 onClick: handleOkayClick,
                 color: "blue",
                 children: "Okay"
               }),
-              /* @__PURE__ */ jsx_runtime34.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime35.jsx(Button, {
                 onClick: handleCloseClick,
                 variant: "outline",
                 children: "Close"
@@ -71929,24 +73682,24 @@ function ManualCropEditor({
     });
   }
   if (selectedLayoutIds.length === 0) {
-    return /* @__PURE__ */ jsx_runtime34.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime35.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+      children: /* @__PURE__ */ jsx_runtime35.jsx(Text, {
         c: "dimmed",
         children: "Select layouts from the Layout Viewer to view their manual crops"
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime34.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime35.jsxs(Box, {
     style: { height: "100%", display: "flex", flexDirection: "column" },
     children: [
-      /* @__PURE__ */ jsx_runtime34.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime35.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-        children: /* @__PURE__ */ jsx_runtime34.jsx(Group, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(Group, {
           justify: "flex-end",
           align: "center",
-          children: /* @__PURE__ */ jsx_runtime34.jsx(Button, {
+          children: /* @__PURE__ */ jsx_runtime35.jsx(Button, {
             onClick: saveCropChanges,
             disabled: changedRows.size === 0,
             color: "blue",
@@ -71955,89 +73708,89 @@ function ManualCropEditor({
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime34.jsx(ScrollArea, {
+      /* @__PURE__ */ jsx_runtime35.jsx(ScrollArea, {
         style: { flex: 1 },
-        children: /* @__PURE__ */ jsx_runtime34.jsx(Box, {
+        children: /* @__PURE__ */ jsx_runtime35.jsx(Box, {
           p: "md",
-          children: isLoading ? /* @__PURE__ */ jsx_runtime34.jsx(Center, {
+          children: isLoading ? /* @__PURE__ */ jsx_runtime35.jsx(Center, {
             style: { height: 200 },
-            children: /* @__PURE__ */ jsx_runtime34.jsx(Loader, {
+            children: /* @__PURE__ */ jsx_runtime35.jsx(Loader, {
               size: "sm"
             })
-          }) : layoutCrops.size === 0 ? /* @__PURE__ */ jsx_runtime34.jsx(Center, {
+          }) : layoutCrops.size === 0 ? /* @__PURE__ */ jsx_runtime35.jsx(Center, {
             style: { height: 200 },
-            children: /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+            children: /* @__PURE__ */ jsx_runtime35.jsx(Text, {
               c: "dimmed",
               children: selectedConnectorId ? "No manual crops found for the selected layouts and connector" : "Select a connector to view manual crops"
             })
-          }) : /* @__PURE__ */ jsx_runtime34.jsx(Stack, {
+          }) : /* @__PURE__ */ jsx_runtime35.jsx(Stack, {
             gap: "lg",
             children: Array.from(layoutCrops.values()).map((layoutCrop) => {
               const checkedSnapshotsCount = getCheckedSnapshotsCountForLayout(layoutCrop.layoutId);
-              return /* @__PURE__ */ jsx_runtime34.jsxs(Paper, {
+              return /* @__PURE__ */ jsx_runtime35.jsxs(Paper, {
                 p: "md",
                 withBorder: true,
                 children: [
-                  /* @__PURE__ */ jsx_runtime34.jsxs(Group, {
+                  /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
                     justify: "space-between",
                     align: "center",
                     mb: "md",
                     children: [
-                      /* @__PURE__ */ jsx_runtime34.jsx(Title, {
+                      /* @__PURE__ */ jsx_runtime35.jsx(Title, {
                         order: 4,
                         children: layoutCrop.layoutName
                       }),
-                      /* @__PURE__ */ jsx_runtime34.jsx(Group, {
+                      /* @__PURE__ */ jsx_runtime35.jsx(Group, {
                         gap: "xs",
-                        children: checkedSnapshotsCount > 0 && /* @__PURE__ */ jsx_runtime34.jsxs(jsx_runtime34.Fragment, {
+                        children: checkedSnapshotsCount > 0 && /* @__PURE__ */ jsx_runtime35.jsxs(jsx_runtime35.Fragment, {
                           children: [
-                            /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
                               color: "red",
                               variant: "filled",
                               onClick: () => deleteCheckedSnapshots(layoutCrop.layoutId),
                               title: "Delete selected",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconTrash, {
+                              children: /* @__PURE__ */ jsx_runtime35.jsx(IconTrash, {
                                 size: 16
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
                               color: "blue",
                               variant: "filled",
                               onClick: () => setCopyModalOpened(true, layoutCrop.layoutId),
                               title: "Copy to layer",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconCopy, {
+                              children: /* @__PURE__ */ jsx_runtime35.jsx(IconCopy, {
                                 size: 16
                               })
                             }),
-                            checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
+                            checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
                               color: "blue",
                               variant: "filled",
                               onClick: () => setCopyAndAddRowModalOpened(true, layoutCrop.layoutId),
                               title: "Copy and add row",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconCopyPlus, {
+                              children: /* @__PURE__ */ jsx_runtime35.jsx(IconCopyPlus, {
                                 size: 16
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
                               color: "blue",
                               variant: "filled",
                               onClick: () => setCopyAndReplaceModalOpened(true, layoutCrop.layoutId),
                               title: "Copy and replace",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconReplace, {
+                              children: /* @__PURE__ */ jsx_runtime35.jsx(IconReplace, {
                                 size: 16
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(ActionIcon, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
                               color: "blue",
                               variant: "filled",
                               onClick: () => deselectAllRows(layoutCrop.layoutId),
                               title: "Deselect all",
                               disabled: !selectedConnectorId,
-                              children: /* @__PURE__ */ jsx_runtime34.jsx(IconDeselect, {
+                              children: /* @__PURE__ */ jsx_runtime35.jsx(IconDeselect, {
                                 size: 16
                               })
                             })
@@ -72046,47 +73799,61 @@ function ManualCropEditor({
                       })
                     ]
                   }),
-                  layoutCrop.crops.length === 0 ? /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+                  layoutCrop.crops.length === 0 ? /* @__PURE__ */ jsx_runtime35.jsx(Text, {
                     c: "dimmed",
                     size: "sm",
                     children: "No manual crops for this layout"
-                  }) : /* @__PURE__ */ jsx_runtime34.jsxs(Table, {
+                  }) : /* @__PURE__ */ jsx_runtime35.jsxs(Table, {
                     striped: true,
                     highlightOnHover: true,
                     children: [
-                      /* @__PURE__ */ jsx_runtime34.jsx(Table.Thead, {
-                        children: /* @__PURE__ */ jsx_runtime34.jsxs(Table.Tr, {
+                      /* @__PURE__ */ jsx_runtime35.jsx(Table.Thead, {
+                        children: /* @__PURE__ */ jsx_runtime35.jsxs(Table.Tr, {
                           children: [
-                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
                               style: { width: 40 }
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
-                              children: "Frame Name"
+                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
+                              children: /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
+                                gap: "xs",
+                                align: "center",
+                                children: [
+                                  /* @__PURE__ */ jsx_runtime35.jsx(Checkbox, {
+                                    checked: getLayoutCheckboxState(layoutCrop.layoutId) === "checked",
+                                    indeterminate: getLayoutCheckboxState(layoutCrop.layoutId) === "indeterminate",
+                                    onChange: (event) => handleLayoutCheckboxChange(layoutCrop.layoutId, event.currentTarget.checked),
+                                    disabled: !selectedConnectorId
+                                  }),
+                                  /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+                                    children: "Frame Name"
+                                  })
+                                ]
+                              })
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
                               children: "Asset Name"
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
                               children: "Left"
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
                               children: "Top"
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
                               children: "Width"
                             }),
-                            /* @__PURE__ */ jsx_runtime34.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
                               children: "Height"
                             })
                           ]
                         })
                       }),
-                      /* @__PURE__ */ jsx_runtime34.jsx(Table.Tbody, {
+                      /* @__PURE__ */ jsx_runtime35.jsx(Table.Tbody, {
                         children: layoutCrop.crops.map((crop, index4) => {
                           const rowKey = `${layoutCrop.layoutId}-${index4}`;
                           const changedRow = changedRows.get(rowKey);
                           const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
-                          return /* @__PURE__ */ jsx_runtime34.jsx(CropRow, {
+                          return /* @__PURE__ */ jsx_runtime35.jsx(CropRow, {
                             crop,
                             layoutId: layoutCrop.layoutId,
                             cropIndex: index4,
@@ -72105,7 +73872,7 @@ function ManualCropEditor({
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime34.jsx(CopyCropToLayerModal, {
+      /* @__PURE__ */ jsx_runtime35.jsx(CopyCropToLayerModal, {
         opened: copyCropToLayerModalOpened,
         onClose: () => setCopyCropToLayerModalOpened(false),
         sourceLayoutId: currentCopySourceLayoutId,
@@ -72113,7 +73880,7 @@ function ManualCropEditor({
         selectedConnectorId,
         onCopy: copyCropsToLayers
       }),
-      currentCropForCopy && /* @__PURE__ */ jsx_runtime34.jsx(CopyAndAddRowModal2, {
+      currentCropForCopy && /* @__PURE__ */ jsx_runtime35.jsx(CopyAndAddRowModal2, {
         opened: copyAndAddRowModalOpened,
         onClose: () => setCopyAndAddRowModalOpened(false),
         crop: currentCropForCopy,
@@ -72121,7 +73888,7 @@ function ManualCropEditor({
         existingCrops: layoutCrops.get(currentLayoutIdForCopy)?.crops || [],
         onAddCopy: addCopyOfCrop
       }),
-      currentCropsForReplace.length > 0 && /* @__PURE__ */ jsx_runtime34.jsx(CopyAndReplaceModal2, {
+      currentCropsForReplace.length > 0 && /* @__PURE__ */ jsx_runtime35.jsx(CopyAndReplaceModal2, {
         opened: copyAndReplaceModalOpened,
         onClose: () => setCopyAndReplaceModalOpened(false),
         crops: currentCropsForReplace,
@@ -72134,18 +73901,18 @@ function ManualCropEditor({
 }
 
 // src/components/ManualCropManager/ManualCropManagerModal.tsx
-var jsx_runtime35 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime36 = __toESM(require_jsx_runtime(), 1);
 function ManualCropManagerModal({
   opened,
   onClose
 }) {
-  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react272.useState(false);
-  const [layoutViewerWidth, setLayoutViewerWidth] = import_react272.useState(400);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react272.useState([]);
-  const [selectedConnectorId, setSelectedConnectorId] = import_react272.useState("");
-  const [isResizing, setIsResizing] = import_react272.useState(false);
-  const [connectors, setConnectors] = import_react272.useState([]);
-  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react272.useState(null);
+  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react274.useState(false);
+  const [layoutViewerWidth, setLayoutViewerWidth] = import_react274.useState(400);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react274.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react274.useState("");
+  const [isResizing, setIsResizing] = import_react274.useState(false);
+  const [connectors, setConnectors] = import_react274.useState([]);
+  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react274.useState(null);
   const enableToolbar = appStore((state) => state.enableToolbar);
   const disableToolbar = appStore((state) => state.disableToolbar);
   const raiseError2 = appStore((state) => state.raiseError);
@@ -72176,7 +73943,7 @@ function ManualCropManagerModal({
       raiseError2(error40 instanceof Error ? error40 : new Error("Failed to load connectors"));
     }
   };
-  import_react272.useEffect(() => {
+  import_react274.useEffect(() => {
     if (opened) {
       const storedSelected = sessionStorage.getItem("tempManualCropManager_layoutsSelected");
       if (storedSelected) {
@@ -72196,7 +73963,7 @@ function ManualCropManagerModal({
       enableToolbar();
     }
   }, [opened]);
-  import_react272.useEffect(() => {
+  import_react274.useEffect(() => {
     sessionStorage.setItem("tempManualCropManager_layoutsSelected", JSON.stringify(selectedLayoutIds));
   }, [selectedLayoutIds]);
   const handleMouseDown = (e) => {
@@ -72214,7 +73981,7 @@ function ManualCropManagerModal({
   const handleMouseUp = () => {
     setIsResizing(false);
   };
-  import_react272.useEffect(() => {
+  import_react274.useEffect(() => {
     if (isResizing) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
@@ -72240,10 +74007,10 @@ function ManualCropManagerModal({
     enableToolbar();
     onClose();
   };
-  const handleLayoutViewerRefreshReady = import_react272.useCallback((refreshFn) => {
+  const handleLayoutViewerRefreshReady = import_react274.useCallback((refreshFn) => {
     setLayoutViewerRefresh(() => refreshFn);
   }, []);
-  const handleCropsSaved = import_react272.useCallback(async () => {
+  const handleCropsSaved = import_react274.useCallback(async () => {
     if (layoutViewerRefresh) {
       layoutViewerRefresh();
     }
@@ -72267,42 +74034,42 @@ function ManualCropManagerModal({
       }
     }
   }, [layoutViewerRefresh, selectedConnectorId, selectedLayoutIds]);
-  return /* @__PURE__ */ jsx_runtime35.jsxs(Modal, {
+  return /* @__PURE__ */ jsx_runtime36.jsxs(Modal, {
     opened,
     onClose: handleClose,
     fullScreen: true,
     padding: 0,
     withCloseButton: false,
     children: [
-      /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Box, {
         style: {
           padding: "16px 24px",
           borderBottom: "1px solid var(--mantine-color-gray-3)",
           backgroundColor: "var(--mantine-color-gray-0)"
         },
-        children: /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
+        children: /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
           justify: "space-between",
           align: "center",
           children: [
-            /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
               gap: "lg",
               align: "center",
               children: [
-                /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                   size: "lg",
                   fw: 600,
                   children: "Manual Crop Manager"
                 }),
-                /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                   gap: "md",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                       size: "sm",
                       fw: 500,
                       children: "Show crops for connector:"
                     }),
-                    /* @__PURE__ */ jsx_runtime35.jsx(Select, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Select, {
                       placeholder: "Select connector",
                       data: connectors.map((connector) => ({
                         value: connector.id,
@@ -72317,11 +74084,11 @@ function ManualCropManagerModal({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime35.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime36.jsx(Button, {
               variant: "subtle",
               color: "gray",
               size: "sm",
-              leftSection: /* @__PURE__ */ jsx_runtime35.jsx(IconX, {
+              leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconX, {
                 size: 16
               }),
               onClick: handleClose,
@@ -72330,10 +74097,10 @@ function ManualCropManagerModal({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsxs(Box, {
+      /* @__PURE__ */ jsx_runtime36.jsxs(Box, {
         style: { display: "flex", height: "calc(100vh - 120px)" },
         children: [
-          /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+          /* @__PURE__ */ jsx_runtime36.jsx(Box, {
             style: {
               width: isLayoutViewerCollapsed ? 40 : layoutViewerWidth,
               minWidth: isLayoutViewerCollapsed ? 40 : 200,
@@ -72343,54 +74110,54 @@ function ManualCropManagerModal({
               flexDirection: "column",
               transition: isLayoutViewerCollapsed ? "width 0.2s ease" : "none"
             },
-            children: isLayoutViewerCollapsed ? /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+            children: isLayoutViewerCollapsed ? /* @__PURE__ */ jsx_runtime36.jsx(Box, {
               style: {
                 padding: "8px",
                 display: "flex",
                 justifyContent: "center"
               },
-              children: /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+              children: /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                 label: "Expand Layout Viewer",
                 position: "right",
-                children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                   variant: "subtle",
                   onClick: toggleLayoutViewer,
                   size: "sm",
-                  children: /* @__PURE__ */ jsx_runtime35.jsx(IconChevronRight, {
+                  children: /* @__PURE__ */ jsx_runtime36.jsx(IconChevronRight, {
                     size: 16
                   })
                 })
               })
-            }) : /* @__PURE__ */ jsx_runtime35.jsxs(jsx_runtime35.Fragment, {
+            }) : /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
               children: [
-                /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                   justify: "space-between",
                   p: "md",
                   style: {
                     borderBottom: "1px solid var(--mantine-color-gray-3)"
                   },
                   children: [
-                    /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Box, {
                       style: { fontSize: "14px", fontWeight: 500 },
                       children: "Layout Viewer"
                     }),
-                    /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+                    /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                       label: "Collapse Layout Viewer",
                       position: "left",
-                      children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
+                      children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                         variant: "subtle",
                         onClick: toggleLayoutViewer,
                         size: "sm",
-                        children: /* @__PURE__ */ jsx_runtime35.jsx(IconChevronLeft, {
+                        children: /* @__PURE__ */ jsx_runtime36.jsx(IconChevronLeft, {
                           size: 16
                         })
                       })
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+                /* @__PURE__ */ jsx_runtime36.jsx(Box, {
                   style: { flex: 1, overflow: "hidden" },
-                  children: /* @__PURE__ */ jsx_runtime35.jsx(LayoutViewer, {
+                  children: /* @__PURE__ */ jsx_runtime36.jsx(LayoutViewer, {
                     selectedLayoutIds,
                     onSelectionChange: setSelectedLayoutIds,
                     selectedConnectorId,
@@ -72400,7 +74167,7 @@ function ManualCropManagerModal({
               ]
             })
           }),
-          !isLayoutViewerCollapsed && /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+          !isLayoutViewerCollapsed && /* @__PURE__ */ jsx_runtime36.jsx(Box, {
             style: {
               width: 4,
               cursor: "col-resize",
@@ -72409,9 +74176,9 @@ function ManualCropManagerModal({
             },
             onMouseDown: handleMouseDown
           }),
-          /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+          /* @__PURE__ */ jsx_runtime36.jsx(Box, {
             style: { flex: 1, display: "flex", flexDirection: "column" },
-            children: /* @__PURE__ */ jsx_runtime35.jsx(ManualCropEditor, {
+            children: /* @__PURE__ */ jsx_runtime36.jsx(ManualCropEditor, {
               selectedLayoutIds,
               selectedConnectorId,
               onModalClose: handleClose,
@@ -72425,22 +74192,22 @@ function ManualCropManagerModal({
 }
 
 // src/components/OutTemplateModal.tsx
-var import_react273 = __toESM(require_react(), 1);
+var import_react275 = __toESM(require_react(), 1);
 init_documentHandler();
 var import_json_2_csv = __toESM(require_converter(), 1);
 var import_jszip = __toESM(require_lib(), 1);
-var jsx_runtime36 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime37 = __toESM(require_jsx_runtime(), 1);
 function OutTemplateModal({ opened, onClose }) {
   const raiseError2 = appStore((store) => store.raiseError);
-  const fileInputRef = import_react273.useRef(null);
-  const [loading, setLoading] = import_react273.useState(true);
-  const [outputSettings, setOutputSettings] = import_react273.useState([]);
-  const [selectedOutputIds, setSelectedOutputIds] = import_react273.useState([]);
-  const [layouts, setLayouts] = import_react273.useState([]);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react273.useState([]);
-  const [isCreatingOutput, setIsCreatingOutput] = import_react273.useState(false);
-  const [variableData, setVariableData] = import_react273.useState(null);
-  const [outputTasks, setOutputTasks] = import_react273.useState([]);
+  const fileInputRef = import_react275.useRef(null);
+  const [loading, setLoading] = import_react275.useState(true);
+  const [outputSettings, setOutputSettings] = import_react275.useState([]);
+  const [selectedOutputIds, setSelectedOutputIds] = import_react275.useState([]);
+  const [layouts, setLayouts] = import_react275.useState([]);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react275.useState([]);
+  const [isCreatingOutput, setIsCreatingOutput] = import_react275.useState(false);
+  const [variableData, setVariableData] = import_react275.useState(null);
+  const [outputTasks, setOutputTasks] = import_react275.useState([]);
   const getEnvironmentId = () => {
     try {
       const urlPath = window.location.href;
@@ -72466,7 +74233,7 @@ function OutTemplateModal({ opened, onClose }) {
     const storageKey = `tempOutTemplate_selectedOutputIds_${environmentId}`;
     localStorage.setItem(storageKey, JSON.stringify(outputIds));
   };
-  import_react273.useEffect(() => {
+  import_react275.useEffect(() => {
     if (opened) {
       setLoading(true);
       setOutputSettings([]);
@@ -72939,7 +74706,7 @@ ${errorDetails}
   const hasErrors = outputTasks.some((task) => task.status === "error");
   const allTasksComplete = outputTasks.length > 0 && outputTasks.every((task) => task.status !== "loading");
   const hasTasksProcessing = outputTasks.some((task) => task.status === "loading");
-  return /* @__PURE__ */ jsx_runtime36.jsxs(Modal, {
+  return /* @__PURE__ */ jsx_runtime37.jsxs(Modal, {
     opened,
     onClose,
     withCloseButton: false,
@@ -72954,47 +74721,47 @@ ${errorDetails}
       }
     },
     children: [
-      loading ? /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+      loading ? /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
         justify: "center",
         style: { minHeight: "400px" },
         children: [
-          /* @__PURE__ */ jsx_runtime36.jsx(Loader, {
+          /* @__PURE__ */ jsx_runtime37.jsx(Loader, {
             size: "lg"
           }),
-          /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime37.jsx(Text, {
             children: "Loading output settings..."
           })
         ]
-      }) : /* @__PURE__ */ jsx_runtime36.jsxs(Grid, {
+      }) : /* @__PURE__ */ jsx_runtime37.jsxs(Grid, {
         children: [
-          /* @__PURE__ */ jsx_runtime36.jsx(Grid.Col, {
+          /* @__PURE__ */ jsx_runtime37.jsx(Grid.Col, {
             span: 6,
-            children: /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                   size: "xl",
                   fw: 600,
                   children: "Output Settings"
                 }),
-                /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                   c: "dimmed",
                   children: "Pick your output settings to output the template."
                 }),
-                hasTasksProcessing ? /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+                hasTasksProcessing ? /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
                   justify: "center",
                   style: { minHeight: "300px" },
                   children: [
-                    /* @__PURE__ */ jsx_runtime36.jsx(Loader, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Loader, {
                       size: "lg"
                     }),
-                    /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                       children: "Tasks Processing"
                     })
                   ]
-                }) : /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+                }) : /* @__PURE__ */ jsx_runtime37.jsxs(jsx_runtime37.Fragment, {
                   children: [
-                    /* @__PURE__ */ jsx_runtime36.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(MultiSelect, {
                       label: "Output Settings",
                       placeholder: "Select output settings",
                       data: outputSettings.map((setting) => ({
@@ -73007,16 +74774,16 @@ ${errorDetails}
                         saveSelectedOutputs(values2);
                       }
                     }),
-                    /* @__PURE__ */ jsx_runtime36.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(MultiSelect, {
                       label: "Selected Layouts",
                       placeholder: "Select layouts",
                       data: layouts,
                       value: selectedLayoutIds,
                       onChange: setSelectedLayoutIds
                     }),
-                    /* @__PURE__ */ jsx_runtime36.jsx(Stack, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Stack, {
                       gap: "sm",
-                      children: /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                      children: /* @__PURE__ */ jsx_runtime37.jsx(Button, {
                         size: "lg",
                         disabled: selectedOutputIds.length === 0 || selectedLayoutIds.length === 0,
                         loading: isCreatingOutput,
@@ -73034,46 +74801,46 @@ ${errorDetails}
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime36.jsx(Grid.Col, {
+          /* @__PURE__ */ jsx_runtime37.jsx(Grid.Col, {
             span: 6,
-            children: /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                   size: "xl",
                   fw: 600,
                   children: "Output Tasks"
                 }),
-                isCreatingOutput && /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+                isCreatingOutput && /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
                   justify: "center",
                   style: { minHeight: "100px" },
                   children: [
-                    /* @__PURE__ */ jsx_runtime36.jsx(Loader, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Loader, {
                       size: "lg"
                     }),
-                    /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                       children: "Creating Output..."
                     })
                   ]
                 }),
-                outputTasks.length === 0 && !isCreatingOutput ? /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                outputTasks.length === 0 && !isCreatingOutput ? /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                   c: "dimmed",
                   children: "No tasks created yet"
-                }) : /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
+                }) : /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
                   gap: "sm",
                   children: [
-                    outputTasks.map((task) => /* @__PURE__ */ jsx_runtime36.jsx(Card, {
+                    outputTasks.map((task) => /* @__PURE__ */ jsx_runtime37.jsx(Card, {
                       withBorder: true,
                       padding: "sm",
-                      children: /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+                      children: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
                         justify: "space-between",
                         align: "center",
                         children: [
-                          /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
+                          /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
                             gap: 4,
                             style: { flex: 1 },
                             children: [
-                              /* @__PURE__ */ jsx_runtime36.jsxs(Text, {
+                              /* @__PURE__ */ jsx_runtime37.jsxs(Text, {
                                 size: "sm",
                                 fw: 500,
                                 children: [
@@ -73082,38 +74849,38 @@ ${errorDetails}
                                   task.layoutName
                                 ]
                               }),
-                              /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                                 size: "xs",
                                 c: "dimmed",
                                 children: task.outputSettingName
                               })
                             ]
                           }),
-                          task.status === "loading" && /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
+                          task.status === "loading" && /* @__PURE__ */ jsx_runtime37.jsx(ActionIcon, {
                             size: "lg",
                             variant: "light",
                             loading: true,
-                            children: /* @__PURE__ */ jsx_runtime36.jsx(IconLoader, {
+                            children: /* @__PURE__ */ jsx_runtime37.jsx(IconLoader, {
                               size: 16
                             })
                           }),
-                          task.status === "success" && /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                          task.status === "success" && /* @__PURE__ */ jsx_runtime37.jsx(Button, {
                             size: "sm",
                             variant: "light",
                             color: "green",
                             onClick: () => handleTaskDownload(task),
-                            leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconDownload, {
+                            leftSection: /* @__PURE__ */ jsx_runtime37.jsx(IconDownload, {
                               size: 16
                             }),
                             children: "Download File"
                           }),
-                          task.status === "error" && /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                          task.status === "error" && /* @__PURE__ */ jsx_runtime37.jsx(Button, {
                             size: "sm",
                             variant: "light",
                             color: "red",
                             title: task.errorMessage,
                             onClick: () => handleErrorReportDownload(task),
-                            leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconAlertTriangle, {
+                            leftSection: /* @__PURE__ */ jsx_runtime37.jsx(IconAlertTriangle, {
                               size: 16
                             }),
                             children: "Download Report"
@@ -73121,18 +74888,18 @@ ${errorDetails}
                         ]
                       })
                     }, task.id)),
-                    hasErrors && /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+                    hasErrors && /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
                       gap: "sm",
                       style: { marginTop: "1rem" },
                       children: [
-                        /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime37.jsx(Button, {
                           variant: "outline",
                           color: "red",
                           size: "sm",
                           onClick: handleDownloadAllErrors,
                           children: "Download All Error Reports"
                         }),
-                        /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime37.jsx(Button, {
                           variant: "outline",
                           color: "gray",
                           size: "sm",
@@ -73141,17 +74908,17 @@ ${errorDetails}
                         })
                       ]
                     }),
-                    allTasksComplete && /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+                    allTasksComplete && /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
                       justify: "center",
                       style: { marginTop: "1rem" },
                       children: [
-                        /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                           size: "lg",
                           c: "green",
                           fw: 500,
                           children: "All tasks completed"
                         }),
-                        /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime37.jsx(Button, {
                           onClick: onClose,
                           children: "Close Modal"
                         })
@@ -73164,7 +74931,7 @@ ${errorDetails}
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime36.jsx("input", {
+      /* @__PURE__ */ jsx_runtime37.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
@@ -73176,7 +74943,7 @@ ${errorDetails}
 }
 
 // src/components/ToolbarSettingsModal.tsx
-var import_react274 = __toESM(require_react(), 1);
+var import_react276 = __toESM(require_react(), 1);
 
 // src/utils/appConfig.ts
 init_dist();
@@ -73293,17 +75060,17 @@ function checkVersions(from2, to) {
 
 // src/components/ToolbarSettingsModal.tsx
 init_dist();
-var jsx_runtime37 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime38 = __toESM(require_jsx_runtime(), 1);
 function ToolbarSettingsModal({
   opened,
   onClose,
   onReloadConfig,
   updateInfo
 }) {
-  const [defaultConfig, setDefaultConfig] = import_react274.useState(null);
-  const [githubVersion, setGithubVersion] = import_react274.useState(null);
-  const [config2, setConfig2] = import_react274.useState(null);
-  const [errorOnGetDefaultConfig, setErrorOnGetDefaultConfig] = import_react274.useState(null);
+  const [defaultConfig, setDefaultConfig] = import_react276.useState(null);
+  const [githubVersion, setGithubVersion] = import_react276.useState(null);
+  const [config2, setConfig2] = import_react276.useState(null);
+  const [errorOnGetDefaultConfig, setErrorOnGetDefaultConfig] = import_react276.useState(null);
   const getStatusIcon = (appKey) => {
     if (!defaultConfig)
       return null;
@@ -73311,28 +75078,28 @@ function ToolbarSettingsModal({
     const appStatus = appInfo ? appInfo.status : "none";
     const statusConfig = {
       none: {
-        icon: /* @__PURE__ */ jsx_runtime37.jsx(IconRosetteFilled, {
+        icon: /* @__PURE__ */ jsx_runtime38.jsx(IconRosetteFilled, {
           size: 16,
           color: "blue"
         }),
         tooltip: "Production-ready, no sponsorship"
       },
       sponsored: {
-        icon: /* @__PURE__ */ jsx_runtime37.jsx(IconRosetteDiscountCheckFilled, {
+        icon: /* @__PURE__ */ jsx_runtime38.jsx(IconRosetteDiscountCheckFilled, {
           size: 16,
           color: "green"
         }),
         tooltip: "Production-ready, under active sponsorship"
       },
       deprecated: {
-        icon: /* @__PURE__ */ jsx_runtime37.jsx(IconCircleRectangleFilled, {
+        icon: /* @__PURE__ */ jsx_runtime38.jsx(IconCircleRectangleFilled, {
           size: 16,
           color: "red"
         }),
         tooltip: "Production-ready but deprecated; scheduled for removal in future versions"
       },
       experimental: {
-        icon: /* @__PURE__ */ jsx_runtime37.jsx(IconRadioactiveFilled, {
+        icon: /* @__PURE__ */ jsx_runtime38.jsx(IconRadioactiveFilled, {
           size: 16,
           color: "purple"
         }),
@@ -73342,14 +75109,14 @@ function ToolbarSettingsModal({
     const config3 = statusConfig[appStatus];
     if (!config3)
       return null;
-    return /* @__PURE__ */ jsx_runtime37.jsx(Tooltip, {
+    return /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
       label: config3.tooltip,
       position: "top",
       withArrow: true,
       children: config3.icon
     });
   };
-  import_react274.useEffect(() => {
+  import_react276.useEffect(() => {
     if (opened) {
       if (!defaultConfig && !errorOnGetDefaultConfig) {
         const loadDefaultConfig = async () => {
@@ -73402,47 +75169,47 @@ function ToolbarSettingsModal({
   };
   const isLoading = (!config2 || !defaultConfig) && !errorOnGetDefaultConfig;
   console.log(config2, defaultConfig);
-  return /* @__PURE__ */ jsx_runtime37.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime38.jsx(Modal, {
     opened,
     onClose,
     title: "Toolbar Settings",
     centered: true,
     size: "lg",
-    children: /* @__PURE__ */ jsx_runtime37.jsx(Stack, {
-      children: isLoading ? /* @__PURE__ */ jsx_runtime37.jsx(Center, {
+    children: /* @__PURE__ */ jsx_runtime38.jsx(Stack, {
+      children: isLoading ? /* @__PURE__ */ jsx_runtime38.jsx(Center, {
         style: { minHeight: "400px" },
-        children: /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
           align: "center",
           gap: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime37.jsx(Loader, {
+            /* @__PURE__ */ jsx_runtime38.jsx(Loader, {
               size: "lg"
             }),
-            /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime38.jsx(Text, {
               children: "Loading toolbar settings..."
             })
           ]
         })
-      }) : errorOnGetDefaultConfig ? /* @__PURE__ */ jsx_runtime37.jsx(Center, {
+      }) : errorOnGetDefaultConfig ? /* @__PURE__ */ jsx_runtime38.jsx(Center, {
         style: { minHeight: "400px" },
-        children: /* @__PURE__ */ jsx_runtime37.jsx(Alert, {
+        children: /* @__PURE__ */ jsx_runtime38.jsx(Alert, {
           variant: "light",
           color: "red",
           title: "Error",
-          icon: /* @__PURE__ */ jsx_runtime37.jsx(IconBugFilled, {}),
+          icon: /* @__PURE__ */ jsx_runtime38.jsx(IconBugFilled, {}),
           children: errorOnGetDefaultConfig.message
         })
-      }) : config2 && defaultConfig ? /* @__PURE__ */ jsx_runtime37.jsxs(jsx_runtime37.Fragment, {
+      }) : config2 && defaultConfig ? /* @__PURE__ */ jsx_runtime38.jsxs(jsx_runtime38.Fragment, {
         children: [
           githubVersion && updateInfo && (() => {
             const versionComparison = checkVersions(updateInfo.currentVersion, githubVersion);
             if (versionComparison.isOk()) {
               const result = versionComparison.value;
-              const disclaimer = /* @__PURE__ */ jsx_runtime37.jsxs(jsx_runtime37.Fragment, {
+              const disclaimer = /* @__PURE__ */ jsx_runtime38.jsxs(jsx_runtime38.Fragment, {
                 children: [
                   "The Toolbar is released under the MIT license and is primarily supported by the community. Individual apps may have varying support focus. Apps marked with the",
                   " ",
-                  /* @__PURE__ */ jsx_runtime37.jsx(IconRosetteDiscountCheckFilled, {
+                  /* @__PURE__ */ jsx_runtime38.jsx(IconRosetteDiscountCheckFilled, {
                     style: { display: "inline", verticalAlign: "middle" },
                     size: 16
                   }),
@@ -73451,36 +75218,36 @@ function ToolbarSettingsModal({
                 ]
               });
               if (result === "equal" || result === "greater") {
-                return /* @__PURE__ */ jsx_runtime37.jsxs(Alert, {
+                return /* @__PURE__ */ jsx_runtime38.jsxs(Alert, {
                   variant: "light",
                   color: "green",
                   title: "Up to Date",
-                  icon: /* @__PURE__ */ jsx_runtime37.jsx(IconInfoCircle, {}),
+                  icon: /* @__PURE__ */ jsx_runtime38.jsx(IconInfoCircle, {}),
                   children: [
                     "Toolbar is on most up-to-date version:",
                     " ",
                     updateInfo.currentVersion,
-                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
-                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
+                    /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
+                    /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
                     disclaimer
                   ]
                 });
               } else {
-                return /* @__PURE__ */ jsx_runtime37.jsxs(Alert, {
+                return /* @__PURE__ */ jsx_runtime38.jsxs(Alert, {
                   variant: "light",
                   color: "red",
                   title: "Update Available",
-                  icon: /* @__PURE__ */ jsx_runtime37.jsx(IconInfoCircle, {}),
+                  icon: /* @__PURE__ */ jsx_runtime38.jsx(IconInfoCircle, {}),
                   children: [
                     "Toolbar is on an older version:",
-                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
+                    /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
                     " current: ",
                     updateInfo.currentVersion,
                     " < latest:",
                     " ",
                     githubVersion,
-                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
-                    /* @__PURE__ */ jsx_runtime37.jsx("br", {}),
+                    /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
+                    /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
                     disclaimer
                   ]
                 });
@@ -73488,26 +75255,26 @@ function ToolbarSettingsModal({
             }
             return null;
           })(),
-          /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Text, {
             size: "sm",
             c: "dimmed",
             children: "Configure which tools are visible in the toolbar."
           }),
-          /* @__PURE__ */ jsx_runtime37.jsx(Title, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Title, {
             order: 5,
             children: "Available Tools"
           }),
-          /* @__PURE__ */ jsx_runtime37.jsx(ScrollArea.Autosize, {
+          /* @__PURE__ */ jsx_runtime38.jsx(ScrollArea.Autosize, {
             mah: 400,
-            children: /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showSnapshot"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Snapshot Image Position"
                       })
                     ]
@@ -73516,12 +75283,12 @@ function ToolbarSettingsModal({
                   checked: config2.showSnapshot,
                   onChange: (event) => handleToggle("showSnapshot", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showFramePositionViewer"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Frame Position Viewer"
                       })
                     ]
@@ -73530,12 +75297,12 @@ function ToolbarSettingsModal({
                   checked: config2.showFramePositionViewer,
                   onChange: (event) => handleToggle("showFramePositionViewer", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showLayoutManager"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Layout Manager"
                       })
                     ]
@@ -73544,12 +75311,12 @@ function ToolbarSettingsModal({
                   checked: config2.showLayoutManager,
                   onChange: (event) => handleToggle("showLayoutManager", false)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showMagicLayouts"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Magic Layouts"
                       })
                     ]
@@ -73558,12 +75325,12 @@ function ToolbarSettingsModal({
                   checked: config2.showMagicLayouts,
                   onChange: (event) => handleToggle("showMagicLayouts", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showAspectLock"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Aspect Lock"
                       })
                     ]
@@ -73572,12 +75339,12 @@ function ToolbarSettingsModal({
                   checked: config2.showAspectLock,
                   onChange: (event) => handleToggle("showAspectLock", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showLayoutImageMapper"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Layout Image Mapper"
                       })
                     ]
@@ -73586,12 +75353,12 @@ function ToolbarSettingsModal({
                   checked: config2.showLayoutImageMapper,
                   onChange: (event) => handleToggle("showLayoutImageMapper", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showUploadDownload"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Upload/Download Document"
                       })
                     ]
@@ -73600,12 +75367,12 @@ function ToolbarSettingsModal({
                   checked: config2.showUploadDownload,
                   onChange: (event) => handleToggle("showUploadDownload", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showTestError"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Test Error"
                       })
                     ]
@@ -73614,12 +75381,12 @@ function ToolbarSettingsModal({
                   checked: config2.showTestError,
                   onChange: (event) => handleToggle("showTestError", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showConnectorCleanup"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Connector Cleanup"
                       })
                     ]
@@ -73628,12 +75395,12 @@ function ToolbarSettingsModal({
                   checked: config2.showConnectorCleanup,
                   onChange: (event) => handleToggle("showConnectorCleanup", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showManualCropManager"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Manual Crop Manager"
                       })
                     ]
@@ -73642,12 +75409,26 @@ function ToolbarSettingsModal({
                   checked: config2.showManualCropManager,
                   onChange: (event) => handleToggle("showManualCropManager", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
-                  label: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    gap: "xs",
+                    children: [
+                      getStatusIcon("showConnectorFolderBrowser"),
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        children: "Image Browser"
+                      })
+                    ]
+                  }),
+                  description: "Browse and select images from connectors",
+                  checked: config2.showConnectorFolderBrowser,
+                  onChange: (event) => handleToggle("showConnectorFolderBrowser", event.currentTarget.checked)
+                }),
+                /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                  label: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                     gap: "xs",
                     children: [
                       getStatusIcon("showOutput"),
-                      /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                         children: "Output"
                       })
                     ]
@@ -73659,23 +75440,23 @@ function ToolbarSettingsModal({
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
             justify: "space-between",
             mt: "xl",
             children: [
-              /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                 variant: "subtle",
                 onClick: handleReset,
                 children: "Reset to Default"
               }),
-              /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+              /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                     variant: "default",
                     onClick: handleClose,
                     children: "Cancel"
                   }),
-                  /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                     onClick: handleSave,
                     children: "Save & Apply"
                   })
@@ -73691,26 +75472,27 @@ function ToolbarSettingsModal({
 
 // src/components/Toolbar.tsx
 init_dist();
-var jsx_runtime38 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime39 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react275.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react275.useState(false);
-  const [isDownloadModalNewOpen, setIsDownloadModalNewOpen] = import_react275.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react275.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react275.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react275.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react275.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react275.useState(false);
-  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react275.useState(false);
-  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react275.useState(false);
-  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react275.useState(false);
-  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = import_react275.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react275.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react275.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react275.useState("");
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react275.useState(false);
-  const [appConfig, setAppConfig] = import_react275.useState(null);
-  const [updateInfo, setUpdateInfo] = import_react275.useState(null);
+  const [visible2, setVisible] = import_react277.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react277.useState(false);
+  const [isDownloadModalNewOpen, setIsDownloadModalNewOpen] = import_react277.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react277.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react277.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react277.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react277.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react277.useState(false);
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react277.useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react277.useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react277.useState(false);
+  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = import_react277.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react277.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react277.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react277.useState("");
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react277.useState(false);
+  const [isImageBrowserOpen, setIsImageBrowserOpen] = import_react277.useState(false);
+  const [appConfig, setAppConfig] = import_react277.useState(null);
+  const [updateInfo, setUpdateInfo] = import_react277.useState(null);
   const getActionIconColor = (appKey) => {
     const appInfo = appConfig[appKey];
     const appStatus = appInfo ? appInfo.status : "none";
@@ -73759,7 +75541,7 @@ function Toolbar() {
   const reloadConfig = (config2) => {
     setAppConfig(config2);
   };
-  import_react275.useEffect(() => {
+  import_react277.useEffect(() => {
     (async () => {
       const localConfig = localStorage.getItem("tempUserConfig");
       Result.try(() => {
@@ -73779,7 +75561,7 @@ function Toolbar() {
       });
     })();
   }, []);
-  import_react275.useEffect(() => {
+  import_react277.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -73848,14 +75630,14 @@ function Toolbar() {
       setIsAspectLockSuccessModalOpen(true);
     }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
   };
-  return /* @__PURE__ */ jsx_runtime38.jsxs(jsx_runtime38.Fragment, {
+  return /* @__PURE__ */ jsx_runtime39.jsxs(jsx_runtime39.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime38.jsx(Transition, {
+      /* @__PURE__ */ jsx_runtime39.jsx(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_runtime38.jsx(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_runtime39.jsx(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -73872,185 +75654,202 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: appConfig && /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+          children: appConfig && /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
             gap: "lg",
             children: [
-              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showSnapshot"),
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconCameraPlus, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showFramePositionViewer"),
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconPhotoCog, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Magic Layouts",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showMagicLayouts"),
                   size: "lg",
                   "aria-label": "Magic Layouts",
                   onClick: handleMagicLayouts,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconSparkles, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconSparkles, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Layout Manager",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showLayoutManager"),
                   size: "lg",
                   "aria-label": "Layout Manager",
                   onClick: handleLayoutManager,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconListTree, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconListTree, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Aspect Lock",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showAspectLock"),
                   size: "lg",
                   "aria-label": "Aspect Lock",
                   onClick: handleAspectLock,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconPlaystationSquare, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconPlaystationSquare, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Upload/Download Template",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showUploadDownload"),
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleDownloadModalNewClick,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconArrowsTransferUpDown, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Layout Image Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showLayoutImageMapper"),
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconMapBolt, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showTestError && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showTestError && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showTestError"),
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconBug, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconBug, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Connector Cleanup",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showConnectorCleanup"),
                   size: "lg",
                   "aria-label": "Connector Cleanup",
                   onClick: handleConnectorCleanup,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconPlug, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconPlug, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Manual Crop Manager",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showManualCropManager"),
                   size: "lg",
                   "aria-label": "Manual Crop Manager",
                   onClick: handleManualCropManager,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconCrop, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconCrop, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showOutput && /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showOutput && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Output",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showOutput"),
                   size: "lg",
                   "aria-label": "Output",
                   onClick: handleOutTemplate,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconDownload, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconDownload, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+              appConfig.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+                label: "Image Browser",
+                position: "bottom",
+                withArrow: true,
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                  variant: "filled",
+                  color: getActionIconColor("showConnectorFolderBrowser"),
+                  size: "lg",
+                  "aria-label": "Image Browser",
+                  onClick: () => {
+                    setIsImageBrowserOpen(true);
+                  },
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconPhotoSearch, {
+                    size: 20
+                  })
+                })
+              }),
+              /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
                 label: "Settings",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
                   variant: "filled",
                   color: "gray",
                   size: "lg",
                   "aria-label": "Settings",
                   onClick: handleSettings,
-                  children: /* @__PURE__ */ jsx_runtime38.jsx(IconSettings, {
+                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconSettings, {
                     size: 20
                   })
                 })
@@ -74059,41 +75858,41 @@ function Toolbar() {
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime38.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime39.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime39.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime39.jsx(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }),
-            /* @__PURE__ */ jsx_runtime38.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime39.jsxs(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
+                /* @__PURE__ */ jsx_runtime39.jsx("br", {}),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }),
-            /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime38.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_runtime38.jsx(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_runtime39.jsx(IconExternalLink, {
                     size: 16
                   }),
                   color: "blue",
@@ -74104,55 +75903,55 @@ function Toolbar() {
           ]
         })
       }),
-      isFramePositionViewerOpen && appConfig?.showFramePositionViewer && /* @__PURE__ */ jsx_runtime38.jsx(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && appConfig?.showFramePositionViewer && /* @__PURE__ */ jsx_runtime39.jsx(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }),
-      isAddFrameSnapshotModalOpen && appConfig?.showSnapshot && /* @__PURE__ */ jsx_runtime38.jsx(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && appConfig?.showSnapshot && /* @__PURE__ */ jsx_runtime39.jsx(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }),
-      isLayoutManagerOpen && appConfig?.showLayoutManager && /* @__PURE__ */ jsx_runtime38.jsx(LayoutManagerModal, {
+      isLayoutManagerOpen && appConfig?.showLayoutManager && /* @__PURE__ */ jsx_runtime39.jsx(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }),
-      isMagicLayoutsModalOpen && appConfig?.showMagicLayouts && /* @__PURE__ */ jsx_runtime38.jsx(MagicLayoutsModal, {
+      isMagicLayoutsModalOpen && appConfig?.showMagicLayouts && /* @__PURE__ */ jsx_runtime39.jsx(MagicLayoutsModal, {
         opened: isMagicLayoutsModalOpen,
         onClose: () => setIsMagicLayoutsModalOpen(false)
       }),
-      appConfig?.showConnectorCleanup && /* @__PURE__ */ jsx_runtime38.jsx(ConnectorCleanupModal, {
+      appConfig?.showConnectorCleanup && /* @__PURE__ */ jsx_runtime39.jsx(ConnectorCleanupModal, {
         opened: isConnectorCleanupModalOpen,
         onClose: () => setIsConnectorCleanupModalOpen(false)
       }),
-      appConfig?.showManualCropManager && /* @__PURE__ */ jsx_runtime38.jsx(ManualCropManagerModal, {
+      appConfig?.showManualCropManager && /* @__PURE__ */ jsx_runtime39.jsx(ManualCropManagerModal, {
         opened: isManualCropManagerModalOpen,
         onClose: () => setIsManualCropManagerModalOpen(false)
       }),
-      appConfig?.showOutput && /* @__PURE__ */ jsx_runtime38.jsx(OutTemplateModal, {
+      appConfig?.showOutput && /* @__PURE__ */ jsx_runtime39.jsx(OutTemplateModal, {
         opened: isOutTemplateModalOpen,
         onClose: () => setIsOutTemplateModalOpen(false)
       }),
-      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime38.jsxs(Modal, {
+      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime39.jsxs(Modal, {
         opened: isAspectLockConfirmModalOpen,
         onClose: () => setIsAspectLockConfirmModalOpen(false),
         title: "Confirm Aspect Lock Change",
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime39.jsx(Text, {
             children: "Turn Aspect Lock On?"
           }),
-          /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime38.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime39.jsx(Button, {
                 variant: "default",
                 onClick: () => handleConfirmAspectLock(false),
                 children: "No"
               }),
-              /* @__PURE__ */ jsx_runtime38.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime39.jsx(Button, {
                 color: "blue",
                 onClick: () => handleConfirmAspectLock(true),
                 children: "Yes"
@@ -74161,7 +75960,7 @@ function Toolbar() {
           })
         ]
       }),
-      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime38.jsxs(Modal, {
+      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime39.jsxs(Modal, {
         opened: isAspectLockSuccessModalOpen,
         onClose: () => {
           setIsAspectLockSuccessModalOpen(false);
@@ -74171,13 +75970,13 @@ function Toolbar() {
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime39.jsx(Text, {
             children: aspectLockSuccessMessage
           }),
-          /* @__PURE__ */ jsx_runtime38.jsx(Group, {
+          /* @__PURE__ */ jsx_runtime39.jsx(Group, {
             justify: "flex-end",
             mt: "md",
-            children: /* @__PURE__ */ jsx_runtime38.jsx(Button, {
+            children: /* @__PURE__ */ jsx_runtime39.jsx(Button, {
               onClick: () => {
                 setIsAspectLockSuccessModalOpen(false);
                 setAspectLockSuccessMessage("");
@@ -74187,11 +75986,18 @@ function Toolbar() {
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime38.jsx(DownloadModalNew, {
+      appConfig?.showUploadDownload && /* @__PURE__ */ jsx_runtime39.jsx(DownloadModalNew, {
         opened: isDownloadModalNewOpen,
         onClose: () => setIsDownloadModalNewOpen(false)
       }),
-      appConfig && /* @__PURE__ */ jsx_runtime38.jsx(ToolbarSettingsModal, {
+      appConfig?.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime39.jsx(ImageBrowser, {
+        opened: isImageBrowserOpen,
+        mode: 1 /* FileSelection */,
+        onClose: (selection) => {
+          setIsImageBrowserOpen(false);
+        }
+      }),
+      appConfig && /* @__PURE__ */ jsx_runtime39.jsx(ToolbarSettingsModal, {
         opened: isSettingsModalOpen,
         onClose: () => setIsSettingsModalOpen(false),
         onReloadConfig: reloadConfig,
@@ -74202,12 +76008,12 @@ function Toolbar() {
 }
 
 // src/components/AlertsContainer.tsx
-var import_react276 = __toESM(require_react(), 1);
-var jsx_runtime39 = __toESM(require_jsx_runtime(), 1);
+var import_react278 = __toESM(require_react(), 1);
+var jsx_runtime40 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react276.useEffect(() => {
+  import_react278.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -74222,7 +76028,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime39.jsx(Box, {
+  return /* @__PURE__ */ jsx_runtime40.jsx(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -74230,10 +76036,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_runtime39.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime40.jsx(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime39.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime39.jsx(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime40.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime40.jsx(IconInfoCircle, {
           size: "1rem"
         }),
         title: "Toolbar Error",
@@ -74253,7 +76059,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_runtime40 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime41 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -74274,16 +76080,16 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime40.jsx(import_react277.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime40.jsx(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime41.jsx(import_react279.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime41.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime40.jsx(import_react277.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime40.jsxs(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime41.jsx(import_react279.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime41.jsxs(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_runtime40.jsx(Toolbar, {}),
-        /* @__PURE__ */ jsx_runtime40.jsx(AlertsContainer, {})
+        /* @__PURE__ */ jsx_runtime41.jsx(Toolbar, {}),
+        /* @__PURE__ */ jsx_runtime41.jsx(AlertsContainer, {})
       ]
     })
   }));
@@ -74308,4 +76114,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=FC084CC8E5E2A30B64756E2164756E21
+//# debugId=E09DCBE27336A76E64756E2164756E21
