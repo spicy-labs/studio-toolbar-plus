@@ -53,6 +53,7 @@ export type DocumentConnectorGraFx = {
 // Type for the getCurrentConnectors function return value
 export type DocumentConnectorWithUsage = {
   id: string;
+  sourceId:string;
   name: string;
   type: "media" | "fonts";
   usesInTemplate: {

@@ -11,6 +11,7 @@ import {
   Tooltip,
   Loader,
   Center,
+  ActionIcon,
 } from "@mantine/core";
 import {
   IconBugFilled,
@@ -19,11 +20,22 @@ import {
   IconRosetteFilled,
   IconCircleRectangleFilled,
   IconRadioactiveFilled,
+  IconBug,
+  IconMapBolt,
+  IconArrowsTransferUpDown,
+  IconCameraPlus,
+  IconPhotoCog,
+  IconListTree,
+  IconPlaystationSquare,
+  IconSparkles,
+  IconPlug,
+  IconCrop,
+  IconDownload,
+  IconPhotoSearch,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import type {
   AppConfig,
-  AppStatus,
   AppInfo,
   AppConfigKeys,
   AppFullConfig,
@@ -41,6 +53,19 @@ interface ToolbarSettingsModalProps {
     latestVersion: string;
   };
 }
+
+const disclaimer = (
+  <>
+    The Toolbar is released under the MIT license and is primarily supported by
+    the community. Individual apps may have varying support focus. Apps marked
+    with the{" "}
+    <IconRosetteDiscountCheckFilled
+      style={{ display: "inline", verticalAlign: "middle" }}
+      size={16}
+    />{" "}
+    icon indicate active sponsorship.
+  </>
+);
 
 export function ToolbarSettingsModal({
   opened,
@@ -67,16 +92,16 @@ export function ToolbarSettingsModal({
     const statusConfig = {
       none: {
         icon: <IconRosetteFilled size={16} color="blue" />,
-        tooltip: "Production-ready, no sponsorship",
+        tooltip: "Still used, no sponsorship",
       },
       sponsored: {
         icon: <IconRosetteDiscountCheckFilled size={16} color="green" />,
-        tooltip: "Production-ready, under active sponsorship",
+        tooltip: "Still used, under active sponsorship",
       },
       deprecated: {
         icon: <IconCircleRectangleFilled size={16} color="red" />,
         tooltip:
-          "Production-ready but deprecated; scheduled for removal in future versions",
+          "Not used, deprecated; scheduled for removal in future versions",
       },
       experimental: {
         icon: <IconRadioactiveFilled size={16} color="purple" />,
@@ -90,6 +115,110 @@ export function ToolbarSettingsModal({
     return (
       <Tooltip label={config.tooltip} position="top" withArrow>
         {config.icon}
+      </Tooltip>
+    );
+  };
+
+  // Tool configuration mapping for icons and handlers
+  const toolConfig = {
+    showSnapshot: {
+      icon: <IconCameraPlus size={16} />,
+      handler: () => {
+        // Simulate opening the snapshot tool
+        console.log("Opening Snapshot Image Position tool");
+      },
+    },
+    showFramePositionViewer: {
+      icon: <IconPhotoCog size={16} />,
+      handler: () => {
+        console.log("Opening Frame Position Viewer tool");
+      },
+    },
+    showLayoutManager: {
+      icon: <IconListTree size={16} />,
+      handler: () => {
+        console.log("Opening Layout Manager tool");
+      },
+    },
+    showMagicLayouts: {
+      icon: <IconSparkles size={16} />,
+      handler: () => {
+        console.log("Opening Magic Layouts tool");
+      },
+    },
+    showAspectLock: {
+      icon: <IconPlaystationSquare size={16} />,
+      handler: () => {
+        console.log("Opening Aspect Lock tool");
+      },
+    },
+    showLayoutImageMapper: {
+      icon: <IconMapBolt size={16} />,
+      handler: () => {
+        console.log("Opening Layout Image Mapper tool");
+      },
+    },
+    showUploadDownload: {
+      icon: <IconArrowsTransferUpDown size={16} />,
+      handler: () => {
+        console.log("Opening Upload/Download tool");
+      },
+    },
+    showTestError: {
+      icon: <IconBug size={16} />,
+      handler: () => {
+        console.log("Opening Test Error tool");
+      },
+    },
+    showConnectorCleanup: {
+      icon: <IconPlug size={16} />,
+      handler: () => {
+        console.log("Opening Connector Cleanup tool");
+      },
+    },
+    showManualCropManager: {
+      icon: <IconCrop size={16} />,
+      handler: () => {
+        console.log("Opening Manual Crop Manager tool");
+      },
+    },
+    showConnectorFolderBrowser: {
+      icon: <IconPhotoSearch size={16} />,
+      handler: () => {
+        console.log("Opening Image Browser tool");
+      },
+    },
+    showOutput: {
+      icon: <IconDownload size={16} />,
+      handler: () => {
+        console.log("Opening Output tool");
+      },
+    },
+  };
+
+  // Helper function to get tool action icon
+  const getToolActionIcon = (appKey: string) => {
+    const tool = toolConfig[appKey as keyof typeof toolConfig];
+    if (!tool) return null;
+
+    return (
+      <Tooltip
+        label={`Run ${appKey
+          .replace("show", "")
+          .replace(/([A-Z])/g, " $1")
+          .trim()}`}
+        position="left"
+        withArrow
+      >
+        <ActionIcon
+          variant="subtle"
+          color="blue"
+          size="sm"
+          onClick={tool.handler}
+          aria-label={`Run ${appKey}`}
+        >
+          {tool.icon}
+        </ActionIcon>
       </Tooltip>
     );
   };
@@ -112,7 +241,7 @@ export function ToolbarSettingsModal({
                     ...(parsedConfig as AppConfig),
                   });
                 },
-                (error) => {
+                (_error) => {
                   setConfig(appConfigFromFullConfig(appConfig));
                 },
               );
@@ -168,7 +297,7 @@ export function ToolbarSettingsModal({
       onClose={onClose}
       title="Toolbar Settings"
       centered
-      size="lg"
+      size="md"
     >
       <Stack>
         {isLoading ? (
@@ -201,18 +330,6 @@ export function ToolbarSettingsModal({
                 );
                 if (versionComparison.isOk()) {
                   const result = versionComparison.value;
-                  const disclaimer = (
-                    <>
-                      The Toolbar is released under the MIT license and is
-                      primarily supported by the community. Individual apps may
-                      have varying support focus. Apps marked with the{" "}
-                      <IconRosetteDiscountCheckFilled
-                        style={{ display: "inline", verticalAlign: "middle" }}
-                        size={16}
-                      />{" "}
-                      icon indicate active sponsorship.
-                    </>
-                  );
 
                   if (result === "equal" || result === "greater") {
                     return (
@@ -224,9 +341,6 @@ export function ToolbarSettingsModal({
                       >
                         Toolbar is on most up-to-date version:{" "}
                         {updateInfo.currentVersion}
-                        <br />
-                        <br />
-                        {disclaimer}
                       </Alert>
                     );
                   } else {
@@ -240,9 +354,6 @@ export function ToolbarSettingsModal({
                         Toolbar is on an older version:
                         <br /> current: {updateInfo.currentVersion} &lt; latest:{" "}
                         {githubVersion}
-                        <br />
-                        <br />
-                        {disclaimer}
                       </Alert>
                     );
                   }
@@ -252,197 +363,256 @@ export function ToolbarSettingsModal({
 
             <Text size="sm" c="dimmed">
               Configure which tools are visible in the toolbar.
+              <br />
+              <br />
+              {disclaimer}
             </Text>
 
             <Title order={5}>Available Tools</Title>
             <ScrollArea.Autosize mah={400}>
               <Stack gap="md">
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showSnapshot")}
-                      <Text>Snapshot Image Position</Text>
-                    </Group>
-                  }
-                  description="Tool for capturing frame snapshots"
-                  checked={config.showSnapshot}
-                  onChange={(event) =>
-                    handleToggle("showSnapshot", event.currentTarget.checked)
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showSnapshot")}
+                    <Text>Snapshot Image Position</Text>
+                    {getStatusIcon("showSnapshot")}
+                  </Group>
+                  <Switch
+                    checked={config.showSnapshot}
+                    onChange={(event) =>
+                      handleToggle("showSnapshot", event.currentTarget.checked)
+                    }
+                    aria-label="Toggle Snapshot Image Position"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Tool for capturing frame snapshots
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showFramePositionViewer")}
-                      <Text>Frame Position Viewer</Text>
-                    </Group>
-                  }
-                  description="View and analyze frame positions"
-                  checked={config.showFramePositionViewer}
-                  onChange={(event) =>
-                    handleToggle(
-                      "showFramePositionViewer",
-                      event.currentTarget.checked,
-                    )
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showFramePositionViewer")}
+                    <Text>Frame Position Viewer</Text>
+                    {getStatusIcon("showFramePositionViewer")}
+                  </Group>
+                  <Switch
+                    checked={config.showFramePositionViewer}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showFramePositionViewer",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Frame Position Viewer"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  View and analyze frame positions
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showLayoutManager")}
-                      <Text>Layout Manager</Text>
-                    </Group>
-                  }
-                  description="Manage layout properties and hierarchy"
-                  checked={config.showLayoutManager}
-                  onChange={(event) => handleToggle("showLayoutManager", false)}
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showLayoutManager")}
+                    <Text>Layout Manager</Text>
+                    {getStatusIcon("showLayoutManager")}
+                  </Group>
+                  <Switch
+                    checked={config.showLayoutManager}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showLayoutManager",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Layout Manager"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Manage layout properties and hierarchy
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showMagicLayouts")}
-                      <Text>Magic Layouts</Text>
-                    </Group>
-                  }
-                  description="Automated layout generation and management"
-                  checked={config.showMagicLayouts}
-                  onChange={(event) =>
-                    handleToggle(
-                      "showMagicLayouts",
-                      event.currentTarget.checked,
-                    )
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showMagicLayouts")}
+                    <Text>Magic Layouts</Text>
+                    {getStatusIcon("showMagicLayouts")}
+                  </Group>
+                  <Switch
+                    checked={config.showMagicLayouts}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showMagicLayouts",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Magic Layouts"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Automated layout generation and management
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showAspectLock")}
-                      <Text>Aspect Lock</Text>
-                    </Group>
-                  }
-                  description="Lock aspect ratios for layouts"
-                  checked={config.showAspectLock}
-                  onChange={(event) =>
-                    handleToggle("showAspectLock", event.currentTarget.checked)
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showAspectLock")}
+                    <Text>Aspect Lock</Text>
+                    {getStatusIcon("showAspectLock")}
+                  </Group>
+                  <Switch
+                    checked={config.showAspectLock}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showAspectLock",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Aspect Lock"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Lock aspect ratios for layouts
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showLayoutImageMapper")}
-                      <Text>Layout Image Mapper</Text>
-                    </Group>
-                  }
-                  description="Map images to layout variables"
-                  checked={config.showLayoutImageMapper}
-                  onChange={(event) =>
-                    handleToggle(
-                      "showLayoutImageMapper",
-                      event.currentTarget.checked,
-                    )
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showLayoutImageMapper")}
+                    <Text>Layout Image Mapper</Text>
+                    {getStatusIcon("showLayoutImageMapper")}
+                  </Group>
+                  <Switch
+                    checked={config.showLayoutImageMapper}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showLayoutImageMapper",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Layout Image Mapper"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Map images to layout variables
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showUploadDownload")}
-                      <Text>Upload/Download Document</Text>
-                    </Group>
-                  }
-                  description="Upload and download document JSON"
-                  checked={config.showUploadDownload}
-                  onChange={(event) =>
-                    handleToggle(
-                      "showUploadDownload",
-                      event.currentTarget.checked,
-                    )
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showUploadDownload")}
+                    <Text>Upload/Download Document</Text>
+                    {getStatusIcon("showUploadDownload")}
+                  </Group>
+                  <Switch
+                    checked={config.showUploadDownload}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showUploadDownload",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Upload/Download Document"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Upload and download document JSON
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showTestError")}
-                      <Text>Test Error</Text>
-                    </Group>
-                  }
-                  description="Test error handling functionality"
-                  checked={config.showTestError}
-                  onChange={(event) =>
-                    handleToggle("showTestError", event.currentTarget.checked)
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showTestError")}
+                    <Text>Test Error</Text>
+                    {getStatusIcon("showTestError")}
+                  </Group>
+                  <Switch
+                    checked={config.showTestError}
+                    onChange={(event) =>
+                      handleToggle("showTestError", event.currentTarget.checked)
+                    }
+                    aria-label="Toggle Test Error"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Test error handling functionality
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showConnectorCleanup")}
-                      <Text>Connector Cleanup</Text>
-                    </Group>
-                  }
-                  description="Manage and remove unused connectors"
-                  checked={config.showConnectorCleanup}
-                  onChange={(event) =>
-                    handleToggle(
-                      "showConnectorCleanup",
-                      event.currentTarget.checked,
-                    )
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showConnectorCleanup")}
+                    <Text>Connector Cleanup</Text>
+                    {getStatusIcon("showConnectorCleanup")}
+                  </Group>
+                  <Switch
+                    checked={config.showConnectorCleanup}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showConnectorCleanup",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Connector Cleanup"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Manage and remove unused connectors
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showManualCropManager")}
-                      <Text>Manual Crop Manager</Text>
-                    </Group>
-                  }
-                  description="Manage manual crops for layouts and connectors"
-                  checked={config.showManualCropManager}
-                  onChange={(event) =>
-                    handleToggle(
-                      "showManualCropManager",
-                      event.currentTarget.checked,
-                    )
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showManualCropManager")}
+                    <Text>Manual Crop Manager</Text>
+                    {getStatusIcon("showManualCropManager")}
+                  </Group>
+                  <Switch
+                    checked={config.showManualCropManager}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showManualCropManager",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Manual Crop Manager"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Manage manual crops for layouts and connectors
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showConnectorFolderBrowser")}
-                      <Text>Image Browser</Text>
-                    </Group>
-                  }
-                  description="Browse and select images from connectors"
-                  checked={config.showConnectorFolderBrowser}
-                  onChange={(event) =>
-                    handleToggle(
-                      "showConnectorFolderBrowser",
-                      event.currentTarget.checked,
-                    )
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showConnectorFolderBrowser")}
+                    <Text>Image Browser</Text>
+                    {getStatusIcon("showConnectorFolderBrowser")}
+                  </Group>
+                  <Switch
+                    checked={config.showConnectorFolderBrowser}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showConnectorFolderBrowser",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Image Browser"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Browse and select images from connectors
+                </Text>
 
-                <Switch
-                  label={
-                    <Group gap="xs">
-                      {getStatusIcon("showOutput")}
-                      <Text>Output</Text>
-                    </Group>
-                  }
-                  description="Generate output files from layouts"
-                  checked={config.showOutput}
-                  onChange={(event) =>
-                    handleToggle("showOutput", event.currentTarget.checked)
-                  }
-                />
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showOutput")}
+                    <Text>Output</Text>
+                    {getStatusIcon("showOutput")}
+                  </Group>
+                  <Switch
+                    checked={config.showOutput}
+                    onChange={(event) =>
+                      handleToggle("showOutput", event.currentTarget.checked)
+                    }
+                    aria-label="Toggle Output"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Generate output files from layouts
+                </Text>
               </Stack>
             </ScrollArea.Autosize>
 

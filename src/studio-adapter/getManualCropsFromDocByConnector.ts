@@ -2,6 +2,7 @@ import type SDK from "@chili-publish/studio-sdk";
 import { Result } from "typescript-result";
 import { getCurrentDocumentState } from "../studio/documentHandler";
 import type { ManualCrop, FrameProperty } from "./manualCropTypes";
+import type { DocumentConnectorWithUsage } from "../types/connectorTypes";
 
 type Layouts = {
   id: string;
@@ -43,7 +44,7 @@ type DocumentState = {
  */
 export async function getManualCropsFromDocByConnector(
   studio: SDK,
-  connectorId: string
+  connectorId: string,
 ): Promise<Result<ManualCrops, Error>> {
   try {
     // Get the current document state
@@ -51,8 +52,8 @@ export async function getManualCropsFromDocByConnector(
     if (!documentStateResult.isOk()) {
       return Result.error(
         new Error(
-          "Failed to get document state: " + documentStateResult.error?.message
-        )
+          "Failed to get document state: " + documentStateResult.error?.message,
+        ),
       );
     }
 
@@ -92,7 +93,7 @@ export async function getManualCropsFromDocByConnector(
 
               // Process each asset path for this connector
               for (const [assetPath, cropData] of Object.entries(
-                connectorCrops
+                connectorCrops,
               )) {
                 const frameName =
                   frameIdToNameMap.get(frameProperty.id) || frameProperty.id;
@@ -133,7 +134,7 @@ export async function getManualCropsFromDocByConnector(
     return Result.ok(result);
   } catch (error) {
     return Result.error(
-      error instanceof Error ? error : new Error(String(error))
+      error instanceof Error ? error : new Error(String(error)),
     );
   }
 }

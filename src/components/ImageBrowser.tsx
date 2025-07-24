@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { FixedSizeList as List } from "react-window";
 import {
   Modal,
@@ -18,6 +18,8 @@ import {
   ActionIcon,
   Center,
   Tooltip,
+  Drawer,
+  Slider,
 } from "@mantine/core";
 import {
   IconAlertCircle,
@@ -26,6 +28,7 @@ import {
   IconArrowBigLeftFilled,
   IconExclamationCircle,
   IconEyeCheck,
+  IconSettings,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { getStudio } from "../studio/studioAdapter";
@@ -95,6 +98,11 @@ interface ImageBrowserProps<
 type BrowserState = "loading" | "connectorSelection" | "folderBrowsing";
 type DisplayMode = "grid" | "list";
 
+// Settings interface for ImageBrowser
+interface ImageBrowserSettings {
+  iconSize: number;
+}
+
 export function ImageBrowser<T extends ImageBrowserMode>({
   opened,
   mode,
@@ -107,7 +115,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   const [browserState, setBrowserState] = useState<BrowserState>("loading");
   const [connectors, setConnectors] = useState<Connector[]>([]);
   const [selectedConnectorId, setSelectedConnectorId] = useState<string | null>(
-    null
+    null,
   );
   const [displayMode, setDisplayMode] = useState<DisplayMode>("list");
   const [localConnectorId, setLocalConnectorId] = useState<string | null>(null);
@@ -115,37 +123,37 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   const [folders, setFolders] = useState<Media[]>([]);
   const [files, setFiles] = useState<Media[]>([]);
   const [selectedFolders, setSelectedFolders] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   // Persistent selection storage across navigation
   const [persistentSelections, setPersistentSelections] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   // Smart crop selection mode state
   const [smartCropMode, setSmartCropMode] = useState<boolean>(false);
   const [sourceFile, setSourceFile] = useState<string | null>(null);
   const [targetSelectedFiles, setTargetSelectedFiles] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [isLoadingFolders, setIsLoadingFolders] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // Thumbnail state
   const [thumbnailUrls, setThumbnailUrls] = useState<Map<string, string>>(
-    new Map()
+    new Map(),
   );
   const [thumbnailErrors, setThumbnailErrors] = useState<Map<string, string>>(
-    new Map()
+    new Map(),
   );
   const [loadingThumbnails, setLoadingThumbnails] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   // Vision data caching state
   const [visionDataCache, setVisionDataCache] = useState<Map<string, boolean>>(
-    new Map()
+    new Map(),
   );
   const [loadingVisionData, setLoadingVisionData] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   // Task processing state
   const [copyTasks, setCopyTasks] = useState<TaskItem[]>([]);
@@ -154,14 +162,45 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   const [hasMorePages, setHasMorePages] = useState(false);
   const [nextPageToken, setNextPageToken] = useState<string>("");
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  // react-window configuration
-  const [itemSize, setItemSize] = useState(60);
   // Blob URL cleanup timeout
   const [cleanupTimeoutId, setCleanupTimeoutId] =
     useState<NodeJS.Timeout | null>(null);
+  // Settings state
+  const [settings, setSettings] = useState<ImageBrowserSettings>({
+    iconSize: 24,
+  });
+  const [tempSettings, setTempSettings] = useState<ImageBrowserSettings>({
+    iconSize: 24,
+  });
+  const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = useState(false);
+
+  // react-window configuration - calculate based on icon size with padding
+  const itemSize = useMemo(
+    () => Math.max(60, settings.iconSize + 32),
+    [settings.iconSize],
+  );
 
   // Session storage key for connector selection
   const CONNECTOR_SESSION_KEY = "tempDownloadModal_connectorId";
+  // LocalStorage key for settings
+  const SETTINGS_STORAGE_KEY = "tempImageBrowserSettings";
+
+  // Load settings from localStorage on component mount
+  useEffect(() => {
+    const savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
+    if (savedSettings) {
+      try {
+        const parsedSettings = JSON.parse(
+          savedSettings,
+        ) as ImageBrowserSettings;
+        setSettings(parsedSettings);
+        setTempSettings(parsedSettings);
+      } catch (error) {
+        // If parsing fails, use default settings
+        console.warn("Failed to parse ImageBrowser settings:", error);
+      }
+    }
+  }, []);
 
   // Cleanup blob URLs when component unmounts (fallback)
   useEffect(() => {
@@ -284,15 +323,15 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         if (studioResult.isOk()) {
           const unregisterResult = await unregisterConnector(
             studioResult.value,
-            localConnectorId
+            localConnectorId,
           );
           if (!unregisterResult.isOk()) {
             // Log error but don't throw - we still want to reset state
             raiseError(
               new Error(
                 unregisterResult.error?.message ||
-                  "Failed to unregister connector"
-              )
+                  "Failed to unregister connector",
+              ),
             );
           }
         }
@@ -333,7 +372,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       const connectorsResult = await getMediaConnectorsAPI(baseUrl, token);
       if (!connectorsResult.isOk()) {
         throw new Error(
-          connectorsResult.error?.message || "Failed to fetch connectors"
+          connectorsResult.error?.message || "Failed to fetch connectors",
         );
       }
 
@@ -341,7 +380,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       // Filter for media connectors that are enabled
       const mediaConnectors = connectorResponse.data.filter(
-        (connector) => connector.type === "media" && connector.enabled
+        (connector) => connector.type === "media" && connector.enabled,
       );
 
       setConnectors(mediaConnectors);
@@ -377,7 +416,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       const registerResult = await registerConnector(studio, connectorId);
       if (!registerResult.isOk()) {
         throw new Error(
-          registerResult.error?.message || "Failed to register connector"
+          registerResult.error?.message || "Failed to register connector",
         );
       }
 
@@ -419,7 +458,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   const loadVisionData = async (
     file: Media,
     localConnectorId: string,
-    connectorId: string
+    connectorId: string,
   ) => {
     if (!(file.type === "file" || (file.type as unknown) == 0)) {
       return;
@@ -476,7 +515,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
           // Other errors - don't cache
           console.warn(
             `Failed to load vision data for ${file.name}:`,
-            visionResult.error?.message
+            visionResult.error?.message,
           );
         }
       }
@@ -524,14 +563,14 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       if (!downloadResult.isOk()) {
         throw new Error(
-          downloadResult.error?.message || "Failed to download thumbnail"
+          downloadResult.error?.message || "Failed to download thumbnail",
         );
       }
 
       // Convert the Uint8Array to a blob and create object URL
       const uint8Array = downloadResult.value as Uint8Array;
       console.log(
-        `[Thumbnail] Downloaded ${file.name}: ${uint8Array.length} bytes`
+        `[Thumbnail] Downloaded ${file.name}: ${uint8Array.length} bytes`,
       );
 
       // Try to detect content type from the first few bytes
@@ -545,7 +584,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         else if (header.startsWith("4749")) contentType = "image/gif";
         else if (header.startsWith("5249")) contentType = "image/webp";
         console.log(
-          `[Thumbnail] Detected content type for ${file.name}: ${contentType} (header: ${header})`
+          `[Thumbnail] Detected content type for ${file.name}: ${contentType} (header: ${header})`,
         );
       }
 
@@ -553,7 +592,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       const thumbnailUrl = URL.createObjectURL(blob);
 
       console.log(
-        `[Thumbnail] Created blob URL for ${file.name}: ${thumbnailUrl}`
+        `[Thumbnail] Created blob URL for ${file.name}: ${thumbnailUrl}`,
       );
 
       // Update thumbnail URLs
@@ -584,7 +623,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     if (!studioResult.isOk()) {
       setError(studioResult.error?.message || "Failed to get studio");
       raiseError(
-        new Error(studioResult.error?.message || "Failed to get studio")
+        new Error(studioResult.error?.message || "Failed to get studio"),
       );
       return;
     }
@@ -595,7 +634,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   // Helper function to update selectedFolders based on persistent selections
   const updateSelectedFoldersForCurrentPath = (
     folderData: Media[],
-    path: string
+    path: string,
   ) => {
     const currentPathSelections = new Set<string>();
 
@@ -615,7 +654,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     selectedConnectorId: string | null,
     path: string,
     pageToken: string = "",
-    append: boolean = false
+    append: boolean = false,
   ) => {
     try {
       if (selectedConnectorId == null) {
@@ -641,12 +680,12 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         studioResult.value,
         connectorId,
         path,
-        pageToken
+        pageToken,
       );
 
       if (!queryResult.isOk()) {
         throw new Error(
-          queryResult.error?.message || "Failed to query media connector"
+          queryResult.error?.message || "Failed to query media connector",
         );
       }
 
@@ -654,10 +693,10 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       // Filter for folders and files separately
       const folderData = queryPage.data.filter(
-        (item) => item.type === "folder" || (item.type as unknown) == 1
+        (item) => item.type === "folder" || (item.type as unknown) == 1,
       );
       const fileData = queryPage.data.filter(
-        (item) => item.type === "file" || (item.type as unknown) == 0
+        (item) => item.type === "file" || (item.type as unknown) == 0,
       );
 
       if (append) {
@@ -732,7 +771,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       selectedConnectorId,
       currentPath,
       nextPageToken,
-      true
+      true,
     );
   };
 
@@ -783,7 +822,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                   onClick={(e) => e.stopPropagation()}
                 />
               )}
-              <IconFolder size={24} />
+              <IconFolder size={settings.iconSize} />
               <Text size="sm" style={{ flex: 1 }}>
                 {item.name}
               </Text>
@@ -851,7 +890,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                   onClick={(e) => e.stopPropagation()}
                 />
               )}
-              {renderFileIcon(item, 24)}
+              {renderFileIcon(item)}
               <Group gap="md" justify="flex-start">
                 <Text size="sm" style={{ flex: 1, userSelect: "text" }}>
                   {item.name}
@@ -981,6 +1020,23 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     setTargetSelectedFiles(newTargetFiles);
   };
 
+  // Settings handlers
+  const handleOpenSettings = () => {
+    setTempSettings({ ...settings });
+    setIsSettingsDrawerOpen(true);
+  };
+
+  const handleSaveSettings = () => {
+    setSettings(tempSettings);
+    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(tempSettings));
+    setIsSettingsDrawerOpen(false);
+  };
+
+  const handleCancelSettings = () => {
+    setTempSettings({ ...settings });
+    setIsSettingsDrawerOpen(false);
+  };
+
   const handleCopyVisionData = async () => {
     if (!sourceFile || !localConnectorId || targetSelectedFiles.size === 0) {
       return;
@@ -1037,8 +1093,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                   error:
                     visionResult.error?.message || "Failed to get vision data",
                 }
-              : task
-          )
+              : task,
+          ),
         );
         return;
       }
@@ -1046,8 +1102,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       // Mark get vision task as complete
       setCopyTasks((prev) =>
         prev.map((task) =>
-          task.id === getVisionTaskId ? { ...task, status: "complete" } : task
-        )
+          task.id === getVisionTaskId ? { ...task, status: "complete" } : task,
+        ),
       );
 
       const sourceVisionData = visionResult.value;
@@ -1084,8 +1140,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
               prev.map((task) =>
                 task.id === setVisionTaskId
                   ? { ...task, status: "complete" }
-                  : task
-              )
+                  : task,
+              ),
             );
 
             // Update vision cache for target file
@@ -1105,8 +1161,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                       error:
                         setResult.error?.message || "Failed to set vision data",
                     }
-                  : task
-              )
+                  : task,
+              ),
             );
           }
         } catch (error) {
@@ -1119,8 +1175,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                     error:
                       error instanceof Error ? error.message : String(error),
                   }
-                : task
-            )
+                : task,
+            ),
           );
         }
       }
@@ -1137,14 +1193,14 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         if (studioResult.isOk()) {
           const unregisterResult = await unregisterConnector(
             studioResult.value,
-            localConnectorId
+            localConnectorId,
           );
           if (!unregisterResult.isOk()) {
             raiseError(
               new Error(
                 unregisterResult.error?.message ||
-                  "Failed to unregister connector"
-              )
+                  "Failed to unregister connector",
+              ),
             );
           }
         }
@@ -1155,7 +1211,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
     // Find the connector name from the connectors list
     const selectedConnector = connectors.find(
-      (c) => c.id === selectedConnectorId
+      (c) => c.id === selectedConnectorId,
     );
     const connectorName = selectedConnector?.name || "";
 
@@ -1168,7 +1224,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       };
       resetState();
       (onClose as (selection: ImageBrowserFolderSelection | null) => void)(
-        selection
+        selection,
       );
     } else {
       // File selection mode
@@ -1181,12 +1237,12 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         };
         resetState();
         (onClose as (selection: ImageBrowserFileSelection | null) => void)(
-          selection
+          selection,
         );
       } else {
         resetState();
         (onClose as (selection: ImageBrowserFileSelection | null) => void)(
-          null
+          null,
         );
       }
     }
@@ -1233,7 +1289,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
           }}
         >
           {part}
-        </Anchor>
+        </Anchor>,
       );
     });
 
@@ -1254,7 +1310,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
     if (hasVisionData) {
       return (
-        <Tooltip label="Vision data available">
+        <Tooltip label="Smart Crop (vision data) exist">
           <IconEyeCheck size={16} color="green" />
         </Tooltip>
       );
@@ -1264,7 +1320,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   };
 
   // Helper function to render file icon/thumbnail
-  const renderFileIcon = (file: Media, size: number = 24) => {
+  const renderFileIcon = (file: Media, size: number = settings.iconSize) => {
     if (!localConnectorId) return <IconFile size={size} />;
 
     const fileKey = `${localConnectorId}-${file.id}`;
@@ -1286,7 +1342,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
     if (thumbnailUrl) {
       console.log(
-        `[Render] Using thumbnail URL for ${file.name}: ${thumbnailUrl}`
+        `[Render] Using thumbnail URL for ${file.name}: ${thumbnailUrl}`,
       );
       return (
         <img
@@ -1333,6 +1389,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                 cursor: "pointer",
                 position: "relative",
                 border: isSelected ? "2px solid #228be6" : undefined,
+                minHeight: Math.max(120, settings.iconSize + 80), // Minimum 120px, or icon size + text space
               }}
               onClick={() => navigateToFolder(folder.name)}
             >
@@ -1350,7 +1407,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
               )}
 
               <Stack align="center" gap="xs">
-                <IconFolder size={32} />
+                <IconFolder size={settings.iconSize} />
                 <Text size="sm" ta="center" lineClamp={2}>
                   {folder.name}
                 </Text>
@@ -1393,6 +1450,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                   : isSourceFile
                     ? "#f8f9fa"
                     : undefined,
+                minHeight: Math.max(120, settings.iconSize + 80), // Minimum 120px, or icon size + text space
               }}
               onClick={() => {
                 if (!isFileSelectable) {
@@ -1422,7 +1480,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
               )}
 
               <Stack align="center" gap="xs">
-                {renderFileIcon(file, 32)}
+                {renderFileIcon(file)}
                 <Group gap="xs" justify="flex-end">
                   <Text size="sm" ta="center" lineClamp={2}>
                     {file.name}
@@ -1546,44 +1604,56 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                   {renderBreadcrumbs()}
                 </Group>
 
-                <Select
-                  label="Change Connector"
-                  placeholder="Select a connector"
-                  data={connectors.map((c) => ({ value: c.id, label: c.name }))}
-                  value={selectedConnectorId}
-                  onChange={async (value) => {
-                    if (value && value !== selectedConnectorId) {
-                      // Reset state and switch to new connector
-                      setSelectedConnectorIdWithReset(value);
+                <Group gap="md" align="flex-end">
+                  <ActionIcon
+                    variant="subtle"
+                    onClick={handleOpenSettings}
+                    aria-label="Image Browser Settings"
+                  >
+                    <IconSettings size={20} />
+                  </ActionIcon>
+                  <Select
+                    label="Change Connector"
+                    placeholder="Select a connector"
+                    data={connectors.map((c) => ({
+                      value: c.id,
+                      label: c.name,
+                    }))}
+                    value={selectedConnectorId}
+                    onChange={async (value) => {
+                      if (value && value !== selectedConnectorId) {
+                        // Reset state and switch to new connector
+                        setSelectedConnectorIdWithReset(value);
 
-                      // Cleanup current connector if exists
-                      if (localConnectorId) {
-                        try {
-                          const studioResult = await getStudio();
-                          if (studioResult.isOk()) {
-                            await unregisterConnector(
-                              studioResult.value,
-                              localConnectorId
+                        // Cleanup current connector if exists
+                        if (localConnectorId) {
+                          try {
+                            const studioResult = await getStudio();
+                            if (studioResult.isOk()) {
+                              await unregisterConnector(
+                                studioResult.value,
+                                localConnectorId,
+                              );
+                            }
+                          } catch (error) {
+                            raiseError(
+                              error instanceof Error
+                                ? error
+                                : new Error(String(error)),
                             );
                           }
-                        } catch (error) {
-                          raiseError(
-                            error instanceof Error
-                              ? error
-                              : new Error(String(error))
-                          );
+                        }
+
+                        // Proceed with new connector
+                        const studioResult = await getStudio();
+                        if (studioResult.isOk()) {
+                          await proceedWithConnector(value, studioResult.value);
                         }
                       }
-
-                      // Proceed with new connector
-                      const studioResult = await getStudio();
-                      if (studioResult.isOk()) {
-                        await proceedWithConnector(value, studioResult.value);
-                      }
-                    }
-                  }}
-                  style={{ width: "250px" }}
-                />
+                    }}
+                    style={{ width: "250px" }}
+                  />
+                </Group>
               </Group>
 
               {/* Toolbar for file selection mode when a file is selected */}
@@ -1610,7 +1680,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                     disabled={targetSelectedFiles.size === 0}
                     onClick={handleCopyVisionData}
                   >
-                    Copy
+                    Paste
                   </Button>
                   <Button
                     variant="outline"
@@ -1747,7 +1817,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
             (task) =>
               task.status === "complete" ||
               task.status === "error" ||
-              task.status === "info"
+              task.status === "info",
           );
           if (allComplete) {
             setShowTaskModal(false);
@@ -1772,6 +1842,47 @@ export function ImageBrowser<T extends ImageBrowserMode>({
           }}
         />
       </Modal>
+
+      {/* Settings Drawer */}
+      <Drawer
+        opened={isSettingsDrawerOpen}
+        onClose={handleCancelSettings}
+        title="Image Browser Settings"
+        position="right"
+        size="md"
+        padding="md"
+      >
+        <Stack gap="lg">
+          <Stack gap="md">
+            <Text size="sm" fw={500}>
+              File and Folder Icon Size
+            </Text>
+            <Slider
+              value={tempSettings.iconSize}
+              onChange={(value) =>
+                setTempSettings({ ...tempSettings, iconSize: value })
+              }
+              min={24}
+              max={192}
+              step={24}
+              marks={[
+                { value: 24, label: "sm" },
+                { value: 48, label: "md" },
+                { value: 96, label: "lg" },
+                { value: 192, label: "xl" },
+              ]}
+              style={{ marginTop: "1rem", marginBottom: "1rem" }}
+            />
+          </Stack>
+
+          <Group justify="flex-end" gap="md">
+            <Button variant="outline" onClick={handleCancelSettings}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveSettings}>Save</Button>
+          </Group>
+        </Stack>
+      </Drawer>
     </>
   );
 }

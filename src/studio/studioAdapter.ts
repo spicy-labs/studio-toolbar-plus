@@ -715,8 +715,23 @@ export async function getCurrentConnectors(
     const result: DocumentConnectorWithUsage[] = [];
 
     for (const connector of grafxConnectors) {
+      // To fix 'explicit any' error, we can:
+      // 1. Use type assertion to GrafxSource: const sourceId = (connector.source as GrafxSource).id
+      // 2. Add type guard: if ('id' in connector.source) { const sourceId = connector.source.id }
+      // 3. Use proper type narrowing with discriminated union based on source.source === 'grafx'
+      const sourceId: string | undefined = (connector.source as {id?:string})["id"];
+
+      if (sourceId == null) {
+        return Result.error(
+          new Error(
+            `Connector source ID is null for connector with id: ${connector.id}`
+          )
+        );
+      }
+
       const usage: DocumentConnectorWithUsage = {
         id: connector.id,
+        sourceId,
         name: connector.name,
         type: "media", // Assuming media type since we're getting media connectors
         usesInTemplate: {
