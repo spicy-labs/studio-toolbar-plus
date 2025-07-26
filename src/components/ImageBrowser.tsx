@@ -41,7 +41,7 @@ import {
   unregisterConnector,
 } from "../studio/connectorAdapter";
 import type { Connector } from "../types/connectorTypes";
-import type { MediaDownloadType } from "@chili-publish/studio-sdk";
+import { MediaDownloadType } from "@chili-publish/studio-sdk";
 import { getMediaConnectorsAPI } from "../utils/getMediaConnectorsAPI";
 import { getVision } from "../utils/smartCrop/getVision";
 import { setVision } from "../utils/smartCrop/setVision";
@@ -789,6 +789,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       ...files,
     ];
     const item = allItems[index];
+    console.log(item);
 
     if (!item) return null;
 
@@ -833,10 +834,10 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     }
 
     if (isFile) {
-      const isSelected = selectedFile === item.name;
-      const isSourceFile = smartCropMode && sourceFile === item.name;
+      const isSelected = selectedFile === item.id;
+      const isSourceFile = smartCropMode && sourceFile === item.id;
       const isTargetSelected =
-        smartCropMode && targetSelectedFiles.has(item.name);
+        smartCropMode && targetSelectedFiles.has(item.id);
 
       // In folder mode, files are not selectable
       const isFileSelectable = mode === ImageBrowserMode.FileSelection;
@@ -875,10 +876,10 @@ export function ImageBrowser<T extends ImageBrowserMode>({
               }
               if (smartCropMode) {
                 if (!isSourceFile) {
-                  handleTargetFileToggle(item.name);
+                  handleTargetFileToggle(item.id);
                 }
               } else {
-                handleFileSelection(item.name);
+                handleFileSelection(item.id);
               }
             }}
           >
@@ -992,8 +993,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     setSelectedFolders(new Set());
   };
 
-  const handleFileSelection = (fileName: string) => {
-    setSelectedFile(fileName);
+  const handleFileSelection = (fileId: string) => {
+    setSelectedFile(fileId);
   };
 
   const handleEnterSmartCropMode = () => {
@@ -1018,6 +1019,63 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       newTargetFiles.add(fileName);
     }
     setTargetSelectedFiles(newTargetFiles);
+  };
+
+  const handleDownloadFile = async () => {
+    if (!selectedFile || !localConnectorId) {
+      raiseError(new Error("No file or connector selected"));
+      return;
+    }
+
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+
+      // Find the selected file in the current files list to get its id
+      const fileToDownload = files.find((file) => file.id === selectedFile);
+      if (!fileToDownload) {
+        throw new Error("Selected file not found");
+      }
+
+      const downloadResult = await downloadMediaConnector({
+        studio: studioResult.value,
+        connectorId: localConnectorId,
+        assetId: fileToDownload.id,
+        downloadType: MediaDownloadType.original,
+        metadata: {},
+      });
+
+      if (!downloadResult.isOk()) {
+        throw new Error(
+          downloadResult.error?.message || "Failed to download file",
+        );
+      }
+
+      // Convert the Uint8Array to a blob and create download URL
+      const uint8Array = downloadResult.value as Uint8Array;
+      const blob = new Blob([uint8Array]);
+      const url = URL.createObjectURL(blob);
+
+      // Create a temporary download link and trigger download
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileToDownload.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up the object URL
+      URL.revokeObjectURL(url);
+
+      console.log(
+        `Downloaded ${fileToDownload.name}: ${uint8Array.length} bytes`,
+      );
+    } catch (error) {
+      console.error("Download failed:", error);
+      raiseError(error instanceof Error ? error : new Error("Download failed"));
+    }
   };
 
   // Settings handlers
@@ -1061,7 +1119,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       ).parsedData as string;
 
       // Step 1: Get vision data from source file
-      const sourceFileObj = files.find((f) => f.name === sourceFile);
+      const sourceFileObj = files.find((f) => f.id === sourceFile);
       if (!sourceFileObj) {
         throw new Error(`Source file ${sourceFile} not found`);
       }
@@ -1110,7 +1168,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       // Step 2: Set vision data for each target file
       for (const targetFileName of targetSelectedFiles) {
-        const targetFileObj = files.find((f) => f.name === targetFileName);
+        const targetFileObj = files.find((f) => f.id === targetFileName);
         if (!targetFileObj) {
           continue;
         }
@@ -1667,6 +1725,13 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                       onClick={handleEnterSmartCropMode}
                     >
                       Copy Smart Crop
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleDownloadFile}
+                    >
+                      Download
                     </Button>
                   </Group>
                 )}
