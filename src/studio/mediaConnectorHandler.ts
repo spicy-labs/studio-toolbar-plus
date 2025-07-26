@@ -7,6 +7,10 @@ import type {
   MetaData,
 } from "@chili-publish/studio-sdk";
 import { Result } from "typescript-result";
+import type {
+  EditorResponse,
+  EditorResponseError,
+} from "@chili-publish/studio-sdk/lib/src/types/CommonTypes";
 
 type DownloadMediaConnectorProps = {
   studio: SDK;
@@ -28,7 +32,23 @@ export async function downloadMediaConnector({
     assetId,
     downloadType,
     metadata,
-  );
+  ).map((maybeArr) => {
+    if (maybeArr instanceof Uint8Array) {
+      return maybeArr;
+    }
+
+    const editorResponse = maybeArr as EditorResponse<EditorResponseError>;
+
+    if (editorResponse.error) {
+      return Result.error(
+        new Error(
+          `Studio Returned Error ${editorResponse.status}:${editorResponse.error}`,
+        ),
+      );
+    } else {
+      return Result.error(new Error("Unknown error during donwload"));
+    }
+  });
 }
 
 export async function getAllMediaConnectors(studio: SDK) {
