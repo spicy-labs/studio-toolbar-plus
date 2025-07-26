@@ -56052,7 +56052,17 @@ async function downloadMediaConnector({
   downloadType,
   metadata = {}
 }) {
-  return Result.wrap(studio2.mediaConnector.download)(connectorId, assetId, downloadType, metadata);
+  return Result.wrap(studio2.mediaConnector.download)(connectorId, assetId, downloadType, metadata).map((maybeArr) => {
+    if (maybeArr instanceof Uint8Array) {
+      return maybeArr;
+    }
+    const editorResponse = maybeArr;
+    if (editorResponse.error) {
+      return Result.error(new Error(`Studio Returned Error ${editorResponse.status}:${editorResponse.error}`));
+    } else {
+      return Result.error(new Error("Unknown error during donwload"));
+    }
+  });
 }
 var baseQueryOptions = {
   pageSize: 15,
@@ -67931,6 +67941,9 @@ var FixedSizeList = /* @__PURE__ */ createListComponent({
   }
 });
 
+// src/components/ImageBrowser.tsx
+var import_studio_sdk3 = __toESM(require_main(), 1);
+
 // src/components/DownloadModal/DownloadTasksScreen.tsx
 var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
 function DownloadTasksScreen({
@@ -68413,6 +68426,7 @@ function ImageBrowser({
       ...files
     ];
     const item = allItems[index4];
+    console.log(item);
     if (!item)
       return null;
     const isFolder = item.type === "folder" || item.type == 1;
@@ -68456,9 +68470,9 @@ function ImageBrowser({
       });
     }
     if (isFile) {
-      const isSelected = selectedFile === item.name;
-      const isSourceFile = smartCropMode && sourceFile === item.name;
-      const isTargetSelected = smartCropMode && targetSelectedFiles.has(item.name);
+      const isSelected = selectedFile === item.id;
+      const isSourceFile = smartCropMode && sourceFile === item.id;
+      const isTargetSelected = smartCropMode && targetSelectedFiles.has(item.id);
       const isFileSelectable = mode === 1 /* FileSelection */;
       return /* @__PURE__ */ jsx_runtime21.jsx("div", {
         style: style2,
@@ -68480,10 +68494,10 @@ function ImageBrowser({
             }
             if (smartCropMode) {
               if (!isSourceFile) {
-                handleTargetFileToggle(item.name);
+                handleTargetFileToggle(item.id);
               }
             } else {
-              handleFileSelection(item.name);
+              handleFileSelection(item.id);
             }
           },
           children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
@@ -68578,8 +68592,8 @@ function ImageBrowser({
     setPersistentSelections(new Set);
     setSelectedFolders(new Set);
   };
-  const handleFileSelection = (fileName) => {
-    setSelectedFile(fileName);
+  const handleFileSelection = (fileId) => {
+    setSelectedFile(fileId);
   };
   const handleEnterSmartCropMode = () => {
     if (selectedFile) {
@@ -68601,6 +68615,46 @@ function ImageBrowser({
       newTargetFiles.add(fileName);
     }
     setTargetSelectedFiles(newTargetFiles);
+  };
+  const handleDownloadFile = async () => {
+    if (!selectedFile || !localConnectorId) {
+      raiseError2(new Error("No file or connector selected"));
+      return;
+    }
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        throw new Error(studioResult.error?.message || "Failed to get studio");
+      }
+      const fileToDownload = files.find((file2) => file2.id === selectedFile);
+      if (!fileToDownload) {
+        throw new Error("Selected file not found");
+      }
+      const downloadResult = await downloadMediaConnector({
+        studio: studioResult.value,
+        connectorId: localConnectorId,
+        assetId: fileToDownload.id,
+        downloadType: import_studio_sdk3.MediaDownloadType.original,
+        metadata: {}
+      });
+      if (!downloadResult.isOk()) {
+        throw new Error(downloadResult.error?.message || "Failed to download file");
+      }
+      const uint8Array = downloadResult.value;
+      const blob = new Blob([uint8Array]);
+      const url2 = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url2;
+      link.download = fileToDownload.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url2);
+      console.log(`Downloaded ${fileToDownload.name}: ${uint8Array.length} bytes`);
+    } catch (error41) {
+      console.error("Download failed:", error41);
+      raiseError2(error41 instanceof Error ? error41 : new Error("Download failed"));
+    }
   };
   const handleOpenSettings = () => {
     setTempSettings({ ...settings });
@@ -68628,7 +68682,7 @@ function ImageBrowser({
       }
       const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
       const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
-      const sourceFileObj = files.find((f2) => f2.name === sourceFile);
+      const sourceFileObj = files.find((f2) => f2.id === sourceFile);
       if (!sourceFileObj) {
         throw new Error(`Source file ${sourceFile} not found`);
       }
@@ -68658,7 +68712,7 @@ function ImageBrowser({
       setCopyTasks((prev2) => prev2.map((task) => task.id === getVisionTaskId ? { ...task, status: "complete" } : task));
       const sourceVisionData = visionResult.value;
       for (const targetFileName of targetSelectedFiles) {
-        const targetFileObj = files.find((f2) => f2.name === targetFileName);
+        const targetFileObj = files.find((f2) => f2.id === targetFileName);
         if (!targetFileObj) {
           continue;
         }
@@ -69133,14 +69187,22 @@ function ImageBrowser({
                     })
                   ]
                 }),
-                mode === 1 /* FileSelection */ && selectedFile && !smartCropMode && /* @__PURE__ */ jsx_runtime21.jsx(Group, {
+                mode === 1 /* FileSelection */ && selectedFile && !smartCropMode && /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
                   gap: "md",
-                  children: /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-                    variant: "outline",
-                    size: "sm",
-                    onClick: handleEnterSmartCropMode,
-                    children: "Copy Smart Crop"
-                  })
+                  children: [
+                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                      variant: "outline",
+                      size: "sm",
+                      onClick: handleEnterSmartCropMode,
+                      children: "Copy Smart Crop"
+                    }),
+                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                      variant: "outline",
+                      size: "sm",
+                      onClick: handleDownloadFile,
+                      children: "Download"
+                    })
+                  ]
                 }),
                 smartCropMode && /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
                   gap: "md",
@@ -71375,21 +71437,44 @@ function DownloadModalNew({ opened, onClose }) {
       if (!fontFamily || !fontStyle) {
         throw new Error(`Font style ${fontStyleId} not found`);
       }
-      const fontStyleResponse = await fetch(`${baseUrl}font-families/${fontFamily.fontFamilyId}/styles`, {
+      let fontStyleResponse = await fetch(`${baseUrl}font-families/${fontFamily.fontFamilyId}/styles`, {
         headers: {
           Authorization: `Bearer ${token2}`,
           "Content-Type": "application/json"
         }
       });
+      if (fontStyleResponse.status === 404) {
+        const encodedFontName = encodeURIComponent(fontFamily.name);
+        const searchResponse = await fetch(`${baseUrl}font-families?search=${encodedFontName}&limit=1&sortBy=&sortOrder=`, {
+          headers: {
+            Authorization: `Bearer ${token2}`,
+            "Content-Type": "application/json"
+          }
+        });
+        if (!searchResponse.ok) {
+          throw new Error(`Failed to search for font family: ${searchResponse.statusText}`);
+        }
+        const searchData = await searchResponse.json();
+        if (!searchData.data || searchData.data.length === 0) {
+          throw new Error(`No family found ${fontFamily.name}`);
+        }
+        const foundFontFamily = searchData.data[0];
+        fontStyleResponse = await fetch(`${baseUrl}font-families/${foundFontFamily.id}/styles`, {
+          headers: {
+            Authorization: `Bearer ${token2}`,
+            "Content-Type": "application/json"
+          }
+        });
+      }
       if (!fontStyleResponse.ok) {
         throw new Error(`Failed to fetch font style details: ${fontStyleResponse.statusText}`);
       }
       const fontStylesData = await fontStyleResponse.json();
-      const fontStyleDetails = fontStylesData.data.find((fs) => fs.id === fontStyleId);
+      const fontStyleDetails = fontStylesData.data.find((fs) => fs.name === fontStyle.name);
       if (!fontStyleDetails) {
-        throw new Error(`Font style details not found for ${fontStyleId}`);
+        throw new Error(`Font style details not found for ${fontStyle.name}`);
       }
-      const fontDownloadResponse = await fetch(`${baseUrl}font-styles/${fontStyleId}/download`, {
+      const fontDownloadResponse = await fetch(`${baseUrl}font-styles/${fontStyleDetails.id}/download`, {
         headers: {
           Authorization: `Bearer ${token2}`
         }
@@ -71720,7 +71805,7 @@ function DownloadModalNew({ opened, onClose }) {
 
 // src/components/MagicLayoutsModal.tsx
 var import_react274 = __toESM(require_react(), 1);
-var import_studio_sdk3 = __toESM(require_main(), 1);
+var import_studio_sdk4 = __toESM(require_main(), 1);
 
 // src/studio/actions/magicLayout.js
 function magicLayoutScript(debug = false) {
@@ -71866,13 +71951,13 @@ function MagicLayoutsModal({ opened, onClose }) {
       await setOrCreateVariableValue({
         studio: window.SDK,
         name: magicLayout.name,
-        variableType: import_studio_sdk3.VariableType.list,
+        variableType: import_studio_sdk4.VariableType.list,
         value: childrenNames
       });
       const visibilityResult = await setVariableVisblityWithName({
         studio: window.SDK,
         name: magicLayout.name,
-        visible: { type: import_studio_sdk3.VariableVisibilityType.invisible }
+        visible: { type: import_studio_sdk4.VariableVisibilityType.invisible }
       });
       if (visibilityResult.isError()) {
         raiseError2(new Error(`Failed to set visibility for variable ${magicLayout.name}`));
@@ -72011,11 +72096,11 @@ magicLayoutScript(false)`;
       name: "AUTO_GEN_MAGIC_LAYOUT",
       triggers: [
         ...magicVariables.map((variable) => ({
-          event: import_studio_sdk3.ActionEditorEvent.variableValueChanged,
+          event: import_studio_sdk4.ActionEditorEvent.variableValueChanged,
           triggers: [variable.id]
         })),
-        { event: import_studio_sdk3.ActionEditorEvent.selectedLayoutChanged },
-        { event: import_studio_sdk3.ActionEditorEvent.documentLoaded }
+        { event: import_studio_sdk4.ActionEditorEvent.selectedLayoutChanged },
+        { event: import_studio_sdk4.ActionEditorEvent.documentLoaded }
       ],
       script
     });
@@ -77138,4 +77223,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=AC1436077E05189364756E2164756E21
+//# debugId=F77999AFDFFEFB1C64756E2164756E21
