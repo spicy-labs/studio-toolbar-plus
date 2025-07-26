@@ -28,6 +28,7 @@ import type {
 import type {
   FontData,
   FontFamily,
+  FontFamiliesResponse,
   FontStylesResponse,
   FontUploadResponse,
 } from "../types/fontTypes";
@@ -1630,7 +1631,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       }
 
       // Get font style details to get the actual fileName
-      const fontStyleResponse = await fetch(
+      let fontStyleResponse = await fetch(
         `${baseUrl}font-families/${fontFamily.fontFamilyId}/styles`,
         {
           headers: {
@@ -1640,6 +1641,50 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         },
       );
 
+      // Check if fontStyleResponse is 404 and implement backup search
+      if (fontStyleResponse.status === 404) {
+        // URL encode the font family name for the search query
+        const encodedFontName = encodeURIComponent(fontFamily.name);
+
+        // Search for font family by name
+        const searchResponse = await fetch(
+          `${baseUrl}font-families?search=${encodedFontName}&limit=1&sortBy=&sortOrder=`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
+
+        if (!searchResponse.ok) {
+          throw new Error(
+            `Failed to search for font family: ${searchResponse.statusText}`,
+          );
+        }
+
+        const searchData: FontFamiliesResponse = await searchResponse.json();
+
+        // Check if we found any results
+        if (!searchData.data || searchData.data.length === 0) {
+          throw new Error(`No family found ${fontFamily.name}`);
+        }
+
+        // Get the fontFamilyId from the search response
+        const foundFontFamily = searchData.data[0];
+
+        // Make a new call to get font styles using the found fontFamilyId
+        fontStyleResponse = await fetch(
+          `${baseUrl}font-families/${foundFontFamily.id}/styles`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
+      }
+
       if (!fontStyleResponse.ok) {
         throw new Error(
           `Failed to fetch font style details: ${fontStyleResponse.statusText}`,
@@ -1648,16 +1693,16 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
       const fontStylesData: FontStylesResponse = await fontStyleResponse.json();
       const fontStyleDetails = fontStylesData.data.find(
-        (fs) => fs.id === fontStyleId,
+        (fs) => fs.name === fontStyle.name,
       );
 
       if (!fontStyleDetails) {
-        throw new Error(`Font style details not found for ${fontStyleId}`);
+        throw new Error(`Font style details not found for ${fontStyle.name}`);
       }
 
       // Download the font file
       const fontDownloadResponse = await fetch(
-        `${baseUrl}font-styles/${fontStyleId}/download`,
+        `${baseUrl}font-styles/${fontStyleDetails.id}/download`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
