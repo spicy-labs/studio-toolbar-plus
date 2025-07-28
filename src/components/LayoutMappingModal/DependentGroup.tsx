@@ -73,7 +73,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
     setCurrentImageVariableId(variableConfig.id);
     setCurrentSelectedMapId(layoutMap.id);
     setCurrentGroupIndex(groupIndex);
-    setIsOpen(true);
+    setIsOpen(true, layoutMap.id);
   };
 
   // Function to handle removing a group
