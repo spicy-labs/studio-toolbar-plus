@@ -13,13 +13,19 @@ export type StudioList = "StudioList";
 export type StudioImage = "StudioImage";
 export type StudioVariable = StudioText | StudioList | StudioImage;
 export type ConfigString = "ConfigString";
+export type TextareaValue = "TextareaValue";
 
 export type Text = {
   type: ConfigString;
 };
 
+export type TextareaValueType = {
+  type: TextareaValue;
+  value: string;
+};
+
 export function convertDocVariableToLayoutVariable(
-  variable: Variable,
+  variable: Variable
 ): Result<StudioVariable, string> {
   switch (variable.type) {
     case "image":
@@ -47,7 +53,7 @@ export type DependentVar = {
 
 export type DependentGroup = {
   dependents: DependentVar[];
-  variableValue: (string | VariableValue)[];
+  variableValue: (string | VariableValue | TextareaValueType)[];
 };
 
 export type TargetVariable = {

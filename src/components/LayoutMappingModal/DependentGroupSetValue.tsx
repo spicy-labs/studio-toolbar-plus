@@ -1,6 +1,10 @@
 import { Group, ActionIcon, Text, Card, ScrollArea, Menu } from "@mantine/core";
-import { IconPlus, IconAbc, IconList } from "@tabler/icons-react";
-import type { VariableValue, StudioList } from "../../types/layoutConfigTypes";
+import { IconPlus, IconAbc, IconList, IconTextSize } from "@tabler/icons-react";
+import type {
+  VariableValue,
+  StudioList,
+  TextareaValueType,
+} from "../../types/layoutConfigTypes";
 import { appStore } from "../../modalStore";
 import {
   DndContext,
@@ -22,7 +26,7 @@ interface DependentGroupSetValueProps {
   groupIndex: number;
   targetVariableId: string;
   mapId: string;
-  variableValue: (string | VariableValue)[];
+  variableValue: (string | VariableValue | TextareaValueType)[];
 }
 
 export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
@@ -34,16 +38,16 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   // Layout mapping effects
   const removeVarValueFromDependentGroup = appStore(
     (state) =>
-      state.effects.studio.layoutImageMapping.removeVarValueFromDependentGroup,
+      state.effects.studio.layoutImageMapping.removeVarValueFromDependentGroup
   );
   const addVarValueToDependentGroup = appStore(
     (state) =>
-      state.effects.studio.layoutImageMapping.addVarValueToDependentGroup,
+      state.effects.studio.layoutImageMapping.addVarValueToDependentGroup
   );
   const setIndexOfVarValueFromDependentGroup = appStore(
     (state) =>
       state.effects.studio.layoutImageMapping
-        .setIndexOfVarValueFromDependentGroup,
+        .setIndexOfVarValueFromDependentGroup
   );
 
   // Set up sensors for drag and drop
@@ -51,7 +55,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    })
   );
 
   // Function to handle removing a variable value
@@ -88,10 +92,29 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
     });
   };
 
-  // Helper function to display the value (either string or Variable)
-  const getDisplayValue = (value: string | VariableValue): string => {
+  // Function to handle adding a new textarea value
+  const handleAddTextareaValue = () => {
+    addVarValueToDependentGroup({
+      mapId,
+      targetVariableId,
+      groupIndex,
+      variableValue: {
+        type: "TextareaValue",
+        value: "",
+      },
+    });
+  };
+
+  // Helper function to display the value (either string, Variable, or Textarea)
+  const getDisplayValue = (
+    value: string | VariableValue | TextareaValueType
+  ): string => {
     if (typeof value === "string") {
       return value;
+    } else if (value.type === "TextareaValue") {
+      return value.value.length > 50
+        ? value.value.substring(0, 50) + "..."
+        : value.value;
     } else {
       return `Variable: ${value.id}`;
     }
@@ -174,6 +197,12 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
                     onClick={handleAddStringValue}
                   >
                     String
+                  </Menu.Item>
+                  <Menu.Item
+                    leftSection={<IconTextSize size={14} />}
+                    onClick={handleAddTextareaValue}
+                  >
+                    Textarea
                   </Menu.Item>
                   <Menu.Item
                     leftSection={<IconList size={14} />}
