@@ -2,7 +2,7 @@ import type {
   LayoutMap,
   Variable as ConfigVariable,
   DependentGroup,
-  ImageVariable,
+  TargetVariable,
 } from "../types/layoutConfigTypes";
 import type { Doc } from "../types/docStateTypes";
 
@@ -82,7 +82,7 @@ export function layoutMappingValidation(
 }
 
 function processImageVariableDependentGroups(
-  imageVariable: ImageVariable,
+  imageVariable: TargetVariable,
   existingVariableIds: Set<string>,
   report: ValidationReport,
 ): void {
