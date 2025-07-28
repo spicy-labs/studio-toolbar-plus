@@ -27,7 +27,7 @@ import {
 import { IconPlus } from "@tabler/icons-react";
 import { AddMappingImageVariableModal } from "./AddMappingImageVariableModal";
 import { AddDependentModal } from "./AddDependentModal";
-import { SwapImageVariableModal } from "./SwapImageVariableModal";
+import { SwapTargetVariableModal } from "./SwapImageVariableModal";
 import { LayoutConfigSection } from "./LayoutConfigSelection";
 import { Result } from "typescript-result";
 
@@ -61,8 +61,8 @@ export const LayoutImageMappingModal: React.FC<
   const currentSelectedMapId = appStore(
     (state) => state.state.modal.currentSelectedMapId,
   );
-  const currentSwapImageVariableId = appStore(
-    (state) => state.state.modal.currentSwapImageVariableId,
+  const currentSwapTargetVariableId = appStore(
+    (state) => state.state.modal.currentSwapTargetVariableId,
   );
   const [validationReport, setValidationReport] =
     useState<ValidationReport | null>(null);
@@ -279,17 +279,17 @@ export const LayoutImageMappingModal: React.FC<
 
       <AddDependentModal />
 
-      <SwapImageVariableModal
+      <SwapTargetVariableModal
         currentMapConfig={
           layoutImageMapping.find(
             (config) => config.id === currentSelectedMapId,
           ) || null
         }
         currentImageVariable={
-          currentSelectedMapId && currentSwapImageVariableId
+          currentSelectedMapId && currentSwapTargetVariableId
             ? layoutImageMapping
                 .find((config) => config.id === currentSelectedMapId)
-                ?.variables.find((v) => v.id === currentSwapImageVariableId) ||
+                ?.variables.find((v) => v.id === currentSwapTargetVariableId) ||
               null
             : null
         }

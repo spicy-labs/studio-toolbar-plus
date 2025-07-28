@@ -16,7 +16,7 @@ import {
 import type {
   DependentGroup as DependentGroupType,
   DependentVar,
-  ImageVariable,
+  TargetVariable,
   LayoutMap,
 } from "../../types/layoutConfigTypes";
 import { appStore } from "../../modalStore";
@@ -25,7 +25,7 @@ import { DependentGroupSetValue } from "./DependentGroupSetValue";
 interface DependentGroupProps {
   dependentGroup: DependentGroupType;
   groupIndex: number;
-  variableConfig: ImageVariable;
+  variableConfig: TargetVariable;
   layoutMap: LayoutMap;
 }
 
@@ -42,7 +42,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
 
   // Modal effects
   const setCurrentImageVariableId = appStore(
-    (state) => state.effects.modal.dependentModal.setCurrentImageVariableId,
+    (state) => state.effects.modal.dependentModal.setCurrentTargetVariableId,
   );
   const setCurrentSelectedMapId = appStore(
     (state) => state.effects.modal.setCurrentSelectedMapId,
@@ -80,7 +80,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
   const handleRemoveGroup = (groupIndex: number) => {
     removeDependentGroup({
       groupIndex,
-      imageVariableId: variableConfig.id,
+      targetVariableId: variableConfig.id,
       mapId: layoutMap.id,
     });
   };
@@ -88,7 +88,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
   const handleCopyGroup = (groupIndex: number) => {
     copyDependentGroup({
       groupIndex,
-      imageVariableId: variableConfig.id,
+      targetVariableId: variableConfig.id,
       mapId: layoutMap.id,
     });
   };
@@ -166,7 +166,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
                   }}
                   onClick={() => {
                     removeDependent({
-                      imageVariableId: variableConfig.id,
+                      targetVariableId: variableConfig.id,
                       dependentGroupIndex: groupIndex,
                       dependent,
                       mapId: layoutMap.id,
@@ -193,7 +193,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
                     onChange={(newValues) => {
                       updateDependent({
                         mapId: layoutMap.id,
-                        imageVariableId: variableConfig.id,
+                        targetVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
                         dependent: {
                           ...dependent,
@@ -217,7 +217,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
                     onChange={(newValues) => {
                       updateDependent({
                         mapId: layoutMap.id,
-                        imageVariableId: variableConfig.id,
+                        targetVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
                         dependent: {
                           ...dependent,
@@ -261,7 +261,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
       {/* Value section with variable values */}
       <DependentGroupSetValue
         groupIndex={groupIndex}
-        imageVariableId={variableConfig.id}
+        targetVariableId={variableConfig.id}
         mapId={layoutMap.id}
         variableValue={dependentGroup.variableValue}
       />

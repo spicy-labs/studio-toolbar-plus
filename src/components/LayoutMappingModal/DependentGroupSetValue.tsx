@@ -1,6 +1,6 @@
 import { Group, ActionIcon, Text, Card, ScrollArea, Menu } from "@mantine/core";
 import { IconPlus, IconAbc, IconList } from "@tabler/icons-react";
-import type { Variable, StudioList } from "../../types/layoutConfigTypes";
+import type { VariableValue, StudioList } from "../../types/layoutConfigTypes";
 import { appStore } from "../../modalStore";
 import {
   DndContext,
@@ -20,14 +20,14 @@ import { DependentGroupValueSortableCard } from "./DependentGroupSortableCard";
 
 interface DependentGroupSetValueProps {
   groupIndex: number;
-  imageVariableId: string;
+  targetVariableId: string;
   mapId: string;
-  variableValue: (string | Variable)[];
+  variableValue: (string | VariableValue)[];
 }
 
 export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   groupIndex,
-  imageVariableId,
+  targetVariableId,
   mapId,
   variableValue,
 }) => {
@@ -58,7 +58,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   const handleRemoveVarValue = (valueIndex: number) => {
     removeVarValueFromDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValueIndex: valueIndex,
     });
@@ -68,7 +68,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   const handleAddStringValue = () => {
     addVarValueToDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValue: "",
     });
@@ -78,7 +78,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   const handleAddListVariable = () => {
     addVarValueToDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValue: {
         id: null,
@@ -89,7 +89,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   };
 
   // Helper function to display the value (either string or Variable)
-  const getDisplayValue = (value: string | Variable): string => {
+  const getDisplayValue = (value: string | VariableValue): string => {
     if (typeof value === "string") {
       return value;
     } else {
@@ -108,7 +108,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
       // Call the store function to update the order
       setIndexOfVarValueFromDependentGroup({
         mapId,
-        imageVariableId,
+        targetVariableId,
         groupIndex,
         oldVariableValueIndex: oldIndex,
         newVariableValueIndex: newIndex,
@@ -139,7 +139,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
                   value={value}
                   mapId={mapId}
                   groupIndex={groupIndex}
-                  imageVariableId={imageVariableId}
+                  imageVariableId={targetVariableId}
                   onRemove={() => handleRemoveVarValue(index)}
                   getDisplayValue={getDisplayValue}
                 />

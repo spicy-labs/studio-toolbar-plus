@@ -23,8 +23,8 @@ export const AddDependentModal: React.FC = () => {
   const currentSelectedVariables = appStore(
     (state) => state.state.modal.dependentModal.currentSelectedVariables,
   );
-  const currentImageVariableId = appStore(
-    (state) => state.state.modal.dependentModal.currentImageVariableId,
+  const currentTargetVariableId = appStore(
+    (state) => state.state.modal.dependentModal.currentTargetVariableId,
   );
   const currentSelectedMapId = appStore(
     (state) => state.state.modal.currentSelectedMapId,
@@ -47,12 +47,12 @@ export const AddDependentModal: React.FC = () => {
 
   const addDependents = () => {
     const selectedVariables = currentSelectedVariables;
-    const imageVariableId = currentImageVariableId;
+    const targetVariableId = currentTargetVariableId;
     const mapId = currentSelectedMapId;
-    if (!mapId || !imageVariableId) {
+    if (!mapId || !targetVariableId) {
       raiseError(
         new Error(
-          `One of these are null mapId:${mapId} or imageVariableId:${imageVariableId}`,
+          `One of these are null mapId:${mapId} or imageVariableId:${targetVariableId}`,
         ),
       );
       return;
@@ -87,14 +87,14 @@ export const AddDependentModal: React.FC = () => {
     if (groupIndex === null) {
       addDependentGroup({
         mapId,
-        imageVariableId,
+        targetVariableId,
         dependents,
       });
     } else {
       dependents.forEach((dependent) => {
         updateDependent({
           mapId: currentSelectedMapId || "",
-          imageVariableId,
+          targetVariableId,
           dependentGroupIndex: groupIndex,
           dependent,
         });
@@ -115,10 +115,7 @@ export const AddDependentModal: React.FC = () => {
           label="Select Variable"
           placeholder="Choose a variable"
           data={variables
-            .filter(
-              (variable) =>
-                variable.type !== "image" && variable.type !== "shortText",
-            )
+            .filter((variable) => variable.type === "list")
             .map((variable) => ({
               value: variable.id,
               label: variable.name,

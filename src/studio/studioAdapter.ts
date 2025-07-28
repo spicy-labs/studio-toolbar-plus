@@ -159,7 +159,7 @@ export function saveLayoutSizesToDoc(layoutSizes: Record<string, LayoutSize>) {
 
 export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(
   key: K,
-  value: ToolbarEnvelope[K]
+  value: ToolbarEnvelope[K],
 ) {
   const dataResult = await getPrivateData({
     id: "0",
@@ -192,7 +192,7 @@ export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(
         const toolbar = toolbarResult.value as ToolbarEnvelope;
         toolbar[key] = value;
         const stringifyResult = Result.try(() =>
-          JSON.stringify(toolbar, null, 0)
+          JSON.stringify(toolbar, null, 0),
         );
         if (stringifyResult.isOk()) {
           data.toolbar = stringifyResult.value as string;
@@ -213,7 +213,7 @@ export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(
     }
 
     return Result.error(
-      new Error("data.toolbar is null even after we tried to fix it")
+      new Error("data.toolbar is null even after we tried to fix it"),
     );
   }
 
@@ -243,59 +243,72 @@ export async function loadDocFromDoc(): Promise<
   }));
 
   // Transform variables to match the Variable type
-  const variables: Variable[] = variablesResult.value.map((variable: any) => {
-    const baseVariable = {
-      id: variable.id || "",
-      name: variable.name || "",
-      isVisiblie: variable.isVisible ?? false,
-    };
+  const variablesFilterResult = Result.try(() =>
+    variablesResult.value
+      .filter(
+        (variable: any) =>
+          variable.type === "image" ||
+          variable.type === "shortText" ||
+          variable.type === "longText" ||
+          variable.type === "list" ||
+          variable.type === "boolean" ||
+          variable.type === "number",
+      )
+      .map((variable: any) => {
+        const baseVariable = {
+          id: variable.id || "",
+          name: variable.name || "",
+          isVisiblie: variable.isVisible ?? false,
+        };
 
-    switch (variable.type) {
-      case "image":
-      case "shortText":
-        return {
-          ...baseVariable,
-          type: variable.type as "image" | "shortText",
-          value: String(variable.value || ""),
-        } as TextImageVariable;
-      case "list":
-        return {
-          ...baseVariable,
-          type: "list",
-          value: String(variable.value || ""),
-          items: Array.isArray(variable.items)
-            ? variable.items.map((item: any) => ({
-                value: String(item.value || ""),
-                displayValue: item.displayValue,
-              }))
-            : [],
-        } as ListVariable;
-      case "boolean":
-        return {
-          ...baseVariable,
-          type: "boolean",
-          value: Boolean(variable.value),
-        } as BooleanVariable;
-      default:
-        // Default to text variable for unknown types
-        return {
-          ...baseVariable,
-          type: "shortText",
-          value: String(variable.value || ""),
-        } as TextImageVariable;
-    }
-  });
+        switch (variable.type) {
+          case "image":
+          case "longText":
+          case "number":
+          case "shortText":
+            return {
+              ...baseVariable,
+              type: variable.type as "image" | "shortText",
+              value: String(variable.value || ""),
+            } as TextImageVariable;
+          case "list":
+            return {
+              ...baseVariable,
+              type: "list",
+              value: String(variable.value || ""),
+              items: Array.isArray(variable.items)
+                ? variable.items.map((item: any) => ({
+                    value: String(item.value || ""),
+                    displayValue: item.displayValue,
+                  }))
+                : [],
+            } as ListVariable;
+          case "boolean":
+            return {
+              ...baseVariable,
+              type: "boolean",
+              value: Boolean(variable.value),
+            } as BooleanVariable;
+          default:
+            throw new Error(`Unsupported variable type: ${variable.type}`);
+        }
+      }),
+  );
+
+  if (!variablesFilterResult.isOk()) {
+    return variablesFilterResult as Result<never, Error>;
+  }
 
   // Return the Doc object
   return Result.ok({
     layouts,
-    variables,
+    variables: variablesFilterResult.value,
   });
 }
 
 export async function saveLayoutMappingToAction(
   layoutMaps: LayoutMap[],
-  doc: Doc
+  doc: Doc,
 ) {
   const actionMap = layoutMappingToActionMap(layoutMaps, doc);
 
@@ -317,7 +330,7 @@ export async function saveLayoutMappingToAction(
         { event: ActionEditorEvent.variableValueChanged },
       ],
       script: script,
-    }
+    },
   );
 
   return updateResult;
@@ -333,11 +346,11 @@ export async function saveLayoutMappingToAction(
 }
 
 export async function saveImageSizingMappingToAction(
-  frameMaps: FrameLayoutMap[]
+  frameMaps: FrameLayoutMap[],
 ) {
   const imageResizingMapResult = await frameLayoutMappingToLookup(
     frameMaps,
-    window.SDK
+    window.SDK,
   );
   const layoutSizingMapResult = await layoutManagerToLookup(window.SDK);
 
@@ -368,7 +381,7 @@ export async function saveImageSizingMappingToAction(
         { event: ActionEditorEvent.variableValueChanged },
       ],
       script: script,
-    }
+    },
   );
 
   return updateResult;
@@ -398,7 +411,7 @@ export async function saveLayoutSizingToAction(on: boolean) {
         name: "AUTO_GEN_TOOLBAR_LAYOUTS",
         triggers: [{ event: ActionEditorEvent.pageSizeChanged }],
         script: script,
-      }
+      },
     );
 
     if (updateResult.isError()) {
@@ -494,7 +507,7 @@ export async function saveLayoutSizingToAction(on: boolean) {
 export async function removeFrameLayouyMap(
   frameId: string,
   imageName: String,
-  layoutId: string
+  layoutId: string,
 ): Promise<Result<void, Error>> {
   try {
     // 1. Load frame layout maps from doc
@@ -503,8 +516,8 @@ export async function removeFrameLayouyMap(
       return Result.error(
         new Error(
           "Failed to load frame layout maps: " +
-            frameLayoutMapsResult.error?.message
-        )
+            frameLayoutMapsResult.error?.message,
+        ),
       );
     }
 
@@ -512,12 +525,12 @@ export async function removeFrameLayouyMap(
 
     // 2. Find the frame layout map for the specified layout
     const frameLayoutMapIndex = frameLayoutMaps.findIndex(
-      (map) => map.layoutId === layoutId
+      (map) => map.layoutId === layoutId,
     );
 
     if (frameLayoutMapIndex === -1) {
       return Result.error(
-        new Error(`No frame layout map found for layout ID: ${layoutId}`)
+        new Error(`No frame layout map found for layout ID: ${layoutId}`),
       );
     }
 
@@ -525,12 +538,12 @@ export async function removeFrameLayouyMap(
     const frameLayoutMap = frameLayoutMaps[frameLayoutMapIndex];
     const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex(
       (snapshot) =>
-        snapshot.frameId === frameId && snapshot.imageName == imageName
+        snapshot.frameId === frameId && snapshot.imageName == imageName,
     );
 
     if (frameSnapshotIndex === -1) {
       return Result.error(
-        new Error(`No frame snapshot found with ID: ${frameId}`)
+        new Error(`No frame snapshot found with ID: ${frameId}`),
       );
     }
 
@@ -547,15 +560,15 @@ export async function removeFrameLayouyMap(
     if (!saveResult.isOk()) {
       return Result.error(
         new Error(
-          "Failed to save frame layout maps: " + saveResult.error?.message
-        )
+          "Failed to save frame layout maps: " + saveResult.error?.message,
+        ),
       );
     }
 
     return Result.ok(undefined);
   } catch (error) {
     return Result.error(
-      error instanceof Error ? error : new Error(String(error))
+      error instanceof Error ? error : new Error(String(error)),
     );
   }
 }
@@ -582,8 +595,8 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
       return Result.error(
         new Error(
           "Failed to get selected layout: " +
-            selectedLayoutResult.error?.message
-        )
+            selectedLayoutResult.error?.message,
+        ),
       );
     }
 
@@ -600,8 +613,8 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
       return Result.error(
         new Error(
           "Failed to load frame layout maps: " +
-            frameLayoutMapsResult.error?.message
-        )
+            frameLayoutMapsResult.error?.message,
+        ),
       );
     }
 
@@ -609,7 +622,7 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
 
     // 4. Find or create a FrameLayoutMap for the selected layout
     let frameLayoutMap = frameLayoutMaps.find(
-      (map) => map.layoutId === layoutId
+      (map) => map.layoutId === layoutId,
     );
 
     if (!frameLayoutMap) {
@@ -625,7 +638,7 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
     const frameSnapshotIndex = frameLayoutMap.frameSnapshots.findIndex(
       (snapshot) =>
         snapshot.frameId === frameSnapshot.frameId &&
-        snapshot.imageName == frameSnapshot.assetId
+        snapshot.imageName == frameSnapshot.assetId,
     );
 
     const newFrameSnapshot = {
@@ -650,15 +663,15 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
     if (!saveResult.isOk()) {
       return Result.error(
         new Error(
-          "Failed to save frame layout maps: " + saveResult.error?.message
-        )
+          "Failed to save frame layout maps: " + saveResult.error?.message,
+        ),
       );
     }
 
     return Result.ok(undefined);
   } catch (error) {
     return Result.error(
-      error instanceof Error ? error : new Error(String(error))
+      error instanceof Error ? error : new Error(String(error)),
     );
   }
 }
@@ -667,19 +680,19 @@ export async function updateFrameLayoutMaps(frameSnapshot: {
  * Get all connectors in the current document with their usage information
  */
 export async function getCurrentConnectors(
-  studio: SDKType
+  studio: SDKType,
 ): Promise<Result<DocumentConnectorWithUsage[], Error>> {
   try {
     // 1. Get connectors by type from the SDK
     const connectorsResult = await getConnectorsByType(
       studio,
-      ConnectorType.media
+      ConnectorType.media,
     );
     if (!connectorsResult.isOk()) {
       return Result.error(
         new Error(
-          "Failed to get connectors: " + connectorsResult.error?.message
-        )
+          "Failed to get connectors: " + connectorsResult.error?.message,
+        ),
       );
     }
 
@@ -692,8 +705,8 @@ export async function getCurrentConnectors(
     if (!documentStateResult.isOk()) {
       return Result.error(
         new Error(
-          "Failed to get document state: " + documentStateResult.error?.message
-        )
+          "Failed to get document state: " + documentStateResult.error?.message,
+        ),
       );
     }
 
@@ -708,7 +721,7 @@ export async function getCurrentConnectors(
     const grafxConnectors = documentConnectors.filter(
       (docConnector) =>
         docConnector.source.source === "grafx" &&
-        connectorInstances.some((instance) => instance.id === docConnector.id)
+        connectorInstances.some((instance) => instance.id === docConnector.id),
     );
 
     // 4. Search for usage in the document
@@ -719,13 +732,15 @@ export async function getCurrentConnectors(
       // 1. Use type assertion to GrafxSource: const sourceId = (connector.source as GrafxSource).id
       // 2. Add type guard: if ('id' in connector.source) { const sourceId = connector.source.id }
       // 3. Use proper type narrowing with discriminated union based on source.source === 'grafx'
-      const sourceId: string | undefined = (connector.source as {id?:string})["id"];
+      const sourceId: string | undefined = (
+        connector.source as { id?: string }
+      )["id"];
 
       if (sourceId == null) {
         return Result.error(
           new Error(
-            `Connector source ID is null for connector with id: ${connector.id}`
-          )
+            `Connector source ID is null for connector with id: ${connector.id}`,
+          ),
         );
       }
 
@@ -783,7 +798,7 @@ export async function getCurrentConnectors(
     return Result.ok(result);
   } catch (error) {
     return Result.error(
-      error instanceof Error ? error : new Error(String(error))
+      error instanceof Error ? error : new Error(String(error)),
     );
   }
 }
@@ -798,12 +813,12 @@ export async function getCurrentConnectors(
 export async function mergeConnectors(
   studio: SDKType,
   targetConnectorId: string,
-  selectedConnectorIds: string[]
+  selectedConnectorIds: string[],
 ): Promise<Result<void, Error>> {
   try {
     // Filter out the target connector from the list of connectors to unregister
     const connectorsToUnregister = selectedConnectorIds.filter(
-      (id) => id !== targetConnectorId
+      (id) => id !== targetConnectorId,
     );
 
     // Step 1: Unregister all connectors except the target
@@ -812,8 +827,8 @@ export async function mergeConnectors(
       if (!unregisterResult.isOk()) {
         return Result.error(
           new Error(
-            `Failed to unregister connector ${connectorId}: ${unregisterResult.error?.message}`
-          )
+            `Failed to unregister connector ${connectorId}: ${unregisterResult.error?.message}`,
+          ),
         );
       }
     }
@@ -823,8 +838,8 @@ export async function mergeConnectors(
     if (!documentStateResult.isOk()) {
       return Result.error(
         new Error(
-          `Failed to get document state: ${documentStateResult.error?.message}`
-        )
+          `Failed to get document state: ${documentStateResult.error?.message}`,
+        ),
       );
     }
 
@@ -843,15 +858,15 @@ export async function mergeConnectors(
     if (!loadResult.isOk()) {
       return Result.error(
         new Error(
-          `Failed to load updated document: ${loadResult.error?.message}`
-        )
+          `Failed to load updated document: ${loadResult.error?.message}`,
+        ),
       );
     }
 
     return Result.ok(undefined);
   } catch (error) {
     return Result.error(
-      error instanceof Error ? error : new Error(String(error))
+      error instanceof Error ? error : new Error(String(error)),
     );
   }
 }

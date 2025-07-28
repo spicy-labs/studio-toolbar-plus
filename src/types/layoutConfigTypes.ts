@@ -1,3 +1,6 @@
+import { Result } from "typescript-result";
+import type { Variable } from "./docStateTypes";
+
 export type TransformCommands = {
   find: string;
   replace: string;
@@ -7,15 +10,33 @@ export type TransformCommands = {
 
 export type StudioText = "StudioText";
 export type StudioList = "StudioList";
+export type StudioImage = "StudioImage";
+export type StudioVariable = StudioText | StudioList | StudioImage;
 export type ConfigString = "ConfigString";
 
 export type Text = {
   type: ConfigString;
 };
 
-export type Variable = {
+export function convertDocVariableToLayoutVariable(
+  variable: Variable,
+): Result<StudioVariable, string> {
+  switch (variable.type) {
+    case "image":
+      return Result.ok("StudioImage");
+    case "list":
+      return Result.ok("StudioList");
+    case "shortText":
+    case "longText":
+      return Result.ok("StudioText");
+    default:
+      return Result.error(`Unsupported variable type: ${variable.type}`);
+  }
+}
+
+export type VariableValue = {
   id: string | null;
-  type: StudioText | StudioList;
+  type: StudioVariable;
   transform: TransformCommands[];
 };
 
@@ -26,16 +47,17 @@ export type DependentVar = {
 
 export type DependentGroup = {
   dependents: DependentVar[];
-  variableValue: (string | Variable)[];
+  variableValue: (string | VariableValue)[];
 };
 
-export type ImageVariable = {
+export type TargetVariable = {
   id: string;
+  type: StudioVariable;
   dependentGroup: DependentGroup[];
 };
 
 export type LayoutMap = {
   id: string;
   layoutIds: string[];
-  variables: ImageVariable[];
+  variables: TargetVariable[];
 };

@@ -17,7 +17,7 @@ import {
   IconPlus,
 } from "@tabler/icons-react";
 import type {
-  Variable,
+  VariableValue,
   StudioList,
   TransformCommands,
 } from "../../types/layoutConfigTypes";
@@ -93,12 +93,12 @@ const TransformCommandCard: React.FC<TransformCommandCardProps> = ({
 
 export interface SortableCardProps {
   id: string;
-  value: string | Variable;
+  value: string | VariableValue;
   groupIndex: number;
   imageVariableId: string;
   mapId: string;
   onRemove: () => void;
-  getDisplayValue: (value: string | Variable) => string;
+  getDisplayValue: (value: string | VariableValue) => string;
 }
 
 // Sortable card component that wraps each card and makes it draggable
@@ -147,11 +147,11 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   const variableValueIndex = parseInt(id.toString().split("-")[1]);
 
   // Function to update the variable value
-  const updateVarValue = (newValue: string | Variable) => {
+  const updateVarValue = (newValue: string | VariableValue) => {
     if (mapId && imageVariableId !== null && groupIndex !== null) {
       updateVarValueFromDependentGroup({
         mapId,
-        imageVariableId,
+        targetVariableId: imageVariableId,
         groupIndex,
         variableValueIndex,
         variableValue: newValue,

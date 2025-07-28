@@ -1,5 +1,5 @@
 export function imageSelectionScript(debug) {
-  const version = "0.4";
+  const version = "0.5";
   const imageSelectionData = "%DATA%";
 
   const errorCollection = [];
@@ -7,7 +7,7 @@ export function imageSelectionScript(debug) {
 
   try {
     const vars = studio.variables.all();
-    const imageVars = vars.filter((f) => f.type == "image");
+    const imageVars = vars;
 
     const layoutName = getSelectedLayoutName();
 

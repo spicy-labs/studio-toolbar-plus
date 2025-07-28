@@ -40,7 +40,7 @@ export const LayoutConfigSection: React.FC<LayoutConfigSectionProps> = ({
     (store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy,
   );
   const setIsImageVariableMappingModalOpen = appStore(
-    (store) => store.effects.modal.setIsImageVariableMappingModalOpen,
+    (store) => store.effects.modal.setIsTargetVariableMappingModalOpen,
   );
   const setCurrentSelectedMapId = appStore(
     (store) => store.effects.modal.setCurrentSelectedMapId,
