@@ -52,6 +52,7 @@ export type DependentVar = {
 };
 
 export type DependentGroup = {
+  alwaysRun?: boolean;
   dependents: DependentVar[];
   variableValue: (string | VariableValue | TextareaValueType)[];
 };
@@ -64,6 +65,7 @@ export type TargetVariable = {
 
 export type LayoutMap = {
   id: string;
+  name?: string;
   layoutIds: string[];
   variables: TargetVariable[];
 };
