@@ -476,7 +476,7 @@ export function ToolbarSettingsModal({
                 <Group justify="space-between" align="center">
                   <Group gap="xs" style={{ flex: 1 }}>
                     {getToolActionIcon("showLayoutImageMapper")}
-                    <Text>Layout Image Mapper</Text>
+                    <Text>Layout Variable Mapper</Text>
                     {getStatusIcon("showLayoutImageMapper")}
                   </Group>
                   <Switch
@@ -487,11 +487,11 @@ export function ToolbarSettingsModal({
                         event.currentTarget.checked,
                       )
                     }
-                    aria-label="Toggle Layout Image Mapper"
+                    aria-label="Toggle Layout Variable Mapper"
                   />
                 </Group>
                 <Text size="xs" c="dimmed" ml={32}>
-                  Map images to layout variables
+                  Map variable values to layout variables
                 </Text>
 
                 <Group justify="space-between" align="center">

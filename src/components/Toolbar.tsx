@@ -400,7 +400,7 @@ export function Toolbar() {
                 )}
                 {appConfig.showLayoutImageMapper && (
                   <Tooltip
-                    label="Layout Image Mapper"
+                    label="Layout Variable Mapper"
                     position="bottom"
                     withArrow
                   >
