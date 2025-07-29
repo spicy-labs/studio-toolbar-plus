@@ -1,43 +1,64 @@
-import { Modal, Stack, MultiSelect, Group, Button } from "@mantine/core";
+import {
+  Modal,
+  Stack,
+  MultiSelect,
+  Group,
+  Button,
+  Checkbox,
+} from "@mantine/core";
 import type React from "react";
+import { useState } from "react";
 import { appStore } from "../../modalStore";
 
 export const AddDependentModal: React.FC = () => {
   const raiseError = appStore((state) => state.raiseError);
   const setIsOpen = appStore(
-    (state) => state.effects.modal.dependentModal.setIsOpen,
+    (state) => state.effects.modal.dependentModal.setIsOpen
   );
   const setCurrentGroupIndex = appStore(
-    (state) => state.effects.modal.dependentModal.setCurrentGroupIndex,
+    (state) => state.effects.modal.dependentModal.setCurrentGroupIndex
   );
   const setCurrentSelectedVariables = appStore(
-    (state) => state.effects.modal.dependentModal.setCurrentSelectedVariables,
+    (state) => state.effects.modal.dependentModal.setCurrentSelectedVariables
   );
   const addDependentGroup = appStore(
-    (state) => state.effects.studio.layoutImageMapping.addDependentGroup,
+    (state) => state.effects.studio.layoutImageMapping.addDependentGroup
   );
   const updateDependent = appStore(
-    (state) => state.effects.studio.layoutImageMapping.updateDependent,
+    (state) => state.effects.studio.layoutImageMapping.updateDependent
   );
   const variables = appStore((state) => state.state.studio.document.variables);
   const currentSelectedVariables = appStore(
-    (state) => state.state.modal.dependentModal.currentSelectedVariables,
+    (state) => state.state.modal.dependentModal.currentSelectedVariables
   );
   const currentTargetVariableId = appStore(
-    (state) => state.state.modal.dependentModal.currentTargetVariableId,
+    (state) => state.state.modal.dependentModal.currentTargetVariableId
   );
   const currentSelectedMapId = appStore(
-    (state) => state.state.modal.currentSelectedMapId,
+    (state) => state.state.modal.currentSelectedMapId
   );
   const currentGroupIndex = appStore(
-    (state) => state.state.modal.dependentModal.currentGroupIndex,
+    (state) => state.state.modal.dependentModal.currentGroupIndex
   );
   const isOpen = appStore((state) => state.state.modal.dependentModal.isOpen);
+  const allowAlways = appStore(
+    (state) => state.state.modal.dependentModal.allowAlways
+  );
+
+  const [runAlways, setRunAlways] = useState(false);
 
   const onClose = () => {
     setIsOpen(false);
     setCurrentGroupIndex(null);
     setCurrentSelectedVariables([]);
+    setRunAlways(false);
+  };
+
+  const handleRunAlwaysChange = (checked: boolean) => {
+    setRunAlways(checked);
+    if (checked) {
+      setCurrentSelectedVariables([]);
+    }
   };
 
   // Function to get variable details by ID
@@ -52,8 +73,8 @@ export const AddDependentModal: React.FC = () => {
     if (!mapId || !targetVariableId) {
       raiseError(
         new Error(
-          `One of these are null mapId:${mapId} or imageVariableId:${targetVariableId}`,
-        ),
+          `One of these are null mapId:${mapId} or imageVariableId:${targetVariableId}`
+        )
       );
       return;
     }
@@ -89,6 +110,7 @@ export const AddDependentModal: React.FC = () => {
         mapId,
         targetVariableId,
         dependents,
+        alwaysRun: runAlways,
       });
     } else {
       dependents.forEach((dependent) => {
@@ -123,18 +145,30 @@ export const AddDependentModal: React.FC = () => {
           value={currentSelectedVariables}
           onChange={setCurrentSelectedVariables}
           searchable
+          disabled={runAlways}
         />
 
-        <Group justify="flex-end" mt="md">
-          <Button variant="outline" onClick={onClose}>
-            Close
-          </Button>
-          <Button
-            onClick={addDependents}
-            disabled={currentSelectedVariables.length === 0}
-          >
-            Add
-          </Button>
+        <Group justify="space-between" mt="md">
+          {allowAlways && (
+            <Checkbox
+              label="Run Always"
+              checked={runAlways}
+              onChange={(event) =>
+                handleRunAlwaysChange(event.currentTarget.checked)
+              }
+            />
+          )}
+          <Group justify="flex-end">
+            <Button variant="outline" onClick={onClose}>
+              Close
+            </Button>
+            <Button
+              onClick={addDependents}
+              disabled={!runAlways && currentSelectedVariables.length === 0}
+            >
+              Add
+            </Button>
+          </Group>
         </Group>
       </Stack>
     </Modal>

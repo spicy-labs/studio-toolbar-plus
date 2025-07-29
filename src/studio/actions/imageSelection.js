@@ -1,20 +1,19 @@
 export function imageSelectionScript(debug) {
-  const version = "0.5";
+  const version = "1";
   const imageSelectionData = "%DATA%";
 
   const errorCollection = [];
   const debugData = {};
 
   try {
-    const vars = studio.variables.all();
-    const imageVars = vars;
+    const variables = studio.variables.all();
 
     const layoutName = getSelectedLayoutName();
 
     const layoutImageMapping = imageSelectionData[layoutName];
 
     if (debug) {
-      debugData.imageVars = imageVars;
+      debugData.variables = variables;
       debugData.layoutImageMapping = layoutImageMapping;
     }
 
@@ -25,33 +24,48 @@ export function imageSelectionScript(debug) {
       return { debugData, errorCollection };
     }
 
-    for (const imageVar of imageVars) {
-      const imageVariableDependentGroups = layoutImageMapping[imageVar.name];
+    for (const variable of variables) {
+      const imageVariableDependentGroups = layoutImageMapping[variable.name];
 
       if (debug) {
-        debugData[imageVar.name] = {
-          imageVariableDependentGroups: layoutImageMapping[imageVar.name],
+        debugData[variable.name] = {
+          imageVariableDependentGroups: layoutImageMapping[variable.name],
         };
       }
 
       if (!imageVariableDependentGroups) {
         errorCollection.push(
           Error(
-            `No  dependent groups found for image variable: ${imageVar.name}`,
+            `No  dependent groups found for image variable: ${variable.name}`,
           ),
         );
         continue;
       }
 
-      const dependancies = Object.keys(imageVariableDependentGroups);
+
+      if (imageVariableDependentGroups["_always_run"]) {
+        const variableValue = replaceVariables(
+          imageVariableDependentGroups["_always_run"].value,
+          imageVariableDependentGroups["_always_run"].transforms,
+        );
+
+        setVariableValue(variable.name, variableValue);
+
+        if (debug) {
+          debugData[variable.name].variableValue = variableValue;
+        }
+        continue;
+      }
+
+      const dependancies = Object.keys(imageVariableDependentGroups).filter(d => d !== "_always_run");
 
       if (debug) {
-        debugData[imageVar.name].dependancies = dependancies;
+        debugData[variable.name].dependancies = dependancies;
       }
 
       if (dependancies.length == 0) {
         errorCollection.push(
-          Error(`Something went wrong no dependancies for: ${imageVar.name}`),
+          Error(`Something went wrong no dependancies for: ${variable.name}`),
         );
         continue;
       }
@@ -64,26 +78,26 @@ export function imageSelectionScript(debug) {
         variableMatch = imageVariableDependentGroups[d][compositeKey];
 
         if (debug) {
-          debugData[imageVar.name].compositeKeys = !debugData[imageVar.name]
+          debugData[variable.name].compositeKeys = !debugData[variable.name]
             .compositeKeys
             ? [compositeKey]
-            : [...debugData[imageVar.name].compositeKeys, compositeKey];
-          debugData[imageVar.name].variableMatches = !debugData[imageVar.name]
+            : [...debugData[variable.name].compositeKeys, compositeKey];
+          debugData[variable.name].variableMatches = !debugData[variable.name]
             .variableMatches
             ? [variableMatch]
-            : [...debugData[imageVar.name].variableMatches, variableMatch];
+            : [...debugData[variable.name].variableMatches, variableMatch];
         }
 
         return variableMatch;
       }, null);
 
       if (debug) {
-        debugData[imageVar.name].variableMatch = variableMatch;
+        debugData[variable.name].variableMatch = variableMatch;
       }
 
       if (!variableMatch) {
         errorCollection.push(
-          Error(`Something went wrong no match found for: ${imageVar.name}`),
+          Error(`Something went wrong no match found for: ${variable.name}`),
         );
         continue;
       }
@@ -93,10 +107,10 @@ export function imageSelectionScript(debug) {
         variableMatch.transforms,
       );
 
-      setVariableValue(imageVar.name, variableValue);
+      setVariableValue(variable.name, variableValue);
 
       if (debug) {
-        debugData[imageVar.name].variableValue = variableValue;
+        debugData[variable.name].variableValue = variableValue;
       }
     }
 

@@ -1,6 +1,6 @@
 import type {
   LayoutMap,
-  Variable as ConfigVariable,
+  VariableValue as ConfigVariable,
   DependentGroup,
   TargetVariable,
 } from "../types/layoutConfigTypes";
@@ -53,7 +53,6 @@ export function layoutMappingValidation(
   // 2. Check variables against doc.variables and process their dependent groups
   cleanLayoutMap.variables = cleanLayoutMap.variables.filter(
     (imageVariable) => {
-      console.log("ADGA");
       // Check if the image variable ID exists in doc.variables
       const imageVariableExists = imageVariable.id
         ? existingVariableIds.has(imageVariable.id)
