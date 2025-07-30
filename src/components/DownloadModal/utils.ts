@@ -2,8 +2,8 @@ import { z } from "zod";
 import { Result } from "typescript-result";
 import type { StudioPackage } from "./types";
 import {
-  InvalidPackageJsonError,
-  NoPackageJsonError,
+  InvalidChiliPackageError,
+  NoChiliPackageError,
   MissingDocumentFileError,
   InvalidDocumentJsonError,
   MissingFontFileError,
@@ -44,7 +44,7 @@ const StudioPackageSchema = z.object({
 
 // Function to verify StudioPackage using Zod
 export function verifyStudioPackage(
-  packageData: any,
+  packageData: any
 ): Result<StudioPackage, Error> {
   try {
     const result = StudioPackageSchema.safeParse(packageData);
@@ -52,23 +52,23 @@ export function verifyStudioPackage(
       return Result.ok(result.data);
     } else {
       return Result.error(
-        new InvalidPackageJsonError(
-          `Invalid package.json structure: ${result.error.message}`,
-        ),
+        new InvalidChiliPackageError(
+          `Invalid chili-package.json structure: ${result.error.message}`
+        )
       );
     }
   } catch (error) {
     return Result.error(
-      new InvalidPackageJsonError(
-        `Failed to parse package.json: ${error instanceof Error ? error.message : String(error)}`,
-      ),
+      new InvalidChiliPackageError(
+        `Failed to parse chili-package.json: ${error instanceof Error ? error.message : String(error)}`
+      )
     );
   }
 }
 
 // Function to load files from directory handle
 export async function loadFilesFromDirectory(
-  directoryHandle: FileSystemDirectoryHandle,
+  directoryHandle: FileSystemDirectoryHandle
 ): Promise<Result<File[], Error>> {
   try {
     const files: File[] = [];
@@ -76,7 +76,7 @@ export async function loadFilesFromDirectory(
     // Recursively collect all files from the directory
     async function collectFiles(
       dirHandle: FileSystemDirectoryHandle,
-      path: string = "",
+      path: string = ""
     ): Promise<void> {
       for await (const [name, handle] of dirHandle.entries()) {
         const currentPath = path ? `${path}/${name}` : name;
@@ -101,17 +101,19 @@ export async function loadFilesFromDirectory(
 
     await collectFiles(directoryHandle);
 
-    // Check if package.json exists
-    const packageJsonFile = files.find((file) => file.name === "package.json");
+    // Check if chili-package.json exists
+    const packageJsonFile = files.find(
+      (file) => file.name === "chili-package.json"
+    );
     if (!packageJsonFile) {
       return Result.error(
-        new NoPackageJsonError(
-          "package.json file not found in the selected directory",
-        ),
+        new NoChiliPackageError(
+          "chili-package.json file not found in the selected directory"
+        )
       );
     }
 
-    // Validate package.json structure
+    // Validate chili-package.json structure
     try {
       const packageJsonText = await packageJsonFile.text();
       const packageJsonData = JSON.parse(packageJsonText);
@@ -119,7 +121,7 @@ export async function loadFilesFromDirectory(
       const validationResult = verifyStudioPackage(packageJsonData);
       if (!validationResult.isOk()) {
         return Result.error(
-          validationResult.error || new Error("Unknown validation error"),
+          validationResult.error || new Error("Unknown validation error")
         );
       }
 
@@ -128,13 +130,13 @@ export async function loadFilesFromDirectory(
       // Check if document files exist
       for (const document of studioPackage.documents) {
         const documentFile = files.find(
-          (file) => file.name === document.filePath,
+          (file) => file.name === document.filePath
         );
         if (!documentFile) {
           return Result.error(
             new MissingDocumentFileError(
-              `Document file not found: ${document.filePath}`,
-            ),
+              `Document file not found: ${document.filePath}`
+            )
           );
         }
 
@@ -145,8 +147,8 @@ export async function loadFilesFromDirectory(
         } catch (error) {
           return Result.error(
             new InvalidDocumentJsonError(
-              `Invalid JSON in document file ${document.filePath}: ${error instanceof Error ? error.message : String(error)}`,
-            ),
+              `Invalid JSON in document file ${document.filePath}: ${error instanceof Error ? error.message : String(error)}`
+            )
           );
         }
       }
@@ -157,7 +159,7 @@ export async function loadFilesFromDirectory(
           const fontFile = files.find((file) => file.name === font.filePath);
           if (!fontFile) {
             return Result.error(
-              new MissingFontFileError(`Font file not found: ${font.filePath}`),
+              new MissingFontFileError(`Font file not found: ${font.filePath}`)
             );
           }
         }
@@ -166,23 +168,23 @@ export async function loadFilesFromDirectory(
       return Result.ok(files);
     } catch (error) {
       return Result.error(
-        new InvalidPackageJsonError(
-          `Failed to parse package.json: ${error instanceof Error ? error.message : String(error)}`,
-        ),
+        new InvalidChiliPackageError(
+          `Failed to parse chili-package.json: ${error instanceof Error ? error.message : String(error)}`
+        )
       );
     }
   } catch (error) {
     return Result.error(
       new Error(
-        `Failed to read directory: ${error instanceof Error ? error.message : String(error)}`,
-      ),
+        `Failed to read directory: ${error instanceof Error ? error.message : String(error)}`
+      )
     );
   }
 }
 
 // Helper function to sanitize folder name
 export const sanitizeFolderName = (name: string): string => {
-  return name.replace(/[^a-zA-Z0-9\-_]/g, "");
+  return name.replace(/[^a-zA-Z0-9\-_ ]/g, "");
 };
 
 // Helper function to generate timestamp
@@ -201,7 +203,7 @@ export const generateTimestamp = (): string => {
 
 // Helper function to validate folder name
 export const validateFolderName = (name: string): string => {
-  const illegalChars = name.match(/[^a-zA-Z0-9\-_]/g);
+  const illegalChars = name.match(/[^a-zA-Z0-9\-_ ]/g);
   if (illegalChars) {
     const uniqueChars = [...new Set(illegalChars)];
     return `Illegal characters: ${uniqueChars.join(", ")}`;

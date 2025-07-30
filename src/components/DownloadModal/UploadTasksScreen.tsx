@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Stack,
-  Text,
-  Alert,
-  Checkbox,
-  Button,
-  Group,
-} from "@mantine/core";
+import { Stack, Text, Alert, Checkbox, Button, Group } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 
 interface UploadTasksScreenProps {
@@ -47,7 +40,7 @@ export function UploadTasksScreen({
       )}
 
       <Text size="md" style={{ textAlign: "center" }}>
-        Please choose the folder that contains your package.json.
+        Please choose the folder that contains your chili-package.json.
       </Text>
 
       <Checkbox

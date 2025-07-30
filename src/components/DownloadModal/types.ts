@@ -70,19 +70,19 @@ export interface StudioPackage {
 }
 
 // Custom error classes for upload functionality
-export class InvalidPackageJsonError extends Error {
-  readonly _tag = "InvalidPackageJsonError";
+export class InvalidChiliPackageError extends Error {
+  readonly _tag = "InvalidChiliPackageError";
   constructor(message: string) {
     super(message);
-    this.name = "InvalidPackageJsonError";
+    this.name = "InvalidChiliPackageError";
   }
 }
 
-export class NoPackageJsonError extends Error {
-  readonly _tag = "NoPackageJsonError";
+export class NoChiliPackageError extends Error {
+  readonly _tag = "NoChiliPackageError";
   constructor(message: string) {
     super(message);
-    this.name = "NoPackageJsonError";
+    this.name = "NoChiliPackageError";
   }
 }
 

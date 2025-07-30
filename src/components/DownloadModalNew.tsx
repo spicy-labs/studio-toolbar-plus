@@ -44,7 +44,7 @@ import {
   type SmartCropsData,
   type StudioPackage,
   FontAlreadyExistsError,
-  NoPackageJsonError,
+  NoChiliPackageError,
   MissingFontFileError,
   MissingSmartCropsFileError,
   InvalidSmartCropsJsonError,
@@ -480,12 +480,12 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   // Process upload files with new task-based workflow
   const processUploadFiles = async (files: File[]) => {
     try {
-      // Find and parse package.json
+      // Find and parse chili-package.json
       const packageJsonFile = files.find(
-        (file) => file.name === "package.json",
+        (file) => file.name === "chili-package.json",
       );
       if (!packageJsonFile) {
-        raiseError(new NoPackageJsonError("package.json not found"));
+        raiseError(new NoChiliPackageError("chili-package.json not found"));
         return;
       }
 
@@ -523,13 +523,13 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         return;
       }
 
-      // Create package.json processing task
+      // Create chili-package.json processing task
       const packageTaskId = "package-processing";
       setPackageJsonTaskId(packageTaskId);
       setUploadTasks([
         {
           id: packageTaskId,
-          name: "Processing package.json",
+          name: "Processing chili-package.json",
           type: "package_processing",
           status: "processing",
         },
@@ -542,7 +542,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       setCurrentToken(token);
       setCurrentBaseUrl(baseUrl);
 
-      // Process package.json workflow
+      // Process chili-package.json workflow
       await processPackageJsonWorkflow(
         files,
         studioPackage,
@@ -556,7 +556,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     }
   };
 
-  // Process package.json workflow
+  // Process chili-package.json workflow
   const processPackageJsonWorkflow = async (
     files: File[],
     studioPackage: StudioPackage,
@@ -1064,6 +1064,15 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         (tf: any) => tf.name === fontDetails.familyName,
       );
 
+      const debug = {
+        fontDetails,
+        fontFamiliesData,
+        targetFamily,
+        targetStylesStatus: null,
+        targetStylesData: null,
+        targetStyle: null,
+      } as any;
+
       if (targetFamily) {
         // Family exists, check styles
         const targetStylesResponse = await fetch(
@@ -1076,12 +1085,16 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           },
         );
 
+        debug.targetStylesStatus = targetStylesResponse.status;
+        console.log(debug);
         if (targetStylesResponse.ok) {
           const targetStylesData = await targetStylesResponse.json();
           const targetStyle = targetStylesData.data.find(
             (ts: any) => ts.name === fontDetails.name,
           );
-
+          debug.targetStylesData = targetStylesData;
+          debug.targetStyle = targetStyle;
+          console.log(debug);
           if (targetStyle) {
             // Font already exists, mark as info
             setUploadTasks((prev) =>
@@ -1099,6 +1112,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           }
         }
       }
+
+      console.log(debug);
+
+      console.log("uploading", fontDetails);
 
       // Font doesn't exist, proceed with upload
       const formData = new FormData();
@@ -2096,7 +2113,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         },
         {
           id: "studio-package",
-          name: "package.studio",
+          name: "chili-package.json",
           status: "pending",
         },
       ];

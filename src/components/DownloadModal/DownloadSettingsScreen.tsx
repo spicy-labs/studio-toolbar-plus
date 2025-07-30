@@ -81,7 +81,7 @@ export function DownloadSettingsScreen({
           onChange={(event) => onFolderNameChange(event.currentTarget.value)}
           error={folderNameError}
           placeholder="Enter folder name"
-          description="Only letters, numbers, hyphens, and underscores are allowed"
+          description="Only letters, numbers, hyphens, underscores, and spaces are allowed"
         />
 
         <Checkbox
@@ -107,7 +107,7 @@ export function DownloadSettingsScreen({
               onChange={(event) =>
                 onSettingChange(
                   "useOriginalFontFileNames",
-                  event.currentTarget.checked,
+                  event.currentTarget.checked
                 )
               }
               style={{ marginLeft: "40px" }}
@@ -173,7 +173,7 @@ export function DownloadSettingsScreen({
                             {path}
                           </Text>
                         </Group>
-                      ),
+                      )
                     )}
                   </Stack>
                 )}
@@ -202,7 +202,7 @@ export function DownloadSettingsScreen({
             onChange={(event) =>
               onSettingChange(
                 "removeUnusedConnectors",
-                event.currentTarget.checked,
+                event.currentTarget.checked
               )
             }
           />
