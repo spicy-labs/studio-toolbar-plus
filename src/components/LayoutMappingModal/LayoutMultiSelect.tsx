@@ -106,11 +106,7 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
   };
 
   // Build tree data from layouts
-  const treeData = buildTreeData(
-    documentLayouts,
-    selectedLayouts,
-    assignedToOtherMaps,
-  );
+  const treeData = buildTreeData(documentLayouts, selectedLayouts, []);
 
   // Custom render function for tree nodes
   const renderTreeNode = ({
@@ -171,7 +167,6 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
             return {
               value: layout.id,
               label: layout.name,
-              disabled: assignedToOtherMaps.includes(layout.id),
             };
           })}
           value={
@@ -219,7 +214,7 @@ export const LayoutMultiSelect: React.FC<LayoutMultiSelectProps> = ({
         onClose={() => setDrawerOpened(false)}
         title="Select Layouts"
         position="right"
-        size="md"
+        size="lg"
         padding="md"
       >
         <div style={{ marginBottom: "20px" }}>
