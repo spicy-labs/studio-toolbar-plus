@@ -18,6 +18,12 @@ export type LayoutSize = {
   width: number;
   height: number;
   aspectRatio: number;
+  sizing: {
+    maxHeight: number | null;
+    maxWidth: number | null;
+    minHeight: number | null;
+    minWidth: number | null;
+  }
 };
 
 export type DefaultDownloadSettings = {
