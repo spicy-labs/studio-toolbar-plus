@@ -801,12 +801,6 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       console.log("HELLO");
       console.log(documentData);
 
-      const newDocumentStr = JSON.stringify(documentData);
-
-      for (let [sourceId, replacementId] of replacementMap) {
-        newDocumentStr.replaceAll(sourceId, replacementId);
-      }
-
       const newDocumentData = JSON.parse(JSON.stringify(documentData));
 
       for (const connector of newDocumentData.connectors) {
@@ -832,6 +826,30 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             });
           }
         }
+      }
+
+      const remainingOldConnectors: string[] = [];
+      const newDocumentStr = JSON.stringify(newDocumentData);
+
+      for (let [sourceId, replacementId] of replacementMap) {
+        if (newDocumentStr.includes(sourceId)) {
+          remainingOldConnectors.push(sourceId);
+        }
+      }
+
+      if (remainingOldConnectors.length > 0) {
+        const errorMessage = `Connector replacement failed. Old connector IDs still found: ${remainingOldConnectors.join(", ")}`;
+
+        setUploadTasks((prev) =>
+          prev.map((task) =>
+            task.id === packageJsonTaskId
+              ? { ...task, status: "error", error: errorMessage }
+              : task
+          )
+        );
+
+        raiseError(new Error(errorMessage));
+        return;
       }
 
       setDocumentData(newDocumentData);
