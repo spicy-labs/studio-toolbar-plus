@@ -70200,7 +70200,6 @@ function ReplaceConnectorsModal({
     setReplacements({});
     onClose();
   };
-  console.log("Replacement Map", replacementMap);
   return /* @__PURE__ */ jsx_runtime24.jsx(Modal, {
     opened,
     onClose: handleClose,
@@ -71585,10 +71584,6 @@ function DownloadModalNew({ opened, onClose }) {
     if (documentData) {
       console.log("HELLO");
       console.log(documentData);
-      const newDocumentStr = JSON.stringify(documentData);
-      for (let [sourceId, replacementId] of replacementMap) {
-        newDocumentStr.replaceAll(sourceId, replacementId);
-      }
       const newDocumentData = JSON.parse(JSON.stringify(documentData));
       for (const connector of newDocumentData.connectors) {
         if (connector.source.source === "grafx" && connector.source.id) {
@@ -71606,26 +71601,26 @@ function DownloadModalNew({ opened, onClose }) {
                       sourceId,
                       replacementId
                     });
-                    console.log("ID VALUE", idValue);
-                    console.log("BEFORE", layout.frameProperties.filter((fp) => {
-                      if (fp.perAssetCrop) {
-                        return Object.keys(fp.perAssetCrop).length > 0;
-                      }
-                      return false;
-                    }));
                     props.perAssetCrop = { [replacementId]: idValue, ...rest };
-                    console.log("AFTER", layout.frameProperties.filter((fp) => {
-                      if (fp.perAssetCrop) {
-                        return Object.keys(fp.perAssetCrop).length > 0;
-                      }
-                      return false;
-                    }));
                   }
                 }
               });
             });
           }
         }
+      }
+      const remainingOldConnectors = [];
+      const newDocumentStr = JSON.stringify(newDocumentData);
+      for (let [sourceId, replacementId] of replacementMap) {
+        if (newDocumentStr.includes(sourceId)) {
+          remainingOldConnectors.push(sourceId);
+        }
+      }
+      if (remainingOldConnectors.length > 0) {
+        const errorMessage = `Connector replacement failed. Old connector IDs still found: ${remainingOldConnectors.join(", ")}`;
+        setUploadTasks((prev2) => prev2.map((task) => task.id === packageJsonTaskId ? { ...task, status: "error", error: errorMessage } : task));
+        raiseError2(new Error(errorMessage));
+        return;
       }
       setDocumentData(newDocumentData);
       console.log(newDocumentData);
@@ -77879,4 +77874,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=B8FB167B4C09E5CA64756E2164756E21
+//# debugId=2DCFAF817FC476A964756E2164756E21
