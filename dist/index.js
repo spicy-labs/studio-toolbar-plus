@@ -14281,8 +14281,8 @@ var init_defaultAttributes = __esm(() => {
 });
 
 // node_modules/@tabler/icons-react/dist/esm/createReactComponent.mjs
-var import_react246, createReactComponent = (type, iconName, iconNamePascal, iconNode) => {
-  const Component2 = import_react246.forwardRef(({ color = "currentColor", size: size4 = 24, stroke = 2, title, className, children, ...rest }, ref) => import_react246.createElement("svg", {
+var import_react250, createReactComponent = (type, iconName, iconNamePascal, iconNode) => {
+  const Component2 = import_react250.forwardRef(({ color = "currentColor", size: size4 = 24, stroke = 2, title, className, children, ...rest }, ref) => import_react250.createElement("svg", {
     ref,
     ...defaultAttributes[type],
     width: size4,
@@ -14296,15 +14296,15 @@ var import_react246, createReactComponent = (type, iconName, iconNamePascal, ico
     },
     ...rest
   }, [
-    title && import_react246.createElement("title", { key: "svg-title" }, title),
-    ...iconNode.map(([tag, attrs]) => import_react246.createElement(tag, attrs)),
+    title && import_react250.createElement("title", { key: "svg-title" }, title),
+    ...iconNode.map(([tag, attrs]) => import_react250.createElement(tag, attrs)),
     ...Array.isArray(children) ? children : [children]
   ]));
   Component2.displayName = `${iconNamePascal}`;
   return Component2;
 };
 var init_createReactComponent = __esm(() => {
-  import_react246 = __toESM(require_react(), 1);
+  import_react250 = __toESM(require_react(), 1);
   init_defaultAttributes();
 });
 
@@ -14600,6 +14600,13 @@ var IconSparkles;
 var init_IconSparkles = __esm(() => {
   init_createReactComponent();
   IconSparkles = createReactComponent("outline", "sparkles", "IconSparkles", [["path", { d: "M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconTextSize.mjs
+var IconTextSize;
+var init_IconTextSize = __esm(() => {
+  init_createReactComponent();
+  IconTextSize = createReactComponent("outline", "text-size", "IconTextSize", [["path", { d: "M3 7v-2h13v2", key: "svg-0" }], ["path", { d: "M10 5v14", key: "svg-1" }], ["path", { d: "M12 19h-4", key: "svg-2" }], ["path", { d: "M15 13v-1h6v1", key: "svg-3" }], ["path", { d: "M18 12v7", key: "svg-4" }], ["path", { d: "M17 19h2", key: "svg-5" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTrash.mjs
@@ -15586,15 +15593,15 @@ var require_csv2json = __commonJS((exports) => {
     function retrieveHeading(lines) {
       let headerFields = [];
       if (options.headerFields) {
-        headerFields = options.headerFields.map((headerField, index4) => ({
+        headerFields = options.headerFields.map((headerField, index6) => ({
           value: processHeaderKey(headerField),
-          index: index4
+          index: index6
         }));
       } else {
         const headerRow = lines[0];
-        headerFields = headerRow.map((headerKey, index4) => ({
+        headerFields = headerRow.map((headerKey, index6) => ({
           value: processHeaderKey(headerKey),
-          index: index4
+          index: index6
         }));
         if (options.keys) {
           const keys2 = options.keys;
@@ -15620,14 +15627,14 @@ var require_csv2json = __commonJS((exports) => {
         justParsedDoubleQuote: false,
         startIndex: 0
       };
-      let splitLine = [], character2, charBefore, charAfter, nextNChar, index4 = 0;
-      while (index4 < csv.length) {
-        character2 = csv[index4];
-        charBefore = index4 ? csv[index4 - 1] : "";
-        charAfter = index4 < lastCharacterIndex ? csv[index4 + 1] : "";
-        nextNChar = utils.getNCharacters(csv, index4, eolDelimiterLength);
-        if ((nextNChar === options.delimiter.eol && !stateVariables.insideWrapDelimiter || index4 === lastCharacterIndex) && charBefore === options.delimiter.field) {
-          if (nextNChar === options.delimiter.eol && stateVariables.startIndex === index4) {
+      let splitLine = [], character2, charBefore, charAfter, nextNChar, index6 = 0;
+      while (index6 < csv.length) {
+        character2 = csv[index6];
+        charBefore = index6 ? csv[index6 - 1] : "";
+        charAfter = index6 < lastCharacterIndex ? csv[index6 + 1] : "";
+        nextNChar = utils.getNCharacters(csv, index6, eolDelimiterLength);
+        if ((nextNChar === options.delimiter.eol && !stateVariables.insideWrapDelimiter || index6 === lastCharacterIndex) && charBefore === options.delimiter.field) {
+          if (nextNChar === options.delimiter.eol && stateVariables.startIndex === index6) {
             splitLine.push("");
           } else if (character2 === options.delimiter.field) {
             splitLine.push("");
@@ -15637,66 +15644,66 @@ var require_csv2json = __commonJS((exports) => {
           splitLine.push("");
           lines.push(splitLine);
           splitLine = [];
-          stateVariables.startIndex = index4 + eolDelimiterLength;
+          stateVariables.startIndex = index6 + eolDelimiterLength;
           stateVariables.parsingValue = true;
           stateVariables.insideWrapDelimiter = charAfter === options.delimiter.wrap;
-        } else if (index4 === lastCharacterIndex && character2 === options.delimiter.field) {
-          const parsedValue = csv.substring(stateVariables.startIndex, index4);
+        } else if (index6 === lastCharacterIndex && character2 === options.delimiter.field) {
+          const parsedValue = csv.substring(stateVariables.startIndex, index6);
           splitLine.push(parsedValue);
           splitLine.push("");
           lines.push(splitLine);
-        } else if (index4 === lastCharacterIndex || nextNChar === options.delimiter.eol && (!stateVariables.insideWrapDelimiter || stateVariables.insideWrapDelimiter && charBefore === options.delimiter.wrap && !stateVariables.justParsedDoubleQuote)) {
-          const toIndex = index4 !== lastCharacterIndex || charBefore === options.delimiter.wrap ? index4 : undefined;
+        } else if (index6 === lastCharacterIndex || nextNChar === options.delimiter.eol && (!stateVariables.insideWrapDelimiter || stateVariables.insideWrapDelimiter && charBefore === options.delimiter.wrap && !stateVariables.justParsedDoubleQuote)) {
+          const toIndex = index6 !== lastCharacterIndex || charBefore === options.delimiter.wrap ? index6 : undefined;
           splitLine.push(csv.substring(stateVariables.startIndex, toIndex));
           lines.push(splitLine);
           splitLine = [];
-          stateVariables.startIndex = index4 + eolDelimiterLength;
+          stateVariables.startIndex = index6 + eolDelimiterLength;
           stateVariables.parsingValue = true;
           stateVariables.insideWrapDelimiter = charAfter === options.delimiter.wrap;
         } else if (character2 === options.delimiter.wrap && charBefore === options.delimiter.field && !stateVariables.insideWrapDelimiter && !stateVariables.parsingValue) {
-          stateVariables.startIndex = index4;
+          stateVariables.startIndex = index6;
           stateVariables.insideWrapDelimiter = true;
           stateVariables.parsingValue = true;
-          if (utils.getNCharacters(csv, index4 + 1, eolDelimiterLength) === options.delimiter.eol) {
-            index4 += options.delimiter.eol.length + 1;
+          if (utils.getNCharacters(csv, index6 + 1, eolDelimiterLength) === options.delimiter.eol) {
+            index6 += options.delimiter.eol.length + 1;
           }
         } else if (charBefore === options.delimiter.field && character2 === options.delimiter.wrap && charAfter === options.delimiter.eol) {
-          splitLine.push(csv.substring(stateVariables.startIndex, index4 - 1));
-          stateVariables.startIndex = index4;
+          splitLine.push(csv.substring(stateVariables.startIndex, index6 - 1));
+          stateVariables.startIndex = index6;
           stateVariables.parsingValue = true;
           stateVariables.insideWrapDelimiter = true;
           stateVariables.justParsedDoubleQuote = true;
-          index4 += 1;
-        } else if ((charBefore !== options.delimiter.wrap || stateVariables.justParsedDoubleQuote && charBefore === options.delimiter.wrap) && character2 === options.delimiter.wrap && utils.getNCharacters(csv, index4 + 1, eolDelimiterLength) === options.delimiter.eol) {
+          index6 += 1;
+        } else if ((charBefore !== options.delimiter.wrap || stateVariables.justParsedDoubleQuote && charBefore === options.delimiter.wrap) && character2 === options.delimiter.wrap && utils.getNCharacters(csv, index6 + 1, eolDelimiterLength) === options.delimiter.eol) {
           stateVariables.insideWrapDelimiter = false;
           stateVariables.parsingValue = false;
-        } else if (character2 === options.delimiter.wrap && (index4 === 0 || utils.getNCharacters(csv, index4 - eolDelimiterLength, eolDelimiterLength) === options.delimiter.eol && !stateVariables.insideWrapDelimiter)) {
+        } else if (character2 === options.delimiter.wrap && (index6 === 0 || utils.getNCharacters(csv, index6 - eolDelimiterLength, eolDelimiterLength) === options.delimiter.eol && !stateVariables.insideWrapDelimiter)) {
           stateVariables.insideWrapDelimiter = true;
           stateVariables.parsingValue = true;
-          stateVariables.startIndex = index4;
+          stateVariables.startIndex = index6;
         } else if (character2 === options.delimiter.wrap && charAfter === options.delimiter.field && stateVariables.insideWrapDelimiter) {
-          splitLine.push(csv.substring(stateVariables.startIndex, index4 + 1));
-          stateVariables.startIndex = index4 + 2;
+          splitLine.push(csv.substring(stateVariables.startIndex, index6 + 1));
+          stateVariables.startIndex = index6 + 2;
           stateVariables.insideWrapDelimiter = false;
           stateVariables.parsingValue = false;
         } else if (character2 === options.delimiter.wrap && charBefore === options.delimiter.field && !stateVariables.insideWrapDelimiter && stateVariables.parsingValue) {
-          splitLine.push(csv.substring(stateVariables.startIndex, index4 - 1));
+          splitLine.push(csv.substring(stateVariables.startIndex, index6 - 1));
           stateVariables.insideWrapDelimiter = true;
           stateVariables.parsingValue = true;
-          stateVariables.startIndex = index4;
-        } else if (character2 === options.delimiter.wrap && charAfter === options.delimiter.wrap && index4 !== stateVariables.startIndex) {
-          index4 += 2;
+          stateVariables.startIndex = index6;
+        } else if (character2 === options.delimiter.wrap && charAfter === options.delimiter.wrap && index6 !== stateVariables.startIndex) {
+          index6 += 2;
           stateVariables.justParsedDoubleQuote = true;
           continue;
         } else if (character2 === options.delimiter.field && charBefore !== options.delimiter.wrap && charAfter !== options.delimiter.wrap && !stateVariables.insideWrapDelimiter && stateVariables.parsingValue) {
-          splitLine.push(csv.substring(stateVariables.startIndex, index4));
-          stateVariables.startIndex = index4 + 1;
+          splitLine.push(csv.substring(stateVariables.startIndex, index6));
+          stateVariables.startIndex = index6 + 1;
         } else if (character2 === options.delimiter.field && charBefore === options.delimiter.wrap && charAfter !== options.delimiter.wrap && !stateVariables.parsingValue) {
           stateVariables.insideWrapDelimiter = false;
           stateVariables.parsingValue = true;
-          stateVariables.startIndex = index4 + 1;
+          stateVariables.startIndex = index6 + 1;
         }
-        index4++;
+        index6++;
         stateVariables.justParsedDoubleQuote = false;
       }
       return lines;
@@ -20472,9 +20479,9 @@ var require_utils3 = __commonJS((exports) => {
   exports.resolve = function(path) {
     var parts = path.split("/");
     var result = [];
-    for (var index4 = 0;index4 < parts.length; index4++) {
-      var part = parts[index4];
-      if (part === "." || part === "" && index4 !== 0 && index4 !== parts.length - 1) {
+    for (var index6 = 0;index6 < parts.length; index6++) {
+      var part = parts[index6];
+      if (part === "." || part === "" && index6 !== 0 && index6 !== parts.length - 1) {
         continue;
       } else if (part === "..") {
         result.pop();
@@ -20989,7 +20996,7 @@ var require_StreamHelper = __commonJS((exports, module) => {
     }
   }
   function concat(type, dataArray) {
-    var i2, index4 = 0, res = null, totalLength = 0;
+    var i2, index6 = 0, res = null, totalLength = 0;
     for (i2 = 0;i2 < dataArray.length; i2++) {
       totalLength += dataArray[i2].length;
     }
@@ -21001,8 +21008,8 @@ var require_StreamHelper = __commonJS((exports, module) => {
       case "uint8array":
         res = new Uint8Array(totalLength);
         for (i2 = 0;i2 < dataArray.length; i2++) {
-          res.set(dataArray[i2], index4);
-          index4 += dataArray[i2].length;
+          res.set(dataArray[i2], index6);
+          index6 += dataArray[i2].length;
         }
         return res;
       case "nodebuffer":
@@ -26493,8 +26500,8 @@ var require_zipEntries = __commonJS((exports, module) => {
       this.centralDirSize = this.reader.readInt(8);
       this.centralDirOffset = this.reader.readInt(8);
       this.zip64ExtensibleData = {};
-      var extraDataSize = this.zip64EndOfCentralSize - 44, index4 = 0, extraFieldId, extraFieldLength, extraFieldValue;
-      while (index4 < extraDataSize) {
+      var extraDataSize = this.zip64EndOfCentralSize - 44, index6 = 0, extraFieldId, extraFieldLength, extraFieldValue;
+      while (index6 < extraDataSize) {
         extraFieldId = this.reader.readInt(2);
         extraFieldLength = this.reader.readInt(4);
         extraFieldValue = this.reader.readData(extraFieldLength);
@@ -26713,7 +26720,7 @@ var require_lib = __commonJS((exports, module) => {
 });
 
 // src/index.tsx
-var import_react286 = __toESM(require_react(), 1);
+var import_react292 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -27344,6 +27351,14 @@ var immerImpl = (initializer) => (set2, get, store) => {
 var immer2 = immerImpl;
 
 // src/modalStore.ts
+init_dist();
+
+class VariableTypesDoNotMatchError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "VariableTypesDoNotMatchError";
+  }
+}
 var saveLayoutConfigToJSON = (config) => {
   console.log("Saving config:", config);
 };
@@ -27352,18 +27367,19 @@ var unloadedDoc = { layouts: [], variables: [] };
 var appStore = create()(immer2((set2, get) => ({
   state: {
     modal: {
-      isAddImageVariableMappingModalOpen: false,
+      isAddTargetVariableMappingModalOpen: false,
       currentAddImageMappingSelectedVariables: [],
-      isSwapImageVariableModalOpen: false,
-      currentSwapImageVariableSelected: "",
-      currentSwapImageVariableId: null,
+      isSwapTargetVariableModalOpen: false,
+      currentSwapTargetVariableSelected: "",
+      currentSwapTargetVariableId: null,
       isModalVisible: false,
       currentSelectedMapId: null,
       dependentModal: {
         isOpen: false,
-        currentImageVariableId: null,
+        currentTargetVariableId: null,
         currentSelectedVariables: [],
-        currentGroupIndex: null
+        currentGroupIndex: null,
+        allowAlways: false
       }
     },
     studio: {
@@ -27385,8 +27401,8 @@ var appStore = create()(immer2((set2, get) => ({
       hideModal: () => set2((store) => {
         store.state.modal.isModalVisible = false;
       }),
-      setIsImageVariableMappingModalOpen: (value) => set2((store) => {
-        store.state.modal.isAddImageVariableMappingModalOpen = value;
+      setIsTargetVariableMappingModalOpen: (value) => set2((store) => {
+        store.state.modal.isAddTargetVariableMappingModalOpen = value;
       }),
       setCurrentAddImageMappingSelectedVariables: (value) => set2((store) => {
         store.state.modal.currentAddImageMappingSelectedVariables = value;
@@ -27396,19 +27412,19 @@ var appStore = create()(immer2((set2, get) => ({
           store.state.modal.currentSelectedMapId = value;
         });
       },
-      setIsSwapImageVariableModalOpen: (value) => {
+      setIsSwapTargetVariableModalOpen: (value) => {
         set2((store) => {
-          store.state.modal.isSwapImageVariableModalOpen = value;
+          store.state.modal.isSwapTargetVariableModalOpen = value;
         });
       },
-      setCurrentSwapImageVariableSelected: (value) => {
+      setCurrentSwapTargetVariableSelected: (value) => {
         set2((store) => {
-          store.state.modal.currentSwapImageVariableSelected = value;
+          store.state.modal.currentSwapTargetVariableSelected = value;
         });
       },
-      setCurrentSwapImageVariableId: (value) => {
+      setCurrentSwapTargetVariableId: (value) => {
         set2((store) => {
-          store.state.modal.currentSwapImageVariableId = value;
+          store.state.modal.currentSwapTargetVariableId = value;
         });
       },
       dependentModal: {
@@ -27425,9 +27441,9 @@ var appStore = create()(immer2((set2, get) => ({
             }
           });
         },
-        setCurrentImageVariableId: (id) => {
+        setCurrentTargetVariableId: (id) => {
           set2((store) => {
-            store.state.modal.dependentModal.currentImageVariableId = id;
+            store.state.modal.dependentModal.currentTargetVariableId = id;
           });
         },
         setCurrentSelectedVariables: (value) => {
@@ -27439,6 +27455,11 @@ var appStore = create()(immer2((set2, get) => ({
           set2((store) => {
             store.state.modal.dependentModal.currentGroupIndex = value;
           });
+        },
+        setAllowAlways: (value) => {
+          set2((store) => {
+            store.state.modal.dependentModal.allowAlways = value;
+          });
         }
       }
     },
@@ -27447,6 +27468,7 @@ var appStore = create()(immer2((set2, get) => ({
         load: (doc) => set2((store) => {
           store.state.studio.isDocumentLoaded = true;
           store.state.studio.document = doc;
+          console.log(doc);
         }),
         unload: () => set2((store) => {
           store.state.studio.document = unloadedDoc;
@@ -27457,8 +27479,10 @@ var appStore = create()(immer2((set2, get) => ({
         addLayoutMap: () => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const randomId = Math.random().toString(36).substring(2, 10);
+            const nextIndex = store.state.studio.layoutImageMapping.length + 1;
             const newLayoutMap = {
               id: randomId,
+              name: `Layout Mapping #${nextIndex}`,
               layoutIds: [],
               variables: []
             };
@@ -27472,8 +27496,10 @@ var appStore = create()(immer2((set2, get) => ({
             const sourceLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id === mapId);
             if (sourceLayoutMap) {
               const randomId = Math.random().toString(36).substring(2, 10);
+              const nextIndex = store.state.studio.layoutImageMapping.length + 1;
               const newLayoutMap = {
                 id: randomId,
+                name: `Layout Mapping #${nextIndex}`,
                 layoutIds: [],
                 variables: JSON.parse(JSON.stringify(sourceLayoutMap.variables))
               };
@@ -27497,6 +27523,28 @@ var appStore = create()(immer2((set2, get) => ({
             raiseError(store, new Error("For deleteLayoutMap layout config is not loaded"));
           }
         }),
+        updateLayoutMapName: ({ mapId, name }) => set2((store) => {
+          if (store.state.studio.isLayoutConfigLoaded) {
+            const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id === mapId);
+            if (targetLayoutMap) {
+              const trimmedName = name.trim();
+              if (!trimmedName) {
+                targetLayoutMap.name = undefined;
+                return;
+              }
+              const isDuplicate = store.state.studio.layoutImageMapping.some((map) => map.id !== mapId && map.name === trimmedName);
+              if (isDuplicate) {
+                raiseError(store, new Error(`Layout mapping name "${trimmedName}" already exists`));
+                return;
+              }
+              targetLayoutMap.name = trimmedName;
+            } else {
+              raiseError(store, new Error("For updateLayoutMapName layout map not found"));
+            }
+          } else {
+            raiseError(store, new Error("For updateLayoutMapName layout config is not loaded"));
+          }
+        }),
         setLayoutIds: ({ mapId: configId, layoutIds }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((layout) => layout.id == configId);
@@ -27509,26 +27557,26 @@ var appStore = create()(immer2((set2, get) => ({
             raiseError(store, new Error("For setLayoutIds layout config is not loaded"));
           }
         }),
-        addImageVariable: ({ mapId, imageVariable }) => set2((store) => {
+        addTargetVariable: ({ mapId, targetVariable }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMapMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMapMap) {
-              const imageVariableIndex = targetLayoutMapMap.variables.findIndex((imgVar) => imgVar.id == imageVariable.id);
-              if (imageVariableIndex == -1) {
-                targetLayoutMapMap.variables.push(imageVariable);
+              const targetVariableIndex = targetLayoutMapMap.variables.findIndex((imgVar) => imgVar.id == targetVariable.id);
+              if (targetVariableIndex == -1) {
+                targetLayoutMapMap.variables.push(targetVariable);
               } else {
-                targetLayoutMapMap.variables[imageVariableIndex] = imageVariable;
+                targetLayoutMapMap.variables[targetVariableIndex] = targetVariable;
               }
             } else {
-              raiseError(store, new Error("For addImageVariable targetLayoutMapMap not found"));
+              raiseError(store, new Error("For addTargetVariable targetLayoutMapMap not found"));
             }
           } else {
-            raiseError(store, new Error("For addImageVariable layout config is not loaded"));
+            raiseError(store, new Error("For addTargetVariable layout config is not loaded"));
           }
         }),
         updateDependent: ({
           mapId,
-          imageVariableId,
+          targetVariableId,
           dependentGroupIndex,
           dependent
         }) => set2((store) => {
@@ -27538,12 +27586,12 @@ var appStore = create()(immer2((set2, get) => ({
               raiseError(store, new Error("For updateDependent targetLayoutMap not found"));
               return;
             }
-            const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-            if (!imageVariable) {
-              raiseError(store, new Error("For updateDependent imageVariable not found"));
+            const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+            if (!targetVariable) {
+              raiseError(store, new Error("For updateDependent targetVariable not found"));
               return;
             }
-            const dependentGroup = imageVariable.dependentGroup[dependentGroupIndex];
+            const dependentGroup = targetVariable.dependentGroup[dependentGroupIndex];
             if (dependentGroup == undefined) {
               raiseError(store, new Error("For updateDependent dependentGroup not found"));
               return;
@@ -27560,7 +27608,7 @@ var appStore = create()(immer2((set2, get) => ({
         }),
         removeDependent: ({
           mapId,
-          imageVariableId,
+          targetVariableId,
           dependentGroupIndex,
           dependent
         }) => set2((store) => {
@@ -27570,12 +27618,12 @@ var appStore = create()(immer2((set2, get) => ({
               raiseError(store, new Error("For removeDependent targetLayoutMap not found"));
               return;
             }
-            const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-            if (!imageVariable) {
-              raiseError(store, new Error("For removeDependent imageVariable not found"));
+            const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+            if (!targetVariable) {
+              raiseError(store, new Error("For removeDependent targetVariable not found"));
               return;
             }
-            const dependentGroup = imageVariable.dependentGroup[dependentGroupIndex];
+            const dependentGroup = targetVariable.dependentGroup[dependentGroupIndex];
             if (dependentGroup == undefined) {
               raiseError(store, new Error("For removeDependent dependentGroup not found"));
               return;
@@ -27610,18 +27658,24 @@ var appStore = create()(immer2((set2, get) => ({
             raiseError(store, new Error("For save layout config is not loaded"));
           }
         },
-        addDependentGroup: ({ mapId, imageVariableId, dependents }) => set2((store) => {
+        addDependentGroup: ({
+          mapId,
+          targetVariableId,
+          dependents,
+          alwaysRun
+        }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
-              const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-              if (imageVariable) {
-                imageVariable.dependentGroup.push({
+              const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+              if (targetVariable) {
+                targetVariable.dependentGroup.push({
+                  alwaysRun,
                   dependents,
                   variableValue: []
                 });
               } else {
-                raiseError(store, new Error("For addDependentGroup imageVariable not found"));
+                raiseError(store, new Error("For addDependentGroup targetVariable not found"));
               }
             } else {
               raiseError(store, new Error("For addDependentGroup targetLayoutMap not found"));
@@ -27630,21 +27684,21 @@ var appStore = create()(immer2((set2, get) => ({
             raiseError(store, new Error("For addDependentGroup layout config is not loaded"));
           }
         }),
-        copyDependentGroup: ({ mapId, imageVariableId, groupIndex }) => set2((store) => {
+        copyDependentGroup: ({ mapId, targetVariableId, groupIndex }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
-              const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-              if (imageVariable) {
-                const dependentGroup = imageVariable.dependentGroup[groupIndex];
+              const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+              if (targetVariable) {
+                const dependentGroup = targetVariable.dependentGroup[groupIndex];
                 if (dependentGroup == undefined) {
                   raiseError(store, new Error("For copyDependentGroup dependentGroup not found"));
                   return;
                 }
                 const newDependentGroup = JSON.parse(JSON.stringify(dependentGroup));
-                imageVariable.dependentGroup.push(newDependentGroup);
+                targetVariable.dependentGroup.push(newDependentGroup);
               } else {
-                raiseError(store, new Error("For copyDependentGroup imageVariable not found"));
+                raiseError(store, new Error("For copyDependentGroup targetVariable not found"));
               }
             } else {
               raiseError(store, new Error("For copyDependentGroup targetLayoutMap not found"));
@@ -27653,58 +27707,66 @@ var appStore = create()(immer2((set2, get) => ({
             raiseError(store, new Error("For copyDependentGroup layout config is not loaded"));
           }
         }),
-        removeImageVariable: ({ mapId, imageVariableId }) => set2((store) => {
+        removeTargetVariable: ({ mapId, targetVariableId }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
-              const imageVariableIndex = targetLayoutMap.variables.findIndex((imgVar) => imgVar.id == imageVariableId);
-              if (imageVariableIndex !== -1) {
-                targetLayoutMap.variables.splice(imageVariableIndex, 1);
+              const targetVariableIndex = targetLayoutMap.variables.findIndex((imgVar) => imgVar.id == targetVariableId);
+              if (targetVariableIndex !== -1) {
+                targetLayoutMap.variables.splice(targetVariableIndex, 1);
               } else {
-                raiseError(store, new Error("For removeImageVariable imageVariable not found"));
+                raiseError(store, new Error("For removeTargetVariable targetVariable not found"));
               }
             } else {
-              raiseError(store, new Error("For removeImageVariable targetLayoutMap not found"));
+              raiseError(store, new Error("For removeTargetVariable targetLayoutMap not found"));
             }
           } else {
-            raiseError(store, new Error("For removeImageVariable layout config is not loaded"));
+            raiseError(store, new Error("For removeTargetVariable layout config is not loaded"));
           }
         }),
-        swapImageVariable: ({
+        swapTargetVariable: ({
           mapId,
-          oldImageVariableId,
-          newImageVariableId
-        }) => set2((store) => {
-          if (store.state.studio.isLayoutConfigLoaded) {
-            const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
-            if (targetLayoutMap) {
-              const oldImageVariableIndex = targetLayoutMap.variables.findIndex((imgVar) => imgVar.id == oldImageVariableId);
-              if (oldImageVariableIndex !== -1) {
-                const oldImageVariable = targetLayoutMap.variables[oldImageVariableIndex];
-                const newImageVariable = {
-                  id: newImageVariableId,
-                  dependentGroup: [...oldImageVariable.dependentGroup]
-                };
-                targetLayoutMap.variables[oldImageVariableIndex] = newImageVariable;
-              } else {
-                raiseError(store, new Error("For swapImageVariable oldImageVariable not found"));
-              }
-            } else {
-              raiseError(store, new Error("For swapImageVariable targetLayoutMap not found"));
-            }
-          } else {
-            raiseError(store, new Error("For swapImageVariable layout config is not loaded"));
+          oldTargetVariableId,
+          newTargetVariableId
+        }) => {
+          const store = get();
+          if (!store.state.studio.isLayoutConfigLoaded) {
+            return Result.error(new VariableTypesDoNotMatchError("For swapTargetVariable layout config is not loaded"));
           }
-        }),
-        removeDependentGroup: ({ mapId, imageVariableId, groupIndex }) => set2((store) => {
+          const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
+          if (!targetLayoutMap) {
+            return Result.error(new VariableTypesDoNotMatchError("For swapTargetVariable targetLayoutMap not found"));
+          }
+          const oldTargetVariableIndex = targetLayoutMap.variables.findIndex((imgVar) => imgVar.id == oldTargetVariableId);
+          if (oldTargetVariableIndex === -1) {
+            return Result.error(new VariableTypesDoNotMatchError("For swapTargetVariable oldTargetVariable not found"));
+          }
+          set2((store2) => {
+            const targetLayoutMap2 = store2.state.studio.layoutImageMapping.find((map) => map.id == mapId);
+            if (targetLayoutMap2) {
+              const oldTargetVariableIndex2 = targetLayoutMap2.variables.findIndex((imgVar) => imgVar.id == oldTargetVariableId);
+              if (oldTargetVariableIndex2 !== -1) {
+                const oldTargetVariable = targetLayoutMap2.variables[oldTargetVariableIndex2];
+                const newTargetVariable = {
+                  id: newTargetVariableId,
+                  type: oldTargetVariable.type,
+                  dependentGroup: [...oldTargetVariable.dependentGroup]
+                };
+                targetLayoutMap2.variables[oldTargetVariableIndex2] = newTargetVariable;
+              }
+            }
+          });
+          return Result.ok(undefined);
+        },
+        removeDependentGroup: ({ mapId, targetVariableId, groupIndex }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
-              const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-              if (imageVariable) {
-                imageVariable.dependentGroup.splice(groupIndex, 1);
+              const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+              if (targetVariable) {
+                targetVariable.dependentGroup.splice(groupIndex, 1);
               } else {
-                raiseError(store, new Error("For removeDependentGroup imageVariable not found"));
+                raiseError(store, new Error("For removeDependentGroup targetVariable not found"));
               }
             } else {
               raiseError(store, new Error("For removeDependentGroup targetLayoutMap not found"));
@@ -27715,23 +27777,23 @@ var appStore = create()(immer2((set2, get) => ({
         }),
         addVarValueToDependentGroup: ({
           mapId,
-          imageVariableId,
+          targetVariableId,
           groupIndex,
           variableValue
         }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
-              const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-              if (imageVariable) {
-                const dependentGroup = imageVariable.dependentGroup[groupIndex];
+              const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+              if (targetVariable) {
+                const dependentGroup = targetVariable.dependentGroup[groupIndex];
                 if (dependentGroup == undefined) {
                   raiseError(store, new Error("For addVarValueToDependentGroup dependentGroup not found"));
                   return;
                 }
                 dependentGroup.variableValue.push(variableValue);
               } else {
-                raiseError(store, new Error("For addVarValueToDependentGroup imageVariable not found"));
+                raiseError(store, new Error("For addVarValueToDependentGroup targetVariable not found"));
               }
             } else {
               raiseError(store, new Error("For addVarValueToDependentGroup targetLayoutMap not found"));
@@ -27742,16 +27804,16 @@ var appStore = create()(immer2((set2, get) => ({
         }),
         removeVarValueFromDependentGroup: ({
           mapId,
-          imageVariableId,
+          targetVariableId,
           groupIndex,
           variableValueIndex
         }) => set2((store) => {
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
-              const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-              if (imageVariable) {
-                const dependentGroup = imageVariable.dependentGroup[groupIndex];
+              const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+              if (targetVariable) {
+                const dependentGroup = targetVariable.dependentGroup[groupIndex];
                 if (dependentGroup == undefined) {
                   raiseError(store, new Error("For removeVarValueFromDependentGroup dependentGroup not found"));
                   return;
@@ -27762,7 +27824,7 @@ var appStore = create()(immer2((set2, get) => ({
                 }
                 dependentGroup.variableValue.splice(variableValueIndex, 1);
               } else {
-                raiseError(store, new Error("For removeVarValueFromDependentGroup imageVariable not found"));
+                raiseError(store, new Error("For removeVarValueFromDependentGroup targetVariable not found"));
               }
             } else {
               raiseError(store, new Error("For removeVarValueFromDependentGroup targetLayoutMap not found"));
@@ -27773,7 +27835,7 @@ var appStore = create()(immer2((set2, get) => ({
         }),
         updateVarValueFromDependentGroup: ({
           mapId,
-          imageVariableId,
+          targetVariableId,
           groupIndex,
           variableValueIndex,
           variableValue
@@ -27781,9 +27843,9 @@ var appStore = create()(immer2((set2, get) => ({
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
-              const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-              if (imageVariable) {
-                const dependentGroup = imageVariable.dependentGroup[groupIndex];
+              const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+              if (targetVariable) {
+                const dependentGroup = targetVariable.dependentGroup[groupIndex];
                 if (dependentGroup == undefined) {
                   raiseError(store, new Error("For updateVarValueFromDependentGroup dependentGroup not found"));
                   return;
@@ -27794,7 +27856,7 @@ var appStore = create()(immer2((set2, get) => ({
                 }
                 dependentGroup.variableValue[variableValueIndex] = variableValue;
               } else {
-                raiseError(store, new Error("For updateVarValueFromDependentGroup imageVariable not found"));
+                raiseError(store, new Error("For updateVarValueFromDependentGroup targetVariable not found"));
               }
             } else {
               raiseError(store, new Error("For updateVarValueFromDependentGroup targetLayoutMap not found"));
@@ -27805,7 +27867,7 @@ var appStore = create()(immer2((set2, get) => ({
         }),
         setIndexOfVarValueFromDependentGroup: ({
           mapId,
-          imageVariableId,
+          targetVariableId,
           groupIndex,
           oldVariableValueIndex,
           newVariableValueIndex
@@ -27813,9 +27875,9 @@ var appStore = create()(immer2((set2, get) => ({
           if (store.state.studio.isLayoutConfigLoaded) {
             const targetLayoutMap = store.state.studio.layoutImageMapping.find((map) => map.id == mapId);
             if (targetLayoutMap) {
-              const imageVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == imageVariableId);
-              if (imageVariable) {
-                const dependentGroup = imageVariable.dependentGroup[groupIndex];
+              const targetVariable = targetLayoutMap.variables.find((imgVar) => imgVar.id == targetVariableId);
+              if (targetVariable) {
+                const dependentGroup = targetVariable.dependentGroup[groupIndex];
                 if (dependentGroup == undefined) {
                   raiseError(store, new Error("For setIndexOfVarValueFromDependentGroup dependentGroup not found"));
                   return;
@@ -27834,7 +27896,7 @@ var appStore = create()(immer2((set2, get) => ({
                 const [movedItem] = dependentGroup.variableValue.splice(oldVariableValueIndex, 1);
                 dependentGroup.variableValue.splice(adjustedNewIndex, 0, movedItem);
               } else {
-                raiseError(store, new Error("For setIndexOfVarValueFromDependentGroup imageVariable not found"));
+                raiseError(store, new Error("For setIndexOfVarValueFromDependentGroup targetVariable not found"));
               }
             } else {
               raiseError(store, new Error("For setIndexOfVarValueFromDependentGroup targetLayoutMap not found"));
@@ -28127,7 +28189,7 @@ function setEnableActions(studio2, value) {
 
 // src/studio/actions/imageSelection.js
 function imageSelectionScript(debug) {
-  const version2 = "0.4";
+  const version2 = "1";
   const imageSelectionData = "%DATA%";
   const errorCollection = [];
   const debugData = {};
@@ -28149,35 +28211,42 @@ function imageSelectionScript(debug) {
         return `${variableRawValue}`;
       }).join("|");
     };
-    const vars = studio.variables.all();
-    const imageVars = vars.filter((f) => f.type == "image");
+    const variables = studio.variables.all();
     const layoutName = getSelectedLayoutName();
     const layoutImageMapping = imageSelectionData[layoutName];
     if (debug) {
-      debugData.imageVars = imageVars;
+      debugData.variables = variables;
       debugData.layoutImageMapping = layoutImageMapping;
     }
     if (!layoutImageMapping) {
       errorCollection.push(Error(`No image mapping found for layout ${layoutName}`));
       return { debugData, errorCollection };
     }
-    for (const imageVar of imageVars) {
-      const imageVariableDependentGroups = layoutImageMapping[imageVar.name];
+    for (const variable of variables) {
+      const imageVariableDependentGroups = layoutImageMapping[variable.name];
       if (debug) {
-        debugData[imageVar.name] = {
-          imageVariableDependentGroups: layoutImageMapping[imageVar.name]
+        debugData[variable.name] = {
+          imageVariableDependentGroups: layoutImageMapping[variable.name]
         };
       }
       if (!imageVariableDependentGroups) {
-        errorCollection.push(Error(`No  dependent groups found for image variable: ${imageVar.name}`));
+        errorCollection.push(Error(`No  dependent groups found for image variable: ${variable.name}`));
         continue;
       }
-      const dependancies = Object.keys(imageVariableDependentGroups);
+      if (imageVariableDependentGroups["_always_run"]) {
+        const variableValue2 = replaceVariables(imageVariableDependentGroups["_always_run"].value, imageVariableDependentGroups["_always_run"].transforms);
+        setVariableValue(variable.name, variableValue2);
+        if (debug) {
+          debugData[variable.name].variableValue = variableValue2;
+        }
+        continue;
+      }
+      const dependancies = Object.keys(imageVariableDependentGroups).filter((d) => d !== "_always_run");
       if (debug) {
-        debugData[imageVar.name].dependancies = dependancies;
+        debugData[variable.name].dependancies = dependancies;
       }
       if (dependancies.length == 0) {
-        errorCollection.push(Error(`Something went wrong no dependancies for: ${imageVar.name}`));
+        errorCollection.push(Error(`Something went wrong no dependancies for: ${variable.name}`));
         continue;
       }
       const variableMatch = dependancies.reduce((variableMatch2, d) => {
@@ -28187,22 +28256,22 @@ function imageSelectionScript(debug) {
         const compositeKey = getCompositeKeyFromVariables(d.split("|"));
         variableMatch2 = imageVariableDependentGroups[d][compositeKey];
         if (debug) {
-          debugData[imageVar.name].compositeKeys = !debugData[imageVar.name].compositeKeys ? [compositeKey] : [...debugData[imageVar.name].compositeKeys, compositeKey];
-          debugData[imageVar.name].variableMatches = !debugData[imageVar.name].variableMatches ? [variableMatch2] : [...debugData[imageVar.name].variableMatches, variableMatch2];
+          debugData[variable.name].compositeKeys = !debugData[variable.name].compositeKeys ? [compositeKey] : [...debugData[variable.name].compositeKeys, compositeKey];
+          debugData[variable.name].variableMatches = !debugData[variable.name].variableMatches ? [variableMatch2] : [...debugData[variable.name].variableMatches, variableMatch2];
         }
         return variableMatch2;
       }, null);
       if (debug) {
-        debugData[imageVar.name].variableMatch = variableMatch;
+        debugData[variable.name].variableMatch = variableMatch;
       }
       if (!variableMatch) {
-        errorCollection.push(Error(`Something went wrong no match found for: ${imageVar.name}`));
+        errorCollection.push(Error(`Something went wrong no match found for: ${variable.name}`));
         continue;
       }
       const variableValue = replaceVariables(variableMatch.value, variableMatch.transforms);
-      setVariableValue(imageVar.name, variableValue);
+      setVariableValue(variable.name, variableValue);
       if (debug) {
-        debugData[imageVar.name].variableValue = variableValue;
+        debugData[variable.name].variableValue = variableValue;
       }
     }
   } catch (e) {
@@ -28213,38 +28282,42 @@ function imageSelectionScript(debug) {
 
 // src/studio/actions/imageSizing.js
 function imageSizingScript(debug) {
-  const version2 = 1;
+  const version2 = "2";
   const imageSizingData = "%DATA1%";
   const layoutSizingData = "%DATA2%";
   const errorCollection = [];
-  const vars = studio.variables.all();
-  const imageVars = vars.filter((f) => f.type == "image");
-  const layoutName = getSelectedLayoutName();
-  const layoutImageSizingData = imageSizingData[layoutName];
-  const layoutSizeData = layoutSizingData[layoutName];
-  if (layoutSizeData == null) {
-    errorCollection.push(Error(`No layout sizing data found for ${layoutName}}`));
-    return;
-  }
-  if (layoutImageSizingData == null) {
-    errorCollection.push(Error(`No layout image sizing data found for ${layoutName}}`));
-    return;
-  }
-  for (const imageVar of imageVars) {
-    const imageSizeData = layoutImageSizingData[imageVar.value];
-    if (imageSizeData == null) {
-      errorCollection.push(Error(`No image size data found for ${imageVar.value} for variable ${imageVar.name}`));
-      continue;
+  try {
+    const vars = studio.variables.all();
+    const imageVars = vars.filter((f) => f.type == "image");
+    const layoutName = getSelectedLayoutName();
+    const layoutImageSizingData = imageSizingData[layoutName];
+    const layoutSizeData = layoutSizingData[layoutName];
+    if (layoutSizeData == null) {
+      errorCollection.push(Error(`No layout sizing data found for ${layoutName}}`));
+      return;
     }
-    const newFramePos = calculateUpdatedFrame(imageSizeData, layoutSizeData, {
-      width: getPageWidth(),
-      height: getPageHeight()
-    });
-    const frameName = imageSizeData.frameName;
-    setFrameX(frameName, newFramePos.x);
-    setFrameY(frameName, newFramePos.y);
-    setFrameWidth(frameName, newFramePos.width);
-    setFrameHeight(frameName, newFramePos.height);
+    if (layoutImageSizingData == null) {
+      errorCollection.push(Error(`No layout image sizing data found for ${layoutName}}`));
+      return;
+    }
+    for (const imageVar of imageVars) {
+      const imageSizeData = layoutImageSizingData[imageVar.value];
+      if (imageSizeData == null) {
+        errorCollection.push(Error(`No image size data found for ${imageVar.value} for variable ${imageVar.name}`));
+        continue;
+      }
+      const newFramePos = calculateUpdatedFrame(imageSizeData, layoutSizeData, {
+        width: getPageWidth(),
+        height: getPageHeight()
+      });
+      const frameName = imageSizeData.frameName;
+      setFrameX(frameName, newFramePos.x);
+      setFrameY(frameName, newFramePos.y);
+      setFrameWidth(frameName, newFramePos.width);
+      setFrameHeight(frameName, newFramePos.height);
+    }
+  } catch (e) {
+    console.log(e);
   }
   function calculateUpdatedFrame(initialFrame, initialPage, currentPage) {
     if (initialPage.width <= 0 || initialPage.height <= 0) {
@@ -28272,6 +28345,33 @@ function imageSizingScript(debug) {
 }
 
 // src/studio/layoutMappingToActionMap.ts
+function getValueString(variableValue, doc) {
+  return variableValue.map((varValue) => {
+    if (typeof varValue === "string") {
+      return varValue;
+    }
+    if (varValue.type === "TextareaValue") {
+      return varValue.value;
+    } else if (varValue.id) {
+      const valueVar = doc.variables.find((v) => v.id === varValue.id);
+      if (valueVar) {
+        return `\${${valueVar.name}}`;
+      }
+    }
+    return "";
+  }).join("");
+}
+function getTransforms(variableValue, doc) {
+  return variableValue.filter((varValue) => typeof varValue != "string" && varValue.type !== "TextareaValue").reduce((obj, varValue) => {
+    if (varValue.id) {
+      const valueVar = doc.variables.find((v) => v.id === varValue.id);
+      if (valueVar) {
+        obj[valueVar.name] = varValue.transform;
+      }
+    }
+    return obj;
+  }, {});
+}
 function layoutMappingToActionMap(layoutMaps, doc) {
   const actionMap = {};
   layoutMaps.forEach((layoutMap) => {
@@ -28282,11 +28382,18 @@ function layoutMappingToActionMap(layoutMaps, doc) {
         if (!actionMap[layoutName]) {
           actionMap[layoutName] = {};
         }
-        layoutMap.variables.forEach((imageVar) => {
-          const docVariable = doc.variables.find((v) => v.id === imageVar.id);
+        layoutMap.variables.forEach((targetVar) => {
+          const docVariable = doc.variables.find((v) => v.id === targetVar.id);
           if (docVariable) {
             actionMap[layoutName][docVariable.name] = {};
-            imageVar.dependentGroup.forEach((group) => {
+            targetVar.dependentGroup.forEach((group) => {
+              if (group.alwaysRun) {
+                const dependentKey2 = "_always_run";
+                actionMap[layoutName][docVariable.name][dependentKey2] = {};
+                actionMap[layoutName][docVariable.name][dependentKey2].value = getValueString(group.variableValue, doc);
+                actionMap[layoutName][docVariable.name][dependentKey2].transforms = getTransforms(group.variableValue, doc);
+                return;
+              }
               const dependentNames = [];
               const variableNamesById = {};
               group.dependents.forEach((dependent) => {
@@ -28321,27 +28428,8 @@ function layoutMappingToActionMap(layoutMaps, doc) {
                 if (!actionMap[layoutName][docVariable.name][dependentKey][valueKey]) {
                   actionMap[layoutName][docVariable.name][dependentKey][valueKey] = { value: "" };
                 }
-                const valueString = group.variableValue.map((varValue) => {
-                  if (typeof varValue === "string") {
-                    return varValue;
-                  } else if (varValue.id) {
-                    const valueVar = doc.variables.find((v) => v.id === varValue.id);
-                    if (valueVar) {
-                      return `\${${valueVar.name}}`;
-                    }
-                  }
-                  return "";
-                }).join("");
-                console.log("VALUES", group.variableValue);
-                const transforms = group.variableValue.filter((varValue) => typeof varValue != "string").reduce((obj, varValue) => {
-                  if (varValue.id) {
-                    const valueVar = doc.variables.find((v) => v.id === varValue.id);
-                    if (valueVar) {
-                      obj[valueVar.name] = varValue.transform;
-                    }
-                  }
-                  return obj;
-                }, {});
+                const valueString = getValueString(group.variableValue, doc);
+                const transforms = getTransforms(group.variableValue, doc);
                 actionMap[layoutName][docVariable.name][dependentKey][valueKey].value = valueString;
                 actionMap[layoutName][docVariable.name][dependentKey][valueKey].transforms = transforms;
               });
@@ -28427,7 +28515,7 @@ async function frameLayoutMappingToLookup(frameMaps, studio2) {
 
 // src/studio-adapter/layoutManagerToLookup.ts
 init_dist();
-async function layoutManagerToLookup(studio2) {
+async function layoutManagerToLookup(studio2, onlyResizable = false) {
   const layoutsResult = await getAllLayouts(studio2);
   if (layoutsResult.isError()) {
     console.error("Failed to get layouts:", layoutsResult.error);
@@ -28440,12 +28528,22 @@ async function layoutManagerToLookup(studio2) {
   return Result.try(() => {
     const layoutSizes = {};
     for (const layout of layouts) {
+      const { enabled, maxHeight, maxWidth, minHeight, minWidth } = layout.resizableByUser;
+      if (onlyResizable && !enabled) {
+        continue;
+      }
       const widthValue = typeof layout.width === "object" && layout.width !== null ? layout.width.value : layout.width;
       const heightValue = typeof layout.height === "object" && layout.height !== null ? layout.height.value : layout.height;
       const aspectRatio = heightValue > 0 ? widthValue / heightValue : 0;
       layoutSizes[layout.name] = {
         width: widthValue,
         height: heightValue,
+        sizing: {
+          maxHeight,
+          maxWidth,
+          minHeight,
+          minWidth
+        },
         aspectRatio
       };
     }
@@ -28455,67 +28553,71 @@ async function layoutManagerToLookup(studio2) {
 
 // src/studio/actions/layoutSizing.js
 function layoutSizingScript(debug = false) {
-  const version2 = 2;
+  const version2 = "3";
   let debugObj = {};
   const selectedLayoutName = getSelectedLayoutName();
-  const data = JSON.parse(getTextVariableValue("AUTO_GEN_TOOLBAR_LAYOUTS"));
-  if (selectedLayoutName == null) {
-    return;
-  }
-  const { width, height, aspectRatio: layoutRatio } = data[selectedLayoutName];
-  if (debug) {
-    debugObj = JSON.parse(JSON.stringify({
-      selectedLayoutName,
-      data,
-      layoutRatio,
-      width,
-      height
-    }));
-  }
-  if (layoutRatio != null && width != null && height != null) {
-    const originalAspectRatio = layoutRatio;
-    const minAllowedRatio = originalAspectRatio * 0.8;
-    const maxAllowedRatio = originalAspectRatio * 1.2;
-    const pageWidth = getPageWidth();
-    const pageHeight = getPageHeight();
-    const currentAspectRatio = pageWidth / pageHeight;
-    if (debug) {
-      debugObj = {
-        currentAspectRatio,
-        minAllowedRatio,
-        maxAllowedRatio,
-        pageWidth,
-        pageHeight,
-        ...debugObj
-      };
+  try {
+    const data = JSON.parse(getTextVariableValue("AUTO_GEN_TOOLBAR_LAYOUTS"));
+    if (selectedLayoutName == null) {
+      return;
     }
-    if (currentAspectRatio < minAllowedRatio || currentAspectRatio > maxAllowedRatio) {
-      const distToMin = Math.abs(currentAspectRatio - minAllowedRatio);
-      const distToMax = Math.abs(currentAspectRatio - maxAllowedRatio);
-      const targetRatio = distToMin <= distToMax ? minAllowedRatio : maxAllowedRatio;
-      if (Math.round(width) == Math.round(pageWidth)) {
-        let newWidth = pageHeight * targetRatio;
-        data[selectedLayoutName].width = newWidth;
-        data[selectedLayoutName].height = pageHeight;
-        setPageSize(newWidth, pageHeight);
-      } else if (Math.round(height) == Math.round(pageHeight)) {
-        let newHeight = pageWidth / targetRatio;
-        data[selectedLayoutName].height = newHeight;
-        data[selectedLayoutName].width = pageWidth;
-        setPageSize(pageWidth, newHeight);
+    const { width, height, aspectRatio: layoutRatio } = data[selectedLayoutName];
+    if (debug) {
+      debugObj = JSON.parse(JSON.stringify({
+        selectedLayoutName,
+        data,
+        layoutRatio,
+        width,
+        height
+      }));
+    }
+    if (layoutRatio != null && width != null && height != null) {
+      const originalAspectRatio = layoutRatio;
+      const minAllowedRatio = originalAspectRatio * 0.8;
+      const maxAllowedRatio = originalAspectRatio * 1.2;
+      const pageWidth = getPageWidth();
+      const pageHeight = getPageHeight();
+      const currentAspectRatio = pageWidth / pageHeight;
+      if (debug) {
+        debugObj = {
+          currentAspectRatio,
+          minAllowedRatio,
+          maxAllowedRatio,
+          pageWidth,
+          pageHeight,
+          ...debugObj
+        };
+      }
+      if (currentAspectRatio < minAllowedRatio || currentAspectRatio > maxAllowedRatio) {
+        const distToMin = Math.abs(currentAspectRatio - minAllowedRatio);
+        const distToMax = Math.abs(currentAspectRatio - maxAllowedRatio);
+        const targetRatio = distToMin <= distToMax ? minAllowedRatio : maxAllowedRatio;
+        if (Math.round(width) == Math.round(pageWidth)) {
+          let newWidth = pageHeight * targetRatio;
+          data[selectedLayoutName].width = newWidth;
+          data[selectedLayoutName].height = pageHeight;
+          setPageSize(newWidth, pageHeight);
+        } else if (Math.round(height) == Math.round(pageHeight)) {
+          let newHeight = pageWidth / targetRatio;
+          data[selectedLayoutName].height = newHeight;
+          data[selectedLayoutName].width = pageWidth;
+          setPageSize(pageWidth, newHeight);
+        } else {
+          data[selectedLayoutName].height = pageHeight;
+          data[selectedLayoutName].width = pageHeight * targetRatio;
+          setPageSize(data[selectedLayoutName].width, pageHeight);
+        }
       } else {
         data[selectedLayoutName].height = pageHeight;
-        data[selectedLayoutName].width = pageHeight * targetRatio;
-        setPageSize(data[selectedLayoutName].width, pageHeight);
+        data[selectedLayoutName].width = pageWidth;
       }
-    } else {
-      data[selectedLayoutName].height = pageHeight;
-      data[selectedLayoutName].width = pageWidth;
+      setVariableValue("AUTO_GEN_TOOLBAR_LAYOUTS", JSON.stringify(data, null, 0));
     }
-    setVariableValue("AUTO_GEN_TOOLBAR_LAYOUTS", JSON.stringify(data, null, 0));
-  }
-  if (debug) {
-    console.log(debugObj);
+    if (debug) {
+      console.log(debugObj);
+    }
+  } catch (e) {
+    console.log(e);
   }
 }
 
@@ -28674,7 +28776,7 @@ async function loadDocFromDoc() {
     id: layout.id || "",
     parentId: layout.parentId
   }));
-  const variables = variablesResult.value.map((variable) => {
+  const variablesFilterResult = Result.try(() => variablesResult.value.filter((variable) => variable.type === "image" || variable.type === "shortText" || variable.type === "longText" || variable.type === "list" || variable.type === "boolean" || variable.type === "number").map((variable) => {
     const baseVariable = {
       id: variable.id || "",
       name: variable.name || "",
@@ -28682,6 +28784,8 @@ async function loadDocFromDoc() {
     };
     switch (variable.type) {
       case "image":
+      case "longText":
+      case "number":
       case "shortText":
         return {
           ...baseVariable,
@@ -28705,16 +28809,15 @@ async function loadDocFromDoc() {
           value: Boolean(variable.value)
         };
       default:
-        return {
-          ...baseVariable,
-          type: "shortText",
-          value: String(variable.value || "")
-        };
+        throw new Error(`Unsupported variable type: ${variable.type}`);
     }
-  });
+  }));
+  if (!variablesFilterResult.isOk()) {
+    return variablesFilterResult;
+  }
   return Result.ok({
     layouts,
-    variables
+    variables: variablesFilterResult.value
   });
 }
 async function saveLayoutMappingToAction(layoutMaps, doc) {
@@ -28951,7 +29054,7 @@ async function mergeConnectors(studio2, targetConnectorId, selectedConnectorIds)
 }
 
 // src/components/LayoutMappingModal/LayoutModal.tsx
-var import_react257 = __toESM(require_react(), 1);
+var import_react263 = __toESM(require_react(), 1);
 
 // node_modules/styled-components/node_modules/tslib/tslib.es6.mjs
 var __assign = function() {
@@ -31872,6 +31975,15 @@ function usePrevious(value) {
   }, [value]);
   return ref.current;
 }
+// node_modules/@mantine/core/esm/core/utils/get-env/get-env.mjs
+"use client";
+function getEnv() {
+  if (typeof process !== "undefined" && process.env && "production") {
+    return "production";
+  }
+  return "development";
+}
+
 // node_modules/@mantine/core/esm/core/utils/memoize/memoize.mjs
 "use client";
 function memoize2(func) {
@@ -43787,6 +43899,9 @@ var Grid = factory((_props, ref) => {
 Grid.classes = classes27;
 Grid.displayName = "@mantine/core/Grid";
 Grid.Col = GridCol;
+// node_modules/@mantine/core/esm/components/Textarea/Textarea.mjs
+var import_jsx_runtime144 = __toESM(require_jsx_runtime(), 1);
+
 // node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function(n) {
@@ -43799,19 +43914,303 @@ function _extends() {
   }, _extends.apply(null, arguments);
 }
 
-// node_modules/@mantine/core/esm/components/List/List.mjs
-var import_jsx_runtime146 = __toESM(require_jsx_runtime(), 1);
+// node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+function _objectWithoutPropertiesLoose(r3, e) {
+  if (r3 == null)
+    return {};
+  var t = {};
+  for (var n in r3)
+    if ({}.hasOwnProperty.call(r3, n)) {
+      if (e.indexOf(n) !== -1)
+        continue;
+      t[n] = r3[n];
+    }
+  return t;
+}
+
+// node_modules/react-textarea-autosize/dist/react-textarea-autosize.browser.esm.js
+var React19 = __toESM(require_react(), 1);
+
+// node_modules/use-latest/dist/use-latest.esm.js
+var import_react183 = __toESM(require_react(), 1);
+
+// node_modules/use-isomorphic-layout-effect/dist/use-isomorphic-layout-effect.browser.esm.js
+var import_react182 = __toESM(require_react(), 1);
+var index4 = import_react182.useLayoutEffect;
+
+// node_modules/use-latest/dist/use-latest.esm.js
+var useLatest = function useLatest2(value) {
+  var ref = import_react183.default.useRef(value);
+  index4(function() {
+    ref.current = value;
+  });
+  return ref;
+};
+
+// node_modules/use-composed-ref/dist/use-composed-ref.esm.js
 var import_react184 = __toESM(require_react(), 1);
+var updateRef2 = function updateRef3(ref, value) {
+  if (typeof ref === "function") {
+    ref(value);
+    return;
+  }
+  ref.current = value;
+};
+var useComposedRef = function useComposedRef2(libRef, userRef) {
+  var prevUserRef = import_react184.default.useRef();
+  return import_react184.default.useCallback(function(instance) {
+    libRef.current = instance;
+    if (prevUserRef.current) {
+      updateRef2(prevUserRef.current, null);
+    }
+    prevUserRef.current = userRef;
+    if (!userRef) {
+      return;
+    }
+    updateRef2(userRef, instance);
+  }, [userRef]);
+};
+
+// node_modules/react-textarea-autosize/dist/react-textarea-autosize.browser.esm.js
+var HIDDEN_TEXTAREA_STYLE = {
+  "min-height": "0",
+  "max-height": "none",
+  height: "0",
+  visibility: "hidden",
+  overflow: "hidden",
+  position: "absolute",
+  "z-index": "-1000",
+  top: "0",
+  right: "0",
+  display: "block"
+};
+var forceHiddenStyles = function forceHiddenStyles2(node2) {
+  Object.keys(HIDDEN_TEXTAREA_STYLE).forEach(function(key) {
+    node2.style.setProperty(key, HIDDEN_TEXTAREA_STYLE[key], "important");
+  });
+};
+var forceHiddenStyles$1 = forceHiddenStyles;
+var hiddenTextarea = null;
+var getHeight = function getHeight2(node2, sizingData) {
+  var height = node2.scrollHeight;
+  if (sizingData.sizingStyle.boxSizing === "border-box") {
+    return height + sizingData.borderSize;
+  }
+  return height - sizingData.paddingSize;
+};
+function calculateNodeHeight(sizingData, value, minRows, maxRows) {
+  if (minRows === undefined) {
+    minRows = 1;
+  }
+  if (maxRows === undefined) {
+    maxRows = Infinity;
+  }
+  if (!hiddenTextarea) {
+    hiddenTextarea = document.createElement("textarea");
+    hiddenTextarea.setAttribute("tabindex", "-1");
+    hiddenTextarea.setAttribute("aria-hidden", "true");
+    forceHiddenStyles$1(hiddenTextarea);
+  }
+  if (hiddenTextarea.parentNode === null) {
+    document.body.appendChild(hiddenTextarea);
+  }
+  var { paddingSize, borderSize, sizingStyle } = sizingData;
+  var boxSizing = sizingStyle.boxSizing;
+  Object.keys(sizingStyle).forEach(function(_key) {
+    var key = _key;
+    hiddenTextarea.style[key] = sizingStyle[key];
+  });
+  forceHiddenStyles$1(hiddenTextarea);
+  hiddenTextarea.value = value;
+  var height = getHeight(hiddenTextarea, sizingData);
+  hiddenTextarea.value = value;
+  height = getHeight(hiddenTextarea, sizingData);
+  hiddenTextarea.value = "x";
+  var rowHeight = hiddenTextarea.scrollHeight - paddingSize;
+  var minHeight = rowHeight * minRows;
+  if (boxSizing === "border-box") {
+    minHeight = minHeight + paddingSize + borderSize;
+  }
+  height = Math.max(minHeight, height);
+  var maxHeight = rowHeight * maxRows;
+  if (boxSizing === "border-box") {
+    maxHeight = maxHeight + paddingSize + borderSize;
+  }
+  height = Math.min(maxHeight, height);
+  return [height, rowHeight];
+}
+var noop5 = function noop6() {
+};
+var pick = function pick2(props, obj) {
+  return props.reduce(function(acc, prop) {
+    acc[prop] = obj[prop];
+    return acc;
+  }, {});
+};
+var SIZING_STYLE = [
+  "borderBottomWidth",
+  "borderLeftWidth",
+  "borderRightWidth",
+  "borderTopWidth",
+  "boxSizing",
+  "fontFamily",
+  "fontSize",
+  "fontStyle",
+  "fontWeight",
+  "letterSpacing",
+  "lineHeight",
+  "paddingBottom",
+  "paddingLeft",
+  "paddingRight",
+  "paddingTop",
+  "tabSize",
+  "textIndent",
+  "textRendering",
+  "textTransform",
+  "width",
+  "wordBreak",
+  "wordSpacing",
+  "scrollbarGutter"
+];
+var isIE = !!document.documentElement.currentStyle;
+var getSizingData = function getSizingData2(node2) {
+  var style2 = window.getComputedStyle(node2);
+  if (style2 === null) {
+    return null;
+  }
+  var sizingStyle = pick(SIZING_STYLE, style2);
+  var boxSizing = sizingStyle.boxSizing;
+  if (boxSizing === "") {
+    return null;
+  }
+  if (isIE && boxSizing === "border-box") {
+    sizingStyle.width = parseFloat(sizingStyle.width) + parseFloat(sizingStyle.borderRightWidth) + parseFloat(sizingStyle.borderLeftWidth) + parseFloat(sizingStyle.paddingRight) + parseFloat(sizingStyle.paddingLeft) + "px";
+  }
+  var paddingSize = parseFloat(sizingStyle.paddingBottom) + parseFloat(sizingStyle.paddingTop);
+  var borderSize = parseFloat(sizingStyle.borderBottomWidth) + parseFloat(sizingStyle.borderTopWidth);
+  return {
+    sizingStyle,
+    paddingSize,
+    borderSize
+  };
+};
+var getSizingData$1 = getSizingData;
+function useListener(target, type, listener) {
+  var latestListener = useLatest(listener);
+  React19.useLayoutEffect(function() {
+    var handler = function handler(ev) {
+      return latestListener.current(ev);
+    };
+    if (!target) {
+      return;
+    }
+    target.addEventListener(type, handler);
+    return function() {
+      return target.removeEventListener(type, handler);
+    };
+  }, []);
+}
+var useFormResetListener = function useFormResetListener2(libRef, listener) {
+  useListener(document.body, "reset", function(ev) {
+    if (libRef.current.form === ev.target) {
+      listener(ev);
+    }
+  });
+};
+var useWindowResizeListener = function useWindowResizeListener2(listener) {
+  useListener(window, "resize", listener);
+};
+var useFontsLoadedListener = function useFontsLoadedListener2(listener) {
+  useListener(document.fonts, "loadingdone", listener);
+};
+var _excluded = ["cacheMeasurements", "maxRows", "minRows", "onChange", "onHeightChange"];
+var TextareaAutosize = function TextareaAutosize2(_ref, userRef) {
+  var { cacheMeasurements, maxRows, minRows, onChange: _ref$onChange } = _ref, onChange = _ref$onChange === undefined ? noop5 : _ref$onChange, _ref$onHeightChange = _ref.onHeightChange, onHeightChange = _ref$onHeightChange === undefined ? noop5 : _ref$onHeightChange, props = _objectWithoutPropertiesLoose(_ref, _excluded);
+  var isControlled = props.value !== undefined;
+  var libRef = React19.useRef(null);
+  var ref = useComposedRef(libRef, userRef);
+  var heightRef = React19.useRef(0);
+  var measurementsCacheRef = React19.useRef();
+  var resizeTextarea = function resizeTextarea() {
+    var node2 = libRef.current;
+    var nodeSizingData = cacheMeasurements && measurementsCacheRef.current ? measurementsCacheRef.current : getSizingData$1(node2);
+    if (!nodeSizingData) {
+      return;
+    }
+    measurementsCacheRef.current = nodeSizingData;
+    var _calculateNodeHeight = calculateNodeHeight(nodeSizingData, node2.value || node2.placeholder || "x", minRows, maxRows), height = _calculateNodeHeight[0], rowHeight = _calculateNodeHeight[1];
+    if (heightRef.current !== height) {
+      heightRef.current = height;
+      node2.style.setProperty("height", height + "px", "important");
+      onHeightChange(height, {
+        rowHeight
+      });
+    }
+  };
+  var handleChange = function handleChange(event) {
+    if (!isControlled) {
+      resizeTextarea();
+    }
+    onChange(event);
+  };
+  {
+    React19.useLayoutEffect(resizeTextarea);
+    useFormResetListener(libRef, function() {
+      if (!isControlled) {
+        var currentValue = libRef.current.value;
+        requestAnimationFrame(function() {
+          var node2 = libRef.current;
+          if (node2 && currentValue !== node2.value) {
+            resizeTextarea();
+          }
+        });
+      }
+    });
+    useWindowResizeListener(resizeTextarea);
+    useFontsLoadedListener(resizeTextarea);
+    return /* @__PURE__ */ React19.createElement("textarea", _extends({}, props, {
+      onChange: handleChange,
+      ref
+    }));
+  }
+};
+var index5 = /* @__PURE__ */ React19.forwardRef(TextareaAutosize);
+
+// node_modules/@mantine/core/esm/components/Textarea/Textarea.mjs
+var import_react185 = __toESM(require_react(), 1);
+"use client";
+var defaultProps63 = {};
+var Textarea = factory((props, ref) => {
+  const { autosize, maxRows, minRows, __staticSelector, resize, ...others } = useProps("Textarea", defaultProps63, props);
+  const shouldAutosize = autosize && getEnv() !== "test";
+  const autosizeProps = shouldAutosize ? { maxRows, minRows } : {};
+  return /* @__PURE__ */ import_jsx_runtime144.jsx(InputBase, {
+    component: shouldAutosize ? index5 : "textarea",
+    ref,
+    ...others,
+    __staticSelector: __staticSelector || "Textarea",
+    multiline: true,
+    "data-no-overflow": autosize && maxRows === undefined || undefined,
+    __vars: { "--input-resize": resize },
+    ...autosizeProps
+  });
+});
+Textarea.classes = InputBase.classes;
+Textarea.displayName = "@mantine/core/Textarea";
+
+// node_modules/@mantine/core/esm/components/List/List.mjs
+var import_jsx_runtime147 = __toESM(require_jsx_runtime(), 1);
+var import_react188 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/List/List.context.mjs
-var import_react182 = __toESM(require_react(), 1);
-var import_jsx_runtime144 = __toESM(require_jsx_runtime(), 1);
+var import_react186 = __toESM(require_react(), 1);
+var import_jsx_runtime145 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [ListProvider, useListContext] = createSafeContext("List component was not found in tree");
 
 // node_modules/@mantine/core/esm/components/List/ListItem/ListItem.mjs
-var import_jsx_runtime145 = __toESM(require_jsx_runtime(), 1);
-var import_react183 = __toESM(require_react(), 1);
+var import_jsx_runtime146 = __toESM(require_jsx_runtime(), 1);
+var import_react187 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/List/List.module.css.mjs
 "use client";
@@ -43819,22 +44218,22 @@ var classes28 = { root: "m_abbac491", item: "m_abb6bec2", itemWrapper: "m_75cd9f
 
 // node_modules/@mantine/core/esm/components/List/ListItem/ListItem.mjs
 "use client";
-var defaultProps63 = {};
+var defaultProps64 = {};
 var ListItem = factory((_props, ref) => {
-  const props = useProps("ListItem", defaultProps63, _props);
+  const props = useProps("ListItem", defaultProps64, _props);
   const { classNames, className, style: style2, styles, vars, icon, children, mod, ...others } = props;
   const ctx = useListContext();
   const _icon = icon || ctx.icon;
   const stylesApiProps = { classNames, styles };
-  return /* @__PURE__ */ import_jsx_runtime145.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime146.jsx(Box, {
     ...ctx.getStyles("item", { ...stylesApiProps, className, style: style2 }),
     component: "li",
     mod: [{ "with-icon": !!_icon, centered: ctx.center }, mod],
     ref,
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime145.jsxs("div", { ...ctx.getStyles("itemWrapper", stylesApiProps), children: [
-      _icon && /* @__PURE__ */ import_jsx_runtime145.jsx("span", { ...ctx.getStyles("itemIcon", stylesApiProps), children: _icon }),
-      /* @__PURE__ */ import_jsx_runtime145.jsx("span", { ...ctx.getStyles("itemLabel", stylesApiProps), children })
+    children: /* @__PURE__ */ import_jsx_runtime146.jsxs("div", { ...ctx.getStyles("itemWrapper", stylesApiProps), children: [
+      _icon && /* @__PURE__ */ import_jsx_runtime146.jsx("span", { ...ctx.getStyles("itemIcon", stylesApiProps), children: _icon }),
+      /* @__PURE__ */ import_jsx_runtime146.jsx("span", { ...ctx.getStyles("itemLabel", stylesApiProps), children })
     ] })
   });
 });
@@ -43843,7 +44242,7 @@ ListItem.displayName = "@mantine/core/ListItem";
 
 // node_modules/@mantine/core/esm/components/List/List.mjs
 "use client";
-var defaultProps64 = {
+var defaultProps65 = {
   type: "unordered"
 };
 var varsResolver31 = createVarsResolver((_2, { size: size4, spacing }) => ({
@@ -43854,7 +44253,7 @@ var varsResolver31 = createVarsResolver((_2, { size: size4, spacing }) => ({
   }
 }));
 var List = factory((_props, ref) => {
-  const props = useProps("List", defaultProps64, _props);
+  const props = useProps("List", defaultProps65, _props);
   const {
     classNames,
     className,
@@ -43884,7 +44283,7 @@ var List = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver31
   });
-  return /* @__PURE__ */ import_jsx_runtime146.jsx(ListProvider, { value: { center, icon, getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime146.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime147.jsx(ListProvider, { value: { center, icon, getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime147.jsx(Box, {
     ...getStyles2("root", { style: { listStyleType } }),
     component: type === "unordered" ? "ul" : "ol",
     mod: [{ "with-padding": withPadding }, mod],
@@ -43897,18 +44296,18 @@ List.classes = classes28;
 List.displayName = "@mantine/core/List";
 List.Item = ListItem;
 // node_modules/@mantine/core/esm/components/Menu/Menu.mjs
-var import_jsx_runtime153 = __toESM(require_jsx_runtime(), 1);
-var import_react191 = __toESM(require_react(), 1);
+var import_jsx_runtime154 = __toESM(require_jsx_runtime(), 1);
+var import_react195 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.context.mjs
-var import_react185 = __toESM(require_react(), 1);
-var import_jsx_runtime147 = __toESM(require_jsx_runtime(), 1);
+var import_react189 = __toESM(require_react(), 1);
+var import_jsx_runtime148 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [MenuContextProvider, useMenuContext] = createSafeContext("Menu component was not found in the tree");
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDivider/MenuDivider.mjs
-var import_jsx_runtime148 = __toESM(require_jsx_runtime(), 1);
-var import_react186 = __toESM(require_react(), 1);
+var import_jsx_runtime149 = __toESM(require_jsx_runtime(), 1);
+var import_react190 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.module.css.mjs
 "use client";
@@ -43916,11 +44315,11 @@ var classes29 = { dropdown: "m_dc9b7c9f", label: "m_9bfac126", divider: "m_efdf9
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDivider/MenuDivider.mjs
 "use client";
-var defaultProps65 = {};
+var defaultProps66 = {};
 var MenuDivider = factory((props, ref) => {
-  const { classNames, className, style: style2, styles, vars, ...others } = useProps("MenuDivider", defaultProps65, props);
+  const { classNames, className, style: style2, styles, vars, ...others } = useProps("MenuDivider", defaultProps66, props);
   const ctx = useMenuContext();
-  return /* @__PURE__ */ import_jsx_runtime148.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime149.jsx(Box, {
     ref,
     ...ctx.getStyles("divider", { className, style: style2, styles, classNames }),
     ...others
@@ -43930,10 +44329,10 @@ MenuDivider.classes = classes29;
 MenuDivider.displayName = "@mantine/core/MenuDivider";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuDropdown/MenuDropdown.mjs
-var import_jsx_runtime149 = __toESM(require_jsx_runtime(), 1);
-var import_react187 = __toESM(require_react(), 1);
+var import_jsx_runtime150 = __toESM(require_jsx_runtime(), 1);
+var import_react191 = __toESM(require_react(), 1);
 "use client";
-var defaultProps66 = {};
+var defaultProps67 = {};
 var MenuDropdown = factory((props, ref) => {
   const {
     classNames,
@@ -43946,8 +44345,8 @@ var MenuDropdown = factory((props, ref) => {
     onKeyDown,
     children,
     ...others
-  } = useProps("MenuDropdown", defaultProps66, props);
-  const wrapperRef = import_react187.useRef(null);
+  } = useProps("MenuDropdown", defaultProps67, props);
+  const wrapperRef = import_react191.useRef(null);
   const ctx = useMenuContext();
   const handleKeyDown = createEventHandler(onKeyDown, (event) => {
     if (event.key === "ArrowUp" || event.key === "ArrowDown") {
@@ -43957,7 +44356,7 @@ var MenuDropdown = factory((props, ref) => {
   });
   const handleMouseEnter = createEventHandler(onMouseEnter, () => (ctx.trigger === "hover" || ctx.trigger === "click-hover") && ctx.openDropdown());
   const handleMouseLeave = createEventHandler(onMouseLeave, () => (ctx.trigger === "hover" || ctx.trigger === "click-hover") && ctx.closeDropdown());
-  return /* @__PURE__ */ import_jsx_runtime149.jsxs(Popover.Dropdown, {
+  return /* @__PURE__ */ import_jsx_runtime150.jsxs(Popover.Dropdown, {
     ...others,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
@@ -43975,7 +44374,7 @@ var MenuDropdown = factory((props, ref) => {
     "data-menu-dropdown": true,
     onKeyDown: handleKeyDown,
     children: [
-      ctx.withInitialFocusPlaceholder && /* @__PURE__ */ import_jsx_runtime149.jsx("div", { tabIndex: -1, "data-autofocus": true, "data-mantine-stop-propagation": true, style: { outline: 0 } }),
+      ctx.withInitialFocusPlaceholder && /* @__PURE__ */ import_jsx_runtime150.jsx("div", { tabIndex: -1, "data-autofocus": true, "data-mantine-stop-propagation": true, style: { outline: 0 } }),
       children
     ]
   });
@@ -43984,10 +44383,10 @@ MenuDropdown.classes = classes29;
 MenuDropdown.displayName = "@mantine/core/MenuDropdown";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuItem/MenuItem.mjs
-var import_jsx_runtime150 = __toESM(require_jsx_runtime(), 1);
-var import_react188 = __toESM(require_react(), 1);
+var import_jsx_runtime151 = __toESM(require_jsx_runtime(), 1);
+var import_react192 = __toESM(require_react(), 1);
 "use client";
-var defaultProps67 = {};
+var defaultProps68 = {};
 var MenuItem = polymorphicFactory((props, ref) => {
   const {
     classNames,
@@ -44003,11 +44402,11 @@ var MenuItem = polymorphicFactory((props, ref) => {
     disabled,
     "data-disabled": dataDisabled,
     ...others
-  } = useProps("MenuItem", defaultProps67, props);
+  } = useProps("MenuItem", defaultProps68, props);
   const ctx = useMenuContext();
   const theme = useMantineTheme();
   const { dir } = useDirection();
-  const itemRef = import_react188.useRef(null);
+  const itemRef = import_react192.useRef(null);
   const itemIndex = ctx.getItemIndex(itemRef.current);
   const _others = others;
   const handleMouseLeave = createEventHandler(_others.onMouseLeave, () => ctx.setHovered(-1));
@@ -44025,7 +44424,7 @@ var MenuItem = polymorphicFactory((props, ref) => {
   const handleFocus = createEventHandler(_others.onFocus, () => ctx.setHovered(ctx.getItemIndex(itemRef.current)));
   const colors = color ? theme.variantColorResolver({ color, theme, variant: "light" }) : undefined;
   const parsedThemeColor = color ? parseThemeColor({ color, theme }) : null;
-  return /* @__PURE__ */ import_jsx_runtime150.jsxs(UnstyledButton, {
+  return /* @__PURE__ */ import_jsx_runtime151.jsxs(UnstyledButton, {
     ...others,
     unstyled: ctx.unstyled,
     tabIndex: ctx.menuItemTabIndex,
@@ -44055,9 +44454,9 @@ var MenuItem = polymorphicFactory((props, ref) => {
       "--menu-item-hover": colors?.hover
     },
     children: [
-      leftSection && /* @__PURE__ */ import_jsx_runtime150.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "left", children: leftSection }),
-      children && /* @__PURE__ */ import_jsx_runtime150.jsx("div", { ...ctx.getStyles("itemLabel", { styles, classNames }), children }),
-      rightSection && /* @__PURE__ */ import_jsx_runtime150.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "right", children: rightSection })
+      leftSection && /* @__PURE__ */ import_jsx_runtime151.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "left", children: leftSection }),
+      children && /* @__PURE__ */ import_jsx_runtime151.jsx("div", { ...ctx.getStyles("itemLabel", { styles, classNames }), children }),
+      rightSection && /* @__PURE__ */ import_jsx_runtime151.jsx("div", { ...ctx.getStyles("itemSection", { styles, classNames }), "data-position": "right", children: rightSection })
     ]
   });
 });
@@ -44065,14 +44464,14 @@ MenuItem.classes = classes29;
 MenuItem.displayName = "@mantine/core/MenuItem";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuLabel/MenuLabel.mjs
-var import_jsx_runtime151 = __toESM(require_jsx_runtime(), 1);
-var import_react189 = __toESM(require_react(), 1);
+var import_jsx_runtime152 = __toESM(require_jsx_runtime(), 1);
+var import_react193 = __toESM(require_react(), 1);
 "use client";
-var defaultProps68 = {};
+var defaultProps69 = {};
 var MenuLabel = factory((props, ref) => {
-  const { classNames, className, style: style2, styles, vars, ...others } = useProps("MenuLabel", defaultProps68, props);
+  const { classNames, className, style: style2, styles, vars, ...others } = useProps("MenuLabel", defaultProps69, props);
   const ctx = useMenuContext();
-  return /* @__PURE__ */ import_jsx_runtime151.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime152.jsx(Box, {
     ref,
     ...ctx.getStyles("label", { className, style: style2, styles, classNames }),
     ...others
@@ -44082,14 +44481,14 @@ MenuLabel.classes = classes29;
 MenuLabel.displayName = "@mantine/core/MenuLabel";
 
 // node_modules/@mantine/core/esm/components/Menu/MenuTarget/MenuTarget.mjs
-var import_jsx_runtime152 = __toESM(require_jsx_runtime(), 1);
-var import_react190 = __toESM(require_react(), 1);
+var import_jsx_runtime153 = __toESM(require_jsx_runtime(), 1);
+var import_react194 = __toESM(require_react(), 1);
 "use client";
-var defaultProps69 = {
+var defaultProps70 = {
   refProp: "ref"
 };
-var MenuTarget = import_react190.forwardRef((props, ref) => {
-  const { children, refProp, ...others } = useProps("MenuTarget", defaultProps69, props);
+var MenuTarget = import_react194.forwardRef((props, ref) => {
+  const { children, refProp, ...others } = useProps("MenuTarget", defaultProps70, props);
   if (!isElement(children)) {
     throw new Error("Menu.Target component children should be an element or a component that accepts ref. Fragments, strings, numbers and other primitive values are not supported");
   }
@@ -44113,7 +44512,7 @@ var MenuTarget = import_react190.forwardRef((props, ref) => {
       ctx.closeDropdown();
     }
   });
-  return /* @__PURE__ */ import_jsx_runtime152.jsx(Popover.Target, { refProp, popupType: "menu", ref, ...others, children: import_react190.cloneElement(children, {
+  return /* @__PURE__ */ import_jsx_runtime153.jsx(Popover.Target, { refProp, popupType: "menu", ref, ...others, children: import_react194.cloneElement(children, {
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -44124,7 +44523,7 @@ MenuTarget.displayName = "@mantine/core/MenuTarget";
 
 // node_modules/@mantine/core/esm/components/Menu/Menu.mjs
 "use client";
-var defaultProps70 = {
+var defaultProps71 = {
   trapFocus: true,
   closeOnItemClick: true,
   withInitialFocusPlaceholder: true,
@@ -44136,7 +44535,7 @@ var defaultProps70 = {
   menuItemTabIndex: -1
 };
 function Menu(_props) {
-  const props = useProps("Menu", defaultProps70, _props);
+  const props = useProps("Menu", defaultProps71, _props);
   const {
     children,
     onOpen,
@@ -44176,7 +44575,7 @@ function Menu(_props) {
     finalValue: false,
     onChange
   });
-  const [openedViaClick, setOpenedViaClick] = import_react191.useState(false);
+  const [openedViaClick, setOpenedViaClick] = import_react195.useState(false);
   const close = () => {
     setOpened(false);
     setOpenedViaClick(false);
@@ -44199,7 +44598,7 @@ function Menu(_props) {
   useDidUpdate(() => {
     resetHovered();
   }, [_opened]);
-  return /* @__PURE__ */ import_jsx_runtime153.jsx(MenuContextProvider, {
+  return /* @__PURE__ */ import_jsx_runtime154.jsx(MenuContextProvider, {
     value: {
       getStyles: getStyles2,
       opened: _opened,
@@ -44219,7 +44618,7 @@ function Menu(_props) {
       menuItemTabIndex,
       withInitialFocusPlaceholder
     },
-    children: /* @__PURE__ */ import_jsx_runtime153.jsx(Popover, {
+    children: /* @__PURE__ */ import_jsx_runtime154.jsx(Popover, {
       ...others,
       opened: _opened,
       onChange: toggleDropdown,
@@ -44246,16 +44645,16 @@ Menu.Dropdown = MenuDropdown;
 Menu.Target = MenuTarget;
 Menu.Divider = MenuDivider;
 // node_modules/@mantine/core/esm/components/Modal/Modal.mjs
-var import_jsx_runtime163 = __toESM(require_jsx_runtime(), 1);
-var import_react201 = __toESM(require_react(), 1);
+var import_jsx_runtime164 = __toESM(require_jsx_runtime(), 1);
+var import_react205 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Modal/ModalBody.mjs
-var import_jsx_runtime155 = __toESM(require_jsx_runtime(), 1);
-var import_react193 = __toESM(require_react(), 1);
+var import_jsx_runtime156 = __toESM(require_jsx_runtime(), 1);
+var import_react197 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Modal/Modal.context.mjs
-var import_react192 = __toESM(require_react(), 1);
-var import_jsx_runtime154 = __toESM(require_jsx_runtime(), 1);
+var import_react196 = __toESM(require_react(), 1);
+var import_jsx_runtime155 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [ModalProvider, useModalContext] = createSafeContext("Modal component was not found in tree");
 
@@ -44265,12 +44664,12 @@ var classes30 = { root: "m_9df02822", content: "m_54c44539", inner: "m_1f958f16"
 
 // node_modules/@mantine/core/esm/components/Modal/ModalBody.mjs
 "use client";
-var defaultProps71 = {};
+var defaultProps72 = {};
 var ModalBody = factory((_props, ref) => {
-  const props = useProps("ModalBody", defaultProps71, _props);
+  const props = useProps("ModalBody", defaultProps72, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime155.jsx(ModalBaseBody, {
+  return /* @__PURE__ */ import_jsx_runtime156.jsx(ModalBaseBody, {
     ref,
     ...ctx.getStyles("body", { classNames, style: style2, styles, className }),
     ...others
@@ -44280,15 +44679,15 @@ ModalBody.classes = classes30;
 ModalBody.displayName = "@mantine/core/ModalBody";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalCloseButton.mjs
-var import_jsx_runtime156 = __toESM(require_jsx_runtime(), 1);
-var import_react194 = __toESM(require_react(), 1);
+var import_jsx_runtime157 = __toESM(require_jsx_runtime(), 1);
+var import_react198 = __toESM(require_react(), 1);
 "use client";
-var defaultProps72 = {};
+var defaultProps73 = {};
 var ModalCloseButton = factory((_props, ref) => {
-  const props = useProps("ModalCloseButton", defaultProps72, _props);
+  const props = useProps("ModalCloseButton", defaultProps73, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime156.jsx(ModalBaseCloseButton, {
+  return /* @__PURE__ */ import_jsx_runtime157.jsx(ModalBaseCloseButton, {
     ref,
     ...ctx.getStyles("close", { classNames, style: style2, styles, className }),
     ...others
@@ -44298,16 +44697,16 @@ ModalCloseButton.classes = classes30;
 ModalCloseButton.displayName = "@mantine/core/ModalCloseButton";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalContent.mjs
-var import_jsx_runtime157 = __toESM(require_jsx_runtime(), 1);
-var import_react195 = __toESM(require_react(), 1);
+var import_jsx_runtime158 = __toESM(require_jsx_runtime(), 1);
+var import_react199 = __toESM(require_react(), 1);
 "use client";
-var defaultProps73 = {};
+var defaultProps74 = {};
 var ModalContent = factory((_props, ref) => {
-  const props = useProps("ModalContent", defaultProps73, _props);
+  const props = useProps("ModalContent", defaultProps74, _props);
   const { classNames, className, style: style2, styles, vars, children, __hidden, ...others } = props;
   const ctx = useModalContext();
   const Scroll = ctx.scrollAreaComponent || NativeScrollArea;
-  return /* @__PURE__ */ import_jsx_runtime157.jsx(ModalBaseContent, {
+  return /* @__PURE__ */ import_jsx_runtime158.jsx(ModalBaseContent, {
     ...ctx.getStyles("content", { className, style: style2, styles, classNames }),
     innerProps: ctx.getStyles("inner", { className, style: style2, styles, classNames }),
     "data-full-screen": ctx.fullScreen || undefined,
@@ -44315,7 +44714,7 @@ var ModalContent = factory((_props, ref) => {
     "data-hidden": __hidden || undefined,
     ref,
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime157.jsx(Scroll, {
+    children: /* @__PURE__ */ import_jsx_runtime158.jsx(Scroll, {
       style: {
         maxHeight: ctx.fullScreen ? "100dvh" : `calc(100dvh - (${rem(ctx.yOffset)} * 2))`
       },
@@ -44327,15 +44726,15 @@ ModalContent.classes = classes30;
 ModalContent.displayName = "@mantine/core/ModalContent";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalHeader.mjs
-var import_jsx_runtime158 = __toESM(require_jsx_runtime(), 1);
-var import_react196 = __toESM(require_react(), 1);
+var import_jsx_runtime159 = __toESM(require_jsx_runtime(), 1);
+var import_react200 = __toESM(require_react(), 1);
 "use client";
-var defaultProps74 = {};
+var defaultProps75 = {};
 var ModalHeader = factory((_props, ref) => {
-  const props = useProps("ModalHeader", defaultProps74, _props);
+  const props = useProps("ModalHeader", defaultProps75, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime158.jsx(ModalBaseHeader, {
+  return /* @__PURE__ */ import_jsx_runtime159.jsx(ModalBaseHeader, {
     ref,
     ...ctx.getStyles("header", { classNames, style: style2, styles, className }),
     ...others
@@ -44345,15 +44744,15 @@ ModalHeader.classes = classes30;
 ModalHeader.displayName = "@mantine/core/ModalHeader";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalOverlay.mjs
-var import_jsx_runtime159 = __toESM(require_jsx_runtime(), 1);
-var import_react197 = __toESM(require_react(), 1);
+var import_jsx_runtime160 = __toESM(require_jsx_runtime(), 1);
+var import_react201 = __toESM(require_react(), 1);
 "use client";
-var defaultProps75 = {};
+var defaultProps76 = {};
 var ModalOverlay = factory((_props, ref) => {
-  const props = useProps("ModalOverlay", defaultProps75, _props);
+  const props = useProps("ModalOverlay", defaultProps76, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime159.jsx(ModalBaseOverlay, {
+  return /* @__PURE__ */ import_jsx_runtime160.jsx(ModalBaseOverlay, {
     ref,
     ...ctx.getStyles("overlay", { classNames, style: style2, styles, className }),
     ...others
@@ -44363,10 +44762,10 @@ ModalOverlay.classes = classes30;
 ModalOverlay.displayName = "@mantine/core/ModalOverlay";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalRoot.mjs
-var import_jsx_runtime160 = __toESM(require_jsx_runtime(), 1);
-var import_react198 = __toESM(require_react(), 1);
+var import_jsx_runtime161 = __toESM(require_jsx_runtime(), 1);
+var import_react202 = __toESM(require_react(), 1);
 "use client";
-var defaultProps76 = {
+var defaultProps77 = {
   __staticSelector: "Modal",
   closeOnClickOutside: true,
   withinPortal: true,
@@ -44388,7 +44787,7 @@ var varsResolver32 = createVarsResolver((_2, { radius, size: size4, yOffset, xOf
   }
 }));
 var ModalRoot = factory((_props, ref) => {
-  const props = useProps("ModalRoot", defaultProps76, _props);
+  const props = useProps("ModalRoot", defaultProps77, _props);
   const {
     classNames,
     className,
@@ -44417,7 +44816,7 @@ var ModalRoot = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver32
   });
-  return /* @__PURE__ */ import_jsx_runtime160.jsx(ModalProvider, { value: { yOffset, scrollAreaComponent, getStyles: getStyles2, fullScreen }, children: /* @__PURE__ */ import_jsx_runtime160.jsx(ModalBase, {
+  return /* @__PURE__ */ import_jsx_runtime161.jsx(ModalProvider, { value: { yOffset, scrollAreaComponent, getStyles: getStyles2, fullScreen }, children: /* @__PURE__ */ import_jsx_runtime161.jsx(ModalBase, {
     ref,
     ...getStyles2("root"),
     "data-full-screen": fullScreen || undefined,
@@ -44431,14 +44830,14 @@ ModalRoot.classes = classes30;
 ModalRoot.displayName = "@mantine/core/ModalRoot";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalStack.mjs
-var import_jsx_runtime161 = __toESM(require_jsx_runtime(), 1);
-var import_react199 = __toESM(require_react(), 1);
+var import_jsx_runtime162 = __toESM(require_jsx_runtime(), 1);
+var import_react203 = __toESM(require_react(), 1);
 "use client";
 var [ModalStackProvider, useModalStackContext] = createOptionalContext();
 function ModalStack({ children }) {
-  const [stack, setStack] = import_react199.useState([]);
-  const [maxZIndex, setMaxZIndex] = import_react199.useState(getDefaultZIndex("modal"));
-  return /* @__PURE__ */ import_jsx_runtime161.jsx(ModalStackProvider, {
+  const [stack, setStack] = import_react203.useState([]);
+  const [maxZIndex, setMaxZIndex] = import_react203.useState(getDefaultZIndex("modal"));
+  return /* @__PURE__ */ import_jsx_runtime162.jsx(ModalStackProvider, {
     value: {
       stack,
       addModal: (id, zIndex) => {
@@ -44456,15 +44855,15 @@ function ModalStack({ children }) {
 ModalStack.displayName = "@mantine/core/ModalStack";
 
 // node_modules/@mantine/core/esm/components/Modal/ModalTitle.mjs
-var import_jsx_runtime162 = __toESM(require_jsx_runtime(), 1);
-var import_react200 = __toESM(require_react(), 1);
+var import_jsx_runtime163 = __toESM(require_jsx_runtime(), 1);
+var import_react204 = __toESM(require_react(), 1);
 "use client";
-var defaultProps77 = {};
+var defaultProps78 = {};
 var ModalTitle = factory((_props, ref) => {
-  const props = useProps("ModalTitle", defaultProps77, _props);
+  const props = useProps("ModalTitle", defaultProps78, _props);
   const { classNames, className, style: style2, styles, vars, ...others } = props;
   const ctx = useModalContext();
-  return /* @__PURE__ */ import_jsx_runtime162.jsx(ModalBaseTitle, {
+  return /* @__PURE__ */ import_jsx_runtime163.jsx(ModalBaseTitle, {
     ref,
     ...ctx.getStyles("title", { classNames, style: style2, styles, className }),
     ...others
@@ -44475,7 +44874,7 @@ ModalTitle.displayName = "@mantine/core/ModalTitle";
 
 // node_modules/@mantine/core/esm/components/Modal/Modal.mjs
 "use client";
-var defaultProps78 = {
+var defaultProps79 = {
   closeOnClickOutside: true,
   withinPortal: true,
   lockScroll: true,
@@ -44501,7 +44900,7 @@ var Modal = factory((_props, ref) => {
     stackId,
     zIndex,
     ...others
-  } = useProps("Modal", defaultProps78, _props);
+  } = useProps("Modal", defaultProps79, _props);
   const ctx = useModalStackContext();
   const hasHeader = !!title || withCloseButton;
   const stackProps = ctx && stackId ? {
@@ -44510,12 +44909,12 @@ var Modal = factory((_props, ref) => {
     zIndex: ctx.getZIndex(stackId)
   } : {};
   const overlayVisible = withOverlay === false ? false : stackId && ctx ? ctx.currentId === stackId : opened;
-  import_react201.useEffect(() => {
+  import_react205.useEffect(() => {
     if (ctx && stackId) {
       opened ? ctx.addModal(stackId, zIndex || getDefaultZIndex("modal")) : ctx.removeModal(stackId);
     }
   }, [opened, stackId, zIndex]);
-  return /* @__PURE__ */ import_jsx_runtime163.jsxs(ModalRoot, {
+  return /* @__PURE__ */ import_jsx_runtime164.jsxs(ModalRoot, {
     ref,
     radius,
     opened,
@@ -44523,20 +44922,20 @@ var Modal = factory((_props, ref) => {
     ...others,
     ...stackProps,
     children: [
-      withOverlay && /* @__PURE__ */ import_jsx_runtime163.jsx(ModalOverlay, {
+      withOverlay && /* @__PURE__ */ import_jsx_runtime164.jsx(ModalOverlay, {
         visible: overlayVisible,
         transitionProps: ctx && stackId ? { duration: 0 } : undefined,
         ...overlayProps
       }),
-      /* @__PURE__ */ import_jsx_runtime163.jsxs(ModalContent, {
+      /* @__PURE__ */ import_jsx_runtime164.jsxs(ModalContent, {
         radius,
         __hidden: ctx && stackId && opened ? stackId !== ctx.currentId : false,
         children: [
-          hasHeader && /* @__PURE__ */ import_jsx_runtime163.jsxs(ModalHeader, { children: [
-            title && /* @__PURE__ */ import_jsx_runtime163.jsx(ModalTitle, { children: title }),
-            withCloseButton && /* @__PURE__ */ import_jsx_runtime163.jsx(ModalCloseButton, { ...closeButtonProps })
+          hasHeader && /* @__PURE__ */ import_jsx_runtime164.jsxs(ModalHeader, { children: [
+            title && /* @__PURE__ */ import_jsx_runtime164.jsx(ModalTitle, { children: title }),
+            withCloseButton && /* @__PURE__ */ import_jsx_runtime164.jsx(ModalCloseButton, { ...closeButtonProps })
           ] }),
-          /* @__PURE__ */ import_jsx_runtime163.jsx(ModalBody, { children })
+          /* @__PURE__ */ import_jsx_runtime164.jsx(ModalBody, { children })
         ]
       })
     ]
@@ -44553,28 +44952,28 @@ Modal.Title = ModalTitle;
 Modal.CloseButton = ModalCloseButton;
 Modal.Stack = ModalStack;
 // node_modules/@mantine/core/esm/components/MultiSelect/MultiSelect.mjs
-var import_jsx_runtime171 = __toESM(require_jsx_runtime(), 1);
-var import_react209 = __toESM(require_react(), 1);
+var import_jsx_runtime172 = __toESM(require_jsx_runtime(), 1);
+var import_react213 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.mjs
-var import_jsx_runtime167 = __toESM(require_jsx_runtime(), 1);
-var import_react205 = __toESM(require_react(), 1);
+var import_jsx_runtime168 = __toESM(require_jsx_runtime(), 1);
+var import_react209 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.context.mjs
-var import_react202 = __toESM(require_react(), 1);
-var import_jsx_runtime164 = __toESM(require_jsx_runtime(), 1);
+var import_react206 = __toESM(require_react(), 1);
+var import_jsx_runtime165 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [PillsInputProvider, usePillsInputContext] = createOptionalContext();
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup.context.mjs
-var import_react203 = __toESM(require_react(), 1);
-var import_jsx_runtime165 = __toESM(require_jsx_runtime(), 1);
+var import_react207 = __toESM(require_react(), 1);
+var import_jsx_runtime166 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [PillGroupProvider, usePillGroupContext] = createOptionalContext();
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup/PillGroup.mjs
-var import_jsx_runtime166 = __toESM(require_jsx_runtime(), 1);
-var import_react204 = __toESM(require_react(), 1);
+var import_jsx_runtime167 = __toESM(require_jsx_runtime(), 1);
+var import_react208 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.module.css.mjs
 "use client";
@@ -44582,14 +44981,14 @@ var classes31 = { root: "m_7cda1cd6", "root--default": "m_44da308b", "root--cont
 
 // node_modules/@mantine/core/esm/components/Pill/PillGroup/PillGroup.mjs
 "use client";
-var defaultProps79 = {};
+var defaultProps80 = {};
 var varsResolver33 = createVarsResolver((_2, { gap }, { size: size4 }) => ({
   group: {
     "--pg-gap": gap !== undefined ? getSize(gap) : getSize(size4, "pg-gap")
   }
 }));
 var PillGroup = factory((_props, ref) => {
-  const props = useProps("PillGroup", defaultProps79, _props);
+  const props = useProps("PillGroup", defaultProps80, _props);
   const { classNames, className, style: style2, styles, unstyled, vars, size: size4, disabled, ...others } = props;
   const pillsInputCtx = usePillsInputContext();
   const _size = pillsInputCtx?.size || size4 || undefined;
@@ -44607,14 +45006,14 @@ var PillGroup = factory((_props, ref) => {
     stylesCtx: { size: _size },
     rootSelector: "group"
   });
-  return /* @__PURE__ */ import_jsx_runtime166.jsx(PillGroupProvider, { value: { size: _size, disabled }, children: /* @__PURE__ */ import_jsx_runtime166.jsx(Box, { ref, size: _size, ...getStyles2("group"), ...others }) });
+  return /* @__PURE__ */ import_jsx_runtime167.jsx(PillGroupProvider, { value: { size: _size, disabled }, children: /* @__PURE__ */ import_jsx_runtime167.jsx(Box, { ref, size: _size, ...getStyles2("group"), ...others }) });
 });
 PillGroup.classes = classes31;
 PillGroup.displayName = "@mantine/core/PillGroup";
 
 // node_modules/@mantine/core/esm/components/Pill/Pill.mjs
 "use client";
-var defaultProps80 = {
+var defaultProps81 = {
   variant: "default"
 };
 var varsResolver34 = createVarsResolver((_2, { radius }, { size: size4 }) => ({
@@ -44625,7 +45024,7 @@ var varsResolver34 = createVarsResolver((_2, { radius }, { size: size4 }) => ({
   }
 }));
 var Pill = factory((_props, ref) => {
-  const props = useProps("Pill", defaultProps80, _props);
+  const props = useProps("Pill", defaultProps81, _props);
   const {
     classNames,
     className,
@@ -44661,7 +45060,7 @@ var Pill = factory((_props, ref) => {
     varsResolver: varsResolver34,
     stylesCtx: { size: _size }
   });
-  return /* @__PURE__ */ import_jsx_runtime167.jsxs(Box, {
+  return /* @__PURE__ */ import_jsx_runtime168.jsxs(Box, {
     component: "span",
     ref,
     variant: _variant,
@@ -44673,8 +45072,8 @@ var Pill = factory((_props, ref) => {
     ],
     ...others,
     children: [
-      /* @__PURE__ */ import_jsx_runtime167.jsx("span", { ...getStyles2("label"), children }),
-      withRemoveButton && /* @__PURE__ */ import_jsx_runtime167.jsx(CloseButton, {
+      /* @__PURE__ */ import_jsx_runtime168.jsx("span", { ...getStyles2("label"), children }),
+      withRemoveButton && /* @__PURE__ */ import_jsx_runtime168.jsx(CloseButton, {
         variant: "transparent",
         radius,
         tabIndex: -1,
@@ -44704,12 +45103,12 @@ Pill.displayName = "@mantine/core/Pill";
 Pill.Group = PillGroup;
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.mjs
-var import_jsx_runtime169 = __toESM(require_jsx_runtime(), 1);
-var import_react207 = __toESM(require_react(), 1);
+var import_jsx_runtime170 = __toESM(require_jsx_runtime(), 1);
+var import_react211 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInputField/PillsInputField.mjs
-var import_jsx_runtime168 = __toESM(require_jsx_runtime(), 1);
-var import_react206 = __toESM(require_react(), 1);
+var import_jsx_runtime169 = __toESM(require_jsx_runtime(), 1);
+var import_react210 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.module.css.mjs
 "use client";
@@ -44717,11 +45116,11 @@ var classes32 = { field: "m_45c4369d" };
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInputField/PillsInputField.mjs
 "use client";
-var defaultProps81 = {
+var defaultProps82 = {
   type: "visible"
 };
 var PillsInputField = factory((_props, ref) => {
-  const props = useProps("PillsInputField", defaultProps81, _props);
+  const props = useProps("PillsInputField", defaultProps82, _props);
   const {
     classNames,
     className,
@@ -44750,7 +45149,7 @@ var PillsInputField = factory((_props, ref) => {
     rootSelector: "field"
   });
   const _disabled = disabled || ctx?.disabled;
-  return /* @__PURE__ */ import_jsx_runtime168.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime169.jsx(Box, {
     component: "input",
     ref: useMergedRef(ref, ctx?.fieldRef),
     "data-type": type,
@@ -44770,9 +45169,9 @@ PillsInputField.displayName = "@mantine/core/PillsInputField";
 
 // node_modules/@mantine/core/esm/components/PillsInput/PillsInput.mjs
 "use client";
-var defaultProps82 = {};
+var defaultProps83 = {};
 var PillsInput = factory((_props, ref) => {
-  const props = useProps("PillsInput", defaultProps82, _props);
+  const props = useProps("PillsInput", defaultProps83, _props);
   const {
     children,
     onMouseDown,
@@ -44784,8 +45183,8 @@ var PillsInput = factory((_props, ref) => {
     variant,
     ...others
   } = props;
-  const fieldRef = import_react207.useRef(null);
-  return /* @__PURE__ */ import_jsx_runtime169.jsx(PillsInputProvider, { value: { fieldRef, size: size4, disabled, hasError: !!error, variant }, children: /* @__PURE__ */ import_jsx_runtime169.jsx(InputBase, {
+  const fieldRef = import_react211.useRef(null);
+  return /* @__PURE__ */ import_jsx_runtime170.jsx(PillsInputProvider, { value: { fieldRef, size: size4, disabled, hasError: !!error, variant }, children: /* @__PURE__ */ import_jsx_runtime170.jsx(InputBase, {
     size: size4,
     error,
     variant,
@@ -44816,8 +45215,8 @@ PillsInput.displayName = "@mantine/core/PillsInput";
 PillsInput.Field = PillsInputField;
 
 // node_modules/@mantine/core/esm/components/MultiSelect/filter-picked-values.mjs
-var import_jsx_runtime170 = __toESM(require_jsx_runtime(), 1);
-var import_react208 = __toESM(require_react(), 1);
+var import_jsx_runtime171 = __toESM(require_jsx_runtime(), 1);
+var import_react212 = __toESM(require_react(), 1);
 "use client";
 function filterPickedValues({ data, value }) {
   const normalizedValue = value.map((item) => item.trim().toLowerCase());
@@ -44837,14 +45236,14 @@ function filterPickedValues({ data, value }) {
 
 // node_modules/@mantine/core/esm/components/MultiSelect/MultiSelect.mjs
 "use client";
-var defaultProps83 = {
+var defaultProps84 = {
   maxValues: Infinity,
   withCheckIcon: true,
   checkIconPosition: "left",
   hiddenInputValuesDivider: ","
 };
 var MultiSelect = factory((_props, ref) => {
-  const props = useProps("MultiSelect", defaultProps83, _props);
+  const props = useProps("MultiSelect", defaultProps84, _props);
   const {
     classNames,
     className,
@@ -44977,7 +45376,7 @@ var MultiSelect = factory((_props, ref) => {
       setValue(_value.slice(0, _value.length - 1));
     }
   };
-  const values2 = _value.map((item, index4) => /* @__PURE__ */ import_jsx_runtime171.jsx(Pill, {
+  const values2 = _value.map((item, index6) => /* @__PURE__ */ import_jsx_runtime172.jsx(Pill, {
     withRemoveButton: !readOnly && !optionsLockup[item]?.disabled,
     onRemove: () => {
       setValue(_value.filter((i2) => item !== i2));
@@ -44987,13 +45386,13 @@ var MultiSelect = factory((_props, ref) => {
     disabled,
     ...getStyles2("pill"),
     children: optionsLockup[item]?.label || item
-  }, `${item}-${index4}`));
-  import_react209.useEffect(() => {
+  }, `${item}-${index6}`));
+  import_react213.useEffect(() => {
     if (selectFirstOptionOnChange) {
       combobox.selectFirstOption();
     }
   }, [selectFirstOptionOnChange, _searchValue]);
-  const clearButton = /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.ClearButton, {
+  const clearButton = /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.ClearButton, {
     ...clearButtonProps,
     onClear: () => {
       onClear?.();
@@ -45003,8 +45402,8 @@ var MultiSelect = factory((_props, ref) => {
   });
   const filteredData = filterPickedValues({ data: parsedData, value: _value });
   const _clearable = clearable && _value.length > 0 && !disabled && !readOnly;
-  return /* @__PURE__ */ import_jsx_runtime171.jsxs(import_jsx_runtime171.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime171.jsxs(Combobox, {
+  return /* @__PURE__ */ import_jsx_runtime172.jsxs(import_jsx_runtime172.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime172.jsxs(Combobox, {
       store: combobox,
       classNames: resolvedClassNames,
       styles: resolvedStyles,
@@ -45025,7 +45424,7 @@ var MultiSelect = factory((_props, ref) => {
       },
       ...comboboxProps,
       children: [
-        /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.DropdownTarget, { children: /* @__PURE__ */ import_jsx_runtime171.jsx(PillsInput, {
+        /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.DropdownTarget, { children: /* @__PURE__ */ import_jsx_runtime172.jsx(PillsInput, {
           ...styleProps,
           __staticSelector: "MultiSelect",
           classNames: resolvedClassNames,
@@ -45037,7 +45436,7 @@ var MultiSelect = factory((_props, ref) => {
           variant,
           disabled,
           radius,
-          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.Chevron, {
+          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.Chevron, {
             size: size4,
             error,
             unstyled,
@@ -45075,9 +45474,9 @@ var MultiSelect = factory((_props, ref) => {
           id: _id,
           required,
           mod,
-          children: /* @__PURE__ */ import_jsx_runtime171.jsxs(Pill.Group, { disabled, unstyled, ...getStyles2("pillsList"), children: [
+          children: /* @__PURE__ */ import_jsx_runtime172.jsxs(Pill.Group, { disabled, unstyled, ...getStyles2("pillsList"), children: [
             values2,
-            /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.EventsTarget, { autoComplete, children: /* @__PURE__ */ import_jsx_runtime171.jsx(PillsInput.Field, {
+            /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.EventsTarget, { autoComplete, children: /* @__PURE__ */ import_jsx_runtime172.jsx(PillsInput.Field, {
               ...rest,
               ref,
               id: _id,
@@ -45107,7 +45506,7 @@ var MultiSelect = factory((_props, ref) => {
             }) })
           ] })
         }) }),
-        /* @__PURE__ */ import_jsx_runtime171.jsx(OptionsDropdown, {
+        /* @__PURE__ */ import_jsx_runtime172.jsx(OptionsDropdown, {
           data: hidePickedOptions ? filteredData : parsedData,
           hidden: readOnly || disabled,
           filter: filter2,
@@ -45129,7 +45528,7 @@ var MultiSelect = factory((_props, ref) => {
         })
       ]
     }),
-    /* @__PURE__ */ import_jsx_runtime171.jsx(Combobox.HiddenInput, {
+    /* @__PURE__ */ import_jsx_runtime172.jsx(Combobox.HiddenInput, {
       name,
       valuesDivider: hiddenInputValuesDivider,
       value: _value,
@@ -45142,7 +45541,7 @@ var MultiSelect = factory((_props, ref) => {
 MultiSelect.classes = { ...InputBase.classes, ...Combobox.classes };
 MultiSelect.displayName = "@mantine/core/MultiSelect";
 // node_modules/react-number-format/dist/react-number-format.es.js
-var import_react210 = __toESM(require_react(), 1);
+var import_react214 = __toESM(require_react(), 1);
 function __rest2(s2, e) {
   var t = {};
   for (var p2 in s2) {
@@ -45164,7 +45563,7 @@ var SourceType;
   SourceType2["event"] = "event";
   SourceType2["props"] = "prop";
 })(SourceType || (SourceType = {}));
-function noop5() {
+function noop7() {
 }
 function memoizeOnce(cb) {
   var lastArgs;
@@ -45173,8 +45572,8 @@ function memoizeOnce(cb) {
     var args = [], len = arguments.length;
     while (len--)
       args[len] = arguments[len];
-    if (lastArgs && args.length === lastArgs.length && args.every(function(value, index4) {
-      return value === lastArgs[index4];
+    if (lastArgs && args.length === lastArgs.length && args.every(function(value, index6) {
+      return value === lastArgs[index6];
     })) {
       return lastValue;
     }
@@ -45211,14 +45610,14 @@ function getThousandsGroupRegex(thousandsGroupStyle) {
 }
 function applyThousandSeparator(str, thousandSeparator, thousandsGroupStyle) {
   var thousandsGroupRegex = getThousandsGroupRegex(thousandsGroupStyle);
-  var index4 = str.search(/[1-9]/);
-  index4 = index4 === -1 ? str.length : index4;
-  return str.substring(0, index4) + str.substring(index4, str.length).replace(thousandsGroupRegex, "$1" + thousandSeparator);
+  var index6 = str.search(/[1-9]/);
+  index6 = index6 === -1 ? str.length : index6;
+  return str.substring(0, index6) + str.substring(index6, str.length).replace(thousandsGroupRegex, "$1" + thousandSeparator);
 }
 function usePersistentCallback(cb) {
-  var callbackRef = import_react210.useRef(cb);
+  var callbackRef = import_react214.useRef(cb);
   callbackRef.current = cb;
-  var persistentCbRef = import_react210.useRef(function() {
+  var persistentCbRef = import_react214.useRef(function() {
     var args = [], len = arguments.length;
     while (len--)
       args[len] = arguments[len];
@@ -45468,7 +45867,7 @@ function caretUnknownFormatBoundary(formattedValue) {
 }
 function useInternalValues(value, defaultValue, valueIsNumericString, format, removeFormatting, onValueChange) {
   if (onValueChange === undefined)
-    onValueChange = noop5;
+    onValueChange = noop7;
   var getValues = usePersistentCallback(function(value2, valueIsNumericString2) {
     var formattedValue, numAsString;
     if (isNotValidValue(value2)) {
@@ -45483,7 +45882,7 @@ function useInternalValues(value, defaultValue, valueIsNumericString, format, re
     }
     return { formattedValue, numAsString };
   });
-  var ref = import_react210.useState(function() {
+  var ref = import_react214.useState(function() {
     return getValues(isNil(value) ? defaultValue : value, valueIsNumericString);
   });
   var values2 = ref[0];
@@ -45504,7 +45903,7 @@ function useInternalValues(value, defaultValue, valueIsNumericString, format, re
     _valueIsNumericString = true;
   }
   var newValues = getValues(_value, _valueIsNumericString);
-  import_react210.useMemo(function() {
+  import_react214.useMemo(function() {
     setValues(newValues);
   }, [newValues.formattedValue]);
   return [values2, _onValueChange];
@@ -45537,19 +45936,19 @@ function NumberFormatBase(props) {
   var isAllowed = props.isAllowed;
   var onChange = props.onChange;
   if (onChange === undefined)
-    onChange = noop5;
+    onChange = noop7;
   var onKeyDown = props.onKeyDown;
   if (onKeyDown === undefined)
-    onKeyDown = noop5;
+    onKeyDown = noop7;
   var onMouseUp = props.onMouseUp;
   if (onMouseUp === undefined)
-    onMouseUp = noop5;
+    onMouseUp = noop7;
   var onFocus = props.onFocus;
   if (onFocus === undefined)
-    onFocus = noop5;
+    onFocus = noop7;
   var onBlur = props.onBlur;
   if (onBlur === undefined)
-    onBlur = noop5;
+    onBlur = noop7;
   var propValue = props.value;
   var getCaretBoundary = props.getCaretBoundary;
   if (getCaretBoundary === undefined)
@@ -45564,21 +45963,21 @@ function NumberFormatBase(props) {
   var formattedValue = ref_0.formattedValue;
   var numAsString = ref_0.numAsString;
   var onFormattedValueChange = ref[1];
-  var caretPositionBeforeChange = import_react210.useRef();
-  var lastUpdatedValue = import_react210.useRef({ formattedValue, numAsString });
+  var caretPositionBeforeChange = import_react214.useRef();
+  var lastUpdatedValue = import_react214.useRef({ formattedValue, numAsString });
   var _onValueChange = function(values2, source) {
     lastUpdatedValue.current = { formattedValue: values2.formattedValue, numAsString: values2.value };
     onFormattedValueChange(values2, source);
   };
-  var ref$1 = import_react210.useState(false);
+  var ref$1 = import_react214.useState(false);
   var mounted = ref$1[0];
   var setMounted = ref$1[1];
-  var focusedElm = import_react210.useRef(null);
-  var timeout = import_react210.useRef({
+  var focusedElm = import_react214.useRef(null);
+  var timeout = import_react214.useRef({
     setCaretTimeout: null,
     focusTimeout: null
   });
-  import_react210.useEffect(function() {
+  import_react214.useEffect(function() {
     setMounted(true);
     return function() {
       clearTimeout(timeout.current.setCaretTimeout);
@@ -45636,7 +46035,7 @@ function NumberFormatBase(props) {
       _onValueChange(getValueObject(newFormattedValue, numAsString2), { event, source });
     }
   };
-  import_react210.useEffect(function() {
+  import_react214.useEffect(function() {
     var ref2 = lastUpdatedValue.current;
     var lastFormattedValue = ref2.formattedValue;
     var lastNumAsString = ref2.numAsString;
@@ -45648,7 +46047,7 @@ function NumberFormatBase(props) {
     }
   }, [formattedValue, numAsString]);
   var currentCaretPosition = focusedElm.current ? geInputCaretPosition(focusedElm.current) : undefined;
-  var useIsomorphicLayoutEffect2 = typeof window !== "undefined" ? import_react210.useLayoutEffect : import_react210.useEffect;
+  var useIsomorphicLayoutEffect2 = typeof window !== "undefined" ? import_react214.useLayoutEffect : import_react214.useEffect;
   useIsomorphicLayoutEffect2(function() {
     var input = focusedElm.current;
     if (formattedValue !== lastUpdatedValue.current.formattedValue && input) {
@@ -45801,12 +46200,12 @@ function NumberFormatBase(props) {
     onBlur: _onBlur
   });
   if (displayType === "text") {
-    return renderText ? import_react210.default.createElement(import_react210.default.Fragment, null, renderText(formattedValue, otherProps) || null) : import_react210.default.createElement("span", Object.assign({}, otherProps, { ref: getInputRef }), formattedValue);
+    return renderText ? import_react214.default.createElement(import_react214.default.Fragment, null, renderText(formattedValue, otherProps) || null) : import_react214.default.createElement("span", Object.assign({}, otherProps, { ref: getInputRef }), formattedValue);
   } else if (customInput) {
     var CustomInput = customInput;
-    return import_react210.default.createElement(CustomInput, Object.assign({}, inputProps, { ref: getInputRef }));
+    return import_react214.default.createElement(CustomInput, Object.assign({}, inputProps, { ref: getInputRef }));
   }
-  return import_react210.default.createElement("input", Object.assign({}, inputProps, { ref: getInputRef }));
+  return import_react214.default.createElement("input", Object.assign({}, inputProps, { ref: getInputRef }));
 }
 function format(numStr, props) {
   var decimalScale = props.decimalScale;
@@ -45973,8 +46372,8 @@ function removeFormatting(value, changeMeta, props) {
   value = handleNegation(hasNegation ? "-" + value : value, allowNegative);
   value = (value.match(getNumberRegex(decimalSeparator, true)) || []).join("");
   var firstIndex = value.indexOf(decimalSeparator);
-  value = value.replace(new RegExp(escapeRegExp(decimalSeparator), "g"), function(match2, index4) {
-    return index4 === firstIndex ? "." : "";
+  value = value.replace(new RegExp(escapeRegExp(decimalSeparator), "g"), function(match2, index6) {
+    return index6 === firstIndex ? "." : "";
   });
   var ref$2 = splitDecimal(value, allowNegative);
   var beforeDecimal = ref$2.beforeDecimal;
@@ -46038,10 +46437,10 @@ function useNumericFormat(props) {
   var allowLeadingZeros = props.allowLeadingZeros;
   var onKeyDown = props.onKeyDown;
   if (onKeyDown === undefined)
-    onKeyDown = noop5;
+    onKeyDown = noop7;
   var onBlur = props.onBlur;
   if (onBlur === undefined)
-    onBlur = noop5;
+    onBlur = noop7;
   var thousandSeparator = props.thousandSeparator;
   var decimalScale = props.decimalScale;
   var fixedDecimalScale = props.fixedDecimalScale;
@@ -46193,18 +46592,18 @@ function useNumericFormat(props) {
 }
 function NumericFormat(props) {
   var numericFormatProps = useNumericFormat(props);
-  return import_react210.default.createElement(NumberFormatBase, Object.assign({}, numericFormatProps));
+  return import_react214.default.createElement(NumberFormatBase, Object.assign({}, numericFormatProps));
 }
 
 // node_modules/@mantine/core/esm/components/NumberInput/NumberInput.mjs
-var import_jsx_runtime173 = __toESM(require_jsx_runtime(), 1);
-var import_react211 = __toESM(require_react(), 1);
+var import_jsx_runtime174 = __toESM(require_jsx_runtime(), 1);
+var import_react215 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/NumberInput/NumberInputChevron.mjs
-var import_jsx_runtime172 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime173 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function NumberInputChevron({ direction, style: style2, ...others }) {
-  return /* @__PURE__ */ import_jsx_runtime172.jsx("svg", {
+  return /* @__PURE__ */ import_jsx_runtime173.jsx("svg", {
     style: {
       width: "var(--ni-chevron-size)",
       height: "var(--ni-chevron-size)",
@@ -46215,7 +46614,7 @@ function NumberInputChevron({ direction, style: style2, ...others }) {
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg",
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime172.jsx("path", {
+    children: /* @__PURE__ */ import_jsx_runtime173.jsx("path", {
       d: "M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z",
       fill: "currentColor",
       fillRule: "evenodd",
@@ -46255,7 +46654,7 @@ function isInRange(value, min2, max2) {
   const maxValid = max2 === undefined || value <= max2;
   return minValid && maxValid;
 }
-var defaultProps84 = {
+var defaultProps85 = {
   step: 1,
   clampBehavior: "blur",
   allowDecimal: true,
@@ -46281,7 +46680,7 @@ function clampAndSanitizeInput(sanitizedValue, max2, min2) {
   return clamp(parsedValue, min2, max2);
 }
 var NumberInput = factory((_props, ref) => {
-  const props = useProps("NumberInput", defaultProps84, _props);
+  const props = useProps("NumberInput", defaultProps85, _props);
   const {
     className,
     classNames,
@@ -46341,9 +46740,9 @@ var NumberInput = factory((_props, ref) => {
     onChange
   });
   const shouldUseStepInterval = stepHoldDelay !== undefined && stepHoldInterval !== undefined;
-  const inputRef = import_react211.useRef(null);
-  const onStepTimeoutRef = import_react211.useRef(null);
-  const stepCountRef = import_react211.useRef(0);
+  const inputRef = import_react215.useRef(null);
+  const onStepTimeoutRef = import_react215.useRef(null);
+  const stepCountRef = import_react215.useRef(0);
   const handleValueChange = (payload, event) => {
     if (event.source === "event") {
       setValue(isValidNumber(payload.floatValue, payload.value) && !leadingDecimalZeroPattern.test(payload.value) && !(allowLeadingZeros ? leadingZerosPattern.test(payload.value) : false) ? payload.floatValue : payload.value);
@@ -46362,7 +46761,7 @@ var NumberInput = factory((_props, ref) => {
       inputRef.current.setSelectionRange(position2, position2);
     }
   };
-  const incrementRef = import_react211.useRef(noop4);
+  const incrementRef = import_react215.useRef(noop4);
   incrementRef.current = () => {
     if (!canIncrement(_value)) {
       return;
@@ -46385,7 +46784,7 @@ var NumberInput = factory((_props, ref) => {
     onValueChange?.({ floatValue: parseFloat(formattedValue), formattedValue, value: formattedValue }, { source: "increment" });
     setTimeout(() => adjustCursor(inputRef.current?.value.length), 0);
   };
-  const decrementRef = import_react211.useRef(noop4);
+  const decrementRef = import_react215.useRef(noop4);
   decrementRef.current = () => {
     if (!canIncrement(_value)) {
       return;
@@ -46475,8 +46874,8 @@ var NumberInput = factory((_props, ref) => {
     onStepTimeoutRef.current = null;
     stepCountRef.current = 0;
   };
-  const controls = /* @__PURE__ */ import_jsx_runtime173.jsxs("div", { ...getStyles2("controls"), children: [
-    /* @__PURE__ */ import_jsx_runtime173.jsx(UnstyledButton, {
+  const controls = /* @__PURE__ */ import_jsx_runtime174.jsxs("div", { ...getStyles2("controls"), children: [
+    /* @__PURE__ */ import_jsx_runtime174.jsx(UnstyledButton, {
       ...getStyles2("control"),
       tabIndex: -1,
       "aria-hidden": true,
@@ -46488,9 +46887,9 @@ var NumberInput = factory((_props, ref) => {
       },
       onPointerUp: onStepDone,
       onPointerLeave: onStepDone,
-      children: /* @__PURE__ */ import_jsx_runtime173.jsx(NumberInputChevron, { direction: "up" })
+      children: /* @__PURE__ */ import_jsx_runtime174.jsx(NumberInputChevron, { direction: "up" })
     }),
-    /* @__PURE__ */ import_jsx_runtime173.jsx(UnstyledButton, {
+    /* @__PURE__ */ import_jsx_runtime174.jsx(UnstyledButton, {
       ...getStyles2("control"),
       tabIndex: -1,
       "aria-hidden": true,
@@ -46502,10 +46901,10 @@ var NumberInput = factory((_props, ref) => {
       },
       onPointerUp: onStepDone,
       onPointerLeave: onStepDone,
-      children: /* @__PURE__ */ import_jsx_runtime173.jsx(NumberInputChevron, { direction: "down" })
+      children: /* @__PURE__ */ import_jsx_runtime174.jsx(NumberInputChevron, { direction: "down" })
     })
   ] });
-  return /* @__PURE__ */ import_jsx_runtime173.jsx(InputBase, {
+  return /* @__PURE__ */ import_jsx_runtime174.jsx(InputBase, {
     component: NumericFormat,
     allowNegative,
     className: clsx_default(classes33.root, className),
@@ -46542,8 +46941,8 @@ var NumberInput = factory((_props, ref) => {
 NumberInput.classes = { ...InputBase.classes, ...classes33 };
 NumberInput.displayName = "@mantine/core/NumberInput";
 // node_modules/@mantine/core/esm/components/Tooltip/Tooltip.mjs
-var import_jsx_runtime176 = __toESM(require_jsx_runtime(), 1);
-var import_react220 = __toESM(require_react(), 1);
+var import_jsx_runtime177 = __toESM(require_jsx_runtime(), 1);
+var import_react224 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Transition/get-transition-props/get-transition-props.mjs
 "use client";
@@ -46556,19 +46955,19 @@ function getTransitionProps(transitionProps, componentTransition) {
 }
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/TooltipFloating.mjs
-var import_jsx_runtime174 = __toESM(require_jsx_runtime(), 1);
-var import_react214 = __toESM(require_react(), 1);
+var import_jsx_runtime175 = __toESM(require_jsx_runtime(), 1);
+var import_react218 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/use-floating-tooltip.mjs
-var import_react212 = __toESM(require_react(), 1);
+var import_react216 = __toESM(require_react(), 1);
 "use client";
 function useFloatingTooltip({
   offset: offset4,
   position: position2,
   defaultOpened
 }) {
-  const [opened, setOpened] = import_react212.useState(defaultOpened);
-  const boundaryRef = import_react212.useRef(null);
+  const [opened, setOpened] = import_react216.useState(defaultOpened);
+  const boundaryRef = import_react216.useRef(null);
   const { x: x2, y: y2, elements, refs, update, placement } = useFloating2({
     placement: position2,
     middleware: [
@@ -46581,7 +46980,7 @@ function useFloatingTooltip({
   });
   const horizontalOffset = placement.includes("right") ? offset4 : position2.includes("left") ? offset4 * -1 : 0;
   const verticalOffset = placement.includes("bottom") ? offset4 : position2.includes("top") ? offset4 * -1 : 0;
-  const handleMouseMove = import_react212.useCallback(({ clientX, clientY }) => {
+  const handleMouseMove = import_react216.useCallback(({ clientX, clientY }) => {
     refs.setPositionReference({
       getBoundingClientRect() {
         return {
@@ -46597,7 +46996,7 @@ function useFloatingTooltip({
       }
     });
   }, [elements.reference]);
-  import_react212.useEffect(() => {
+  import_react216.useEffect(() => {
     if (refs.floating.current) {
       const boundary = boundaryRef.current;
       boundary.addEventListener("mousemove", handleMouseMove);
@@ -46623,7 +47022,7 @@ var classes34 = { tooltip: "m_1b3c8819", arrow: "m_f898399f" };
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipFloating/TooltipFloating.mjs
 "use client";
-var defaultProps85 = {
+var defaultProps86 = {
   refProp: "ref",
   withinPortal: true,
   offset: 10,
@@ -46639,7 +47038,7 @@ var varsResolver36 = createVarsResolver((theme, { radius, color }) => ({
   }
 }));
 var TooltipFloating = factory((_props, ref) => {
-  const props = useProps("TooltipFloating", defaultProps85, _props);
+  const props = useProps("TooltipFloating", defaultProps86, _props);
   const {
     children,
     refProp,
@@ -46696,8 +47095,8 @@ var TooltipFloating = factory((_props, ref) => {
     _childrenProps.onMouseLeave?.(event);
     setOpened(false);
   };
-  return /* @__PURE__ */ import_jsx_runtime174.jsxs(import_jsx_runtime174.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime174.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime174.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime175.jsxs(import_jsx_runtime175.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime175.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime175.jsx(Box, {
       ...others,
       ...getStyles2("tooltip", {
         style: {
@@ -46713,7 +47112,7 @@ var TooltipFloating = factory((_props, ref) => {
       mod: { multiline },
       children: label
     }) }),
-    import_react214.cloneElement(children, {
+    import_react218.cloneElement(children, {
       ..._childrenProps,
       [refProp]: targetRef,
       onMouseEnter,
@@ -46725,31 +47124,31 @@ TooltipFloating.classes = classes34;
 TooltipFloating.displayName = "@mantine/core/TooltipFloating";
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.mjs
-var import_jsx_runtime175 = __toESM(require_jsx_runtime(), 1);
-var import_react217 = __toESM(require_react(), 1);
+var import_jsx_runtime176 = __toESM(require_jsx_runtime(), 1);
+var import_react221 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.context.mjs
-var import_react215 = __toESM(require_react(), 1);
+var import_react219 = __toESM(require_react(), 1);
 "use client";
-var TooltipGroupContext = import_react215.createContext(false);
+var TooltipGroupContext = import_react219.createContext(false);
 var TooltipGroupProvider = TooltipGroupContext.Provider;
-var useTooltipGroupContext = () => import_react215.useContext(TooltipGroupContext);
+var useTooltipGroupContext = () => import_react219.useContext(TooltipGroupContext);
 
 // node_modules/@mantine/core/esm/components/Tooltip/TooltipGroup/TooltipGroup.mjs
 "use client";
-var defaultProps86 = {
+var defaultProps87 = {
   openDelay: 0,
   closeDelay: 0
 };
 function TooltipGroup(props) {
-  const { openDelay, closeDelay, children } = useProps("TooltipGroup", defaultProps86, props);
-  return /* @__PURE__ */ import_jsx_runtime175.jsx(TooltipGroupProvider, { value: true, children: /* @__PURE__ */ import_jsx_runtime175.jsx(FloatingDelayGroup, { delay: { open: openDelay, close: closeDelay }, children }) });
+  const { openDelay, closeDelay, children } = useProps("TooltipGroup", defaultProps87, props);
+  return /* @__PURE__ */ import_jsx_runtime176.jsx(TooltipGroupProvider, { value: true, children: /* @__PURE__ */ import_jsx_runtime176.jsx(FloatingDelayGroup, { delay: { open: openDelay, close: closeDelay }, children }) });
 }
 TooltipGroup.displayName = "@mantine/core/TooltipGroup";
 TooltipGroup.extend = (c2) => c2;
 
 // node_modules/@mantine/core/esm/components/Tooltip/use-tooltip.mjs
-var import_react218 = __toESM(require_react(), 1);
+var import_react222 = __toESM(require_react(), 1);
 "use client";
 function getDefaultMiddlewares2(middlewares) {
   if (middlewares === undefined) {
@@ -46782,12 +47181,12 @@ function getTooltipMiddlewares(settings) {
   return middlewares;
 }
 function useTooltip(settings) {
-  const [uncontrolledOpened, setUncontrolledOpened] = import_react218.useState(settings.defaultOpened);
+  const [uncontrolledOpened, setUncontrolledOpened] = import_react222.useState(settings.defaultOpened);
   const controlled = typeof settings.opened === "boolean";
   const opened = controlled ? settings.opened : uncontrolledOpened;
   const withinGroup = useTooltipGroupContext();
   const uid = useId();
-  const onChange = import_react218.useCallback((_opened) => {
+  const onChange = import_react222.useCallback((_opened) => {
     setUncontrolledOpened(_opened);
     if (_opened) {
       setCurrentId(uid);
@@ -46846,7 +47245,7 @@ function useTooltip(settings) {
 
 // node_modules/@mantine/core/esm/components/Tooltip/Tooltip.mjs
 "use client";
-var defaultProps87 = {
+var defaultProps88 = {
   position: "top",
   refProp: "ref",
   withinPortal: true,
@@ -46871,7 +47270,7 @@ var varsResolver37 = createVarsResolver((theme, { radius, color }) => ({
   }
 }));
 var Tooltip = factory((_props, ref) => {
-  const props = useProps("Tooltip", defaultProps87, _props);
+  const props = useProps("Tooltip", defaultProps88, _props);
   const {
     children,
     position: position2,
@@ -46914,9 +47313,9 @@ var Tooltip = factory((_props, ref) => {
     floatingStrategy,
     middlewares,
     ...others
-  } = useProps("Tooltip", defaultProps87, props);
+  } = useProps("Tooltip", defaultProps88, props);
   const { dir } = useDirection();
-  const arrowRef = import_react220.useRef(null);
+  const arrowRef = import_react224.useRef(null);
   const tooltip = useTooltip({
     position: getFloatingPosition(dir, position2),
     closeDelay,
@@ -46952,13 +47351,13 @@ var Tooltip = factory((_props, ref) => {
   const targetRef = useMergedRef(tooltip.reference, getRefProp(children), ref);
   const transition = getTransitionProps(transitionProps, { duration: 100, transition: "fade" });
   const _childrenProps = children.props;
-  return /* @__PURE__ */ import_jsx_runtime176.jsxs(import_jsx_runtime176.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime176.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime176.jsx(Transition, {
+  return /* @__PURE__ */ import_jsx_runtime177.jsxs(import_jsx_runtime177.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime177.jsx(OptionalPortal, { ...portalProps, withinPortal, children: /* @__PURE__ */ import_jsx_runtime177.jsx(Transition, {
       ...transition,
       keepMounted,
       mounted: !disabled && !!tooltip.opened,
       duration: tooltip.isGroupPhase ? 10 : transition.duration,
-      children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime176.jsxs(Box, {
+      children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime177.jsxs(Box, {
         ...others,
         "data-fixed": floatingStrategy === "fixed" || undefined,
         variant,
@@ -46976,7 +47375,7 @@ var Tooltip = factory((_props, ref) => {
         }),
         children: [
           label,
-          /* @__PURE__ */ import_jsx_runtime176.jsx(FloatingArrow, {
+          /* @__PURE__ */ import_jsx_runtime177.jsx(FloatingArrow, {
             ref: arrowRef,
             arrowX: tooltip.arrowX,
             arrowY: tooltip.arrowY,
@@ -46991,7 +47390,7 @@ var Tooltip = factory((_props, ref) => {
         ]
       })
     }) }),
-    import_react220.cloneElement(children, tooltip.getReferenceProps({
+    import_react224.cloneElement(children, tooltip.getReferenceProps({
       onClick,
       onMouseEnter,
       onMouseLeave,
@@ -47010,17 +47409,17 @@ Tooltip.Floating = TooltipFloating;
 Tooltip.Group = TooltipGroup;
 
 // node_modules/@mantine/core/esm/components/Select/Select.mjs
-var import_jsx_runtime177 = __toESM(require_jsx_runtime(), 1);
-var import_react221 = __toESM(require_react(), 1);
+var import_jsx_runtime178 = __toESM(require_jsx_runtime(), 1);
+var import_react225 = __toESM(require_react(), 1);
 "use client";
-var defaultProps88 = {
+var defaultProps89 = {
   searchable: false,
   withCheckIcon: true,
   allowDeselect: true,
   checkIconPosition: "left"
 };
 var Select = factory((_props, ref) => {
-  const props = useProps("Select", defaultProps88, _props);
+  const props = useProps("Select", defaultProps89, _props);
   const {
     classNames,
     styles,
@@ -47074,8 +47473,8 @@ var Select = factory((_props, ref) => {
     chevronColor,
     ...others
   } = props;
-  const parsedData = import_react221.useMemo(() => getParsedComboboxData(data), [data]);
-  const optionsLockup = import_react221.useMemo(() => getOptionsLockup(parsedData), [parsedData]);
+  const parsedData = import_react225.useMemo(() => getParsedComboboxData(data), [data]);
+  const optionsLockup = import_react225.useMemo(() => getOptionsLockup(parsedData), [parsedData]);
   const _id = useId(id);
   const [_value, setValue, controlled] = useUncontrolled({
     value,
@@ -47112,12 +47511,12 @@ var Select = factory((_props, ref) => {
     styles,
     classNames
   });
-  import_react221.useEffect(() => {
+  import_react225.useEffect(() => {
     if (selectFirstOptionOnChange) {
       combobox.selectFirstOption();
     }
   }, [selectFirstOptionOnChange, search]);
-  import_react221.useEffect(() => {
+  import_react225.useEffect(() => {
     if (value === null) {
       handleSearchChange("");
     }
@@ -47125,12 +47524,12 @@ var Select = factory((_props, ref) => {
       handleSearchChange(selectedOption.label);
     }
   }, [value, selectedOption]);
-  import_react221.useEffect(() => {
+  import_react225.useEffect(() => {
     if (!controlled) {
       handleSearchChange(typeof _value === "string" ? optionsLockup[_value]?.label || "" : "");
     }
   }, [data, _value]);
-  const clearButton = /* @__PURE__ */ import_jsx_runtime177.jsx(Combobox.ClearButton, {
+  const clearButton = /* @__PURE__ */ import_jsx_runtime178.jsx(Combobox.ClearButton, {
     ...clearButtonProps,
     onClear: () => {
       setValue(null, null);
@@ -47139,8 +47538,8 @@ var Select = factory((_props, ref) => {
     }
   });
   const _clearable = clearable && !!_value && !disabled && !readOnly;
-  return /* @__PURE__ */ import_jsx_runtime177.jsxs(import_jsx_runtime177.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime177.jsxs(Combobox, {
+  return /* @__PURE__ */ import_jsx_runtime178.jsxs(import_jsx_runtime178.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime178.jsxs(Combobox, {
       store: combobox,
       __staticSelector: "Select",
       classNames: resolvedClassNames,
@@ -47158,10 +47557,10 @@ var Select = factory((_props, ref) => {
       size: size4,
       ...comboboxProps,
       children: [
-        /* @__PURE__ */ import_jsx_runtime177.jsx(Combobox.Target, { targetType: searchable ? "input" : "button", autoComplete, children: /* @__PURE__ */ import_jsx_runtime177.jsx(InputBase, {
+        /* @__PURE__ */ import_jsx_runtime178.jsx(Combobox.Target, { targetType: searchable ? "input" : "button", autoComplete, children: /* @__PURE__ */ import_jsx_runtime178.jsx(InputBase, {
           id: _id,
           ref,
-          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime177.jsx(Combobox.Chevron, {
+          __defaultRightSection: /* @__PURE__ */ import_jsx_runtime178.jsx(Combobox.Chevron, {
             size: size4,
             error,
             unstyled,
@@ -47201,7 +47600,7 @@ var Select = factory((_props, ref) => {
           pointer: !searchable,
           error
         }) }),
-        /* @__PURE__ */ import_jsx_runtime177.jsx(OptionsDropdown, {
+        /* @__PURE__ */ import_jsx_runtime178.jsx(OptionsDropdown, {
           data: parsedData,
           hidden: readOnly || disabled,
           filter: filter2,
@@ -47223,7 +47622,7 @@ var Select = factory((_props, ref) => {
         })
       ]
     }),
-    /* @__PURE__ */ import_jsx_runtime177.jsx(Combobox.HiddenInput, {
+    /* @__PURE__ */ import_jsx_runtime178.jsx(Combobox.HiddenInput, {
       value: _value,
       name,
       form,
@@ -47235,12 +47634,12 @@ var Select = factory((_props, ref) => {
 Select.classes = { ...InputBase.classes, ...Combobox.classes };
 Select.displayName = "@mantine/core/Select";
 // node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.mjs
-var import_jsx_runtime179 = __toESM(require_jsx_runtime(), 1);
-var import_react223 = __toESM(require_react(), 1);
+var import_jsx_runtime180 = __toESM(require_jsx_runtime(), 1);
+var import_react227 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGridVariables.mjs
-var import_jsx_runtime178 = __toESM(require_jsx_runtime(), 1);
-var import_react222 = __toESM(require_react(), 1);
+var import_jsx_runtime179 = __toESM(require_jsx_runtime(), 1);
+var import_react226 = __toESM(require_react(), 1);
 "use client";
 function SimpleGridMediaVariables({
   spacing,
@@ -47275,7 +47674,7 @@ function SimpleGridMediaVariables({
     query: `(min-width: ${theme.breakpoints[breakpoint.value]})`,
     styles: queries[breakpoint.value]
   }));
-  return /* @__PURE__ */ import_jsx_runtime178.jsx(InlineStyles, { styles: baseStyles, media, selector });
+  return /* @__PURE__ */ import_jsx_runtime179.jsx(InlineStyles, { styles: baseStyles, media, selector });
 }
 function getBreakpoints(values2) {
   if (typeof values2 === "object" && values2 !== null) {
@@ -47330,7 +47729,7 @@ function SimpleGridContainerVariables({
     query: `simple-grid (min-width: ${breakpoint})`,
     styles: queries[breakpoint]
   }));
-  return /* @__PURE__ */ import_jsx_runtime178.jsx(InlineStyles, { styles: baseStyles, container: media, selector });
+  return /* @__PURE__ */ import_jsx_runtime179.jsx(InlineStyles, { styles: baseStyles, container: media, selector });
 }
 
 // node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.module.css.mjs
@@ -47339,13 +47738,13 @@ var classes35 = { container: "m_925c2d2c", root: "m_2415a157" };
 
 // node_modules/@mantine/core/esm/components/SimpleGrid/SimpleGrid.mjs
 "use client";
-var defaultProps89 = {
+var defaultProps90 = {
   cols: 1,
   spacing: "md",
   type: "media"
 };
 var SimpleGrid = factory((_props, ref) => {
-  const props = useProps("SimpleGrid", defaultProps89, _props);
+  const props = useProps("SimpleGrid", defaultProps90, _props);
   const {
     classNames,
     className,
@@ -47372,35 +47771,35 @@ var SimpleGrid = factory((_props, ref) => {
   });
   const responsiveClassName = useRandomClassName();
   if (type === "container") {
-    return /* @__PURE__ */ import_jsx_runtime179.jsxs(import_jsx_runtime179.Fragment, { children: [
-      /* @__PURE__ */ import_jsx_runtime179.jsx(SimpleGridContainerVariables, { ...props, selector: `.${responsiveClassName}` }),
-      /* @__PURE__ */ import_jsx_runtime179.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime179.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others }) })
+    return /* @__PURE__ */ import_jsx_runtime180.jsxs(import_jsx_runtime180.Fragment, { children: [
+      /* @__PURE__ */ import_jsx_runtime180.jsx(SimpleGridContainerVariables, { ...props, selector: `.${responsiveClassName}` }),
+      /* @__PURE__ */ import_jsx_runtime180.jsx("div", { ...getStyles2("container"), children: /* @__PURE__ */ import_jsx_runtime180.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others }) })
     ] });
   }
-  return /* @__PURE__ */ import_jsx_runtime179.jsxs(import_jsx_runtime179.Fragment, { children: [
-    /* @__PURE__ */ import_jsx_runtime179.jsx(SimpleGridMediaVariables, { ...props, selector: `.${responsiveClassName}` }),
-    /* @__PURE__ */ import_jsx_runtime179.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others })
+  return /* @__PURE__ */ import_jsx_runtime180.jsxs(import_jsx_runtime180.Fragment, { children: [
+    /* @__PURE__ */ import_jsx_runtime180.jsx(SimpleGridMediaVariables, { ...props, selector: `.${responsiveClassName}` }),
+    /* @__PURE__ */ import_jsx_runtime180.jsx(Box, { ref, ...getStyles2("root", { className: responsiveClassName }), ...others })
   ] });
 });
 SimpleGrid.classes = classes35;
 SimpleGrid.displayName = "@mantine/core/SimpleGrid";
 // node_modules/@mantine/core/esm/components/Slider/Slider/Slider.mjs
-var import_jsx_runtime185 = __toESM(require_jsx_runtime(), 1);
-var import_react229 = __toESM(require_react(), 1);
+var import_jsx_runtime186 = __toESM(require_jsx_runtime(), 1);
+var import_react233 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Slider/Slider.context.mjs
-var import_react224 = __toESM(require_react(), 1);
-var import_jsx_runtime180 = __toESM(require_jsx_runtime(), 1);
+var import_react228 = __toESM(require_react(), 1);
+var import_jsx_runtime181 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [SliderProvider, useSliderContext] = createSafeContext("SliderProvider was not found in tree");
 
 // node_modules/@mantine/core/esm/components/Slider/SliderRoot/SliderRoot.mjs
-var import_jsx_runtime181 = __toESM(require_jsx_runtime(), 1);
-var import_react225 = __toESM(require_react(), 1);
+var import_jsx_runtime182 = __toESM(require_jsx_runtime(), 1);
+var import_react229 = __toESM(require_react(), 1);
 "use client";
-var SliderRoot = import_react225.forwardRef(({ size: size4, disabled, variant, color, thumbSize, radius, ...others }, ref) => {
+var SliderRoot = import_react229.forwardRef(({ size: size4, disabled, variant, color, thumbSize, radius, ...others }, ref) => {
   const { getStyles: getStyles2 } = useSliderContext();
-  return /* @__PURE__ */ import_jsx_runtime181.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime182.jsx(Box, {
     tabIndex: -1,
     variant,
     size: size4,
@@ -47412,10 +47811,10 @@ var SliderRoot = import_react225.forwardRef(({ size: size4, disabled, variant, c
 SliderRoot.displayName = "@mantine/core/SliderRoot";
 
 // node_modules/@mantine/core/esm/components/Slider/Thumb/Thumb.mjs
-var import_jsx_runtime182 = __toESM(require_jsx_runtime(), 1);
-var import_react226 = __toESM(require_react(), 1);
+var import_jsx_runtime183 = __toESM(require_jsx_runtime(), 1);
+var import_react230 = __toESM(require_react(), 1);
 "use client";
-var Thumb2 = import_react226.forwardRef(({
+var Thumb2 = import_react230.forwardRef(({
   max: max2,
   min: min2,
   value,
@@ -47435,9 +47834,9 @@ var Thumb2 = import_react226.forwardRef(({
   disabled
 }, ref) => {
   const { getStyles: getStyles2 } = useSliderContext();
-  const [focused, setFocused] = import_react226.useState(false);
+  const [focused, setFocused] = import_react230.useState(false);
   const isVisible = labelAlwaysOn || dragging || focused || showLabelOnHover && isHovered;
-  return /* @__PURE__ */ import_jsx_runtime182.jsxs(Box, {
+  return /* @__PURE__ */ import_jsx_runtime183.jsxs(Box, {
     tabIndex: 0,
     role: "slider",
     "aria-label": thumbLabel,
@@ -47462,12 +47861,12 @@ var Thumb2 = import_react226.forwardRef(({
     onClick: (event) => event.stopPropagation(),
     children: [
       children,
-      /* @__PURE__ */ import_jsx_runtime182.jsx(Transition, {
+      /* @__PURE__ */ import_jsx_runtime183.jsx(Transition, {
         mounted: label != null && !!isVisible,
         transition: "fade",
         duration: 0,
         ...labelTransitionProps,
-        children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime182.jsx("div", { ...getStyles2("label", { style: transitionStyles }), children: label })
+        children: (transitionStyles) => /* @__PURE__ */ import_jsx_runtime183.jsx("div", { ...getStyles2("label", { style: transitionStyles }), children: label })
       })
     ]
   });
@@ -47475,12 +47874,12 @@ var Thumb2 = import_react226.forwardRef(({
 Thumb2.displayName = "@mantine/core/SliderThumb";
 
 // node_modules/@mantine/core/esm/components/Slider/Track/Track.mjs
-var import_jsx_runtime184 = __toESM(require_jsx_runtime(), 1);
-var import_react228 = __toESM(require_react(), 1);
+var import_jsx_runtime185 = __toESM(require_jsx_runtime(), 1);
+var import_react232 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Slider/Marks/Marks.mjs
-var import_jsx_runtime183 = __toESM(require_jsx_runtime(), 1);
-var import_react227 = __toESM(require_react(), 1);
+var import_jsx_runtime184 = __toESM(require_jsx_runtime(), 1);
+var import_react231 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Slider/utils/get-position/get-position.mjs
 "use client";
@@ -47502,15 +47901,15 @@ function Marks({ marks, min: min2, max: max2, disabled, value, offset: offset4, 
   if (!marks) {
     return null;
   }
-  const items = marks.map((mark, index4) => /* @__PURE__ */ import_react227.createElement(Box, {
+  const items = marks.map((mark, index6) => /* @__PURE__ */ import_react231.createElement(Box, {
     ...getStyles2("markWrapper"),
     __vars: { "--mark-offset": `${getPosition({ value: mark.value, min: min2, max: max2 })}%` },
-    key: index4
-  }, /* @__PURE__ */ import_jsx_runtime183.jsx(Box, {
+    key: index6
+  }, /* @__PURE__ */ import_jsx_runtime184.jsx(Box, {
     ...getStyles2("mark"),
     mod: { filled: isMarkFilled({ mark, value, offset: offset4, inverted }), disabled }
-  }), mark.label && /* @__PURE__ */ import_jsx_runtime183.jsx("div", { ...getStyles2("markLabel"), children: mark.label })));
-  return /* @__PURE__ */ import_jsx_runtime183.jsx("div", { children: items });
+  }), mark.label && /* @__PURE__ */ import_jsx_runtime184.jsx("div", { ...getStyles2("markLabel"), children: mark.label })));
+  return /* @__PURE__ */ import_jsx_runtime184.jsx("div", { children: items });
 }
 Marks.displayName = "@mantine/core/SliderMarks";
 
@@ -47527,8 +47926,8 @@ function Track({
   ...others
 }) {
   const { getStyles: getStyles2 } = useSliderContext();
-  return /* @__PURE__ */ import_jsx_runtime184.jsx(Box, { ...getStyles2("trackContainer"), mod: { disabled }, ...containerProps, children: /* @__PURE__ */ import_jsx_runtime184.jsxs(Box, { ...getStyles2("track"), mod: { inverted, disabled }, children: [
-    /* @__PURE__ */ import_jsx_runtime184.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime185.jsx(Box, { ...getStyles2("trackContainer"), mod: { disabled }, ...containerProps, children: /* @__PURE__ */ import_jsx_runtime185.jsxs(Box, { ...getStyles2("track"), mod: { inverted, disabled }, children: [
+    /* @__PURE__ */ import_jsx_runtime185.jsx(Box, {
       mod: { inverted, disabled },
       __vars: {
         "--slider-bar-width": `calc(${filled}% + var(--slider-size))`,
@@ -47537,7 +47936,7 @@ function Track({
       ...getStyles2("bar")
     }),
     children,
-    /* @__PURE__ */ import_jsx_runtime184.jsx(Marks, { ...others, offset: marksOffset, disabled, inverted })
+    /* @__PURE__ */ import_jsx_runtime185.jsx(Marks, { ...others, offset: marksOffset, disabled, inverted })
   ] }) });
 }
 Track.displayName = "@mantine/core/SliderTrack";
@@ -47605,7 +48004,7 @@ var classes36 = { root: "m_dd36362e", label: "m_c9357328", thumb: "m_c9a9a60a", 
 
 // node_modules/@mantine/core/esm/components/Slider/Slider/Slider.mjs
 "use client";
-var defaultProps90 = {
+var defaultProps91 = {
   radius: "xl",
   min: 0,
   max: 100,
@@ -47628,7 +48027,7 @@ var varsResolver38 = createVarsResolver((theme, { size: size4, color, thumbSize,
   }
 }));
 var Slider = factory((_props, ref) => {
-  const props = useProps("Slider", defaultProps90, _props);
+  const props = useProps("Slider", defaultProps91, _props);
   const {
     classNames,
     styles,
@@ -47674,25 +48073,25 @@ var Slider = factory((_props, ref) => {
     unstyled
   });
   const { dir } = useDirection();
-  const [hovered, setHovered] = import_react229.useState(false);
+  const [hovered, setHovered] = import_react233.useState(false);
   const [_value, setValue] = useUncontrolled({
     value: typeof value === "number" ? clamp(value, min2, max2) : value,
     defaultValue: typeof defaultValue === "number" ? clamp(defaultValue, min2, max2) : defaultValue,
     finalValue: clamp(0, min2, max2),
     onChange
   });
-  const valueRef = import_react229.useRef(_value);
-  const onChangeEndRef = import_react229.useRef(onChangeEnd);
-  import_react229.useEffect(() => {
+  const valueRef = import_react233.useRef(_value);
+  const onChangeEndRef = import_react233.useRef(onChangeEnd);
+  import_react233.useEffect(() => {
     onChangeEndRef.current = onChangeEnd;
   }, [onChangeEnd]);
-  const root2 = import_react229.useRef(null);
-  const thumb = import_react229.useRef(null);
+  const root2 = import_react233.useRef(null);
+  const thumb = import_react233.useRef(null);
   const position2 = getPosition({ value: _value, min: min2, max: max2 });
   const scaledValue = scale(_value);
   const _label = typeof label === "function" ? label(scaledValue) : label;
   const precision = _precision ?? getPrecision(step);
-  const handleChange = import_react229.useCallback(({ x: x2 }) => {
+  const handleChange = import_react233.useCallback(({ x: x2 }) => {
     if (!disabled) {
       const nextValue = getChangeValue({
         value: x2,
@@ -47705,14 +48104,14 @@ var Slider = factory((_props, ref) => {
       valueRef.current = nextValue;
     }
   }, [disabled, min2, max2, step, precision, setValue, marks, restrictToMarks]);
-  const handleScrubEnd = import_react229.useCallback(() => {
+  const handleScrubEnd = import_react233.useCallback(() => {
     if (!disabled && onChangeEndRef.current) {
       const finalValue = restrictToMarks && marks?.length ? findClosestNumber(valueRef.current, marks.map((mark) => mark.value)) : valueRef.current;
       onChangeEndRef.current(finalValue);
     }
   }, [disabled, marks, restrictToMarks]);
   const { ref: container, active } = useMove(handleChange, { onScrubEnd: handleScrubEnd }, dir);
-  const callOnChangeEnd = import_react229.useCallback((value2) => {
+  const callOnChangeEnd = import_react233.useCallback((value2) => {
     if (!disabled && onChangeEndRef.current) {
       onChangeEndRef.current(value2);
     }
@@ -47803,7 +48202,7 @@ var Slider = factory((_props, ref) => {
       }
     }
   };
-  return /* @__PURE__ */ import_jsx_runtime185.jsx(SliderProvider, { value: { getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime185.jsxs(SliderRoot, {
+  return /* @__PURE__ */ import_jsx_runtime186.jsx(SliderProvider, { value: { getStyles: getStyles2 }, children: /* @__PURE__ */ import_jsx_runtime186.jsxs(SliderRoot, {
     ...others,
     ref: useMergedRef(ref, root2),
     onKeyDownCapture: handleTrackKeydownCapture,
@@ -47811,7 +48210,7 @@ var Slider = factory((_props, ref) => {
     size: size4,
     disabled,
     children: [
-      /* @__PURE__ */ import_jsx_runtime185.jsx(Track, {
+      /* @__PURE__ */ import_jsx_runtime186.jsx(Track, {
         inverted,
         offset: 0,
         filled: position2,
@@ -47825,7 +48224,7 @@ var Slider = factory((_props, ref) => {
           onMouseEnter: showLabelOnHover ? () => setHovered(true) : undefined,
           onMouseLeave: showLabelOnHover ? () => setHovered(false) : undefined
         },
-        children: /* @__PURE__ */ import_jsx_runtime185.jsx(Thumb2, {
+        children: /* @__PURE__ */ import_jsx_runtime186.jsx(Thumb2, {
           max: max2,
           min: min2,
           value: scaledValue,
@@ -47843,15 +48242,15 @@ var Slider = factory((_props, ref) => {
           children: thumbChildren
         })
       }),
-      /* @__PURE__ */ import_jsx_runtime185.jsx("input", { type: "hidden", name, value: scaledValue, ...hiddenInputProps })
+      /* @__PURE__ */ import_jsx_runtime186.jsx("input", { type: "hidden", name, value: scaledValue, ...hiddenInputProps })
     ]
   }) });
 });
 Slider.classes = classes36;
 Slider.displayName = "@mantine/core/Slider";
 // node_modules/@mantine/core/esm/components/Stack/Stack.mjs
-var import_jsx_runtime186 = __toESM(require_jsx_runtime(), 1);
-var import_react230 = __toESM(require_react(), 1);
+var import_jsx_runtime187 = __toESM(require_jsx_runtime(), 1);
+var import_react234 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Stack/Stack.module.css.mjs
 "use client";
@@ -47859,7 +48258,7 @@ var classes37 = { root: "m_6d731127" };
 
 // node_modules/@mantine/core/esm/components/Stack/Stack.mjs
 "use client";
-var defaultProps91 = {
+var defaultProps92 = {
   gap: "md",
   align: "stretch",
   justify: "flex-start"
@@ -47872,7 +48271,7 @@ var varsResolver39 = createVarsResolver((_2, { gap, align, justify }) => ({
   }
 }));
 var Stack = factory((_props, ref) => {
-  const props = useProps("Stack", defaultProps91, _props);
+  const props = useProps("Stack", defaultProps92, _props);
   const {
     classNames,
     className,
@@ -47898,28 +48297,28 @@ var Stack = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver39
   });
-  return /* @__PURE__ */ import_jsx_runtime186.jsx(Box, { ref, ...getStyles2("root"), variant, ...others });
+  return /* @__PURE__ */ import_jsx_runtime187.jsx(Box, { ref, ...getStyles2("root"), variant, ...others });
 });
 Stack.classes = classes37;
 Stack.displayName = "@mantine/core/Stack";
 // node_modules/@mantine/core/esm/components/Switch/Switch.mjs
-var import_jsx_runtime188 = __toESM(require_jsx_runtime(), 1);
-var import_react233 = __toESM(require_react(), 1);
+var import_jsx_runtime189 = __toESM(require_jsx_runtime(), 1);
+var import_react237 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Switch/SwitchGroup.context.mjs
-var import_react231 = __toESM(require_react(), 1);
+var import_react235 = __toESM(require_react(), 1);
 "use client";
-var SwitchGroupContext = import_react231.createContext(null);
+var SwitchGroupContext = import_react235.createContext(null);
 var SwitchGroupProvider = SwitchGroupContext.Provider;
-var useSwitchGroupContext = () => import_react231.useContext(SwitchGroupContext);
+var useSwitchGroupContext = () => import_react235.useContext(SwitchGroupContext);
 
 // node_modules/@mantine/core/esm/components/Switch/SwitchGroup/SwitchGroup.mjs
-var import_jsx_runtime187 = __toESM(require_jsx_runtime(), 1);
-var import_react232 = __toESM(require_react(), 1);
+var import_jsx_runtime188 = __toESM(require_jsx_runtime(), 1);
+var import_react236 = __toESM(require_react(), 1);
 "use client";
-var defaultProps92 = {};
+var defaultProps93 = {};
 var SwitchGroup = factory((props, ref) => {
-  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("SwitchGroup", defaultProps92, props);
+  const { value, defaultValue, onChange, size: size4, wrapperProps, children, readOnly, ...others } = useProps("SwitchGroup", defaultProps93, props);
   const [_value, setValue] = useUncontrolled({
     value,
     defaultValue,
@@ -47930,14 +48329,14 @@ var SwitchGroup = factory((props, ref) => {
     const itemValue = event.currentTarget.value;
     !readOnly && setValue(_value.includes(itemValue) ? _value.filter((item) => item !== itemValue) : [..._value, itemValue]);
   };
-  return /* @__PURE__ */ import_jsx_runtime187.jsx(SwitchGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime187.jsx(Input.Wrapper, {
+  return /* @__PURE__ */ import_jsx_runtime188.jsx(SwitchGroupProvider, { value: { value: _value, onChange: handleChange, size: size4 }, children: /* @__PURE__ */ import_jsx_runtime188.jsx(Input.Wrapper, {
     size: size4,
     ref,
     ...wrapperProps,
     ...others,
     labelElement: "div",
     __staticSelector: "SwitchGroup",
-    children: /* @__PURE__ */ import_jsx_runtime187.jsx(InputsGroupFieldset, { role: "group", children })
+    children: /* @__PURE__ */ import_jsx_runtime188.jsx(InputsGroupFieldset, { role: "group", children })
   }) });
 });
 SwitchGroup.classes = Input.Wrapper.classes;
@@ -47949,7 +48348,7 @@ var classes38 = { root: "m_5f93f3bb", input: "m_926b4011", track: "m_9307d992", 
 
 // node_modules/@mantine/core/esm/components/Switch/Switch.mjs
 "use client";
-var defaultProps93 = {
+var defaultProps94 = {
   labelPosition: "right"
 };
 var varsResolver40 = createVarsResolver((theme, { radius, color, size: size4 }) => ({
@@ -47964,7 +48363,7 @@ var varsResolver40 = createVarsResolver((theme, { radius, color, size: size4 }) 
   }
 }));
 var Switch = factory((_props, ref) => {
-  const props = useProps("Switch", defaultProps93, _props);
+  const props = useProps("Switch", defaultProps94, _props);
   const {
     classNames,
     className,
@@ -48018,7 +48417,7 @@ var Switch = factory((_props, ref) => {
     defaultValue: defaultChecked,
     finalValue: false
   });
-  return /* @__PURE__ */ import_jsx_runtime188.jsxs(InlineInput, {
+  return /* @__PURE__ */ import_jsx_runtime189.jsxs(InlineInput, {
     ...getStyles2("root"),
     __staticSelector: "Switch",
     __stylesApiProps: props,
@@ -48041,7 +48440,7 @@ var Switch = factory((_props, ref) => {
     ...styleProps,
     ...wrapperProps,
     children: [
-      /* @__PURE__ */ import_jsx_runtime188.jsx("input", {
+      /* @__PURE__ */ import_jsx_runtime189.jsx("input", {
         ...rest,
         disabled,
         checked: _checked,
@@ -48056,13 +48455,13 @@ var Switch = factory((_props, ref) => {
         role: "switch",
         ...getStyles2("input")
       }),
-      /* @__PURE__ */ import_jsx_runtime188.jsxs(Box, {
+      /* @__PURE__ */ import_jsx_runtime189.jsxs(Box, {
         "aria-hidden": "true",
         mod: { error, "label-position": labelPosition, "without-labels": !onLabel && !offLabel },
         ...getStyles2("track"),
         children: [
-          /* @__PURE__ */ import_jsx_runtime188.jsx(Box, { component: "span", mod: "reduce-motion", ...getStyles2("thumb"), children: thumbIcon }),
-          /* @__PURE__ */ import_jsx_runtime188.jsx("span", { ...getStyles2("trackLabel"), children: _checked ? onLabel : offLabel })
+          /* @__PURE__ */ import_jsx_runtime189.jsx(Box, { component: "span", mod: "reduce-motion", ...getStyles2("thumb"), children: thumbIcon }),
+          /* @__PURE__ */ import_jsx_runtime189.jsx("span", { ...getStyles2("trackLabel"), children: _checked ? onLabel : offLabel })
         ]
       })
     ]
@@ -48072,16 +48471,16 @@ Switch.classes = { ...classes38, ...InlineInputClasses };
 Switch.displayName = "@mantine/core/Switch";
 Switch.Group = SwitchGroup;
 // node_modules/@mantine/core/esm/components/Table/Table.mjs
-var import_jsx_runtime193 = __toESM(require_jsx_runtime(), 1);
-var import_react237 = __toESM(require_react(), 1);
+var import_jsx_runtime194 = __toESM(require_jsx_runtime(), 1);
+var import_react241 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Table/Table.components.mjs
-var import_jsx_runtime190 = __toESM(require_jsx_runtime(), 1);
-var import_react235 = __toESM(require_react(), 1);
+var import_jsx_runtime191 = __toESM(require_jsx_runtime(), 1);
+var import_react239 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Table/Table.context.mjs
-var import_react234 = __toESM(require_react(), 1);
-var import_jsx_runtime189 = __toESM(require_jsx_runtime(), 1);
+var import_react238 = __toESM(require_react(), 1);
+var import_jsx_runtime190 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var [TableProvider, useTableContext] = createSafeContext("Table component was not found in the tree");
 
@@ -48122,7 +48521,7 @@ function tableElement(element, options) {
     const props = useProps(name, {}, _props);
     const { classNames, className, style: style2, styles, ...others } = props;
     const ctx = useTableContext();
-    return /* @__PURE__ */ import_jsx_runtime190.jsx(Box, {
+    return /* @__PURE__ */ import_jsx_runtime191.jsx(Box, {
       component: element,
       ref,
       ...getDataAttributes(ctx, options),
@@ -48147,23 +48546,23 @@ var TableTfoot = tableElement("tfoot");
 var TableCaption = tableElement("caption", { captionSide: true });
 
 // node_modules/@mantine/core/esm/components/Table/TableDataRenderer.mjs
-var import_jsx_runtime191 = __toESM(require_jsx_runtime(), 1);
+var import_jsx_runtime192 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function TableDataRenderer({ data }) {
-  return /* @__PURE__ */ import_jsx_runtime191.jsxs(import_jsx_runtime191.Fragment, { children: [
-    data.caption && /* @__PURE__ */ import_jsx_runtime191.jsx(TableCaption, { children: data.caption }),
-    data.head && /* @__PURE__ */ import_jsx_runtime191.jsx(TableThead, { children: /* @__PURE__ */ import_jsx_runtime191.jsx(TableTr, { children: data.head.map((item, index4) => /* @__PURE__ */ import_jsx_runtime191.jsx(TableTh, { children: item }, index4)) }) }),
-    data.body && /* @__PURE__ */ import_jsx_runtime191.jsx(TableTbody, { children: data.body.map((row, rowIndex) => /* @__PURE__ */ import_jsx_runtime191.jsx(TableTr, { children: row.map((item, index4) => /* @__PURE__ */ import_jsx_runtime191.jsx(TableTd, { children: item }, index4)) }, rowIndex)) }),
-    data.foot && /* @__PURE__ */ import_jsx_runtime191.jsx(TableTfoot, { children: /* @__PURE__ */ import_jsx_runtime191.jsx(TableTr, { children: data.foot.map((item, index4) => /* @__PURE__ */ import_jsx_runtime191.jsx(TableTh, { children: item }, index4)) }) })
+  return /* @__PURE__ */ import_jsx_runtime192.jsxs(import_jsx_runtime192.Fragment, { children: [
+    data.caption && /* @__PURE__ */ import_jsx_runtime192.jsx(TableCaption, { children: data.caption }),
+    data.head && /* @__PURE__ */ import_jsx_runtime192.jsx(TableThead, { children: /* @__PURE__ */ import_jsx_runtime192.jsx(TableTr, { children: data.head.map((item, index6) => /* @__PURE__ */ import_jsx_runtime192.jsx(TableTh, { children: item }, index6)) }) }),
+    data.body && /* @__PURE__ */ import_jsx_runtime192.jsx(TableTbody, { children: data.body.map((row, rowIndex) => /* @__PURE__ */ import_jsx_runtime192.jsx(TableTr, { children: row.map((item, index6) => /* @__PURE__ */ import_jsx_runtime192.jsx(TableTd, { children: item }, index6)) }, rowIndex)) }),
+    data.foot && /* @__PURE__ */ import_jsx_runtime192.jsx(TableTfoot, { children: /* @__PURE__ */ import_jsx_runtime192.jsx(TableTr, { children: data.foot.map((item, index6) => /* @__PURE__ */ import_jsx_runtime192.jsx(TableTh, { children: item }, index6)) }) })
   ] });
 }
 TableDataRenderer.displayName = "@mantine/core/TableDataRenderer";
 
 // node_modules/@mantine/core/esm/components/Table/TableScrollContainer.mjs
-var import_jsx_runtime192 = __toESM(require_jsx_runtime(), 1);
-var import_react236 = __toESM(require_react(), 1);
+var import_jsx_runtime193 = __toESM(require_jsx_runtime(), 1);
+var import_react240 = __toESM(require_react(), 1);
 "use client";
-var defaultProps94 = {
+var defaultProps95 = {
   type: "scrollarea"
 };
 var varsResolver41 = createVarsResolver((_2, { minWidth, maxHeight, type }) => ({
@@ -48174,7 +48573,7 @@ var varsResolver41 = createVarsResolver((_2, { minWidth, maxHeight, type }) => (
   }
 }));
 var TableScrollContainer = factory((_props, ref) => {
-  const props = useProps("TableScrollContainer", defaultProps94, _props);
+  const props = useProps("TableScrollContainer", defaultProps95, _props);
   const {
     classNames,
     className,
@@ -48201,13 +48600,13 @@ var TableScrollContainer = factory((_props, ref) => {
     varsResolver: varsResolver41,
     rootSelector: "scrollContainer"
   });
-  return /* @__PURE__ */ import_jsx_runtime192.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime193.jsx(Box, {
     component: type === "scrollarea" ? ScrollArea : "div",
     ...type === "scrollarea" ? maxHeight ? { offsetScrollbars: "xy" } : { offsetScrollbars: "x" } : {},
     ref,
     ...getStyles2("scrollContainer"),
     ...others,
-    children: /* @__PURE__ */ import_jsx_runtime192.jsx("div", { ...getStyles2("scrollContainerInner"), children })
+    children: /* @__PURE__ */ import_jsx_runtime193.jsx("div", { ...getStyles2("scrollContainerInner"), children })
   });
 });
 TableScrollContainer.classes = classes39;
@@ -48215,7 +48614,7 @@ TableScrollContainer.displayName = "@mantine/core/TableScrollContainer";
 
 // node_modules/@mantine/core/esm/components/Table/Table.mjs
 "use client";
-var defaultProps95 = {
+var defaultProps96 = {
   withRowBorders: true,
   verticalSpacing: 7
 };
@@ -48244,7 +48643,7 @@ var varsResolver42 = createVarsResolver((theme, {
   }
 }));
 var Table = factory((_props, ref) => {
-  const props = useProps("Table", defaultProps95, _props);
+  const props = useProps("Table", defaultProps96, _props);
   const {
     classNames,
     className,
@@ -48286,7 +48685,7 @@ var Table = factory((_props, ref) => {
     vars,
     varsResolver: varsResolver42
   });
-  return /* @__PURE__ */ import_jsx_runtime193.jsx(TableProvider, {
+  return /* @__PURE__ */ import_jsx_runtime194.jsx(TableProvider, {
     value: {
       getStyles: getStyles2,
       stickyHeader,
@@ -48296,14 +48695,14 @@ var Table = factory((_props, ref) => {
       withRowBorders,
       captionSide: captionSide || "bottom"
     },
-    children: /* @__PURE__ */ import_jsx_runtime193.jsx(Box, {
+    children: /* @__PURE__ */ import_jsx_runtime194.jsx(Box, {
       component: "table",
       variant,
       ref,
       mod: [{ "data-with-table-border": withTableBorder, "data-tabular-nums": tabularNums }, mod],
       ...getStyles2("table"),
       ...others,
-      children: children || !!data && /* @__PURE__ */ import_jsx_runtime193.jsx(TableDataRenderer, { data })
+      children: children || !!data && /* @__PURE__ */ import_jsx_runtime194.jsx(TableDataRenderer, { data })
     })
   });
 });
@@ -48319,23 +48718,23 @@ Table.Caption = TableCaption;
 Table.ScrollContainer = TableScrollContainer;
 Table.DataRenderer = TableDataRenderer;
 // node_modules/@mantine/core/esm/components/TextInput/TextInput.mjs
-var import_jsx_runtime194 = __toESM(require_jsx_runtime(), 1);
-var import_react238 = __toESM(require_react(), 1);
+var import_jsx_runtime195 = __toESM(require_jsx_runtime(), 1);
+var import_react242 = __toESM(require_react(), 1);
 "use client";
-var defaultProps96 = {};
+var defaultProps97 = {};
 var TextInput = factory((props, ref) => {
-  const _props = useProps("TextInput", defaultProps96, props);
-  return /* @__PURE__ */ import_jsx_runtime194.jsx(InputBase, { component: "input", ref, ..._props, __staticSelector: "TextInput" });
+  const _props = useProps("TextInput", defaultProps97, props);
+  return /* @__PURE__ */ import_jsx_runtime195.jsx(InputBase, { component: "input", ref, ..._props, __staticSelector: "TextInput" });
 });
 TextInput.classes = InputBase.classes;
 TextInput.displayName = "@mantine/core/TextInput";
 // node_modules/@mantine/core/esm/components/Title/Title.mjs
-var import_jsx_runtime196 = __toESM(require_jsx_runtime(), 1);
-var import_react240 = __toESM(require_react(), 1);
+var import_jsx_runtime197 = __toESM(require_jsx_runtime(), 1);
+var import_react244 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Title/get-title-size.mjs
-var import_react239 = __toESM(require_react(), 1);
-var import_jsx_runtime195 = __toESM(require_jsx_runtime(), 1);
+var import_react243 = __toESM(require_react(), 1);
+var import_jsx_runtime196 = __toESM(require_jsx_runtime(), 1);
 "use client";
 var headings3 = ["h1", "h2", "h3", "h4", "h5", "h6"];
 var sizes = ["xs", "sm", "md", "lg", "xl"];
@@ -48367,7 +48766,7 @@ var classes40 = { root: "m_8a5d1357" };
 
 // node_modules/@mantine/core/esm/components/Title/Title.mjs
 "use client";
-var defaultProps97 = {
+var defaultProps98 = {
   order: 1
 };
 var varsResolver43 = createVarsResolver((_2, { order, size: size4, lineClamp, textWrap }) => {
@@ -48383,7 +48782,7 @@ var varsResolver43 = createVarsResolver((_2, { order, size: size4, lineClamp, te
   };
 });
 var Title = factory((_props, ref) => {
-  const props = useProps("Title", defaultProps97, _props);
+  const props = useProps("Title", defaultProps98, _props);
   const {
     classNames,
     className,
@@ -48414,7 +48813,7 @@ var Title = factory((_props, ref) => {
   if (![1, 2, 3, 4, 5, 6].includes(order)) {
     return null;
   }
-  return /* @__PURE__ */ import_jsx_runtime196.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime197.jsx(Box, {
     ...getStyles2("root"),
     component: `h${order}`,
     variant,
@@ -48427,12 +48826,12 @@ var Title = factory((_props, ref) => {
 Title.classes = classes40;
 Title.displayName = "@mantine/core/Title";
 // node_modules/@mantine/core/esm/components/Tree/Tree.mjs
-var import_jsx_runtime200 = __toESM(require_jsx_runtime(), 1);
-var import_react245 = __toESM(require_react(), 1);
+var import_jsx_runtime201 = __toESM(require_jsx_runtime(), 1);
+var import_react249 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tree/TreeNode.mjs
-var import_jsx_runtime197 = __toESM(require_jsx_runtime(), 1);
-var import_react241 = __toESM(require_react(), 1);
+var import_jsx_runtime198 = __toESM(require_jsx_runtime(), 1);
+var import_react245 = __toESM(require_react(), 1);
 "use client";
 function getValuesRange(anchor, value, flatValues) {
   if (!anchor || !value) {
@@ -48459,8 +48858,8 @@ function TreeNode({
   expandOnSpace,
   checkOnSpace
 }) {
-  const ref = import_react241.useRef(null);
-  const nested = (node2.children || []).map((child) => /* @__PURE__ */ import_jsx_runtime197.jsx(TreeNode, {
+  const ref = import_react245.useRef(null);
+  const nested = (node2.children || []).map((child) => /* @__PURE__ */ import_jsx_runtime198.jsx(TreeNode, {
     node: child,
     flatValues,
     getStyles: getStyles2,
@@ -48502,11 +48901,11 @@ function TreeNode({
       event.stopPropagation();
       event.preventDefault();
       const nodes = Array.from(root2.querySelectorAll("[role=treeitem]"));
-      const index4 = nodes.indexOf(event.currentTarget);
-      if (index4 === -1) {
+      const index6 = nodes.indexOf(event.currentTarget);
+      if (index6 === -1) {
         return;
       }
-      const nextIndex = event.nativeEvent.code === "ArrowDown" ? index4 + 1 : index4 - 1;
+      const nextIndex = event.nativeEvent.code === "ArrowDown" ? index6 + 1 : index6 - 1;
       nodes[nextIndex]?.focus();
       if (event.shiftKey) {
         const selectNode = nodes[nextIndex];
@@ -48547,7 +48946,7 @@ function TreeNode({
     "data-value": node2.value,
     "data-hovered": controller.hoveredNode === node2.value || undefined
   };
-  return /* @__PURE__ */ import_jsx_runtime197.jsxs("li", {
+  return /* @__PURE__ */ import_jsx_runtime198.jsxs("li", {
     ...getStyles2("node", {
       style: { "--label-offset": `calc(var(--level-offset) * ${level - 1})` }
     }),
@@ -48577,15 +48976,15 @@ function TreeNode({
         expanded: controller.expandedState[node2.value] || false,
         hasChildren: Array.isArray(node2.children) && node2.children.length > 0,
         elementProps
-      }) : /* @__PURE__ */ import_jsx_runtime197.jsx("div", { ...elementProps, children: node2.label }),
-      controller.expandedState[node2.value] && nested.length > 0 && /* @__PURE__ */ import_jsx_runtime197.jsx("ul", { role: "group", ...getStyles2("subtree"), "data-level": level, children: nested })
+      }) : /* @__PURE__ */ import_jsx_runtime198.jsx("div", { ...elementProps, children: node2.label }),
+      controller.expandedState[node2.value] && nested.length > 0 && /* @__PURE__ */ import_jsx_runtime198.jsx("ul", { role: "group", ...getStyles2("subtree"), "data-level": level, children: nested })
     ]
   });
 }
 TreeNode.displayName = "@mantine/core/TreeNode";
 
 // node_modules/@mantine/core/esm/components/Tree/use-tree.mjs
-var import_react244 = __toESM(require_react(), 1);
+var import_react248 = __toESM(require_react(), 1);
 
 // node_modules/@mantine/core/esm/components/Tree/get-all-checked-nodes/get-all-checked-nodes.mjs
 "use client";
@@ -48668,8 +49067,8 @@ function getAllChildrenNodes(data) {
 }
 
 // node_modules/@mantine/core/esm/components/Tree/is-node-checked/is-node-checked.mjs
-var import_react242 = __toESM(require_react(), 1);
-var import_jsx_runtime198 = __toESM(require_jsx_runtime(), 1);
+var import_react246 = __toESM(require_react(), 1);
+var import_jsx_runtime199 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function isNodeChecked(value, data, checkedState) {
   if (checkedState.length === 0) {
@@ -48684,8 +49083,8 @@ function isNodeChecked(value, data, checkedState) {
 var memoizedIsNodeChecked = memoize2(isNodeChecked);
 
 // node_modules/@mantine/core/esm/components/Tree/is-node-indeterminate/is-node-indeterminate.mjs
-var import_react243 = __toESM(require_react(), 1);
-var import_jsx_runtime199 = __toESM(require_jsx_runtime(), 1);
+var import_react247 = __toESM(require_react(), 1);
+var import_jsx_runtime200 = __toESM(require_jsx_runtime(), 1);
 "use client";
 function isNodeIndeterminate(value, data, checkedState) {
   if (checkedState.length === 0) {
@@ -48720,25 +49119,25 @@ function useTree({
   onNodeCollapse,
   onNodeExpand
 } = {}) {
-  const [data, setData] = import_react244.useState([]);
-  const [expandedState, setExpandedState] = import_react244.useState(initialExpandedState);
-  const [selectedState, setSelectedState] = import_react244.useState(initialSelectedState);
-  const [checkedState, setCheckedState] = import_react244.useState(initialCheckedState);
-  const [anchorNode, setAnchorNode] = import_react244.useState(null);
-  const [hoveredNode, setHoveredNode] = import_react244.useState(null);
-  const initialize = import_react244.useCallback((_data) => {
+  const [data, setData] = import_react248.useState([]);
+  const [expandedState, setExpandedState] = import_react248.useState(initialExpandedState);
+  const [selectedState, setSelectedState] = import_react248.useState(initialSelectedState);
+  const [checkedState, setCheckedState] = import_react248.useState(initialCheckedState);
+  const [anchorNode, setAnchorNode] = import_react248.useState(null);
+  const [hoveredNode, setHoveredNode] = import_react248.useState(null);
+  const initialize = import_react248.useCallback((_data) => {
     setExpandedState((current2) => getInitialTreeExpandedState(current2, _data, selectedState));
     setCheckedState((current2) => getInitialCheckedState(current2, _data));
     setData(_data);
   }, [selectedState, checkedState]);
-  const toggleExpanded = import_react244.useCallback((value) => {
+  const toggleExpanded = import_react248.useCallback((value) => {
     setExpandedState((current2) => {
       const nextState = { ...current2, [value]: !current2[value] };
       nextState[value] ? onNodeExpand?.(value) : onNodeCollapse?.(value);
       return nextState;
     });
   }, [onNodeCollapse, onNodeExpand]);
-  const collapse = import_react244.useCallback((value) => {
+  const collapse = import_react248.useCallback((value) => {
     setExpandedState((current2) => {
       if (current2[value] !== false) {
         onNodeCollapse?.(value);
@@ -48746,7 +49145,7 @@ function useTree({
       return { ...current2, [value]: false };
     });
   }, [onNodeCollapse]);
-  const expand = import_react244.useCallback((value) => {
+  const expand = import_react248.useCallback((value) => {
     setExpandedState((current2) => {
       if (current2[value] !== true) {
         onNodeExpand?.(value);
@@ -48754,7 +49153,7 @@ function useTree({
       return { ...current2, [value]: true };
     });
   }, [onNodeExpand]);
-  const expandAllNodes = import_react244.useCallback(() => {
+  const expandAllNodes = import_react248.useCallback(() => {
     setExpandedState((current2) => {
       const next2 = { ...current2 };
       Object.keys(next2).forEach((key) => {
@@ -48763,7 +49162,7 @@ function useTree({
       return next2;
     });
   }, []);
-  const collapseAllNodes = import_react244.useCallback(() => {
+  const collapseAllNodes = import_react248.useCallback(() => {
     setExpandedState((current2) => {
       const next2 = { ...current2 };
       Object.keys(next2).forEach((key) => {
@@ -48772,7 +49171,7 @@ function useTree({
       return next2;
     });
   }, []);
-  const toggleSelected = import_react244.useCallback((value) => setSelectedState((current2) => {
+  const toggleSelected = import_react248.useCallback((value) => setSelectedState((current2) => {
     if (!multiple) {
       if (current2.includes(value)) {
         setAnchorNode(null);
@@ -48788,30 +49187,30 @@ function useTree({
     setAnchorNode(value);
     return [...current2, value];
   }), []);
-  const select = import_react244.useCallback((value) => {
+  const select = import_react248.useCallback((value) => {
     setAnchorNode(value);
     setSelectedState((current2) => multiple ? current2.includes(value) ? current2 : [...current2, value] : [value]);
   }, []);
-  const deselect = import_react244.useCallback((value) => {
+  const deselect = import_react248.useCallback((value) => {
     anchorNode === value && setAnchorNode(null);
     setSelectedState((current2) => current2.filter((item) => item !== value));
   }, []);
-  const clearSelected = import_react244.useCallback(() => {
+  const clearSelected = import_react248.useCallback(() => {
     setSelectedState([]);
     setAnchorNode(null);
   }, []);
-  const checkNode = import_react244.useCallback((value) => {
+  const checkNode = import_react248.useCallback((value) => {
     const checkedNodes = getChildrenNodesValues(value, data);
     setCheckedState((current2) => Array.from(/* @__PURE__ */ new Set([...current2, ...checkedNodes])));
   }, [data]);
-  const uncheckNode = import_react244.useCallback((value) => {
+  const uncheckNode = import_react248.useCallback((value) => {
     const checkedNodes = getChildrenNodesValues(value, data);
     setCheckedState((current2) => current2.filter((item) => !checkedNodes.includes(item)));
   }, [data]);
-  const checkAllNodes = import_react244.useCallback(() => {
+  const checkAllNodes = import_react248.useCallback(() => {
     setCheckedState(() => getAllChildrenNodes(data));
   }, [data]);
-  const uncheckAllNodes = import_react244.useCallback(() => {
+  const uncheckAllNodes = import_react248.useCallback(() => {
     setCheckedState([]);
   }, []);
   const getCheckedNodes = () => getAllCheckedNodes(data, checkedState).result;
@@ -48863,7 +49262,7 @@ function getFlatValues(data) {
     return acc;
   }, []);
 }
-var defaultProps98 = {
+var defaultProps99 = {
   expandOnClick: true,
   allowRangeSelection: true,
   expandOnSpace: true
@@ -48874,7 +49273,7 @@ var varsResolver44 = createVarsResolver((_theme, { levelOffset }) => ({
   }
 }));
 var Tree = factory((_props, ref) => {
-  const props = useProps("Tree", defaultProps98, _props);
+  const props = useProps("Tree", defaultProps99, _props);
   const {
     classNames,
     className,
@@ -48910,14 +49309,14 @@ var Tree = factory((_props, ref) => {
   });
   const clickOutsideRef = useClickOutside(() => clearSelectionOnOutsideClick && controller.clearSelected());
   const mergedRef = useMergedRef(ref, clickOutsideRef);
-  const flatValues = import_react245.useMemo(() => getFlatValues(data), [data]);
-  import_react245.useEffect(() => {
+  const flatValues = import_react249.useMemo(() => getFlatValues(data), [data]);
+  import_react249.useEffect(() => {
     controller.initialize(data);
   }, [data]);
-  const nodes = data.map((node2, index4) => /* @__PURE__ */ import_jsx_runtime200.jsx(TreeNode, {
+  const nodes = data.map((node2, index6) => /* @__PURE__ */ import_jsx_runtime201.jsx(TreeNode, {
     node: node2,
     getStyles: getStyles2,
-    rootIndex: index4,
+    rootIndex: index6,
     expandOnClick,
     selectOnClick,
     controller,
@@ -48927,7 +49326,7 @@ var Tree = factory((_props, ref) => {
     expandOnSpace,
     checkOnSpace
   }, node2.value));
-  return /* @__PURE__ */ import_jsx_runtime200.jsx(Box, {
+  return /* @__PURE__ */ import_jsx_runtime201.jsx(Box, {
     component: "ul",
     ref: mergedRef,
     ...getStyles2("root"),
@@ -48959,7 +49358,6 @@ function layoutMappingValidation(layoutMap, doc) {
     return exists;
   });
   cleanLayoutMap.variables = cleanLayoutMap.variables.filter((imageVariable) => {
-    console.log("ADGA");
     const imageVariableExists = imageVariable.id ? existingVariableIds.has(imageVariable.id) : false;
     if (!imageVariableExists && imageVariable.id) {
       report.removedVariables.push(imageVariable.id);
@@ -49048,6 +49446,7 @@ init_IconReplace();
 init_IconSearch();
 init_IconSettings();
 init_IconSparkles();
+init_IconTextSize();
 init_IconTrash();
 init_IconUpload();
 init_IconWand();
@@ -49064,20 +49463,39 @@ init_IconRosetteFilled();
 init_IconTrashFilled();
 
 // src/components/LayoutMappingModal/AddMappingImageVariableModal.tsx
-var import_react247 = __toESM(require_react(), 1);
+var import_react251 = __toESM(require_react(), 1);
+
+// src/types/layoutConfigTypes.ts
+init_dist();
+function convertDocVariableToLayoutVariable(variable) {
+  switch (variable.type) {
+    case "image":
+      return Result.ok("StudioImage");
+    case "list":
+      return Result.ok("StudioList");
+    case "shortText":
+    case "longText":
+      return Result.ok("StudioText");
+    default:
+      return Result.error(`Unsupported variable type: ${variable.type}`);
+  }
+}
+
+// src/components/LayoutMappingModal/AddMappingImageVariableModal.tsx
 var jsx_runtime = __toESM(require_jsx_runtime(), 1);
 var AddMappingImageVariableModal = ({ currentMapConfig }) => {
-  const setIsImageVariableMappingModalOpen = appStore((state) => state.effects.modal.setIsImageVariableMappingModalOpen);
+  const setIsImageVariableMappingModalOpen = appStore((state) => state.effects.modal.setIsTargetVariableMappingModalOpen);
   const setCurrentAddImageMappingSelectedVariables = appStore((state) => state.effects.modal.setCurrentAddImageMappingSelectedVariables);
-  const addImageVariable = appStore((state) => state.effects.studio.layoutImageMapping.addImageVariable);
+  const addVariable = appStore((state) => state.effects.studio.layoutImageMapping.addTargetVariable);
+  const raiseError2 = appStore((state) => state.raiseError);
   const variables = appStore((state) => state.state.studio.document.variables);
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const currentAddImageMappingSelectedVariables = appStore((state) => state.state.modal.currentAddImageMappingSelectedVariables);
-  const isAddImageVariableMappingModalOpen = appStore((state) => state.state.modal.isAddImageVariableMappingModalOpen);
-  const possibleVariableValues = import_react247.useMemo(() => {
-    const allImageVariables = variables.filter((variable) => variable.type === "image").map((variable) => ({
+  const isAddImageVariableMappingModalOpen = appStore((state) => state.state.modal.isAddTargetVariableMappingModalOpen);
+  const possibleVariableValues = import_react251.useMemo(() => {
+    const allImageVariables = variables.filter((variable) => variable.type === "image" || variable.type === "shortText" || variable.type === "longText").map((variable) => ({
       value: variable.id,
-      label: variable.name,
+      label: variable.name + " (" + variable.type + ")",
       disabled: currentMapConfig?.variables.some((v2) => v2.id === variable.id) || false
     }));
     return allImageVariables;
@@ -49091,10 +49509,21 @@ var AddMappingImageVariableModal = ({ currentMapConfig }) => {
     if (mapId == null)
       return;
     currentAddImageMappingSelectedVariables.forEach((variableId) => {
-      addImageVariable({
+      const variable = variables.find((v2) => v2.id === variableId);
+      if (!variable) {
+        raiseError2(new Error(`Variable with id ${variableId} is not found`));
+        return;
+      }
+      const variableTypeResult = convertDocVariableToLayoutVariable(variable);
+      if (!variableTypeResult.isOk()) {
+        raiseError2(new Error(variableTypeResult.error));
+        return;
+      }
+      addVariable({
         mapId,
-        imageVariable: {
+        targetVariable: {
           id: variableId,
+          type: variableTypeResult.value,
           dependentGroup: []
         }
       });
@@ -49138,6 +49567,7 @@ var AddMappingImageVariableModal = ({ currentMapConfig }) => {
 };
 
 // src/components/LayoutMappingModal/AddDependentModal.tsx
+var import_react252 = __toESM(require_react(), 1);
 var jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 var AddDependentModal = () => {
   const raiseError2 = appStore((state) => state.raiseError);
@@ -49148,24 +49578,33 @@ var AddDependentModal = () => {
   const updateDependent = appStore((state) => state.effects.studio.layoutImageMapping.updateDependent);
   const variables = appStore((state) => state.state.studio.document.variables);
   const currentSelectedVariables = appStore((state) => state.state.modal.dependentModal.currentSelectedVariables);
-  const currentImageVariableId = appStore((state) => state.state.modal.dependentModal.currentImageVariableId);
+  const currentTargetVariableId = appStore((state) => state.state.modal.dependentModal.currentTargetVariableId);
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
   const currentGroupIndex = appStore((state) => state.state.modal.dependentModal.currentGroupIndex);
   const isOpen = appStore((state) => state.state.modal.dependentModal.isOpen);
+  const allowAlways = appStore((state) => state.state.modal.dependentModal.allowAlways);
+  const [runAlways, setRunAlways] = import_react252.useState(false);
   const onClose = () => {
     setIsOpen(false);
     setCurrentGroupIndex(null);
     setCurrentSelectedVariables([]);
+    setRunAlways(false);
+  };
+  const handleRunAlwaysChange = (checked) => {
+    setRunAlways(checked);
+    if (checked) {
+      setCurrentSelectedVariables([]);
+    }
   };
   const getVariableById = (id) => {
     return variables.find((v2) => v2.id === id);
   };
   const addDependents = () => {
     const selectedVariables = currentSelectedVariables;
-    const imageVariableId = currentImageVariableId;
+    const targetVariableId = currentTargetVariableId;
     const mapId = currentSelectedMapId;
-    if (!mapId || !imageVariableId) {
-      raiseError2(new Error(`One of these are null mapId:${mapId} or imageVariableId:${imageVariableId}`));
+    if (!mapId || !targetVariableId) {
+      raiseError2(new Error(`One of these are null mapId:${mapId} or imageVariableId:${targetVariableId}`));
       return;
     }
     const groupIndex = currentGroupIndex;
@@ -49192,14 +49631,15 @@ var AddDependentModal = () => {
     if (groupIndex === null) {
       addDependentGroup({
         mapId,
-        imageVariableId,
-        dependents
+        targetVariableId,
+        dependents,
+        alwaysRun: runAlways
       });
     } else {
       dependents.forEach((dependent) => {
         updateDependent({
           mapId: currentSelectedMapId || "",
-          imageVariableId,
+          targetVariableId,
           dependentGroupIndex: groupIndex,
           dependent
         });
@@ -49217,27 +49657,38 @@ var AddDependentModal = () => {
         /* @__PURE__ */ jsx_runtime2.jsx(MultiSelect, {
           label: "Select Variable",
           placeholder: "Choose a variable",
-          data: variables.filter((variable) => variable.type !== "image" && variable.type !== "shortText").map((variable) => ({
+          data: variables.filter((variable) => variable.type === "list").map((variable) => ({
             value: variable.id,
             label: variable.name
           })),
           value: currentSelectedVariables,
           onChange: setCurrentSelectedVariables,
-          searchable: true
+          searchable: true,
+          disabled: runAlways
         }),
         /* @__PURE__ */ jsx_runtime2.jsxs(Group, {
-          justify: "flex-end",
+          justify: "space-between",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime2.jsx(Button, {
-              variant: "outline",
-              onClick: onClose,
-              children: "Close"
+            allowAlways && /* @__PURE__ */ jsx_runtime2.jsx(Checkbox, {
+              label: "Run Always",
+              checked: runAlways,
+              onChange: (event) => handleRunAlwaysChange(event.currentTarget.checked)
             }),
-            /* @__PURE__ */ jsx_runtime2.jsx(Button, {
-              onClick: addDependents,
-              disabled: currentSelectedVariables.length === 0,
-              children: "Add"
+            /* @__PURE__ */ jsx_runtime2.jsxs(Group, {
+              justify: "flex-end",
+              children: [
+                /* @__PURE__ */ jsx_runtime2.jsx(Button, {
+                  variant: "outline",
+                  onClick: onClose,
+                  children: "Close"
+                }),
+                /* @__PURE__ */ jsx_runtime2.jsx(Button, {
+                  onClick: addDependents,
+                  disabled: !runAlways && currentSelectedVariables.length === 0,
+                  children: "Add"
+                })
+              ]
             })
           ]
         })
@@ -49247,21 +49698,21 @@ var AddDependentModal = () => {
 };
 
 // src/components/LayoutMappingModal/SwapImageVariableModal.tsx
-var import_react248 = __toESM(require_react(), 1);
+var import_react253 = __toESM(require_react(), 1);
 var jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
-var SwapImageVariableModal = ({
-  currentMapConfig,
-  currentImageVariable
-}) => {
-  const setIsSwapImageVariableModalOpen = appStore((state) => state.effects.modal.setIsSwapImageVariableModalOpen);
-  const setCurrentSwapImageVariableSelected = appStore((state) => state.effects.modal.setCurrentSwapImageVariableSelected);
-  const swapImageVariable = appStore((state) => state.effects.studio.layoutImageMapping.swapImageVariable);
+var SwapTargetVariableModal = ({ currentMapConfig, currentImageVariable }) => {
+  const setIsSwapTargetVariableModalOpen = appStore((state) => state.effects.modal.setIsSwapTargetVariableModalOpen);
+  const setCurrentSwapTargetVariableSelected = appStore((state) => state.effects.modal.setCurrentSwapTargetVariableSelected);
+  const swapTargetVariable = appStore((state) => state.effects.studio.layoutImageMapping.swapTargetVariable);
   const variables = appStore((state) => state.state.studio.document.variables);
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
-  const currentSwapImageVariableSelected = appStore((state) => state.state.modal.currentSwapImageVariableSelected);
-  const isSwapImageVariableModalOpen = appStore((state) => state.state.modal.isSwapImageVariableModalOpen);
-  const possibleVariableValues = import_react248.useMemo(() => {
-    const allImageVariables = variables.filter((variable) => variable.type === "image").map((variable) => ({
+  const currentSwapTargetVariableSelected = appStore((state) => state.state.modal.currentSwapTargetVariableSelected);
+  const isSwapTargetVariableModalOpen = appStore((state) => state.state.modal.isSwapTargetVariableModalOpen);
+  const raiseError2 = appStore((state) => state.raiseError);
+  const possibleVariableValues = import_react253.useMemo(() => {
+    if (currentImageVariable == null)
+      return [];
+    const allImageVariables = variables.filter((variable) => convertDocVariableToLayoutVariable(variable).isOk() && convertDocVariableToLayoutVariable(variable).value === currentImageVariable.type).map((variable) => ({
       value: variable.id,
       label: variable.name,
       disabled: currentImageVariable && variable.id === currentImageVariable.id || currentMapConfig?.variables.some((v2) => v2.id === variable.id && (currentImageVariable ? v2.id !== currentImageVariable.id : true)) || false
@@ -49269,34 +49720,38 @@ var SwapImageVariableModal = ({
     return allImageVariables;
   }, [variables, currentMapConfig, currentImageVariable]);
   const onClose = () => {
-    setIsSwapImageVariableModalOpen(false);
-    setCurrentSwapImageVariableSelected("");
+    setIsSwapTargetVariableModalOpen(false);
+    setCurrentSwapTargetVariableSelected("");
   };
-  const handleSwapImageVariable = () => {
+  const handleSwapTargetVariable = async () => {
     const mapId = currentSelectedMapId;
-    const newImageVariableId = currentSwapImageVariableSelected;
+    const newImageVariableId = currentSwapTargetVariableSelected;
     if (mapId == null || !currentImageVariable || !newImageVariableId)
       return;
-    swapImageVariable({
+    const swapResult = await swapTargetVariable({
       mapId,
-      oldImageVariableId: currentImageVariable.id,
-      newImageVariableId
+      oldTargetVariableId: currentImageVariable.id,
+      newTargetVariableId: newImageVariableId
     });
+    if (swapResult.isError()) {
+      raiseError2(swapResult.error);
+      return;
+    }
     onClose();
   };
   return /* @__PURE__ */ jsx_runtime3.jsx(Modal, {
-    opened: isSwapImageVariableModalOpen,
+    opened: isSwapTargetVariableModalOpen,
     onClose,
     title: "Swap Image Variable",
     centered: true,
     children: /* @__PURE__ */ jsx_runtime3.jsxs(Stack, {
       children: [
         /* @__PURE__ */ jsx_runtime3.jsx(Select, {
-          label: "Select Image Variable",
-          placeholder: "Choose an image variable to swap with",
+          label: `Select ${currentImageVariable?.type} Variable`,
+          placeholder: `Choose an ${currentImageVariable?.type} variable to swap with`,
           data: possibleVariableValues,
-          value: currentSwapImageVariableSelected,
-          onChange: (value) => value && setCurrentSwapImageVariableSelected(value),
+          value: currentSwapTargetVariableSelected,
+          onChange: (value) => value && setCurrentSwapTargetVariableSelected(value),
           searchable: true
         }),
         /* @__PURE__ */ jsx_runtime3.jsxs(Group, {
@@ -49309,8 +49764,8 @@ var SwapImageVariableModal = ({
               children: "Cancel"
             }),
             /* @__PURE__ */ jsx_runtime3.jsx(Button, {
-              onClick: handleSwapImageVariable,
-              disabled: !currentSwapImageVariableSelected,
+              onClick: handleSwapTargetVariable,
+              disabled: !currentSwapTargetVariableSelected,
               children: "Swap"
             })
           ]
@@ -49321,10 +49776,10 @@ var SwapImageVariableModal = ({
 };
 
 // src/components/LayoutMappingModal/LayoutConfigSelection.tsx
-var import_react256 = __toESM(require_react(), 1);
+var import_react262 = __toESM(require_react(), 1);
 
 // src/components/LayoutMappingModal/LayoutMultiSelect.tsx
-var import_react249 = __toESM(require_react(), 1);
+var import_react254 = __toESM(require_react(), 1);
 var jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
 var buildTreeData = (documentLayouts, selectedLayoutIds, disabledLayoutIds) => {
   const layoutsByParent = {};
@@ -49353,8 +49808,8 @@ var LayoutMultiSelect = ({
   const documentLayouts = appStore((store) => store.state.studio.document.layouts);
   const layoutImageMapping = appStore((store) => store.state.studio.layoutImageMapping);
   const setLayoutIds = appStore((store) => store.effects.studio.layoutImageMapping.setLayoutIds);
-  const [drawerOpened, setDrawerOpened] = import_react249.useState(false);
-  const [selectedLayouts, setSelectedLayouts] = import_react249.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
+  const [drawerOpened, setDrawerOpened] = import_react254.useState(false);
+  const [selectedLayouts, setSelectedLayouts] = import_react254.useState(layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds || []);
   const assignedToOtherMaps = layoutImageMapping.filter((map) => map.id !== layoutConfig.id).flatMap((map) => map.layoutIds);
   const handleMultiSelectChange = (updateLayoutIds) => {
     setLayoutIds({
@@ -49375,7 +49830,7 @@ var LayoutMultiSelect = ({
       }
     });
   };
-  const treeData = buildTreeData(documentLayouts, selectedLayouts, assignedToOtherMaps);
+  const treeData = buildTreeData(documentLayouts, selectedLayouts, []);
   const renderTreeNode = ({
     node: node2,
     expanded,
@@ -49428,8 +49883,7 @@ var LayoutMultiSelect = ({
             data: documentLayouts.map((layout) => {
               return {
                 value: layout.id,
-                label: layout.name,
-                disabled: assignedToOtherMaps.includes(layout.id)
+                label: layout.name
               };
             }),
             value: layoutImageMapping.find((lc) => lc.id === layoutConfig.id)?.layoutIds,
@@ -49490,7 +49944,7 @@ var LayoutMultiSelect = ({
         onClose: () => setDrawerOpened(false),
         title: "Select Layouts",
         position: "right",
-        size: "md",
+        size: "lg",
         padding: "md",
         children: [
           /* @__PURE__ */ jsx_runtime4.jsx("div", {
@@ -49513,20 +49967,20 @@ var LayoutMultiSelect = ({
 };
 
 // src/components/LayoutMappingModal/VariableCard.tsx
-var import_react255 = __toESM(require_react(), 1);
+var import_react260 = __toESM(require_react(), 1);
 init_dist();
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var import_react252 = __toESM(require_react(), 1);
+var import_react257 = __toESM(require_react(), 1);
 var import_react_dom5 = __toESM(require_react_dom(), 1);
 
 // node_modules/@dnd-kit/utilities/dist/utilities.esm.js
-var import_react250 = __toESM(require_react(), 1);
+var import_react255 = __toESM(require_react(), 1);
 function useCombinedRefs() {
   for (var _len = arguments.length, refs = new Array(_len), _key = 0;_key < _len; _key++) {
     refs[_key] = arguments[_key];
   }
-  return import_react250.useMemo(() => (node2) => {
+  return import_react255.useMemo(() => (node2) => {
     refs.forEach((ref) => ref(node2));
   }, refs);
 }
@@ -49584,13 +50038,13 @@ function getOwnerDocument(target) {
   }
   return document;
 }
-var useIsomorphicLayoutEffect2 = canUseDOM2 ? import_react250.useLayoutEffect : import_react250.useEffect;
+var useIsomorphicLayoutEffect2 = canUseDOM2 ? import_react255.useLayoutEffect : import_react255.useEffect;
 function useEvent(handler) {
-  const handlerRef = import_react250.useRef(handler);
+  const handlerRef = import_react255.useRef(handler);
   useIsomorphicLayoutEffect2(() => {
     handlerRef.current = handler;
   });
-  return import_react250.useCallback(function() {
+  return import_react255.useCallback(function() {
     for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
       args[_key] = arguments[_key];
     }
@@ -49598,11 +50052,11 @@ function useEvent(handler) {
   }, []);
 }
 function useInterval() {
-  const intervalRef = import_react250.useRef(null);
-  const set2 = import_react250.useCallback((listener, duration) => {
+  const intervalRef = import_react255.useRef(null);
+  const set2 = import_react255.useCallback((listener, duration) => {
     intervalRef.current = setInterval(listener, duration);
   }, []);
-  const clear = import_react250.useCallback(() => {
+  const clear = import_react255.useCallback(() => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -49614,7 +50068,7 @@ function useLatestValue(value, dependencies) {
   if (dependencies === undefined) {
     dependencies = [value];
   }
-  const valueRef = import_react250.useRef(value);
+  const valueRef = import_react255.useRef(value);
   useIsomorphicLayoutEffect2(() => {
     if (valueRef.current !== value) {
       valueRef.current = value;
@@ -49623,8 +50077,8 @@ function useLatestValue(value, dependencies) {
   return valueRef;
 }
 function useLazyMemo(callback, dependencies) {
-  const valueRef = import_react250.useRef();
-  return import_react250.useMemo(() => {
+  const valueRef = import_react255.useRef();
+  return import_react255.useMemo(() => {
     const newValue = callback(valueRef.current);
     valueRef.current = newValue;
     return newValue;
@@ -49632,8 +50086,8 @@ function useLazyMemo(callback, dependencies) {
 }
 function useNodeRef(onChange) {
   const onChangeHandler = useEvent(onChange);
-  const node2 = import_react250.useRef(null);
-  const setNodeRef = import_react250.useCallback((element) => {
+  const node2 = import_react255.useRef(null);
+  const setNodeRef = import_react255.useCallback((element) => {
     if (element !== node2.current) {
       onChangeHandler == null || onChangeHandler(element, node2.current);
     }
@@ -49642,15 +50096,15 @@ function useNodeRef(onChange) {
   return [node2, setNodeRef];
 }
 function usePrevious2(value) {
-  const ref = import_react250.useRef();
-  import_react250.useEffect(() => {
+  const ref = import_react255.useRef();
+  import_react255.useEffect(() => {
     ref.current = value;
   }, [value]);
   return ref.current;
 }
 var ids = {};
 function useUniqueId(prefix3, value) {
-  return import_react250.useMemo(() => {
+  return import_react255.useMemo(() => {
     if (value) {
       return value;
     }
@@ -49784,7 +50238,7 @@ function findFirstFocusableNode(element) {
 }
 
 // node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js
-var import_react251 = __toESM(require_react(), 1);
+var import_react256 = __toESM(require_react(), 1);
 var hiddenStyles = {
   display: "none"
 };
@@ -49793,7 +50247,7 @@ function HiddenText(_ref) {
     id,
     value
   } = _ref;
-  return import_react251.default.createElement("div", {
+  return import_react256.default.createElement("div", {
     id,
     style: hiddenStyles
   }, value);
@@ -49818,7 +50272,7 @@ function LiveRegion(_ref) {
     clipPath: "inset(100%)",
     whiteSpace: "nowrap"
   };
-  return import_react251.default.createElement("div", {
+  return import_react256.default.createElement("div", {
     id,
     style: visuallyHidden,
     role: "status",
@@ -49827,8 +50281,8 @@ function LiveRegion(_ref) {
   }, announcement);
 }
 function useAnnouncement() {
-  const [announcement, setAnnouncement] = import_react251.useState("");
-  const announce = import_react251.useCallback((value) => {
+  const [announcement, setAnnouncement] = import_react256.useState("");
+  const announce = import_react256.useCallback((value) => {
     if (value != null) {
       setAnnouncement(value);
     }
@@ -49840,10 +50294,10 @@ function useAnnouncement() {
 }
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
-var DndMonitorContext = /* @__PURE__ */ import_react252.createContext(null);
+var DndMonitorContext = /* @__PURE__ */ import_react257.createContext(null);
 function useDndMonitor(listener) {
-  const registerListener = import_react252.useContext(DndMonitorContext);
-  import_react252.useEffect(() => {
+  const registerListener = import_react257.useContext(DndMonitorContext);
+  import_react257.useEffect(() => {
     if (!registerListener) {
       throw new Error("useDndMonitor must be used within a children of <DndContext>");
     }
@@ -49852,12 +50306,12 @@ function useDndMonitor(listener) {
   }, [listener, registerListener]);
 }
 function useDndMonitorProvider() {
-  const [listeners] = import_react252.useState(() => new Set);
-  const registerListener = import_react252.useCallback((listener) => {
+  const [listeners] = import_react257.useState(() => new Set);
+  const registerListener = import_react257.useCallback((listener) => {
     listeners.add(listener);
     return () => listeners.delete(listener);
   }, [listeners]);
-  const dispatch = import_react252.useCallback((_ref) => {
+  const dispatch = import_react257.useCallback((_ref) => {
     let {
       type,
       event
@@ -49922,11 +50376,11 @@ function Accessibility(_ref) {
     announcement
   } = useAnnouncement();
   const liveRegionId = useUniqueId("DndLiveRegion");
-  const [mounted, setMounted] = import_react252.useState(false);
-  import_react252.useEffect(() => {
+  const [mounted, setMounted] = import_react257.useState(false);
+  import_react257.useEffect(() => {
     setMounted(true);
   }, []);
-  useDndMonitor(import_react252.useMemo(() => ({
+  useDndMonitor(import_react257.useMemo(() => ({
     onDragStart(_ref2) {
       let {
         active
@@ -49981,10 +50435,10 @@ function Accessibility(_ref) {
   if (!mounted) {
     return null;
   }
-  const markup = import_react252.default.createElement(import_react252.default.Fragment, null, import_react252.default.createElement(HiddenText, {
+  const markup = import_react257.default.createElement(import_react257.default.Fragment, null, import_react257.default.createElement(HiddenText, {
     id: hiddenTextDescribedById,
     value: screenReaderInstructions.draggable
-  }), import_react252.default.createElement(LiveRegion, {
+  }), import_react257.default.createElement(LiveRegion, {
     id: liveRegionId,
     announcement
   }));
@@ -50001,10 +50455,10 @@ var Action;
   Action2["SetDroppableDisabled"] = "setDroppableDisabled";
   Action2["UnregisterDroppable"] = "unregisterDroppable";
 })(Action || (Action = {}));
-function noop6() {
+function noop8() {
 }
 function useSensor(sensor, options) {
-  return import_react252.useMemo(() => ({
+  return import_react257.useMemo(() => ({
     sensor,
     options: options != null ? options : {}
   }), [sensor, options]);
@@ -50013,7 +50467,7 @@ function useSensors() {
   for (var _len = arguments.length, sensors = new Array(_len), _key = 0;_key < _len; _key++) {
     sensors[_key] = arguments[_key];
   }
-  return import_react252.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
+  return import_react257.useMemo(() => [...sensors].filter((sensor) => sensor != null), [...sensors]);
 }
 var defaultCoordinates = /* @__PURE__ */ Object.freeze({
   x: 0,
@@ -50129,8 +50583,8 @@ var closestCorners = (_ref) => {
     const rect = droppableRects.get(id);
     if (rect) {
       const rectCorners = cornersOfRectangle(rect);
-      const distances = corners.reduce((accumulator, corner, index4) => {
-        return accumulator + distanceBetween(rectCorners[index4], corner);
+      const distances = corners.reduce((accumulator, corner, index6) => {
+        return accumulator + distanceBetween(rectCorners[index6], corner);
       }, 0);
       const effectiveDistance = Number((distances / 4).toFixed(4));
       collisions.push({
@@ -51196,14 +51650,14 @@ class TouchSensor extends AbstractPointerSensor {
     super(props, events$2);
   }
   static setup() {
-    window.addEventListener(events$2.move.name, noop7, {
+    window.addEventListener(events$2.move.name, noop9, {
       capture: false,
       passive: false
     });
     return function teardown() {
-      window.removeEventListener(events$2.move.name, noop7);
+      window.removeEventListener(events$2.move.name, noop9);
     };
-    function noop7() {
+    function noop9() {
     }
   }
 }
@@ -51258,15 +51712,15 @@ function useAutoScroller(_ref) {
     disabled: !enabled
   });
   const [setAutoScrollInterval, clearAutoScrollInterval] = useInterval();
-  const scrollSpeed = import_react252.useRef({
+  const scrollSpeed = import_react257.useRef({
     x: 0,
     y: 0
   });
-  const scrollDirection = import_react252.useRef({
+  const scrollDirection = import_react257.useRef({
     x: 0,
     y: 0
   });
-  const rect = import_react252.useMemo(() => {
+  const rect = import_react257.useMemo(() => {
     switch (activator) {
       case AutoScrollActivator.Pointer:
         return pointerCoordinates ? {
@@ -51279,8 +51733,8 @@ function useAutoScroller(_ref) {
         return draggingRect;
     }
   }, [activator, draggingRect, pointerCoordinates]);
-  const scrollContainerRef = import_react252.useRef(null);
-  const autoScroll = import_react252.useCallback(() => {
+  const scrollContainerRef = import_react257.useRef(null);
+  const autoScroll = import_react257.useCallback(() => {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) {
       return;
@@ -51289,8 +51743,8 @@ function useAutoScroller(_ref) {
     const scrollTop = scrollSpeed.current.y * scrollDirection.current.y;
     scrollContainer.scrollBy(scrollLeft, scrollTop);
   }, []);
-  const sortedScrollableAncestors = import_react252.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
-  import_react252.useEffect(() => {
+  const sortedScrollableAncestors = import_react257.useMemo(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
+  import_react257.useEffect(() => {
     if (!enabled || !scrollableAncestors.length || !rect) {
       clearAutoScrollInterval();
       return;
@@ -51299,8 +51753,8 @@ function useAutoScroller(_ref) {
       if ((canScroll == null ? undefined : canScroll(scrollContainer)) === false) {
         continue;
       }
-      const index4 = scrollableAncestors.indexOf(scrollContainer);
-      const scrollContainerRect = scrollableAncestorRects[index4];
+      const index6 = scrollableAncestors.indexOf(scrollContainer);
+      const scrollContainerRect = scrollableAncestorRects[index6];
       if (!scrollContainerRect) {
         continue;
       }
@@ -51396,7 +51850,7 @@ function useCachedNode(draggableNodes, id) {
   }, [node2, id]);
 }
 function useCombineActivators(sensors, getSyntheticHandler) {
-  return import_react252.useMemo(() => sensors.reduce((accumulator, sensor) => {
+  return import_react257.useMemo(() => sensors.reduce((accumulator, sensor) => {
     const {
       sensor: Sensor
     } = sensor;
@@ -51424,16 +51878,16 @@ function useDroppableMeasuring(containers, _ref) {
     dependencies,
     config
   } = _ref;
-  const [queue, setQueue] = import_react252.useState(null);
+  const [queue, setQueue] = import_react257.useState(null);
   const {
     frequency,
     measure,
     strategy
   } = config;
-  const containersRef = import_react252.useRef(containers);
+  const containersRef = import_react257.useRef(containers);
   const disabled = isDisabled();
   const disabledRef = useLatestValue(disabled);
-  const measureDroppableContainers = import_react252.useCallback(function(ids2) {
+  const measureDroppableContainers = import_react257.useCallback(function(ids2) {
     if (ids2 === undefined) {
       ids2 = [];
     }
@@ -51447,7 +51901,7 @@ function useDroppableMeasuring(containers, _ref) {
       return value.concat(ids2.filter((id) => !value.includes(id)));
     });
   }, [disabledRef]);
-  const timeoutId = import_react252.useRef(null);
+  const timeoutId = import_react257.useRef(null);
   const droppableRects = useLazyMemo((previousValue) => {
     if (disabled && !dragging) {
       return defaultValue;
@@ -51473,21 +51927,21 @@ function useDroppableMeasuring(containers, _ref) {
     }
     return previousValue;
   }, [containers, queue, dragging, disabled, measure]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     containersRef.current = containers;
   }, [containers]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     if (disabled) {
       return;
     }
     measureDroppableContainers();
   }, [dragging, disabled]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     if (queue && queue.length > 0) {
       setQueue(null);
     }
   }, [JSON.stringify(queue)]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     if (disabled || typeof frequency !== "number" || timeoutId.current !== null) {
       return;
     }
@@ -51532,7 +51986,7 @@ function useMutationObserver(_ref) {
     disabled
   } = _ref;
   const handleMutations = useEvent(callback);
-  const mutationObserver = import_react252.useMemo(() => {
+  const mutationObserver = import_react257.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.MutationObserver === "undefined") {
       return;
     }
@@ -51541,7 +51995,7 @@ function useMutationObserver(_ref) {
     } = window;
     return new MutationObserver2(handleMutations);
   }, [handleMutations, disabled]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     return () => mutationObserver == null ? undefined : mutationObserver.disconnect();
   }, [mutationObserver]);
   return mutationObserver;
@@ -51552,7 +52006,7 @@ function useResizeObserver2(_ref) {
     disabled
   } = _ref;
   const handleResize = useEvent(callback);
-  const resizeObserver = import_react252.useMemo(() => {
+  const resizeObserver = import_react257.useMemo(() => {
     if (disabled || typeof window === "undefined" || typeof window.ResizeObserver === "undefined") {
       return;
     }
@@ -51561,7 +52015,7 @@ function useResizeObserver2(_ref) {
     } = window;
     return new ResizeObserver2(handleResize);
   }, [disabled]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     return () => resizeObserver == null ? undefined : resizeObserver.disconnect();
   }, [resizeObserver]);
   return resizeObserver;
@@ -51573,7 +52027,7 @@ function useRect(element, measure, fallbackRect) {
   if (measure === undefined) {
     measure = defaultMeasure;
   }
-  const [rect, setRect] = import_react252.useState(null);
+  const [rect, setRect] = import_react257.useState(null);
   function measureRect() {
     setRect((currentRect) => {
       if (!element) {
@@ -51631,7 +52085,7 @@ function useRectDelta(rect) {
 }
 var defaultValue$1 = [];
 function useScrollableAncestors(node2) {
-  const previousNode = import_react252.useRef(node2);
+  const previousNode = import_react257.useRef(node2);
   const ancestors = useLazyMemo((previousValue) => {
     if (!node2) {
       return defaultValue$1;
@@ -51641,15 +52095,15 @@ function useScrollableAncestors(node2) {
     }
     return getScrollableAncestors(node2);
   }, [node2]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     previousNode.current = node2;
   }, [node2]);
   return ancestors;
 }
 function useScrollOffsets(elements) {
-  const [scrollCoordinates, setScrollCoordinates] = import_react252.useState(null);
-  const prevElements = import_react252.useRef(elements);
-  const handleScroll2 = import_react252.useCallback((event) => {
+  const [scrollCoordinates, setScrollCoordinates] = import_react257.useState(null);
+  const prevElements = import_react257.useRef(elements);
+  const handleScroll2 = import_react257.useCallback((event) => {
     const scrollingElement = getScrollableElement(event.target);
     if (!scrollingElement) {
       return;
@@ -51662,7 +52116,7 @@ function useScrollOffsets(elements) {
       return new Map(scrollCoordinates2);
     });
   }, []);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     const previousElements = prevElements.current;
     if (elements !== previousElements) {
       cleanup(previousElements);
@@ -51690,7 +52144,7 @@ function useScrollOffsets(elements) {
       });
     }
   }, [handleScroll2, elements]);
-  return import_react252.useMemo(() => {
+  return import_react257.useMemo(() => {
     if (elements.length) {
       return scrollCoordinates ? Array.from(scrollCoordinates.values()).reduce((acc, coordinates) => add(acc, coordinates), defaultCoordinates) : getScrollOffsets(elements);
     }
@@ -51701,11 +52155,11 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   if (dependencies === undefined) {
     dependencies = [];
   }
-  const initialScrollOffsets = import_react252.useRef(null);
-  import_react252.useEffect(() => {
+  const initialScrollOffsets = import_react257.useRef(null);
+  import_react257.useEffect(() => {
     initialScrollOffsets.current = null;
   }, dependencies);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     const hasScrollOffsets = scrollOffsets !== defaultCoordinates;
     if (hasScrollOffsets && !initialScrollOffsets.current) {
       initialScrollOffsets.current = scrollOffsets;
@@ -51717,7 +52171,7 @@ function useScrollOffsetsDelta(scrollOffsets, dependencies) {
   return initialScrollOffsets.current ? subtract(scrollOffsets, initialScrollOffsets.current) : defaultCoordinates;
 }
 function useSensorSetup(sensors) {
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     if (!canUseDOM2) {
       return;
     }
@@ -51740,7 +52194,7 @@ function useSensorSetup(sensors) {
   }));
 }
 function useSyntheticListeners(listeners, id) {
-  return import_react252.useMemo(() => {
+  return import_react257.useMemo(() => {
     return listeners.reduce((acc, _ref) => {
       let {
         eventName,
@@ -51754,7 +52208,7 @@ function useSyntheticListeners(listeners, id) {
   }, [listeners, id]);
 }
 function useWindowRect(element) {
-  return import_react252.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
+  return import_react257.useMemo(() => element ? getWindowClientRect(element) : null, [element]);
 }
 var defaultValue$2 = [];
 function useRects(elements, measure) {
@@ -51763,7 +52217,7 @@ function useRects(elements, measure) {
   }
   const [firstElement] = elements;
   const windowRect = useWindowRect(firstElement ? getWindow2(firstElement) : null);
-  const [rects, setRects] = import_react252.useState(defaultValue$2);
+  const [rects, setRects] = import_react257.useState(defaultValue$2);
   function measureRects() {
     setRects(() => {
       if (!elements.length) {
@@ -51796,8 +52250,8 @@ function useDragOverlayMeasuring(_ref) {
   let {
     measure
   } = _ref;
-  const [rect, setRect] = import_react252.useState(null);
-  const handleResize = import_react252.useCallback((entries) => {
+  const [rect, setRect] = import_react257.useState(null);
+  const handleResize = import_react257.useCallback((entries) => {
     for (const {
       target
     } of entries) {
@@ -51817,7 +52271,7 @@ function useDragOverlayMeasuring(_ref) {
   const resizeObserver = useResizeObserver2({
     callback: handleResize
   });
-  const handleNodeChange = import_react252.useCallback((element) => {
+  const handleNodeChange = import_react257.useCallback((element) => {
     const node2 = getMeasurableNode(element);
     resizeObserver == null || resizeObserver.disconnect();
     if (node2) {
@@ -51826,7 +52280,7 @@ function useDragOverlayMeasuring(_ref) {
     setRect(node2 ? measure(node2) : null);
   }, [measure, resizeObserver]);
   const [nodeRef, setRef] = useNodeRef(handleNodeChange);
-  return import_react252.useMemo(() => ({
+  return import_react257.useMemo(() => ({
     nodeRef,
     rect,
     setRef
@@ -51893,12 +52347,12 @@ var defaultPublicContext = {
       current: null
     },
     rect: null,
-    setRef: noop6
+    setRef: noop8
   },
   scrollableAncestors: [],
   scrollableAncestorRects: [],
   measuringConfiguration: defaultMeasuringConfiguration,
-  measureDroppableContainers: noop6,
+  measureDroppableContainers: noop8,
   windowRect: null,
   measuringScheduled: false
 };
@@ -51910,13 +52364,13 @@ var defaultInternalContext = {
   ariaDescribedById: {
     draggable: ""
   },
-  dispatch: noop6,
+  dispatch: noop8,
   draggableNodes: /* @__PURE__ */ new Map,
   over: null,
-  measureDroppableContainers: noop6
+  measureDroppableContainers: noop8
 };
-var InternalContext = /* @__PURE__ */ import_react252.createContext(defaultInternalContext);
-var PublicContext = /* @__PURE__ */ import_react252.createContext(defaultPublicContext);
+var InternalContext = /* @__PURE__ */ import_react257.createContext(defaultInternalContext);
+var PublicContext = /* @__PURE__ */ import_react257.createContext(defaultPublicContext);
 function getInitialState() {
   return {
     draggable: {
@@ -52050,10 +52504,10 @@ function RestoreFocus(_ref) {
     active,
     activatorEvent,
     draggableNodes
-  } = import_react252.useContext(InternalContext);
+  } = import_react257.useContext(InternalContext);
   const previousActivatorEvent = usePrevious2(activatorEvent);
   const previousActiveId = usePrevious2(active == null ? undefined : active.id);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     if (disabled) {
       return;
     }
@@ -52104,7 +52558,7 @@ function applyModifiers(modifiers, _ref) {
   }, transform) : transform;
 }
 function useMeasuringConfiguration(config) {
-  return import_react252.useMemo(() => ({
+  return import_react257.useMemo(() => ({
     draggable: {
       ...defaultMeasuringConfiguration.draggable,
       ...config == null ? undefined : config.draggable
@@ -52126,7 +52580,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     initialRect,
     config = true
   } = _ref;
-  const initialized = import_react252.useRef(false);
+  const initialized = import_react257.useRef(false);
   const {
     x: x2,
     y: y2
@@ -52167,7 +52621,7 @@ function useLayoutShiftScrollCompensation(_ref) {
     }
   }, [activeNode, x2, y2, initialRect, measure]);
 }
-var ActiveDraggableContext = /* @__PURE__ */ import_react252.createContext({
+var ActiveDraggableContext = /* @__PURE__ */ import_react257.createContext({
   ...defaultCoordinates,
   scaleX: 1,
   scaleY: 1
@@ -52178,7 +52632,7 @@ var Status;
   Status2[Status2["Initializing"] = 1] = "Initializing";
   Status2[Status2["Initialized"] = 2] = "Initialized";
 })(Status || (Status = {}));
-var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref) {
+var DndContext = /* @__PURE__ */ import_react257.memo(function DndContext2(_ref) {
   var _sensorContext$curren, _dragOverlay$nodeRef$, _dragOverlay$rect, _over$rect;
   let {
     id,
@@ -52191,10 +52645,10 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
     modifiers,
     ...props
   } = _ref;
-  const store = import_react252.useReducer(reducer, undefined, getInitialState);
+  const store = import_react257.useReducer(reducer, undefined, getInitialState);
   const [state, dispatch] = store;
   const [dispatchMonitorEvent, registerMonitorListener] = useDndMonitorProvider();
-  const [status, setStatus] = import_react252.useState(Status.Uninitialized);
+  const [status, setStatus] = import_react257.useState(Status.Uninitialized);
   const isInitialized = status === Status.Initialized;
   const {
     draggable: {
@@ -52207,11 +52661,11 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
     }
   } = state;
   const node2 = activeId != null ? draggableNodes.get(activeId) : null;
-  const activeRects = import_react252.useRef({
+  const activeRects = import_react257.useRef({
     initial: null,
     translated: null
   });
-  const active = import_react252.useMemo(() => {
+  const active = import_react257.useMemo(() => {
     var _node$data;
     return activeId != null ? {
       id: activeId,
@@ -52219,12 +52673,12 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
       rect: activeRects
     } : null;
   }, [activeId, node2]);
-  const activeRef = import_react252.useRef(null);
-  const [activeSensor, setActiveSensor] = import_react252.useState(null);
-  const [activatorEvent, setActivatorEvent] = import_react252.useState(null);
+  const activeRef = import_react257.useRef(null);
+  const [activeSensor, setActiveSensor] = import_react257.useState(null);
+  const [activatorEvent, setActivatorEvent] = import_react257.useState(null);
   const latestProps = useLatestValue(props, Object.values(props));
   const draggableDescribedById = useUniqueId("DndDescribedBy", id);
-  const enabledDroppableContainers = import_react252.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
+  const enabledDroppableContainers = import_react257.useMemo(() => droppableContainers.getEnabled(), [droppableContainers]);
   const measuringConfiguration = useMeasuringConfiguration(measuring);
   const {
     droppableRects,
@@ -52236,7 +52690,7 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
     config: measuringConfiguration.droppable
   });
   const activeNode = useCachedNode(draggableNodes, activeId);
-  const activationCoordinates = import_react252.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
+  const activationCoordinates = import_react257.useMemo(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
   const autoScrollOptions = getAutoScrollerOptions();
   const initialActiveNodeRect = useInitialRect(activeNode, measuringConfiguration.draggable.measure);
   useLayoutShiftScrollCompensation({
@@ -52247,7 +52701,7 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
   });
   const activeNodeRect = useRect(activeNode, measuringConfiguration.draggable.measure, initialActiveNodeRect);
   const containerNodeRect = useRect(activeNode ? activeNode.parentElement : null);
-  const sensorContext = import_react252.useRef({
+  const sensorContext = import_react257.useRef({
     activatorEvent: null,
     active: null,
     activeNode,
@@ -52305,11 +52759,11 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
     pointerCoordinates
   }) : null;
   const overId = getFirstCollision(collisions, "id");
-  const [over, setOver] = import_react252.useState(null);
+  const [over, setOver] = import_react257.useState(null);
   const appliedTranslate = usesDragOverlay ? modifiedTranslate : add(modifiedTranslate, activeNodeScrollDelta);
   const transform = adjustScale(appliedTranslate, (_over$rect = over == null ? undefined : over.rect) != null ? _over$rect : null, activeNodeRect);
-  const activeSensorRef = import_react252.useRef(null);
-  const instantiateSensor = import_react252.useCallback((event, _ref2) => {
+  const activeSensorRef = import_react257.useRef(null);
+  const instantiateSensor = import_react257.useCallback((event, _ref2) => {
     let {
       sensor: Sensor,
       options
@@ -52461,7 +52915,7 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
       };
     }
   }, [draggableNodes]);
-  const bindActivatorToSensorInstantiator = import_react252.useCallback((handler, sensor) => {
+  const bindActivatorToSensorInstantiator = import_react257.useCallback((handler, sensor) => {
     return (event, active2) => {
       const nativeEvent = event.nativeEvent;
       const activeDraggableNode = draggableNodes.get(active2);
@@ -52488,7 +52942,7 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
       setStatus(Status.Initialized);
     }
   }, [activeNodeRect, status]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     const {
       onDragMove
     } = latestProps.current;
@@ -52519,7 +52973,7 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
       });
     });
   }, [scrollAdjustedTranslate.x, scrollAdjustedTranslate.y]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     const {
       active: active2,
       activatorEvent: activatorEvent2,
@@ -52588,7 +53042,7 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
     scrollableAncestors,
     scrollableAncestorRects
   });
-  const publicContext = import_react252.useMemo(() => {
+  const publicContext = import_react257.useMemo(() => {
     const context = {
       active,
       activeNode,
@@ -52610,7 +53064,7 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
     };
     return context;
   }, [active, activeNode, activeNodeRect, activatorEvent, collisions, containerNodeRect, dragOverlay, draggableNodes, droppableContainers, droppableRects, over, measureDroppableContainers, scrollableAncestors, scrollableAncestorRects, measuringConfiguration, measuringScheduled, windowRect]);
-  const internalContext = import_react252.useMemo(() => {
+  const internalContext = import_react257.useMemo(() => {
     const context = {
       activatorEvent,
       activators,
@@ -52626,17 +53080,17 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
     };
     return context;
   }, [activatorEvent, activators, active, activeNodeRect, dispatch, draggableDescribedById, draggableNodes, over, measureDroppableContainers]);
-  return import_react252.default.createElement(DndMonitorContext.Provider, {
+  return import_react257.default.createElement(DndMonitorContext.Provider, {
     value: registerMonitorListener
-  }, import_react252.default.createElement(InternalContext.Provider, {
+  }, import_react257.default.createElement(InternalContext.Provider, {
     value: internalContext
-  }, import_react252.default.createElement(PublicContext.Provider, {
+  }, import_react257.default.createElement(PublicContext.Provider, {
     value: publicContext
-  }, import_react252.default.createElement(ActiveDraggableContext.Provider, {
+  }, import_react257.default.createElement(ActiveDraggableContext.Provider, {
     value: transform
-  }, children)), import_react252.default.createElement(RestoreFocus, {
+  }, children)), import_react257.default.createElement(RestoreFocus, {
     disabled: (accessibility == null ? undefined : accessibility.restoreFocus) === false
-  })), import_react252.default.createElement(Accessibility, {
+  })), import_react257.default.createElement(Accessibility, {
     ...accessibility,
     hiddenTextDescribedById: draggableDescribedById
   }));
@@ -52655,7 +53109,7 @@ var DndContext = /* @__PURE__ */ import_react252.memo(function DndContext2(_ref)
     };
   }
 });
-var NullContext = /* @__PURE__ */ import_react252.createContext(null);
+var NullContext = /* @__PURE__ */ import_react257.createContext(null);
 var defaultRole = "button";
 var ID_PREFIX = "Draggable";
 function useDraggable(_ref) {
@@ -52674,14 +53128,14 @@ function useDraggable(_ref) {
     ariaDescribedById,
     draggableNodes,
     over
-  } = import_react252.useContext(InternalContext);
+  } = import_react257.useContext(InternalContext);
   const {
     role = defaultRole,
     roleDescription = "draggable",
     tabIndex = 0
   } = attributes != null ? attributes : {};
   const isDragging = (active == null ? undefined : active.id) === id;
-  const transform = import_react252.useContext(isDragging ? ActiveDraggableContext : NullContext);
+  const transform = import_react257.useContext(isDragging ? ActiveDraggableContext : NullContext);
   const [node2, setNodeRef] = useNodeRef();
   const [activatorNode, setActivatorNodeRef] = useNodeRef();
   const listeners = useSyntheticListeners(activators, id);
@@ -52701,7 +53155,7 @@ function useDraggable(_ref) {
       }
     };
   }, [draggableNodes, id]);
-  const memoizedAttributes = import_react252.useMemo(() => ({
+  const memoizedAttributes = import_react257.useMemo(() => ({
     role,
     tabIndex,
     "aria-disabled": disabled,
@@ -52724,7 +53178,7 @@ function useDraggable(_ref) {
   };
 }
 function useDndContext() {
-  return import_react252.useContext(PublicContext);
+  return import_react257.useContext(PublicContext);
 }
 var ID_PREFIX$1 = "Droppable";
 var defaultResizeObserverConfig = {
@@ -52743,13 +53197,13 @@ function useDroppable(_ref) {
     dispatch,
     over,
     measureDroppableContainers
-  } = import_react252.useContext(InternalContext);
-  const previous = import_react252.useRef({
+  } = import_react257.useContext(InternalContext);
+  const previous = import_react257.useRef({
     disabled
   });
-  const resizeObserverConnected = import_react252.useRef(false);
-  const rect = import_react252.useRef(null);
-  const callbackId = import_react252.useRef(null);
+  const resizeObserverConnected = import_react257.useRef(false);
+  const rect = import_react257.useRef(null);
+  const callbackId = import_react257.useRef(null);
   const {
     disabled: resizeObserverDisabled,
     updateMeasurementsFor,
@@ -52759,7 +53213,7 @@ function useDroppable(_ref) {
     ...resizeObserverConfig
   };
   const ids2 = useLatestValue(updateMeasurementsFor != null ? updateMeasurementsFor : id);
-  const handleResize = import_react252.useCallback(() => {
+  const handleResize = import_react257.useCallback(() => {
     if (!resizeObserverConnected.current) {
       resizeObserverConnected.current = true;
       return;
@@ -52776,7 +53230,7 @@ function useDroppable(_ref) {
     callback: handleResize,
     disabled: resizeObserverDisabled || !active
   });
-  const handleNodeChange = import_react252.useCallback((newElement, previousElement) => {
+  const handleNodeChange = import_react257.useCallback((newElement, previousElement) => {
     if (!resizeObserver) {
       return;
     }
@@ -52790,7 +53244,7 @@ function useDroppable(_ref) {
   }, [resizeObserver]);
   const [nodeRef, setNodeRef] = useNodeRef(handleNodeChange);
   const dataRef = useLatestValue(data);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     if (!resizeObserver || !nodeRef.current) {
       return;
     }
@@ -52798,7 +53252,7 @@ function useDroppable(_ref) {
     resizeObserverConnected.current = false;
     resizeObserver.observe(nodeRef.current);
   }, [nodeRef, resizeObserver]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     dispatch({
       type: Action.RegisterDroppable,
       element: {
@@ -52816,7 +53270,7 @@ function useDroppable(_ref) {
       id
     });
   }, [id]);
-  import_react252.useEffect(() => {
+  import_react257.useEffect(() => {
     if (disabled !== previous.current.disabled) {
       dispatch({
         type: Action.SetDroppableDisabled,
@@ -52838,23 +53292,23 @@ function useDroppable(_ref) {
 }
 
 // node_modules/@dnd-kit/sortable/dist/sortable.esm.js
-var import_react253 = __toESM(require_react(), 1);
+var import_react258 = __toESM(require_react(), 1);
 function arrayMove(array, from2, to) {
   const newArray = array.slice();
   newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from2, 1)[0]);
   return newArray;
 }
 function getSortedRects(items, rects) {
-  return items.reduce((accumulator, id, index4) => {
+  return items.reduce((accumulator, id, index6) => {
     const rect = rects.get(id);
     if (rect) {
-      accumulator[index4] = rect;
+      accumulator[index6] = rect;
     }
     return accumulator;
   }, Array(items.length));
 }
-function isValidIndex(index4) {
-  return index4 !== null && index4 >= 0;
+function isValidIndex(index6) {
+  return index6 !== null && index6 >= 0;
 }
 function itemsEqual(a2, b) {
   if (a2 === b) {
@@ -52890,14 +53344,14 @@ var horizontalListSortingStrategy = (_ref) => {
     activeNodeRect: fallbackActiveRect,
     activeIndex,
     overIndex,
-    index: index4
+    index: index6
   } = _ref;
   const activeNodeRect = (_rects$activeIndex = rects[activeIndex]) != null ? _rects$activeIndex : fallbackActiveRect;
   if (!activeNodeRect) {
     return null;
   }
-  const itemGap = getItemGap(rects, index4, activeIndex);
-  if (index4 === activeIndex) {
+  const itemGap = getItemGap(rects, index6, activeIndex);
+  if (index6 === activeIndex) {
     const newIndexRect = rects[overIndex];
     if (!newIndexRect) {
       return null;
@@ -52908,14 +53362,14 @@ var horizontalListSortingStrategy = (_ref) => {
       ...defaultScale
     };
   }
-  if (index4 > activeIndex && index4 <= overIndex) {
+  if (index6 > activeIndex && index6 <= overIndex) {
     return {
       x: -activeNodeRect.width - itemGap,
       y: 0,
       ...defaultScale
     };
   }
-  if (index4 < activeIndex && index4 >= overIndex) {
+  if (index6 < activeIndex && index6 >= overIndex) {
     return {
       x: activeNodeRect.width + itemGap,
       y: 0,
@@ -52928,14 +53382,14 @@ var horizontalListSortingStrategy = (_ref) => {
     ...defaultScale
   };
 };
-function getItemGap(rects, index4, activeIndex) {
-  const currentRect = rects[index4];
-  const previousRect = rects[index4 - 1];
-  const nextRect = rects[index4 + 1];
+function getItemGap(rects, index6, activeIndex) {
+  const currentRect = rects[index6];
+  const previousRect = rects[index6 - 1];
+  const nextRect = rects[index6 + 1];
   if (!currentRect || !previousRect && !nextRect) {
     return 0;
   }
-  if (activeIndex < index4) {
+  if (activeIndex < index6) {
     return previousRect ? currentRect.left - (previousRect.left + previousRect.width) : nextRect.left - (currentRect.left + currentRect.width);
   }
   return nextRect ? nextRect.left - (currentRect.left + currentRect.width) : currentRect.left - (previousRect.left + previousRect.width);
@@ -52945,11 +53399,11 @@ var rectSortingStrategy = (_ref) => {
     rects,
     activeIndex,
     overIndex,
-    index: index4
+    index: index6
   } = _ref;
   const newRects = arrayMove(rects, overIndex, activeIndex);
-  const oldRect = rects[index4];
-  const newRect = newRects[index4];
+  const oldRect = rects[index6];
+  const newRect = newRects[index6];
   if (!newRect || !oldRect) {
     return null;
   }
@@ -52961,7 +53415,7 @@ var rectSortingStrategy = (_ref) => {
   };
 };
 var ID_PREFIX2 = "Sortable";
-var Context = /* @__PURE__ */ import_react253.default.createContext({
+var Context = /* @__PURE__ */ import_react258.default.createContext({
   activeIndex: -1,
   containerId: ID_PREFIX2,
   disableTransforms: false,
@@ -52992,11 +53446,11 @@ function SortableContext(_ref) {
   } = useDndContext();
   const containerId = useUniqueId(ID_PREFIX2, id);
   const useDragOverlay = Boolean(dragOverlay.rect !== null);
-  const items = import_react253.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
+  const items = import_react258.useMemo(() => userDefinedItems.map((item) => typeof item === "object" && ("id" in item) ? item.id : item), [userDefinedItems]);
   const isDragging = active != null;
   const activeIndex = active ? items.indexOf(active.id) : -1;
   const overIndex = over ? items.indexOf(over.id) : -1;
-  const previousItemsRef = import_react253.useRef(items);
+  const previousItemsRef = import_react258.useRef(items);
   const itemsHaveChanged = !itemsEqual(items, previousItemsRef.current);
   const disableTransforms = overIndex !== -1 && activeIndex === -1 || itemsHaveChanged;
   const disabled = normalizeDisabled(disabledProp);
@@ -53005,10 +53459,10 @@ function SortableContext(_ref) {
       measureDroppableContainers(items);
     }
   }, [itemsHaveChanged, items, isDragging, measureDroppableContainers]);
-  import_react253.useEffect(() => {
+  import_react258.useEffect(() => {
     previousItemsRef.current = items;
   }, [items]);
-  const contextValue = import_react253.useMemo(() => ({
+  const contextValue = import_react258.useMemo(() => ({
     activeIndex,
     containerId,
     disabled,
@@ -53019,7 +53473,7 @@ function SortableContext(_ref) {
     sortedRects: getSortedRects(items, droppableRects),
     strategy
   }), [activeIndex, containerId, disabled.draggable, disabled.droppable, disableTransforms, items, overIndex, droppableRects, useDragOverlay, strategy]);
-  return import_react253.default.createElement(Context.Provider, {
+  return import_react258.default.createElement(Context.Provider, {
     value: contextValue
   }, children);
 }
@@ -53037,7 +53491,7 @@ var defaultAnimateLayoutChanges = (_ref2) => {
     containerId,
     isSorting,
     wasDragging,
-    index: index4,
+    index: index6,
     items,
     newIndex,
     previousItems,
@@ -53047,13 +53501,13 @@ var defaultAnimateLayoutChanges = (_ref2) => {
   if (!transition || !wasDragging) {
     return false;
   }
-  if (previousItems !== items && index4 === newIndex) {
+  if (previousItems !== items && index6 === newIndex) {
     return false;
   }
   if (isSorting) {
     return true;
   }
-  return newIndex !== index4 && containerId === previousContainerId;
+  return newIndex !== index6 && containerId === previousContainerId;
 };
 var defaultTransition2 = {
   duration: 200,
@@ -53071,14 +53525,14 @@ var defaultAttributes2 = {
 function useDerivedTransform(_ref) {
   let {
     disabled,
-    index: index4,
+    index: index6,
     node: node2,
     rect
   } = _ref;
-  const [derivedTransform, setDerivedtransform] = import_react253.useState(null);
-  const previousIndex = import_react253.useRef(index4);
+  const [derivedTransform, setDerivedtransform] = import_react258.useState(null);
+  const previousIndex = import_react258.useRef(index6);
   useIsomorphicLayoutEffect2(() => {
-    if (!disabled && index4 !== previousIndex.current && node2.current) {
+    if (!disabled && index6 !== previousIndex.current && node2.current) {
       const initial = rect.current;
       if (initial) {
         const current2 = getClientRect(node2.current, {
@@ -53095,11 +53549,11 @@ function useDerivedTransform(_ref) {
         }
       }
     }
-    if (index4 !== previousIndex.current) {
-      previousIndex.current = index4;
+    if (index6 !== previousIndex.current) {
+      previousIndex.current = index6;
     }
-  }, [disabled, index4, node2, rect]);
-  import_react253.useEffect(() => {
+  }, [disabled, index6, node2, rect]);
+  import_react258.useEffect(() => {
     if (derivedTransform) {
       setDerivedtransform(null);
     }
@@ -53128,18 +53582,18 @@ function useSortable(_ref) {
     overIndex,
     useDragOverlay,
     strategy: globalStrategy
-  } = import_react253.useContext(Context);
+  } = import_react258.useContext(Context);
   const disabled = normalizeLocalDisabled(localDisabled, globalDisabled);
-  const index4 = items.indexOf(id);
-  const data = import_react253.useMemo(() => ({
+  const index6 = items.indexOf(id);
+  const data = import_react258.useMemo(() => ({
     sortable: {
       containerId,
-      index: index4,
+      index: index6,
       items
     },
     ...customData
-  }), [containerId, customData, index4, items]);
-  const itemsAfterCurrentSortable = import_react253.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
+  }), [containerId, customData, index6, items]);
+  const itemsAfterCurrentSortable = import_react258.useMemo(() => items.slice(items.indexOf(id)), [items, id]);
   const {
     rect,
     node: node2,
@@ -53185,16 +53639,16 @@ function useSortable(_ref) {
     activeNodeRect,
     activeIndex,
     overIndex,
-    index: index4
+    index: index6
   }) : null;
   const newIndex = isValidIndex(activeIndex) && isValidIndex(overIndex) ? getNewIndex({
     id,
     items,
     activeIndex,
     overIndex
-  }) : index4;
+  }) : index6;
   const activeId = active == null ? undefined : active.id;
-  const previous = import_react253.useRef({
+  const previous = import_react258.useRef({
     activeId,
     items,
     newIndex,
@@ -53207,7 +53661,7 @@ function useSortable(_ref) {
     isDragging,
     isSorting,
     id,
-    index: index4,
+    index: index6,
     items,
     newIndex: previous.current.newIndex,
     previousItems: previous.current.items,
@@ -53217,11 +53671,11 @@ function useSortable(_ref) {
   });
   const derivedTransform = useDerivedTransform({
     disabled: !shouldAnimateLayoutChanges,
-    index: index4,
+    index: index6,
     node: node2,
     rect
   });
-  import_react253.useEffect(() => {
+  import_react258.useEffect(() => {
     if (isSorting && previous.current.newIndex !== newIndex) {
       previous.current.newIndex = newIndex;
     }
@@ -53232,7 +53686,7 @@ function useSortable(_ref) {
       previous.current.items = items;
     }
   }, [isSorting, newIndex, containerId, items]);
-  import_react253.useEffect(() => {
+  import_react258.useEffect(() => {
     if (activeId === previous.current.activeId) {
       return;
     }
@@ -53251,7 +53705,7 @@ function useSortable(_ref) {
     attributes,
     data,
     rect,
-    index: index4,
+    index: index6,
     newIndex,
     items,
     isOver,
@@ -53269,7 +53723,7 @@ function useSortable(_ref) {
     transition: getTransition()
   };
   function getTransition() {
-    if (derivedTransform || itemsHaveChanged && previous.current.newIndex === index4) {
+    if (derivedTransform || itemsHaveChanged && previous.current.newIndex === index6) {
       return disabledTransition;
     }
     if (shouldDisplaceDragSource && !isKeyboardEvent(activatorEvent) || !transition) {
@@ -53374,7 +53828,7 @@ var sortableKeyboardCoordinates = (event, _ref) => {
       const newNode = newDroppable == null ? undefined : newDroppable.node.current;
       if (newNode && newRect && activeDroppable && newDroppable) {
         const newScrollAncestors = getScrollableAncestors(newNode);
-        const hasDifferentScrollAncestors = newScrollAncestors.some((element, index4) => scrollableAncestors[index4] !== element);
+        const hasDifferentScrollAncestors = newScrollAncestors.some((element, index6) => scrollableAncestors[index6] !== element);
         const hasSameContainer = isSameContainer(activeDroppable, newDroppable);
         const isAfterActive = isAfter(activeDroppable, newDroppable);
         const offset4 = hasDifferentScrollAncestors || !hasSameContainer ? {
@@ -53412,11 +53866,11 @@ function isAfter(a2, b) {
 }
 
 // src/components/LayoutMappingModal/DependentGroupSortableCard.tsx
-var import_react254 = __toESM(require_react(), 1);
+var import_react259 = __toESM(require_react(), 1);
 var jsx_runtime5 = __toESM(require_jsx_runtime(), 1);
 var TransformCommandCard = ({
   transform,
-  index: index4,
+  index: index6,
   onUpdate,
   onRemove
 }) => {
@@ -53434,7 +53888,7 @@ var TransformCommandCard = ({
           variant: "subtle",
           color: "red",
           size: "sm",
-          onClick: () => onRemove(index4),
+          onClick: () => onRemove(index6),
           children: /* @__PURE__ */ jsx_runtime5.jsx(IconX, {
             size: 16
           })
@@ -53448,7 +53902,7 @@ var TransformCommandCard = ({
       /* @__PURE__ */ jsx_runtime5.jsx(Input, {
         placeholder: "Text to find",
         value: transform.find,
-        onChange: (e) => onUpdate(index4, { ...transform, find: e.target.value }),
+        onChange: (e) => onUpdate(index6, { ...transform, find: e.target.value }),
         mb: "xs",
         size: "xs"
       }),
@@ -53460,14 +53914,14 @@ var TransformCommandCard = ({
       /* @__PURE__ */ jsx_runtime5.jsx(Input, {
         placeholder: "Replacement text",
         value: transform.replace,
-        onChange: (e) => onUpdate(index4, { ...transform, replace: e.target.value }),
+        onChange: (e) => onUpdate(index6, { ...transform, replace: e.target.value }),
         mb: "xs",
         size: "xs"
       }),
       /* @__PURE__ */ jsx_runtime5.jsx(Checkbox, {
         label: "Replace All",
         checked: transform.replaceAll,
-        onChange: (e) => onUpdate(index4, { ...transform, replaceAll: e.target.checked }),
+        onChange: (e) => onUpdate(index6, { ...transform, replaceAll: e.target.checked }),
         size: "xs"
       })
     ]
@@ -53485,8 +53939,8 @@ var DependentGroupValueSortableCard = ({
   const raiseError2 = appStore((state) => state.raiseError);
   const updateVarValueFromDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup);
   const variables = appStore((state) => state.state.studio.document.variables);
-  const [transformModalOpen, setTransformModalOpen] = import_react254.useState(false);
-  const [transforms, setTransforms] = import_react254.useState([]);
+  const [transformModalOpen, setTransformModalOpen] = import_react259.useState(false);
+  const [transforms, setTransforms] = import_react259.useState([]);
   const {
     attributes,
     listeners,
@@ -53495,14 +53949,15 @@ var DependentGroupValueSortableCard = ({
     transition,
     isDragging
   } = useSortable({ id });
+  const isTextarea = typeof value !== "string" && value.type === "TextareaValue";
   const style2 = {
     transform: CSS2.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
     zIndex: isDragging ? 1 : 0,
-    minWidth: "120px",
+    minWidth: isTextarea ? "200px" : "120px",
     height: "auto",
-    minHeight: "80px",
+    minHeight: isTextarea ? "120px" : "80px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -53513,7 +53968,7 @@ var DependentGroupValueSortableCard = ({
     if (mapId && imageVariableId !== null && groupIndex !== null) {
       updateVarValueFromDependentGroup({
         mapId,
-        imageVariableId,
+        targetVariableId: imageVariableId,
         groupIndex,
         variableValueIndex,
         variableValue: newValue
@@ -53527,20 +53982,20 @@ var DependentGroupValueSortableCard = ({
     label: v2.name
   }));
   const openTransformModal = () => {
-    if (typeof value !== "string" && value.transform) {
+    if (typeof value !== "string" && value.type !== "TextareaValue" && value.transform) {
       setTransforms([...value.transform]);
     } else {
       setTransforms([]);
     }
     setTransformModalOpen(true);
   };
-  const updateTransform = (index4, updatedTransform) => {
+  const updateTransform = (index6, updatedTransform) => {
     const newTransforms = [...transforms];
-    newTransforms[index4] = updatedTransform;
+    newTransforms[index6] = updatedTransform;
     setTransforms(newTransforms);
   };
-  const removeTransform = (index4) => {
-    setTransforms(transforms.filter((_2, i2) => i2 !== index4));
+  const removeTransform = (index6) => {
+    setTransforms(transforms.filter((_2, i2) => i2 !== index6));
   };
   const addTransform = () => {
     setTransforms([
@@ -53550,7 +54005,7 @@ var DependentGroupValueSortableCard = ({
   };
   const saveTransforms = () => {
     const validTransforms = transforms.filter((t) => t.find.trim() !== "" && t.replace.trim() !== "");
-    if (typeof value !== "string" && value.type) {
+    if (typeof value !== "string" && value.type && value.type !== "TextareaValue") {
       updateVarValue({
         ...value,
         transform: validTransforms
@@ -53559,13 +54014,13 @@ var DependentGroupValueSortableCard = ({
     setTransformModalOpen(false);
   };
   const getWandColor = () => {
-    if (typeof value !== "string" && value.transform && value.transform.length > 0) {
+    if (typeof value !== "string" && value.type !== "TextareaValue" && value.transform && value.transform.length > 0) {
       return "blue";
     }
     return "gray";
   };
   const getWandOpacity = () => {
-    if (typeof value !== "string" && value.transform && value.transform.length > 0) {
+    if (typeof value !== "string" && value.type !== "TextareaValue" && value.transform && value.transform.length > 0) {
       return 1;
     }
     return 0.5;
@@ -53592,7 +54047,7 @@ var DependentGroupValueSortableCard = ({
             onClick: onRemove,
             children: /* @__PURE__ */ jsx_runtime5.jsx(IconX, {})
           }),
-          typeof value !== "string" && /* @__PURE__ */ jsx_runtime5.jsx(ActionIcon, {
+          typeof value !== "string" && value.type !== "TextareaValue" && /* @__PURE__ */ jsx_runtime5.jsx(ActionIcon, {
             variant: "subtle",
             size: "sm",
             opacity: getWandOpacity(),
@@ -53630,6 +54085,17 @@ var DependentGroupValueSortableCard = ({
               value,
               onChange: (e) => updateVarValue(e.target.value),
               placeholder: "Enter value"
+            }) : value.type === "TextareaValue" ? /* @__PURE__ */ jsx_runtime5.jsx(Textarea, {
+              size: "xs",
+              value: value.value,
+              onChange: (e) => updateVarValue({
+                ...value,
+                value: e.target.value
+              }),
+              placeholder: "Enter multi-line text",
+              autosize: true,
+              minRows: 2,
+              maxRows: 4
             }) : value.type === "StudioList" ? /* @__PURE__ */ jsx_runtime5.jsx(Select, {
               size: "xs",
               data: selectOptions,
@@ -53660,12 +54126,12 @@ var DependentGroupValueSortableCard = ({
         centered: true,
         children: /* @__PURE__ */ jsx_runtime5.jsxs(Stack, {
           children: [
-            transforms.map((t, index4) => /* @__PURE__ */ jsx_runtime5.jsx(TransformCommandCard, {
+            transforms.map((t, index6) => /* @__PURE__ */ jsx_runtime5.jsx(TransformCommandCard, {
               transform: t,
-              index: index4,
+              index: index6,
               onUpdate: updateTransform,
               onRemove: removeTransform
-            }, index4)),
+            }, index6)),
             /* @__PURE__ */ jsx_runtime5.jsx(Card, {
               shadow: "sm",
               padding: "xs",
@@ -53709,7 +54175,7 @@ var DependentGroupValueSortableCard = ({
 var jsx_runtime6 = __toESM(require_jsx_runtime(), 1);
 var DependentGroupSetValue = ({
   groupIndex,
-  imageVariableId,
+  targetVariableId,
   mapId,
   variableValue
 }) => {
@@ -53722,7 +54188,7 @@ var DependentGroupSetValue = ({
   const handleRemoveVarValue = (valueIndex) => {
     removeVarValueFromDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValueIndex: valueIndex
     });
@@ -53730,7 +54196,7 @@ var DependentGroupSetValue = ({
   const handleAddStringValue = () => {
     addVarValueToDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValue: ""
     });
@@ -53738,7 +54204,7 @@ var DependentGroupSetValue = ({
   const handleAddListVariable = () => {
     addVarValueToDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValue: {
         id: null,
@@ -53747,9 +54213,22 @@ var DependentGroupSetValue = ({
       }
     });
   };
+  const handleAddTextareaValue = () => {
+    addVarValueToDependentGroup({
+      mapId,
+      targetVariableId,
+      groupIndex,
+      variableValue: {
+        type: "TextareaValue",
+        value: ""
+      }
+    });
+  };
   const getDisplayValue = (value) => {
     if (typeof value === "string") {
       return value;
+    } else if (value.type === "TextareaValue") {
+      return value.value.length > 50 ? value.value.substring(0, 50) + "..." : value.value;
     } else {
       return `Variable: ${value.id}`;
     }
@@ -53761,7 +54240,7 @@ var DependentGroupSetValue = ({
       const newIndex = parseInt(over.id.toString().split("-")[1]);
       setIndexOfVarValueFromDependentGroup({
         mapId,
-        imageVariableId,
+        targetVariableId,
         groupIndex,
         oldVariableValueIndex: oldIndex,
         newVariableValueIndex: newIndex
@@ -53784,22 +54263,22 @@ var DependentGroupSetValue = ({
           collisionDetection: closestCenter,
           onDragEnd: handleDragEnd,
           children: /* @__PURE__ */ jsx_runtime6.jsx(SortableContext, {
-            items: variableValue.map((_2, index4) => `item-${index4}`),
+            items: variableValue.map((_2, index6) => `item-${index6}`),
             strategy: horizontalListSortingStrategy,
             children: /* @__PURE__ */ jsx_runtime6.jsxs(Group, {
               gap: "xs",
               wrap: "nowrap",
               style: { minWidth: "100%" },
               children: [
-                variableValue.map((value, index4) => /* @__PURE__ */ jsx_runtime6.jsx(DependentGroupValueSortableCard, {
-                  id: `item-${index4}`,
+                variableValue.map((value, index6) => /* @__PURE__ */ jsx_runtime6.jsx(DependentGroupValueSortableCard, {
+                  id: `item-${index6}`,
                   value,
                   mapId,
                   groupIndex,
-                  imageVariableId,
-                  onRemove: () => handleRemoveVarValue(index4),
+                  imageVariableId: targetVariableId,
+                  onRemove: () => handleRemoveVarValue(index6),
                   getDisplayValue
-                }, `item-${index4}`)),
+                }, `item-${index6}`)),
                 /* @__PURE__ */ jsx_runtime6.jsxs(Menu, {
                   position: "bottom-end",
                   withArrow: true,
@@ -53838,6 +54317,13 @@ var DependentGroupSetValue = ({
                           children: "String"
                         }),
                         /* @__PURE__ */ jsx_runtime6.jsx(Menu.Item, {
+                          leftSection: /* @__PURE__ */ jsx_runtime6.jsx(IconTextSize, {
+                            size: 14
+                          }),
+                          onClick: handleAddTextareaValue,
+                          children: "Textarea"
+                        }),
+                        /* @__PURE__ */ jsx_runtime6.jsx(Menu.Item, {
                           leftSection: /* @__PURE__ */ jsx_runtime6.jsx(IconList, {
                             size: 14
                           }),
@@ -53868,10 +54354,11 @@ var DependentGroup = ({
   const bgColor = groupIndex % 2 === 0 ? "#5b575b" : "#335760";
   const variables = appStore((state) => state.state.studio.document.variables);
   const raiseError2 = appStore((state) => state.raiseError);
-  const setCurrentImageVariableId = appStore((state) => state.effects.modal.dependentModal.setCurrentImageVariableId);
+  const setCurrentImageVariableId = appStore((state) => state.effects.modal.dependentModal.setCurrentTargetVariableId);
   const setCurrentSelectedMapId = appStore((state) => state.effects.modal.setCurrentSelectedMapId);
   const setCurrentGroupIndex = appStore((state) => state.effects.modal.dependentModal.setCurrentGroupIndex);
   const setIsOpen = appStore((state) => state.effects.modal.dependentModal.setIsOpen);
+  const setAllowAlways = appStore((state) => state.effects.modal.dependentModal.setAllowAlways);
   const removeDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.removeDependentGroup);
   const copyDependentGroup = appStore((state) => state.effects.studio.layoutImageMapping.copyDependentGroup);
   const removeDependent = appStore((state) => state.effects.studio.layoutImageMapping.removeDependent);
@@ -53880,19 +54367,20 @@ var DependentGroup = ({
     setCurrentImageVariableId(variableConfig.id);
     setCurrentSelectedMapId(layoutMap.id);
     setCurrentGroupIndex(groupIndex2);
-    setIsOpen(true);
+    setAllowAlways(false);
+    setIsOpen(true, layoutMap.id);
   };
   const handleRemoveGroup = (groupIndex2) => {
     removeDependentGroup({
       groupIndex: groupIndex2,
-      imageVariableId: variableConfig.id,
+      targetVariableId: variableConfig.id,
       mapId: layoutMap.id
     });
   };
   const handleCopyGroup = (groupIndex2) => {
     copyDependentGroup({
       groupIndex: groupIndex2,
-      imageVariableId: variableConfig.id,
+      targetVariableId: variableConfig.id,
       mapId: layoutMap.id
     });
   };
@@ -53944,7 +54432,7 @@ var DependentGroup = ({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime7.jsxs(Grid, {
+      !dependentGroup.alwaysRun ? /* @__PURE__ */ jsx_runtime7.jsxs(Grid, {
         gutter: "xs",
         children: [
           dependentGroup.dependents.map((dependent, depIndex) => {
@@ -53976,7 +54464,7 @@ var DependentGroup = ({
                     },
                     onClick: () => {
                       removeDependent({
-                        imageVariableId: variableConfig.id,
+                        targetVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
                         dependent,
                         mapId: layoutMap.id
@@ -54006,7 +54494,7 @@ var DependentGroup = ({
                     onChange: (newValues) => {
                       updateDependent({
                         mapId: layoutMap.id,
-                        imageVariableId: variableConfig.id,
+                        targetVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
                         dependent: {
                           ...dependent,
@@ -54027,7 +54515,7 @@ var DependentGroup = ({
                     onChange: (newValues) => {
                       updateDependent({
                         mapId: layoutMap.id,
-                        imageVariableId: variableConfig.id,
+                        targetVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
                         dependent: {
                           ...dependent,
@@ -54066,10 +54554,16 @@ var DependentGroup = ({
             })
           })
         ]
+      }) : /* @__PURE__ */ jsx_runtime7.jsx(Text, {
+        size: "sm",
+        c: "dimmed",
+        ta: "center",
+        style: { padding: "20px" },
+        children: "This group runs always - no dependent variables needed"
       }),
       /* @__PURE__ */ jsx_runtime7.jsx(DependentGroupSetValue, {
         groupIndex,
-        imageVariableId: variableConfig.id,
+        targetVariableId: variableConfig.id,
         mapId: layoutMap.id,
         variableValue: dependentGroup.variableValue
       })
@@ -54085,13 +54579,14 @@ var VariableCard = ({
 }) => {
   const documentVariables = appStore((store) => store.state.studio.document.variables);
   const raiseError2 = appStore((store) => store.raiseError);
-  const setCurrentImageVariableId = appStore((store) => store.effects.modal.dependentModal.setCurrentImageVariableId);
+  const setCurrentImageVariableId = appStore((store) => store.effects.modal.dependentModal.setCurrentTargetVariableId);
   const setDependentModalIsOpen = appStore((store) => store.effects.modal.dependentModal.setIsOpen);
-  const removeImageVariable = appStore((store) => store.effects.studio.layoutImageMapping.removeImageVariable);
-  const setIsSwapImageVariableModalOpen = appStore((store) => store.effects.modal.setIsSwapImageVariableModalOpen);
-  const setCurrentSwapImageVariableId = appStore((store) => store.effects.modal.setCurrentSwapImageVariableId);
+  const setAllowAlways = appStore((store) => store.effects.modal.dependentModal.setAllowAlways);
+  const removeImageVariable = appStore((store) => store.effects.studio.layoutImageMapping.removeTargetVariable);
+  const setIsSwapImageVariableModalOpen = appStore((store) => store.effects.modal.setIsSwapTargetVariableModalOpen);
+  const setCurrentSwapImageVariableId = appStore((store) => store.effects.modal.setCurrentSwapTargetVariableId);
   const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
-  const [isOpen, setIsOpen] = import_react255.useState(false);
+  const [isOpen, setIsOpen] = import_react260.useState(false);
   const variableImageConfig = documentVariables.find((v2) => v2.id === variableConfig.id);
   if (variableImageConfig == null) {
     raiseError2(Result.error(new Error("variableDocument is null")));
@@ -54099,6 +54594,7 @@ var VariableCard = ({
   }
   const handleAddGroup = () => {
     setCurrentImageVariableId(variableConfig.id);
+    setAllowAlways(true);
     setDependentModalIsOpen(true, layoutMap.id);
   };
   const handleSwapImageVariable = (e) => {
@@ -54156,7 +54652,7 @@ var VariableCard = ({
                   e.stopPropagation();
                   removeImageVariable({
                     mapId: layoutMap.id,
-                    imageVariableId: variableConfig.id
+                    targetVariableId: variableConfig.id
                   });
                 },
                 children: /* @__PURE__ */ jsx_runtime8.jsx(IconTrashFilled, {})
@@ -54220,53 +54716,150 @@ var VariableCard = ({
   }, variableConfig.id);
 };
 
-// src/components/LayoutMappingModal/LayoutConfigSelection.tsx
+// src/components/LayoutMappingModal/EditableTitle.tsx
+var import_react261 = __toESM(require_react(), 1);
 var jsx_runtime9 = __toESM(require_jsx_runtime(), 1);
+function EditableTitle({
+  value,
+  onSave,
+  placeholder = "Enter name...",
+  order = 3,
+  size: size4 = "md"
+}) {
+  const [isEditing, setIsEditing] = import_react261.useState(false);
+  const [editValue, setEditValue] = import_react261.useState(value);
+  const [isHovered, setIsHovered] = import_react261.useState(false);
+  const inputRef = import_react261.useRef(null);
+  import_react261.useEffect(() => {
+    setEditValue(value);
+  }, [value]);
+  import_react261.useEffect(() => {
+    if (isEditing) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+        inputRef.current?.select();
+      }, 10);
+    }
+  }, [isEditing]);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSave();
+    }
+    if (e.key === "Escape") {
+      handleCancel();
+    }
+  };
+  const handleSave = () => {
+    const trimmedValue = editValue.trim();
+    if (trimmedValue !== value) {
+      onSave(trimmedValue);
+    }
+    setIsEditing(false);
+  };
+  const handleCancel = () => {
+    setEditValue(value);
+    setIsEditing(false);
+  };
+  const handleEditStart = () => {
+    setIsEditing(true);
+  };
+  const handleInputChange = (e) => {
+    setEditValue(e.target.value);
+  };
+  return /* @__PURE__ */ jsx_runtime9.jsx("div", {
+    onMouseEnter: () => setIsHovered(true),
+    onMouseLeave: () => setIsHovered(false),
+    style: { position: "relative", display: "inline-block" },
+    children: isEditing ? /* @__PURE__ */ jsx_runtime9.jsx(TextInput, {
+      ref: inputRef,
+      value: editValue,
+      onChange: handleInputChange,
+      onKeyDown: handleKeyDown,
+      onBlur: handleSave,
+      placeholder,
+      size: size4,
+      style: { minWidth: "200px" }
+    }) : /* @__PURE__ */ jsx_runtime9.jsxs(jsx_runtime9.Fragment, {
+      children: [
+        /* @__PURE__ */ jsx_runtime9.jsx(Title, {
+          order,
+          style: { cursor: "pointer", display: "inline" },
+          onClick: handleEditStart,
+          children: value || placeholder
+        }),
+        isHovered && /* @__PURE__ */ jsx_runtime9.jsx(ActionIcon, {
+          size: "sm",
+          variant: "subtle",
+          color: "blue",
+          style: {
+            position: "absolute",
+            right: "-30px",
+            top: "50%",
+            transform: "translateY(-50%)"
+          },
+          onClick: handleEditStart,
+          children: /* @__PURE__ */ jsx_runtime9.jsx(IconPencil, {
+            size: 16
+          })
+        })
+      ]
+    })
+  });
+}
+
+// src/components/LayoutMappingModal/LayoutConfigSelection.tsx
+var jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
 var LayoutConfigSection = ({
   mapConfig,
-  index: index4
+  index: index6
 }) => {
-  const [isOpen, setIsOpen] = import_react256.useState(false);
-  const [menuOpened, setMenuOpened] = import_react256.useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = import_react256.useState(false);
+  const [isOpen, setIsOpen] = import_react262.useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = import_react262.useState(false);
   const addLayoutMapFromCopy = appStore((store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy);
-  const setIsImageVariableMappingModalOpen = appStore((store) => store.effects.modal.setIsImageVariableMappingModalOpen);
+  const setIsImageVariableMappingModalOpen = appStore((store) => store.effects.modal.setIsTargetVariableMappingModalOpen);
   const setCurrentSelectedMapId = appStore((store) => store.effects.modal.setCurrentSelectedMapId);
   const setCurrentAddImageMappingSelectedVariables = appStore((store) => store.effects.modal.setCurrentAddImageMappingSelectedVariables);
   const deleteLayoutMap = appStore((store) => store.effects.studio.layoutImageMapping.deleteLayoutMap);
-  return /* @__PURE__ */ jsx_runtime9.jsxs(Paper, {
+  const updateLayoutMapName = appStore((store) => store.effects.studio.layoutImageMapping.updateLayoutMapName);
+  const getDisplayName = () => {
+    return mapConfig.name || `Layout Mapping #${index6 + 1}`;
+  };
+  const handleNameSave = (newName) => {
+    updateLayoutMapName({ mapId: mapConfig.id, name: newName });
+  };
+  return /* @__PURE__ */ jsx_runtime10.jsxs(Paper, {
     p: "md",
     children: [
-      /* @__PURE__ */ jsx_runtime9.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime10.jsxs(Group, {
         justify: "space-between",
         mb: 20,
-        onClick: () => setIsOpen(!isOpen),
         children: [
-          /* @__PURE__ */ jsx_runtime9.jsxs(Title, {
+          /* @__PURE__ */ jsx_runtime10.jsx(EditableTitle, {
+            value: getDisplayName(),
+            onSave: handleNameSave,
             order: 3,
-            children: [
-              "Layout Mapping #",
-              index4 + 1
-            ]
+            placeholder: `Layout Mapping #${index6 + 1}`
           }),
-          /* @__PURE__ */ jsx_runtime9.jsx(Group, {
-            children: /* @__PURE__ */ jsx_runtime9.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Group, {
+            onClick: () => setIsOpen(!isOpen),
+            style: { cursor: "pointer" },
+            children: /* @__PURE__ */ jsx_runtime10.jsxs(Group, {
               gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime9.jsx(ActionIcon, {
+                /* @__PURE__ */ jsx_runtime10.jsx(ActionIcon, {
                   size: "lg",
                   radius: "xl",
                   onClick: () => addLayoutMapFromCopy(mapConfig.id),
-                  children: /* @__PURE__ */ jsx_runtime9.jsx(IconCopy, {})
+                  children: /* @__PURE__ */ jsx_runtime10.jsx(IconCopy, {})
                 }),
-                /* @__PURE__ */ jsx_runtime9.jsx(ActionIcon, {
+                /* @__PURE__ */ jsx_runtime10.jsx(ActionIcon, {
                   size: "lg",
                   color: "red",
                   radius: "xl",
                   onClick: () => setDeleteModalOpen(true),
-                  children: /* @__PURE__ */ jsx_runtime9.jsx(IconTrashFilled, {})
+                  children: /* @__PURE__ */ jsx_runtime10.jsx(IconTrashFilled, {})
                 }),
-                /* @__PURE__ */ jsx_runtime9.jsx(ActionIcon, {
+                /* @__PURE__ */ jsx_runtime10.jsx(ActionIcon, {
                   size: "lg",
                   radius: "xl",
                   onClick: () => setIsOpen(!isOpen),
@@ -54274,47 +54867,47 @@ var LayoutConfigSection = ({
                     transform: isOpen ? "rotate(0deg)" : "rotate(90deg)",
                     transition: "transform 0.2s ease"
                   },
-                  children: /* @__PURE__ */ jsx_runtime9.jsx(IconCaretDownFilled, {})
+                  children: /* @__PURE__ */ jsx_runtime10.jsx(IconCaretDownFilled, {})
                 })
               ]
             })
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime9.jsx(Title, {
+      /* @__PURE__ */ jsx_runtime10.jsx(Title, {
         styles: { root: { marginTop: "30px" } },
         order: 5,
         mb: "md",
         children: "Layout Dependencies"
       }),
-      /* @__PURE__ */ jsx_runtime9.jsx(LayoutMultiSelect, {
+      /* @__PURE__ */ jsx_runtime10.jsx(LayoutMultiSelect, {
         showButton: isOpen,
         layoutConfig: mapConfig
-      }, index4),
-      isOpen && /* @__PURE__ */ jsx_runtime9.jsxs(jsx_runtime9.Fragment, {
+      }, index6),
+      isOpen && /* @__PURE__ */ jsx_runtime10.jsxs(jsx_runtime10.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime9.jsx(Divider, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Divider, {
             styles: { root: { marginTop: "30px" } }
           }),
-          /* @__PURE__ */ jsx_runtime9.jsx(Title, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Title, {
             styles: { root: { marginTop: "20px" } },
             order: 5,
             mb: "md",
             children: "Set Variables"
           }),
-          mapConfig.variables.map((variableConfig) => /* @__PURE__ */ jsx_runtime9.jsx(VariableCard, {
+          mapConfig.variables.map((variableConfig) => /* @__PURE__ */ jsx_runtime10.jsx(VariableCard, {
             variableConfig,
             layoutMap: mapConfig
           }, variableConfig.id)),
-          /* @__PURE__ */ jsx_runtime9.jsxs(Button, {
+          /* @__PURE__ */ jsx_runtime10.jsxs(Button, {
             onClick: () => {
               setIsImageVariableMappingModalOpen(true);
               setCurrentSelectedMapId(mapConfig.id);
               setCurrentAddImageMappingSelectedVariables([]);
             },
             children: [
-              /* @__PURE__ */ jsx_runtime9.jsx(IconPlus, {}),
-              /* @__PURE__ */ jsx_runtime9.jsx("span", {
+              /* @__PURE__ */ jsx_runtime10.jsx(IconPlus, {}),
+              /* @__PURE__ */ jsx_runtime10.jsx("span", {
                 style: { marginLeft: "10px" },
                 children: "Add Variables"
               })
@@ -54322,27 +54915,27 @@ var LayoutConfigSection = ({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime9.jsxs(Modal, {
+      /* @__PURE__ */ jsx_runtime10.jsxs(Modal, {
         opened: deleteModalOpen,
         onClose: () => setDeleteModalOpen(false),
         title: "Confirm Deletion",
         centered: true,
         children: [
-          /* @__PURE__ */ jsx_runtime9.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime10.jsx(Text, {
             size: "sm",
             mb: "lg",
             children: "Are you sure you want to delete this mapping?"
           }),
-          /* @__PURE__ */ jsx_runtime9.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime10.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime9.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime10.jsx(Button, {
                 variant: "outline",
                 onClick: () => setDeleteModalOpen(false),
                 children: "Cancel"
               }),
-              /* @__PURE__ */ jsx_runtime9.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime10.jsx(Button, {
                 color: "red",
                 onClick: () => {
                   deleteLayoutMap(mapConfig.id);
@@ -54355,11 +54948,11 @@ var LayoutConfigSection = ({
         ]
       })
     ]
-  }, index4);
+  }, index6);
 };
 
 // src/components/LayoutMappingModal/LayoutModal.tsx
-var jsx_runtime10 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
 var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV clicked") }) => {
   const events2 = appStore((state) => state.effects);
   const raiseError2 = appStore((state) => state.raiseError);
@@ -54371,19 +54964,30 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
   const isModalVisible = appStore((state) => state.state.modal.isModalVisible);
   const layoutImageMapping = appStore((state) => state.state.studio.layoutImageMapping);
   const currentSelectedMapId = appStore((state) => state.state.modal.currentSelectedMapId);
-  const currentSwapImageVariableId = appStore((state) => state.state.modal.currentSwapImageVariableId);
-  const [validationReport, setValidationReport] = import_react257.useState(null);
-  const [isValidationModalOpen, setIsValidationModalOpen] = import_react257.useState(false);
-  const imageVariables = import_react257.useMemo(() => {
+  const currentSwapTargetVariableId = appStore((state) => state.state.modal.currentSwapTargetVariableId);
+  const [validationReport, setValidationReport] = import_react263.useState(null);
+  const [isValidationModalOpen, setIsValidationModalOpen] = import_react263.useState(false);
+  const imageVariables = import_react263.useMemo(() => {
     return variables.filter((variable) => variable.type === "image");
   }, [variables]);
-  const imageVariableOptions = import_react257.useMemo(() => {
+  const imageVariableOptions = import_react263.useMemo(() => {
     return imageVariables.map((variable) => ({
       value: variable.id,
       label: variable.name
     }));
   }, [imageVariables]);
-  import_react257.useEffect(() => {
+  const migrateLayoutMaps = (layoutMaps) => {
+    return layoutMaps.map((layoutMap, index6) => {
+      if (!layoutMap.name) {
+        return {
+          ...layoutMap,
+          name: `Layout Mapping #${index6 + 1}`
+        };
+      }
+      return layoutMap;
+    });
+  };
+  import_react263.useEffect(() => {
     const loadConfig = async () => {
       if (!isLayoutConfigLoaded && !isDocumentLoaded) {
         const resultDoc = await loadDocFromDoc();
@@ -54408,9 +55012,11 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
             if (hasRemovedItems) {
               setValidationReport(combinedReport);
               setIsValidationModalOpen(true);
-              events2.studio.layoutImageMapping.load(cleanedConfigArray);
+              const migratedCleanedConfig = migrateLayoutMaps(cleanedConfigArray);
+              events2.studio.layoutImageMapping.load(migratedCleanedConfig);
             } else {
-              events2.studio.layoutImageMapping.load(layoutMapArray);
+              const migratedOriginalConfig = migrateLayoutMaps(layoutMapArray);
+              events2.studio.layoutImageMapping.load(migratedOriginalConfig);
             }
             events2.studio.document.load(doc);
           }, raiseError2);
@@ -54438,18 +55044,18 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
     events2.studio.layoutImageMapping.load(updatedConfig);
   };
   const ModalHeader2 = () => {
-    return /* @__PURE__ */ jsx_runtime10.jsx(TopBar, {
-      children: /* @__PURE__ */ jsx_runtime10.jsxs(Group, {
+    return /* @__PURE__ */ jsx_runtime11.jsx(TopBar, {
+      children: /* @__PURE__ */ jsx_runtime11.jsxs(Group, {
         justify: "space-between",
         w: "100%",
         children: [
-          /* @__PURE__ */ jsx_runtime10.jsx(Title, {
+          /* @__PURE__ */ jsx_runtime11.jsx(Title, {
             order: 4,
             c: "white",
             children: "Layout Image Mapping Tool"
           }),
-          /* @__PURE__ */ jsx_runtime10.jsx(Button, {
-            leftSection: /* @__PURE__ */ jsx_runtime10.jsx(IconPlus, {
+          /* @__PURE__ */ jsx_runtime11.jsx(Button, {
+            leftSection: /* @__PURE__ */ jsx_runtime11.jsx(IconPlus, {
               size: 16
             }),
             onClick: () => events2.studio.layoutImageMapping.addLayoutMap(),
@@ -54460,21 +55066,21 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
     });
   };
   const ModalFooter = () => {
-    return /* @__PURE__ */ jsx_runtime10.jsx(BottomBar, {
-      children: /* @__PURE__ */ jsx_runtime10.jsxs(Group, {
+    return /* @__PURE__ */ jsx_runtime11.jsx(BottomBar, {
+      children: /* @__PURE__ */ jsx_runtime11.jsxs(Group, {
         justify: "flex-end",
         gap: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime10.jsx(Checkbox, {
+          /* @__PURE__ */ jsx_runtime11.jsx(Checkbox, {
             defaultChecked: true,
             label: "Generate Action"
           }),
-          /* @__PURE__ */ jsx_runtime10.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime11.jsx(Button, {
             color: "green",
             onClick: handleSave,
             children: "Save"
           }),
-          /* @__PURE__ */ jsx_runtime10.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime11.jsx(Button, {
             onClick: handleClose,
             children: "Close"
           })
@@ -54482,10 +55088,10 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
       })
     });
   };
-  return /* @__PURE__ */ jsx_runtime10.jsxs(MantineProvider, {
+  return /* @__PURE__ */ jsx_runtime11.jsxs(MantineProvider, {
     defaultColorScheme: "dark",
     children: [
-      /* @__PURE__ */ jsx_runtime10.jsxs(Modal, {
+      /* @__PURE__ */ jsx_runtime11.jsxs(Modal, {
         trapFocus: false,
         styles: {
           body: {
@@ -54513,86 +55119,86 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
         onClose: handleClose,
         withCloseButton: false,
         children: [
-          /* @__PURE__ */ jsx_runtime10.jsx(ModalHeader2, {}),
-          /* @__PURE__ */ jsx_runtime10.jsx(Content, {
-            children: !isLayoutConfigLoaded || !isDocumentLoaded ? /* @__PURE__ */ jsx_runtime10.jsx(LoadingSpinner, {}) : /* @__PURE__ */ jsx_runtime10.jsx(Stack, {
+          /* @__PURE__ */ jsx_runtime11.jsx(ModalHeader2, {}),
+          /* @__PURE__ */ jsx_runtime11.jsx(Content, {
+            children: !isLayoutConfigLoaded || !isDocumentLoaded ? /* @__PURE__ */ jsx_runtime11.jsx(LoadingSpinner, {}) : /* @__PURE__ */ jsx_runtime11.jsx(Stack, {
               h: "100%",
               gap: "md",
-              children: layoutImageMapping.map((config, index4) => /* @__PURE__ */ jsx_runtime10.jsx(LayoutConfigSection, {
+              children: layoutImageMapping.map((config, index6) => /* @__PURE__ */ jsx_runtime11.jsx(LayoutConfigSection, {
                 mapConfig: config,
-                index: index4
-              }, index4))
+                index: index6
+              }, index6))
             })
           }),
-          /* @__PURE__ */ jsx_runtime10.jsx(ModalFooter, {})
+          /* @__PURE__ */ jsx_runtime11.jsx(ModalFooter, {})
         ]
       }),
-      /* @__PURE__ */ jsx_runtime10.jsx(AddMappingImageVariableModal, {
+      /* @__PURE__ */ jsx_runtime11.jsx(AddMappingImageVariableModal, {
         currentMapConfig: layoutImageMapping.find((config) => config.id === currentSelectedMapId) || null
       }),
-      /* @__PURE__ */ jsx_runtime10.jsx(AddDependentModal, {}),
-      /* @__PURE__ */ jsx_runtime10.jsx(SwapImageVariableModal, {
+      /* @__PURE__ */ jsx_runtime11.jsx(AddDependentModal, {}),
+      /* @__PURE__ */ jsx_runtime11.jsx(SwapTargetVariableModal, {
         currentMapConfig: layoutImageMapping.find((config) => config.id === currentSelectedMapId) || null,
-        currentImageVariable: currentSelectedMapId && currentSwapImageVariableId ? layoutImageMapping.find((config) => config.id === currentSelectedMapId)?.variables.find((v2) => v2.id === currentSwapImageVariableId) || null : null
+        currentImageVariable: currentSelectedMapId && currentSwapTargetVariableId ? layoutImageMapping.find((config) => config.id === currentSelectedMapId)?.variables.find((v2) => v2.id === currentSwapTargetVariableId) || null : null
       }),
-      /* @__PURE__ */ jsx_runtime10.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime11.jsx(Modal, {
         opened: isValidationModalOpen,
         onClose: () => setIsValidationModalOpen(false),
-        title: /* @__PURE__ */ jsx_runtime10.jsx(Title, {
+        title: /* @__PURE__ */ jsx_runtime11.jsx(Title, {
           order: 4,
           children: "Layout Mapping Validation"
         }),
         centered: true,
         size: "lg",
-        children: /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime11.jsxs(Stack, {
           gap: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime10.jsx(Alert, {
+            /* @__PURE__ */ jsx_runtime11.jsx(Alert, {
               color: "yellow",
               title: "Items Removed from Layout Mapping",
-              children: /* @__PURE__ */ jsx_runtime10.jsx(Text, {
+              children: /* @__PURE__ */ jsx_runtime11.jsx(Text, {
                 children: "Values were deleted from the document and thus we also removed those values from your layout mapping."
               })
             }),
-            validationReport && /* @__PURE__ */ jsx_runtime10.jsxs(jsx_runtime10.Fragment, {
+            validationReport && /* @__PURE__ */ jsx_runtime11.jsxs(jsx_runtime11.Fragment, {
               children: [
-                validationReport.removedLayoutIds.length > 0 && /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
+                validationReport.removedLayoutIds.length > 0 && /* @__PURE__ */ jsx_runtime11.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime10.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime11.jsx(Text, {
                       fw: 600,
                       children: "Removed Layout IDs:"
                     }),
-                    /* @__PURE__ */ jsx_runtime10.jsx(List, {
-                      children: validationReport.removedLayoutIds.map((id, index4) => /* @__PURE__ */ jsx_runtime10.jsx(List.Item, {
+                    /* @__PURE__ */ jsx_runtime11.jsx(List, {
+                      children: validationReport.removedLayoutIds.map((id, index6) => /* @__PURE__ */ jsx_runtime11.jsx(List.Item, {
                         children: id
-                      }, index4))
+                      }, index6))
                     })
                   ]
                 }),
-                validationReport.removedVariables.length > 0 && /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
+                validationReport.removedVariables.length > 0 && /* @__PURE__ */ jsx_runtime11.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime10.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime11.jsx(Text, {
                       fw: 600,
                       children: "Removed Variables:"
                     }),
-                    /* @__PURE__ */ jsx_runtime10.jsx(List, {
-                      children: validationReport.removedVariables.map((id, index4) => /* @__PURE__ */ jsx_runtime10.jsx(List.Item, {
+                    /* @__PURE__ */ jsx_runtime11.jsx(List, {
+                      children: validationReport.removedVariables.map((id, index6) => /* @__PURE__ */ jsx_runtime11.jsx(List.Item, {
                         children: id
-                      }, index4))
+                      }, index6))
                     })
                   ]
                 }),
-                validationReport.removedDependents.length > 0 && /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
+                validationReport.removedDependents.length > 0 && /* @__PURE__ */ jsx_runtime11.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime10.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime11.jsx(Text, {
                       fw: 600,
                       children: "Removed Dependents:"
                     }),
-                    /* @__PURE__ */ jsx_runtime10.jsx(List, {
-                      children: validationReport.removedDependents.map((item, index4) => /* @__PURE__ */ jsx_runtime10.jsxs(List.Item, {
+                    /* @__PURE__ */ jsx_runtime11.jsx(List, {
+                      children: validationReport.removedDependents.map((item, index6) => /* @__PURE__ */ jsx_runtime11.jsxs(List.Item, {
                         children: [
                           "Variable ID: ",
                           item.variableId,
@@ -54601,19 +55207,19 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
                           item.imageVariableId,
                           ")"
                         ]
-                      }, index4))
+                      }, index6))
                     })
                   ]
                 }),
-                validationReport.removedVariableValues.length > 0 && /* @__PURE__ */ jsx_runtime10.jsxs(Stack, {
+                validationReport.removedVariableValues.length > 0 && /* @__PURE__ */ jsx_runtime11.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime10.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime11.jsx(Text, {
                       fw: 600,
                       children: "Removed Variable Values:"
                     }),
-                    /* @__PURE__ */ jsx_runtime10.jsx(List, {
-                      children: validationReport.removedVariableValues.map((item, index4) => /* @__PURE__ */ jsx_runtime10.jsxs(List.Item, {
+                    /* @__PURE__ */ jsx_runtime11.jsx(List, {
+                      children: validationReport.removedVariableValues.map((item, index6) => /* @__PURE__ */ jsx_runtime11.jsxs(List.Item, {
                         children: [
                           "Value: ",
                           item.value,
@@ -54625,15 +55231,15 @@ var LayoutImageMappingModal = ({ onExportCSV = () => console.log("Export CSV cli
                           item.dependentGroupIndex,
                           ")"
                         ]
-                      }, index4))
+                      }, index6))
                     })
                   ]
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime10.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime11.jsx(Group, {
               justify: "flex-end",
-              children: /* @__PURE__ */ jsx_runtime10.jsx(Button, {
+              children: /* @__PURE__ */ jsx_runtime11.jsx(Button, {
                 onClick: () => setIsValidationModalOpen(false),
                 children: "OK"
               })
@@ -54686,20 +55292,20 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react284 = __toESM(require_react(), 1);
+var import_react290 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
-var import_react264 = __toESM(require_react(), 1);
+var import_react270 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameLayoutCard.tsx
-var import_react263 = __toESM(require_react(), 1);
+var import_react269 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotRow.tsx
-var import_react259 = __toESM(require_react(), 1);
+var import_react265 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/EditableCell.tsx
-var import_react258 = __toESM(require_react(), 1);
-var jsx_runtime11 = __toESM(require_jsx_runtime(), 1);
+var import_react264 = __toESM(require_react(), 1);
+var jsx_runtime12 = __toESM(require_jsx_runtime(), 1);
 function EditableCell({
   rowKey,
   field,
@@ -54711,15 +55317,15 @@ function EditableCell({
   onEditSave,
   onEditCancel
 }) {
-  const [isHovered, setIsHovered] = import_react258.useState(false);
-  const inputRef = import_react258.useRef(null);
+  const [isHovered, setIsHovered] = import_react264.useState(false);
+  const inputRef = import_react264.useRef(null);
   const cellKey = `${rowKey}:${field}`;
-  import_react258.useEffect(() => {
+  import_react264.useEffect(() => {
     if (isEditing) {
       setTimeout(() => inputRef.current?.focus(), 10);
     }
   }, [isEditing]);
-  import_react258.useEffect(() => {
+  import_react264.useEffect(() => {
     console.log(rowKey);
   }, []);
   const handleKeyDown = (e) => {
@@ -54728,11 +55334,11 @@ function EditableCell({
     if (e.key === "Escape")
       onEditCancel();
   };
-  return /* @__PURE__ */ jsx_runtime11.jsx("div", {
+  return /* @__PURE__ */ jsx_runtime12.jsx("div", {
     onMouseEnter: () => setIsHovered(true),
     onMouseLeave: () => setIsHovered(false),
     style: { position: "relative" },
-    children: isEditing ? field === "imageName" ? /* @__PURE__ */ jsx_runtime11.jsx(TextInput, {
+    children: isEditing ? field === "imageName" ? /* @__PURE__ */ jsx_runtime12.jsx(TextInput, {
       ref: inputRef,
       value: editValue,
       onChange: (e) => onEditChange(e.target.value),
@@ -54740,7 +55346,7 @@ function EditableCell({
       onBlur: onEditSave,
       size: "xs",
       style: { width: "100%" }
-    }) : /* @__PURE__ */ jsx_runtime11.jsx(NumberInput, {
+    }) : /* @__PURE__ */ jsx_runtime12.jsx(NumberInput, {
       ref: inputRef,
       value: Number(editValue),
       onChange: (val) => onEditChange(val || 0),
@@ -54748,10 +55354,10 @@ function EditableCell({
       onBlur: onEditSave,
       size: "xs",
       style: { width: "100%" }
-    }) : /* @__PURE__ */ jsx_runtime11.jsxs(jsx_runtime11.Fragment, {
+    }) : /* @__PURE__ */ jsx_runtime12.jsxs(jsx_runtime12.Fragment, {
       children: [
         value,
-        isHovered && /* @__PURE__ */ jsx_runtime11.jsx(ActionIcon, {
+        isHovered && /* @__PURE__ */ jsx_runtime12.jsx(ActionIcon, {
           size: "xs",
           variant: "subtle",
           color: "blue",
@@ -54762,7 +55368,7 @@ function EditableCell({
             transform: "translateY(-50%)"
           },
           onClick: () => onEditStart(cellKey, value),
-          children: /* @__PURE__ */ jsx_runtime11.jsx(IconPencil, {
+          children: /* @__PURE__ */ jsx_runtime12.jsx(IconPencil, {
             size: 14
           })
         })
@@ -54772,7 +55378,7 @@ function EditableCell({
 }
 
 // src/components/FrameSnapshotLayout/FrameSnapshotRow.tsx
-var jsx_runtime12 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
 function FrameSnapshotRow({
   snapshot,
   layoutId,
@@ -54780,31 +55386,31 @@ function FrameSnapshotRow({
   onCheckChange,
   isChecked
 }) {
-  const [editState, setEditState] = import_react259.useState({
+  const [editState, setEditState] = import_react265.useState({
     key: null,
     value: ""
   });
-  const handleEditStart = import_react259.useCallback((key, value) => {
+  const handleEditStart = import_react265.useCallback((key, value) => {
     setEditState({ key, value });
   }, []);
-  const handleEditChange = import_react259.useCallback((value) => {
+  const handleEditChange = import_react265.useCallback((value) => {
     setEditState((prev2) => ({ ...prev2, value }));
   }, []);
-  const handleEditSave = import_react259.useCallback(() => {
+  const handleEditSave = import_react265.useCallback(() => {
     if (editState.key && onEditCell) {
       onEditCell(layoutId, editState.key, editState.value);
     }
     setEditState({ key: null, value: "" });
   }, [editState, onEditCell]);
-  const handleEditCancel = import_react259.useCallback(() => {
+  const handleEditCancel = import_react265.useCallback(() => {
     setEditState({ key: null, value: "" });
   }, []);
   const rowStyle = isChecked ? { backgroundColor: "#e6f7ff" } : {};
-  return /* @__PURE__ */ jsx_runtime12.jsxs(Table.Tr, {
+  return /* @__PURE__ */ jsx_runtime13.jsxs(Table.Tr, {
     style: rowStyle,
     children: [
-      ["imageName", "x", "y", "width", "height"].map((field) => /* @__PURE__ */ jsx_runtime12.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime12.jsx(EditableCell, {
+      ["imageName", "x", "y", "width", "height"].map((field) => /* @__PURE__ */ jsx_runtime13.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime13.jsx(EditableCell, {
           rowKey: snapshot.uniqueId,
           field,
           value: snapshot[field],
@@ -54816,8 +55422,8 @@ function FrameSnapshotRow({
           onEditCancel: handleEditCancel
         })
       }, field)),
-      /* @__PURE__ */ jsx_runtime12.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime12.jsx(Checkbox, {
+      /* @__PURE__ */ jsx_runtime13.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime13.jsx(Checkbox, {
           checked: isChecked,
           onChange: (event) => onCheckChange(snapshot.uniqueId, event.currentTarget.checked)
         })
@@ -54827,8 +55433,8 @@ function FrameSnapshotRow({
 }
 
 // src/components/FrameSnapshotLayout/CopyToLayerModal.tsx
-var import_react260 = __toESM(require_react(), 1);
-var jsx_runtime13 = __toESM(require_jsx_runtime(), 1);
+var import_react266 = __toESM(require_react(), 1);
+var jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
 function CopyToLayerModal({
   opened,
   onClose,
@@ -54837,11 +55443,11 @@ function CopyToLayerModal({
   frameLayoutMaps,
   onUpdateFrameLayoutMaps
 }) {
-  const [layouts, setLayouts] = import_react260.useState([]);
-  const [selectedLayoutId, setSelectedLayoutId] = import_react260.useState(null);
-  const [isLoading, setIsLoading] = import_react260.useState(false);
+  const [layouts, setLayouts] = import_react266.useState([]);
+  const [selectedLayoutId, setSelectedLayoutId] = import_react266.useState(null);
+  const [isLoading, setIsLoading] = import_react266.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react260.useEffect(() => {
+  import_react266.useEffect(() => {
     if (opened) {
       loadAvailableLayouts();
     }
@@ -54916,14 +55522,14 @@ function CopyToLayerModal({
       setIsLoading(false);
     }
   };
-  return /* @__PURE__ */ jsx_runtime13.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime14.jsx(Modal, {
     opened,
     onClose,
     title: "Copy to Layer",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime13.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime14.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime13.jsxs(Text, {
+        /* @__PURE__ */ jsx_runtime14.jsxs(Text, {
           size: "sm",
           children: [
             "Select a layout to copy ",
@@ -54933,7 +55539,7 @@ function CopyToLayerModal({
             " to:"
           ]
         }),
-        /* @__PURE__ */ jsx_runtime13.jsx(Select, {
+        /* @__PURE__ */ jsx_runtime14.jsx(Select, {
           label: "Target Layout",
           placeholder: "Select a layout",
           data: layouts,
@@ -54942,16 +55548,16 @@ function CopyToLayerModal({
           searchable: true,
           required: true
         }),
-        /* @__PURE__ */ jsx_runtime13.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime14.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime13.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime14.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime13.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime14.jsx(Button, {
               onClick: handleCopy,
               loading: isLoading,
               disabled: !selectedLayoutId,
@@ -54965,8 +55571,8 @@ function CopyToLayerModal({
 }
 
 // src/components/FrameSnapshotLayout/CopyAndAddRowModal.tsx
-var import_react261 = __toESM(require_react(), 1);
-var jsx_runtime14 = __toESM(require_jsx_runtime(), 1);
+var import_react267 = __toESM(require_react(), 1);
+var jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
 function CopyAndAddRowModal({
   opened,
   onClose,
@@ -54975,10 +55581,10 @@ function CopyAndAddRowModal({
   existingSnapshots,
   onAddCopy
 }) {
-  const [newName, setNewName] = import_react261.useState("");
-  const [error, setError] = import_react261.useState(null);
-  const [isLoading, setIsLoading] = import_react261.useState(false);
-  import_react261.default.useEffect(() => {
+  const [newName, setNewName] = import_react267.useState("");
+  const [error, setError] = import_react267.useState(null);
+  const [isLoading, setIsLoading] = import_react267.useState(false);
+  import_react267.default.useEffect(() => {
     if (opened) {
       setNewName(snapshot.imageName);
       setError(null);
@@ -55004,18 +55610,18 @@ function CopyAndAddRowModal({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime14.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime15.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Add Row",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime14.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime15.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime14.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime15.jsx(Text, {
           size: "sm",
           children: "Enter a name for the new snapshot:"
         }),
-        /* @__PURE__ */ jsx_runtime14.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime15.jsx(TextInput, {
           label: "Name",
           placeholder: "Enter name",
           value: newName,
@@ -55024,16 +55630,16 @@ function CopyAndAddRowModal({
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime14.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime15.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime14.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime15.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime14.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime15.jsx(Button, {
               onClick: handleCreate,
               loading: isLoading,
               disabled: !newName.trim(),
@@ -55047,8 +55653,8 @@ function CopyAndAddRowModal({
 }
 
 // src/components/FrameSnapshotLayout/CopyAndReplaceModal.tsx
-var import_react262 = __toESM(require_react(), 1);
-var jsx_runtime15 = __toESM(require_jsx_runtime(), 1);
+var import_react268 = __toESM(require_react(), 1);
+var jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
 function CopyAndReplaceModal({
   opened,
   onClose,
@@ -55057,14 +55663,14 @@ function CopyAndReplaceModal({
   existingSnapshots,
   onAddCopy
 }) {
-  const [searchText, setSearchText] = import_react262.useState("");
-  const [replaceText, setReplaceText] = import_react262.useState("");
-  const [errors, setErrors] = import_react262.useState({});
-  const [isLoading, setIsLoading] = import_react262.useState(false);
-  const [previewSnapshot, setPreviewSnapshot] = import_react262.useState(null);
-  const [previewNewName, setPreviewNewName] = import_react262.useState("");
-  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react262.useState(false);
-  import_react262.useEffect(() => {
+  const [searchText, setSearchText] = import_react268.useState("");
+  const [replaceText, setReplaceText] = import_react268.useState("");
+  const [errors, setErrors] = import_react268.useState({});
+  const [isLoading, setIsLoading] = import_react268.useState(false);
+  const [previewSnapshot, setPreviewSnapshot] = import_react268.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react268.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react268.useState(false);
+  import_react268.useEffect(() => {
     if (opened) {
       setSearchText("");
       setReplaceText("");
@@ -55077,7 +55683,7 @@ function CopyAndReplaceModal({
       }
     }
   }, [opened, snapshots]);
-  import_react262.useEffect(() => {
+  import_react268.useEffect(() => {
     if (previewSnapshot) {
       const newName = previewSnapshot.imageName.replace(new RegExp(searchText, "g"), replaceText);
       setPreviewNewName(newName);
@@ -55124,18 +55730,18 @@ function CopyAndReplaceModal({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime15.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime16.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Replace",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime15.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime16.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime15.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime16.jsx(Text, {
           size: "sm",
           children: "Enter search and replace text to create copies with modified names:"
         }),
-        /* @__PURE__ */ jsx_runtime15.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime16.jsx(TextInput, {
           label: "Search",
           placeholder: "Text to search for",
           value: searchText,
@@ -55144,32 +55750,32 @@ function CopyAndReplaceModal({
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime15.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime16.jsx(TextInput, {
           label: "Replace",
           placeholder: "Text to replace with",
           value: replaceText,
           onChange: handleReplaceChange,
           required: true
         }),
-        previewSnapshot && /* @__PURE__ */ jsx_runtime15.jsxs(Alert, {
+        previewSnapshot && /* @__PURE__ */ jsx_runtime16.jsxs(Alert, {
           color: isPreviewNameDifferent ? "green" : "red",
           title: "Name Preview",
           children: [
-            /* @__PURE__ */ jsx_runtime15.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime16.jsxs(Text, {
               size: "sm",
               children: [
                 "Original: ",
                 previewSnapshot.imageName
               ]
             }),
-            /* @__PURE__ */ jsx_runtime15.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime16.jsxs(Text, {
               size: "sm",
               children: [
                 "New: ",
                 previewNewName
               ]
             }),
-            /* @__PURE__ */ jsx_runtime15.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime16.jsxs(Text, {
               size: "sm",
               fw: 700,
               children: [
@@ -55179,24 +55785,24 @@ function CopyAndReplaceModal({
             })
           ]
         }),
-        Object.keys(errors).length > 0 && Object.keys(errors).some((key) => key !== "searchText") && /* @__PURE__ */ jsx_runtime15.jsx(Alert, {
+        Object.keys(errors).length > 0 && Object.keys(errors).some((key) => key !== "searchText") && /* @__PURE__ */ jsx_runtime16.jsx(Alert, {
           color: "red",
           title: "Validation Errors",
-          children: Object.entries(errors).filter(([key]) => key !== "searchText").map(([key, error]) => /* @__PURE__ */ jsx_runtime15.jsx(Text, {
+          children: Object.entries(errors).filter(([key]) => key !== "searchText").map(([key, error]) => /* @__PURE__ */ jsx_runtime16.jsx(Text, {
             size: "sm",
             children: error
           }, key))
         }),
-        /* @__PURE__ */ jsx_runtime15.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime16.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime15.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime16.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime15.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime16.jsx(Button, {
               onClick: handleCopyAndReplace,
               loading: isLoading,
               disabled: !searchText.trim() || !isPreviewNameDifferent,
@@ -55210,7 +55816,7 @@ function CopyAndReplaceModal({
 }
 
 // src/components/FrameSnapshotLayout/FrameLayoutCard.tsx
-var jsx_runtime16 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime17 = __toESM(require_jsx_runtime(), 1);
 function FrameLayoutCard({
   layoutMap,
   onRemoveSnapshot,
@@ -55218,10 +55824,10 @@ function FrameLayoutCard({
   frameLayoutMaps,
   onUpdateFrameLayoutMaps
 }) {
-  const [checkedSnapshots, setCheckedSnapshots] = import_react263.useState({});
-  const [copyModalOpened, setCopyModalOpened] = import_react263.useState(false);
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = import_react263.useState(false);
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = import_react263.useState(false);
+  const [checkedSnapshots, setCheckedSnapshots] = import_react269.useState({});
+  const [copyModalOpened, setCopyModalOpened] = import_react269.useState(false);
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpened] = import_react269.useState(false);
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpened] = import_react269.useState(false);
   const handleCheckChange = (snapshotKey, isChecked) => {
     setCheckedSnapshots((prev2) => ({
       ...prev2,
@@ -55245,7 +55851,7 @@ function FrameLayoutCard({
   };
   const hasCheckedSnapshots = Object.values(checkedSnapshots).some(Boolean);
   const checkedSnapshotsCount = Object.values(checkedSnapshots).filter(Boolean).length;
-  const singleSelectedSnapshot = import_react263.useMemo(() => {
+  const singleSelectedSnapshot = import_react269.useMemo(() => {
     if (checkedSnapshotsCount === 1) {
       const selectedKey = Object.keys(checkedSnapshots).find((key) => checkedSnapshots[key]);
       return layoutMap.snapshots.find((snapshot) => snapshot.uniqueId === selectedKey);
@@ -55274,68 +55880,68 @@ function FrameLayoutCard({
     currentLayoutMap.frameSnapshots.push(newSnapshot);
     onUpdateFrameLayoutMaps(updatedFrameLayoutMaps);
   };
-  return /* @__PURE__ */ jsx_runtime16.jsxs(Card, {
+  return /* @__PURE__ */ jsx_runtime17.jsxs(Card, {
     shadow: "sm",
     padding: "md",
     radius: "md",
     withBorder: true,
     children: [
-      /* @__PURE__ */ jsx_runtime16.jsx(Card.Section, {
+      /* @__PURE__ */ jsx_runtime17.jsx(Card.Section, {
         withBorder: true,
         inheritPadding: true,
         py: "xs",
-        children: /* @__PURE__ */ jsx_runtime16.jsxs(Group, {
+        children: /* @__PURE__ */ jsx_runtime17.jsxs(Group, {
           justify: "space-between",
           children: [
-            /* @__PURE__ */ jsx_runtime16.jsx(Title, {
+            /* @__PURE__ */ jsx_runtime17.jsx(Title, {
               order: 4,
               children: layoutMap.layoutName
             }),
-            /* @__PURE__ */ jsx_runtime16.jsx(Group, {
-              children: hasCheckedSnapshots && /* @__PURE__ */ jsx_runtime16.jsxs(jsx_runtime16.Fragment, {
+            /* @__PURE__ */ jsx_runtime17.jsx(Group, {
+              children: hasCheckedSnapshots && /* @__PURE__ */ jsx_runtime17.jsxs(jsx_runtime17.Fragment, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime17.jsx(ActionIcon, {
                     color: "red",
                     variant: "filled",
                     onClick: deleteCheckedSnapshots,
                     title: "Delete selected",
-                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconTrash, {
+                    children: /* @__PURE__ */ jsx_runtime17.jsx(IconTrash, {
                       size: 16
                     })
                   }),
-                  /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime17.jsx(ActionIcon, {
                     color: "blue",
                     variant: "filled",
                     onClick: () => setCopyModalOpened(true),
                     title: "Copy to layer",
-                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconCopy, {
+                    children: /* @__PURE__ */ jsx_runtime17.jsx(IconCopy, {
                       size: 16
                     })
                   }),
-                  checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
+                  checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime17.jsx(ActionIcon, {
                     color: "blue",
                     variant: "filled",
                     onClick: () => setCopyAndAddRowModalOpened(true),
                     title: "Copy and add row",
-                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconCopyPlus, {
+                    children: /* @__PURE__ */ jsx_runtime17.jsx(IconCopyPlus, {
                       size: 16
                     })
                   }),
-                  /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime17.jsx(ActionIcon, {
                     color: "blue",
                     variant: "filled",
                     onClick: () => setCopyAndReplaceModalOpened(true),
                     title: "Copy and replace",
-                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconReplace, {
+                    children: /* @__PURE__ */ jsx_runtime17.jsx(IconReplace, {
                       size: 16
                     })
                   }),
-                  /* @__PURE__ */ jsx_runtime16.jsx(ActionIcon, {
+                  /* @__PURE__ */ jsx_runtime17.jsx(ActionIcon, {
                     color: "blue",
                     variant: "filled",
                     onClick: deselectAllRows,
                     title: "Deselect all",
-                    children: /* @__PURE__ */ jsx_runtime16.jsx(IconDeselect, {
+                    children: /* @__PURE__ */ jsx_runtime17.jsx(IconDeselect, {
                       size: 16
                     })
                   })
@@ -55345,37 +55951,37 @@ function FrameLayoutCard({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime16.jsxs(Table, {
+      /* @__PURE__ */ jsx_runtime17.jsxs(Table, {
         mt: "md",
         striped: true,
         highlightOnHover: true,
         children: [
-          /* @__PURE__ */ jsx_runtime16.jsx(Table.Thead, {
-            children: /* @__PURE__ */ jsx_runtime16.jsxs(Table.Tr, {
+          /* @__PURE__ */ jsx_runtime17.jsx(Table.Thead, {
+            children: /* @__PURE__ */ jsx_runtime17.jsxs(Table.Tr, {
               children: [
-                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime17.jsx(Table.Th, {
                   children: "Image Name"
                 }),
-                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime17.jsx(Table.Th, {
                   children: "X"
                 }),
-                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime17.jsx(Table.Th, {
                   children: "Y"
                 }),
-                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime17.jsx(Table.Th, {
                   children: "Width"
                 }),
-                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime17.jsx(Table.Th, {
                   children: "Height"
                 }),
-                /* @__PURE__ */ jsx_runtime16.jsx(Table.Th, {
+                /* @__PURE__ */ jsx_runtime17.jsx(Table.Th, {
                   children: "Actions"
                 })
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime16.jsx(Table.Tbody, {
-            children: layoutMap.snapshots.map((snapshot) => /* @__PURE__ */ jsx_runtime16.jsx(FrameSnapshotRow, {
+          /* @__PURE__ */ jsx_runtime17.jsx(Table.Tbody, {
+            children: layoutMap.snapshots.map((snapshot) => /* @__PURE__ */ jsx_runtime17.jsx(FrameSnapshotRow, {
               snapshot,
               layoutId: layoutMap.layoutId,
               onRemoveSnapshot,
@@ -55386,7 +55992,7 @@ function FrameLayoutCard({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime16.jsx(CopyToLayerModal, {
+      /* @__PURE__ */ jsx_runtime17.jsx(CopyToLayerModal, {
         opened: copyModalOpened,
         onClose: () => setCopyModalOpened(false),
         snapshots: getCheckedSnapshots(),
@@ -55394,7 +56000,7 @@ function FrameLayoutCard({
         frameLayoutMaps,
         onUpdateFrameLayoutMaps
       }),
-      singleSelectedSnapshot && /* @__PURE__ */ jsx_runtime16.jsx(CopyAndAddRowModal, {
+      singleSelectedSnapshot && /* @__PURE__ */ jsx_runtime17.jsx(CopyAndAddRowModal, {
         opened: copyAndAddRowModalOpened,
         onClose: () => setCopyAndAddRowModalOpened(false),
         snapshot: singleSelectedSnapshot,
@@ -55402,7 +56008,7 @@ function FrameLayoutCard({
         existingSnapshots: layoutMap.snapshots,
         onAddCopy: handleAddCopy
       }),
-      /* @__PURE__ */ jsx_runtime16.jsx(CopyAndReplaceModal, {
+      /* @__PURE__ */ jsx_runtime17.jsx(CopyAndReplaceModal, {
         opened: copyAndReplaceModalOpened,
         onClose: () => setCopyAndReplaceModalOpened(false),
         snapshots: getCheckedSnapshots(),
@@ -55415,16 +56021,16 @@ function FrameLayoutCard({
 }
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
-var jsx_runtime17 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
 function FrameSnapshotLayoutModal({
   opened,
   onClose
 }) {
-  const [frameLayoutMaps, setFrameLayoutMaps] = import_react264.useState([]);
-  const [isLoading, setIsLoading] = import_react264.useState(false);
-  const [isRemoving, setIsRemoving] = import_react264.useState(false);
+  const [frameLayoutMaps, setFrameLayoutMaps] = import_react270.useState([]);
+  const [isLoading, setIsLoading] = import_react270.useState(false);
+  const [isRemoving, setIsRemoving] = import_react270.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  const tableData = import_react264.useMemo(() => {
+  const tableData = import_react270.useMemo(() => {
     return frameLayoutMaps.map((frameLayoutMap, layoutIndex) => {
       let snapshots = frameLayoutMap.frameSnapshots.map((snapshot, snapshotIndex) => {
         const uniqueId = `${snapshot.frameId}_${snapshot.imageName}`;
@@ -55446,7 +56052,7 @@ function FrameSnapshotLayoutModal({
       map.frameSnapshots = [...map.frameSnapshots].sort((a2, b) => a2.imageName.localeCompare(b.imageName));
     });
   };
-  const handleEditCell = import_react264.useCallback((layoutId, key, value) => {
+  const handleEditCell = import_react270.useCallback((layoutId, key, value) => {
     if (!key)
       return;
     const [uniqueId, field] = key.split(":");
@@ -55501,7 +56107,7 @@ function FrameSnapshotLayoutModal({
       setIsLoading(false);
     }
   };
-  import_react264.useEffect(() => {
+  import_react270.useEffect(() => {
     if (opened) {
       loadFrameLayouts();
     }
@@ -55529,7 +56135,7 @@ function FrameSnapshotLayoutModal({
       setIsRemoving(false);
     }
   };
-  const cleanupFrameLayoutMaps = import_react264.useCallback(() => {
+  const cleanupFrameLayoutMaps = import_react270.useCallback(() => {
     return frameLayoutMaps.map((map) => {
       const { layoutName, ...cleanMap } = map;
       const sortedSnapshots = [...cleanMap.frameSnapshots].sort((a2, b) => a2.imageName.localeCompare(b.imageName));
@@ -55539,7 +56145,7 @@ function FrameSnapshotLayoutModal({
       };
     });
   }, [frameLayoutMaps]);
-  const saveCleanedFrameLayoutMaps = import_react264.useCallback(async () => {
+  const saveCleanedFrameLayoutMaps = import_react270.useCallback(async () => {
     const cleanFrameLayoutMaps = cleanupFrameLayoutMaps();
     return await saveFrameLayoutMapsToDoc(cleanFrameLayoutMaps);
   }, [cleanupFrameLayoutMaps]);
@@ -55576,34 +56182,34 @@ function FrameSnapshotLayoutModal({
       onClose();
     }
   };
-  return /* @__PURE__ */ jsx_runtime17.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime18.jsx(Modal, {
     opened,
     onClose: handleCleanupAndClose,
     title: "Frame Position Viewer",
     fullScreen: true,
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime17.jsxs("div", {
+    children: /* @__PURE__ */ jsx_runtime18.jsxs("div", {
       style: {
         display: "flex",
         flexDirection: "column",
         height: "calc(100vh - 120px)"
       },
       children: [
-        /* @__PURE__ */ jsx_runtime17.jsx(Group, {
+        /* @__PURE__ */ jsx_runtime18.jsx(Group, {
           justify: "flex-end",
           mb: "md"
         }),
-        /* @__PURE__ */ jsx_runtime17.jsx(ScrollArea, {
+        /* @__PURE__ */ jsx_runtime18.jsx(ScrollArea, {
           style: { flex: 1 },
-          children: isLoading ? /* @__PURE__ */ jsx_runtime17.jsx(Center, {
+          children: isLoading ? /* @__PURE__ */ jsx_runtime18.jsx(Center, {
             style: { height: "100%", width: "100%" },
-            children: /* @__PURE__ */ jsx_runtime17.jsx(Loader, {
+            children: /* @__PURE__ */ jsx_runtime18.jsx(Loader, {
               size: "lg"
             })
-          }) : /* @__PURE__ */ jsx_runtime17.jsx(Stack, {
-            children: frameLayoutMaps.length === 0 ? /* @__PURE__ */ jsx_runtime17.jsx(Text, {
+          }) : /* @__PURE__ */ jsx_runtime18.jsx(Stack, {
+            children: frameLayoutMaps.length === 0 ? /* @__PURE__ */ jsx_runtime18.jsx(Text, {
               children: "No frame layouts found."
-            }) : tableData.map((layout) => /* @__PURE__ */ jsx_runtime17.jsx(FrameLayoutCard, {
+            }) : tableData.map((layout) => /* @__PURE__ */ jsx_runtime18.jsx(FrameLayoutCard, {
               layoutMap: layout,
               onRemoveSnapshot: handleRemoveFrameLayout,
               onEditCell: handleEditCell,
@@ -55612,18 +56218,18 @@ function FrameSnapshotLayoutModal({
             }, layout.layoutId))
           })
         }),
-        /* @__PURE__ */ jsx_runtime17.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime18.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime17.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime18.jsx(Button, {
               onClick: handleUpdateActions,
               color: "blue",
               disabled: isLoading || isRemoving,
               loading: isLoading || isRemoving,
               children: "Update Actions"
             }),
-            /* @__PURE__ */ jsx_runtime17.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime18.jsx(Button, {
               onClick: handleCleanupAndClose,
               disabled: isRemoving,
               children: "Close"
@@ -55636,17 +56242,17 @@ function FrameSnapshotLayoutModal({
 }
 
 // src/components/AddFrameSnapshotModal.tsx
-var import_react265 = __toESM(require_react(), 1);
-var jsx_runtime18 = __toESM(require_jsx_runtime(), 1);
+var import_react271 = __toESM(require_react(), 1);
+var jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
 function AddFrameSnapshotModal({
   opened,
   onClose,
   raiseError: raiseError2
 }) {
-  const [status, setStatus] = import_react265.useState("idle");
-  const [message, setMessage] = import_react265.useState(null);
-  const [positionData, setPositionData] = import_react265.useState(null);
-  import_react265.useEffect(() => {
+  const [status, setStatus] = import_react271.useState("idle");
+  const [message, setMessage] = import_react271.useState(null);
+  const [positionData, setPositionData] = import_react271.useState(null);
+  import_react271.useEffect(() => {
     if (!opened) {
       setStatus("idle");
       setMessage(null);
@@ -55743,7 +56349,7 @@ function AddFrameSnapshotModal({
     };
     fetchAndValidateFrame();
   }, [opened, raiseError2]);
-  return /* @__PURE__ */ jsx_runtime18.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime19.jsx(Modal, {
     opened,
     onClose: status === "loading" ? () => {
     } : onClose,
@@ -55751,31 +56357,31 @@ function AddFrameSnapshotModal({
     centered: true,
     closeOnClickOutside: status !== "loading",
     closeOnEscape: status !== "loading",
-    children: /* @__PURE__ */ jsx_runtime18.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime19.jsxs(Stack, {
       children: [
-        status === "loading" && /* @__PURE__ */ jsx_runtime18.jsxs(Stack, {
+        status === "loading" && /* @__PURE__ */ jsx_runtime19.jsxs(Stack, {
           align: "center",
           children: [
-            /* @__PURE__ */ jsx_runtime18.jsx(Loader, {}),
-            /* @__PURE__ */ jsx_runtime18.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime19.jsx(Loader, {}),
+            /* @__PURE__ */ jsx_runtime19.jsx(Text, {
               children: "Processing frame snapshot..."
             })
           ]
         }),
-        status === "error" && message && /* @__PURE__ */ jsx_runtime18.jsx(Alert, {
-          icon: /* @__PURE__ */ jsx_runtime18.jsx(IconAlertCircle, {
+        status === "error" && message && /* @__PURE__ */ jsx_runtime19.jsx(Alert, {
+          icon: /* @__PURE__ */ jsx_runtime19.jsx(IconAlertCircle, {
             size: "1rem"
           }),
           title: "Error",
           color: "red",
           children: message
         }),
-        status === "success" && message && /* @__PURE__ */ jsx_runtime18.jsx(Alert, {
+        status === "success" && message && /* @__PURE__ */ jsx_runtime19.jsx(Alert, {
           color: "green",
           title: "Success",
           children: message
         }),
-        status === "idle" && /* @__PURE__ */ jsx_runtime18.jsx(Text, {
+        status === "idle" && /* @__PURE__ */ jsx_runtime19.jsx(Text, {
           size: "sm",
           c: "dimmed",
           children: "Initializing..."
@@ -55786,16 +56392,16 @@ function AddFrameSnapshotModal({
 }
 
 // src/components/LayoutManagerModal.tsx
-var import_react266 = __toESM(require_react(), 1);
-var jsx_runtime19 = __toESM(require_jsx_runtime(), 1);
+var import_react272 = __toESM(require_react(), 1);
+var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
 function LayoutManagerModal({
   opened,
   onClose
 }) {
-  const [layouts, setLayouts] = import_react266.useState([]);
-  const [studio2, setStudio] = import_react266.useState(null);
+  const [layouts, setLayouts] = import_react272.useState([]);
+  const [studio2, setStudio] = import_react272.useState(null);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react266.useEffect(() => {
+  import_react272.useEffect(() => {
     const fetchLayouts = async () => {
       try {
         const studioResult = await getStudio();
@@ -55892,7 +56498,7 @@ function LayoutManagerModal({
       const parent = layouts.find((layout) => layout.id === node2.parentId);
       if (!parent)
         return null;
-      return /* @__PURE__ */ jsx_runtime19.jsxs(Text, {
+      return /* @__PURE__ */ jsx_runtime20.jsxs(Text, {
         size: "sm",
         color: "dimmed",
         children: [
@@ -55905,22 +56511,22 @@ function LayoutManagerModal({
       const parent = layouts.find((layout) => layout.id === node2.parentId);
       return parent ? 20 : 0;
     };
-    return /* @__PURE__ */ jsx_runtime19.jsx(Box, {
+    return /* @__PURE__ */ jsx_runtime20.jsx(Box, {
       mb: "sm",
       ml: getIndentation(),
-      children: /* @__PURE__ */ jsx_runtime19.jsx(Card, {
+      children: /* @__PURE__ */ jsx_runtime20.jsx(Card, {
         shadow: "sm",
         p: "md",
         radius: "md",
         withBorder: true,
-        children: /* @__PURE__ */ jsx_runtime19.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime19.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime20.jsx(Group, {
               justify: "space-between",
-              children: /* @__PURE__ */ jsx_runtime19.jsxs(Stack, {
+              children: /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
                 gap: "xs",
                 children: [
-                  /* @__PURE__ */ jsx_runtime19.jsx(Title, {
+                  /* @__PURE__ */ jsx_runtime20.jsx(Title, {
                     order: 5,
                     children: node2.name
                   }),
@@ -55928,44 +56534,44 @@ function LayoutManagerModal({
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime19.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
               children: [
-                /* @__PURE__ */ jsx_runtime19.jsx(Switch, {
+                /* @__PURE__ */ jsx_runtime20.jsx(Switch, {
                   label: "Available",
                   checked: node2.available,
                   onChange: (event) => handleLayoutChange(node2.id, "available", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime19.jsx(Switch, {
+                /* @__PURE__ */ jsx_runtime20.jsx(Switch, {
                   label: "Resizable",
                   checked: node2.resizable,
                   onChange: (event) => handleLayoutChange(node2.id, "resizable", event.currentTarget.checked)
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime19.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime20.jsxs(Group, {
               children: [
-                /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
+                /* @__PURE__ */ jsx_runtime20.jsx(NumberInput, {
                   label: "Min Width",
                   value: node2.minWidth !== null ? node2.minWidth : undefined,
                   onChange: (value) => handleLayoutChange(node2.id, "minWidth", value),
                   disabled: !node2.resizable,
                   style: { width: "80px" }
                 }),
-                /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
+                /* @__PURE__ */ jsx_runtime20.jsx(NumberInput, {
                   label: "Max Width",
                   value: node2.maxWidth !== null ? node2.maxWidth : undefined,
                   onChange: (value) => handleLayoutChange(node2.id, "maxWidth", value),
                   disabled: !node2.resizable,
                   style: { width: "80px" }
                 }),
-                /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
+                /* @__PURE__ */ jsx_runtime20.jsx(NumberInput, {
                   label: "Min Height",
                   value: node2.minHeight !== null ? node2.minHeight : undefined,
                   onChange: (value) => handleLayoutChange(node2.id, "minHeight", value),
                   disabled: !node2.resizable,
                   style: { width: "80px" }
                 }),
-                /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
+                /* @__PURE__ */ jsx_runtime20.jsx(NumberInput, {
                   label: "Max Height",
                   value: node2.maxHeight !== null ? node2.maxHeight : undefined,
                   onChange: (value) => handleLayoutChange(node2.id, "maxHeight", value),
@@ -55974,13 +56580,13 @@ function LayoutManagerModal({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime19.jsx(Checkbox, {
+            /* @__PURE__ */ jsx_runtime20.jsx(Checkbox, {
               label: "Lock Aspect Ratio",
               checked: node2.lockAspectRatio,
               onChange: (event) => handleLayoutChange(node2.id, "lockAspectRatio", event.currentTarget.checked),
               disabled: !node2.resizable
             }),
-            node2.lockAspectRatio && /* @__PURE__ */ jsx_runtime19.jsx(NumberInput, {
+            node2.lockAspectRatio && /* @__PURE__ */ jsx_runtime20.jsx(NumberInput, {
               label: "Percentage",
               value: node2.percentage,
               onChange: (value) => handleLayoutChange(node2.id, "percentage", value),
@@ -55989,10 +56595,10 @@ function LayoutManagerModal({
               step: 1,
               style: { width: "60px" }
             }),
-            /* @__PURE__ */ jsx_runtime19.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime20.jsx(Group, {
               justify: "flex-end",
               mt: "xs",
-              children: /* @__PURE__ */ jsx_runtime19.jsx(Button, {
+              children: /* @__PURE__ */ jsx_runtime20.jsx(Button, {
                 onClick: () => handleSaveLayout(node2),
                 color: "blue",
                 size: "sm",
@@ -56004,26 +56610,26 @@ function LayoutManagerModal({
       })
     });
   };
-  return /* @__PURE__ */ jsx_runtime19.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime20.jsx(Modal, {
     opened,
     onClose,
     title: "Layout Manager",
     size: "xl",
     fullScreen: true,
-    children: /* @__PURE__ */ jsx_runtime19.jsxs(Box, {
+    children: /* @__PURE__ */ jsx_runtime20.jsxs(Box, {
       style: {
         height: "calc(100vh - 120px)",
         overflowY: "auto",
         padding: "16px"
       },
       children: [
-        /* @__PURE__ */ jsx_runtime19.jsx(Title, {
+        /* @__PURE__ */ jsx_runtime20.jsx(Title, {
           order: 4,
           mb: "md",
           children: "Layouts"
         }),
-        /* @__PURE__ */ jsx_runtime19.jsx(Stack, {
-          children: layouts.map((node2) => /* @__PURE__ */ jsx_runtime19.jsx(LayoutCard, {
+        /* @__PURE__ */ jsx_runtime20.jsx(Stack, {
+          children: layouts.map((node2) => /* @__PURE__ */ jsx_runtime20.jsx(LayoutCard, {
             node: node2
           }, node2.id))
         })
@@ -56033,7 +56639,7 @@ function LayoutManagerModal({
 }
 
 // src/components/DownloadModalNew.tsx
-var import_react273 = __toESM(require_react(), 1);
+var import_react279 = __toESM(require_react(), 1);
 init_documentHandler();
 
 // src/studio/fontHandler.ts
@@ -56622,7 +57228,7 @@ __export(exports_util, {
   promiseAllObject: () => promiseAllObject,
   primitiveTypes: () => primitiveTypes,
   prefixIssues: () => prefixIssues,
-  pick: () => pick,
+  pick: () => pick3,
   partial: () => partial,
   optionalKeys: () => optionalKeys,
   omit: () => omit,
@@ -56940,7 +57546,7 @@ var BIGINT_FORMAT_RANGES = {
   int64: [/* @__PURE__ */ BigInt("-9223372036854775808"), /* @__PURE__ */ BigInt("9223372036854775807")],
   uint64: [/* @__PURE__ */ BigInt(0), /* @__PURE__ */ BigInt("18446744073709551615")]
 };
-function pick(schema, mask) {
+function pick3(schema, mask) {
   const newShape = {};
   const currDef = schema._zod.def;
   for (const key in mask) {
@@ -58603,11 +59209,11 @@ var $ZodDate = /* @__PURE__ */ $constructor("$ZodDate", (inst, def) => {
     return payload;
   };
 });
-function handleArrayResult(result, final, index4) {
+function handleArrayResult(result, final, index6) {
   if (result.issues.length) {
-    final.issues.push(...prefixIssues(index4, result.issues));
+    final.issues.push(...prefixIssues(index6, result.issues));
   }
-  final.value[index4] = result.value;
+  final.value[index6] = result.value;
 }
 var $ZodArray = /* @__PURE__ */ $constructor("$ZodArray", (inst, def) => {
   $ZodType.init(inst, def);
@@ -58991,14 +59597,14 @@ function mergeValues(a2, b) {
       return { valid: false, mergeErrorPath: [] };
     }
     const newArray = [];
-    for (let index4 = 0;index4 < a2.length; index4++) {
-      const itemA = a2[index4];
-      const itemB = b[index4];
+    for (let index6 = 0;index6 < a2.length; index6++) {
+      const itemA = a2[index6];
+      const itemB = b[index6];
       const sharedValue = mergeValues(itemA, itemB);
       if (!sharedValue.valid) {
         return {
           valid: false,
-          mergeErrorPath: [index4, ...sharedValue.mergeErrorPath]
+          mergeErrorPath: [index6, ...sharedValue.mergeErrorPath]
         };
       }
       newArray.push(sharedValue.data);
@@ -59090,11 +59696,11 @@ var $ZodTuple = /* @__PURE__ */ $constructor("$ZodTuple", (inst, def) => {
     return payload;
   };
 });
-function handleTupleResult(result, final, index4) {
+function handleTupleResult(result, final, index6) {
   if (result.issues.length) {
-    final.issues.push(...prefixIssues(index4, result.issues));
+    final.issues.push(...prefixIssues(index6, result.issues));
   }
-  final.value[index4] = result.value;
+  final.value[index6] = result.value;
 }
 var $ZodRecord = /* @__PURE__ */ $constructor("$ZodRecord", (inst, def) => {
   $ZodType.init(inst, def);
@@ -67405,7 +68011,7 @@ async function getMediaConnectorsAPI(baseUrl, authToken) {
 init_documentHandler();
 
 // src/components/ImageBrowser.tsx
-var import_react268 = __toESM(require_react(), 1);
+var import_react274 = __toESM(require_react(), 1);
 
 // node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 function _assertThisInitialized(e) {
@@ -67477,7 +68083,7 @@ function memoizeOne(resultFn, isEqual2) {
 var memoize_one_esm_default = memoizeOne;
 
 // node_modules/react-window/dist/index.esm.js
-var import_react267 = __toESM(require_react(), 1);
+var import_react273 = __toESM(require_react(), 1);
 var hasNativePerformanceNow = typeof performance === "object" && typeof performance.now === "function";
 var now2 = hasNativePerformanceNow ? function() {
   return performance.now();
@@ -67554,8 +68160,8 @@ function getRTLOffsetType(recalculate) {
 if (false) {
 }
 var IS_SCROLLING_DEBOUNCE_INTERVAL$1 = 150;
-var defaultItemKey$1 = function defaultItemKey(index4, data) {
-  return index4;
+var defaultItemKey$1 = function defaultItemKey(index6, data) {
+  return index6;
 };
 if (false) {
 }
@@ -67595,19 +68201,19 @@ function createListComponent(_ref) {
         });
       });
       _this._getItemStyle = undefined;
-      _this._getItemStyle = function(index4) {
+      _this._getItemStyle = function(index6) {
         var _this$props = _this.props, direction = _this$props.direction, itemSize = _this$props.itemSize, layout = _this$props.layout;
         var itemStyleCache = _this._getItemStyleCache(shouldResetStyleCacheOnItemSizeChange && itemSize, shouldResetStyleCacheOnItemSizeChange && layout, shouldResetStyleCacheOnItemSizeChange && direction);
         var style2;
-        if (itemStyleCache.hasOwnProperty(index4)) {
-          style2 = itemStyleCache[index4];
+        if (itemStyleCache.hasOwnProperty(index6)) {
+          style2 = itemStyleCache[index6];
         } else {
-          var _offset = getItemOffset(_this.props, index4, _this._instanceProps);
-          var size5 = getItemSize(_this.props, index4, _this._instanceProps);
+          var _offset = getItemOffset(_this.props, index6, _this._instanceProps);
+          var size5 = getItemSize(_this.props, index6, _this._instanceProps);
           var isHorizontal = direction === "horizontal" || layout === "horizontal";
           var isRtl = direction === "rtl";
           var offsetHorizontal = isHorizontal ? _offset : 0;
-          itemStyleCache[index4] = style2 = {
+          itemStyleCache[index6] = style2 = {
             position: "absolute",
             left: isRtl ? undefined : offsetHorizontal,
             right: isRtl ? offsetHorizontal : undefined,
@@ -67708,13 +68314,13 @@ function createListComponent(_ref) {
         };
       }, this._resetIsScrollingDebounced);
     };
-    _proto.scrollToItem = function scrollToItem(index4, align) {
+    _proto.scrollToItem = function scrollToItem(index6, align) {
       if (align === undefined) {
         align = "auto";
       }
       var _this$props2 = this.props, itemCount = _this$props2.itemCount, layout = _this$props2.layout;
       var scrollOffset = this.state.scrollOffset;
-      index4 = Math.max(0, Math.min(index4, itemCount - 1));
+      index6 = Math.max(0, Math.min(index6, itemCount - 1));
       var scrollbarSize = 0;
       if (this._outerRef) {
         var outerRef = this._outerRef;
@@ -67724,7 +68330,7 @@ function createListComponent(_ref) {
           scrollbarSize = outerRef.scrollHeight > outerRef.clientHeight ? getScrollbarSize() : 0;
         }
       }
-      this.scrollTo(getOffsetForIndexAndAlignment(this.props, index4, align, scrollOffset, this._instanceProps, scrollbarSize));
+      this.scrollTo(getOffsetForIndexAndAlignment(this.props, index6, align, scrollOffset, this._instanceProps, scrollbarSize));
     };
     _proto.componentDidMount = function componentDidMount() {
       var _this$props3 = this.props, direction = _this$props3.direction, initialScrollOffset = _this$props3.initialScrollOffset, layout = _this$props3.layout;
@@ -67780,7 +68386,7 @@ function createListComponent(_ref) {
       var items = [];
       if (itemCount > 0) {
         for (var _index = startIndex;_index <= stopIndex; _index++) {
-          items.push(import_react267.createElement(children, {
+          items.push(import_react273.createElement(children, {
             data: itemData,
             key: itemKey(_index, itemData),
             index: _index,
@@ -67790,7 +68396,7 @@ function createListComponent(_ref) {
         }
       }
       var estimatedTotalSize = getEstimatedTotalSize(this.props, this._instanceProps);
-      return import_react267.createElement(outerElementType || outerTagName || "div", {
+      return import_react273.createElement(outerElementType || outerTagName || "div", {
         className,
         onScroll,
         ref: this._outerRefSetter,
@@ -67803,7 +68409,7 @@ function createListComponent(_ref) {
           willChange: "transform",
           direction
         }, style2)
-      }, import_react267.createElement(innerElementType || innerTagName || "div", {
+      }, import_react273.createElement(innerElementType || innerTagName || "div", {
         children: items,
         ref: innerRef,
         style: {
@@ -67839,7 +68445,7 @@ function createListComponent(_ref) {
       return [Math.max(0, startIndex - overscanBackward), Math.max(0, Math.min(itemCount - 1, stopIndex + overscanForward)), startIndex, stopIndex];
     };
     return List2;
-  }(import_react267.PureComponent), _class.defaultProps = {
+  }(import_react273.PureComponent), _class.defaultProps = {
     direction: "ltr",
     itemData: undefined,
     layout: "vertical",
@@ -67867,11 +68473,11 @@ var validateSharedProps$1 = function validateSharedProps(_ref2, _ref3) {
   }
 };
 var FixedSizeList = /* @__PURE__ */ createListComponent({
-  getItemOffset: function getItemOffset(_ref, index4) {
+  getItemOffset: function getItemOffset(_ref, index6) {
     var itemSize = _ref.itemSize;
-    return index4 * itemSize;
+    return index6 * itemSize;
   },
-  getItemSize: function getItemSize(_ref2, index4) {
+  getItemSize: function getItemSize(_ref2, index6) {
     var itemSize = _ref2.itemSize;
     return itemSize;
   },
@@ -67879,13 +68485,13 @@ var FixedSizeList = /* @__PURE__ */ createListComponent({
     var { itemCount, itemSize } = _ref3;
     return itemSize * itemCount;
   },
-  getOffsetForIndexAndAlignment: function getOffsetForIndexAndAlignment(_ref4, index4, align, scrollOffset, instanceProps, scrollbarSize) {
+  getOffsetForIndexAndAlignment: function getOffsetForIndexAndAlignment(_ref4, index6, align, scrollOffset, instanceProps, scrollbarSize) {
     var { direction, height, itemCount, itemSize, layout, width } = _ref4;
     var isHorizontal = direction === "horizontal" || layout === "horizontal";
     var size5 = isHorizontal ? width : height;
     var lastItemOffset = Math.max(0, itemCount * itemSize - size5);
-    var maxOffset = Math.min(lastItemOffset, index4 * itemSize);
-    var minOffset = Math.max(0, index4 * itemSize - size5 + itemSize + scrollbarSize);
+    var maxOffset = Math.min(lastItemOffset, index6 * itemSize);
+    var minOffset = Math.max(0, index6 * itemSize - size5 + itemSize + scrollbarSize);
     if (align === "smart") {
       if (scrollOffset >= minOffset - size5 && scrollOffset <= maxOffset + size5) {
         align = "auto";
@@ -67945,7 +68551,7 @@ var FixedSizeList = /* @__PURE__ */ createListComponent({
 var import_studio_sdk3 = __toESM(require_main(), 1);
 
 // src/components/DownloadModal/DownloadTasksScreen.tsx
-var jsx_runtime20 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
 function DownloadTasksScreen({
   downloadFiles,
   tasks,
@@ -67964,49 +68570,49 @@ function DownloadTasksScreen({
     ...uploadTasks
   ];
   const allComplete = allTasks.every((task) => task.status === "complete" || task.status === "error" || task.status === "info");
-  return /* @__PURE__ */ jsx_runtime20.jsxs(Stack, {
+  return /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
     gap: "xl",
     children: [
-      /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime21.jsx(Text, {
         size: "md",
         style: { textAlign: "center", marginBottom: "1rem" },
         children: "Processing Tasks"
       }),
-      /* @__PURE__ */ jsx_runtime20.jsx(List, {
+      /* @__PURE__ */ jsx_runtime21.jsx(List, {
         spacing: "md",
         size: "sm",
-        children: allTasks.map((task) => /* @__PURE__ */ jsx_runtime20.jsx(List.Item, {
-          icon: task.status === "pending" || task.status === "processing" ? /* @__PURE__ */ jsx_runtime20.jsx(Loader, {
+        children: allTasks.map((task) => /* @__PURE__ */ jsx_runtime21.jsx(List.Item, {
+          icon: task.status === "pending" || task.status === "processing" ? /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
             size: "sm"
-          }) : task.status === "complete" ? /* @__PURE__ */ jsx_runtime20.jsx(Tooltip, {
+          }) : task.status === "complete" ? /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
             label: "Successfully completed",
-            children: /* @__PURE__ */ jsx_runtime20.jsx(IconCircleCheckFilled, {
+            children: /* @__PURE__ */ jsx_runtime21.jsx(IconCircleCheckFilled, {
               size: 20,
               color: "green"
             })
-          }) : task.status === "info" ? /* @__PURE__ */ jsx_runtime20.jsx(Tooltip, {
+          }) : task.status === "info" ? /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
             label: task.tooltip || "Information",
-            children: /* @__PURE__ */ jsx_runtime20.jsx(IconInfoCircleFilled, {
+            children: /* @__PURE__ */ jsx_runtime21.jsx(IconInfoCircleFilled, {
               size: 20,
               color: "blue"
             })
-          }) : /* @__PURE__ */ jsx_runtime20.jsx(Tooltip, {
+          }) : /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
             label: task.error || "Task failed",
-            children: /* @__PURE__ */ jsx_runtime20.jsx(IconExclamationCircle, {
+            children: /* @__PURE__ */ jsx_runtime21.jsx(IconExclamationCircle, {
               size: 20,
               color: "red"
             })
           }),
-          children: /* @__PURE__ */ jsx_runtime20.jsx(Text, {
+          children: /* @__PURE__ */ jsx_runtime21.jsx(Text, {
             size: "sm",
             children: task.name
           })
         }, task.id))
       }),
-      allComplete && /* @__PURE__ */ jsx_runtime20.jsx(Group, {
+      allComplete && /* @__PURE__ */ jsx_runtime21.jsx(Group, {
         justify: "center",
         mt: "xl",
-        children: /* @__PURE__ */ jsx_runtime20.jsx(Button, {
+        children: /* @__PURE__ */ jsx_runtime21.jsx(Button, {
           onClick: onClose,
           color: "blue",
           children: "Close"
@@ -68017,7 +68623,7 @@ function DownloadTasksScreen({
 }
 
 // src/components/ImageBrowser.tsx
-var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
 function ImageBrowser({
   opened,
   mode,
@@ -68025,44 +68631,44 @@ function ImageBrowser({
   initialSelection = null
 }) {
   const raiseError2 = appStore((store) => store.raiseError);
-  const [browserState, setBrowserState] = import_react268.useState("loading");
-  const [connectors, setConnectors] = import_react268.useState([]);
-  const [selectedConnectorId, setSelectedConnectorId] = import_react268.useState(null);
-  const [displayMode, setDisplayMode] = import_react268.useState("list");
-  const [localConnectorId, setLocalConnectorId] = import_react268.useState(null);
-  const [currentPath, setCurrentPath] = import_react268.useState("/");
-  const [folders, setFolders] = import_react268.useState([]);
-  const [files, setFiles] = import_react268.useState([]);
-  const [selectedFolders, setSelectedFolders] = import_react268.useState(new Set);
-  const [selectedFile, setSelectedFile] = import_react268.useState(null);
-  const [persistentSelections, setPersistentSelections] = import_react268.useState(new Set);
-  const [smartCropMode, setSmartCropMode] = import_react268.useState(false);
-  const [sourceFile, setSourceFile] = import_react268.useState(null);
-  const [targetSelectedFiles, setTargetSelectedFiles] = import_react268.useState(new Set);
-  const [isLoadingFolders, setIsLoadingFolders] = import_react268.useState(false);
-  const [error40, setError] = import_react268.useState(null);
-  const [thumbnailUrls, setThumbnailUrls] = import_react268.useState(new Map);
-  const [thumbnailErrors, setThumbnailErrors] = import_react268.useState(new Map);
-  const [loadingThumbnails, setLoadingThumbnails] = import_react268.useState(new Set);
-  const [visionDataCache, setVisionDataCache] = import_react268.useState(new Map);
-  const [loadingVisionData, setLoadingVisionData] = import_react268.useState(new Set);
-  const [copyTasks, setCopyTasks] = import_react268.useState([]);
-  const [showTaskModal, setShowTaskModal] = import_react268.useState(false);
-  const [hasMorePages, setHasMorePages] = import_react268.useState(false);
-  const [nextPageToken, setNextPageToken] = import_react268.useState("");
-  const [isLoadingMore, setIsLoadingMore] = import_react268.useState(false);
-  const [cleanupTimeoutId, setCleanupTimeoutId] = import_react268.useState(null);
-  const [settings, setSettings] = import_react268.useState({
+  const [browserState, setBrowserState] = import_react274.useState("loading");
+  const [connectors, setConnectors] = import_react274.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react274.useState(null);
+  const [displayMode, setDisplayMode] = import_react274.useState("list");
+  const [localConnectorId, setLocalConnectorId] = import_react274.useState(null);
+  const [currentPath, setCurrentPath] = import_react274.useState("/");
+  const [folders, setFolders] = import_react274.useState([]);
+  const [files, setFiles] = import_react274.useState([]);
+  const [selectedFolders, setSelectedFolders] = import_react274.useState(new Set);
+  const [selectedFile, setSelectedFile] = import_react274.useState(null);
+  const [persistentSelections, setPersistentSelections] = import_react274.useState(new Set);
+  const [smartCropMode, setSmartCropMode] = import_react274.useState(false);
+  const [sourceFile, setSourceFile] = import_react274.useState(null);
+  const [targetSelectedFiles, setTargetSelectedFiles] = import_react274.useState(new Set);
+  const [isLoadingFolders, setIsLoadingFolders] = import_react274.useState(false);
+  const [error40, setError] = import_react274.useState(null);
+  const [thumbnailUrls, setThumbnailUrls] = import_react274.useState(new Map);
+  const [thumbnailErrors, setThumbnailErrors] = import_react274.useState(new Map);
+  const [loadingThumbnails, setLoadingThumbnails] = import_react274.useState(new Set);
+  const [visionDataCache, setVisionDataCache] = import_react274.useState(new Map);
+  const [loadingVisionData, setLoadingVisionData] = import_react274.useState(new Set);
+  const [copyTasks, setCopyTasks] = import_react274.useState([]);
+  const [showTaskModal, setShowTaskModal] = import_react274.useState(false);
+  const [hasMorePages, setHasMorePages] = import_react274.useState(false);
+  const [nextPageToken, setNextPageToken] = import_react274.useState("");
+  const [isLoadingMore, setIsLoadingMore] = import_react274.useState(false);
+  const [cleanupTimeoutId, setCleanupTimeoutId] = import_react274.useState(null);
+  const [settings, setSettings] = import_react274.useState({
     iconSize: 24
   });
-  const [tempSettings, setTempSettings] = import_react268.useState({
+  const [tempSettings, setTempSettings] = import_react274.useState({
     iconSize: 24
   });
-  const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = import_react268.useState(false);
-  const itemSize = import_react268.useMemo(() => Math.max(60, settings.iconSize + 32), [settings.iconSize]);
+  const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = import_react274.useState(false);
+  const itemSize = import_react274.useMemo(() => Math.max(60, settings.iconSize + 32), [settings.iconSize]);
   const CONNECTOR_SESSION_KEY = "tempDownloadModal_connectorId";
   const SETTINGS_STORAGE_KEY = "tempImageBrowserSettings";
-  import_react268.useEffect(() => {
+  import_react274.useEffect(() => {
     const savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
     if (savedSettings) {
       try {
@@ -68074,7 +68680,7 @@ function ImageBrowser({
       }
     }
   }, []);
-  import_react268.useEffect(() => {
+  import_react274.useEffect(() => {
     return () => {
       if (cleanupTimeoutId) {
         clearTimeout(cleanupTimeoutId);
@@ -68084,7 +68690,7 @@ function ImageBrowser({
       });
     };
   }, []);
-  import_react268.useEffect(() => {
+  import_react274.useEffect(() => {
     if (opened) {
       if (mode === 0 /* FolderSelection */) {
         const folderSelection = initialSelection;
@@ -68105,7 +68711,7 @@ function ImageBrowser({
       cleanupAndResetState();
     }
   }, [opened]);
-  import_react268.useEffect(() => {
+  import_react274.useEffect(() => {
     if (browserState === "connectorSelection") {
       const savedConnectorId = sessionStorage.getItem(CONNECTOR_SESSION_KEY);
       if (savedConnectorId && connectors.some((c2) => c2.id === savedConnectorId)) {
@@ -68418,14 +69024,14 @@ function ImageBrowser({
     await loadFolders(localConnectorId, selectedConnectorId, currentPath, nextPageToken, true);
   };
   const ListItem2 = ({
-    index: index4,
+    index: index6,
     style: style2
   }) => {
     const allItems = [
       ...folders,
       ...files
     ];
-    const item = allItems[index4];
+    const item = allItems[index6];
     console.log(item);
     if (!item)
       return null;
@@ -68434,9 +69040,9 @@ function ImageBrowser({
     if (isFolder) {
       const folderPath = currentPath === "/" ? `/${item.name}` : `${currentPath}/${item.name}`;
       const isSelected = selectedFolders.has(folderPath);
-      return /* @__PURE__ */ jsx_runtime21.jsx("div", {
+      return /* @__PURE__ */ jsx_runtime22.jsx("div", {
         style: style2,
-        children: /* @__PURE__ */ jsx_runtime21.jsx(Card, {
+        children: /* @__PURE__ */ jsx_runtime22.jsx(Card, {
           shadow: "sm",
           padding: "sm",
           radius: "sm",
@@ -68447,19 +69053,19 @@ function ImageBrowser({
             height: itemSize - 4
           },
           onClick: () => navigateToFolder(item.name),
-          children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+          children: /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
             gap: "md",
             align: "center",
             children: [
-              mode === 0 /* FolderSelection */ && /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+              mode === 0 /* FolderSelection */ && /* @__PURE__ */ jsx_runtime22.jsx(Checkbox, {
                 checked: isSelected,
                 onChange: () => toggleFolderSelection(item.name),
                 onClick: (e) => e.stopPropagation()
               }),
-              /* @__PURE__ */ jsx_runtime21.jsx(IconFolder, {
+              /* @__PURE__ */ jsx_runtime22.jsx(IconFolder, {
                 size: settings.iconSize
               }),
-              /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+              /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                 size: "sm",
                 style: { flex: 1 },
                 children: item.name
@@ -68474,9 +69080,9 @@ function ImageBrowser({
       const isSourceFile = smartCropMode && sourceFile === item.id;
       const isTargetSelected = smartCropMode && targetSelectedFiles.has(item.id);
       const isFileSelectable = mode === 1 /* FileSelection */;
-      return /* @__PURE__ */ jsx_runtime21.jsx("div", {
+      return /* @__PURE__ */ jsx_runtime22.jsx("div", {
         style: style2,
-        children: /* @__PURE__ */ jsx_runtime21.jsx(Card, {
+        children: /* @__PURE__ */ jsx_runtime22.jsx(Card, {
           shadow: "sm",
           padding: "sm",
           radius: "sm",
@@ -68500,21 +69106,21 @@ function ImageBrowser({
               handleFileSelection(item.id);
             }
           },
-          children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+          children: /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
             gap: "md",
             align: "center",
             children: [
-              isFileSelectable && smartCropMode && !isSourceFile && /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+              isFileSelectable && smartCropMode && !isSourceFile && /* @__PURE__ */ jsx_runtime22.jsx(Checkbox, {
                 checked: isTargetSelected,
                 onChange: () => handleTargetFileToggle(item.name),
                 onClick: (e) => e.stopPropagation()
               }),
               renderFileIcon(item),
-              /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+              /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                 gap: "md",
                 justify: "flex-start",
                 children: [
-                  /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                  /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                     size: "sm",
                     style: { flex: 1, userSelect: "text" },
                     children: item.name
@@ -68805,7 +69411,7 @@ function ImageBrowser({
   const renderBreadcrumbs = () => {
     const pathParts = currentPath.split("/").filter(Boolean);
     const breadcrumbItems = [
-      /* @__PURE__ */ jsx_runtime21.jsx(Anchor, {
+      /* @__PURE__ */ jsx_runtime22.jsx(Anchor, {
         onClick: () => {
           if (localConnectorId) {
             setCurrentPath("/");
@@ -68819,9 +69425,9 @@ function ImageBrowser({
         children: "Root"
       }, "root")
     ];
-    pathParts.forEach((part, index4) => {
-      const partPath = `/${pathParts.slice(0, index4 + 1).join("/")}`;
-      breadcrumbItems.push(/* @__PURE__ */ jsx_runtime21.jsx(Anchor, {
+    pathParts.forEach((part, index6) => {
+      const partPath = `/${pathParts.slice(0, index6 + 1).join("/")}`;
+      breadcrumbItems.push(/* @__PURE__ */ jsx_runtime22.jsx(Anchor, {
         onClick: () => {
           if (localConnectorId) {
             setCurrentPath(partPath);
@@ -68835,7 +69441,7 @@ function ImageBrowser({
         children: part
       }, partPath));
     });
-    return /* @__PURE__ */ jsx_runtime21.jsx(Breadcrumbs, {
+    return /* @__PURE__ */ jsx_runtime22.jsx(Breadcrumbs, {
       children: breadcrumbItems
     });
   };
@@ -68846,14 +69452,14 @@ function ImageBrowser({
     const hasVisionData = visionDataCache.get(fileKey);
     const isLoadingVision = loadingVisionData.has(fileKey);
     if (isLoadingVision) {
-      return /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+      return /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
         size: 16
       });
     }
     if (hasVisionData) {
-      return /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+      return /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
         label: "Smart Crop (vision data) exist",
-        children: /* @__PURE__ */ jsx_runtime21.jsx(IconEyeCheck, {
+        children: /* @__PURE__ */ jsx_runtime22.jsx(IconEyeCheck, {
           size: 16,
           color: "green"
         })
@@ -68863,7 +69469,7 @@ function ImageBrowser({
   };
   const renderFileIcon = (file2, size5 = settings.iconSize) => {
     if (!localConnectorId)
-      return /* @__PURE__ */ jsx_runtime21.jsx(IconFile, {
+      return /* @__PURE__ */ jsx_runtime22.jsx(IconFile, {
         size: size5
       });
     const fileKey = `${localConnectorId}-${file2.id}`;
@@ -68871,14 +69477,14 @@ function ImageBrowser({
     const thumbnailError = thumbnailErrors.get(fileKey);
     const isLoading = loadingThumbnails.has(fileKey);
     if (isLoading) {
-      return /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+      return /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
         size: size5
       });
     }
     if (thumbnailError) {
-      return /* @__PURE__ */ jsx_runtime21.jsx(Tooltip, {
+      return /* @__PURE__ */ jsx_runtime22.jsx(Tooltip, {
         label: thumbnailError,
-        children: /* @__PURE__ */ jsx_runtime21.jsx(IconExclamationCircle, {
+        children: /* @__PURE__ */ jsx_runtime22.jsx(IconExclamationCircle, {
           size: size5,
           color: "red"
         })
@@ -68886,7 +69492,7 @@ function ImageBrowser({
     }
     if (thumbnailUrl) {
       console.log(`[Render] Using thumbnail URL for ${file2.name}: ${thumbnailUrl}`);
-      return /* @__PURE__ */ jsx_runtime21.jsx("img", {
+      return /* @__PURE__ */ jsx_runtime22.jsx("img", {
         src: thumbnailUrl,
         alt: file2.name,
         style: {
@@ -68902,19 +69508,19 @@ function ImageBrowser({
         }
       });
     }
-    return /* @__PURE__ */ jsx_runtime21.jsx(IconFile, {
+    return /* @__PURE__ */ jsx_runtime22.jsx(IconFile, {
       size: size5
     });
   };
   const renderGridView = () => {
-    return /* @__PURE__ */ jsx_runtime21.jsxs(SimpleGrid, {
+    return /* @__PURE__ */ jsx_runtime22.jsxs(SimpleGrid, {
       cols: 4,
       spacing: "md",
       children: [
         folders.map((folder) => {
           const folderPath = currentPath === "/" ? `/${folder.name}` : `${currentPath}/${folder.name}`;
           const isSelected = selectedFolders.has(folderPath);
-          return /* @__PURE__ */ jsx_runtime21.jsxs(Card, {
+          return /* @__PURE__ */ jsx_runtime22.jsxs(Card, {
             shadow: "sm",
             padding: "md",
             radius: "md",
@@ -68926,7 +69532,7 @@ function ImageBrowser({
             },
             onClick: () => navigateToFolder(folder.name),
             children: [
-              mode === 0 /* FolderSelection */ && /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+              mode === 0 /* FolderSelection */ && /* @__PURE__ */ jsx_runtime22.jsx(Checkbox, {
                 checked: isSelected,
                 onChange: () => toggleFolderSelection(folder.name),
                 style: {
@@ -68936,14 +69542,14 @@ function ImageBrowser({
                 },
                 onClick: (e) => e.stopPropagation()
               }),
-              /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+              /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
                 align: "center",
                 gap: "xs",
                 children: [
-                  /* @__PURE__ */ jsx_runtime21.jsx(IconFolder, {
+                  /* @__PURE__ */ jsx_runtime22.jsx(IconFolder, {
                     size: settings.iconSize
                   }),
-                  /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                  /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                     size: "sm",
                     ta: "center",
                     lineClamp: 2,
@@ -68959,7 +69565,7 @@ function ImageBrowser({
           const isSourceFile = smartCropMode && sourceFile === file2.name;
           const isTargetSelected = smartCropMode && targetSelectedFiles.has(file2.name);
           const isFileSelectable = mode === 1 /* FileSelection */;
-          return /* @__PURE__ */ jsx_runtime21.jsxs(Card, {
+          return /* @__PURE__ */ jsx_runtime22.jsxs(Card, {
             shadow: "sm",
             padding: "md",
             radius: "md",
@@ -68984,7 +69590,7 @@ function ImageBrowser({
               }
             },
             children: [
-              isFileSelectable && smartCropMode && !isSourceFile && /* @__PURE__ */ jsx_runtime21.jsx(Checkbox, {
+              isFileSelectable && smartCropMode && !isSourceFile && /* @__PURE__ */ jsx_runtime22.jsx(Checkbox, {
                 checked: isTargetSelected,
                 onChange: () => handleTargetFileToggle(file2.name),
                 style: {
@@ -68994,16 +69600,16 @@ function ImageBrowser({
                 },
                 onClick: (e) => e.stopPropagation()
               }),
-              /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+              /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
                 align: "center",
                 gap: "xs",
                 children: [
                   renderFileIcon(file2),
-                  /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                  /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                     gap: "xs",
                     justify: "flex-end",
                     children: [
-                      /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                      /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                         size: "sm",
                         ta: "center",
                         lineClamp: 2,
@@ -69017,21 +69623,21 @@ function ImageBrowser({
             ]
           }, file2.id);
         }),
-        isLoadingMore && /* @__PURE__ */ jsx_runtime21.jsx(Card, {
+        isLoadingMore && /* @__PURE__ */ jsx_runtime22.jsx(Card, {
           shadow: "sm",
           padding: "md",
           radius: "md",
           style: { opacity: 0.7 },
-          children: /* @__PURE__ */ jsx_runtime21.jsx(Center, {
+          children: /* @__PURE__ */ jsx_runtime22.jsx(Center, {
             h: "100%",
-            children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
               align: "center",
               gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
                   size: "sm"
                 }),
-                /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   children: "Loading more..."
@@ -69043,9 +69649,9 @@ function ImageBrowser({
       ]
     });
   };
-  return /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
+  return /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
         opened,
         onClose: async () => {
           await cleanupAndResetState();
@@ -69071,41 +69677,41 @@ function ImageBrowser({
             fontWeight: 600
           }
         },
-        children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
           gap: "sm",
           children: [
-            error40 && /* @__PURE__ */ jsx_runtime21.jsx(Alert, {
-              icon: /* @__PURE__ */ jsx_runtime21.jsx(IconAlertCircle, {
+            error40 && /* @__PURE__ */ jsx_runtime22.jsx(Alert, {
+              icon: /* @__PURE__ */ jsx_runtime22.jsx(IconAlertCircle, {
                 size: "1rem"
               }),
               title: "Error",
               color: "red",
               children: error40
             }),
-            browserState === "loading" && /* @__PURE__ */ jsx_runtime21.jsx(Center, {
-              children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+            browserState === "loading" && /* @__PURE__ */ jsx_runtime22.jsx(Center, {
+              children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
                 align: "center",
                 gap: "md",
                 children: [
-                  /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+                  /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
                     size: "lg"
                   }),
-                  /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                  /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                     children: "Loading connectors..."
                   })
                 ]
               })
             }),
-            browserState === "connectorSelection" && /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+            browserState === "connectorSelection" && /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
               gap: "md",
               align: "center",
               children: [
-                /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                   size: "md",
                   ta: "center",
                   children: mode === 0 /* FolderSelection */ ? "Choose a connector to browse folders" : "Choose a connector to browse files"
                 }),
-                /* @__PURE__ */ jsx_runtime21.jsx(Select, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Select, {
                   label: "Choose Connector",
                   placeholder: "Select a connector",
                   data: connectors.map((c2) => ({ value: c2.id, label: c2.name })),
@@ -69113,7 +69719,7 @@ function ImageBrowser({
                   onChange: setSelectedConnectorId,
                   style: { width: "300px" }
                 }),
-                /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                   onClick: handleConnectorSelect,
                   disabled: !selectedConnectorId,
                   loading: isLoadingFolders,
@@ -69122,39 +69728,39 @@ function ImageBrowser({
                 })
               ]
             }),
-            browserState === "folderBrowsing" && /* @__PURE__ */ jsx_runtime21.jsxs(jsx_runtime21.Fragment, {
+            browserState === "folderBrowsing" && /* @__PURE__ */ jsx_runtime22.jsxs(jsx_runtime22.Fragment, {
               children: [
-                /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                       gap: "md",
                       children: [
-                        /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                        /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
                           variant: "subtle",
                           onClick: navigateBack,
                           disabled: currentPath === "/",
-                          children: /* @__PURE__ */ jsx_runtime21.jsx(IconArrowBigLeftFilled, {
+                          children: /* @__PURE__ */ jsx_runtime22.jsx(IconArrowBigLeftFilled, {
                             size: 20
                           })
                         }),
                         renderBreadcrumbs()
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                       gap: "md",
                       align: "flex-end",
                       children: [
-                        /* @__PURE__ */ jsx_runtime21.jsx(ActionIcon, {
+                        /* @__PURE__ */ jsx_runtime22.jsx(ActionIcon, {
                           variant: "subtle",
                           onClick: handleOpenSettings,
                           "aria-label": "Image Browser Settings",
-                          children: /* @__PURE__ */ jsx_runtime21.jsx(IconSettings, {
+                          children: /* @__PURE__ */ jsx_runtime22.jsx(IconSettings, {
                             size: 20
                           })
                         }),
-                        /* @__PURE__ */ jsx_runtime21.jsx(Select, {
+                        /* @__PURE__ */ jsx_runtime22.jsx(Select, {
                           label: "Change Connector",
                           placeholder: "Select a connector",
                           data: connectors.map((c2) => ({
@@ -69187,16 +69793,16 @@ function ImageBrowser({
                     })
                   ]
                 }),
-                mode === 1 /* FileSelection */ && selectedFile && !smartCropMode && /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                mode === 1 /* FileSelection */ && selectedFile && !smartCropMode && /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                   gap: "md",
                   children: [
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                       variant: "outline",
                       size: "sm",
                       onClick: handleEnterSmartCropMode,
                       children: "Copy Smart Crop"
                     }),
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                       variant: "outline",
                       size: "sm",
                       onClick: handleDownloadFile,
@@ -69204,17 +69810,17 @@ function ImageBrowser({
                     })
                   ]
                 }),
-                smartCropMode && /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                smartCropMode && /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                   gap: "md",
                   children: [
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                       variant: "filled",
                       size: "sm",
                       disabled: targetSelectedFiles.size === 0,
                       onClick: handleCopyVisionData,
                       children: "Paste"
                     }),
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                       variant: "outline",
                       size: "sm",
                       onClick: handleExitSmartCropMode,
@@ -69222,25 +69828,25 @@ function ImageBrowser({
                     })
                   ]
                 }),
-                mode === 0 /* FolderSelection */ && persistentSelections.size > 0 && /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                mode === 0 /* FolderSelection */ && persistentSelections.size > 0 && /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                   justify: "space-between",
                   children: [
-                    /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                       variant: "default",
                       size: "sm",
                       onClick: clearAllFolderSelections,
                       children: "Cancel"
                     }),
-                    /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                       gap: "md",
                       children: [
-                        currentPath !== "/" && /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                        currentPath !== "/" && /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                           variant: "outline",
                           size: "sm",
                           onClick: toggleCurrentFolderSelection,
                           children: persistentSelections.has(currentPath) ? "Remove Current Folder" : "Add Current Folder"
                         }),
-                        /* @__PURE__ */ jsx_runtime21.jsxs(Button, {
+                        /* @__PURE__ */ jsx_runtime22.jsxs(Button, {
                           size: "sm",
                           onClick: handleSelection,
                           disabled: persistentSelections.size === 0,
@@ -69254,33 +69860,33 @@ function ImageBrowser({
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime21.jsx("div", {
+                /* @__PURE__ */ jsx_runtime22.jsx("div", {
                   style: { flex: 1, minHeight: "500px" },
-                  children: folders.length === 0 && isLoadingFolders ? /* @__PURE__ */ jsx_runtime21.jsx(Center, {
+                  children: folders.length === 0 && isLoadingFolders ? /* @__PURE__ */ jsx_runtime22.jsx(Center, {
                     h: 200,
-                    children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                    children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
                       align: "center",
                       gap: "md",
                       children: [
-                        /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+                        /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
                           size: "lg"
                         }),
-                        /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                           c: "dimmed",
                           children: "Loading folders..."
                         })
                       ]
                     })
-                  }) : folders.length === 0 && files.length === 0 && !isLoadingFolders ? /* @__PURE__ */ jsx_runtime21.jsx(Center, {
+                  }) : folders.length === 0 && files.length === 0 && !isLoadingFolders ? /* @__PURE__ */ jsx_runtime22.jsx(Center, {
                     h: 200,
-                    children: /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                    children: /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                       c: "dimmed",
                       children: mode === 0 /* FolderSelection */ ? "No folders found" : "No folders or files found"
                     })
-                  }) : displayMode === "list" ? /* @__PURE__ */ jsx_runtime21.jsxs("div", {
+                  }) : displayMode === "list" ? /* @__PURE__ */ jsx_runtime22.jsxs("div", {
                     style: { height: "800px", minHeight: "500px" },
                     children: [
-                      /* @__PURE__ */ jsx_runtime21.jsx(FixedSizeList, {
+                      /* @__PURE__ */ jsx_runtime22.jsx(FixedSizeList, {
                         height: 800,
                         width: "100%",
                         itemCount: folders.length + files.length,
@@ -69288,19 +69894,19 @@ function ImageBrowser({
                         onItemsRendered: handleItemsRendered,
                         children: ListItem2
                       }),
-                      isLoadingMore && /* @__PURE__ */ jsx_runtime21.jsx(Card, {
+                      isLoadingMore && /* @__PURE__ */ jsx_runtime22.jsx(Card, {
                         shadow: "sm",
                         padding: "md",
                         radius: "md",
                         style: { opacity: 0.7, margin: "2px" },
-                        children: /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+                        children: /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
                           gap: "md",
                           align: "center",
                           children: [
-                            /* @__PURE__ */ jsx_runtime21.jsx(Loader, {
+                            /* @__PURE__ */ jsx_runtime22.jsx(Loader, {
                               size: "sm"
                             }),
-                            /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                            /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                               size: "sm",
                               c: "dimmed",
                               children: "Loading more..."
@@ -69311,19 +69917,19 @@ function ImageBrowser({
                     ]
                   }) : renderGridView()
                 }),
-                mode === 0 /* FolderSelection */ && persistentSelections.size > 0 && /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                mode === 0 /* FolderSelection */ && persistentSelections.size > 0 && /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                       size: "sm",
                       fw: 500,
                       children: "Selected folders:"
                     }),
-                    /* @__PURE__ */ jsx_runtime21.jsx(ScrollArea, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(ScrollArea, {
                       h: 80,
-                      children: /* @__PURE__ */ jsx_runtime21.jsx(Stack, {
+                      children: /* @__PURE__ */ jsx_runtime22.jsx(Stack, {
                         gap: "xs",
-                        children: Array.from(persistentSelections).map((path) => /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                        children: Array.from(persistentSelections).map((path) => /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                           size: "xs",
                           c: "dimmed",
                           children: path
@@ -69332,15 +69938,15 @@ function ImageBrowser({
                     })
                   ]
                 }),
-                mode === 1 /* FileSelection */ && selectedFile && /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+                mode === 1 /* FileSelection */ && selectedFile && /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                       size: "sm",
                       fw: 500,
                       children: "Selected file:"
                     }),
-                    /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                       size: "xs",
                       c: "dimmed",
                       children: selectedFile
@@ -69352,7 +69958,7 @@ function ImageBrowser({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime21.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
         opened: showTaskModal,
         onClose: () => {
           const allComplete = copyTasks.every((task) => task.status === "complete" || task.status === "error" || task.status === "info");
@@ -69366,7 +69972,7 @@ function ImageBrowser({
         size: "lg",
         closeOnClickOutside: false,
         closeOnEscape: false,
-        children: /* @__PURE__ */ jsx_runtime21.jsx(DownloadTasksScreen, {
+        children: /* @__PURE__ */ jsx_runtime22.jsx(DownloadTasksScreen, {
           downloadFiles: [],
           tasks: copyTasks,
           uploadTasks: [],
@@ -69377,25 +69983,25 @@ function ImageBrowser({
           }
         })
       }),
-      /* @__PURE__ */ jsx_runtime21.jsx(Drawer, {
+      /* @__PURE__ */ jsx_runtime22.jsx(Drawer, {
         opened: isSettingsDrawerOpen,
         onClose: handleCancelSettings,
         title: "Image Browser Settings",
         position: "right",
         size: "md",
         padding: "md",
-        children: /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
           gap: "lg",
           children: [
-            /* @__PURE__ */ jsx_runtime21.jsxs(Stack, {
+            /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime21.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Text, {
                   size: "sm",
                   fw: 500,
                   children: "File and Folder Icon Size"
                 }),
-                /* @__PURE__ */ jsx_runtime21.jsx(Slider, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Slider, {
                   value: tempSettings.iconSize,
                   onChange: (value) => setTempSettings({ ...tempSettings, iconSize: value }),
                   min: 24,
@@ -69411,16 +70017,16 @@ function ImageBrowser({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime21.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
               justify: "flex-end",
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                   variant: "outline",
                   onClick: handleCancelSettings,
                   children: "Cancel"
                 }),
-                /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime22.jsx(Button, {
                   onClick: handleSaveSettings,
                   children: "Save"
                 })
@@ -69434,8 +70040,8 @@ function ImageBrowser({
 }
 
 // src/components/ConnectorSelectionModal.tsx
-var import_react269 = __toESM(require_react(), 1);
-var jsx_runtime22 = __toESM(require_jsx_runtime(), 1);
+var import_react275 = __toESM(require_react(), 1);
+var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
 function ConnectorSelectionModal({
   opened,
   onClose,
@@ -69443,8 +70049,8 @@ function ConnectorSelectionModal({
   smartCropsConnectorName,
   onSelect
 }) {
-  const [selectedConnectorId, setSelectedConnectorId] = import_react269.useState("");
-  import_react269.useEffect(() => {
+  const [selectedConnectorId, setSelectedConnectorId] = import_react275.useState("");
+  import_react275.useEffect(() => {
     if (opened && smartCropsConnectorName) {
       const matchingConnector = connectors.find((connector) => connector.name === smartCropsConnectorName);
       if (matchingConnector) {
@@ -69452,7 +70058,7 @@ function ConnectorSelectionModal({
       }
     }
   }, [opened, smartCropsConnectorName, connectors]);
-  import_react269.useEffect(() => {
+  import_react275.useEffect(() => {
     if (!opened) {
       setSelectedConnectorId("");
     }
@@ -69467,7 +70073,7 @@ function ConnectorSelectionModal({
     setSelectedConnectorId("");
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime22.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
     opened,
     onClose: handleClose,
     title: "Select Connector for Smart Crops",
@@ -69488,14 +70094,14 @@ function ConnectorSelectionModal({
         fontWeight: 600
       }
     },
-    children: /* @__PURE__ */ jsx_runtime22.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
       gap: "xl",
       children: [
-        /* @__PURE__ */ jsx_runtime22.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime23.jsx(Text, {
           size: "md",
           children: "Select the connector where you want to upload the smart crops data:"
         }),
-        /* @__PURE__ */ jsx_runtime22.jsx(Select, {
+        /* @__PURE__ */ jsx_runtime23.jsx(Select, {
           label: "Connector",
           placeholder: "Choose a connector",
           data: connectors.map((connector) => ({
@@ -69507,16 +70113,16 @@ function ConnectorSelectionModal({
           searchable: true,
           required: true
         }),
-        /* @__PURE__ */ jsx_runtime22.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime23.jsx(Button, {
               variant: "outline",
               onClick: handleClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime22.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime23.jsx(Button, {
               onClick: handleContinue,
               disabled: !selectedConnectorId,
               color: "blue",
@@ -69530,8 +70136,8 @@ function ConnectorSelectionModal({
 }
 
 // src/components/DownloadModal/ReplaceConnectorsModal.tsx
-var import_react270 = __toESM(require_react(), 1);
-var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
+var import_react276 = __toESM(require_react(), 1);
+var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
 function ReplaceConnectorsModal({
   opened,
   onClose,
@@ -69539,9 +70145,9 @@ function ReplaceConnectorsModal({
   availableConnectors,
   onReplace
 }) {
-  const [replacements, setReplacements] = import_react270.useState({});
-  const [replacementMap, setReplacementMap] = import_react270.useState(new Map);
-  import_react270.useEffect(() => {
+  const [replacements, setReplacements] = import_react276.useState({});
+  const [replacementMap, setReplacementMap] = import_react276.useState(new Map);
+  import_react276.useEffect(() => {
     if (opened && connectorsToReplace.length > 0) {
       const connectorsSources = new Map;
       for (const connector of connectorsToReplace) {
@@ -69562,7 +70168,7 @@ function ReplaceConnectorsModal({
       setReplacementMap(newReplacementMap);
     }
   }, [opened, connectorsToReplace, availableConnectors]);
-  import_react270.useEffect(() => {
+  import_react276.useEffect(() => {
     if (!opened) {
       setReplacements({});
       setReplacementMap(new Map);
@@ -69594,7 +70200,8 @@ function ReplaceConnectorsModal({
     setReplacements({});
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
+  console.log("Replacement Map", replacementMap);
+  return /* @__PURE__ */ jsx_runtime24.jsx(Modal, {
     opened,
     onClose: handleClose,
     title: "Replace Connectors",
@@ -69615,42 +70222,42 @@ function ReplaceConnectorsModal({
         fontWeight: 600
       }
     },
-    children: /* @__PURE__ */ jsx_runtime23.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
       gap: "xl",
       children: [
-        /* @__PURE__ */ jsx_runtime23.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime24.jsx(Text, {
           size: "md",
           children: "The following connectors from the document need to be replaced with available connectors:"
         }),
-        /* @__PURE__ */ jsx_runtime23.jsxs(Table, {
+        /* @__PURE__ */ jsx_runtime24.jsxs(Table, {
           children: [
-            /* @__PURE__ */ jsx_runtime23.jsx(Table.Thead, {
-              children: /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
+            /* @__PURE__ */ jsx_runtime24.jsx(Table.Thead, {
+              children: /* @__PURE__ */ jsx_runtime24.jsxs(Table.Tr, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime24.jsx(Table.Th, {
                     children: "Document Connector"
                   }),
-                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime24.jsx(Table.Th, {
                     children: "Original ID"
                   }),
-                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Th, {
+                  /* @__PURE__ */ jsx_runtime24.jsx(Table.Th, {
                     children: "Replace With"
                   })
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime23.jsx(Table.Tbody, {
-              children: Array.from(replacementMap.entries()).map(([connectorId, connector]) => /* @__PURE__ */ jsx_runtime23.jsxs(Table.Tr, {
+            /* @__PURE__ */ jsx_runtime24.jsx(Table.Tbody, {
+              children: Array.from(replacementMap.entries()).map(([connectorId, connector]) => /* @__PURE__ */ jsx_runtime24.jsxs(Table.Tr, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                  /* @__PURE__ */ jsx_runtime24.jsx(Table.Td, {
                     children: connector.name
                   }),
-                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
+                  /* @__PURE__ */ jsx_runtime24.jsx(Table.Td, {
                     style: { fontFamily: "monospace", fontSize: "0.8rem" },
                     children: connectorId
                   }),
-                  /* @__PURE__ */ jsx_runtime23.jsx(Table.Td, {
-                    children: /* @__PURE__ */ jsx_runtime23.jsx(Select, {
+                  /* @__PURE__ */ jsx_runtime24.jsx(Table.Td, {
+                    children: /* @__PURE__ */ jsx_runtime24.jsx(Select, {
                       data: availableConnectors.map((c2) => ({
                         value: c2.id,
                         label: c2.name
@@ -69667,16 +70274,16 @@ function ReplaceConnectorsModal({
             })
           ]
         }),
-        /* @__PURE__ */ jsx_runtime23.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime24.jsx(Button, {
               variant: "outline",
               onClick: handleClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime23.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime24.jsx(Button, {
               onClick: handleContinue,
               disabled: !allSelected,
               color: "blue",
@@ -69690,18 +70297,18 @@ function ReplaceConnectorsModal({
 }
 
 // src/components/DownloadModal/DefaultSettingsModal.tsx
-var import_react271 = __toESM(require_react(), 1);
-var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
+var import_react277 = __toESM(require_react(), 1);
+var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
 function DefaultSettingsModal({
   opened,
   onClose
 }) {
   const raiseError2 = appStore((store) => store.raiseError);
-  const [error40, setError] = import_react271.useState(null);
-  const [isLoading, setIsLoading] = import_react271.useState(false);
-  const [isSaving, setIsSaving] = import_react271.useState(false);
-  const [folderBrowserOpened, setFolderBrowserOpened] = import_react271.useState(false);
-  const [defaultSettings, setDefaultSettings] = import_react271.useState({
+  const [error40, setError] = import_react277.useState(null);
+  const [isLoading, setIsLoading] = import_react277.useState(false);
+  const [isSaving, setIsSaving] = import_react277.useState(false);
+  const [folderBrowserOpened, setFolderBrowserOpened] = import_react277.useState(false);
+  const [defaultSettings, setDefaultSettings] = import_react277.useState({
     includeFonts: true,
     includeGrafxMedia: false,
     includeSmartCrops: false,
@@ -69710,7 +70317,7 @@ function DefaultSettingsModal({
     useOriginalFontFileNames: false,
     addTimestamp: true
   });
-  import_react271.useEffect(() => {
+  import_react277.useEffect(() => {
     if (opened) {
       loadDefaultSettings();
     }
@@ -69795,9 +70402,9 @@ function DefaultSettingsModal({
     setError(null);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime24.jsxs(jsx_runtime24.Fragment, {
+  return /* @__PURE__ */ jsx_runtime25.jsxs(jsx_runtime25.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime24.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime25.jsx(Modal, {
         opened,
         onClose: handleClose,
         title: "Default Download Settings for Template",
@@ -69808,16 +70415,16 @@ function DefaultSettingsModal({
             fontWeight: 600
           }
         },
-        children: /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
           gap: "xl",
           children: [
-            /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime25.jsx(Text, {
               size: "md",
               style: { textAlign: "center", marginBottom: "1rem" },
               children: "Configure default settings for downloads with this template. These settings will be used as defaults when you start a new download with this template."
             }),
-            error40 && /* @__PURE__ */ jsx_runtime24.jsx(Alert, {
-              icon: /* @__PURE__ */ jsx_runtime24.jsx(IconAlertCircle, {
+            error40 && /* @__PURE__ */ jsx_runtime25.jsx(Alert, {
+              icon: /* @__PURE__ */ jsx_runtime25.jsx(IconAlertCircle, {
                 size: "1rem"
               }),
               title: "Error",
@@ -69825,113 +70432,113 @@ function DefaultSettingsModal({
               style: { marginBottom: "1rem" },
               children: error40
             }),
-            isLoading ? /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+            isLoading ? /* @__PURE__ */ jsx_runtime25.jsx(Text, {
               size: "sm",
               c: "dimmed",
               style: { textAlign: "center" },
               children: "Loading current settings..."
-            }) : /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+            }) : /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                /* @__PURE__ */ jsx_runtime25.jsx(Checkbox, {
                   label: "Include fonts",
                   checked: defaultSettings.includeFonts,
                   onChange: (event) => handleSettingChange("includeFonts", event.currentTarget.checked)
                 }),
-                defaultSettings.includeFonts && /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                defaultSettings.includeFonts && /* @__PURE__ */ jsx_runtime25.jsx(Checkbox, {
                   label: "Use original font file names (Default: unchecked because duplicate font names will cause false positives of missing files during upload)",
                   checked: defaultSettings.useOriginalFontFileNames,
                   onChange: (event) => handleSettingChange("useOriginalFontFileNames", event.currentTarget.checked),
                   style: { marginLeft: "40px" }
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                    /* @__PURE__ */ jsx_runtime25.jsx(Checkbox, {
                       label: "Include GraFx Media",
                       checked: defaultSettings.includeGrafxMedia,
                       onChange: (event) => handleSettingChange("includeGrafxMedia", event.currentTarget.checked)
                     }),
-                    defaultSettings.includeGrafxMedia && /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                    defaultSettings.includeGrafxMedia && /* @__PURE__ */ jsx_runtime25.jsx(Text, {
                       size: "sm",
                       c: "red",
                       children: "Not implemented"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
                   gap: "xs",
                   children: [
-                    /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                    /* @__PURE__ */ jsx_runtime25.jsx(Checkbox, {
                       label: "Include smart crops",
                       checked: defaultSettings.includeSmartCrops,
                       onChange: (event) => handleSettingChange("includeSmartCrops", event.currentTarget.checked)
                     }),
-                    defaultSettings.includeSmartCrops && /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                    defaultSettings.includeSmartCrops && /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
                       gap: "xs",
                       style: { marginLeft: "1.5rem" },
                       children: [
-                        /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime25.jsx(Button, {
                           variant: "outline",
                           size: "sm",
                           style: { width: "fit-content" },
                           onClick: () => setFolderBrowserOpened(true),
                           children: "Add folders"
                         }),
-                        defaultSettings.smartCropsConnectorSelection && defaultSettings.smartCropsConnectorSelection.selectedFolders.length > 0 && /* @__PURE__ */ jsx_runtime24.jsxs(Stack, {
+                        defaultSettings.smartCropsConnectorSelection && defaultSettings.smartCropsConnectorSelection.selectedFolders.length > 0 && /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
                           gap: "xs",
                           children: [
-                            /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                            /* @__PURE__ */ jsx_runtime25.jsx(Text, {
                               size: "xs",
                               fw: 500,
                               children: "Selected folders:"
                             }),
-                            defaultSettings.smartCropsConnectorSelection.selectedFolders.map((path, index4) => /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+                            defaultSettings.smartCropsConnectorSelection.selectedFolders.map((path, index6) => /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
                               gap: "xs",
                               style: { marginLeft: "0.5rem" },
                               children: [
-                                /* @__PURE__ */ jsx_runtime24.jsx(ActionIcon, {
+                                /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
                                   size: "xs",
                                   variant: "subtle",
                                   color: "red",
                                   onClick: () => handleRemoveFolderPath(path),
-                                  children: /* @__PURE__ */ jsx_runtime24.jsx(IconCircleX, {
+                                  children: /* @__PURE__ */ jsx_runtime25.jsx(IconCircleX, {
                                     size: 12
                                   })
                                 }),
-                                /* @__PURE__ */ jsx_runtime24.jsx(Text, {
+                                /* @__PURE__ */ jsx_runtime25.jsx(Text, {
                                   size: "xs",
                                   c: "dimmed",
                                   style: { flex: 1 },
                                   children: path
                                 })
                               ]
-                            }, index4))
+                            }, index6))
                           ]
                         })
                       ]
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                /* @__PURE__ */ jsx_runtime25.jsx(Checkbox, {
                   label: "Add timestamp to folder name",
                   checked: defaultSettings.addTimestamp,
                   onChange: (event) => handleSettingChange("addTimestamp", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                /* @__PURE__ */ jsx_runtime25.jsx(Checkbox, {
                   label: "Remove Toolbar data",
                   checked: defaultSettings.removeToolbarData,
                   onChange: (event) => handleSettingChange("removeToolbarData", event.currentTarget.checked)
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsx(Title, {
+                /* @__PURE__ */ jsx_runtime25.jsx(Title, {
                   order: 5,
                   children: "Experimental"
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsx(Tooltip, {
+                /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
                   label: "Experimental: May cause issues with your document",
                   position: "right",
                   withArrow: true,
-                  children: /* @__PURE__ */ jsx_runtime24.jsx(Checkbox, {
+                  children: /* @__PURE__ */ jsx_runtime25.jsx(Checkbox, {
                     label: "Remove unused Connectors",
                     color: "red",
                     checked: defaultSettings.removeUnusedConnectors,
@@ -69940,17 +70547,17 @@ function DefaultSettingsModal({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime24.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
               justify: "space-between",
               mt: "xl",
               children: [
-                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime25.jsx(Button, {
                   variant: "default",
                   onClick: handleClose,
                   disabled: isSaving,
                   children: "Cancel"
                 }),
-                /* @__PURE__ */ jsx_runtime24.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime25.jsx(Button, {
                   onClick: handleSave,
                   color: "blue",
                   loading: isSaving,
@@ -69962,7 +70569,7 @@ function DefaultSettingsModal({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime24.jsx(ImageBrowser, {
+      /* @__PURE__ */ jsx_runtime25.jsx(ImageBrowser, {
         opened: folderBrowserOpened,
         mode: 0 /* FolderSelection */,
         initialSelection: defaultSettings.smartCropsConnectorSelection,
@@ -69973,7 +70580,7 @@ function DefaultSettingsModal({
 }
 
 // src/components/DownloadModal/InitialScreen.tsx
-var jsx_runtime25 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
 function InitialScreen({
   error: error40,
   onDownload,
@@ -69982,16 +70589,16 @@ function InitialScreen({
   onJsonUpload,
   onDefaultSettings
 }) {
-  return /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
+  return /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
     gap: "xl",
     children: [
-      /* @__PURE__ */ jsx_runtime25.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
         size: "md",
         style: { textAlign: "center", marginBottom: "1rem" },
         children: "Choose an action for document management."
       }),
-      error40 && /* @__PURE__ */ jsx_runtime25.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime25.jsx(IconAlertCircle, {
+      error40 && /* @__PURE__ */ jsx_runtime26.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime26.jsx(IconAlertCircle, {
           size: "1rem"
         }),
         title: "Error",
@@ -69999,12 +70606,12 @@ function InitialScreen({
         style: { marginBottom: "1rem" },
         children: error40
       }),
-      /* @__PURE__ */ jsx_runtime25.jsxs(SimpleGrid, {
+      /* @__PURE__ */ jsx_runtime26.jsxs(SimpleGrid, {
         cols: 2,
         spacing: "xl",
         style: { marginTop: "1rem" },
         children: [
-          /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime26.jsx(Button, {
             onClick: onDownload,
             color: "blue",
             fullWidth: true,
@@ -70014,20 +70621,20 @@ function InitialScreen({
               fontSize: "1rem",
               fontWeight: 500
             },
-            children: /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+            children: /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
               gap: "md",
               style: { flexDirection: "column" },
               children: [
-                /* @__PURE__ */ jsx_runtime25.jsx(IconDownload, {
+                /* @__PURE__ */ jsx_runtime26.jsx(IconDownload, {
                   size: 28
                 }),
-                /* @__PURE__ */ jsx_runtime25.jsx("span", {
+                /* @__PURE__ */ jsx_runtime26.jsx("span", {
                   children: "Download"
                 })
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime25.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime26.jsx(Button, {
             onClick: onUpload,
             color: "green",
             fullWidth: true,
@@ -70037,14 +70644,14 @@ function InitialScreen({
               fontSize: "1rem",
               fontWeight: 500
             },
-            children: /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+            children: /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
               gap: "md",
               style: { flexDirection: "column" },
               children: [
-                /* @__PURE__ */ jsx_runtime25.jsx(IconUpload, {
+                /* @__PURE__ */ jsx_runtime26.jsx(IconUpload, {
                   size: 28
                 }),
-                /* @__PURE__ */ jsx_runtime25.jsx("span", {
+                /* @__PURE__ */ jsx_runtime26.jsx("span", {
                   children: "Upload"
                 })
               ]
@@ -70052,56 +70659,56 @@ function InitialScreen({
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime25.jsxs(Stack, {
+      /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
         gap: "xs",
         mt: "md",
         children: [
-          /* @__PURE__ */ jsx_runtime25.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime26.jsx(Text, {
             size: "sm",
             fw: 500,
             c: "dimmed",
             children: "Quick Actions:"
           }),
-          /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
             justify: "space-between",
             children: [
-              /* @__PURE__ */ jsx_runtime25.jsxs(Group, {
+              /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
                 justify: "flex-start",
                 children: [
-                  /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+                  /* @__PURE__ */ jsx_runtime26.jsx(Tooltip, {
                     label: "Download document JSON",
-                    children: /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+                    children: /* @__PURE__ */ jsx_runtime26.jsx(ActionIcon, {
                       onClick: onJsonDownload,
                       color: "gray",
                       variant: "subtle",
                       size: "lg",
-                      children: /* @__PURE__ */ jsx_runtime25.jsx(IconFileDownload, {
+                      children: /* @__PURE__ */ jsx_runtime26.jsx(IconFileDownload, {
                         size: 20
                       })
                     })
                   }),
-                  /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+                  /* @__PURE__ */ jsx_runtime26.jsx(Tooltip, {
                     label: "Upload document JSON",
-                    children: /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+                    children: /* @__PURE__ */ jsx_runtime26.jsx(ActionIcon, {
                       onClick: onJsonUpload,
                       color: "gray",
                       variant: "subtle",
                       size: "lg",
-                      children: /* @__PURE__ */ jsx_runtime25.jsx(IconFileUpload, {
+                      children: /* @__PURE__ */ jsx_runtime26.jsx(IconFileUpload, {
                         size: 20
                       })
                     })
                   })
                 ]
               }),
-              /* @__PURE__ */ jsx_runtime25.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime26.jsx(Tooltip, {
                 label: "Default Settings",
-                children: /* @__PURE__ */ jsx_runtime25.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime26.jsx(ActionIcon, {
                   onClick: onDefaultSettings,
                   color: "gray",
                   variant: "subtle",
                   size: "lg",
-                  children: /* @__PURE__ */ jsx_runtime25.jsx(IconSettings, {
+                  children: /* @__PURE__ */ jsx_runtime26.jsx(IconSettings, {
                     size: 20
                   })
                 })
@@ -70115,7 +70722,7 @@ function InitialScreen({
 }
 
 // src/components/DownloadModal/DownloadSettingsScreen.tsx
-var jsx_runtime26 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
 function DownloadSettingsScreen({
   error: error40,
   folderName,
@@ -70130,188 +70737,13 @@ function DownloadSettingsScreen({
   onBack,
   onDownload
 }) {
-  return /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
-    gap: "xl",
-    children: [
-      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
-        size: "md",
-        style: { textAlign: "center", marginBottom: "1rem" },
-        children: "Download Settings"
-      }),
-      error40 && /* @__PURE__ */ jsx_runtime26.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime26.jsx(IconAlertCircle, {
-          size: "1rem"
-        }),
-        title: "Error",
-        color: "red",
-        style: { marginBottom: "1rem" },
-        children: error40
-      }),
-      /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
-        gap: "md",
-        children: [
-          /* @__PURE__ */ jsx_runtime26.jsx(TextInput, {
-            label: "Folder Name",
-            value: folderName,
-            onChange: (event) => onFolderNameChange(event.currentTarget.value),
-            error: folderNameError,
-            placeholder: "Enter folder name",
-            description: "Only letters, numbers, hyphens, and underscores are allowed"
-          }),
-          /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
-            label: "Add Timestamp",
-            checked: downloadSettings.addTimestamp,
-            onChange: (event) => onSettingChange("addTimestamp", event.currentTarget.checked)
-          }),
-          /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
-            gap: "xs",
-            children: [
-              /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
-                label: `Include fonts${downloadSettings.includeFonts && fontStylesCount > 0 ? ` (${fontStylesCount} styles)` : ""}`,
-                checked: downloadSettings.includeFonts,
-                onChange: (event) => onSettingChange("includeFonts", event.currentTarget.checked)
-              }),
-              downloadSettings.includeFonts && /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
-                label: "Use original font file names (Default: unchecked because duplicate font names will cause false positives of missing files during upload)",
-                checked: downloadSettings.useOriginalFontFileNames,
-                onChange: (event) => onSettingChange("useOriginalFontFileNames", event.currentTarget.checked),
-                style: { marginLeft: "40px" }
-              })
-            ]
-          }),
-          /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
-            gap: "xs",
-            children: [
-              /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
-                label: "Include GraFx Media",
-                checked: downloadSettings.includeGrafxMedia,
-                onChange: (event) => onSettingChange("includeGrafxMedia", event.currentTarget.checked)
-              }),
-              downloadSettings.includeGrafxMedia && /* @__PURE__ */ jsx_runtime26.jsx(Text, {
-                size: "sm",
-                c: "red",
-                children: "Not implemented"
-              })
-            ]
-          }),
-          /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
-            gap: "xs",
-            children: [
-              /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
-                label: "Include smart crops",
-                checked: downloadSettings.includeSmartCrops,
-                onChange: (event) => onSettingChange("includeSmartCrops", event.currentTarget.checked)
-              }),
-              downloadSettings.includeSmartCrops && /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
-                gap: "xs",
-                style: { marginLeft: "1.5rem" },
-                children: [
-                  /* @__PURE__ */ jsx_runtime26.jsx(Button, {
-                    variant: "outline",
-                    size: "sm",
-                    style: { width: "fit-content" },
-                    onClick: onAddFolder,
-                    children: "Add folders"
-                  }),
-                  connectorSelection && connectorSelection.selectedFolders.length > 0 && /* @__PURE__ */ jsx_runtime26.jsxs(Stack, {
-                    gap: "xs",
-                    children: [
-                      /* @__PURE__ */ jsx_runtime26.jsx(Text, {
-                        size: "xs",
-                        fw: 500,
-                        children: "Selected folders:"
-                      }),
-                      connectorSelection.selectedFolders.map((path, index4) => /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
-                        gap: "xs",
-                        style: { marginLeft: "0.5rem" },
-                        children: [
-                          /* @__PURE__ */ jsx_runtime26.jsx(ActionIcon, {
-                            size: "xs",
-                            variant: "subtle",
-                            color: "red",
-                            onClick: () => onRemoveFolderPath(path),
-                            children: /* @__PURE__ */ jsx_runtime26.jsx(IconCircleX, {
-                              size: 12
-                            })
-                          }),
-                          /* @__PURE__ */ jsx_runtime26.jsx(Text, {
-                            size: "xs",
-                            c: "dimmed",
-                            style: { flex: 1 },
-                            children: path
-                          })
-                        ]
-                      }, index4))
-                    ]
-                  })
-                ]
-              })
-            ]
-          }),
-          /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
-            label: "Remove Toolbar data",
-            checked: downloadSettings.removeToolbarData,
-            onChange: (event) => onSettingChange("removeToolbarData", event.currentTarget.checked)
-          }),
-          /* @__PURE__ */ jsx_runtime26.jsx(Title, {
-            order: 5,
-            children: "Experimental"
-          }),
-          /* @__PURE__ */ jsx_runtime26.jsx(Tooltip, {
-            label: "Experimental: May cause issues with your document",
-            position: "right",
-            withArrow: true,
-            children: /* @__PURE__ */ jsx_runtime26.jsx(Checkbox, {
-              label: "Remove unused Connectors",
-              color: "red",
-              checked: downloadSettings.removeUnusedConnectors,
-              onChange: (event) => onSettingChange("removeUnusedConnectors", event.currentTarget.checked)
-            })
-          })
-        ]
-      }),
-      /* @__PURE__ */ jsx_runtime26.jsxs(Group, {
-        justify: "space-between",
-        mt: "xl",
-        children: [
-          /* @__PURE__ */ jsx_runtime26.jsx(Button, {
-            variant: "default",
-            onClick: onBack,
-            children: "Back"
-          }),
-          /* @__PURE__ */ jsx_runtime26.jsx(Button, {
-            onClick: onDownload,
-            color: "blue",
-            children: "Download"
-          })
-        ]
-      })
-    ]
-  });
-}
-
-// src/components/DownloadModal/UploadTasksScreen.tsx
-var import_react272 = __toESM(require_react(), 1);
-var jsx_runtime27 = __toESM(require_jsx_runtime(), 1);
-function UploadTasksScreen({
-  error: error40,
-  onBack,
-  onContinue
-}) {
-  const [dontShowAgain, setDontShowAgain] = import_react272.useState(false);
-  const handleContinue = () => {
-    if (dontShowAgain) {
-      localStorage.setItem("tempSlowUploadInstructions", "true");
-    }
-    onContinue();
-  };
   return /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
     gap: "xl",
     children: [
       /* @__PURE__ */ jsx_runtime27.jsx(Text, {
         size: "md",
         style: { textAlign: "center", marginBottom: "1rem" },
-        children: "Upload Instructions"
+        children: "Download Settings"
       }),
       error40 && /* @__PURE__ */ jsx_runtime27.jsx(Alert, {
         icon: /* @__PURE__ */ jsx_runtime27.jsx(IconAlertCircle, {
@@ -70322,15 +70754,128 @@ function UploadTasksScreen({
         style: { marginBottom: "1rem" },
         children: error40
       }),
-      /* @__PURE__ */ jsx_runtime27.jsx(Text, {
-        size: "md",
-        style: { textAlign: "center" },
-        children: "Please choose the folder that contains your package.json."
-      }),
-      /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
-        label: "Don't show this message again",
-        checked: dontShowAgain,
-        onChange: (event) => setDontShowAgain(event.currentTarget.checked)
+      /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+        gap: "md",
+        children: [
+          /* @__PURE__ */ jsx_runtime27.jsx(TextInput, {
+            label: "Folder Name",
+            value: folderName,
+            onChange: (event) => onFolderNameChange(event.currentTarget.value),
+            error: folderNameError,
+            placeholder: "Enter folder name",
+            description: "Only letters, numbers, hyphens, underscores, and spaces are allowed"
+          }),
+          /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
+            label: "Add Timestamp",
+            checked: downloadSettings.addTimestamp,
+            onChange: (event) => onSettingChange("addTimestamp", event.currentTarget.checked)
+          }),
+          /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+            gap: "xs",
+            children: [
+              /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
+                label: `Include fonts${downloadSettings.includeFonts && fontStylesCount > 0 ? ` (${fontStylesCount} styles)` : ""}`,
+                checked: downloadSettings.includeFonts,
+                onChange: (event) => onSettingChange("includeFonts", event.currentTarget.checked)
+              }),
+              downloadSettings.includeFonts && /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
+                label: "Use original font file names (Default: unchecked because duplicate font names will cause false positives of missing files during upload)",
+                checked: downloadSettings.useOriginalFontFileNames,
+                onChange: (event) => onSettingChange("useOriginalFontFileNames", event.currentTarget.checked),
+                style: { marginLeft: "40px" }
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime27.jsxs(Group, {
+            gap: "xs",
+            children: [
+              /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
+                label: "Include GraFx Media",
+                checked: downloadSettings.includeGrafxMedia,
+                onChange: (event) => onSettingChange("includeGrafxMedia", event.currentTarget.checked)
+              }),
+              downloadSettings.includeGrafxMedia && /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                size: "sm",
+                c: "red",
+                children: "Not implemented"
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+            gap: "xs",
+            children: [
+              /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
+                label: "Include smart crops",
+                checked: downloadSettings.includeSmartCrops,
+                onChange: (event) => onSettingChange("includeSmartCrops", event.currentTarget.checked)
+              }),
+              downloadSettings.includeSmartCrops && /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+                gap: "xs",
+                style: { marginLeft: "1.5rem" },
+                children: [
+                  /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+                    variant: "outline",
+                    size: "sm",
+                    style: { width: "fit-content" },
+                    onClick: onAddFolder,
+                    children: "Add folders"
+                  }),
+                  connectorSelection && connectorSelection.selectedFolders.length > 0 && /* @__PURE__ */ jsx_runtime27.jsxs(Stack, {
+                    gap: "xs",
+                    children: [
+                      /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                        size: "xs",
+                        fw: 500,
+                        children: "Selected folders:"
+                      }),
+                      connectorSelection.selectedFolders.map((path, index6) => /* @__PURE__ */ jsx_runtime27.jsxs(Group, {
+                        gap: "xs",
+                        style: { marginLeft: "0.5rem" },
+                        children: [
+                          /* @__PURE__ */ jsx_runtime27.jsx(ActionIcon, {
+                            size: "xs",
+                            variant: "subtle",
+                            color: "red",
+                            onClick: () => onRemoveFolderPath(path),
+                            children: /* @__PURE__ */ jsx_runtime27.jsx(IconCircleX, {
+                              size: 12
+                            })
+                          }),
+                          /* @__PURE__ */ jsx_runtime27.jsx(Text, {
+                            size: "xs",
+                            c: "dimmed",
+                            style: { flex: 1 },
+                            children: path
+                          })
+                        ]
+                      }, index6))
+                    ]
+                  })
+                ]
+              })
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
+            label: "Remove Toolbar data",
+            checked: downloadSettings.removeToolbarData,
+            onChange: (event) => onSettingChange("removeToolbarData", event.currentTarget.checked)
+          }),
+          /* @__PURE__ */ jsx_runtime27.jsx(Title, {
+            order: 5,
+            children: "Experimental"
+          }),
+          /* @__PURE__ */ jsx_runtime27.jsx(Tooltip, {
+            label: "Experimental: May cause issues with your document",
+            position: "right",
+            withArrow: true,
+            children: /* @__PURE__ */ jsx_runtime27.jsx(Checkbox, {
+              label: "Remove unused Connectors",
+              color: "red",
+              checked: downloadSettings.removeUnusedConnectors,
+              onChange: (event) => onSettingChange("removeUnusedConnectors", event.currentTarget.checked)
+            })
+          })
+        ]
       }),
       /* @__PURE__ */ jsx_runtime27.jsxs(Group, {
         justify: "space-between",
@@ -70342,6 +70887,68 @@ function UploadTasksScreen({
             children: "Back"
           }),
           /* @__PURE__ */ jsx_runtime27.jsx(Button, {
+            onClick: onDownload,
+            color: "blue",
+            children: "Download"
+          })
+        ]
+      })
+    ]
+  });
+}
+
+// src/components/DownloadModal/UploadTasksScreen.tsx
+var import_react278 = __toESM(require_react(), 1);
+var jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
+function UploadTasksScreen({
+  error: error40,
+  onBack,
+  onContinue
+}) {
+  const [dontShowAgain, setDontShowAgain] = import_react278.useState(false);
+  const handleContinue = () => {
+    if (dontShowAgain) {
+      localStorage.setItem("tempSlowUploadInstructions", "true");
+    }
+    onContinue();
+  };
+  return /* @__PURE__ */ jsx_runtime28.jsxs(Stack, {
+    gap: "xl",
+    children: [
+      /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center", marginBottom: "1rem" },
+        children: "Upload Instructions"
+      }),
+      error40 && /* @__PURE__ */ jsx_runtime28.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime28.jsx(IconAlertCircle, {
+          size: "1rem"
+        }),
+        title: "Error",
+        color: "red",
+        style: { marginBottom: "1rem" },
+        children: error40
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Text, {
+        size: "md",
+        style: { textAlign: "center" },
+        children: "Please choose the folder that contains your chili-package.json."
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsx(Checkbox, {
+        label: "Don't show this message again",
+        checked: dontShowAgain,
+        onChange: (event) => setDontShowAgain(event.currentTarget.checked)
+      }),
+      /* @__PURE__ */ jsx_runtime28.jsxs(Group, {
+        justify: "space-between",
+        mt: "xl",
+        children: [
+          /* @__PURE__ */ jsx_runtime28.jsx(Button, {
+            variant: "default",
+            onClick: onBack,
+            children: "Back"
+          }),
+          /* @__PURE__ */ jsx_runtime28.jsx(Button, {
             onClick: handleContinue,
             color: "green",
             children: "Continue"
@@ -70353,19 +70960,19 @@ function UploadTasksScreen({
 }
 
 // src/components/DownloadModal/types.ts
-class InvalidPackageJsonError extends Error {
-  _tag = "InvalidPackageJsonError";
+class InvalidChiliPackageError extends Error {
+  _tag = "InvalidChiliPackageError";
   constructor(message) {
     super(message);
-    this.name = "InvalidPackageJsonError";
+    this.name = "InvalidChiliPackageError";
   }
 }
 
-class NoPackageJsonError extends Error {
-  _tag = "NoPackageJsonError";
+class NoChiliPackageError extends Error {
+  _tag = "NoChiliPackageError";
   constructor(message) {
     super(message);
-    this.name = "NoPackageJsonError";
+    this.name = "NoChiliPackageError";
   }
 }
 
@@ -70460,10 +71067,10 @@ function verifyStudioPackage(packageData) {
     if (result.success) {
       return Result.ok(result.data);
     } else {
-      return Result.error(new InvalidPackageJsonError(`Invalid package.json structure: ${result.error.message}`));
+      return Result.error(new InvalidChiliPackageError(`Invalid chili-package.json structure: ${result.error.message}`));
     }
   } catch (error40) {
-    return Result.error(new InvalidPackageJsonError(`Failed to parse package.json: ${error40 instanceof Error ? error40.message : String(error40)}`));
+    return Result.error(new InvalidChiliPackageError(`Failed to parse chili-package.json: ${error40 instanceof Error ? error40.message : String(error40)}`));
   }
 }
 async function loadFilesFromDirectory(directoryHandle) {
@@ -70487,9 +71094,9 @@ async function loadFilesFromDirectory(directoryHandle) {
       }
     }
     await collectFiles(directoryHandle);
-    const packageJsonFile = files.find((file2) => file2.name === "package.json");
+    const packageJsonFile = files.find((file2) => file2.name === "chili-package.json");
     if (!packageJsonFile) {
-      return Result.error(new NoPackageJsonError("package.json file not found in the selected directory"));
+      return Result.error(new NoChiliPackageError("chili-package.json file not found in the selected directory"));
     }
     try {
       const packageJsonText = await packageJsonFile.text();
@@ -70521,14 +71128,14 @@ async function loadFilesFromDirectory(directoryHandle) {
       }
       return Result.ok(files);
     } catch (error40) {
-      return Result.error(new InvalidPackageJsonError(`Failed to parse package.json: ${error40 instanceof Error ? error40.message : String(error40)}`));
+      return Result.error(new InvalidChiliPackageError(`Failed to parse chili-package.json: ${error40 instanceof Error ? error40.message : String(error40)}`));
     }
   } catch (error40) {
     return Result.error(new Error(`Failed to read directory: ${error40 instanceof Error ? error40.message : String(error40)}`));
   }
 }
 var sanitizeFolderName = (name) => {
-  return name.replace(/[^a-zA-Z0-9\-_]/g, "");
+  return name.replace(/[^a-zA-Z0-9\-_ ]/g, "");
 };
 var generateTimestamp = () => {
   const now3 = new Date;
@@ -70537,7 +71144,7 @@ var generateTimestamp = () => {
   return sanitizedFolderName;
 };
 var validateFolderName = (name) => {
-  const illegalChars = name.match(/[^a-zA-Z0-9\-_]/g);
+  const illegalChars = name.match(/[^a-zA-Z0-9\-_ ]/g);
   if (illegalChars) {
     const uniqueChars = [...new Set(illegalChars)];
     return `Illegal characters: ${uniqueChars.join(", ")}`;
@@ -70551,13 +71158,13 @@ var getDocumentId = () => {
 };
 
 // src/components/DownloadModalNew.tsx
-var jsx_runtime28 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
 function DownloadModalNew({ opened, onClose }) {
-  const fileInputRef = import_react273.useRef(null);
+  const fileInputRef = import_react279.useRef(null);
   const raiseError2 = appStore((store) => store.raiseError);
-  const [modalState, setModalState] = import_react273.useState("initial");
-  const [error40, setError] = import_react273.useState(null);
-  const [downloadSettings, setDownloadSettings] = import_react273.useState({
+  const [modalState, setModalState] = import_react279.useState("initial");
+  const [error40, setError] = import_react279.useState(null);
+  const [downloadSettings, setDownloadSettings] = import_react279.useState({
     includeFonts: false,
     includeGrafxMedia: false,
     includeSmartCrops: false,
@@ -70566,30 +71173,30 @@ function DownloadModalNew({ opened, onClose }) {
     useOriginalFontFileNames: false,
     addTimestamp: false
   });
-  const [folderName, setFolderName] = import_react273.useState("");
-  const [folderNameError, setFolderNameError] = import_react273.useState("");
-  const [downloadFiles, setDownloadFiles] = import_react273.useState([]);
-  const [tasks, setTasks] = import_react273.useState([]);
-  const [fontFamilies, setFontFamilies] = import_react273.useState(null);
-  const [fontStylesCount, setFontStylesCount] = import_react273.useState(0);
-  const [folderBrowserOpened, setFolderBrowserOpened] = import_react273.useState(false);
-  const [connectorSelection, setConnectorSelection] = import_react273.useState(null);
-  const [uploadTasks, setUploadTasks] = import_react273.useState([]);
-  const [connectorSelectionModalOpened, setConnectorSelectionModalOpened] = import_react273.useState(false);
-  const [replaceConnectorsModalOpened, setReplaceConnectorsModalOpened] = import_react273.useState(false);
-  const [availableConnectors, setAvailableConnectors] = import_react273.useState([]);
-  const [connectorsToReplace, setConnectorsToReplace] = import_react273.useState([]);
-  const [selectedVisionConnector, setSelectedVisionConnector] = import_react273.useState("");
-  const [smartCropsData, setSmartCropsData] = import_react273.useState(null);
-  const [documentData, setDocumentData] = import_react273.useState(null);
-  const [packageJsonTaskId, setPackageJsonTaskId] = import_react273.useState("");
-  const [currentFiles, setCurrentFiles] = import_react273.useState([]);
-  const [currentStudioPackage, setCurrentStudioPackage] = import_react273.useState(null);
-  const [currentStudio, setCurrentStudio] = import_react273.useState(null);
-  const [currentToken, setCurrentToken] = import_react273.useState("");
-  const [currentBaseUrl, setCurrentBaseUrl] = import_react273.useState("");
-  const [isDefaultSettingsModalOpen, setIsDefaultSettingsModalOpen] = import_react273.useState(false);
-  import_react273.useEffect(() => {
+  const [folderName, setFolderName] = import_react279.useState("");
+  const [folderNameError, setFolderNameError] = import_react279.useState("");
+  const [downloadFiles, setDownloadFiles] = import_react279.useState([]);
+  const [tasks, setTasks] = import_react279.useState([]);
+  const [fontFamilies, setFontFamilies] = import_react279.useState(null);
+  const [fontStylesCount, setFontStylesCount] = import_react279.useState(0);
+  const [folderBrowserOpened, setFolderBrowserOpened] = import_react279.useState(false);
+  const [connectorSelection, setConnectorSelection] = import_react279.useState(null);
+  const [uploadTasks, setUploadTasks] = import_react279.useState([]);
+  const [connectorSelectionModalOpened, setConnectorSelectionModalOpened] = import_react279.useState(false);
+  const [replaceConnectorsModalOpened, setReplaceConnectorsModalOpened] = import_react279.useState(false);
+  const [availableConnectors, setAvailableConnectors] = import_react279.useState([]);
+  const [connectorsToReplace, setConnectorsToReplace] = import_react279.useState([]);
+  const [selectedVisionConnector, setSelectedVisionConnector] = import_react279.useState("");
+  const [smartCropsData, setSmartCropsData] = import_react279.useState(null);
+  const [documentData, setDocumentData] = import_react279.useState(null);
+  const [packageJsonTaskId, setPackageJsonTaskId] = import_react279.useState("");
+  const [currentFiles, setCurrentFiles] = import_react279.useState([]);
+  const [currentStudioPackage, setCurrentStudioPackage] = import_react279.useState(null);
+  const [currentStudio, setCurrentStudio] = import_react279.useState(null);
+  const [currentToken, setCurrentToken] = import_react279.useState("");
+  const [currentBaseUrl, setCurrentBaseUrl] = import_react279.useState("");
+  const [isDefaultSettingsModalOpen, setIsDefaultSettingsModalOpen] = import_react279.useState(false);
+  import_react279.useEffect(() => {
     const messageListener = (event) => {
       if (event.source !== window)
         return;
@@ -70607,7 +71214,7 @@ function DownloadModalNew({ opened, onClose }) {
       window.removeEventListener("message", messageListener);
     };
   }, []);
-  import_react273.useEffect(() => {
+  import_react279.useEffect(() => {
     const fetchFontFamilies = async () => {
       if (!downloadSettings.includeFonts) {
         setFontFamilies(null);
@@ -70820,9 +71427,9 @@ function DownloadModalNew({ opened, onClose }) {
   };
   const processUploadFiles = async (files) => {
     try {
-      const packageJsonFile = files.find((file2) => file2.name === "package.json");
+      const packageJsonFile = files.find((file2) => file2.name === "chili-package.json");
       if (!packageJsonFile) {
-        raiseError2(new NoPackageJsonError("package.json not found"));
+        raiseError2(new NoChiliPackageError("chili-package.json not found"));
         return;
       }
       const packageJsonText = await packageJsonFile.text();
@@ -70851,7 +71458,7 @@ function DownloadModalNew({ opened, onClose }) {
       setUploadTasks([
         {
           id: packageTaskId,
-          name: "Processing package.json",
+          name: "Processing chili-package.json",
           type: "package_processing",
           status: "processing"
         }
@@ -70978,12 +71585,45 @@ function DownloadModalNew({ opened, onClose }) {
     if (documentData) {
       console.log("HELLO");
       console.log(documentData);
+      const newDocumentStr = JSON.stringify(documentData);
+      for (let [sourceId, replacementId] of replacementMap) {
+        newDocumentStr.replaceAll(sourceId, replacementId);
+      }
       const newDocumentData = JSON.parse(JSON.stringify(documentData));
       for (const connector of newDocumentData.connectors) {
         if (connector.source.source === "grafx" && connector.source.id) {
-          const replacementId = replacementMap.get(connector.source.id);
+          const sourceId = connector.source.id;
+          const replacementId = replacementMap.get(sourceId);
           if (replacementId) {
             connector.source.id = replacementId;
+            newDocumentData.layouts.forEach((layout) => {
+              layout.frameProperties.forEach((props) => {
+                if (props.perAssetCrop) {
+                  const { [sourceId]: idValue, ...rest } = props.perAssetCrop;
+                  if (idValue) {
+                    console.log({
+                      ac: props.perAssetCrop,
+                      sourceId,
+                      replacementId
+                    });
+                    console.log("ID VALUE", idValue);
+                    console.log("BEFORE", layout.frameProperties.filter((fp) => {
+                      if (fp.perAssetCrop) {
+                        return Object.keys(fp.perAssetCrop).length > 0;
+                      }
+                      return false;
+                    }));
+                    props.perAssetCrop = { [replacementId]: idValue, ...rest };
+                    console.log("AFTER", layout.frameProperties.filter((fp) => {
+                      if (fp.perAssetCrop) {
+                        return Object.keys(fp.perAssetCrop).length > 0;
+                      }
+                      return false;
+                    }));
+                  }
+                }
+              });
+            });
           }
         }
       }
@@ -71103,29 +71743,58 @@ function DownloadModalNew({ opened, onClose }) {
       raiseError2(error41 instanceof Error ? error41 : new Error(String(error41)));
     }
   };
-  const uploadFont = async (fontFile, fontDetails, token2, baseUrl, taskId) => {
-    try {
-      const fontFamiliesResponse = await fetch(`${baseUrl}font-families?sortBy=Name&sortOrder=asc`, {
+  const fetchAllFontFamilies = async (baseUrl, token2, initialUrl) => {
+    const allData = [];
+    let nextPageUrl = initialUrl || `${baseUrl}font-families?sortBy=Name&sortOrder=asc`;
+    while (nextPageUrl) {
+      const response = await fetch(nextPageUrl, {
         headers: {
           Authorization: `Bearer ${token2}`,
           "Content-Type": "application/json"
         }
       });
-      if (!fontFamiliesResponse.ok) {
-        throw new Error(`Failed to fetch font families: ${fontFamiliesResponse.statusText}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch font families: ${response.statusText}`);
       }
-      const fontFamiliesData = await fontFamiliesResponse.json();
-      const targetFamily = fontFamiliesData.data.find((tf) => tf.name === fontDetails.familyName);
+      const data = await response.json();
+      allData.push(...data.data);
+      nextPageUrl = data.links?.nextPage || null;
+      if (nextPageUrl === "") {
+        nextPageUrl = null;
+      }
+    }
+    return allData;
+  };
+  const fetchAllFontStyles = async (baseUrl, token2, fontFamilyId) => {
+    const allData = [];
+    let nextPageUrl = `${baseUrl}font-families/${fontFamilyId}/styles`;
+    while (nextPageUrl) {
+      const response = await fetch(nextPageUrl, {
+        headers: {
+          Authorization: `Bearer ${token2}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch font styles: ${response.statusText}`);
+      }
+      const data = await response.json();
+      allData.push(...data.data);
+      nextPageUrl = data.links?.nextPage || null;
+      if (nextPageUrl === "") {
+        nextPageUrl = null;
+      }
+    }
+    return allData;
+  };
+  const uploadFont = async (fontFile, fontDetails, token2, baseUrl, taskId) => {
+    try {
+      const allFontFamilies = await fetchAllFontFamilies(baseUrl, token2);
+      const targetFamily = allFontFamilies.find((tf) => tf.name === fontDetails.familyName);
       if (targetFamily) {
-        const targetStylesResponse = await fetch(`${baseUrl}font-families/${targetFamily.id}/styles`, {
-          headers: {
-            Authorization: `Bearer ${token2}`,
-            "Content-Type": "application/json"
-          }
-        });
-        if (targetStylesResponse.ok) {
-          const targetStylesData = await targetStylesResponse.json();
-          const targetStyle = targetStylesData.data.find((ts) => ts.name === fontDetails.name);
+        try {
+          const allFontStyles = await fetchAllFontStyles(baseUrl, token2, targetFamily.id);
+          const targetStyle = allFontStyles.find((ts) => ts.name === fontDetails.name);
           if (targetStyle) {
             setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? {
               ...task,
@@ -71134,6 +71803,8 @@ function DownloadModalNew({ opened, onClose }) {
             } : task));
             return;
           }
+        } catch (error41) {
+          console.warn("Failed to fetch font styles, continuing with upload:", error41);
         }
       }
       const formData = new FormData;
@@ -71406,8 +72077,8 @@ function DownloadModalNew({ opened, onClose }) {
     const error41 = validateFolderName(value);
     setFolderNameError(error41);
   };
-  const [createdBlobUrls, setCreatedBlobUrls] = import_react273.useState([]);
-  import_react273.useEffect(() => {
+  const [createdBlobUrls, setCreatedBlobUrls] = import_react279.useState([]);
+  import_react279.useEffect(() => {
     return () => {
       createdBlobUrls.forEach((url2) => {
         URL.revokeObjectURL(url2);
@@ -71437,40 +72108,21 @@ function DownloadModalNew({ opened, onClose }) {
       if (!fontFamily || !fontStyle) {
         throw new Error(`Font style ${fontStyleId} not found`);
       }
-      let fontStyleResponse = await fetch(`${baseUrl}font-families/${fontFamily.fontFamilyId}/styles`, {
-        headers: {
-          Authorization: `Bearer ${token2}`,
-          "Content-Type": "application/json"
-        }
-      });
-      if (fontStyleResponse.status === 404) {
+      let allFontStyles = [];
+      try {
+        allFontStyles = await fetchAllFontStyles(baseUrl, token2, fontFamily.fontFamilyId);
+      } catch (error41) {
+        console.warn("Failed to fetch font styles directly, trying search fallback:", error41);
         const encodedFontName = encodeURIComponent(fontFamily.name);
-        const searchResponse = await fetch(`${baseUrl}font-families?search=${encodedFontName}&limit=1&sortBy=&sortOrder=`, {
-          headers: {
-            Authorization: `Bearer ${token2}`,
-            "Content-Type": "application/json"
-          }
-        });
-        if (!searchResponse.ok) {
-          throw new Error(`Failed to search for font family: ${searchResponse.statusText}`);
-        }
-        const searchData = await searchResponse.json();
-        if (!searchData.data || searchData.data.length === 0) {
+        const searchUrl = `${baseUrl}font-families?search=${encodedFontName}&limit=1&sortBy=&sortOrder=`;
+        const allSearchResults = await fetchAllFontFamilies(baseUrl, token2, searchUrl);
+        if (!allSearchResults || allSearchResults.length === 0) {
           throw new Error(`No family found ${fontFamily.name}`);
         }
-        const foundFontFamily = searchData.data[0];
-        fontStyleResponse = await fetch(`${baseUrl}font-families/${foundFontFamily.id}/styles`, {
-          headers: {
-            Authorization: `Bearer ${token2}`,
-            "Content-Type": "application/json"
-          }
-        });
+        const foundFontFamily = allSearchResults[0];
+        allFontStyles = await fetchAllFontStyles(baseUrl, token2, foundFontFamily.id);
       }
-      if (!fontStyleResponse.ok) {
-        throw new Error(`Failed to fetch font style details: ${fontStyleResponse.statusText}`);
-      }
-      const fontStylesData = await fontStyleResponse.json();
-      const fontStyleDetails = fontStylesData.data.find((fs) => fs.name === fontStyle.name);
+      const fontStyleDetails = allFontStyles.find((fs) => fs.name === fontStyle.name);
       if (!fontStyleDetails) {
         throw new Error(`Font style details not found for ${fontStyle.name}`);
       }
@@ -71662,7 +72314,7 @@ function DownloadModalNew({ opened, onClose }) {
         },
         {
           id: "studio-package",
-          name: "package.studio",
+          name: "chili-package.json",
           status: "pending"
         }
       ];
@@ -71709,9 +72361,9 @@ function DownloadModalNew({ opened, onClose }) {
       };
     });
   };
-  return /* @__PURE__ */ jsx_runtime28.jsxs(jsx_runtime28.Fragment, {
+  return /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime28.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime29.jsx(Modal, {
         opened,
         onClose: handleClose,
         title: modalState === "initial" ? "Document Upload/Download" : modalState === "downloadSettings" ? "Download Settings" : modalState === "tasks" ? "Tasks Processing" : modalState === "uploadInstructions" ? "Upload Instructions" : modalState === "uploading" ? "Uploading Files" : "Downloading Files",
@@ -71732,14 +72384,14 @@ function DownloadModalNew({ opened, onClose }) {
             fontWeight: 600
           }
         },
-        children: modalState === "initial" ? /* @__PURE__ */ jsx_runtime28.jsx(InitialScreen, {
+        children: modalState === "initial" ? /* @__PURE__ */ jsx_runtime29.jsx(InitialScreen, {
           error: error40,
           onDownload: handleDownload,
           onUpload: handleUpload,
           onJsonDownload: handleJsonDownload,
           onJsonUpload,
           onDefaultSettings: handleDefaultSettings
-        }) : modalState === "downloadSettings" ? /* @__PURE__ */ jsx_runtime28.jsx(DownloadSettingsScreen, {
+        }) : modalState === "downloadSettings" ? /* @__PURE__ */ jsx_runtime29.jsx(DownloadSettingsScreen, {
           error: error40,
           folderName,
           folderNameError,
@@ -71752,25 +72404,25 @@ function DownloadModalNew({ opened, onClose }) {
           onRemoveFolderPath: handleRemoveFolderPath,
           onBack: () => setModalState("initial"),
           onDownload: handleDownloadWithSettings
-        }) : modalState === "tasks" || modalState === "uploading" ? /* @__PURE__ */ jsx_runtime28.jsx(DownloadTasksScreen, {
+        }) : modalState === "tasks" || modalState === "uploading" ? /* @__PURE__ */ jsx_runtime29.jsx(DownloadTasksScreen, {
           downloadFiles,
           tasks,
           uploadTasks,
           onClose: handleClose
-        }) : modalState === "uploadInstructions" ? /* @__PURE__ */ jsx_runtime28.jsx(UploadTasksScreen, {
+        }) : modalState === "uploadInstructions" ? /* @__PURE__ */ jsx_runtime29.jsx(UploadTasksScreen, {
           error: error40,
           onBack: () => setModalState("initial"),
           onContinue: handleDirectoryPicker
         }) : null
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx("input", {
+      /* @__PURE__ */ jsx_runtime29.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
         accept: ".json",
         onChange: handleFileChange
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(ImageBrowser, {
+      /* @__PURE__ */ jsx_runtime29.jsx(ImageBrowser, {
         opened: folderBrowserOpened,
         mode: 0 /* FolderSelection */,
         initialSelection: connectorSelection,
@@ -71779,14 +72431,14 @@ function DownloadModalNew({ opened, onClose }) {
           setFolderBrowserOpened(false);
         }
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(ConnectorSelectionModal, {
+      /* @__PURE__ */ jsx_runtime29.jsx(ConnectorSelectionModal, {
         opened: connectorSelectionModalOpened,
         onClose: () => setConnectorSelectionModalOpened(false),
         connectors: availableConnectors,
         smartCropsConnectorName: smartCropsData?.connectorName,
         onSelect: handleConnectorSelection
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(ReplaceConnectorsModal, {
+      /* @__PURE__ */ jsx_runtime29.jsx(ReplaceConnectorsModal, {
         opened: replaceConnectorsModalOpened,
         onClose: () => setReplaceConnectorsModalOpened(false),
         connectorsToReplace,
@@ -71795,7 +72447,7 @@ function DownloadModalNew({ opened, onClose }) {
           handleConnectorReplacement(replacementMap);
         }
       }),
-      /* @__PURE__ */ jsx_runtime28.jsx(DefaultSettingsModal, {
+      /* @__PURE__ */ jsx_runtime29.jsx(DefaultSettingsModal, {
         opened: isDefaultSettingsModalOpen,
         onClose: () => setIsDefaultSettingsModalOpen(false)
       })
@@ -71804,50 +72456,54 @@ function DownloadModalNew({ opened, onClose }) {
 }
 
 // src/components/MagicLayoutsModal.tsx
-var import_react274 = __toESM(require_react(), 1);
+var import_react280 = __toESM(require_react(), 1);
 var import_studio_sdk4 = __toESM(require_main(), 1);
 
 // src/studio/actions/magicLayout.js
 function magicLayoutScript(debug = false) {
-  const version3 = 1;
-  const layoutSizingData = "%DATA1%";
-  const layoutFramesData = "%DATA2%";
-  const muggleToVariableMagic = "%DATA3%";
-  const currentLayoutName = getSelectedLayoutName();
-  const variableMagicName = muggleToVariableMagic[currentLayoutName];
-  if (!variableMagicName)
-    return;
-  const magicLayoutName = getSelectedItemFromListVariable(variableMagicName);
-  const magicLayoutSize = layoutSizingData[magicLayoutName];
-  const magicLayoutFrames = layoutFramesData[magicLayoutName];
-  if (!magicLayoutSize || !magicLayoutFrames)
-    return;
-  const currentLayout = {
-    name: getSelectedLayoutName(),
-    height: getPageHeight(),
-    width: getPageWidth()
-  };
-  setPageSize(magicLayoutSize.w, magicLayoutSize.h);
-  studio.frames.all().forEach((frame) => {
-    frame.setVisible(false);
-  });
-  magicLayoutFrames.forEach((frameData) => {
-    const name = frameData.name;
-    setFrameVisible(name, true);
-    setFrameX(name, frameData.x);
-    setFrameY(name, frameData.y);
-    setFrameWidth(name, frameData.width);
-    setFrameHeight(name, frameData.height);
-    setFrameRotation(name, frameData.rotationDegrees);
-  });
-  setPageSize(currentLayout.width, currentLayout.height);
+  const version3 = "2";
+  try {
+    const layoutSizingData = "%DATA1%";
+    const layoutFramesData = "%DATA2%";
+    const muggleToVariableMagic = "%DATA3%";
+    const currentLayoutName = getSelectedLayoutName();
+    const variableMagicName = muggleToVariableMagic[currentLayoutName];
+    if (!variableMagicName)
+      return;
+    const magicLayoutName = getSelectedItemFromListVariable(variableMagicName);
+    const magicLayoutSize = layoutSizingData[magicLayoutName];
+    const magicLayoutFrames = layoutFramesData[magicLayoutName];
+    if (!magicLayoutSize || !magicLayoutFrames)
+      return;
+    const currentLayout = {
+      name: getSelectedLayoutName(),
+      height: getPageHeight(),
+      width: getPageWidth()
+    };
+    setPageSize(magicLayoutSize.w, magicLayoutSize.h);
+    studio.frames.all().forEach((frame) => {
+      frame.setVisible(false);
+    });
+    magicLayoutFrames.forEach((frameData) => {
+      const name = frameData.name;
+      setFrameVisible(name, true);
+      setFrameX(name, frameData.x);
+      setFrameY(name, frameData.y);
+      setFrameWidth(name, frameData.width);
+      setFrameHeight(name, frameData.height);
+      setFrameRotation(name, frameData.rotationDegrees);
+    });
+    setPageSize(currentLayout.width, currentLayout.height);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 // src/components/MagicLayoutsModal.tsx
-var jsx_runtime29 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
 function MagicLayoutsModal({ opened, onClose }) {
-  const [isProcessing, setIsProcessing] = import_react274.useState(true);
-  const [isComplete, setIsComplete] = import_react274.useState(false);
+  const [isProcessing, setIsProcessing] = import_react280.useState(true);
+  const [isComplete, setIsComplete] = import_react280.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
   const gatherAllChildren = async (childrenLayoutIds, onlyLeafs, skipUnavailable = true, recur = 0) => {
     const leafNames = [];
@@ -72106,7 +72762,7 @@ magicLayoutScript(false)`;
     });
     return updateResult;
   };
-  import_react274.useEffect(() => {
+  import_react280.useEffect(() => {
     if (!opened) {
       setIsProcessing(true);
       setIsComplete(false);
@@ -72127,7 +72783,7 @@ magicLayoutScript(false)`;
   const handleClose = () => {
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime29.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime30.jsx(Modal, {
     opened,
     onClose: handleClose,
     title: "Magic Layouts",
@@ -72135,31 +72791,31 @@ magicLayoutScript(false)`;
     size: "md",
     closeOnClickOutside: false,
     closeOnEscape: false,
-    children: /* @__PURE__ */ jsx_runtime29.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime30.jsx(Stack, {
       align: "center",
       gap: "lg",
       p: "lg",
-      children: isProcessing ? /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
+      children: isProcessing ? /* @__PURE__ */ jsx_runtime30.jsxs(jsx_runtime30.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime29.jsx(Loader, {
+          /* @__PURE__ */ jsx_runtime30.jsx(Loader, {
             size: "lg",
             color: "purple"
           }),
-          /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime30.jsx(Text, {
             size: "lg",
             fw: 500,
             children: "Creating Magic ✨"
           })
         ]
-      }) : /* @__PURE__ */ jsx_runtime29.jsxs(jsx_runtime29.Fragment, {
+      }) : /* @__PURE__ */ jsx_runtime30.jsxs(jsx_runtime30.Fragment, {
         children: [
-          /* @__PURE__ */ jsx_runtime29.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime30.jsx(Text, {
             size: "lg",
             fw: 500,
             c: "green",
             children: "Magic Created ✨"
           }),
-          /* @__PURE__ */ jsx_runtime29.jsx(Button, {
+          /* @__PURE__ */ jsx_runtime30.jsx(Button, {
             onClick: handleClose,
             color: "purple",
             size: "md",
@@ -72173,21 +72829,21 @@ magicLayoutScript(false)`;
 }
 
 // src/components/ConnectorCleanupModal.tsx
-var import_react275 = __toESM(require_react(), 1);
-var jsx_runtime30 = __toESM(require_jsx_runtime(), 1);
+var import_react281 = __toESM(require_react(), 1);
+var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
 function ConnectorCleanupModal({
   opened,
   onClose
 }) {
-  const [connectors, setConnectors] = import_react275.useState([]);
-  const [selectedConnectors, setSelectedConnectors] = import_react275.useState(new Set);
-  const [isLoading, setIsLoading] = import_react275.useState(false);
-  const [isDeleting, setIsDeleting] = import_react275.useState(false);
-  const [isMergeModalOpen, setIsMergeModalOpen] = import_react275.useState(false);
-  const [mergeTargetId, setMergeTargetId] = import_react275.useState(null);
-  const [isMerging, setIsMerging] = import_react275.useState(false);
+  const [connectors, setConnectors] = import_react281.useState([]);
+  const [selectedConnectors, setSelectedConnectors] = import_react281.useState(new Set);
+  const [isLoading, setIsLoading] = import_react281.useState(false);
+  const [isDeleting, setIsDeleting] = import_react281.useState(false);
+  const [isMergeModalOpen, setIsMergeModalOpen] = import_react281.useState(false);
+  const [mergeTargetId, setMergeTargetId] = import_react281.useState(null);
+  const [isMerging, setIsMerging] = import_react281.useState(false);
   const { raiseError: raiseError2 } = useAppStore();
-  import_react275.useEffect(() => {
+  import_react281.useEffect(() => {
     if (opened) {
       loadConnectors();
     }
@@ -72305,47 +72961,47 @@ function ConnectorCleanupModal({
   };
   const hasSelectedConnectors = selectedConnectors.size > 0;
   const isAllSelected = selectedConnectors.size === connectors.length && connectors.length > 0;
-  return /* @__PURE__ */ jsx_runtime30.jsxs(jsx_runtime30.Fragment, {
+  return /* @__PURE__ */ jsx_runtime31.jsxs(jsx_runtime31.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime30.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
         opened,
         onClose,
         title: "Connector Cleanup",
         size: "xl",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime31.jsx(Text, {
               size: "sm",
               c: "dimmed",
               children: "Manage and remove unused connectors from your document."
             }),
-            isLoading ? /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+            isLoading ? /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
               justify: "center",
               p: "xl",
               children: [
-                /* @__PURE__ */ jsx_runtime30.jsx(Loader, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Loader, {
                   size: "md"
                 }),
-                /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Text, {
                   children: "Loading connectors..."
                 })
               ]
-            }) : /* @__PURE__ */ jsx_runtime30.jsx(jsx_runtime30.Fragment, {
-              children: connectors.length === 0 ? /* @__PURE__ */ jsx_runtime30.jsx(Alert, {
-                icon: /* @__PURE__ */ jsx_runtime30.jsx(IconAlertCircle, {
+            }) : /* @__PURE__ */ jsx_runtime31.jsx(jsx_runtime31.Fragment, {
+              children: connectors.length === 0 ? /* @__PURE__ */ jsx_runtime31.jsx(Alert, {
+                icon: /* @__PURE__ */ jsx_runtime31.jsx(IconAlertCircle, {
                   size: 16
                 }),
                 color: "blue",
                 children: "No connectors found in this document."
-              }) : /* @__PURE__ */ jsx_runtime30.jsxs(jsx_runtime30.Fragment, {
+              }) : /* @__PURE__ */ jsx_runtime31.jsxs(jsx_runtime31.Fragment, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+                  /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
                     justify: "space-between",
                     children: [
-                      /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+                      /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
                         children: [
-                          /* @__PURE__ */ jsx_runtime30.jsxs(Button, {
+                          /* @__PURE__ */ jsx_runtime31.jsxs(Button, {
                             onClick: handleDeleteSelected,
                             disabled: !hasSelectedConnectors || isDeleting || isMerging,
                             color: "red",
@@ -72356,7 +73012,7 @@ function ConnectorCleanupModal({
                               ")"
                             ]
                           }),
-                          /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                          /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                             onClick: handleMergeConnectors,
                             disabled: selectedConnectors.size < 2 || isDeleting || isMerging,
                             color: "blue",
@@ -72365,7 +73021,7 @@ function ConnectorCleanupModal({
                           })
                         ]
                       }),
-                      /* @__PURE__ */ jsx_runtime30.jsx(Checkbox, {
+                      /* @__PURE__ */ jsx_runtime31.jsx(Checkbox, {
                         label: `Select All (${connectors.length})`,
                         checked: isAllSelected,
                         indeterminate: hasSelectedConnectors && !isAllSelected,
@@ -72374,62 +73030,62 @@ function ConnectorCleanupModal({
                       })
                     ]
                   }),
-                  /* @__PURE__ */ jsx_runtime30.jsx(ScrollArea, {
+                  /* @__PURE__ */ jsx_runtime31.jsx(ScrollArea, {
                     h: 400,
-                    children: /* @__PURE__ */ jsx_runtime30.jsxs(Table, {
+                    children: /* @__PURE__ */ jsx_runtime31.jsxs(Table, {
                       striped: true,
                       highlightOnHover: true,
                       children: [
-                        /* @__PURE__ */ jsx_runtime30.jsx(Table.Thead, {
-                          children: /* @__PURE__ */ jsx_runtime30.jsxs(Table.Tr, {
+                        /* @__PURE__ */ jsx_runtime31.jsx(Table.Thead, {
+                          children: /* @__PURE__ */ jsx_runtime31.jsxs(Table.Tr, {
                             children: [
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Th, {
                                 w: 50
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Th, {
                                 children: "Name"
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Th, {
                                 children: "Type"
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Th, {
                                 children: "ID"
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Th, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Th, {
                                 children: "Usage"
                               })
                             ]
                           })
                         }),
-                        /* @__PURE__ */ jsx_runtime30.jsx(Table.Tbody, {
-                          children: connectors.map((connector) => /* @__PURE__ */ jsx_runtime30.jsxs(Table.Tr, {
+                        /* @__PURE__ */ jsx_runtime31.jsx(Table.Tbody, {
+                          children: connectors.map((connector) => /* @__PURE__ */ jsx_runtime31.jsxs(Table.Tr, {
                             children: [
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime30.jsx(Checkbox, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime31.jsx(Checkbox, {
                                   checked: selectedConnectors.has(connector.id),
                                   onChange: () => handleConnectorToggle(connector.id),
                                   disabled: isDeleting
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Td, {
                                 children: connector.name
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime31.jsx(Text, {
                                   tt: "capitalize",
                                   children: connector.type
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime31.jsx(Text, {
                                   size: "xs",
                                   c: "dimmed",
                                   ff: "monospace",
                                   children: connector.id
                                 })
                               }),
-                              /* @__PURE__ */ jsx_runtime30.jsx(Table.Td, {
-                                children: /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime31.jsx(Table.Td, {
+                                children: /* @__PURE__ */ jsx_runtime31.jsx(Text, {
                                   size: "sm",
                                   children: formatUsageCount(connector.usesInTemplate)
                                 })
@@ -72443,9 +73099,9 @@ function ConnectorCleanupModal({
                 ]
               })
             }),
-            /* @__PURE__ */ jsx_runtime30.jsx(Group, {
+            /* @__PURE__ */ jsx_runtime31.jsx(Group, {
               justify: "flex-end",
-              children: /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+              children: /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                 onClick: onClose,
                 variant: "outline",
                 children: "Close"
@@ -72454,27 +73110,27 @@ function ConnectorCleanupModal({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime30.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime31.jsx(Modal, {
         opened: isMergeModalOpen,
         onClose: handleMergeCancel,
         title: "Merge All Connectors together",
         centered: true,
         size: "md",
-        children: /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime31.jsx(Text, {
               size: "sm",
               c: "dimmed",
               children: "Select the connector to merge all selected connectors into. The other connectors will be removed and all references will be updated."
             }),
-            /* @__PURE__ */ jsx_runtime30.jsxs(Stack, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime30.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Text, {
                   fw: 500,
                   children: "Merge into:"
                 }),
-                /* @__PURE__ */ jsx_runtime30.jsx(Select, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Select, {
                   placeholder: "Select target connector",
                   data: Array.from(selectedConnectors).map((id) => {
                     const connector = connectors.find((c2) => c2.id === id);
@@ -72489,17 +73145,17 @@ function ConnectorCleanupModal({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime30.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
               justify: "flex-end",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   onClick: handleMergeCancel,
                   variant: "outline",
                   disabled: isMerging,
                   children: "Cancel"
                 }),
-                /* @__PURE__ */ jsx_runtime30.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
                   onClick: handleMergeConfirm,
                   disabled: !mergeTargetId || isMerging,
                   loading: isMerging,
@@ -72516,27 +73172,27 @@ function ConnectorCleanupModal({
 }
 
 // src/components/ManualCropManager/ManualCropManagerModal.tsx
-var import_react281 = __toESM(require_react(), 1);
+var import_react287 = __toESM(require_react(), 1);
 
 // src/components/ManualCropManager/LayoutViewer.tsx
-var import_react276 = __toESM(require_react(), 1);
+var import_react282 = __toESM(require_react(), 1);
 init_getManualCropsFromDocByConnector();
-var jsx_runtime31 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
 function LayoutViewer({
   selectedLayoutIds,
   onSelectionChange,
   selectedConnectorId,
   onRefreshFunctionReady
 }) {
-  const [layouts, setLayouts] = import_react276.useState([]);
-  const [searchQuery, setSearchQuery] = import_react276.useState("");
-  const [isLoading, setIsLoading] = import_react276.useState(true);
-  const [expandedLayouts, setExpandedLayouts] = import_react276.useState(new Set);
-  const [isInitialized, setIsInitialized] = import_react276.useState(false);
-  const [activeFilters, setActiveFilters] = import_react276.useState([]);
-  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react276.useState(false);
+  const [layouts, setLayouts] = import_react282.useState([]);
+  const [searchQuery, setSearchQuery] = import_react282.useState("");
+  const [isLoading, setIsLoading] = import_react282.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react282.useState(new Set);
+  const [isInitialized, setIsInitialized] = import_react282.useState(false);
+  const [activeFilters, setActiveFilters] = import_react282.useState([]);
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = import_react282.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react276.useEffect(() => {
+  import_react282.useEffect(() => {
     const storedExpanded = sessionStorage.getItem("tempManualCropManager_layoutsExpanded");
     if (storedExpanded) {
       try {
@@ -72548,7 +73204,7 @@ function LayoutViewer({
     }
     setIsInitialized(true);
   }, []);
-  import_react276.useEffect(() => {
+  import_react282.useEffect(() => {
     const storedFilters = localStorage.getItem("tempManualCropManager_layoutViewerFilters");
     if (storedFilters) {
       try {
@@ -72559,19 +73215,19 @@ function LayoutViewer({
       }
     }
   }, []);
-  import_react276.useEffect(() => {
+  import_react282.useEffect(() => {
     loadLayouts();
   }, []);
-  import_react276.useEffect(() => {
+  import_react282.useEffect(() => {
     if (isInitialized) {
       const expandedIds = Array.from(expandedLayouts);
       sessionStorage.setItem("tempManualCropManager_layoutsExpanded", JSON.stringify(expandedIds));
     }
   }, [expandedLayouts, isInitialized]);
-  import_react276.useEffect(() => {
+  import_react282.useEffect(() => {
     localStorage.setItem("tempManualCropManager_layoutViewerFilters", JSON.stringify(activeFilters));
   }, [activeFilters]);
-  import_react276.useEffect(() => {
+  import_react282.useEffect(() => {
     if (selectedConnectorId) {
       updateManualCropIndicators();
     }
@@ -72598,7 +73254,7 @@ function LayoutViewer({
       setIsLoading(false);
     }
   };
-  const updateManualCropIndicators = import_react276.useCallback(async () => {
+  const updateManualCropIndicators = import_react282.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -72623,7 +73279,7 @@ function LayoutViewer({
       raiseError2(error40 instanceof Error ? error40 : new Error("Failed to update manual crop indicators"));
     }
   }, [selectedConnectorId, raiseError2]);
-  import_react276.useEffect(() => {
+  import_react282.useEffect(() => {
     if (onRefreshFunctionReady) {
       onRefreshFunctionReady(updateManualCropIndicators);
     }
@@ -72690,7 +73346,7 @@ function LayoutViewer({
     };
     return filterLayouts(layouts2);
   };
-  const filteredLayouts = import_react276.useMemo(() => {
+  const filteredLayouts = import_react282.useMemo(() => {
     let processedLayouts = layouts;
     if (activeFilters.length > 0) {
       processedLayouts = applyFilters(layouts, activeFilters);
@@ -72779,77 +73435,77 @@ function LayoutViewer({
     return "indeterminate";
   };
   if (isLoading) {
-    return /* @__PURE__ */ jsx_runtime31.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime32.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime31.jsx(Loader, {
+      children: /* @__PURE__ */ jsx_runtime32.jsx(Loader, {
         size: "sm"
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime31.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime32.jsxs(Box, {
     style: { height: "100%", display: "flex", flexDirection: "column" },
     children: [
-      /* @__PURE__ */ jsx_runtime31.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime32.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-        children: /* @__PURE__ */ jsx_runtime31.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime32.jsxs(Stack, {
           gap: "xs",
           children: [
-            /* @__PURE__ */ jsx_runtime31.jsx(TextInput, {
+            /* @__PURE__ */ jsx_runtime32.jsx(TextInput, {
               placeholder: "Search layouts...",
               value: searchQuery,
               onChange: (e) => setSearchQuery(e.target.value),
-              leftSection: /* @__PURE__ */ jsx_runtime31.jsx(IconSearch, {
+              leftSection: /* @__PURE__ */ jsx_runtime32.jsx(IconSearch, {
                 size: 16
               }),
               size: "sm"
             }),
-            /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
               gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: expandAll,
                   children: "Expand All"
                 }),
-                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: collapseAll,
                   children: "Collapse All"
                 }),
-                /* @__PURE__ */ jsx_runtime31.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
                   variant: "subtle",
                   size: "xs",
                   onClick: deselectAll,
                   children: "Deselect All"
                 }),
-                /* @__PURE__ */ jsx_runtime31.jsxs(Popover, {
+                /* @__PURE__ */ jsx_runtime32.jsxs(Popover, {
                   opened: isFilterPopoverOpen,
                   onClose: () => setIsFilterPopoverOpen(false),
                   position: "bottom-start",
                   withArrow: true,
                   children: [
-                    /* @__PURE__ */ jsx_runtime31.jsx(Popover.Target, {
-                      children: /* @__PURE__ */ jsx_runtime31.jsx(Tooltip, {
+                    /* @__PURE__ */ jsx_runtime32.jsx(Popover.Target, {
+                      children: /* @__PURE__ */ jsx_runtime32.jsx(Tooltip, {
                         label: "Filter",
                         position: "top",
-                        children: /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+                        children: /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
                           variant: "subtle",
                           size: "xs",
                           onClick: () => setIsFilterPopoverOpen(!isFilterPopoverOpen),
                           color: activeFilters.length > 0 ? "yellow" : "gray",
-                          children: activeFilters.length > 0 ? /* @__PURE__ */ jsx_runtime31.jsx(IconFilterFilled, {
+                          children: activeFilters.length > 0 ? /* @__PURE__ */ jsx_runtime32.jsx(IconFilterFilled, {
                             size: 14
-                          }) : /* @__PURE__ */ jsx_runtime31.jsx(IconFilter, {
+                          }) : /* @__PURE__ */ jsx_runtime32.jsx(IconFilter, {
                             size: 14
                           })
                         })
                       })
                     }),
-                    /* @__PURE__ */ jsx_runtime31.jsx(Popover.Dropdown, {
-                      children: /* @__PURE__ */ jsx_runtime31.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime32.jsx(Popover.Dropdown, {
+                      children: /* @__PURE__ */ jsx_runtime32.jsx(MultiSelect, {
                         label: "Filter layouts",
                         placeholder: "Select filters",
                         data: [
@@ -72869,11 +73525,11 @@ function LayoutViewer({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime31.jsx(ScrollArea, {
+      /* @__PURE__ */ jsx_runtime32.jsx(ScrollArea, {
         style: { flex: 1 },
-        children: /* @__PURE__ */ jsx_runtime31.jsx(Box, {
+        children: /* @__PURE__ */ jsx_runtime32.jsx(Box, {
           p: "md",
-          children: /* @__PURE__ */ jsx_runtime31.jsx(LayoutTree, {
+          children: /* @__PURE__ */ jsx_runtime32.jsx(LayoutTree, {
             layouts: filteredLayouts,
             selectedLayoutIds,
             expandedLayouts,
@@ -72896,9 +73552,9 @@ function LayoutTree({
   onToggleChildrenSelection,
   getCheckboxState
 }) {
-  return /* @__PURE__ */ jsx_runtime31.jsx(Stack, {
+  return /* @__PURE__ */ jsx_runtime32.jsx(Stack, {
     gap: "xs",
-    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime31.jsx(LayoutTreeItem, {
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime32.jsx(LayoutTreeItem, {
       layout,
       selectedLayoutIds,
       expandedLayouts,
@@ -72923,9 +73579,9 @@ function LayoutTreeItem({
   const isSelected = selectedLayoutIds.includes(layout.id);
   const checkboxState = getCheckboxState(layout);
   const isFilteredParent = layout.isFilteredParent || false;
-  return /* @__PURE__ */ jsx_runtime31.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime32.jsxs(Box, {
     children: [
-      /* @__PURE__ */ jsx_runtime31.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
         gap: "xs",
         style: {
           marginLeft: layout.level * 10,
@@ -72935,22 +73591,22 @@ function LayoutTreeItem({
           opacity: isFilteredParent ? 0.5 : 1
         },
         children: [
-          hasChildren ? /* @__PURE__ */ jsx_runtime31.jsx(ActionIcon, {
+          hasChildren ? /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
             variant: "subtle",
             size: "xs",
             onClick: (e) => {
               e.stopPropagation();
               onToggleExpanded(layout.id);
             },
-            children: isExpanded ? /* @__PURE__ */ jsx_runtime31.jsx(IconChevronDown, {
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime32.jsx(IconChevronDown, {
               size: 12
-            }) : /* @__PURE__ */ jsx_runtime31.jsx(IconChevronRight, {
+            }) : /* @__PURE__ */ jsx_runtime32.jsx(IconChevronRight, {
               size: 12
             })
-          }) : /* @__PURE__ */ jsx_runtime31.jsx(Box, {
+          }) : /* @__PURE__ */ jsx_runtime32.jsx(Box, {
             style: { width: 20 }
           }),
-          hasChildren && /* @__PURE__ */ jsx_runtime31.jsx(Checkbox, {
+          hasChildren && /* @__PURE__ */ jsx_runtime32.jsx(Checkbox, {
             checked: checkboxState === "checked",
             indeterminate: checkboxState === "indeterminate",
             onChange: () => onToggleChildrenSelection(layout),
@@ -72958,14 +73614,14 @@ function LayoutTreeItem({
             onClick: (e) => e.stopPropagation(),
             disabled: isFilteredParent
           }),
-          isFilteredParent ? /* @__PURE__ */ jsx_runtime31.jsx(IconEyeClosed, {
+          isFilteredParent ? /* @__PURE__ */ jsx_runtime32.jsx(IconEyeClosed, {
             size: 14,
             color: "gray"
-          }) : /* @__PURE__ */ jsx_runtime31.jsx(IconCrop, {
+          }) : /* @__PURE__ */ jsx_runtime32.jsx(IconCrop, {
             size: 14,
             color: layout.hasManualCrops ? "orange" : "gray"
           }),
-          /* @__PURE__ */ jsx_runtime31.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime32.jsx(Text, {
             size: "sm",
             style: {
               flex: 1,
@@ -72977,7 +73633,7 @@ function LayoutTreeItem({
           })
         ]
       }),
-      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime31.jsx(LayoutTree, {
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime32.jsx(LayoutTree, {
         layouts: layout.children,
         selectedLayoutIds,
         expandedLayouts,
@@ -72991,7 +73647,7 @@ function LayoutTreeItem({
 }
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
-var import_react280 = __toESM(require_react(), 1);
+var import_react286 = __toESM(require_react(), 1);
 init_documentHandler();
 init_getManualCropsFromDocByConnector();
 
@@ -73073,9 +73729,9 @@ function deleteSingleManualCropForLayout(documentState, layoutId, connectorId, f
 }
 
 // src/components/ManualCropManager/CopyCropToLayerModal.tsx
-var import_react277 = __toESM(require_react(), 1);
+var import_react283 = __toESM(require_react(), 1);
 init_getManualCropsFromDocByConnector();
-var jsx_runtime32 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime33 = __toESM(require_jsx_runtime(), 1);
 function CopyCropToLayerModal({
   opened,
   onClose,
@@ -73084,20 +73740,20 @@ function CopyCropToLayerModal({
   selectedConnectorId,
   onCopy
 }) {
-  const [layouts, setLayouts] = import_react277.useState([]);
-  const [searchQuery, setSearchQuery] = import_react277.useState("");
-  const [isLoading, setIsLoading] = import_react277.useState(true);
-  const [expandedLayouts, setExpandedLayouts] = import_react277.useState(new Set);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react277.useState([]);
+  const [layouts, setLayouts] = import_react283.useState([]);
+  const [searchQuery, setSearchQuery] = import_react283.useState("");
+  const [isLoading, setIsLoading] = import_react283.useState(true);
+  const [expandedLayouts, setExpandedLayouts] = import_react283.useState(new Set);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react283.useState([]);
   const raiseError2 = appStore((store) => store.raiseError);
-  import_react277.useEffect(() => {
+  import_react283.useEffect(() => {
     if (opened) {
       loadLayouts();
       setSelectedLayoutIds([]);
       setSearchQuery("");
     }
   }, [opened]);
-  import_react277.useEffect(() => {
+  import_react283.useEffect(() => {
     if (selectedConnectorId && opened) {
       updateManualCropIndicators();
     }
@@ -73184,7 +73840,7 @@ function CopyCropToLayerModal({
     });
     return rootLayouts;
   };
-  const filteredLayouts = import_react277.useMemo(() => {
+  const filteredLayouts = import_react283.useMemo(() => {
     if (!searchQuery.trim())
       return layouts;
     const filterLayouts = (layouts2) => {
@@ -73248,58 +73904,58 @@ function CopyCropToLayerModal({
     }
   };
   if (isLoading) {
-    return /* @__PURE__ */ jsx_runtime32.jsx(Modal, {
+    return /* @__PURE__ */ jsx_runtime33.jsx(Modal, {
       opened,
       onClose,
       title: "Copy Crops to Layouts",
       size: "lg",
-      children: /* @__PURE__ */ jsx_runtime32.jsx(Center, {
+      children: /* @__PURE__ */ jsx_runtime33.jsx(Center, {
         style: { height: 400 },
-        children: /* @__PURE__ */ jsx_runtime32.jsx(Loader, {
+        children: /* @__PURE__ */ jsx_runtime33.jsx(Loader, {
           size: "sm"
         })
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime32.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime33.jsx(Modal, {
     opened,
     onClose,
     title: "Copy Crops to Layouts",
     size: "lg",
-    children: /* @__PURE__ */ jsx_runtime32.jsxs(Box, {
+    children: /* @__PURE__ */ jsx_runtime33.jsxs(Box, {
       style: { height: 500, display: "flex", flexDirection: "column" },
       children: [
-        /* @__PURE__ */ jsx_runtime32.jsx(Box, {
+        /* @__PURE__ */ jsx_runtime33.jsx(Box, {
           p: "md",
           style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-          children: /* @__PURE__ */ jsx_runtime32.jsxs(Stack, {
+          children: /* @__PURE__ */ jsx_runtime33.jsxs(Stack, {
             gap: "xs",
             children: [
-              /* @__PURE__ */ jsx_runtime32.jsx(TextInput, {
+              /* @__PURE__ */ jsx_runtime33.jsx(TextInput, {
                 placeholder: "Search layouts...",
                 value: searchQuery,
                 onChange: (e) => setSearchQuery(e.target.value),
-                leftSection: /* @__PURE__ */ jsx_runtime32.jsx(IconSearch, {
+                leftSection: /* @__PURE__ */ jsx_runtime33.jsx(IconSearch, {
                   size: 16
                 }),
                 size: "sm"
               }),
-              /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
+              /* @__PURE__ */ jsx_runtime33.jsxs(Group, {
                 gap: "xs",
                 children: [
-                  /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime33.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: expandAll,
                     children: "Expand All"
                   }),
-                  /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime33.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: collapseAll,
                     children: "Collapse All"
                   }),
-                  /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime33.jsx(Button, {
                     variant: "subtle",
                     size: "xs",
                     onClick: deselectAll,
@@ -73310,11 +73966,11 @@ function CopyCropToLayerModal({
             ]
           })
         }),
-        /* @__PURE__ */ jsx_runtime32.jsx(ScrollArea, {
+        /* @__PURE__ */ jsx_runtime33.jsx(ScrollArea, {
           style: { flex: 1 },
-          children: /* @__PURE__ */ jsx_runtime32.jsx(Box, {
+          children: /* @__PURE__ */ jsx_runtime33.jsx(Box, {
             p: "md",
-            children: /* @__PURE__ */ jsx_runtime32.jsx(CopyLayoutTree, {
+            children: /* @__PURE__ */ jsx_runtime33.jsx(CopyLayoutTree, {
               layouts: filteredLayouts,
               selectedLayoutIds,
               expandedLayouts,
@@ -73324,27 +73980,27 @@ function CopyCropToLayerModal({
             })
           })
         }),
-        /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime33.jsxs(Group, {
           justify: "space-between",
           p: "md",
           style: { borderTop: "1px solid var(--mantine-color-gray-3)" },
           children: [
-            /* @__PURE__ */ jsx_runtime32.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime33.jsxs(Text, {
               size: "sm",
               children: [
                 "Layouts Selected: ",
                 selectedLayoutIds.length
               ]
             }),
-            /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime33.jsxs(Group, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime33.jsx(Button, {
                   variant: "outline",
                   onClick: onClose,
                   children: "Close"
                 }),
-                /* @__PURE__ */ jsx_runtime32.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime33.jsx(Button, {
                   onClick: handleCopy,
                   disabled: selectedLayoutIds.length === 0,
                   color: "blue",
@@ -73366,9 +74022,9 @@ function CopyLayoutTree({
   onToggleExpanded,
   onToggleSelection
 }) {
-  return /* @__PURE__ */ jsx_runtime32.jsx(Stack, {
+  return /* @__PURE__ */ jsx_runtime33.jsx(Stack, {
     gap: "xs",
-    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime32.jsx(CopyLayoutTreeItem, {
+    children: layouts.map((layout) => /* @__PURE__ */ jsx_runtime33.jsx(CopyLayoutTreeItem, {
       layout,
       selectedLayoutIds,
       expandedLayouts,
@@ -73390,9 +74046,9 @@ function CopyLayoutTreeItem({
   const isExpanded = expandedLayouts.has(layout.id);
   const isSelected = selectedLayoutIds.includes(layout.id);
   const isSourceLayout = layout.id === sourceLayoutId;
-  return /* @__PURE__ */ jsx_runtime32.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime33.jsxs(Box, {
     children: [
-      /* @__PURE__ */ jsx_runtime32.jsxs(Group, {
+      /* @__PURE__ */ jsx_runtime33.jsxs(Group, {
         gap: "xs",
         style: {
           paddingLeft: layout.level * 20,
@@ -73402,26 +74058,26 @@ function CopyLayoutTreeItem({
           opacity: isSourceLayout ? 0.5 : 1
         },
         children: [
-          hasChildren ? /* @__PURE__ */ jsx_runtime32.jsx(ActionIcon, {
+          hasChildren ? /* @__PURE__ */ jsx_runtime33.jsx(ActionIcon, {
             variant: "subtle",
             size: "xs",
             onClick: (e) => {
               e.stopPropagation();
               onToggleExpanded(layout.id);
             },
-            children: isExpanded ? /* @__PURE__ */ jsx_runtime32.jsx(IconChevronDown, {
+            children: isExpanded ? /* @__PURE__ */ jsx_runtime33.jsx(IconChevronDown, {
               size: 12
-            }) : /* @__PURE__ */ jsx_runtime32.jsx(IconChevronRight, {
+            }) : /* @__PURE__ */ jsx_runtime33.jsx(IconChevronRight, {
               size: 12
             })
-          }) : /* @__PURE__ */ jsx_runtime32.jsx(Box, {
+          }) : /* @__PURE__ */ jsx_runtime33.jsx(Box, {
             style: { width: 20 }
           }),
-          /* @__PURE__ */ jsx_runtime32.jsx(IconCrop, {
+          /* @__PURE__ */ jsx_runtime33.jsx(IconCrop, {
             size: 14,
             color: layout.hasManualCrops ? "orange" : "gray"
           }),
-          /* @__PURE__ */ jsx_runtime32.jsxs(Text, {
+          /* @__PURE__ */ jsx_runtime33.jsxs(Text, {
             size: "sm",
             style: {
               flex: 1,
@@ -73437,7 +74093,7 @@ function CopyLayoutTreeItem({
           })
         ]
       }),
-      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime32.jsx(CopyLayoutTree, {
+      hasChildren && isExpanded && /* @__PURE__ */ jsx_runtime33.jsx(CopyLayoutTree, {
         layouts: layout.children,
         selectedLayoutIds,
         expandedLayouts,
@@ -73450,8 +74106,8 @@ function CopyLayoutTreeItem({
 }
 
 // src/components/ManualCropManager/CopyAndAddRowModal.tsx
-var import_react278 = __toESM(require_react(), 1);
-var jsx_runtime33 = __toESM(require_jsx_runtime(), 1);
+var import_react284 = __toESM(require_react(), 1);
+var jsx_runtime34 = __toESM(require_jsx_runtime(), 1);
 function CopyAndAddRowModal2({
   opened,
   onClose,
@@ -73460,10 +74116,10 @@ function CopyAndAddRowModal2({
   existingCrops,
   onAddCopy
 }) {
-  const [newName, setNewName] = import_react278.useState("");
-  const [error40, setError] = import_react278.useState(null);
-  const [isLoading, setIsLoading] = import_react278.useState(false);
-  import_react278.default.useEffect(() => {
+  const [newName, setNewName] = import_react284.useState("");
+  const [error40, setError] = import_react284.useState(null);
+  const [isLoading, setIsLoading] = import_react284.useState(false);
+  import_react284.default.useEffect(() => {
     if (opened) {
       setNewName(crop.name);
       setError(null);
@@ -73489,18 +74145,18 @@ function CopyAndAddRowModal2({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime33.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime34.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Add Row",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime33.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime34.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime33.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime34.jsx(Text, {
           size: "sm",
           children: "Enter a name for the new manual crop:"
         }),
-        /* @__PURE__ */ jsx_runtime33.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
           label: "Asset Name",
           placeholder: "Enter asset name",
           value: newName,
@@ -73509,16 +74165,16 @@ function CopyAndAddRowModal2({
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime33.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime34.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime33.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime34.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime33.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime34.jsx(Button, {
               onClick: handleCreate,
               loading: isLoading,
               disabled: !newName.trim(),
@@ -73532,8 +74188,8 @@ function CopyAndAddRowModal2({
 }
 
 // src/components/ManualCropManager/CopyAndReplaceModal.tsx
-var import_react279 = __toESM(require_react(), 1);
-var jsx_runtime34 = __toESM(require_jsx_runtime(), 1);
+var import_react285 = __toESM(require_react(), 1);
+var jsx_runtime35 = __toESM(require_jsx_runtime(), 1);
 function CopyAndReplaceModal2({
   opened,
   onClose,
@@ -73542,14 +74198,14 @@ function CopyAndReplaceModal2({
   existingCrops,
   onAddCopy
 }) {
-  const [searchText, setSearchText] = import_react279.useState("");
-  const [replaceText, setReplaceText] = import_react279.useState("");
-  const [errors3, setErrors] = import_react279.useState({});
-  const [isLoading, setIsLoading] = import_react279.useState(false);
-  const [previewCrop, setPreviewCrop] = import_react279.useState(null);
-  const [previewNewName, setPreviewNewName] = import_react279.useState("");
-  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react279.useState(false);
-  import_react279.useEffect(() => {
+  const [searchText, setSearchText] = import_react285.useState("");
+  const [replaceText, setReplaceText] = import_react285.useState("");
+  const [errors3, setErrors] = import_react285.useState({});
+  const [isLoading, setIsLoading] = import_react285.useState(false);
+  const [previewCrop, setPreviewCrop] = import_react285.useState(null);
+  const [previewNewName, setPreviewNewName] = import_react285.useState("");
+  const [isPreviewNameDifferent, setIsPreviewNameDifferent] = import_react285.useState(false);
+  import_react285.useEffect(() => {
     if (opened) {
       setSearchText("");
       setReplaceText("");
@@ -73562,7 +74218,7 @@ function CopyAndReplaceModal2({
       }
     }
   }, [opened, crops]);
-  import_react279.useEffect(() => {
+  import_react285.useEffect(() => {
     if (previewCrop) {
       const newName = previewCrop.name.replace(new RegExp(searchText, "g"), replaceText);
       setPreviewNewName(newName);
@@ -73611,18 +74267,18 @@ function CopyAndReplaceModal2({
     setIsLoading(false);
     onClose();
   };
-  return /* @__PURE__ */ jsx_runtime34.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime35.jsx(Modal, {
     opened,
     onClose,
     title: "Copy and Replace",
     centered: true,
-    children: /* @__PURE__ */ jsx_runtime34.jsxs(Stack, {
+    children: /* @__PURE__ */ jsx_runtime35.jsxs(Stack, {
       children: [
-        /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+        /* @__PURE__ */ jsx_runtime35.jsx(Text, {
           size: "sm",
           children: "Enter search and replace text to create copies with modified names:"
         }),
-        /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
           label: "Search",
           placeholder: "Text to search for",
           value: searchText,
@@ -73631,22 +74287,22 @@ function CopyAndReplaceModal2({
           required: true,
           autoFocus: true
         }),
-        /* @__PURE__ */ jsx_runtime34.jsx(TextInput, {
+        /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
           label: "Replace",
           placeholder: "Text to replace with",
           value: replaceText,
           onChange: handleReplaceChange,
           required: true
         }),
-        previewCrop && /* @__PURE__ */ jsx_runtime34.jsxs(Stack, {
+        previewCrop && /* @__PURE__ */ jsx_runtime35.jsxs(Stack, {
           gap: "xs",
           children: [
-            /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime35.jsx(Text, {
               size: "sm",
               fw: 500,
               children: "Preview:"
             }),
-            /* @__PURE__ */ jsx_runtime34.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime35.jsxs(Text, {
               size: "sm",
               c: "dimmed",
               children: [
@@ -73654,24 +74310,24 @@ function CopyAndReplaceModal2({
                 previewCrop.frameName
               ]
             }),
-            /* @__PURE__ */ jsx_runtime34.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime35.jsxs(Text, {
               size: "sm",
               children: [
                 "Original:",
                 " ",
-                /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime35.jsx(Text, {
                   span: true,
                   c: "blue",
                   children: previewCrop.name
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime34.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime35.jsxs(Text, {
               size: "sm",
               children: [
                 "New:",
                 " ",
-                /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime35.jsx(Text, {
                   span: true,
                   c: isPreviewNameDifferent ? "green" : "dimmed",
                   children: previewNewName
@@ -73680,27 +74336,27 @@ function CopyAndReplaceModal2({
             })
           ]
         }),
-        Object.keys(errors3).length > 0 && /* @__PURE__ */ jsx_runtime34.jsx(Alert, {
+        Object.keys(errors3).length > 0 && /* @__PURE__ */ jsx_runtime35.jsx(Alert, {
           color: "red",
           title: "Validation Errors",
-          children: /* @__PURE__ */ jsx_runtime34.jsx(Stack, {
+          children: /* @__PURE__ */ jsx_runtime35.jsx(Stack, {
             gap: "xs",
-            children: Object.entries(errors3).map(([key, message]) => /* @__PURE__ */ jsx_runtime34.jsx(Text, {
+            children: Object.entries(errors3).map(([key, message]) => /* @__PURE__ */ jsx_runtime35.jsx(Text, {
               size: "sm",
               children: message
             }, key))
           })
         }),
-        /* @__PURE__ */ jsx_runtime34.jsxs(Group, {
+        /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
           justify: "flex-end",
           mt: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime34.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime35.jsx(Button, {
               variant: "outline",
               onClick: onClose,
               children: "Cancel"
             }),
-            /* @__PURE__ */ jsx_runtime34.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime35.jsx(Button, {
               onClick: handleCopyAndReplace,
               loading: isLoading,
               disabled: !searchText.trim() || !isPreviewNameDifferent,
@@ -73715,7 +74371,7 @@ function CopyAndReplaceModal2({
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
 init_dist();
-var jsx_runtime35 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime36 = __toESM(require_jsx_runtime(), 1);
 function CropRow({
   crop,
   layoutId,
@@ -73725,8 +74381,8 @@ function CropRow({
   onCheckChange,
   isDeleted
 }) {
-  const [localCrop, setLocalCrop] = import_react280.useState(crop);
-  import_react280.useEffect(() => {
+  const [localCrop, setLocalCrop] = import_react286.useState(crop);
+  import_react286.useEffect(() => {
     setLocalCrop(crop);
   }, [crop]);
   const handleFieldChange = (field, value) => {
@@ -73752,30 +74408,30 @@ function CropRow({
   if (isDeleted) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime35.jsxs(Table.Tr, {
+  return /* @__PURE__ */ jsx_runtime36.jsxs(Table.Tr, {
     children: [
-      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime35.jsx(Checkbox, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(Checkbox, {
           checked: isChecked,
           onChange: (event) => onCheckChange(layoutId, cropIndex, event.currentTarget.checked)
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(Text, {
           size: "sm",
           children: localCrop.frameName
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(TextInput, {
           value: localCrop.name,
           onChange: (e) => handleFieldChange("name", e.target.value),
           size: "xs",
           style: { width: "100%" }
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(TextInput, {
           value: localCrop.left.toString(),
           onChange: (e) => handleFieldChange("left", e.target.value),
           size: "xs",
@@ -73784,8 +74440,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(TextInput, {
           value: localCrop.top.toString(),
           onChange: (e) => handleFieldChange("top", e.target.value),
           size: "xs",
@@ -73794,8 +74450,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(TextInput, {
           value: localCrop.width.toString(),
           onChange: (e) => handleFieldChange("width", e.target.value),
           size: "xs",
@@ -73804,8 +74460,8 @@ function CropRow({
           inputMode: "decimal"
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime35.jsx(TextInput, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(TextInput, {
           value: localCrop.height.toString(),
           onChange: (e) => handleFieldChange("height", e.target.value),
           size: "xs",
@@ -73824,22 +74480,22 @@ function ManualCropEditor({
   onCropsSaved
 }) {
   const raiseError2 = appStore((store) => store.raiseError);
-  const [layoutCrops, setLayoutCrops] = import_react280.useState(new Map);
-  const [isLoading, setIsLoading] = import_react280.useState(false);
-  const [saveState, setSaveState] = import_react280.useState("idle");
-  const [saveMessage, setSaveMessage] = import_react280.useState("");
-  const [originalDocumentState, setOriginalDocumentState] = import_react280.useState(null);
-  const [changedRows, setChangedRows] = import_react280.useState(new Map);
-  const [checkedRows, setCheckedRows] = import_react280.useState(new Set);
-  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react280.useState(false);
-  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react280.useState("");
-  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react280.useState(false);
-  const [currentCropForCopy, setCurrentCropForCopy] = import_react280.useState(null);
-  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react280.useState("");
-  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react280.useState(false);
-  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react280.useState([]);
-  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react280.useState("");
-  const loadCropsForSelectedLayouts = import_react280.useCallback(async () => {
+  const [layoutCrops, setLayoutCrops] = import_react286.useState(new Map);
+  const [isLoading, setIsLoading] = import_react286.useState(false);
+  const [saveState, setSaveState] = import_react286.useState("idle");
+  const [saveMessage, setSaveMessage] = import_react286.useState("");
+  const [originalDocumentState, setOriginalDocumentState] = import_react286.useState(null);
+  const [changedRows, setChangedRows] = import_react286.useState(new Map);
+  const [checkedRows, setCheckedRows] = import_react286.useState(new Set);
+  const [copyCropToLayerModalOpened, setCopyCropToLayerModalOpened] = import_react286.useState(false);
+  const [currentCopySourceLayoutId, setCurrentCopySourceLayoutId] = import_react286.useState("");
+  const [copyAndAddRowModalOpened, setCopyAndAddRowModalOpenedState] = import_react286.useState(false);
+  const [currentCropForCopy, setCurrentCropForCopy] = import_react286.useState(null);
+  const [currentLayoutIdForCopy, setCurrentLayoutIdForCopy] = import_react286.useState("");
+  const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react286.useState(false);
+  const [currentCropsForReplace, setCurrentCropsForReplace] = import_react286.useState([]);
+  const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react286.useState("");
+  const loadCropsForSelectedLayouts = import_react286.useCallback(async () => {
     if (!selectedConnectorId)
       return;
     try {
@@ -73881,7 +74537,7 @@ function ManualCropEditor({
       setIsLoading(false);
     }
   }, [selectedConnectorId, selectedLayoutIds, raiseError2]);
-  import_react280.useEffect(() => {
+  import_react286.useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
       loadCropsForSelectedLayouts();
     } else {
@@ -73890,7 +74546,7 @@ function ManualCropEditor({
     setChangedRows(new Map);
     setCheckedRows(new Set);
   }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
-  const handleCropChange = import_react280.useCallback((layoutId, cropIndex, updatedCrop) => {
+  const handleCropChange = import_react286.useCallback((layoutId, cropIndex, updatedCrop) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
@@ -73898,7 +74554,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, []);
-  const handleCheckChange = import_react280.useCallback((layoutId, cropIndex, checked) => {
+  const handleCheckChange = import_react286.useCallback((layoutId, cropIndex, checked) => {
     const rowKey = `${layoutId}-${cropIndex}`;
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
@@ -73910,10 +74566,10 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const getCheckedSnapshotsCountForLayout = import_react280.useCallback((layoutId) => {
+  const getCheckedSnapshotsCountForLayout = import_react286.useCallback((layoutId) => {
     return Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`)).length;
   }, [checkedRows]);
-  const getCheckedCropsForLayout = import_react280.useCallback((layoutId) => {
+  const getCheckedCropsForLayout = import_react286.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
     if (!layoutCrop)
       return [];
@@ -73936,7 +74592,7 @@ function ManualCropEditor({
     });
     return checkedCrops;
   }, [checkedRows, layoutCrops, changedRows]);
-  const deleteCheckedSnapshots = import_react280.useCallback((layoutId) => {
+  const deleteCheckedSnapshots = import_react286.useCallback((layoutId) => {
     const checkedRowsForLayout = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`));
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
@@ -73959,13 +74615,13 @@ function ManualCropEditor({
       return newSet;
     });
   }, [checkedRows]);
-  const setCopyModalOpened = import_react280.useCallback((opened, layoutId) => {
+  const setCopyModalOpened = import_react286.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       setCurrentCopySourceLayoutId(layoutId);
     }
     setCopyCropToLayerModalOpened(opened);
   }, []);
-  const setCopyAndAddRowModalOpened = import_react280.useCallback((opened, layoutId) => {
+  const setCopyAndAddRowModalOpened = import_react286.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       const checkedCrops = getCheckedCropsForLayout(layoutId);
       if (checkedCrops.length === 1) {
@@ -73979,7 +74635,7 @@ function ManualCropEditor({
       setCurrentLayoutIdForCopy("");
     }
   }, [getCheckedCropsForLayout]);
-  const setCopyAndReplaceModalOpened = import_react280.useCallback((opened, layoutId) => {
+  const setCopyAndReplaceModalOpened = import_react286.useCallback((opened, layoutId) => {
     if (opened && layoutId) {
       const checkedCrops = getCheckedCropsForLayout(layoutId);
       if (checkedCrops.length > 0) {
@@ -73993,7 +74649,7 @@ function ManualCropEditor({
       setCurrentLayoutIdForReplace("");
     }
   }, [getCheckedCropsForLayout]);
-  const deselectAllRows = import_react280.useCallback((layoutId) => {
+  const deselectAllRows = import_react286.useCallback((layoutId) => {
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
       Array.from(prev2).forEach((rowKey) => {
@@ -74004,14 +74660,14 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
-  const selectAllRowsForLayout = import_react280.useCallback((layoutId) => {
+  const selectAllRowsForLayout = import_react286.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
     if (!layoutCrop)
       return;
     setCheckedRows((prev2) => {
       const newSet = new Set(prev2);
-      layoutCrop.crops.forEach((_2, index4) => {
-        const rowKey = `${layoutId}-${index4}`;
+      layoutCrop.crops.forEach((_2, index6) => {
+        const rowKey = `${layoutId}-${index6}`;
         const changedRow = changedRows.get(rowKey);
         const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
         if (!isDeleted) {
@@ -74021,12 +74677,12 @@ function ManualCropEditor({
       return newSet;
     });
   }, [layoutCrops, changedRows]);
-  const getLayoutCheckboxState = import_react280.useCallback((layoutId) => {
+  const getLayoutCheckboxState = import_react286.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
     if (!layoutCrop || layoutCrop.crops.length === 0)
       return "unchecked";
-    const nonDeletedCrops = layoutCrop.crops.filter((_2, index4) => {
-      const rowKey = `${layoutId}-${index4}`;
+    const nonDeletedCrops = layoutCrop.crops.filter((_2, index6) => {
+      const rowKey = `${layoutId}-${index6}`;
       const changedRow = changedRows.get(rowKey);
       const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
       return !isDeleted;
@@ -74049,14 +74705,14 @@ function ManualCropEditor({
       return "checked";
     return "indeterminate";
   }, [layoutCrops, checkedRows, changedRows]);
-  const handleLayoutCheckboxChange = import_react280.useCallback((layoutId, checked) => {
+  const handleLayoutCheckboxChange = import_react286.useCallback((layoutId, checked) => {
     if (checked) {
       selectAllRowsForLayout(layoutId);
     } else {
       deselectAllRows(layoutId);
     }
   }, [selectAllRowsForLayout, deselectAllRows]);
-  const getAllChildLayoutIds = import_react280.useCallback((parentLayoutId, allLayouts) => {
+  const getAllChildLayoutIds = import_react286.useCallback((parentLayoutId, allLayouts) => {
     const childIds = [];
     const collectChildren = (layoutId) => {
       allLayouts.forEach((layout) => {
@@ -74069,7 +74725,7 @@ function ManualCropEditor({
     collectChildren(parentLayoutId);
     return childIds;
   }, []);
-  const copyCropsToLayers = import_react280.useCallback(async (targetLayoutIds, checkedCrops) => {
+  const copyCropsToLayers = import_react286.useCallback(async (targetLayoutIds, checkedCrops) => {
     const missingLayoutIds = targetLayoutIds.filter((id) => !layoutCrops.has(id));
     let layoutNamesMap = new Map;
     if (missingLayoutIds.length > 0) {
@@ -74145,7 +74801,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, [layoutCrops, raiseError2]);
-  const copySelectedCropsToChildren = import_react280.useCallback(async (sourceLayoutId) => {
+  const copySelectedCropsToChildren = import_react286.useCallback(async (sourceLayoutId) => {
     try {
       (await getStudio()).map((studio2) => getAllLayouts(studio2)).fold((layouts) => {
         const childLayoutIds = getAllChildLayoutIds(sourceLayoutId, layouts);
@@ -74162,7 +74818,7 @@ function ManualCropEditor({
       raiseError2(error40 instanceof Error ? error40 : new Error("Failed to copy crops to child layouts"));
     }
   }, [getAllChildLayoutIds, getCheckedCropsForLayout, copyCropsToLayers]);
-  const addCopyOfCrop = import_react280.useCallback((originalCrop, newName) => {
+  const addCopyOfCrop = import_react286.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForCopy;
     if (!layoutId)
       return;
@@ -74205,7 +74861,7 @@ function ManualCropEditor({
       return newMap;
     });
   }, [currentLayoutIdForCopy, layoutCrops]);
-  const addCopyOfCropForReplace = import_react280.useCallback((originalCrop, newName) => {
+  const addCopyOfCropForReplace = import_react286.useCallback((originalCrop, newName) => {
     const layoutId = currentLayoutIdForReplace;
     if (!layoutId)
       return;
@@ -74323,8 +74979,8 @@ function ManualCropEditor({
         const layoutCrop = layoutCrops.get(layoutId);
         if (!layoutCrop)
           continue;
-        const updatedCrops = layoutCrop.crops.map((crop, index4) => {
-          const changedCrop = cropChanges.get(index4);
+        const updatedCrops = layoutCrop.crops.map((crop, index6) => {
+          const changedCrop = cropChanges.get(index6);
           return changedCrop || crop;
         });
         const manualCrops = updatedCrops.map((crop) => ({
@@ -74404,29 +75060,29 @@ function ManualCropEditor({
     }
   };
   if (saveState !== "idle") {
-    return /* @__PURE__ */ jsx_runtime35.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime36.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime35.jsxs(Stack, {
+      children: /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
         align: "center",
         gap: "md",
         children: [
-          saveState === "saving" && /* @__PURE__ */ jsx_runtime35.jsx(Loader, {
+          saveState === "saving" && /* @__PURE__ */ jsx_runtime36.jsx(Loader, {
             size: "lg"
           }),
-          /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime36.jsx(Text, {
             size: "lg",
             fw: 500,
             children: saveMessage
           }),
-          saveState === "success" && /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
+          saveState === "success" && /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
             gap: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime35.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                 onClick: handleOkayClick,
                 color: "blue",
                 children: "Okay"
               }),
-              /* @__PURE__ */ jsx_runtime35.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                 onClick: handleCloseClick,
                 variant: "outline",
                 children: "Close"
@@ -74438,24 +75094,24 @@ function ManualCropEditor({
     });
   }
   if (selectedLayoutIds.length === 0) {
-    return /* @__PURE__ */ jsx_runtime35.jsx(Center, {
+    return /* @__PURE__ */ jsx_runtime36.jsx(Center, {
       style: { height: "100%" },
-      children: /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+      children: /* @__PURE__ */ jsx_runtime36.jsx(Text, {
         c: "dimmed",
         children: "Select layouts from the Layout Viewer to view their manual crops"
       })
     });
   }
-  return /* @__PURE__ */ jsx_runtime35.jsxs(Box, {
+  return /* @__PURE__ */ jsx_runtime36.jsxs(Box, {
     style: { height: "100%", display: "flex", flexDirection: "column" },
     children: [
-      /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime36.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-        children: /* @__PURE__ */ jsx_runtime35.jsx(Group, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(Group, {
           justify: "flex-end",
           align: "center",
-          children: /* @__PURE__ */ jsx_runtime35.jsx(Button, {
+          children: /* @__PURE__ */ jsx_runtime36.jsx(Button, {
             onClick: saveCropChanges,
             disabled: changedRows.size === 0,
             color: "blue",
@@ -74464,122 +75120,122 @@ function ManualCropEditor({
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsx(ScrollArea, {
+      /* @__PURE__ */ jsx_runtime36.jsx(ScrollArea, {
         style: { flex: 1 },
-        children: /* @__PURE__ */ jsx_runtime35.jsx(Box, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(Box, {
           p: "md",
-          children: isLoading ? /* @__PURE__ */ jsx_runtime35.jsx(Center, {
+          children: isLoading ? /* @__PURE__ */ jsx_runtime36.jsx(Center, {
             style: { height: 200 },
-            children: /* @__PURE__ */ jsx_runtime35.jsx(Loader, {
+            children: /* @__PURE__ */ jsx_runtime36.jsx(Loader, {
               size: "sm"
             })
-          }) : layoutCrops.size === 0 ? /* @__PURE__ */ jsx_runtime35.jsx(Center, {
+          }) : layoutCrops.size === 0 ? /* @__PURE__ */ jsx_runtime36.jsx(Center, {
             style: { height: 200 },
-            children: /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+            children: /* @__PURE__ */ jsx_runtime36.jsx(Text, {
               c: "dimmed",
               children: selectedConnectorId ? "No manual crops found for the selected layouts and connector" : "Select a connector to view manual crops"
             })
-          }) : /* @__PURE__ */ jsx_runtime35.jsx(Stack, {
+          }) : /* @__PURE__ */ jsx_runtime36.jsx(Stack, {
             gap: "lg",
             children: Array.from(layoutCrops.values()).map((layoutCrop) => {
               const checkedSnapshotsCount = getCheckedSnapshotsCountForLayout(layoutCrop.layoutId);
-              return /* @__PURE__ */ jsx_runtime35.jsxs(Paper, {
+              return /* @__PURE__ */ jsx_runtime36.jsxs(Paper, {
                 p: "md",
                 withBorder: true,
                 children: [
-                  /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
+                  /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                     justify: "space-between",
                     align: "center",
                     mb: "md",
                     children: [
-                      /* @__PURE__ */ jsx_runtime35.jsx(Title, {
+                      /* @__PURE__ */ jsx_runtime36.jsx(Title, {
                         order: 4,
                         children: layoutCrop.layoutName
                       }),
-                      /* @__PURE__ */ jsx_runtime35.jsx(Group, {
+                      /* @__PURE__ */ jsx_runtime36.jsx(Group, {
                         gap: "xs",
-                        children: checkedSnapshotsCount > 0 && /* @__PURE__ */ jsx_runtime35.jsxs(jsx_runtime35.Fragment, {
+                        children: checkedSnapshotsCount > 0 && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
                           children: [
-                            /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                               label: "Delete selected crops",
                               position: "top",
                               withArrow: true,
-                              children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
+                              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                                 color: "red",
                                 variant: "filled",
                                 onClick: () => deleteCheckedSnapshots(layoutCrop.layoutId),
                                 disabled: !selectedConnectorId,
-                                children: /* @__PURE__ */ jsx_runtime35.jsx(IconTrash, {
+                                children: /* @__PURE__ */ jsx_runtime36.jsx(IconTrash, {
                                   size: 16
                                 })
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                               label: "Copy selected crops to other layouts",
                               position: "top",
                               withArrow: true,
-                              children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
+                              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => setCopyModalOpened(true, layoutCrop.layoutId),
                                 disabled: !selectedConnectorId,
-                                children: /* @__PURE__ */ jsx_runtime35.jsx(IconCopy, {
+                                children: /* @__PURE__ */ jsx_runtime36.jsx(IconCopy, {
                                   size: 16
                                 })
                               })
                             }),
-                            checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+                            checkedSnapshotsCount === 1 && /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                               label: "Copy selected crop and add as new row",
                               position: "top",
                               withArrow: true,
-                              children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
+                              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => setCopyAndAddRowModalOpened(true, layoutCrop.layoutId),
                                 disabled: !selectedConnectorId,
-                                children: /* @__PURE__ */ jsx_runtime35.jsx(IconCopyPlus, {
+                                children: /* @__PURE__ */ jsx_runtime36.jsx(IconCopyPlus, {
                                   size: 16
                                 })
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                               label: "Copy and replace existing crops",
                               position: "top",
                               withArrow: true,
-                              children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
+                              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => setCopyAndReplaceModalOpened(true, layoutCrop.layoutId),
                                 disabled: !selectedConnectorId,
-                                children: /* @__PURE__ */ jsx_runtime35.jsx(IconReplace, {
+                                children: /* @__PURE__ */ jsx_runtime36.jsx(IconReplace, {
                                   size: 16
                                 })
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                               label: "Deselect all crops in this layout",
                               position: "top",
                               withArrow: true,
-                              children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
+                              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => deselectAllRows(layoutCrop.layoutId),
                                 disabled: !selectedConnectorId,
-                                children: /* @__PURE__ */ jsx_runtime35.jsx(IconDeselect, {
+                                children: /* @__PURE__ */ jsx_runtime36.jsx(IconDeselect, {
                                   size: 16
                                 })
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                               label: "Copy selected crops to all child layouts",
                               position: "top",
                               withArrow: true,
-                              children: /* @__PURE__ */ jsx_runtime35.jsx(ActionIcon, {
+                              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => copySelectedCropsToChildren(layoutCrop.layoutId),
                                 disabled: !selectedConnectorId,
-                                children: /* @__PURE__ */ jsx_runtime35.jsx(IconArrowAutofitDown, {
+                                children: /* @__PURE__ */ jsx_runtime36.jsx(IconArrowAutofitDown, {
                                   size: 16
                                 })
                               })
@@ -74589,69 +75245,69 @@ function ManualCropEditor({
                       })
                     ]
                   }),
-                  layoutCrop.crops.length === 0 ? /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+                  layoutCrop.crops.length === 0 ? /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                     c: "dimmed",
                     size: "sm",
                     children: "No manual crops for this layout"
-                  }) : /* @__PURE__ */ jsx_runtime35.jsxs(Table, {
+                  }) : /* @__PURE__ */ jsx_runtime36.jsxs(Table, {
                     striped: true,
                     highlightOnHover: true,
                     children: [
-                      /* @__PURE__ */ jsx_runtime35.jsx(Table.Thead, {
-                        children: /* @__PURE__ */ jsx_runtime35.jsxs(Table.Tr, {
+                      /* @__PURE__ */ jsx_runtime36.jsx(Table.Thead, {
+                        children: /* @__PURE__ */ jsx_runtime36.jsxs(Table.Tr, {
                           children: [
-                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
                               style: { width: 40 }
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
-                              children: /* @__PURE__ */ jsx_runtime35.jsxs(Group, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
+                              children: /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
                                 gap: "xs",
                                 align: "center",
                                 children: [
-                                  /* @__PURE__ */ jsx_runtime35.jsx(Tooltip, {
+                                  /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
                                     label: "Select/deselect all crops in this layout",
                                     position: "top",
                                     withArrow: true,
-                                    children: /* @__PURE__ */ jsx_runtime35.jsx(Checkbox, {
+                                    children: /* @__PURE__ */ jsx_runtime36.jsx(Checkbox, {
                                       checked: getLayoutCheckboxState(layoutCrop.layoutId) === "checked",
                                       indeterminate: getLayoutCheckboxState(layoutCrop.layoutId) === "indeterminate",
                                       onChange: (event) => handleLayoutCheckboxChange(layoutCrop.layoutId, event.currentTarget.checked),
                                       disabled: !selectedConnectorId
                                     })
                                   }),
-                                  /* @__PURE__ */ jsx_runtime35.jsx(Text, {
+                                  /* @__PURE__ */ jsx_runtime36.jsx(Text, {
                                     children: "Frame Name"
                                   })
                                 ]
                               })
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
                               children: "Asset Name"
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
                               children: "Left"
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
                               children: "Top"
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
                               children: "Width"
                             }),
-                            /* @__PURE__ */ jsx_runtime35.jsx(Table.Th, {
+                            /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
                               children: "Height"
                             })
                           ]
                         })
                       }),
-                      /* @__PURE__ */ jsx_runtime35.jsx(Table.Tbody, {
-                        children: layoutCrop.crops.map((crop, index4) => {
-                          const rowKey = `${layoutCrop.layoutId}-${index4}`;
+                      /* @__PURE__ */ jsx_runtime36.jsx(Table.Tbody, {
+                        children: layoutCrop.crops.map((crop, index6) => {
+                          const rowKey = `${layoutCrop.layoutId}-${index6}`;
                           const changedRow = changedRows.get(rowKey);
                           const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
-                          return /* @__PURE__ */ jsx_runtime35.jsx(CropRow, {
+                          return /* @__PURE__ */ jsx_runtime36.jsx(CropRow, {
                             crop,
                             layoutId: layoutCrop.layoutId,
-                            cropIndex: index4,
+                            cropIndex: index6,
                             onCropChange: handleCropChange,
                             isChecked: checkedRows.has(rowKey),
                             onCheckChange: handleCheckChange,
@@ -74667,7 +75323,7 @@ function ManualCropEditor({
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime35.jsx(CopyCropToLayerModal, {
+      /* @__PURE__ */ jsx_runtime36.jsx(CopyCropToLayerModal, {
         opened: copyCropToLayerModalOpened,
         onClose: () => setCopyCropToLayerModalOpened(false),
         sourceLayoutId: currentCopySourceLayoutId,
@@ -74675,7 +75331,7 @@ function ManualCropEditor({
         selectedConnectorId,
         onCopy: copyCropsToLayers
       }),
-      currentCropForCopy && /* @__PURE__ */ jsx_runtime35.jsx(CopyAndAddRowModal2, {
+      currentCropForCopy && /* @__PURE__ */ jsx_runtime36.jsx(CopyAndAddRowModal2, {
         opened: copyAndAddRowModalOpened,
         onClose: () => setCopyAndAddRowModalOpened(false),
         crop: currentCropForCopy,
@@ -74683,7 +75339,7 @@ function ManualCropEditor({
         existingCrops: layoutCrops.get(currentLayoutIdForCopy)?.crops || [],
         onAddCopy: addCopyOfCrop
       }),
-      currentCropsForReplace.length > 0 && /* @__PURE__ */ jsx_runtime35.jsx(CopyAndReplaceModal2, {
+      currentCropsForReplace.length > 0 && /* @__PURE__ */ jsx_runtime36.jsx(CopyAndReplaceModal2, {
         opened: copyAndReplaceModalOpened,
         onClose: () => setCopyAndReplaceModalOpened(false),
         crops: currentCropsForReplace,
@@ -74696,20 +75352,20 @@ function ManualCropEditor({
 }
 
 // src/components/ManualCropManager/ManualCropManagerModal.tsx
-var jsx_runtime36 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime37 = __toESM(require_jsx_runtime(), 1);
 function ManualCropManagerModal({
   opened,
   onClose
 }) {
-  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react281.useState(false);
-  const [layoutViewerWidth, setLayoutViewerWidth] = import_react281.useState(400);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react281.useState([]);
-  const [selectedConnectorId, setSelectedConnectorId] = import_react281.useState("");
-  const [isResizing, setIsResizing] = import_react281.useState(false);
-  const [documentConnectors, setDocumentConnectors] = import_react281.useState([]);
-  const [availableConnectors, setAvailableConnectors] = import_react281.useState([]);
-  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react281.useState(null);
-  const [showDisabled, setShowDisabled] = import_react281.useState(false);
+  const [isLayoutViewerCollapsed, setIsLayoutViewerCollapsed] = import_react287.useState(false);
+  const [layoutViewerWidth, setLayoutViewerWidth] = import_react287.useState(400);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react287.useState([]);
+  const [selectedConnectorId, setSelectedConnectorId] = import_react287.useState("");
+  const [isResizing, setIsResizing] = import_react287.useState(false);
+  const [documentConnectors, setDocumentConnectors] = import_react287.useState([]);
+  const [availableConnectors, setAvailableConnectors] = import_react287.useState([]);
+  const [layoutViewerRefresh, setLayoutViewerRefresh] = import_react287.useState(null);
+  const [showDisabled, setShowDisabled] = import_react287.useState(false);
   const enableToolbar = appStore((state) => state.enableToolbar);
   const disableToolbar = appStore((state) => state.disableToolbar);
   const raiseError2 = appStore((state) => state.raiseError);
@@ -74753,7 +75409,7 @@ function ManualCropManagerModal({
       raiseError2(error40 instanceof Error ? error40 : new Error("Failed to load connectors"));
     }
   };
-  import_react281.useEffect(() => {
+  import_react287.useEffect(() => {
     if (opened) {
       const storedSelected = sessionStorage.getItem("tempManualCropManager_layoutsSelected");
       if (storedSelected) {
@@ -74773,7 +75429,7 @@ function ManualCropManagerModal({
       enableToolbar();
     }
   }, [opened]);
-  import_react281.useEffect(() => {
+  import_react287.useEffect(() => {
     sessionStorage.setItem("tempManualCropManager_layoutsSelected", JSON.stringify(selectedLayoutIds));
   }, [selectedLayoutIds]);
   const handleMouseDown = (e) => {
@@ -74791,7 +75447,7 @@ function ManualCropManagerModal({
   const handleMouseUp = () => {
     setIsResizing(false);
   };
-  import_react281.useEffect(() => {
+  import_react287.useEffect(() => {
     if (isResizing) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
@@ -74817,11 +75473,11 @@ function ManualCropManagerModal({
     enableToolbar();
     onClose();
   };
-  const handleLayoutViewerRefreshReady = import_react281.useCallback((refreshFn) => {
+  const handleLayoutViewerRefreshReady = import_react287.useCallback((refreshFn) => {
     setLayoutViewerRefresh(() => refreshFn);
   }, []);
   const filteredConnectors = showDisabled ? availableConnectors : availableConnectors.filter((connector) => connector.enabled);
-  import_react281.useEffect(() => {
+  import_react287.useEffect(() => {
     if (selectedConnectorId && filteredConnectors.length > 0) {
       const isSelectedConnectorAvailable = filteredConnectors.some((connector) => connector.id === selectedConnectorId);
       if (!isSelectedConnectorAvailable) {
@@ -74830,7 +75486,7 @@ function ManualCropManagerModal({
       }
     }
   }, [selectedConnectorId, filteredConnectors]);
-  const handleCropsSaved = import_react281.useCallback(async () => {
+  const handleCropsSaved = import_react287.useCallback(async () => {
     if (layoutViewerRefresh) {
       layoutViewerRefresh();
     }
@@ -74854,48 +75510,48 @@ function ManualCropManagerModal({
       }
     }
   }, [layoutViewerRefresh, selectedConnectorId, selectedLayoutIds]);
-  return /* @__PURE__ */ jsx_runtime36.jsxs(Modal, {
+  return /* @__PURE__ */ jsx_runtime37.jsxs(Modal, {
     opened,
     onClose: handleClose,
     fullScreen: true,
     padding: 0,
     withCloseButton: false,
     children: [
-      /* @__PURE__ */ jsx_runtime36.jsx(Box, {
+      /* @__PURE__ */ jsx_runtime37.jsx(Box, {
         style: {
           padding: "16px 24px",
           borderBottom: "1px solid var(--mantine-color-gray-3)",
           backgroundColor: "var(--mantine-color-gray-0)"
         },
-        children: /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+        children: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
           justify: "space-between",
           align: "center",
           children: [
-            /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
               gap: "lg",
               align: "center",
               children: [
-                /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                   size: "lg",
                   fw: 600,
                   children: "Manual Crop Manager"
                 }),
-                /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
                   gap: "md",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime36.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Switch, {
                       label: "Show Disabled",
                       checked: showDisabled,
                       onChange: (event) => setShowDisabled(event.currentTarget.checked),
                       size: "sm"
                     }),
-                    /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Text, {
                       size: "sm",
                       fw: 500,
                       children: "Show crops for connector:"
                     }),
-                    /* @__PURE__ */ jsx_runtime36.jsx(Select, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Select, {
                       placeholder: "Select connector",
                       data: filteredConnectors.map((connector) => ({
                         value: connector.id,
@@ -74910,11 +75566,11 @@ function ManualCropManagerModal({
                 })
               ]
             }),
-            /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+            /* @__PURE__ */ jsx_runtime37.jsx(Button, {
               variant: "subtle",
               color: "gray",
               size: "sm",
-              leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconX, {
+              leftSection: /* @__PURE__ */ jsx_runtime37.jsx(IconX, {
                 size: 16
               }),
               onClick: handleClose,
@@ -74923,10 +75579,10 @@ function ManualCropManagerModal({
           ]
         })
       }),
-      /* @__PURE__ */ jsx_runtime36.jsxs(Box, {
+      /* @__PURE__ */ jsx_runtime37.jsxs(Box, {
         style: { display: "flex", height: "calc(100vh - 120px)" },
         children: [
-          /* @__PURE__ */ jsx_runtime36.jsx(Box, {
+          /* @__PURE__ */ jsx_runtime37.jsx(Box, {
             style: {
               width: isLayoutViewerCollapsed ? 40 : layoutViewerWidth,
               minWidth: isLayoutViewerCollapsed ? 40 : 200,
@@ -74936,54 +75592,54 @@ function ManualCropManagerModal({
               flexDirection: "column",
               transition: isLayoutViewerCollapsed ? "width 0.2s ease" : "none"
             },
-            children: isLayoutViewerCollapsed ? /* @__PURE__ */ jsx_runtime36.jsx(Box, {
+            children: isLayoutViewerCollapsed ? /* @__PURE__ */ jsx_runtime37.jsx(Box, {
               style: {
                 padding: "8px",
                 display: "flex",
                 justifyContent: "center"
               },
-              children: /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
+              children: /* @__PURE__ */ jsx_runtime37.jsx(Tooltip, {
                 label: "Expand Layout Viewer",
                 position: "right",
-                children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime37.jsx(ActionIcon, {
                   variant: "subtle",
                   onClick: toggleLayoutViewer,
                   size: "sm",
-                  children: /* @__PURE__ */ jsx_runtime36.jsx(IconChevronRight, {
+                  children: /* @__PURE__ */ jsx_runtime37.jsx(IconChevronRight, {
                     size: 16
                   })
                 })
               })
-            }) : /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+            }) : /* @__PURE__ */ jsx_runtime37.jsxs(jsx_runtime37.Fragment, {
               children: [
-                /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
                   justify: "space-between",
                   p: "md",
                   style: {
                     borderBottom: "1px solid var(--mantine-color-gray-3)"
                   },
                   children: [
-                    /* @__PURE__ */ jsx_runtime36.jsx(Box, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Box, {
                       style: { fontSize: "14px", fontWeight: 500 },
                       children: "Layout Viewer"
                     }),
-                    /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
+                    /* @__PURE__ */ jsx_runtime37.jsx(Tooltip, {
                       label: "Collapse Layout Viewer",
                       position: "left",
-                      children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
+                      children: /* @__PURE__ */ jsx_runtime37.jsx(ActionIcon, {
                         variant: "subtle",
                         onClick: toggleLayoutViewer,
                         size: "sm",
-                        children: /* @__PURE__ */ jsx_runtime36.jsx(IconChevronLeft, {
+                        children: /* @__PURE__ */ jsx_runtime37.jsx(IconChevronLeft, {
                           size: 16
                         })
                       })
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime36.jsx(Box, {
+                /* @__PURE__ */ jsx_runtime37.jsx(Box, {
                   style: { flex: 1, overflow: "hidden" },
-                  children: /* @__PURE__ */ jsx_runtime36.jsx(LayoutViewer, {
+                  children: /* @__PURE__ */ jsx_runtime37.jsx(LayoutViewer, {
                     selectedLayoutIds,
                     onSelectionChange: setSelectedLayoutIds,
                     selectedConnectorId,
@@ -74993,7 +75649,7 @@ function ManualCropManagerModal({
               ]
             })
           }),
-          !isLayoutViewerCollapsed && /* @__PURE__ */ jsx_runtime36.jsx(Box, {
+          !isLayoutViewerCollapsed && /* @__PURE__ */ jsx_runtime37.jsx(Box, {
             style: {
               width: 4,
               cursor: "col-resize",
@@ -75002,9 +75658,9 @@ function ManualCropManagerModal({
             },
             onMouseDown: handleMouseDown
           }),
-          /* @__PURE__ */ jsx_runtime36.jsx(Box, {
+          /* @__PURE__ */ jsx_runtime37.jsx(Box, {
             style: { flex: 1, display: "flex", flexDirection: "column" },
-            children: /* @__PURE__ */ jsx_runtime36.jsx(ManualCropEditor, {
+            children: /* @__PURE__ */ jsx_runtime37.jsx(ManualCropEditor, {
               selectedLayoutIds,
               selectedConnectorId,
               onModalClose: handleClose,
@@ -75018,22 +75674,22 @@ function ManualCropManagerModal({
 }
 
 // src/components/OutTemplateModal.tsx
-var import_react282 = __toESM(require_react(), 1);
+var import_react288 = __toESM(require_react(), 1);
 init_documentHandler();
 var import_json_2_csv = __toESM(require_converter(), 1);
 var import_jszip = __toESM(require_lib(), 1);
-var jsx_runtime37 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime38 = __toESM(require_jsx_runtime(), 1);
 function OutTemplateModal({ opened, onClose }) {
   const raiseError2 = appStore((store) => store.raiseError);
-  const fileInputRef = import_react282.useRef(null);
-  const [loading, setLoading] = import_react282.useState(true);
-  const [outputSettings, setOutputSettings] = import_react282.useState([]);
-  const [selectedOutputIds, setSelectedOutputIds] = import_react282.useState([]);
-  const [layouts, setLayouts] = import_react282.useState([]);
-  const [selectedLayoutIds, setSelectedLayoutIds] = import_react282.useState([]);
-  const [isCreatingOutput, setIsCreatingOutput] = import_react282.useState(false);
-  const [variableData, setVariableData] = import_react282.useState(null);
-  const [outputTasks, setOutputTasks] = import_react282.useState([]);
+  const fileInputRef = import_react288.useRef(null);
+  const [loading, setLoading] = import_react288.useState(true);
+  const [outputSettings, setOutputSettings] = import_react288.useState([]);
+  const [selectedOutputIds, setSelectedOutputIds] = import_react288.useState([]);
+  const [layouts, setLayouts] = import_react288.useState([]);
+  const [selectedLayoutIds, setSelectedLayoutIds] = import_react288.useState([]);
+  const [isCreatingOutput, setIsCreatingOutput] = import_react288.useState(false);
+  const [variableData, setVariableData] = import_react288.useState(null);
+  const [outputTasks, setOutputTasks] = import_react288.useState([]);
   const getEnvironmentId = () => {
     try {
       const urlPath = window.location.href;
@@ -75059,7 +75715,7 @@ function OutTemplateModal({ opened, onClose }) {
     const storageKey = `tempOutTemplate_selectedOutputIds_${environmentId}`;
     localStorage.setItem(storageKey, JSON.stringify(outputIds));
   };
-  import_react282.useEffect(() => {
+  import_react288.useEffect(() => {
     if (opened) {
       setLoading(true);
       setOutputSettings([]);
@@ -75484,10 +76140,10 @@ ${errorDetails}
       return;
     try {
       const zip = new import_jszip.default;
-      for (let index4 = 0;index4 < errorTasks.length; index4++) {
-        const task = errorTasks[index4];
+      for (let index6 = 0;index6 < errorTasks.length; index6++) {
+        const task = errorTasks[index6];
         const errorReport = await generateErrorReport(task);
-        zip.file(`error-report-${index4 + 1}.md`, errorReport);
+        zip.file(`error-report-${index6 + 1}.md`, errorReport);
       }
       const zipBlob = await zip.generateAsync({ type: "blob" });
       const url2 = URL.createObjectURL(zipBlob);
@@ -75532,7 +76188,7 @@ ${errorDetails}
   const hasErrors = outputTasks.some((task) => task.status === "error");
   const allTasksComplete = outputTasks.length > 0 && outputTasks.every((task) => task.status !== "loading");
   const hasTasksProcessing = outputTasks.some((task) => task.status === "loading");
-  return /* @__PURE__ */ jsx_runtime37.jsxs(Modal, {
+  return /* @__PURE__ */ jsx_runtime38.jsxs(Modal, {
     opened,
     onClose,
     withCloseButton: false,
@@ -75547,47 +76203,47 @@ ${errorDetails}
       }
     },
     children: [
-      loading ? /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+      loading ? /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
         justify: "center",
         style: { minHeight: "400px" },
         children: [
-          /* @__PURE__ */ jsx_runtime37.jsx(Loader, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Loader, {
             size: "lg"
           }),
-          /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Text, {
             children: "Loading output settings..."
           })
         ]
-      }) : /* @__PURE__ */ jsx_runtime37.jsxs(Grid, {
+      }) : /* @__PURE__ */ jsx_runtime38.jsxs(Grid, {
         children: [
-          /* @__PURE__ */ jsx_runtime37.jsx(Grid.Col, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Grid.Col, {
             span: 6,
-            children: /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                   size: "xl",
                   fw: 600,
                   children: "Output Settings"
                 }),
-                /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                   c: "dimmed",
                   children: "Pick your output settings to output the template."
                 }),
-                hasTasksProcessing ? /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                hasTasksProcessing ? /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                   justify: "center",
                   style: { minHeight: "300px" },
                   children: [
-                    /* @__PURE__ */ jsx_runtime37.jsx(Loader, {
+                    /* @__PURE__ */ jsx_runtime38.jsx(Loader, {
                       size: "lg"
                     }),
-                    /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                       children: "Tasks Processing"
                     })
                   ]
-                }) : /* @__PURE__ */ jsx_runtime37.jsxs(jsx_runtime37.Fragment, {
+                }) : /* @__PURE__ */ jsx_runtime38.jsxs(jsx_runtime38.Fragment, {
                   children: [
-                    /* @__PURE__ */ jsx_runtime37.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime38.jsx(MultiSelect, {
                       label: "Output Settings",
                       placeholder: "Select output settings",
                       data: outputSettings.map((setting) => ({
@@ -75600,16 +76256,16 @@ ${errorDetails}
                         saveSelectedOutputs(values2);
                       }
                     }),
-                    /* @__PURE__ */ jsx_runtime37.jsx(MultiSelect, {
+                    /* @__PURE__ */ jsx_runtime38.jsx(MultiSelect, {
                       label: "Selected Layouts",
                       placeholder: "Select layouts",
                       data: layouts,
                       value: selectedLayoutIds,
                       onChange: setSelectedLayoutIds
                     }),
-                    /* @__PURE__ */ jsx_runtime37.jsx(Stack, {
+                    /* @__PURE__ */ jsx_runtime38.jsx(Stack, {
                       gap: "sm",
-                      children: /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                      children: /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                         size: "lg",
                         disabled: selectedOutputIds.length === 0 || selectedLayoutIds.length === 0,
                         loading: isCreatingOutput,
@@ -75627,46 +76283,46 @@ ${errorDetails}
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime37.jsx(Grid.Col, {
+          /* @__PURE__ */ jsx_runtime38.jsx(Grid.Col, {
             span: 6,
-            children: /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                   size: "xl",
                   fw: 600,
                   children: "Output Tasks"
                 }),
-                isCreatingOutput && /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                isCreatingOutput && /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                   justify: "center",
                   style: { minHeight: "100px" },
                   children: [
-                    /* @__PURE__ */ jsx_runtime37.jsx(Loader, {
+                    /* @__PURE__ */ jsx_runtime38.jsx(Loader, {
                       size: "lg"
                     }),
-                    /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                    /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                       children: "Creating Output..."
                     })
                   ]
                 }),
-                outputTasks.length === 0 && !isCreatingOutput ? /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                outputTasks.length === 0 && !isCreatingOutput ? /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                   c: "dimmed",
                   children: "No tasks created yet"
-                }) : /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
+                }) : /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
                   gap: "sm",
                   children: [
-                    outputTasks.map((task) => /* @__PURE__ */ jsx_runtime37.jsx(Card, {
+                    outputTasks.map((task) => /* @__PURE__ */ jsx_runtime38.jsx(Card, {
                       withBorder: true,
                       padding: "sm",
-                      children: /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                      children: /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                         justify: "space-between",
                         align: "center",
                         children: [
-                          /* @__PURE__ */ jsx_runtime37.jsxs(Stack, {
+                          /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
                             gap: 4,
                             style: { flex: 1 },
                             children: [
-                              /* @__PURE__ */ jsx_runtime37.jsxs(Text, {
+                              /* @__PURE__ */ jsx_runtime38.jsxs(Text, {
                                 size: "sm",
                                 fw: 500,
                                 children: [
@@ -75675,38 +76331,38 @@ ${errorDetails}
                                   task.layoutName
                                 ]
                               }),
-                              /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                              /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                                 size: "xs",
                                 c: "dimmed",
                                 children: task.outputSettingName
                               })
                             ]
                           }),
-                          task.status === "loading" && /* @__PURE__ */ jsx_runtime37.jsx(ActionIcon, {
+                          task.status === "loading" && /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
                             size: "lg",
                             variant: "light",
                             loading: true,
-                            children: /* @__PURE__ */ jsx_runtime37.jsx(IconLoader, {
+                            children: /* @__PURE__ */ jsx_runtime38.jsx(IconLoader, {
                               size: 16
                             })
                           }),
-                          task.status === "success" && /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                          task.status === "success" && /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                             size: "sm",
                             variant: "light",
                             color: "green",
                             onClick: () => handleTaskDownload(task),
-                            leftSection: /* @__PURE__ */ jsx_runtime37.jsx(IconDownload, {
+                            leftSection: /* @__PURE__ */ jsx_runtime38.jsx(IconDownload, {
                               size: 16
                             }),
                             children: "Download File"
                           }),
-                          task.status === "error" && /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                          task.status === "error" && /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                             size: "sm",
                             variant: "light",
                             color: "red",
                             title: task.errorMessage,
                             onClick: () => handleErrorReportDownload(task),
-                            leftSection: /* @__PURE__ */ jsx_runtime37.jsx(IconAlertTriangle, {
+                            leftSection: /* @__PURE__ */ jsx_runtime38.jsx(IconAlertTriangle, {
                               size: 16
                             }),
                             children: "Download Report"
@@ -75714,18 +76370,18 @@ ${errorDetails}
                         ]
                       })
                     }, task.id)),
-                    hasErrors && /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    hasErrors && /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                       gap: "sm",
                       style: { marginTop: "1rem" },
                       children: [
-                        /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                           variant: "outline",
                           color: "red",
                           size: "sm",
                           onClick: handleDownloadAllErrors,
                           children: "Download All Error Reports"
                         }),
-                        /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                           variant: "outline",
                           color: "gray",
                           size: "sm",
@@ -75734,17 +76390,17 @@ ${errorDetails}
                         })
                       ]
                     }),
-                    allTasksComplete && /* @__PURE__ */ jsx_runtime37.jsxs(Group, {
+                    allTasksComplete && /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
                       justify: "center",
                       style: { marginTop: "1rem" },
                       children: [
-                        /* @__PURE__ */ jsx_runtime37.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
                           size: "lg",
                           c: "green",
                           fw: 500,
                           children: "All tasks completed"
                         }),
-                        /* @__PURE__ */ jsx_runtime37.jsx(Button, {
+                        /* @__PURE__ */ jsx_runtime38.jsx(Button, {
                           onClick: onClose,
                           children: "Close Modal"
                         })
@@ -75757,7 +76413,7 @@ ${errorDetails}
           })
         ]
       }),
-      /* @__PURE__ */ jsx_runtime37.jsx("input", {
+      /* @__PURE__ */ jsx_runtime38.jsx("input", {
         type: "file",
         ref: fileInputRef,
         style: { display: "none" },
@@ -75769,7 +76425,7 @@ ${errorDetails}
 }
 
 // src/components/ToolbarSettingsModal.tsx
-var import_react283 = __toESM(require_react(), 1);
+var import_react289 = __toESM(require_react(), 1);
 
 // src/utils/appConfig.ts
 init_dist();
@@ -75886,12 +76542,12 @@ function checkVersions(from2, to) {
 
 // src/components/ToolbarSettingsModal.tsx
 init_dist();
-var jsx_runtime38 = __toESM(require_jsx_runtime(), 1);
-var disclaimer = /* @__PURE__ */ jsx_runtime38.jsxs(jsx_runtime38.Fragment, {
+var jsx_runtime39 = __toESM(require_jsx_runtime(), 1);
+var disclaimer = /* @__PURE__ */ jsx_runtime39.jsxs(jsx_runtime39.Fragment, {
   children: [
     "The Toolbar is released under the MIT license and is primarily supported by the community. Individual apps may have varying support focus. Apps marked with the",
     " ",
-    /* @__PURE__ */ jsx_runtime38.jsx(IconRosetteDiscountCheckFilled, {
+    /* @__PURE__ */ jsx_runtime39.jsx(IconRosetteDiscountCheckFilled, {
       style: { display: "inline", verticalAlign: "middle" },
       size: 16
     }),
@@ -75905,10 +76561,10 @@ function ToolbarSettingsModal({
   onReloadConfig,
   updateInfo
 }) {
-  const [defaultConfig, setDefaultConfig] = import_react283.useState(null);
-  const [githubVersion, setGithubVersion] = import_react283.useState(null);
-  const [config2, setConfig2] = import_react283.useState(null);
-  const [errorOnGetDefaultConfig, setErrorOnGetDefaultConfig] = import_react283.useState(null);
+  const [defaultConfig, setDefaultConfig] = import_react289.useState(null);
+  const [githubVersion, setGithubVersion] = import_react289.useState(null);
+  const [config2, setConfig2] = import_react289.useState(null);
+  const [errorOnGetDefaultConfig, setErrorOnGetDefaultConfig] = import_react289.useState(null);
   const getStatusIcon = (appKey) => {
     if (!defaultConfig)
       return null;
@@ -75916,28 +76572,28 @@ function ToolbarSettingsModal({
     const appStatus = appInfo ? appInfo.status : "none";
     const statusConfig = {
       none: {
-        icon: /* @__PURE__ */ jsx_runtime38.jsx(IconRosetteFilled, {
+        icon: /* @__PURE__ */ jsx_runtime39.jsx(IconRosetteFilled, {
           size: 16,
           color: "blue"
         }),
         tooltip: "Still used, no sponsorship"
       },
       sponsored: {
-        icon: /* @__PURE__ */ jsx_runtime38.jsx(IconRosetteDiscountCheckFilled, {
+        icon: /* @__PURE__ */ jsx_runtime39.jsx(IconRosetteDiscountCheckFilled, {
           size: 16,
           color: "green"
         }),
         tooltip: "Still used, under active sponsorship"
       },
       deprecated: {
-        icon: /* @__PURE__ */ jsx_runtime38.jsx(IconCircleRectangleFilled, {
+        icon: /* @__PURE__ */ jsx_runtime39.jsx(IconCircleRectangleFilled, {
           size: 16,
           color: "red"
         }),
         tooltip: "Not used, deprecated; scheduled for removal in future versions"
       },
       experimental: {
-        icon: /* @__PURE__ */ jsx_runtime38.jsx(IconRadioactiveFilled, {
+        icon: /* @__PURE__ */ jsx_runtime39.jsx(IconRadioactiveFilled, {
           size: 16,
           color: "purple"
         }),
@@ -75947,7 +76603,7 @@ function ToolbarSettingsModal({
     const config3 = statusConfig[appStatus];
     if (!config3)
       return null;
-    return /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+    return /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
       label: config3.tooltip,
       position: "top",
       withArrow: true,
@@ -75956,7 +76612,7 @@ function ToolbarSettingsModal({
   };
   const toolConfig = {
     showSnapshot: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconCameraPlus, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconCameraPlus, {
         size: 16
       }),
       handler: () => {
@@ -75964,7 +76620,7 @@ function ToolbarSettingsModal({
       }
     },
     showFramePositionViewer: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconPhotoCog, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconPhotoCog, {
         size: 16
       }),
       handler: () => {
@@ -75972,7 +76628,7 @@ function ToolbarSettingsModal({
       }
     },
     showLayoutManager: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconListTree, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconListTree, {
         size: 16
       }),
       handler: () => {
@@ -75980,7 +76636,7 @@ function ToolbarSettingsModal({
       }
     },
     showMagicLayouts: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconSparkles, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconSparkles, {
         size: 16
       }),
       handler: () => {
@@ -75988,7 +76644,7 @@ function ToolbarSettingsModal({
       }
     },
     showAspectLock: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconPlaystationSquare, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconPlaystationSquare, {
         size: 16
       }),
       handler: () => {
@@ -75996,7 +76652,7 @@ function ToolbarSettingsModal({
       }
     },
     showLayoutImageMapper: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconMapBolt, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconMapBolt, {
         size: 16
       }),
       handler: () => {
@@ -76004,7 +76660,7 @@ function ToolbarSettingsModal({
       }
     },
     showUploadDownload: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconArrowsTransferUpDown, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconArrowsTransferUpDown, {
         size: 16
       }),
       handler: () => {
@@ -76012,7 +76668,7 @@ function ToolbarSettingsModal({
       }
     },
     showTestError: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconBug, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconBug, {
         size: 16
       }),
       handler: () => {
@@ -76020,7 +76676,7 @@ function ToolbarSettingsModal({
       }
     },
     showConnectorCleanup: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconPlug, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconPlug, {
         size: 16
       }),
       handler: () => {
@@ -76028,7 +76684,7 @@ function ToolbarSettingsModal({
       }
     },
     showManualCropManager: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconCrop, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconCrop, {
         size: 16
       }),
       handler: () => {
@@ -76036,7 +76692,7 @@ function ToolbarSettingsModal({
       }
     },
     showConnectorFolderBrowser: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconPhotoSearch, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconPhotoSearch, {
         size: 16
       }),
       handler: () => {
@@ -76044,7 +76700,7 @@ function ToolbarSettingsModal({
       }
     },
     showOutput: {
-      icon: /* @__PURE__ */ jsx_runtime38.jsx(IconDownload, {
+      icon: /* @__PURE__ */ jsx_runtime39.jsx(IconDownload, {
         size: 16
       }),
       handler: () => {
@@ -76056,11 +76712,11 @@ function ToolbarSettingsModal({
     const tool = toolConfig[appKey];
     if (!tool)
       return null;
-    return /* @__PURE__ */ jsx_runtime38.jsx(Tooltip, {
+    return /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
       label: `Run ${appKey.replace("show", "").replace(/([A-Z])/g, " $1").trim()}`,
       position: "left",
       withArrow: true,
-      children: /* @__PURE__ */ jsx_runtime38.jsx(ActionIcon, {
+      children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
         variant: "subtle",
         color: "blue",
         size: "sm",
@@ -76070,7 +76726,7 @@ function ToolbarSettingsModal({
       })
     });
   };
-  import_react283.useEffect(() => {
+  import_react289.useEffect(() => {
     if (opened) {
       if (!defaultConfig && !errorOnGetDefaultConfig) {
         const loadDefaultConfig = async () => {
@@ -76123,48 +76779,48 @@ function ToolbarSettingsModal({
   };
   const isLoading = (!config2 || !defaultConfig) && !errorOnGetDefaultConfig;
   console.log(config2, defaultConfig);
-  return /* @__PURE__ */ jsx_runtime38.jsx(Modal, {
+  return /* @__PURE__ */ jsx_runtime39.jsx(Modal, {
     opened,
     onClose,
     title: "Toolbar Settings",
     centered: true,
     size: "md",
-    children: /* @__PURE__ */ jsx_runtime38.jsx(Stack, {
-      children: isLoading ? /* @__PURE__ */ jsx_runtime38.jsx(Center, {
+    children: /* @__PURE__ */ jsx_runtime39.jsx(Stack, {
+      children: isLoading ? /* @__PURE__ */ jsx_runtime39.jsx(Center, {
         style: { minHeight: "400px" },
-        children: /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime39.jsxs(Stack, {
           align: "center",
           gap: "md",
           children: [
-            /* @__PURE__ */ jsx_runtime38.jsx(Loader, {
+            /* @__PURE__ */ jsx_runtime39.jsx(Loader, {
               size: "lg"
             }),
-            /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime39.jsx(Text, {
               children: "Loading toolbar settings..."
             })
           ]
         })
-      }) : errorOnGetDefaultConfig ? /* @__PURE__ */ jsx_runtime38.jsx(Center, {
+      }) : errorOnGetDefaultConfig ? /* @__PURE__ */ jsx_runtime39.jsx(Center, {
         style: { minHeight: "400px" },
-        children: /* @__PURE__ */ jsx_runtime38.jsx(Alert, {
+        children: /* @__PURE__ */ jsx_runtime39.jsx(Alert, {
           variant: "light",
           color: "red",
           title: "Error",
-          icon: /* @__PURE__ */ jsx_runtime38.jsx(IconBugFilled, {}),
+          icon: /* @__PURE__ */ jsx_runtime39.jsx(IconBugFilled, {}),
           children: errorOnGetDefaultConfig.message
         })
-      }) : config2 && defaultConfig ? /* @__PURE__ */ jsx_runtime38.jsxs(jsx_runtime38.Fragment, {
+      }) : config2 && defaultConfig ? /* @__PURE__ */ jsx_runtime39.jsxs(jsx_runtime39.Fragment, {
         children: [
           githubVersion && updateInfo && (() => {
             const versionComparison = checkVersions(updateInfo.currentVersion, githubVersion);
             if (versionComparison.isOk()) {
               const result = versionComparison.value;
               if (result === "equal" || result === "greater") {
-                return /* @__PURE__ */ jsx_runtime38.jsxs(Alert, {
+                return /* @__PURE__ */ jsx_runtime39.jsxs(Alert, {
                   variant: "light",
                   color: "green",
                   title: "Up to Date",
-                  icon: /* @__PURE__ */ jsx_runtime38.jsx(IconInfoCircle, {}),
+                  icon: /* @__PURE__ */ jsx_runtime39.jsx(IconInfoCircle, {}),
                   children: [
                     "Toolbar is on most up-to-date version:",
                     " ",
@@ -76172,14 +76828,14 @@ function ToolbarSettingsModal({
                   ]
                 });
               } else {
-                return /* @__PURE__ */ jsx_runtime38.jsxs(Alert, {
+                return /* @__PURE__ */ jsx_runtime39.jsxs(Alert, {
                   variant: "light",
                   color: "red",
                   title: "Update Available",
-                  icon: /* @__PURE__ */ jsx_runtime38.jsx(IconInfoCircle, {}),
+                  icon: /* @__PURE__ */ jsx_runtime39.jsx(IconInfoCircle, {}),
                   children: [
                     "Toolbar is on an older version:",
-                    /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
+                    /* @__PURE__ */ jsx_runtime39.jsx("br", {}),
                     " current: ",
                     updateInfo.currentVersion,
                     " < latest:",
@@ -76191,356 +76847,356 @@ function ToolbarSettingsModal({
             }
             return null;
           })(),
-          /* @__PURE__ */ jsx_runtime38.jsxs(Text, {
+          /* @__PURE__ */ jsx_runtime39.jsxs(Text, {
             size: "sm",
             c: "dimmed",
             children: [
               "Configure which tools are visible in the toolbar.",
-              /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
-              /* @__PURE__ */ jsx_runtime38.jsx("br", {}),
+              /* @__PURE__ */ jsx_runtime39.jsx("br", {}),
+              /* @__PURE__ */ jsx_runtime39.jsx("br", {}),
               disclaimer
             ]
           }),
-          /* @__PURE__ */ jsx_runtime38.jsx(Title, {
+          /* @__PURE__ */ jsx_runtime39.jsx(Title, {
             order: 5,
             children: "Available Tools"
           }),
-          /* @__PURE__ */ jsx_runtime38.jsx(ScrollArea.Autosize, {
+          /* @__PURE__ */ jsx_runtime39.jsx(ScrollArea.Autosize, {
             mah: 400,
-            children: /* @__PURE__ */ jsx_runtime38.jsxs(Stack, {
+            children: /* @__PURE__ */ jsx_runtime39.jsxs(Stack, {
               gap: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showSnapshot"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Snapshot Image Position"
                         }),
                         getStatusIcon("showSnapshot")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showSnapshot,
                       onChange: (event) => handleToggle("showSnapshot", event.currentTarget.checked),
                       "aria-label": "Toggle Snapshot Image Position"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Tool for capturing frame snapshots"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showFramePositionViewer"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Frame Position Viewer"
                         }),
                         getStatusIcon("showFramePositionViewer")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showFramePositionViewer,
                       onChange: (event) => handleToggle("showFramePositionViewer", event.currentTarget.checked),
                       "aria-label": "Toggle Frame Position Viewer"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "View and analyze frame positions"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showLayoutManager"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Layout Manager"
                         }),
                         getStatusIcon("showLayoutManager")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showLayoutManager,
                       onChange: (event) => handleToggle("showLayoutManager", event.currentTarget.checked),
                       "aria-label": "Toggle Layout Manager"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Manage layout properties and hierarchy"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showMagicLayouts"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Magic Layouts"
                         }),
                         getStatusIcon("showMagicLayouts")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showMagicLayouts,
                       onChange: (event) => handleToggle("showMagicLayouts", event.currentTarget.checked),
                       "aria-label": "Toggle Magic Layouts"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Automated layout generation and management"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showAspectLock"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Aspect Lock"
                         }),
                         getStatusIcon("showAspectLock")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showAspectLock,
                       onChange: (event) => handleToggle("showAspectLock", event.currentTarget.checked),
                       "aria-label": "Toggle Aspect Lock"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Lock aspect ratios for layouts"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showLayoutImageMapper"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
-                          children: "Layout Image Mapper"
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
+                          children: "Layout Variable Mapper"
                         }),
                         getStatusIcon("showLayoutImageMapper")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showLayoutImageMapper,
                       onChange: (event) => handleToggle("showLayoutImageMapper", event.currentTarget.checked),
-                      "aria-label": "Toggle Layout Image Mapper"
+                      "aria-label": "Toggle Layout Variable Mapper"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
-                  children: "Map images to layout variables"
+                  children: "Map variable values to layout variables"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showUploadDownload"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Upload/Download Document"
                         }),
                         getStatusIcon("showUploadDownload")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showUploadDownload,
                       onChange: (event) => handleToggle("showUploadDownload", event.currentTarget.checked),
                       "aria-label": "Toggle Upload/Download Document"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Upload and download document JSON"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showTestError"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Test Error"
                         }),
                         getStatusIcon("showTestError")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showTestError,
                       onChange: (event) => handleToggle("showTestError", event.currentTarget.checked),
                       "aria-label": "Toggle Test Error"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Test error handling functionality"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showConnectorCleanup"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Connector Cleanup"
                         }),
                         getStatusIcon("showConnectorCleanup")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showConnectorCleanup,
                       onChange: (event) => handleToggle("showConnectorCleanup", event.currentTarget.checked),
                       "aria-label": "Toggle Connector Cleanup"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Manage and remove unused connectors"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showManualCropManager"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Manual Crop Manager"
                         }),
                         getStatusIcon("showManualCropManager")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showManualCropManager,
                       onChange: (event) => handleToggle("showManualCropManager", event.currentTarget.checked),
                       "aria-label": "Toggle Manual Crop Manager"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Manage manual crops for layouts and connectors"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showConnectorFolderBrowser"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Image Browser"
                         }),
                         getStatusIcon("showConnectorFolderBrowser")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showConnectorFolderBrowser,
                       onChange: (event) => handleToggle("showConnectorFolderBrowser", event.currentTarget.checked),
                       "aria-label": "Toggle Image Browser"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
                   children: "Browse and select images from connectors"
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                   justify: "space-between",
                   align: "center",
                   children: [
-                    /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+                    /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                       gap: "xs",
                       style: { flex: 1 },
                       children: [
                         getToolActionIcon("showOutput"),
-                        /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                        /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                           children: "Output"
                         }),
                         getStatusIcon("showOutput")
                       ]
                     }),
-                    /* @__PURE__ */ jsx_runtime38.jsx(Switch, {
+                    /* @__PURE__ */ jsx_runtime39.jsx(Switch, {
                       checked: config2.showOutput,
                       onChange: (event) => handleToggle("showOutput", event.currentTarget.checked),
                       "aria-label": "Toggle Output"
                     })
                   ]
                 }),
-                /* @__PURE__ */ jsx_runtime38.jsx(Text, {
+                /* @__PURE__ */ jsx_runtime39.jsx(Text, {
                   size: "xs",
                   c: "dimmed",
                   ml: 32,
@@ -76549,23 +77205,23 @@ function ToolbarSettingsModal({
               ]
             })
           }),
-          /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
             justify: "space-between",
             mt: "xl",
             children: [
-              /* @__PURE__ */ jsx_runtime38.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime39.jsx(Button, {
                 variant: "subtle",
                 onClick: handleReset,
                 children: "Reset to Default"
               }),
-              /* @__PURE__ */ jsx_runtime38.jsxs(Group, {
+              /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
                 children: [
-                  /* @__PURE__ */ jsx_runtime38.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime39.jsx(Button, {
                     variant: "default",
                     onClick: handleClose,
                     children: "Cancel"
                   }),
-                  /* @__PURE__ */ jsx_runtime38.jsx(Button, {
+                  /* @__PURE__ */ jsx_runtime39.jsx(Button, {
                     onClick: handleSave,
                     children: "Save & Apply"
                   })
@@ -76581,27 +77237,27 @@ function ToolbarSettingsModal({
 
 // src/components/Toolbar.tsx
 init_dist();
-var jsx_runtime39 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime40 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react284.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react284.useState(false);
-  const [isDownloadModalNewOpen, setIsDownloadModalNewOpen] = import_react284.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react284.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react284.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react284.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react284.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react284.useState(false);
-  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react284.useState(false);
-  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react284.useState(false);
-  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react284.useState(false);
-  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = import_react284.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react284.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react284.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react284.useState("");
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react284.useState(false);
-  const [isImageBrowserOpen, setIsImageBrowserOpen] = import_react284.useState(false);
-  const [appConfig, setAppConfig] = import_react284.useState(null);
-  const [updateInfo, setUpdateInfo] = import_react284.useState(null);
+  const [visible2, setVisible] = import_react290.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react290.useState(false);
+  const [isDownloadModalNewOpen, setIsDownloadModalNewOpen] = import_react290.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react290.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react290.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react290.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react290.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react290.useState(false);
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react290.useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react290.useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react290.useState(false);
+  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = import_react290.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react290.useState(false);
+  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react290.useState(false);
+  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react290.useState("");
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react290.useState(false);
+  const [isImageBrowserOpen, setIsImageBrowserOpen] = import_react290.useState(false);
+  const [appConfig, setAppConfig] = import_react290.useState(null);
+  const [updateInfo, setUpdateInfo] = import_react290.useState(null);
   const getActionIconColor = (appKey) => {
     const appInfo = appConfig[appKey];
     const appStatus = appInfo ? appInfo.status : "none";
@@ -76650,7 +77306,7 @@ function Toolbar() {
   const reloadConfig = (config2) => {
     setAppConfig(config2);
   };
-  import_react284.useEffect(() => {
+  import_react290.useEffect(() => {
     (async () => {
       const localConfig = localStorage.getItem("tempUserConfig");
       Result.try(() => {
@@ -76670,7 +77326,7 @@ function Toolbar() {
       });
     })();
   }, []);
-  import_react284.useEffect(() => {
+  import_react290.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -76739,14 +77395,14 @@ function Toolbar() {
       setIsAspectLockSuccessModalOpen(true);
     }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
   };
-  return /* @__PURE__ */ jsx_runtime39.jsxs(jsx_runtime39.Fragment, {
+  return /* @__PURE__ */ jsx_runtime40.jsxs(jsx_runtime40.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime39.jsx(Transition, {
+      /* @__PURE__ */ jsx_runtime40.jsx(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_runtime39.jsx(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_runtime40.jsx(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -76763,179 +77419,179 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: appConfig && /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
+          children: appConfig && /* @__PURE__ */ jsx_runtime40.jsxs(Group, {
             gap: "lg",
             children: [
-              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showSnapshot"),
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconCameraPlus, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showFramePositionViewer"),
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconPhotoCog, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Magic Layouts",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showMagicLayouts"),
                   size: "lg",
                   "aria-label": "Magic Layouts",
                   onClick: handleMagicLayouts,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconSparkles, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconSparkles, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Layout Manager",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showLayoutManager"),
                   size: "lg",
                   "aria-label": "Layout Manager",
                   onClick: handleLayoutManager,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconListTree, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconListTree, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Aspect Lock",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showAspectLock"),
                   size: "lg",
                   "aria-label": "Aspect Lock",
                   onClick: handleAspectLock,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconPlaystationSquare, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconPlaystationSquare, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Upload/Download Template",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showUploadDownload"),
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleDownloadModalNewClick,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconArrowsTransferUpDown, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
-                label: "Layout Image Mapper",
+              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
+                label: "Layout Variable Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showLayoutImageMapper"),
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconMapBolt, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showTestError && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showTestError && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showTestError"),
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconBug, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconBug, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Connector Cleanup",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showConnectorCleanup"),
                   size: "lg",
                   "aria-label": "Connector Cleanup",
                   onClick: handleConnectorCleanup,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconPlug, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconPlug, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Manual Crop Manager",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showManualCropManager"),
                   size: "lg",
                   "aria-label": "Manual Crop Manager",
                   onClick: handleManualCropManager,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconCrop, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconCrop, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showOutput && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showOutput && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Output",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showOutput"),
                   size: "lg",
                   "aria-label": "Output",
                   onClick: handleOutTemplate,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconDownload, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconDownload, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              appConfig.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Image Browser",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showConnectorFolderBrowser"),
                   size: "lg",
@@ -76943,22 +77599,22 @@ function Toolbar() {
                   onClick: () => {
                     setIsImageBrowserOpen(true);
                   },
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconPhotoSearch, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconPhotoSearch, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime39.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime40.jsx(Tooltip, {
                 label: "Settings",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime39.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime40.jsx(ActionIcon, {
                   variant: "filled",
                   color: "gray",
                   size: "lg",
                   "aria-label": "Settings",
                   onClick: handleSettings,
-                  children: /* @__PURE__ */ jsx_runtime39.jsx(IconSettings, {
+                  children: /* @__PURE__ */ jsx_runtime40.jsx(IconSettings, {
                     size: 20
                   })
                 })
@@ -76967,41 +77623,41 @@ function Toolbar() {
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime39.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime40.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime39.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime40.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime39.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime40.jsx(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }),
-            /* @__PURE__ */ jsx_runtime39.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime40.jsxs(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_runtime39.jsx("br", {}),
+                /* @__PURE__ */ jsx_runtime40.jsx("br", {}),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }),
-            /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime40.jsxs(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime40.jsx(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }),
-                /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime40.jsx(Button, {
                   component: "a",
                   href: "https://github.com/spicy-labs/studio-toolbar-plus/",
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_runtime39.jsx(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_runtime40.jsx(IconExternalLink, {
                     size: 16
                   }),
                   color: "blue",
@@ -77012,55 +77668,55 @@ function Toolbar() {
           ]
         })
       }),
-      isFramePositionViewerOpen && appConfig?.showFramePositionViewer && /* @__PURE__ */ jsx_runtime39.jsx(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && appConfig?.showFramePositionViewer && /* @__PURE__ */ jsx_runtime40.jsx(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }),
-      isAddFrameSnapshotModalOpen && appConfig?.showSnapshot && /* @__PURE__ */ jsx_runtime39.jsx(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && appConfig?.showSnapshot && /* @__PURE__ */ jsx_runtime40.jsx(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }),
-      isLayoutManagerOpen && appConfig?.showLayoutManager && /* @__PURE__ */ jsx_runtime39.jsx(LayoutManagerModal, {
+      isLayoutManagerOpen && appConfig?.showLayoutManager && /* @__PURE__ */ jsx_runtime40.jsx(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }),
-      isMagicLayoutsModalOpen && appConfig?.showMagicLayouts && /* @__PURE__ */ jsx_runtime39.jsx(MagicLayoutsModal, {
+      isMagicLayoutsModalOpen && appConfig?.showMagicLayouts && /* @__PURE__ */ jsx_runtime40.jsx(MagicLayoutsModal, {
         opened: isMagicLayoutsModalOpen,
         onClose: () => setIsMagicLayoutsModalOpen(false)
       }),
-      appConfig?.showConnectorCleanup && /* @__PURE__ */ jsx_runtime39.jsx(ConnectorCleanupModal, {
+      appConfig?.showConnectorCleanup && /* @__PURE__ */ jsx_runtime40.jsx(ConnectorCleanupModal, {
         opened: isConnectorCleanupModalOpen,
         onClose: () => setIsConnectorCleanupModalOpen(false)
       }),
-      appConfig?.showManualCropManager && /* @__PURE__ */ jsx_runtime39.jsx(ManualCropManagerModal, {
+      appConfig?.showManualCropManager && /* @__PURE__ */ jsx_runtime40.jsx(ManualCropManagerModal, {
         opened: isManualCropManagerModalOpen,
         onClose: () => setIsManualCropManagerModalOpen(false)
       }),
-      appConfig?.showOutput && /* @__PURE__ */ jsx_runtime39.jsx(OutTemplateModal, {
+      appConfig?.showOutput && /* @__PURE__ */ jsx_runtime40.jsx(OutTemplateModal, {
         opened: isOutTemplateModalOpen,
         onClose: () => setIsOutTemplateModalOpen(false)
       }),
-      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime39.jsxs(Modal, {
+      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime40.jsxs(Modal, {
         opened: isAspectLockConfirmModalOpen,
         onClose: () => setIsAspectLockConfirmModalOpen(false),
         title: "Confirm Aspect Lock Change",
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime39.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime40.jsx(Text, {
             children: "Turn Aspect Lock On?"
           }),
-          /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
+          /* @__PURE__ */ jsx_runtime40.jsxs(Group, {
             justify: "flex-end",
             mt: "md",
             children: [
-              /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime40.jsx(Button, {
                 variant: "default",
                 onClick: () => handleConfirmAspectLock(false),
                 children: "No"
               }),
-              /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+              /* @__PURE__ */ jsx_runtime40.jsx(Button, {
                 color: "blue",
                 onClick: () => handleConfirmAspectLock(true),
                 children: "Yes"
@@ -77069,7 +77725,7 @@ function Toolbar() {
           })
         ]
       }),
-      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime39.jsxs(Modal, {
+      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime40.jsxs(Modal, {
         opened: isAspectLockSuccessModalOpen,
         onClose: () => {
           setIsAspectLockSuccessModalOpen(false);
@@ -77079,13 +77735,13 @@ function Toolbar() {
         centered: true,
         size: "sm",
         children: [
-          /* @__PURE__ */ jsx_runtime39.jsx(Text, {
+          /* @__PURE__ */ jsx_runtime40.jsx(Text, {
             children: aspectLockSuccessMessage
           }),
-          /* @__PURE__ */ jsx_runtime39.jsx(Group, {
+          /* @__PURE__ */ jsx_runtime40.jsx(Group, {
             justify: "flex-end",
             mt: "md",
-            children: /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+            children: /* @__PURE__ */ jsx_runtime40.jsx(Button, {
               onClick: () => {
                 setIsAspectLockSuccessModalOpen(false);
                 setAspectLockSuccessMessage("");
@@ -77095,18 +77751,18 @@ function Toolbar() {
           })
         ]
       }),
-      appConfig?.showUploadDownload && /* @__PURE__ */ jsx_runtime39.jsx(DownloadModalNew, {
+      appConfig?.showUploadDownload && /* @__PURE__ */ jsx_runtime40.jsx(DownloadModalNew, {
         opened: isDownloadModalNewOpen,
         onClose: () => setIsDownloadModalNewOpen(false)
       }),
-      appConfig?.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime39.jsx(ImageBrowser, {
+      appConfig?.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime40.jsx(ImageBrowser, {
         opened: isImageBrowserOpen,
         mode: 1 /* FileSelection */,
         onClose: (selection) => {
           setIsImageBrowserOpen(false);
         }
       }),
-      appConfig && /* @__PURE__ */ jsx_runtime39.jsx(ToolbarSettingsModal, {
+      appConfig && /* @__PURE__ */ jsx_runtime40.jsx(ToolbarSettingsModal, {
         opened: isSettingsModalOpen,
         onClose: () => setIsSettingsModalOpen(false),
         onReloadConfig: reloadConfig,
@@ -77117,12 +77773,12 @@ function Toolbar() {
 }
 
 // src/components/AlertsContainer.tsx
-var import_react285 = __toESM(require_react(), 1);
-var jsx_runtime40 = __toESM(require_jsx_runtime(), 1);
+var import_react291 = __toESM(require_react(), 1);
+var jsx_runtime41 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react285.useEffect(() => {
+  import_react291.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -77137,7 +77793,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime40.jsx(Box, {
+  return /* @__PURE__ */ jsx_runtime41.jsx(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -77145,10 +77801,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_runtime40.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime41.jsx(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime40.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime40.jsx(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime41.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime41.jsx(IconInfoCircle, {
           size: "1rem"
         }),
         title: "Toolbar Error",
@@ -77168,7 +77824,7 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-var jsx_runtime41 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime42 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -77189,16 +77845,16 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime41.jsx(import_react286.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime41.jsx(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime42.jsx(import_react292.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime42.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime41.jsx(import_react286.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime41.jsxs(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime42.jsx(import_react292.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime42.jsxs(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_runtime41.jsx(Toolbar, {}),
-        /* @__PURE__ */ jsx_runtime41.jsx(AlertsContainer, {})
+        /* @__PURE__ */ jsx_runtime42.jsx(Toolbar, {}),
+        /* @__PURE__ */ jsx_runtime42.jsx(AlertsContainer, {})
       ]
     })
   }));
@@ -77223,4 +77879,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=F77999AFDFFEFB1C64756E2164756E21
+//# debugId=B8FB167B4C09E5CA64756E2164756E21
