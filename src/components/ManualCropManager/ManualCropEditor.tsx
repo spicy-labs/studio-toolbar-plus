@@ -23,6 +23,9 @@ import {
   IconReplace,
   IconDeselect,
   IconArrowAutofitDown,
+  IconClipboard,
+  IconClipboardFilled,
+  IconX,
 } from "@tabler/icons-react";
 import { appStore } from "../../modalStore";
 import { getStudio } from "../../studio/studioAdapter";
@@ -59,15 +62,16 @@ interface CropRowProps {
   onCropChange: (
     layoutId: string,
     cropIndex: number,
-    updatedCrop: ManualCrop
+    updatedCrop: ManualCrop,
   ) => void;
   isChecked: boolean;
   onCheckChange: (
     layoutId: string,
     cropIndex: number,
-    checked: boolean
+    checked: boolean,
   ) => void;
   isDeleted: boolean;
+  isCopySource: boolean;
 }
 
 function CropRow({
@@ -78,6 +82,7 @@ function CropRow({
   isChecked,
   onCheckChange,
   isDeleted,
+  isCopySource,
 }: CropRowProps) {
   const [localCrop, setLocalCrop] = useState<ManualCrop>(crop);
 
@@ -119,14 +124,19 @@ function CropRow({
   }
 
   return (
-    <Table.Tr>
+    <Table.Tr style={isCopySource ? { opacity: 0.6 } : undefined}>
       <Table.Td>
-        <Checkbox
-          checked={isChecked}
-          onChange={(event) =>
-            onCheckChange(layoutId, cropIndex, event.currentTarget.checked)
-          }
-        />
+        {isCopySource ? (
+          <IconClipboardFilled size={16} color="blue" />
+        ) : (
+          <Checkbox
+            checked={isChecked}
+            onChange={(event) =>
+              onCheckChange(layoutId, cropIndex, event.currentTarget.checked)
+            }
+            disabled={isCopySource}
+          />
+        )}
       </Table.Td>
       <Table.Td>
         <Text size="sm">{localCrop.frameName}</Text>
@@ -200,7 +210,7 @@ export function ManualCropEditor({
 }: ManualCropEditorProps) {
   const raiseError = appStore((store) => store.raiseError);
   const [layoutCrops, setLayoutCrops] = useState<Map<string, LayoutCrops>>(
-    new Map()
+    new Map(),
   );
   const [isLoading, setIsLoading] = useState(false);
   const [saveState, setSaveState] = useState<SaveState>("idle");
@@ -228,6 +238,12 @@ export function ManualCropEditor({
   const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] =
     useState<string>("");
 
+  // Clipboard functionality state
+  const [clipboardCrop, setClipboardCrop] = useState<ManualCrop | null>(null);
+  const [isCopyMode, setIsCopyMode] = useState(false);
+  const [copySourceRowKey, setCopySourceRowKey] = useState<string | null>(null);
+  const [isPasteEnabled, setIsPasteEnabled] = useState(false);
+
   const loadCropsForSelectedLayouts = useCallback(async () => {
     if (!selectedConnectorId) return;
 
@@ -236,7 +252,7 @@ export function ManualCropEditor({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -247,8 +263,8 @@ export function ManualCropEditor({
       if (!allLayoutsResult.isOk()) {
         raiseError(
           new Error(
-            "Failed to load layouts: " + allLayoutsResult.error?.message
-          )
+            "Failed to load layouts: " + allLayoutsResult.error?.message,
+          ),
         );
         return;
       }
@@ -256,14 +272,14 @@ export function ManualCropEditor({
 
       const cropsResult = await getManualCropsFromDocByConnector(
         studio,
-        selectedConnectorId
+        selectedConnectorId,
       );
 
       if (!cropsResult.isOk()) {
         raiseError(
           new Error(
-            "Failed to load manual crops: " + cropsResult.error?.message
-          )
+            "Failed to load manual crops: " + cropsResult.error?.message,
+          ),
         );
         return;
       }
@@ -291,7 +307,7 @@ export function ManualCropEditor({
       raiseError(
         error instanceof Error
           ? error
-          : new Error("Failed to load manual crops")
+          : new Error("Failed to load manual crops"),
       );
     } finally {
       setIsLoading(false);
@@ -308,6 +324,11 @@ export function ManualCropEditor({
     // Clear changed rows and checked rows when layouts change
     setChangedRows(new Map());
     setCheckedRows(new Set());
+    // Clear copy mode when layouts change
+    setClipboardCrop(null);
+    setIsCopyMode(false);
+    setCopySourceRowKey(null);
+    setIsPasteEnabled(false);
   }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
 
   // Handle crop changes from individual row components
@@ -320,7 +341,7 @@ export function ManualCropEditor({
         return newMap;
       });
     },
-    []
+    [],
   );
 
   // Handle checkbox changes from individual row components
@@ -334,20 +355,29 @@ export function ManualCropEditor({
         } else {
           newSet.delete(rowKey);
         }
+
+        // Update paste button state if in copy mode
+        if (isCopyMode) {
+          const selectedRowsExcludingSource = Array.from(newSet).filter(
+            (key) => key !== copySourceRowKey,
+          );
+          setIsPasteEnabled(selectedRowsExcludingSource.length > 0);
+        }
+
         return newSet;
       });
     },
-    []
+    [isCopyMode, copySourceRowKey],
   );
 
   // Get checked snapshots count for a specific layout
   const getCheckedSnapshotsCountForLayout = useCallback(
     (layoutId: string) => {
       return Array.from(checkedRows).filter((rowKey) =>
-        rowKey.startsWith(`${layoutId}-`)
+        rowKey.startsWith(`${layoutId}-`),
       ).length;
     },
-    [checkedRows]
+    [checkedRows],
   );
 
   // Get checked crops for a specific layout
@@ -381,7 +411,7 @@ export function ManualCropEditor({
       });
       return checkedCrops;
     },
-    [checkedRows, layoutCrops, changedRows]
+    [checkedRows, layoutCrops, changedRows],
   );
 
   // Action button handlers
@@ -389,7 +419,7 @@ export function ManualCropEditor({
     (layoutId: string) => {
       // Find all checked rows for this layout
       const checkedRowsForLayout = Array.from(checkedRows).filter((rowKey) =>
-        rowKey.startsWith(`${layoutId}-`)
+        rowKey.startsWith(`${layoutId}-`),
       );
 
       // Add ManualCropToDelete entries to changedRows for each checked row
@@ -416,7 +446,7 @@ export function ManualCropEditor({
         return newSet;
       });
     },
-    [checkedRows]
+    [checkedRows],
   );
 
   const setCopyModalOpened = useCallback(
@@ -426,7 +456,7 @@ export function ManualCropEditor({
       }
       setCopyCropToLayerModalOpened(opened);
     },
-    []
+    [],
   );
 
   const setCopyAndAddRowModalOpened = useCallback(
@@ -445,7 +475,7 @@ export function ManualCropEditor({
         setCurrentLayoutIdForCopy("");
       }
     },
-    [getCheckedCropsForLayout]
+    [getCheckedCropsForLayout],
   );
 
   const setCopyAndReplaceModalOpened = useCallback(
@@ -464,7 +494,7 @@ export function ManualCropEditor({
         setCurrentLayoutIdForReplace("");
       }
     },
-    [getCheckedCropsForLayout]
+    [getCheckedCropsForLayout],
   );
 
   const deselectAllRows = useCallback((layoutId: string) => {
@@ -479,6 +509,92 @@ export function ManualCropEditor({
       return newSet;
     });
   }, []);
+
+  // Clipboard functionality handlers
+  const handleCopyToClipboard = useCallback(
+    (layoutId: string, cropIndex: number) => {
+      const layoutCrop = layoutCrops.get(layoutId);
+      if (!layoutCrop || !layoutCrop.crops[cropIndex]) return;
+
+      const cropToCopy = layoutCrop.crops[cropIndex];
+      const rowKey = `${layoutId}-${cropIndex}`;
+
+      // Check if there's a modified version in changedRows
+      const changedCrop = changedRows.get(rowKey);
+      const finalCrop =
+        changedCrop && "frameId" in changedCrop ? changedCrop : cropToCopy;
+
+      setClipboardCrop(finalCrop);
+      setIsCopyMode(true);
+      setCopySourceRowKey(rowKey);
+      setIsPasteEnabled(false);
+
+      // Hide toolbar when entering copy mode
+      appStore.getState().disableToolbar();
+    },
+    [layoutCrops, changedRows],
+  );
+
+  const handleCancelCopy = useCallback(() => {
+    setClipboardCrop(null);
+    setIsCopyMode(false);
+    setCopySourceRowKey(null);
+    setIsPasteEnabled(false);
+
+    // Re-enable toolbar when exiting copy mode
+    appStore.getState().enableToolbar();
+  }, []);
+
+  const handlePasteFromClipboard = useCallback(() => {
+    if (!clipboardCrop || !isCopyMode) return;
+
+    // Get all selected crops (excluding the source crop)
+    const selectedRowKeys = Array.from(checkedRows).filter(
+      (rowKey) => rowKey !== copySourceRowKey,
+    );
+
+    if (selectedRowKeys.length === 0) return;
+
+    // Update each selected crop with clipboard data
+    setChangedRows((prev) => {
+      const newMap = new Map(prev);
+
+      selectedRowKeys.forEach((rowKey) => {
+        const [layoutId, cropIndexStr] = rowKey.split("-");
+        const cropIndex = parseInt(cropIndexStr, 10);
+        const layoutCrop = layoutCrops.get(layoutId);
+
+        if (layoutCrop && layoutCrop.crops[cropIndex]) {
+          const originalCrop = layoutCrop.crops[cropIndex];
+
+          // Create updated crop with only crop dimensions from clipboard, preserving all other original properties
+          const updatedCrop: ManualCrop = {
+            ...originalCrop, // Start with all original properties (preserves name, frameId, frameName, rotationDegrees, etc.)
+            // Only copy the crop dimension values from clipboard
+            left: clipboardCrop.left,
+            top: clipboardCrop.top,
+            width: clipboardCrop.width,
+            height: clipboardCrop.height,
+          };
+
+          newMap.set(rowKey, updatedCrop);
+        }
+      });
+
+      return newMap;
+    });
+
+    // Clear selection and exit copy mode
+    setCheckedRows(new Set());
+    handleCancelCopy();
+  }, [
+    clipboardCrop,
+    isCopyMode,
+    checkedRows,
+    copySourceRowKey,
+    layoutCrops,
+    handleCancelCopy,
+  ]);
 
   // Select all crops for a specific layout
   const selectAllRowsForLayout = useCallback(
@@ -503,7 +619,7 @@ export function ManualCropEditor({
         return newSet;
       });
     },
-    [layoutCrops, changedRows]
+    [layoutCrops, changedRows],
   );
 
   // Get checkbox state for layout header (checked/unchecked/indeterminate)
@@ -543,7 +659,7 @@ export function ManualCropEditor({
       if (checkedCount === nonDeletedCrops.length) return "checked";
       return "indeterminate";
     },
-    [layoutCrops, checkedRows, changedRows]
+    [layoutCrops, checkedRows, changedRows],
   );
 
   // Handle layout checkbox change
@@ -555,7 +671,7 @@ export function ManualCropEditor({
         deselectAllRows(layoutId);
       }
     },
-    [selectAllRowsForLayout, deselectAllRows]
+    [selectAllRowsForLayout, deselectAllRows],
   );
 
   // Get all child and descendant layout IDs for a given layout
@@ -575,14 +691,14 @@ export function ManualCropEditor({
       collectChildren(parentLayoutId);
       return childIds;
     },
-    []
+    [],
   );
 
   const copyCropsToLayers = useCallback(
     async (targetLayoutIds: string[], checkedCrops: ManualCrop[]) => {
       // Get layout names for target layouts that aren't already loaded
       const missingLayoutIds = targetLayoutIds.filter(
-        (id) => !layoutCrops.has(id)
+        (id) => !layoutCrops.has(id),
       );
 
       let layoutNamesMap = new Map<string, string>();
@@ -607,7 +723,7 @@ export function ManualCropEditor({
           raiseError(
             error instanceof Error
               ? error
-              : new Error("Failed to load layout names")
+              : new Error("Failed to load layout names"),
           );
         }
       }
@@ -626,7 +742,8 @@ export function ManualCropEditor({
               // Find existing crop with same frameId and name
               const existingIndex = updatedCrops.findIndex(
                 (crop) =>
-                  crop.frameId === newCrop.frameId && crop.name === newCrop.name
+                  crop.frameId === newCrop.frameId &&
+                  crop.name === newCrop.name,
               );
 
               if (existingIndex !== -1) {
@@ -669,7 +786,7 @@ export function ManualCropEditor({
             if (existingLayoutCrop) {
               // Find existing crop with same frameId and name
               const existingIndex = existingLayoutCrop.crops.findIndex(
-                (c) => c.frameId === crop.frameId && c.name === crop.name
+                (c) => c.frameId === crop.frameId && c.name === crop.name,
               );
 
               if (existingIndex !== -1) {
@@ -694,7 +811,7 @@ export function ManualCropEditor({
         return newMap;
       });
     },
-    [layoutCrops, raiseError]
+    [layoutCrops, raiseError],
   );
 
   // Copy selected crops to all child layouts
@@ -707,11 +824,11 @@ export function ManualCropEditor({
             (layouts) => {
               const childLayoutIds = getAllChildLayoutIds(
                 sourceLayoutId,
-                layouts
+                layouts,
               );
               if (childLayoutIds.length === 0) {
                 return Result.error(
-                  new Error("No child layouts found for this layout")
+                  new Error("No child layouts found for this layout"),
                 );
               }
 
@@ -724,17 +841,17 @@ export function ManualCropEditor({
               // Copy crops to all child layouts
               copyCropsToLayers(childLayoutIds, selectedCrops);
             },
-            (error) => raiseError(error)
+            (error) => raiseError(error),
           );
       } catch (error) {
         raiseError(
           error instanceof Error
             ? error
-            : new Error("Failed to copy crops to child layouts")
+            : new Error("Failed to copy crops to child layouts"),
         );
       }
     },
-    [getAllChildLayoutIds, getCheckedCropsForLayout, copyCropsToLayers]
+    [getAllChildLayoutIds, getCheckedCropsForLayout, copyCropsToLayers],
   );
 
   const addCopyOfCrop = useCallback(
@@ -759,7 +876,7 @@ export function ManualCropEditor({
           // Find existing crop with same frameId and name
           const existingIndex = updatedCrops.findIndex(
             (crop) =>
-              crop.frameId === newCrop.frameId && crop.name === newCrop.name
+              crop.frameId === newCrop.frameId && crop.name === newCrop.name,
           );
 
           if (existingIndex !== -1) {
@@ -788,7 +905,7 @@ export function ManualCropEditor({
           // Find existing crop with same frameId and name
           const existingIndex = existingLayoutCrop.crops.findIndex(
             (crop) =>
-              crop.frameId === newCrop.frameId && crop.name === newCrop.name
+              crop.frameId === newCrop.frameId && crop.name === newCrop.name,
           );
 
           if (existingIndex !== -1) {
@@ -806,7 +923,7 @@ export function ManualCropEditor({
         return newMap;
       });
     },
-    [currentLayoutIdForCopy, layoutCrops]
+    [currentLayoutIdForCopy, layoutCrops],
   );
 
   const addCopyOfCropForReplace = useCallback(
@@ -831,7 +948,7 @@ export function ManualCropEditor({
           // Find existing crop with same frameId and name
           const existingIndex = updatedCrops.findIndex(
             (crop) =>
-              crop.frameId === newCrop.frameId && crop.name === newCrop.name
+              crop.frameId === newCrop.frameId && crop.name === newCrop.name,
           );
 
           if (existingIndex !== -1) {
@@ -860,7 +977,7 @@ export function ManualCropEditor({
           // Find existing crop with same frameId and name
           const existingIndex = existingLayoutCrop.crops.findIndex(
             (crop) =>
-              crop.frameId === newCrop.frameId && crop.name === newCrop.name
+              crop.frameId === newCrop.frameId && crop.name === newCrop.name,
           );
 
           if (existingIndex !== -1) {
@@ -878,7 +995,7 @@ export function ManualCropEditor({
         return newMap;
       });
     },
-    [currentLayoutIdForReplace, layoutCrops]
+    [currentLayoutIdForReplace, layoutCrops],
   );
 
   const saveCropChanges = async () => {
@@ -893,7 +1010,7 @@ export function ManualCropEditor({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         setSaveState("error");
         setSaveMessage("Error saving changes...");
@@ -907,8 +1024,8 @@ export function ManualCropEditor({
         raiseError(
           new Error(
             "Failed to get original document state: " +
-              originalDocStateResult.error?.message
-          )
+              originalDocStateResult.error?.message,
+          ),
         );
         setSaveState("error");
         setSaveMessage("Error saving changes...");
@@ -950,7 +1067,7 @@ export function ManualCropEditor({
           const layoutCrop = layoutCrops.get(layoutId);
           if (!layoutCrop) {
             raiseError(
-              new Error(`Layout crops not found for layout ${layoutId}`)
+              new Error(`Layout crops not found for layout ${layoutId}`),
             );
             return;
           }
@@ -961,8 +1078,8 @@ export function ManualCropEditor({
             if (!crop) {
               raiseError(
                 new Error(
-                  `Crop at index ${cropIndex} not found in layout ${layoutId}`
-                )
+                  `Crop at index ${cropIndex} not found in layout ${layoutId}`,
+                ),
               );
               return;
             }
@@ -972,14 +1089,14 @@ export function ManualCropEditor({
               layoutId,
               selectedConnectorId,
               crop.frameId,
-              crop.name
+              crop.name,
             );
 
             if (result.isError()) {
               raiseError(
                 new Error(
-                  `Failed to delete manual crop ${crop.name} in frame ${crop.frameId}: ${result.error?.message}`
-                )
+                  `Failed to delete manual crop ${crop.name} in frame ${crop.frameId}: ${result.error?.message}`,
+                ),
               );
               // Error occurred, revert changes
               setSaveState("error");
@@ -988,7 +1105,7 @@ export function ManualCropEditor({
               if (originalDocumentState) {
                 const revertResult = await loadDocumentFromJsonStr(
                   studio,
-                  JSON.stringify(originalDocumentState)
+                  JSON.stringify(originalDocumentState),
                 );
                 if (revertResult.isError()) {
                   raiseError(new Error("Failed to revert changes after error"));
@@ -1033,12 +1150,12 @@ export function ManualCropEditor({
           currentDocumentState,
           layoutId,
           selectedConnectorId,
-          manualCrops
+          manualCrops,
         );
 
         if (result.isError()) {
           raiseError(
-            new Error("Failed to set manual crops: " + result.error?.message)
+            new Error("Failed to set manual crops: " + result.error?.message),
           );
           // Error occurred, revert changes
           setSaveState("error");
@@ -1047,7 +1164,7 @@ export function ManualCropEditor({
           if (originalDocumentState) {
             const revertResult = await loadDocumentFromJsonStr(
               studio,
-              JSON.stringify(originalDocumentState)
+              JSON.stringify(originalDocumentState),
             );
             if (revertResult.isError()) {
               raiseError(new Error("Failed to revert changes after error"));
@@ -1063,13 +1180,14 @@ export function ManualCropEditor({
       // Apply the final document state to the studio
       const finalResult = await loadDocumentFromJsonStr(
         studio,
-        JSON.stringify(currentDocumentState)
+        JSON.stringify(currentDocumentState),
       );
       if (finalResult.isError()) {
         raiseError(
           new Error(
-            "Failed to load final document state: " + finalResult.error?.message
-          )
+            "Failed to load final document state: " +
+              finalResult.error?.message,
+          ),
         );
         // Error occurred, revert changes
         setSaveState("error");
@@ -1078,7 +1196,7 @@ export function ManualCropEditor({
         if (originalDocumentState) {
           const revertResult = await loadDocumentFromJsonStr(
             studio,
-            JSON.stringify(originalDocumentState)
+            JSON.stringify(originalDocumentState),
           );
           if (revertResult.isError()) {
             raiseError(new Error("Failed to revert changes after error"));
@@ -1100,7 +1218,7 @@ export function ManualCropEditor({
       raiseError(
         error instanceof Error
           ? error
-          : new Error("Failed to save crop changes")
+          : new Error("Failed to save crop changes"),
       );
       // Error occurred, try to revert changes
       setSaveState("error");
@@ -1112,7 +1230,7 @@ export function ManualCropEditor({
           if (studioResult.isOk()) {
             await loadDocumentFromJsonStr(
               studioResult.value,
-              JSON.stringify(originalDocumentState)
+              JSON.stringify(originalDocumentState),
             );
           }
         } catch (revertError) {
@@ -1130,6 +1248,9 @@ export function ManualCropEditor({
   };
 
   const handleCloseClick = () => {
+    // Exit copy mode when closing
+    handleCancelCopy();
+
     // Close the modal if callback is provided
     if (onModalClose) {
       onModalClose();
@@ -1139,6 +1260,15 @@ export function ManualCropEditor({
       setSaveMessage("");
     }
   };
+
+  // Cleanup copy mode when component unmounts
+  useEffect(() => {
+    return () => {
+      if (isCopyMode) {
+        appStore.getState().enableToolbar();
+      }
+    };
+  }, [isCopyMode]);
 
   // Show spinner during saving, error, or success states
   if (saveState !== "idle") {
@@ -1182,6 +1312,27 @@ export function ManualCropEditor({
         style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}
       >
         <Group justify="flex-end" align="center">
+          {isCopyMode && (
+            <>
+              <Button
+                onClick={handleCancelCopy}
+                color="gray"
+                size="sm"
+                leftSection={<IconX size={16} />}
+              >
+                Cancel Paste
+              </Button>
+              <Button
+                onClick={handlePasteFromClipboard}
+                disabled={!isPasteEnabled}
+                color="blue"
+                size="sm"
+                leftSection={<IconClipboardFilled size={16} />}
+              >
+                Paste from clipboard
+              </Button>
+            </>
+          )}
           <Button
             onClick={saveCropChanges}
             disabled={changedRows.size === 0}
@@ -1212,7 +1363,7 @@ export function ManualCropEditor({
             <Stack gap="lg">
               {Array.from(layoutCrops.values()).map((layoutCrop) => {
                 const checkedSnapshotsCount = getCheckedSnapshotsCountForLayout(
-                  layoutCrop.layoutId
+                  layoutCrop.layoutId,
                 );
                 return (
                   <Paper key={layoutCrop.layoutId} p="md" withBorder>
@@ -1232,11 +1383,47 @@ export function ManualCropEditor({
                                 onClick={() =>
                                   deleteCheckedSnapshots(layoutCrop.layoutId)
                                 }
-                                disabled={!selectedConnectorId}
+                                disabled={isCopyMode || !selectedConnectorId}
                               >
                                 <IconTrash size={16} />
                               </ActionIcon>
                             </Tooltip>
+                            {checkedSnapshotsCount === 1 && !isCopyMode && (
+                              <Tooltip
+                                label="Copy crop to clipboard"
+                                position="top"
+                                withArrow
+                              >
+                                <ActionIcon
+                                  color="blue"
+                                  variant="filled"
+                                  onClick={() => {
+                                    const checkedRowKeys = Array.from(
+                                      checkedRows,
+                                    ).filter((rowKey) =>
+                                      rowKey.startsWith(
+                                        `${layoutCrop.layoutId}-`,
+                                      ),
+                                    );
+                                    if (checkedRowKeys.length === 1) {
+                                      const [, cropIndexStr] =
+                                        checkedRowKeys[0].split("-");
+                                      const cropIndex = parseInt(
+                                        cropIndexStr,
+                                        10,
+                                      );
+                                      handleCopyToClipboard(
+                                        layoutCrop.layoutId,
+                                        cropIndex,
+                                      );
+                                    }
+                                  }}
+                                  disabled={!selectedConnectorId}
+                                >
+                                  <IconClipboard size={16} />
+                                </ActionIcon>
+                              </Tooltip>
+                            )}
                             <Tooltip
                               label="Copy selected crops to other layouts"
                               position="top"
@@ -1248,7 +1435,7 @@ export function ManualCropEditor({
                                 onClick={() =>
                                   setCopyModalOpened(true, layoutCrop.layoutId)
                                 }
-                                disabled={!selectedConnectorId}
+                                disabled={isCopyMode || !selectedConnectorId}
                               >
                                 <IconCopy size={16} />
                               </ActionIcon>
@@ -1265,10 +1452,10 @@ export function ManualCropEditor({
                                   onClick={() =>
                                     setCopyAndAddRowModalOpened(
                                       true,
-                                      layoutCrop.layoutId
+                                      layoutCrop.layoutId,
                                     )
                                   }
-                                  disabled={!selectedConnectorId}
+                                  disabled={isCopyMode || !selectedConnectorId}
                                 >
                                   <IconCopyPlus size={16} />
                                 </ActionIcon>
@@ -1285,10 +1472,10 @@ export function ManualCropEditor({
                                 onClick={() =>
                                   setCopyAndReplaceModalOpened(
                                     true,
-                                    layoutCrop.layoutId
+                                    layoutCrop.layoutId,
                                   )
                                 }
-                                disabled={!selectedConnectorId}
+                                disabled={isCopyMode || !selectedConnectorId}
                               >
                                 <IconReplace size={16} />
                               </ActionIcon>
@@ -1304,7 +1491,7 @@ export function ManualCropEditor({
                                 onClick={() =>
                                   deselectAllRows(layoutCrop.layoutId)
                                 }
-                                disabled={!selectedConnectorId}
+                                disabled={isCopyMode || !selectedConnectorId}
                               >
                                 <IconDeselect size={16} />
                               </ActionIcon>
@@ -1319,10 +1506,10 @@ export function ManualCropEditor({
                                 variant="filled"
                                 onClick={() =>
                                   copySelectedCropsToChildren(
-                                    layoutCrop.layoutId
+                                    layoutCrop.layoutId,
                                   )
                                 }
-                                disabled={!selectedConnectorId}
+                                disabled={isCopyMode || !selectedConnectorId}
                               >
                                 <IconArrowAutofitDown size={16} />
                               </ActionIcon>
@@ -1351,18 +1538,18 @@ export function ManualCropEditor({
                                   <Checkbox
                                     checked={
                                       getLayoutCheckboxState(
-                                        layoutCrop.layoutId
+                                        layoutCrop.layoutId,
                                       ) === "checked"
                                     }
                                     indeterminate={
                                       getLayoutCheckboxState(
-                                        layoutCrop.layoutId
+                                        layoutCrop.layoutId,
                                       ) === "indeterminate"
                                     }
                                     onChange={(event) =>
                                       handleLayoutCheckboxChange(
                                         layoutCrop.layoutId,
-                                        event.currentTarget.checked
+                                        event.currentTarget.checked,
                                       )
                                     }
                                     disabled={!selectedConnectorId}
@@ -1386,16 +1573,24 @@ export function ManualCropEditor({
                               changedRow &&
                               "cropIndex" in changedRow &&
                               !("frameId" in changedRow);
+
+                            // Use modified crop data if available, otherwise use original
+                            const finalCrop =
+                              changedRow && "frameId" in changedRow
+                                ? changedRow
+                                : crop;
+
                             return (
                               <CropRow
                                 key={`${crop.frameId}-${crop.name}`}
-                                crop={crop}
+                                crop={finalCrop}
                                 layoutId={layoutCrop.layoutId}
                                 cropIndex={index}
                                 onCropChange={handleCropChange}
                                 isChecked={checkedRows.has(rowKey)}
                                 onCheckChange={handleCheckChange}
                                 isDeleted={!!isDeleted}
+                                isCopySource={copySourceRowKey === rowKey}
                               />
                             );
                           })}
