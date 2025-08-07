@@ -389,7 +389,7 @@ export async function saveImageSizingMappingToAction(
 
 export async function saveLayoutSizingToAction(on: boolean) {
   if (on) {
-    const layoutSizingMapResult = await layoutManagerToLookup(window.SDK);
+    const layoutSizingMapResult = await layoutManagerToLookup(window.SDK, true);
 
     if (
       layoutSizingMapResult.isError() ||

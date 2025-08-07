@@ -1,5 +1,5 @@
 export function layoutSizingScript(debug = false) {
-  const version = "3";
+  const version = "4";
   let debugObj = {};
   const selectedLayoutName = getSelectedLayoutName();
   try{
@@ -7,7 +7,7 @@ export function layoutSizingScript(debug = false) {
       if (selectedLayoutName == null) {
         return;
       }
-      const { width, height, aspectRatio: layoutRatio } = data[selectedLayoutName];
+      const { width, height, aspectRatio: layoutRatio, sizing } = data[selectedLayoutName];
       if (debug) {
         debugObj = JSON.parse(JSON.stringify({
           selectedLayoutName,
@@ -21,8 +21,8 @@ export function layoutSizingScript(debug = false) {
         const originalAspectRatio = layoutRatio;
         const minAllowedRatio = originalAspectRatio * 0.8;
         const maxAllowedRatio = originalAspectRatio * 1.2;
-        const pageWidth = getPageWidth();
-        const pageHeight = getPageHeight();
+        let pageWidth = getPageWidth();
+        let pageHeight = getPageHeight();
         const currentAspectRatio = pageWidth / pageHeight;
         if (debug) {
           debugObj = {
@@ -44,6 +44,20 @@ export function layoutSizingScript(debug = false) {
           if (Math.round(width) == Math.round(pageWidth)) {
             // Width was changed by user, so we adjust width to maintain ratio
             let newWidth = pageHeight * targetRatio;
+
+            if (newWidth > sizing.maxWidth) {
+              newWidth = sizing.maxWidth;
+              pageHeight = newWidth / targetRatio;
+
+            }
+
+            if (newWidth < sizing.minWidth) {
+              newWidth = sizing.minWidth;
+              pageHeight = newWidth / targetRatio;
+            }
+
+
+
             data[selectedLayoutName].width = newWidth;
             data[selectedLayoutName].height = pageHeight;
             setPageSize(newWidth, pageHeight);
@@ -51,6 +65,17 @@ export function layoutSizingScript(debug = false) {
           else if (Math.round(height) == Math.round(pageHeight)) {
             // Height was changed by user, so we adjust height to maintain ratio
             let newHeight = pageWidth / targetRatio;
+
+            if (newHeight > sizing.maxHeight) {
+              newHeight = sizing.maxHeight;
+              pageWidth = newHeight * targetRatio;
+            }
+
+            if (newHeight < sizing.minHeight) {
+              newHeight = sizing.minHeight;
+              pageWidth = newHeight * targetRatio;
+            }
+
             data[selectedLayoutName].height = newHeight;
             data[selectedLayoutName].width = pageWidth;
             setPageSize(pageWidth, newHeight);
