@@ -14,7 +14,7 @@ export type VariableBase = {
 };
 
 export type TextImageVariable = VariableBase & {
-  type: "image" | "shortText";
+  type: "image" | "shortText" | "longText";
   value: string;
 };
 

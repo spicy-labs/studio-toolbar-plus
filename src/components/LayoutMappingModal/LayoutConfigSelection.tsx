@@ -12,8 +12,8 @@ import { useState } from "react";
 import type { LayoutMap } from "../../types/layoutConfigTypes";
 import { LayoutMultiSelect } from "./LayoutMultiSelect";
 import { VariableCard } from "./VariableCard";
+import { EditableTitle } from "./EditableTitle";
 import {
-  IconSettings,
   IconCaretDownFilled,
   IconPlus,
   IconCopy,
@@ -34,29 +34,46 @@ export const LayoutConfigSection: React.FC<LayoutConfigSectionProps> = ({
   index,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [menuOpened, setMenuOpened] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const addLayoutMapFromCopy = appStore(
-    (store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy,
+    (store) => store.effects.studio.layoutImageMapping.addLayoutMapFromCopy
   );
   const setIsImageVariableMappingModalOpen = appStore(
-    (store) => store.effects.modal.setIsImageVariableMappingModalOpen,
+    (store) => store.effects.modal.setIsTargetVariableMappingModalOpen
   );
   const setCurrentSelectedMapId = appStore(
-    (store) => store.effects.modal.setCurrentSelectedMapId,
+    (store) => store.effects.modal.setCurrentSelectedMapId
   );
   const setCurrentAddImageMappingSelectedVariables = appStore(
-    (store) => store.effects.modal.setCurrentAddImageMappingSelectedVariables,
+    (store) => store.effects.modal.setCurrentAddImageMappingSelectedVariables
   );
   const deleteLayoutMap = appStore(
-    (store) => store.effects.studio.layoutImageMapping.deleteLayoutMap,
+    (store) => store.effects.studio.layoutImageMapping.deleteLayoutMap
   );
+  const updateLayoutMapName = appStore(
+    (store) => store.effects.studio.layoutImageMapping.updateLayoutMapName
+  );
+
+  // Helper function to get display name with fallback
+  const getDisplayName = () => {
+    return mapConfig.name || `Layout Mapping #${index + 1}`;
+  };
+
+  // Handle name save
+  const handleNameSave = (newName: string) => {
+    updateLayoutMapName({ mapId: mapConfig.id, name: newName });
+  };
 
   return (
     <Paper key={index} p="md">
-      <Group justify="space-between" mb={20} onClick={() => setIsOpen(!isOpen)}>
-        <Title order={3}>Layout Mapping #{index + 1}</Title>
-        <Group>
+      <Group justify="space-between" mb={20}>
+        <EditableTitle
+          value={getDisplayName()}
+          onSave={handleNameSave}
+          order={3}
+          placeholder={`Layout Mapping #${index + 1}`}
+        />
+        <Group onClick={() => setIsOpen(!isOpen)} style={{ cursor: "pointer" }}>
           <Group gap="xs">
             <ActionIcon
               size="lg"

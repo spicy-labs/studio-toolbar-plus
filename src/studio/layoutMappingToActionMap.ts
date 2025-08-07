@@ -1,5 +1,66 @@
 import type { Doc } from "../types/docStateTypes";
-import type { LayoutMap, ImageVariable } from "../types/layoutConfigTypes";
+import type {
+  LayoutMap,
+  TargetVariable,
+  VariableValue,
+  TextareaValueType,
+} from "../types/layoutConfigTypes";
+
+/**
+ * Extracts and concatenates variable values into a string with variable references
+ * @param variableValue Array of string, VariableValue, or TextareaValueType
+ * @param doc Document containing variables for ID lookup
+ * @returns Concatenated string with variable references in ${variableName} format
+ */
+function getValueString(
+  variableValue: (string | VariableValue | TextareaValueType)[],
+  doc: Doc,
+): string {
+  return variableValue
+    .map((varValue) => {
+      if (typeof varValue === "string") {
+        return varValue;
+      }
+      if (varValue.type === "TextareaValue") {
+        return varValue.value;
+      } else if (varValue.id) {
+        // Find the variable in the document by ID
+        const valueVar = doc.variables.find((v) => v.id === varValue.id);
+        if (valueVar) {
+          return `\${${valueVar.name}}`;
+        }
+      }
+      return "";
+    })
+    .join("");
+}
+
+/**
+ * Extracts transform commands from variable values
+ * @param variableValue Array of string, VariableValue, or TextareaValueType
+ * @param doc Document containing variables for ID lookup
+ * @returns Object mapping variable names to their transform commands
+ */
+function getTransforms(
+  variableValue: (string | VariableValue | TextareaValueType)[],
+  doc: Doc,
+): Record<string, any> {
+  return variableValue
+    .filter(
+      (varValue) =>
+        typeof varValue != "string" && varValue.type !== "TextareaValue",
+    )
+    .reduce((obj: Record<string, any>, varValue) => {
+      if (varValue.id) {
+        // Find the variable in the document by ID
+        const valueVar = doc.variables.find((v) => v.id === varValue.id);
+        if (valueVar) {
+          obj[valueVar.name] = varValue.transform;
+        }
+      }
+      return obj;
+    }, {});
+}
 
 export function layoutMappingToActionMap(layoutMaps: LayoutMap[], doc: Doc) {
   const actionMap: Record<string, Record<string, any>> = {};
@@ -21,15 +82,32 @@ export function layoutMappingToActionMap(layoutMaps: LayoutMap[], doc: Doc) {
         }
 
         // Process each image variable in the layout map
-        layoutMap.variables.forEach((imageVar: ImageVariable) => {
+        layoutMap.variables.forEach((targetVar: TargetVariable) => {
           // Find the corresponding variable in the document
-          const docVariable = doc.variables.find((v) => v.id === imageVar.id);
+          const docVariable = doc.variables.find((v) => v.id === targetVar.id);
 
           if (docVariable) {
             actionMap[layoutName][docVariable.name] = {};
 
             // Process each dependent group for this image variable
-            imageVar.dependentGroup.forEach((group) => {
+            targetVar.dependentGroup.forEach((group) => {
+              if (group.alwaysRun) {
+                const dependentKey = "_always_run";
+                actionMap[layoutName][docVariable.name][dependentKey] = {};
+
+                 // Set the value property
+                actionMap[layoutName][docVariable.name][dependentKey].value = getValueString(
+                  group.variableValue,
+                  doc,
+                );
+
+                actionMap[layoutName][docVariable.name][dependentKey].transforms = getTransforms(
+                  group.variableValue,
+                  doc,
+                );
+                return;
+              }
+
               // Get the names of all dependent variables
               const dependentNames: string[] = [];
 
@@ -111,39 +189,9 @@ export function layoutMappingToActionMap(layoutMaps: LayoutMap[], doc: Doc) {
                 }
 
                 // Process the variable values to create the concatenated string
-                const valueString = group.variableValue
-                  .map((varValue) => {
-                    if (typeof varValue === "string") {
-                      return varValue;
-                    } else if (varValue.id) {
-                      // Find the variable in the document by ID
-                      const valueVar = doc.variables.find(
-                        (v) => v.id === varValue.id,
-                      );
-                      if (valueVar) {
-                        return `\${${valueVar.name}}`;
-                      }
-                    }
-                    return "";
-                  })
-                  .join("");
+                const valueString = getValueString(group.variableValue, doc);
 
-                console.log("VALUES", group.variableValue);
-
-                const transforms = group.variableValue
-                  .filter((varValue) => typeof varValue != "string")
-                  .reduce((obj: Record<string, any>, varValue) => {
-                    if (varValue.id) {
-                      // Find the variable in the document by ID
-                      const valueVar = doc.variables.find(
-                        (v) => v.id === varValue.id,
-                      );
-                      if (valueVar) {
-                        obj[valueVar.name] = varValue.transform;
-                      }
-                    }
-                    return obj;
-                  }, {});
+                const transforms = getTransforms(group.variableValue, doc);
 
                 // Set the value property
                 actionMap[layoutName][docVariable.name][dependentKey][

@@ -8,13 +8,18 @@ import {
   Text,
   Button,
   Select,
+  Switch,
 } from "@mantine/core";
 import { IconChevronLeft, IconChevronRight, IconX } from "@tabler/icons-react";
 import { LayoutViewer } from "./LayoutViewer";
 import { ManualCropEditor } from "./ManualCropEditor";
 import { appStore } from "../../modalStore";
 import { getStudio, getCurrentConnectors } from "../../studio/studioAdapter";
-import type { DocumentConnectorWithUsage } from "../../types/connectorTypes";
+import type {
+  Connector,
+  DocumentConnectorWithUsage,
+} from "../../types/connectorTypes";
+import { getMediaConnectorsAPI } from "../../utils/getMediaConnectorsAPI";
 
 interface ManualCropManagerModalProps {
   opened: boolean;
@@ -30,12 +35,16 @@ export function ManualCropManagerModal({
   const [selectedLayoutIds, setSelectedLayoutIds] = useState<string[]>([]);
   const [selectedConnectorId, setSelectedConnectorId] = useState<string>("");
   const [isResizing, setIsResizing] = useState(false);
-  const [connectors, setConnectors] = useState<DocumentConnectorWithUsage[]>(
+  const [documentConnectors, setDocumentConnectors] = useState<
+    DocumentConnectorWithUsage[]
+  >([]);
+  const [availableConnectors, setAvailableConnectors] = useState<Connector[]>(
     [],
   );
   const [layoutViewerRefresh, setLayoutViewerRefresh] = useState<
     (() => void) | null
   >(null);
+  const [showDisabled, setShowDisabled] = useState(false);
 
   const enableToolbar = appStore((state) => state.enableToolbar);
   const disableToolbar = appStore((state) => state.disableToolbar);
@@ -52,19 +61,51 @@ export function ManualCropManagerModal({
         return;
       }
       const studio = studioResult.value;
-      const connectorsResult = await getCurrentConnectors(studio);
 
-      if (!connectorsResult.isOk()) {
+      // Get token and baseUrl from configuration
+      const token = (await studio.configuration.getValue("GRAFX_AUTH_TOKEN"))
+        .parsedData as string;
+      const baseUrl = (await studio.configuration.getValue("ENVIRONMENT_API"))
+        .parsedData as string;
+
+      if (!token || !baseUrl) {
+        raiseError(new Error("Failed to get authentication token or base URL"));
+        return;
+      }
+
+      const availableConnectorsResult = await getMediaConnectorsAPI(
+        baseUrl,
+        token,
+      );
+
+      if (!availableConnectorsResult.isOk()) {
         raiseError(
           new Error(
-            "Failed to load connectors: " + connectorsResult.error?.message,
+            "Failed to fetch available connectors: " +
+              availableConnectorsResult.error?.message,
           ),
         );
         return;
       }
 
-      const connectorsData = connectorsResult.value;
-      setConnectors(connectorsData);
+      const documentConnectorsResult = await getCurrentConnectors(studio);
+
+      if (!documentConnectorsResult.isOk()) {
+        raiseError(
+          new Error(
+            "Failed to load connectors: " +
+              documentConnectorsResult.error?.message,
+          ),
+        );
+        return;
+      }
+
+      const availableConnectors = availableConnectorsResult.value.data.filter(
+        (connector) => connector.type === "media",
+      );
+      const documentConnectors = documentConnectorsResult.value;
+      setDocumentConnectors(documentConnectors);
+      setAvailableConnectors(availableConnectors);
 
       // Load selected connector from sessionStorage or auto-select first connector
       const storedConnectorId = sessionStorage.getItem(
@@ -73,13 +114,13 @@ export function ManualCropManagerModal({
 
       if (
         storedConnectorId &&
-        connectorsData.some((c) => c.id === storedConnectorId)
+        availableConnectors.some((c) => c.id === storedConnectorId)
       ) {
         // Use stored connector if it exists in the current connectors
         setSelectedConnectorId(storedConnectorId);
-      } else if (!selectedConnectorId && connectorsData.length > 0) {
+      } else if (!selectedConnectorId && availableConnectors.length > 0) {
         // Auto-select first connector if none selected and no valid stored connector
-        const firstConnectorId = connectorsData[0].id;
+        const firstConnectorId = availableConnectors[0].id;
         setSelectedConnectorId(firstConnectorId);
         sessionStorage.setItem(
           "tempManualCropManager_selectedConnectorId",
@@ -188,6 +229,26 @@ export function ManualCropManagerModal({
     [],
   );
 
+  // Filter connectors based on showDisabled toggle
+  const filteredConnectors = showDisabled
+    ? availableConnectors
+    : availableConnectors.filter((connector) => connector.enabled);
+
+  // Handle case where selected connector becomes unavailable when toggle changes
+  useEffect(() => {
+    if (selectedConnectorId && filteredConnectors.length > 0) {
+      const isSelectedConnectorAvailable = filteredConnectors.some(
+        (connector) => connector.id === selectedConnectorId,
+      );
+
+      if (!isSelectedConnectorAvailable) {
+        // Clear the selection if the currently selected connector is not in the filtered list
+        setSelectedConnectorId("");
+        sessionStorage.removeItem("tempManualCropManager_selectedConnectorId");
+      }
+    }
+  }, [selectedConnectorId, filteredConnectors]);
+
   const handleCropsSaved = useCallback(async () => {
     // Refresh the layout viewer crop indicators when crops are saved
     if (layoutViewerRefresh) {
@@ -252,25 +313,22 @@ export function ManualCropManagerModal({
               Manual Crop Manager
             </Text>
             <Group gap="md" align="center">
+              <Switch
+                label="Show Disabled"
+                checked={showDisabled}
+                onChange={(event) =>
+                  setShowDisabled(event.currentTarget.checked)
+                }
+                size="sm"
+              />
               <Text size="sm" fw={500}>
                 Show crops for connector:
               </Text>
               <Select
                 placeholder="Select connector"
-                data={connectors.map((connector) => ({
+                data={filteredConnectors.map((connector) => ({
                   value: connector.id,
-                  label:
-                    connector.name +
-                    " (" +
-                    connector.usesInTemplate.images.reduce(
-                      (acc, image) => acc + `SFrame:${image.name}, `,
-                      "",
-                    ) +
-                    connector.usesInTemplate.variables.reduce(
-                      (acc, variable) => acc + `Var:${variable.name}, `,
-                      "",
-                    ) +
-                    ")",
+                  label: connector.name,
                 }))}
                 value={selectedConnectorId}
                 onChange={handleConnectorChange}

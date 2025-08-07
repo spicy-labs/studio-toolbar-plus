@@ -2,7 +2,10 @@ import { Modal, Stack, MultiSelect, Group, Button } from "@mantine/core";
 import type React from "react";
 import { appStore } from "../../modalStore";
 import { useMemo } from "react";
-import type { LayoutMap } from "../../types/layoutConfigTypes";
+import {
+  convertDocVariableToLayoutVariable,
+  type LayoutMap,
+} from "../../types/layoutConfigTypes";
 
 interface AddMappingImageVariableModalProps {
   currentMapConfig: LayoutMap | null;
@@ -13,14 +16,15 @@ export const AddMappingImageVariableModal: React.FC<
 > = ({ currentMapConfig }) => {
   // Modal effects
   const setIsImageVariableMappingModalOpen = appStore(
-    (state) => state.effects.modal.setIsImageVariableMappingModalOpen,
+    (state) => state.effects.modal.setIsTargetVariableMappingModalOpen,
   );
   const setCurrentAddImageMappingSelectedVariables = appStore(
     (state) => state.effects.modal.setCurrentAddImageMappingSelectedVariables,
   );
-  const addImageVariable = appStore(
-    (state) => state.effects.studio.layoutImageMapping.addImageVariable,
+  const addVariable = appStore(
+    (state) => state.effects.studio.layoutImageMapping.addTargetVariable,
   );
+  const raiseError = appStore((state) => state.raiseError);
   const variables = appStore((state) => state.state.studio.document.variables);
   const currentSelectedMapId = appStore(
     (state) => state.state.modal.currentSelectedMapId,
@@ -29,16 +33,21 @@ export const AddMappingImageVariableModal: React.FC<
     (state) => state.state.modal.currentAddImageMappingSelectedVariables,
   );
   const isAddImageVariableMappingModalOpen = appStore(
-    (state) => state.state.modal.isAddImageVariableMappingModalOpen,
+    (state) => state.state.modal.isAddTargetVariableMappingModalOpen,
   );
 
   const possibleVariableValues = useMemo(() => {
     // Get all image variables
     const allImageVariables = variables
-      .filter((variable) => variable.type === "image")
+      .filter(
+        (variable) =>
+          variable.type === "image" ||
+          variable.type === "shortText" ||
+          variable.type === "longText",
+      )
       .map((variable) => ({
         value: variable.id,
-        label: variable.name,
+        label: variable.name + " (" + variable.type + ")",
         // Disable if the variable is already in the current map config
         disabled:
           currentMapConfig?.variables.some((v) => v.id === variable.id) ||
@@ -59,10 +68,23 @@ export const AddMappingImageVariableModal: React.FC<
     if (mapId == null) return;
 
     currentAddImageMappingSelectedVariables.forEach((variableId) => {
-      addImageVariable({
+      const variable = variables.find((v) => v.id === variableId);
+      if (!variable) {
+        raiseError(new Error(`Variable with id ${variableId} is not found`));
+        return;
+      }
+      const variableTypeResult = convertDocVariableToLayoutVariable(variable);
+
+      if (!variableTypeResult.isOk()) {
+        raiseError(new Error(variableTypeResult.error));
+        return;
+      }
+
+      addVariable({
         mapId: mapId,
-        imageVariable: {
+        targetVariable: {
           id: variableId,
+          type: variableTypeResult.value,
           dependentGroup: [],
         },
       });

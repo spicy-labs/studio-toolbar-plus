@@ -27,7 +27,7 @@ import {
 import { IconPlus } from "@tabler/icons-react";
 import { AddMappingImageVariableModal } from "./AddMappingImageVariableModal";
 import { AddDependentModal } from "./AddDependentModal";
-import { SwapImageVariableModal } from "./SwapImageVariableModal";
+import { SwapTargetVariableModal } from "./SwapImageVariableModal";
 import { LayoutConfigSection } from "./LayoutConfigSelection";
 import { Result } from "typescript-result";
 
@@ -49,20 +49,20 @@ export const LayoutImageMappingModal: React.FC<
   const document = appStore((state) => state.state.studio.document);
   const variables = appStore((state) => state.state.studio.document.variables);
   const isLayoutConfigLoaded = appStore(
-    (state) => state.state.studio.isLayoutConfigLoaded,
+    (state) => state.state.studio.isLayoutConfigLoaded
   );
   const isDocumentLoaded = appStore(
-    (state) => state.state.studio.isDocumentLoaded,
+    (state) => state.state.studio.isDocumentLoaded
   );
   const isModalVisible = appStore((state) => state.state.modal.isModalVisible);
   const layoutImageMapping = appStore(
-    (state) => state.state.studio.layoutImageMapping,
+    (state) => state.state.studio.layoutImageMapping
   );
   const currentSelectedMapId = appStore(
-    (state) => state.state.modal.currentSelectedMapId,
+    (state) => state.state.modal.currentSelectedMapId
   );
-  const currentSwapImageVariableId = appStore(
-    (state) => state.state.modal.currentSwapImageVariableId,
+  const currentSwapTargetVariableId = appStore(
+    (state) => state.state.modal.currentSwapTargetVariableId
   );
   const [validationReport, setValidationReport] =
     useState<ValidationReport | null>(null);
@@ -80,6 +80,20 @@ export const LayoutImageMappingModal: React.FC<
       label: variable.name,
     }));
   }, [imageVariables]);
+
+  // Helper function to migrate layout maps for backward compatibility
+  const migrateLayoutMaps = (layoutMaps: LayoutMap[]): LayoutMap[] => {
+    return layoutMaps.map((layoutMap, index) => {
+      // If layout map doesn't have a name, assign a default one
+      if (!layoutMap.name) {
+        return {
+          ...layoutMap,
+          name: `Layout Mapping #${index + 1}`,
+        };
+      }
+      return layoutMap;
+    });
+  };
 
   // Load config when component mounts if it"s not loaded yet
   useEffect(() => {
@@ -103,17 +117,17 @@ export const LayoutImageMappingModal: React.FC<
               // Validate the layout mapping against the document
               const { cleanLayoutMap, report } = layoutMappingValidation(
                 config,
-                doc,
+                doc
               );
 
               // Combine the reports
               combinedReport.removedLayoutIds.push(...report.removedLayoutIds);
               combinedReport.removedVariables.push(...report.removedVariables);
               combinedReport.removedDependents.push(
-                ...report.removedDependents,
+                ...report.removedDependents
               );
               combinedReport.removedVariableValues.push(
-                ...report.removedVariableValues,
+                ...report.removedVariableValues
               );
 
               return cleanLayoutMap;
@@ -131,11 +145,14 @@ export const LayoutImageMappingModal: React.FC<
               setValidationReport(combinedReport);
               setIsValidationModalOpen(true);
 
-              // Load the cleaned config
-              events.studio.layoutImageMapping.load(cleanedConfigArray);
+              // Migrate and load the cleaned config
+              const migratedCleanedConfig =
+                migrateLayoutMaps(cleanedConfigArray);
+              events.studio.layoutImageMapping.load(migratedCleanedConfig);
             } else {
-              // No validation issues, load the original config
-              events.studio.layoutImageMapping.load(layoutMapArray);
+              // No validation issues, migrate and load the original config
+              const migratedOriginalConfig = migrateLayoutMaps(layoutMapArray);
+              events.studio.layoutImageMapping.load(migratedOriginalConfig);
             }
 
             events.studio.document.load(doc);
@@ -272,24 +289,24 @@ export const LayoutImageMappingModal: React.FC<
       <AddMappingImageVariableModal
         currentMapConfig={
           layoutImageMapping.find(
-            (config) => config.id === currentSelectedMapId,
+            (config) => config.id === currentSelectedMapId
           ) || null
         }
       />
 
       <AddDependentModal />
 
-      <SwapImageVariableModal
+      <SwapTargetVariableModal
         currentMapConfig={
           layoutImageMapping.find(
-            (config) => config.id === currentSelectedMapId,
+            (config) => config.id === currentSelectedMapId
           ) || null
         }
         currentImageVariable={
-          currentSelectedMapId && currentSwapImageVariableId
+          currentSelectedMapId && currentSwapTargetVariableId
             ? layoutImageMapping
                 .find((config) => config.id === currentSelectedMapId)
-                ?.variables.find((v) => v.id === currentSwapImageVariableId) ||
+                ?.variables.find((v) => v.id === currentSwapTargetVariableId) ||
               null
             : null
         }
@@ -360,7 +377,7 @@ export const LayoutImageMappingModal: React.FC<
                           {item.imageVariableId}, Group:{" "}
                           {item.dependentGroupIndex})
                         </List.Item>
-                      ),
+                      )
                     )}
                   </List>
                 </Stack>

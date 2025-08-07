@@ -2,23 +2,27 @@
 const currentVersion = chrome.runtime.getManifest().version;
 
 // Break currentVersion down into major, minor, patch
-const [currentMajor, currntMinor, currentPatch] = currentVersion.split(".").map(Number);
+const [currentMajor, currntMinor, currentPatch] = currentVersion
+  .split(".")
+  .map(Number);
 
 // Create a function to fetch the GitHub version
 async function checkForUpdates() {
   try {
     // Check if we've already notified about this version
     const lastNotifiedVersion = localStorage.getItem(
-      "toolbarplus_last_notified_version",
+      "toolbarplus_last_notified_version"
     );
 
     // Fetch the package.json from GitHub's main branch
     const response = await fetch(
-      "https://raw.githubusercontent.com/spicy-labs/studio-toolbar-plus/refs/heads/main/manifest.json",
+      "https://raw.githubusercontent.com/spicy-labs/studio-toolbar-plus/refs/heads/main/manifest.json"
     );
     const packageJson = await response.json();
     const githubVersion = packageJson.version;
-    const [githubMajor, githubMinor, githubPatch] = githubVersion.split(".").map(Number);
+    const [githubMajor, githubMinor, githubPatch] = githubVersion
+      .split(".")
+      .map(Number);
 
     // Compare versions and check if we've already notified
     if (
@@ -26,8 +30,8 @@ async function checkForUpdates() {
       (githubMajor === currentMajor && githubMinor > currntMinor) ||
       (githubMajor === currentMajor &&
         githubMinor === currntMinor &&
-        githubPatch > currentPatch) &&
-      githubVersion !== lastNotifiedVersion
+        githubPatch > currentPatch &&
+        githubVersion !== lastNotifiedVersion)
     ) {
       // Create a hidden div with version information
       const versionDiv = document.createElement("div");
@@ -81,5 +85,40 @@ if (document.readyState === "loading") {
 chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "acknowledge_version") {
     localStorage.setItem("toolbarplus_last_notified_version", message.version);
+  } else if (message.action === "downloadComplete") {
+    // Forward download completion messages to the page
+    window.postMessage(
+      {
+        type: "DOWNLOAD_COMPLETE",
+        data: message.data,
+      },
+      "*"
+    );
+  }
+});
+
+// Listen for messages from the page (React component)
+window.addEventListener("message", (event) => {
+  if (event.source !== window) return;
+
+  if (event.data.type === "START_DOWNLOAD") {
+    // Forward download requests to background script
+    chrome.runtime.sendMessage(
+      {
+        action: "startDownload",
+        data: event.data.data,
+      },
+      (response) => {
+        // Send response back to page
+        window.postMessage(
+          {
+            type: "DOWNLOAD_RESPONSE",
+            requestId: event.data.requestId,
+            response: response,
+          },
+          "*"
+        );
+      }
+    );
   }
 });

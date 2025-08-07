@@ -2,42 +2,53 @@ import { Modal, Stack, Select, Group, Button } from "@mantine/core";
 import type React from "react";
 import { appStore } from "../../modalStore";
 import { useMemo } from "react";
-import type { LayoutMap, ImageVariable } from "../../types/layoutConfigTypes";
+import {
+  convertDocVariableToLayoutVariable,
+  type LayoutMap,
+  type TargetVariable,
+} from "../../types/layoutConfigTypes";
 
-interface SwapImageVariableModalProps {
+interface SwapTargetVariableModalProps {
   currentMapConfig: LayoutMap | null;
-  currentImageVariable: ImageVariable | null;
+  currentImageVariable: TargetVariable | null;
 }
 
-export const SwapImageVariableModal: React.FC<SwapImageVariableModalProps> = ({
-  currentMapConfig,
-  currentImageVariable,
-}) => {
+export const SwapTargetVariableModal: React.FC<
+  SwapTargetVariableModalProps
+> = ({ currentMapConfig, currentImageVariable }) => {
   // Modal effects
-  const setIsSwapImageVariableModalOpen = appStore(
-    (state) => state.effects.modal.setIsSwapImageVariableModalOpen,
+  const setIsSwapTargetVariableModalOpen = appStore(
+    (state) => state.effects.modal.setIsSwapTargetVariableModalOpen,
   );
-  const setCurrentSwapImageVariableSelected = appStore(
-    (state) => state.effects.modal.setCurrentSwapImageVariableSelected,
+  const setCurrentSwapTargetVariableSelected = appStore(
+    (state) => state.effects.modal.setCurrentSwapTargetVariableSelected,
   );
-  const swapImageVariable = appStore(
-    (state) => state.effects.studio.layoutImageMapping.swapImageVariable,
+  const swapTargetVariable = appStore(
+    (state) => state.effects.studio.layoutImageMapping.swapTargetVariable,
   );
   const variables = appStore((state) => state.state.studio.document.variables);
   const currentSelectedMapId = appStore(
     (state) => state.state.modal.currentSelectedMapId,
   );
-  const currentSwapImageVariableSelected = appStore(
-    (state) => state.state.modal.currentSwapImageVariableSelected,
+  const currentSwapTargetVariableSelected = appStore(
+    (state) => state.state.modal.currentSwapTargetVariableSelected,
   );
-  const isSwapImageVariableModalOpen = appStore(
-    (state) => state.state.modal.isSwapImageVariableModalOpen,
+  const isSwapTargetVariableModalOpen = appStore(
+    (state) => state.state.modal.isSwapTargetVariableModalOpen,
   );
+  const raiseError = appStore((state) => state.raiseError);
 
   const possibleVariableValues = useMemo(() => {
+    if (currentImageVariable == null) return [];
+
     // Get all image variables
     const allImageVariables = variables
-      .filter((variable) => variable.type === "image")
+      .filter(
+        (variable) =>
+          convertDocVariableToLayoutVariable(variable).isOk() &&
+          convertDocVariableToLayoutVariable(variable).value ===
+            currentImageVariable.type,
+      )
       .map((variable) => ({
         value: variable.id,
         label: variable.name,
@@ -56,40 +67,45 @@ export const SwapImageVariableModal: React.FC<SwapImageVariableModalProps> = ({
   }, [variables, currentMapConfig, currentImageVariable]);
 
   const onClose = () => {
-    setIsSwapImageVariableModalOpen(false);
-    setCurrentSwapImageVariableSelected("");
+    setIsSwapTargetVariableModalOpen(false);
+    setCurrentSwapTargetVariableSelected("");
   };
 
-  const handleSwapImageVariable = () => {
+  const handleSwapTargetVariable = async () => {
     const mapId = currentSelectedMapId;
-    const newImageVariableId = currentSwapImageVariableSelected;
+    const newImageVariableId = currentSwapTargetVariableSelected;
 
     if (mapId == null || !currentImageVariable || !newImageVariableId) return;
 
-    swapImageVariable({
+    const swapResult = await swapTargetVariable({
       mapId: mapId,
-      oldImageVariableId: currentImageVariable.id,
-      newImageVariableId: newImageVariableId,
+      oldTargetVariableId: currentImageVariable.id,
+      newTargetVariableId: newImageVariableId,
     });
+
+    if (swapResult.isError()) {
+      raiseError(swapResult.error);
+      return;
+    }
 
     onClose();
   };
 
   return (
     <Modal
-      opened={isSwapImageVariableModalOpen}
+      opened={isSwapTargetVariableModalOpen}
       onClose={onClose}
       title="Swap Image Variable"
       centered
     >
       <Stack>
         <Select
-          label="Select Image Variable"
-          placeholder="Choose an image variable to swap with"
+          label={`Select ${currentImageVariable?.type} Variable`}
+          placeholder={`Choose an ${currentImageVariable?.type} variable to swap with`}
           data={possibleVariableValues}
-          value={currentSwapImageVariableSelected}
+          value={currentSwapTargetVariableSelected}
           onChange={(value) =>
-            value && setCurrentSwapImageVariableSelected(value)
+            value && setCurrentSwapTargetVariableSelected(value)
           }
           searchable
         />
@@ -99,8 +115,8 @@ export const SwapImageVariableModal: React.FC<SwapImageVariableModalProps> = ({
             Cancel
           </Button>
           <Button
-            onClick={handleSwapImageVariable}
-            disabled={!currentSwapImageVariableSelected}
+            onClick={handleSwapTargetVariable}
+            disabled={!currentSwapTargetVariableSelected}
           >
             Swap
           </Button>

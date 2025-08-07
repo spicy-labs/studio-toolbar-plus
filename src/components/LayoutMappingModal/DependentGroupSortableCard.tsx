@@ -9,6 +9,7 @@ import {
   Button,
   Checkbox,
   Group,
+  Textarea,
 } from "@mantine/core";
 import {
   IconX,
@@ -17,9 +18,10 @@ import {
   IconPlus,
 } from "@tabler/icons-react";
 import type {
-  Variable,
+  VariableValue,
   StudioList,
   TransformCommands,
+  TextareaValueType,
 } from "../../types/layoutConfigTypes";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -93,12 +95,14 @@ const TransformCommandCard: React.FC<TransformCommandCardProps> = ({
 
 export interface SortableCardProps {
   id: string;
-  value: string | Variable;
+  value: string | VariableValue | TextareaValueType;
   groupIndex: number;
   imageVariableId: string;
   mapId: string;
   onRemove: () => void;
-  getDisplayValue: (value: string | Variable) => string;
+  getDisplayValue: (
+    value: string | VariableValue | TextareaValueType
+  ) => string;
 }
 
 // Sortable card component that wraps each card and makes it draggable
@@ -114,7 +118,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   const raiseError = appStore((state) => state.raiseError);
   const updateVarValueFromDependentGroup = appStore(
     (state) =>
-      state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup,
+      state.effects.studio.layoutImageMapping.updateVarValueFromDependentGroup
   );
   const variables = appStore((state) => state.state.studio.document.variables);
   const [transformModalOpen, setTransformModalOpen] = useState(false);
@@ -129,14 +133,18 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
     isDragging,
   } = useSortable({ id });
 
+  // Determine if this is a textarea value for sizing
+  const isTextarea =
+    typeof value !== "string" && value.type === "TextareaValue";
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
     zIndex: isDragging ? 1 : 0,
-    minWidth: "120px",
+    minWidth: isTextarea ? "200px" : "120px",
     height: "auto",
-    minHeight: "80px",
+    minHeight: isTextarea ? "120px" : "80px",
     display: "flex",
     flexDirection: "column" as const,
     justifyContent: "center",
@@ -147,11 +155,13 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   const variableValueIndex = parseInt(id.toString().split("-")[1]);
 
   // Function to update the variable value
-  const updateVarValue = (newValue: string | Variable) => {
+  const updateVarValue = (
+    newValue: string | VariableValue | TextareaValueType
+  ) => {
     if (mapId && imageVariableId !== null && groupIndex !== null) {
       updateVarValueFromDependentGroup({
         mapId,
-        imageVariableId,
+        targetVariableId: imageVariableId,
         groupIndex,
         variableValueIndex,
         variableValue: newValue,
@@ -159,8 +169,8 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
     } else {
       raiseError(
         new Error(
-          `Failed to update variable value: mapId=${mapId}, imageVariableId=${imageVariableId}, groupIndex=${groupIndex}`,
-        ),
+          `Failed to update variable value: mapId=${mapId}, imageVariableId=${imageVariableId}, groupIndex=${groupIndex}`
+        )
       );
     }
   };
@@ -175,7 +185,11 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
 
   // Initialize transforms from value when modal opens
   const openTransformModal = () => {
-    if (typeof value !== "string" && value.transform) {
+    if (
+      typeof value !== "string" &&
+      value.type !== "TextareaValue" &&
+      value.transform
+    ) {
       setTransforms([...value.transform]);
     } else {
       setTransforms([]);
@@ -186,7 +200,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   // Update a transform at a specific index
   const updateTransform = (
     index: number,
-    updatedTransform: TransformCommands,
+    updatedTransform: TransformCommands
   ) => {
     const newTransforms = [...transforms];
     newTransforms[index] = updatedTransform;
@@ -210,10 +224,14 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   const saveTransforms = () => {
     // Filter out transforms with missing find or replace
     const validTransforms = transforms.filter(
-      (t) => t.find.trim() !== "" && t.replace.trim() !== "",
+      (t) => t.find.trim() !== "" && t.replace.trim() !== ""
     );
 
-    if (typeof value !== "string" && value.type) {
+    if (
+      typeof value !== "string" &&
+      value.type &&
+      value.type !== "TextareaValue"
+    ) {
       updateVarValue({
         ...value,
         transform: validTransforms,
@@ -227,6 +245,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   const getWandColor = () => {
     if (
       typeof value !== "string" &&
+      value.type !== "TextareaValue" &&
       value.transform &&
       value.transform.length > 0
     ) {
@@ -238,6 +257,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
   const getWandOpacity = () => {
     if (
       typeof value !== "string" &&
+      value.type !== "TextareaValue" &&
       value.transform &&
       value.transform.length > 0
     ) {
@@ -264,7 +284,7 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
           <IconX />
         </ActionIcon>
 
-        {typeof value !== "string" && (
+        {typeof value !== "string" && value.type !== "TextareaValue" && (
           <ActionIcon
             variant="subtle"
             size="sm"
@@ -304,6 +324,21 @@ export const DependentGroupValueSortableCard: React.FC<SortableCardProps> = ({
               value={value}
               onChange={(e) => updateVarValue(e.target.value)}
               placeholder="Enter value"
+            />
+          ) : value.type === "TextareaValue" ? (
+            <Textarea
+              size="xs"
+              value={value.value}
+              onChange={(e) =>
+                updateVarValue({
+                  ...value,
+                  value: e.target.value,
+                })
+              }
+              placeholder="Enter multi-line text"
+              autosize
+              minRows={2}
+              maxRows={4}
             />
           ) : value.type === "StudioList" ? (
             <Select

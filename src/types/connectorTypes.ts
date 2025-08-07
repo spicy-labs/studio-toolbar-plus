@@ -42,9 +42,18 @@ export type DocumentConnector = {
   mappings: any[];
 };
 
+export type DocumentConnectorGraFx = {
+  id: string;
+  name: string;
+  source: GrafxSource;
+  options: Record<string, any>;
+  mappings: any[];
+};
+
 // Type for the getCurrentConnectors function return value
 export type DocumentConnectorWithUsage = {
   id: string;
+  sourceId:string;
   name: string;
   type: "media" | "fonts";
   usesInTemplate: {

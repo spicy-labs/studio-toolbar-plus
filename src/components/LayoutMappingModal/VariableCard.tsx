@@ -19,7 +19,7 @@ import {
 import { useState } from "react";
 import { Result } from "typescript-result";
 import type {
-  ImageVariable,
+  TargetVariable,
   LayoutMap,
   DependentVar,
 } from "../../types/layoutConfigTypes";
@@ -28,7 +28,7 @@ import { DependentGroup } from "./DependentGroup";
 
 // Variable Card Component
 interface VariableCardProps {
-  variableConfig: ImageVariable;
+  variableConfig: TargetVariable;
   layoutMap: LayoutMap;
 }
 
@@ -38,31 +38,34 @@ export const VariableCard: React.FC<VariableCardProps> = ({
 }) => {
   // Use selectors to only get the specific state and effects needed
   const documentVariables = appStore(
-    (store) => store.state.studio.document.variables,
+    (store) => store.state.studio.document.variables
   );
   const raiseError = appStore((store) => store.raiseError);
   const setCurrentImageVariableId = appStore(
-    (store) => store.effects.modal.dependentModal.setCurrentImageVariableId,
+    (store) => store.effects.modal.dependentModal.setCurrentTargetVariableId
   );
   const setDependentModalIsOpen = appStore(
-    (store) => store.effects.modal.dependentModal.setIsOpen,
+    (store) => store.effects.modal.dependentModal.setIsOpen
+  );
+  const setAllowAlways = appStore(
+    (store) => store.effects.modal.dependentModal.setAllowAlways
   );
   const removeImageVariable = appStore(
-    (store) => store.effects.studio.layoutImageMapping.removeImageVariable,
+    (store) => store.effects.studio.layoutImageMapping.removeTargetVariable
   );
   const setIsSwapImageVariableModalOpen = appStore(
-    (store) => store.effects.modal.setIsSwapImageVariableModalOpen,
+    (store) => store.effects.modal.setIsSwapTargetVariableModalOpen
   );
   const setCurrentSwapImageVariableId = appStore(
-    (store) => store.effects.modal.setCurrentSwapImageVariableId,
+    (store) => store.effects.modal.setCurrentSwapTargetVariableId
   );
   const setCurrentSelectedMapId = appStore(
-    (store) => store.effects.modal.setCurrentSelectedMapId,
+    (store) => store.effects.modal.setCurrentSelectedMapId
   );
   const [isOpen, setIsOpen] = useState(false);
 
   const variableImageConfig = documentVariables.find(
-    (v) => v.id === variableConfig.id,
+    (v) => v.id === variableConfig.id
   );
 
   if (variableImageConfig == null) {
@@ -73,6 +76,7 @@ export const VariableCard: React.FC<VariableCardProps> = ({
   // Function to open the modal for adding a new group
   const handleAddGroup = () => {
     setCurrentImageVariableId(variableConfig.id);
+    setAllowAlways(true);
     setDependentModalIsOpen(true, layoutMap.id);
   };
 
@@ -127,7 +131,7 @@ export const VariableCard: React.FC<VariableCardProps> = ({
               e.stopPropagation();
               removeImageVariable({
                 mapId: layoutMap.id,
-                imageVariableId: variableConfig.id,
+                targetVariableId: variableConfig.id,
               });
             }}
           >

@@ -1,8 +1,11 @@
-## 0.12.2
+## 0.13.0
 
-### 🐛 Fixed
+### ✨ Added
 
-- Issue when copying a group and then adding a dependent variable would cause an error
+- Re-write download and upload functionality to use a folder based approach
+  - Supports copying smart crops
+  - Supports downloading font files
+- Add new app settings that show current app status
 
 ## 0.12.1
 

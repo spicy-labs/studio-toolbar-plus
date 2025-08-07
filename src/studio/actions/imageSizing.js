@@ -1,55 +1,60 @@
 export function imageSizingScript(debug) {
-  const version = 1;
+  const version = "2";
   const imageSizingData = "%DATA1%";
   const layoutSizingData = "%DATA2%";
 
   const errorCollection = [];
 
-  const vars = studio.variables.all();
-  const imageVars = vars.filter((f) => f.type == "image");
+  try {
+    const vars = studio.variables.all();
+    const imageVars = vars.filter((f) => f.type == "image");
 
-  const layoutName = getSelectedLayoutName();
+    const layoutName = getSelectedLayoutName();
 
-  const layoutImageSizingData = imageSizingData[layoutName];
-  const layoutSizeData = layoutSizingData[layoutName];
+    const layoutImageSizingData = imageSizingData[layoutName];
+    const layoutSizeData = layoutSizingData[layoutName];
 
-  if (layoutSizeData == null) {
-    errorCollection.push(
-      Error(`No layout sizing data found for ${layoutName}}`),
-    );
-    return;
-  }
-
-  if (layoutImageSizingData == null) {
-    errorCollection.push(
-      Error(`No layout image sizing data found for ${layoutName}}`),
-    );
-    return;
-  }
-
-  for (const imageVar of imageVars) {
-    const imageSizeData = layoutImageSizingData[imageVar.value];
-
-    if (imageSizeData == null) {
+    if (layoutSizeData == null) {
       errorCollection.push(
-        Error(
-          `No image size data found for ${imageVar.value} for variable ${imageVar.name}`,
-        ),
+        Error(`No layout sizing data found for ${layoutName}}`),
       );
-      continue;
+      return;
     }
 
-    const newFramePos = calculateUpdatedFrame(imageSizeData, layoutSizeData, {
-      width: getPageWidth(),
-      height: getPageHeight(),
-    });
+    if (layoutImageSizingData == null) {
+      errorCollection.push(
+        Error(`No layout image sizing data found for ${layoutName}}`),
+      );
+      return;
+    }
 
-    const frameName = imageSizeData.frameName;
+    for (const imageVar of imageVars) {
+      const imageSizeData = layoutImageSizingData[imageVar.value];
 
-    setFrameX(frameName, newFramePos.x);
-    setFrameY(frameName, newFramePos.y);
-    setFrameWidth(frameName, newFramePos.width);
-    setFrameHeight(frameName, newFramePos.height);
+      if (imageSizeData == null) {
+        errorCollection.push(
+          Error(
+            `No image size data found for ${imageVar.value} for variable ${imageVar.name}`,
+          ),
+        );
+        continue;
+      }
+
+      const newFramePos = calculateUpdatedFrame(imageSizeData, layoutSizeData, {
+        width: getPageWidth(),
+        height: getPageHeight(),
+      });
+
+      const frameName = imageSizeData.frameName;
+
+      setFrameX(frameName, newFramePos.x);
+      setFrameY(frameName, newFramePos.y);
+      setFrameWidth(frameName, newFramePos.width);
+      setFrameHeight(frameName, newFramePos.height);
+    }
+  }
+  catch (e) {
+    console.log(e);
   }
 
   function calculateUpdatedFrame(initialFrame, initialPage, currentPage) {

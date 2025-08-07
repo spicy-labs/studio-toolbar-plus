@@ -1,6 +1,10 @@
 import { Group, ActionIcon, Text, Card, ScrollArea, Menu } from "@mantine/core";
-import { IconPlus, IconAbc, IconList } from "@tabler/icons-react";
-import type { Variable, StudioList } from "../../types/layoutConfigTypes";
+import { IconPlus, IconAbc, IconList, IconTextSize } from "@tabler/icons-react";
+import type {
+  VariableValue,
+  StudioList,
+  TextareaValueType,
+} from "../../types/layoutConfigTypes";
 import { appStore } from "../../modalStore";
 import {
   DndContext,
@@ -20,30 +24,30 @@ import { DependentGroupValueSortableCard } from "./DependentGroupSortableCard";
 
 interface DependentGroupSetValueProps {
   groupIndex: number;
-  imageVariableId: string;
+  targetVariableId: string;
   mapId: string;
-  variableValue: (string | Variable)[];
+  variableValue: (string | VariableValue | TextareaValueType)[];
 }
 
 export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   groupIndex,
-  imageVariableId,
+  targetVariableId,
   mapId,
   variableValue,
 }) => {
   // Layout mapping effects
   const removeVarValueFromDependentGroup = appStore(
     (state) =>
-      state.effects.studio.layoutImageMapping.removeVarValueFromDependentGroup,
+      state.effects.studio.layoutImageMapping.removeVarValueFromDependentGroup
   );
   const addVarValueToDependentGroup = appStore(
     (state) =>
-      state.effects.studio.layoutImageMapping.addVarValueToDependentGroup,
+      state.effects.studio.layoutImageMapping.addVarValueToDependentGroup
   );
   const setIndexOfVarValueFromDependentGroup = appStore(
     (state) =>
       state.effects.studio.layoutImageMapping
-        .setIndexOfVarValueFromDependentGroup,
+        .setIndexOfVarValueFromDependentGroup
   );
 
   // Set up sensors for drag and drop
@@ -51,14 +55,14 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    })
   );
 
   // Function to handle removing a variable value
   const handleRemoveVarValue = (valueIndex: number) => {
     removeVarValueFromDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValueIndex: valueIndex,
     });
@@ -68,7 +72,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   const handleAddStringValue = () => {
     addVarValueToDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValue: "",
     });
@@ -78,7 +82,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
   const handleAddListVariable = () => {
     addVarValueToDependentGroup({
       mapId,
-      imageVariableId,
+      targetVariableId,
       groupIndex,
       variableValue: {
         id: null,
@@ -88,10 +92,29 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
     });
   };
 
-  // Helper function to display the value (either string or Variable)
-  const getDisplayValue = (value: string | Variable): string => {
+  // Function to handle adding a new textarea value
+  const handleAddTextareaValue = () => {
+    addVarValueToDependentGroup({
+      mapId,
+      targetVariableId,
+      groupIndex,
+      variableValue: {
+        type: "TextareaValue",
+        value: "",
+      },
+    });
+  };
+
+  // Helper function to display the value (either string, Variable, or Textarea)
+  const getDisplayValue = (
+    value: string | VariableValue | TextareaValueType
+  ): string => {
     if (typeof value === "string") {
       return value;
+    } else if (value.type === "TextareaValue") {
+      return value.value.length > 50
+        ? value.value.substring(0, 50) + "..."
+        : value.value;
     } else {
       return `Variable: ${value.id}`;
     }
@@ -108,7 +131,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
       // Call the store function to update the order
       setIndexOfVarValueFromDependentGroup({
         mapId,
-        imageVariableId,
+        targetVariableId,
         groupIndex,
         oldVariableValueIndex: oldIndex,
         newVariableValueIndex: newIndex,
@@ -139,7 +162,7 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
                   value={value}
                   mapId={mapId}
                   groupIndex={groupIndex}
-                  imageVariableId={imageVariableId}
+                  imageVariableId={targetVariableId}
                   onRemove={() => handleRemoveVarValue(index)}
                   getDisplayValue={getDisplayValue}
                 />
@@ -174,6 +197,12 @@ export const DependentGroupSetValue: React.FC<DependentGroupSetValueProps> = ({
                     onClick={handleAddStringValue}
                   >
                     String
+                  </Menu.Item>
+                  <Menu.Item
+                    leftSection={<IconTextSize size={14} />}
+                    onClick={handleAddTextareaValue}
+                  >
+                    Textarea
                   </Menu.Item>
                   <Menu.Item
                     leftSection={<IconList size={14} />}

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "studio-toolbar-plus",
-  "version": "0.12.2",
+  "version": "0.14.2",
   "description": "A simple toolbar extension to give you more super powers in GraFx Studio",
   "icons": {
     "16": "icons/icon16.png",
@@ -23,6 +23,9 @@
     "*://*.chili-publish.online/*",
     "*://*.chiligrafx-dev.com/*"
   ],
+  "background": {
+    "service_worker": "downloader.js"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -78,6 +81,10 @@
     },
     "showManualCropManager": {
       "enabled": true,
+      "status": "sponsored"
+    },
+    "showConnectorFolderBrowser": {
+      "enabled": false,
       "status": "sponsored"
     },
     "showOutput": {

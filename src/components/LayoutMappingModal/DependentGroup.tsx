@@ -16,7 +16,7 @@ import {
 import type {
   DependentGroup as DependentGroupType,
   DependentVar,
-  ImageVariable,
+  TargetVariable,
   LayoutMap,
 } from "../../types/layoutConfigTypes";
 import { appStore } from "../../modalStore";
@@ -25,7 +25,7 @@ import { DependentGroupSetValue } from "./DependentGroupSetValue";
 interface DependentGroupProps {
   dependentGroup: DependentGroupType;
   groupIndex: number;
-  variableConfig: ImageVariable;
+  variableConfig: TargetVariable;
   layoutMap: LayoutMap;
 }
 
@@ -42,7 +42,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
 
   // Modal effects
   const setCurrentImageVariableId = appStore(
-    (state) => state.effects.modal.dependentModal.setCurrentImageVariableId
+    (state) => state.effects.modal.dependentModal.setCurrentTargetVariableId
   );
   const setCurrentSelectedMapId = appStore(
     (state) => state.effects.modal.setCurrentSelectedMapId
@@ -52,6 +52,9 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
   );
   const setIsOpen = appStore(
     (state) => state.effects.modal.dependentModal.setIsOpen
+  );
+  const setAllowAlways = appStore(
+    (state) => state.effects.modal.dependentModal.setAllowAlways
   );
 
   // Layout mapping effects
@@ -73,6 +76,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
     setCurrentImageVariableId(variableConfig.id);
     setCurrentSelectedMapId(layoutMap.id);
     setCurrentGroupIndex(groupIndex);
+    setAllowAlways(false);
     setIsOpen(true, layoutMap.id);
   };
 
@@ -80,7 +84,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
   const handleRemoveGroup = (groupIndex: number) => {
     removeDependentGroup({
       groupIndex,
-      imageVariableId: variableConfig.id,
+      targetVariableId: variableConfig.id,
       mapId: layoutMap.id,
     });
   };
@@ -88,7 +92,7 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
   const handleCopyGroup = (groupIndex: number) => {
     copyDependentGroup({
       groupIndex,
-      imageVariableId: variableConfig.id,
+      targetVariableId: variableConfig.id,
       mapId: layoutMap.id,
     });
   };
@@ -135,133 +139,139 @@ export const DependentGroup: React.FC<DependentGroupProps> = ({
         </Group>
       </Group>
 
-      {/* Grid of dependent variables */}
-      <Grid gutter="xs">
-        {dependentGroup.dependents.map((dependent, depIndex) => {
-          const depVariable = getVariableById(dependent.variableId);
-          return (
-            <Grid.Col key={depIndex} span={4}>
-              <Card
-                shadow="sm"
-                padding="xs"
-                radius="md"
-                style={{
-                  minHeight: "100px",
-                  height: "auto",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  position: "relative", // Add relative positioning
-                }}
-              >
-                <ActionIcon
-                  variant="subtle"
-                  size="sm"
-                  color="red"
-                  radius="xl"
+      {/* Grid of dependent variables - hidden when alwaysRun is true */}
+      {!dependentGroup.alwaysRun ? (
+        <Grid gutter="xs">
+          {dependentGroup.dependents.map((dependent, depIndex) => {
+            const depVariable = getVariableById(dependent.variableId);
+            return (
+              <Grid.Col key={depIndex} span={4}>
+                <Card
+                  shadow="sm"
+                  padding="xs"
+                  radius="md"
                   style={{
-                    position: "absolute",
-                    top: "5px",
-                    right: "5px",
-                  }}
-                  onClick={() => {
-                    removeDependent({
-                      imageVariableId: variableConfig.id,
-                      dependentGroupIndex: groupIndex,
-                      dependent,
-                      mapId: layoutMap.id,
-                    });
+                    minHeight: "100px",
+                    height: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    position: "relative", // Add relative positioning
                   }}
                 >
-                  <IconX />
-                </ActionIcon>
-                <Text fw={500} size="sm" ta="center">
-                  {depVariable?.name || "Unknown"}
-                </Text>
-                <Text size="xs" c="dimmed" ta="center">
-                  {depVariable?.type || "Unknown"}
-                </Text>
-
-                {depVariable?.type === "list" && (
-                  <MultiSelect
-                    size="xs"
-                    data={depVariable.items.map((item) => ({
-                      value: item.value,
-                      label: item.displayValue || item.value,
-                    }))}
-                    value={dependent.values}
-                    onChange={(newValues) => {
-                      updateDependent({
-                        mapId: layoutMap.id,
-                        imageVariableId: variableConfig.id,
+                  <ActionIcon
+                    variant="subtle"
+                    size="sm"
+                    color="red"
+                    radius="xl"
+                    style={{
+                      position: "absolute",
+                      top: "5px",
+                      right: "5px",
+                    }}
+                    onClick={() => {
+                      removeDependent({
+                        targetVariableId: variableConfig.id,
                         dependentGroupIndex: groupIndex,
-                        dependent: {
-                          ...dependent,
-                          values: newValues,
-                        },
+                        dependent,
+                        mapId: layoutMap.id,
                       });
                     }}
-                    placeholder="Select values"
-                    style={{ marginTop: "5px" }}
-                  />
-                )}
+                  >
+                    <IconX />
+                  </ActionIcon>
+                  <Text fw={500} size="sm" ta="center">
+                    {depVariable?.name || "Unknown"}
+                  </Text>
+                  <Text size="xs" c="dimmed" ta="center">
+                    {depVariable?.type || "Unknown"}
+                  </Text>
 
-                {depVariable?.type === "boolean" && (
-                  <MultiSelect
-                    size="xs"
-                    data={[
-                      { value: "true", label: "TRUE" },
-                      { value: "false", label: "FALSE" },
-                    ]}
-                    value={dependent.values}
-                    onChange={(newValues) => {
-                      updateDependent({
-                        mapId: layoutMap.id,
-                        imageVariableId: variableConfig.id,
-                        dependentGroupIndex: groupIndex,
-                        dependent: {
-                          ...dependent,
-                          values: newValues,
-                        },
-                      });
-                    }}
-                    placeholder="Select values"
-                    style={{ marginTop: "5px" }}
-                  />
-                )}
-              </Card>
-            </Grid.Col>
-          );
-        })}
+                  {depVariable?.type === "list" && (
+                    <MultiSelect
+                      size="xs"
+                      data={depVariable.items.map((item) => ({
+                        value: item.value,
+                        label: item.displayValue || item.value,
+                      }))}
+                      value={dependent.values}
+                      onChange={(newValues) => {
+                        updateDependent({
+                          mapId: layoutMap.id,
+                          targetVariableId: variableConfig.id,
+                          dependentGroupIndex: groupIndex,
+                          dependent: {
+                            ...dependent,
+                            values: newValues,
+                          },
+                        });
+                      }}
+                      placeholder="Select values"
+                      style={{ marginTop: "5px" }}
+                    />
+                  )}
 
-        {/* Add new dependent variable to this group */}
-        <Grid.Col span={4}>
-          <Card
-            shadow="sm"
-            padding="xs"
-            radius="md"
-            style={{
-              minHeight: "100px",
-              height: "auto",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              border: "1px dashed #ccc",
-              cursor: "pointer",
-            }}
-            onClick={() => handleAddDependentToGroup(groupIndex)}
-          >
-            <ActionIcon variant="transparent" size="xl">
-              <IconPlus />
-            </ActionIcon>
-          </Card>
-        </Grid.Col>
-      </Grid>
+                  {depVariable?.type === "boolean" && (
+                    <MultiSelect
+                      size="xs"
+                      data={[
+                        { value: "true", label: "TRUE" },
+                        { value: "false", label: "FALSE" },
+                      ]}
+                      value={dependent.values}
+                      onChange={(newValues) => {
+                        updateDependent({
+                          mapId: layoutMap.id,
+                          targetVariableId: variableConfig.id,
+                          dependentGroupIndex: groupIndex,
+                          dependent: {
+                            ...dependent,
+                            values: newValues,
+                          },
+                        });
+                      }}
+                      placeholder="Select values"
+                      style={{ marginTop: "5px" }}
+                    />
+                  )}
+                </Card>
+              </Grid.Col>
+            );
+          })}
+
+          {/* Add new dependent variable to this group */}
+          <Grid.Col span={4}>
+            <Card
+              shadow="sm"
+              padding="xs"
+              radius="md"
+              style={{
+                minHeight: "100px",
+                height: "auto",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                border: "1px dashed #ccc",
+                cursor: "pointer",
+              }}
+              onClick={() => handleAddDependentToGroup(groupIndex)}
+            >
+              <ActionIcon variant="transparent" size="xl">
+                <IconPlus />
+              </ActionIcon>
+            </Card>
+          </Grid.Col>
+        </Grid>
+      ) : (
+        <Text size="sm" c="dimmed" ta="center" style={{ padding: "20px" }}>
+          This group runs always - no dependent variables needed
+        </Text>
+      )}
 
       {/* Value section with variable values */}
       <DependentGroupSetValue
         groupIndex={groupIndex}
-        imageVariableId={variableConfig.id}
+        targetVariableId={variableConfig.id}
         mapId={layoutMap.id}
         variableValue={dependentGroup.variableValue}
       />
