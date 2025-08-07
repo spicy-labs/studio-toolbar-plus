@@ -14385,6 +14385,13 @@ var init_IconCircleX = __esm(() => {
   IconCircleX = createReactComponent("outline", "circle-x", "IconCircleX", [["path", { d: "M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0", key: "svg-0" }], ["path", { d: "M10 10l4 4m0 -4l-4 4", key: "svg-1" }]]);
 });
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconClipboard.mjs
+var IconClipboard;
+var init_IconClipboard = __esm(() => {
+  init_createReactComponent();
+  IconClipboard = createReactComponent("outline", "clipboard", "IconClipboard", [["path", { d: "M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2", key: "svg-0" }], ["path", { d: "M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z", key: "svg-1" }]]);
+});
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconCopyPlus.mjs
 var IconCopyPlus;
 var init_IconCopyPlus = __esm(() => {
@@ -14670,6 +14677,13 @@ var IconCircleRectangleFilled;
 var init_IconCircleRectangleFilled = __esm(() => {
   init_createReactComponent();
   IconCircleRectangleFilled = createReactComponent("filled", "circle-rectangle-filled", "IconCircleRectangleFilled", [["path", { d: "M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m0 5.66h-10a1 1 0 0 0 -1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1", key: "svg-0" }]]);
+});
+
+// node_modules/@tabler/icons-react/dist/esm/icons/IconClipboardFilled.mjs
+var IconClipboardFilled;
+var init_IconClipboardFilled = __esm(() => {
+  init_createReactComponent();
+  IconClipboardFilled = createReactComponent("filled", "clipboard-filled", "IconClipboardFilled", [["path", { d: "M17.997 4.17a3 3 0 0 1 2.003 2.83v12a3 3 0 0 1 -3 3h-10a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 2.003 -2.83a4 4 0 0 0 3.997 3.83h4a4 4 0 0 0 3.98 -3.597zm-3.997 -2.17a2 2 0 1 1 0 4h-4a2 2 0 1 1 0 -4z", key: "svg-0" }]]);
 });
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFilterFilled.mjs
@@ -28553,7 +28567,7 @@ async function layoutManagerToLookup(studio2, onlyResizable = false) {
 
 // src/studio/actions/layoutSizing.js
 function layoutSizingScript(debug = false) {
-  const version2 = "3";
+  const version2 = "4";
   let debugObj = {};
   const selectedLayoutName = getSelectedLayoutName();
   try {
@@ -28561,7 +28575,7 @@ function layoutSizingScript(debug = false) {
     if (selectedLayoutName == null) {
       return;
     }
-    const { width, height, aspectRatio: layoutRatio } = data[selectedLayoutName];
+    const { width, height, aspectRatio: layoutRatio, sizing } = data[selectedLayoutName];
     if (debug) {
       debugObj = JSON.parse(JSON.stringify({
         selectedLayoutName,
@@ -28575,8 +28589,8 @@ function layoutSizingScript(debug = false) {
       const originalAspectRatio = layoutRatio;
       const minAllowedRatio = originalAspectRatio * 0.8;
       const maxAllowedRatio = originalAspectRatio * 1.2;
-      const pageWidth = getPageWidth();
-      const pageHeight = getPageHeight();
+      let pageWidth = getPageWidth();
+      let pageHeight = getPageHeight();
       const currentAspectRatio = pageWidth / pageHeight;
       if (debug) {
         debugObj = {
@@ -28594,11 +28608,27 @@ function layoutSizingScript(debug = false) {
         const targetRatio = distToMin <= distToMax ? minAllowedRatio : maxAllowedRatio;
         if (Math.round(width) == Math.round(pageWidth)) {
           let newWidth = pageHeight * targetRatio;
+          if (newWidth > sizing.maxWidth) {
+            newWidth = sizing.maxWidth;
+            pageHeight = newWidth / targetRatio;
+          }
+          if (newWidth < sizing.minWidth) {
+            newWidth = sizing.minWidth;
+            pageHeight = newWidth / targetRatio;
+          }
           data[selectedLayoutName].width = newWidth;
           data[selectedLayoutName].height = pageHeight;
           setPageSize(newWidth, pageHeight);
         } else if (Math.round(height) == Math.round(pageHeight)) {
           let newHeight = pageWidth / targetRatio;
+          if (newHeight > sizing.maxHeight) {
+            newHeight = sizing.maxHeight;
+            pageWidth = newHeight * targetRatio;
+          }
+          if (newHeight < sizing.minHeight) {
+            newHeight = sizing.minHeight;
+            pageWidth = newHeight * targetRatio;
+          }
           data[selectedLayoutName].height = newHeight;
           data[selectedLayoutName].width = pageWidth;
           setPageSize(pageWidth, newHeight);
@@ -28862,7 +28892,7 @@ console.log(imageSizingScript(false))`;
 }
 async function saveLayoutSizingToAction(on) {
   if (on) {
-    const layoutSizingMapResult = await layoutManagerToLookup(window.SDK);
+    const layoutSizingMapResult = await layoutManagerToLookup(window.SDK, true);
     if (layoutSizingMapResult.isError() || layoutSizingMapResult.value == null) {
       return layoutSizingMapResult;
     }
@@ -49415,6 +49445,7 @@ init_IconChevronDown();
 init_IconChevronLeft();
 init_IconChevronRight();
 init_IconCircleX();
+init_IconClipboard();
 init_IconCopyPlus();
 init_IconCopy();
 init_IconCrop();
@@ -49456,6 +49487,7 @@ init_IconBugFilled();
 init_IconCaretDownFilled();
 init_IconCircleCheckFilled();
 init_IconCircleRectangleFilled();
+init_IconClipboardFilled();
 init_IconFilterFilled();
 init_IconInfoCircleFilled();
 init_IconRadioactiveFilled();
@@ -74374,7 +74406,8 @@ function CropRow({
   onCropChange,
   isChecked,
   onCheckChange,
-  isDeleted
+  isDeleted,
+  isCopySource
 }) {
   const [localCrop, setLocalCrop] = import_react286.useState(crop);
   import_react286.useEffect(() => {
@@ -74404,11 +74437,16 @@ function CropRow({
     return null;
   }
   return /* @__PURE__ */ jsx_runtime36.jsxs(Table.Tr, {
+    style: isCopySource ? { opacity: 0.6 } : undefined,
     children: [
       /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
-        children: /* @__PURE__ */ jsx_runtime36.jsx(Checkbox, {
+        children: isCopySource ? /* @__PURE__ */ jsx_runtime36.jsx(IconClipboardFilled, {
+          size: 16,
+          color: "blue"
+        }) : /* @__PURE__ */ jsx_runtime36.jsx(Checkbox, {
           checked: isChecked,
-          onChange: (event) => onCheckChange(layoutId, cropIndex, event.currentTarget.checked)
+          onChange: (event) => onCheckChange(layoutId, cropIndex, event.currentTarget.checked),
+          disabled: isCopySource
         })
       }),
       /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
@@ -74490,6 +74528,10 @@ function ManualCropEditor({
   const [copyAndReplaceModalOpened, setCopyAndReplaceModalOpenedState] = import_react286.useState(false);
   const [currentCropsForReplace, setCurrentCropsForReplace] = import_react286.useState([]);
   const [currentLayoutIdForReplace, setCurrentLayoutIdForReplace] = import_react286.useState("");
+  const [clipboardCrop, setClipboardCrop] = import_react286.useState(null);
+  const [isCopyMode, setIsCopyMode] = import_react286.useState(false);
+  const [copySourceRowKey, setCopySourceRowKey] = import_react286.useState(null);
+  const [isPasteEnabled, setIsPasteEnabled] = import_react286.useState(false);
   const loadCropsForSelectedLayouts = import_react286.useCallback(async () => {
     if (!selectedConnectorId)
       return;
@@ -74540,6 +74582,10 @@ function ManualCropEditor({
     }
     setChangedRows(new Map);
     setCheckedRows(new Set);
+    setClipboardCrop(null);
+    setIsCopyMode(false);
+    setCopySourceRowKey(null);
+    setIsPasteEnabled(false);
   }, [selectedConnectorId, selectedLayoutIds, loadCropsForSelectedLayouts]);
   const handleCropChange = import_react286.useCallback((layoutId, cropIndex, updatedCrop) => {
     const rowKey = `${layoutId}-${cropIndex}`;
@@ -74558,9 +74604,13 @@ function ManualCropEditor({
       } else {
         newSet.delete(rowKey);
       }
+      if (isCopyMode) {
+        const selectedRowsExcludingSource = Array.from(newSet).filter((key) => key !== copySourceRowKey);
+        setIsPasteEnabled(selectedRowsExcludingSource.length > 0);
+      }
       return newSet;
     });
-  }, []);
+  }, [isCopyMode, copySourceRowKey]);
   const getCheckedSnapshotsCountForLayout = import_react286.useCallback((layoutId) => {
     return Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutId}-`)).length;
   }, [checkedRows]);
@@ -74655,6 +74705,63 @@ function ManualCropEditor({
       return newSet;
     });
   }, []);
+  const handleCopyToClipboard = import_react286.useCallback((layoutId, cropIndex) => {
+    const layoutCrop = layoutCrops.get(layoutId);
+    if (!layoutCrop || !layoutCrop.crops[cropIndex])
+      return;
+    const cropToCopy = layoutCrop.crops[cropIndex];
+    const rowKey = `${layoutId}-${cropIndex}`;
+    const changedCrop = changedRows.get(rowKey);
+    const finalCrop = changedCrop && "frameId" in changedCrop ? changedCrop : cropToCopy;
+    setClipboardCrop(finalCrop);
+    setIsCopyMode(true);
+    setCopySourceRowKey(rowKey);
+    setIsPasteEnabled(false);
+    appStore.getState().disableToolbar();
+  }, [layoutCrops, changedRows]);
+  const handleCancelCopy = import_react286.useCallback(() => {
+    setClipboardCrop(null);
+    setIsCopyMode(false);
+    setCopySourceRowKey(null);
+    setIsPasteEnabled(false);
+    appStore.getState().enableToolbar();
+  }, []);
+  const handlePasteFromClipboard = import_react286.useCallback(() => {
+    if (!clipboardCrop || !isCopyMode)
+      return;
+    const selectedRowKeys = Array.from(checkedRows).filter((rowKey) => rowKey !== copySourceRowKey);
+    if (selectedRowKeys.length === 0)
+      return;
+    setChangedRows((prev2) => {
+      const newMap = new Map(prev2);
+      selectedRowKeys.forEach((rowKey) => {
+        const [layoutId, cropIndexStr] = rowKey.split("-");
+        const cropIndex = parseInt(cropIndexStr, 10);
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (layoutCrop && layoutCrop.crops[cropIndex]) {
+          const originalCrop = layoutCrop.crops[cropIndex];
+          const updatedCrop = {
+            ...originalCrop,
+            left: clipboardCrop.left,
+            top: clipboardCrop.top,
+            width: clipboardCrop.width,
+            height: clipboardCrop.height
+          };
+          newMap.set(rowKey, updatedCrop);
+        }
+      });
+      return newMap;
+    });
+    setCheckedRows(new Set);
+    handleCancelCopy();
+  }, [
+    clipboardCrop,
+    isCopyMode,
+    checkedRows,
+    copySourceRowKey,
+    layoutCrops,
+    handleCancelCopy
+  ]);
   const selectAllRowsForLayout = import_react286.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
     if (!layoutCrop)
@@ -75047,6 +75154,7 @@ function ManualCropEditor({
     await loadCropsForSelectedLayouts();
   };
   const handleCloseClick = () => {
+    handleCancelCopy();
     if (onModalClose) {
       onModalClose();
     } else {
@@ -75054,6 +75162,13 @@ function ManualCropEditor({
       setSaveMessage("");
     }
   };
+  import_react286.useEffect(() => {
+    return () => {
+      if (isCopyMode) {
+        appStore.getState().enableToolbar();
+      }
+    };
+  }, [isCopyMode]);
   if (saveState !== "idle") {
     return /* @__PURE__ */ jsx_runtime36.jsx(Center, {
       style: { height: "100%" },
@@ -75103,16 +75218,41 @@ function ManualCropEditor({
       /* @__PURE__ */ jsx_runtime36.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
-        children: /* @__PURE__ */ jsx_runtime36.jsx(Group, {
+        children: /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
           justify: "flex-end",
           align: "center",
-          children: /* @__PURE__ */ jsx_runtime36.jsx(Button, {
-            onClick: saveCropChanges,
-            disabled: changedRows.size === 0,
-            color: "blue",
-            size: "sm",
-            children: "Save Crop Changes"
-          })
+          children: [
+            isCopyMode && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+              children: [
+                /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                  onClick: handleCancelCopy,
+                  color: "gray",
+                  size: "sm",
+                  leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconX, {
+                    size: 16
+                  }),
+                  children: "Cancel Paste"
+                }),
+                /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                  onClick: handlePasteFromClipboard,
+                  disabled: !isPasteEnabled,
+                  color: "blue",
+                  size: "sm",
+                  leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconClipboardFilled, {
+                    size: 16
+                  }),
+                  children: "Paste from clipboard"
+                })
+              ]
+            }),
+            /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+              onClick: saveCropChanges,
+              disabled: changedRows.size === 0,
+              color: "blue",
+              size: "sm",
+              children: "Save Crop Changes"
+            })
+          ]
         })
       }),
       /* @__PURE__ */ jsx_runtime36.jsx(ScrollArea, {
@@ -75159,8 +75299,29 @@ function ManualCropEditor({
                                 color: "red",
                                 variant: "filled",
                                 onClick: () => deleteCheckedSnapshots(layoutCrop.layoutId),
-                                disabled: !selectedConnectorId,
+                                disabled: isCopyMode || !selectedConnectorId,
                                 children: /* @__PURE__ */ jsx_runtime36.jsx(IconTrash, {
+                                  size: 16
+                                })
+                              })
+                            }),
+                            checkedSnapshotsCount === 1 && !isCopyMode && /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
+                              label: "Copy crop to clipboard",
+                              position: "top",
+                              withArrow: true,
+                              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
+                                color: "blue",
+                                variant: "filled",
+                                onClick: () => {
+                                  const checkedRowKeys = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutCrop.layoutId}-`));
+                                  if (checkedRowKeys.length === 1) {
+                                    const [, cropIndexStr] = checkedRowKeys[0].split("-");
+                                    const cropIndex = parseInt(cropIndexStr, 10);
+                                    handleCopyToClipboard(layoutCrop.layoutId, cropIndex);
+                                  }
+                                },
+                                disabled: !selectedConnectorId,
+                                children: /* @__PURE__ */ jsx_runtime36.jsx(IconClipboard, {
                                   size: 16
                                 })
                               })
@@ -75173,7 +75334,7 @@ function ManualCropEditor({
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => setCopyModalOpened(true, layoutCrop.layoutId),
-                                disabled: !selectedConnectorId,
+                                disabled: isCopyMode || !selectedConnectorId,
                                 children: /* @__PURE__ */ jsx_runtime36.jsx(IconCopy, {
                                   size: 16
                                 })
@@ -75187,7 +75348,7 @@ function ManualCropEditor({
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => setCopyAndAddRowModalOpened(true, layoutCrop.layoutId),
-                                disabled: !selectedConnectorId,
+                                disabled: isCopyMode || !selectedConnectorId,
                                 children: /* @__PURE__ */ jsx_runtime36.jsx(IconCopyPlus, {
                                   size: 16
                                 })
@@ -75201,7 +75362,7 @@ function ManualCropEditor({
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => setCopyAndReplaceModalOpened(true, layoutCrop.layoutId),
-                                disabled: !selectedConnectorId,
+                                disabled: isCopyMode || !selectedConnectorId,
                                 children: /* @__PURE__ */ jsx_runtime36.jsx(IconReplace, {
                                   size: 16
                                 })
@@ -75215,7 +75376,7 @@ function ManualCropEditor({
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => deselectAllRows(layoutCrop.layoutId),
-                                disabled: !selectedConnectorId,
+                                disabled: isCopyMode || !selectedConnectorId,
                                 children: /* @__PURE__ */ jsx_runtime36.jsx(IconDeselect, {
                                   size: 16
                                 })
@@ -75229,7 +75390,7 @@ function ManualCropEditor({
                                 color: "blue",
                                 variant: "filled",
                                 onClick: () => copySelectedCropsToChildren(layoutCrop.layoutId),
-                                disabled: !selectedConnectorId,
+                                disabled: isCopyMode || !selectedConnectorId,
                                 children: /* @__PURE__ */ jsx_runtime36.jsx(IconArrowAutofitDown, {
                                   size: 16
                                 })
@@ -75299,14 +75460,16 @@ function ManualCropEditor({
                           const rowKey = `${layoutCrop.layoutId}-${index6}`;
                           const changedRow = changedRows.get(rowKey);
                           const isDeleted = changedRow && "cropIndex" in changedRow && !("frameId" in changedRow);
+                          const finalCrop = changedRow && "frameId" in changedRow ? changedRow : crop;
                           return /* @__PURE__ */ jsx_runtime36.jsx(CropRow, {
-                            crop,
+                            crop: finalCrop,
                             layoutId: layoutCrop.layoutId,
                             cropIndex: index6,
                             onCropChange: handleCropChange,
                             isChecked: checkedRows.has(rowKey),
                             onCheckChange: handleCheckChange,
-                            isDeleted: !!isDeleted
+                            isDeleted: !!isDeleted,
+                            isCopySource: copySourceRowKey === rowKey
                           }, `${crop.frameId}-${crop.name}`);
                         })
                       })
@@ -77874,4 +78037,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=2DCFAF817FC476A964756E2164756E21
+//# debugId=1C4B1506C2BE78BA64756E2164756E21
