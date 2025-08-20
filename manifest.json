@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "studio-toolbar-plus",
-  "version": "0.14.2",
+  "version": "0.14.3",
   "description": "A simple toolbar extension to give you more super powers in GraFx Studio",
   "icons": {
     "16": "icons/icon16.png",
