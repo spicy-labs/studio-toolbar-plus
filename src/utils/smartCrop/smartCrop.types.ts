@@ -108,18 +108,40 @@ export function verifyCropMetadata(metadata: any): Result<CropMetadata, Error> {
   return Result.error(
     new InvalidCropMetadataError(
       "Invalid crop metadata format",
-      JSON.stringify(metadata)
-    )
+      JSON.stringify(metadata),
+    ),
   );
 }
 
 export function convertVisionToManualCropMetadata(
-  visionMetadata: VisionCropMetadata
+  visionMetadata: VisionCropMetadata,
 ): ManualCropMetadata {
   return {
     manualCropMetadata: {
       pointOfInterest: visionMetadata.visionCropMetadata.pointOfInterest,
-      subjectArea: visionMetadata.visionCropMetadata.subjectArea,
+      subjectArea: restrictSubjectArea(
+        visionMetadata.visionCropMetadata.subjectArea,
+        1,
+        0,
+      ),
     },
+  };
+}
+
+function restrictSubjectArea(
+  subjectArea: SubjectArea,
+  max: number,
+  min: number,
+) {
+  const restrictedSubjectArea = {
+    x: Math.max(min, Math.min(max, subjectArea.x)),
+    y: Math.max(min, Math.min(max, subjectArea.y)),
+    width: Math.max(min, Math.min(max, subjectArea.width)),
+    height: Math.max(min, Math.min(max, subjectArea.height)),
+  };
+
+  return {
+    ...subjectArea,
+    ...restrictedSubjectArea,
   };
 }
