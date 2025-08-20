@@ -67848,8 +67848,20 @@ function convertVisionToManualCropMetadata(visionMetadata) {
   return {
     manualCropMetadata: {
       pointOfInterest: visionMetadata.visionCropMetadata.pointOfInterest,
-      subjectArea: visionMetadata.visionCropMetadata.subjectArea
+      subjectArea: restrictSubjectArea(visionMetadata.visionCropMetadata.subjectArea, 1, 0)
     }
+  };
+}
+function restrictSubjectArea(subjectArea, max2, min2) {
+  const restrictedSubjectArea = {
+    x: Math.max(min2, Math.min(max2, subjectArea.x)),
+    y: Math.max(min2, Math.min(max2, subjectArea.y)),
+    width: Math.max(min2, Math.min(max2, subjectArea.width)),
+    height: Math.max(min2, Math.min(max2, subjectArea.height))
+  };
+  return {
+    ...subjectArea,
+    ...restrictedSubjectArea
   };
 }
 
@@ -70235,6 +70247,9 @@ function ReplaceConnectorsModal({
   return /* @__PURE__ */ jsx_runtime24.jsx(Modal, {
     opened,
     onClose: handleClose,
+    closeOnClickOutside: false,
+    closeOnEscape: false,
+    withCloseButton: false,
     title: "Replace Connectors",
     centered: true,
     size: "lg",
@@ -71612,7 +71627,6 @@ function DownloadModalNew({ opened, onClose }) {
   };
   const handleConnectorReplacement = async (replacementMap) => {
     setReplaceConnectorsModalOpened(false);
-    console.log(replacementMap);
     if (documentData) {
       console.log("HELLO");
       console.log(documentData);
@@ -71707,6 +71721,53 @@ function DownloadModalNew({ opened, onClose }) {
         }
       }
       if (smartCropsData && smartCropsData.crops && selectedVisionConnector) {
+        const totalCrops = smartCropsData.crops.length;
+        const summaryTaskId = `smart-crop-upload-summary-${selectedVisionConnector}`;
+        setUploadTasks((prev2) => [
+          ...prev2,
+          {
+            id: summaryTaskId,
+            name: `Smart Crop Upload: ${totalCrops} crops to process`,
+            type: "smart_crop_upload",
+            status: "processing"
+          }
+        ]);
+        const updateSummaryTask = () => {
+          setUploadTasks((prev2) => {
+            const individualTasks = prev2.filter((task) => task.type === "smart_crop_upload" && task.id.startsWith("smart-crop-") && task.id !== summaryTaskId);
+            const totalTasks = individualTasks.length;
+            const completedTasks = individualTasks.filter((task) => task.status === "complete").length;
+            const errorTasks = individualTasks.filter((task) => task.status === "error").length;
+            const processingTasks = individualTasks.filter((task) => task.status === "processing").length;
+            return prev2.map((task) => {
+              if (task.id === summaryTaskId) {
+                if (processingTasks > 0) {
+                  return {
+                    ...task,
+                    name: `Smart Crop Upload: ${completedTasks + errorTasks}/${totalTasks} processed`
+                  };
+                } else if (errorTasks > 0) {
+                  const errorDetails = individualTasks.filter((task2) => task2.status === "error").map((task2) => task2.error || "Unknown error").slice(0, 3);
+                  const tooltipMessage = errorTasks > 3 ? `${errorTasks} failed: ${errorDetails.join(", ")}... and ${errorTasks - 3} more` : `${errorTasks} failed: ${errorDetails.join(", ")}`;
+                  return {
+                    ...task,
+                    status: "error",
+                    name: `Smart Crop Upload: ${completedTasks} completed, ${errorTasks} failed`,
+                    tooltip: tooltipMessage,
+                    error: `${errorTasks} uploads failed`
+                  };
+                } else {
+                  return {
+                    ...task,
+                    status: "complete",
+                    name: `Smart Crop Upload: ${totalTasks} crops completed`
+                  };
+                }
+              }
+              return task;
+            });
+          });
+        };
         for (const crop of smartCropsData.crops) {
           const taskId = `smart-crop-${crop.assetId}`;
           setUploadTasks((prev2) => [
@@ -71719,6 +71780,20 @@ function DownloadModalNew({ opened, onClose }) {
             }
           ]);
           try {
+            const visionCheckResult = await getVision({
+              baseUrl,
+              connectorId: selectedVisionConnector,
+              asset: crop.assetId,
+              authorization: token2
+            });
+            if (!visionCheckResult.isOk() && visionCheckResult.error?.type === "VisionNotFoundError") {
+              await uploadImage({
+                baseUrl,
+                connectorId: selectedVisionConnector,
+                asset: crop.assetId,
+                authorization: token2
+              });
+            }
             const visionResult = await setVision({
               baseUrl,
               connectorId: selectedVisionConnector,
@@ -71728,12 +71803,14 @@ function DownloadModalNew({ opened, onClose }) {
             });
             if (visionResult.isOk()) {
               setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? { ...task, status: "complete" } : task));
+              updateSummaryTask();
             } else {
               setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? {
                 ...task,
                 status: "error",
                 error: visionResult.error?.message || "Failed to set vision data"
               } : task));
+              updateSummaryTask();
             }
           } catch (error41) {
             setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? {
@@ -71741,6 +71818,7 @@ function DownloadModalNew({ opened, onClose }) {
               status: "error",
               error: error41 instanceof Error ? error41.message : String(error41)
             } : task));
+            updateSummaryTask();
           }
         }
       }
@@ -71957,19 +72035,44 @@ function DownloadModalNew({ opened, onClose }) {
           }
         ]);
         try {
-          const queryResult = await queryMediaConnectorSimple(studio2, localConnectorId, folderPath, "");
-          if (!queryResult.isOk()) {
-            hasErrors = true;
+          const allFiles = [];
+          let pageToken = "";
+          let hasMorePages = true;
+          let pageCount = 0;
+          while (hasMorePages) {
+            pageCount++;
             setTasks((prev2) => prev2.map((task) => task.id === folderTaskId ? {
               ...task,
-              status: "error",
-              error: `Failed to query folder: ${queryResult.error?.message}`
+              name: `Getting files: ${folderPath} (page ${pageCount})`
             } : task));
-            continue;
+            const queryResult = await queryMediaConnectorSimple(studio2, localConnectorId, folderPath, pageToken);
+            if (!queryResult.isOk()) {
+              hasErrors = true;
+              setTasks((prev2) => prev2.map((task) => task.id === folderTaskId ? {
+                ...task,
+                status: "error",
+                error: `Failed to query folder: ${queryResult.error?.message}`
+              } : task));
+              break;
+            }
+            const queryPage = queryResult.value;
+            const pageFiles = queryPage.data.filter((item) => item.type === "file" || item.type === 0);
+            allFiles.push(...pageFiles);
+            if (queryPage.nextPageToken) {
+              pageToken = queryPage.nextPageToken;
+              hasMorePages = true;
+            } else {
+              hasMorePages = false;
+            }
           }
-          setTasks((prev2) => prev2.map((task) => task.id === folderTaskId ? { ...task, status: "complete" } : task));
-          const queryPage = queryResult.value;
-          const files = queryPage.data.filter((item) => item.type === "file" || item.type === 0);
+          if (!hasErrors) {
+            setTasks((prev2) => prev2.map((task) => task.id === folderTaskId ? {
+              ...task,
+              status: "complete",
+              name: `Getting files: ${folderPath} (${allFiles.length} files found)`
+            } : task));
+          }
+          const files = allFiles;
           for (const file2 of files) {
             const visionTaskId = `vision-${file2.id}`;
             setTasks((prev2) => [
@@ -72392,7 +72495,11 @@ function DownloadModalNew({ opened, onClose }) {
     children: [
       /* @__PURE__ */ jsx_runtime29.jsx(Modal, {
         opened,
-        onClose: handleClose,
+        onClose: modalState === "uploading" ? () => {
+        } : handleClose,
+        closeOnClickOutside: modalState !== "uploading",
+        closeOnEscape: modalState !== "uploading",
+        withCloseButton: modalState !== "uploading",
         title: modalState === "initial" ? "Document Upload/Download" : modalState === "downloadSettings" ? "Download Settings" : modalState === "tasks" ? "Tasks Processing" : modalState === "uploadInstructions" ? "Upload Instructions" : modalState === "uploading" ? "Uploading Files" : "Downloading Files",
         centered: true,
         size: "50%",
@@ -78037,4 +78144,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=1C4B1506C2BE78BA64756E2164756E21
+//# debugId=216E2F27DC3AD55664756E2164756E21
