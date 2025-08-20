@@ -1398,44 +1398,87 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         ]);
 
         try {
-          // Query files in the folder using the local connector ID
-          const queryResult = await queryMediaConnectorSimple(
-            studio,
-            localConnectorId,
-            folderPath,
-            ""
-          );
+          // Collect all files from all pages in this folder
+          const allFiles: Media[] = [];
+          let pageToken = "";
+          let hasMorePages = true;
+          let pageCount = 0;
 
-          if (!queryResult.isOk()) {
-            hasErrors = true;
-            // Update task to error
+          // Pagination loop to get all files from the folder
+          while (hasMorePages) {
+            pageCount++;
+
+            // Update task name to show pagination progress
             setTasks((prev) =>
               prev.map((task) =>
                 task.id === folderTaskId
                   ? {
                       ...task,
-                      status: "error",
-                      error: `Failed to query folder: ${queryResult.error?.message}`,
+                      name: `Getting files: ${folderPath} (page ${pageCount})`,
                     }
                   : task
               )
             );
-            continue;
+
+            // Query files in the folder using the local connector ID
+            const queryResult = await queryMediaConnectorSimple(
+              studio,
+              localConnectorId,
+              folderPath,
+              pageToken
+            );
+
+            if (!queryResult.isOk()) {
+              hasErrors = true;
+              // Update task to error
+              setTasks((prev) =>
+                prev.map((task) =>
+                  task.id === folderTaskId
+                    ? {
+                        ...task,
+                        status: "error",
+                        error: `Failed to query folder: ${queryResult.error?.message}`,
+                      }
+                    : task
+                )
+              );
+              break; // Exit pagination loop on error
+            }
+
+            const queryPage = queryResult.value as QueryPage<Media>;
+
+            // Filter for files only (type === "file" or type === 0) and add to collection
+            const pageFiles = queryPage.data.filter(
+              (item) => item.type === "file" || (item.type as unknown) === 0
+            );
+            allFiles.push(...pageFiles);
+
+            // Check if there are more pages
+            if (queryPage.nextPageToken) {
+              pageToken = queryPage.nextPageToken;
+              hasMorePages = true;
+            } else {
+              hasMorePages = false;
+            }
           }
 
-          // Update task to complete
-          setTasks((prev) =>
-            prev.map((task) =>
-              task.id === folderTaskId ? { ...task, status: "complete" } : task
-            )
-          );
+          // Update task to complete with total file count
+          if (!hasErrors) {
+            setTasks((prev) =>
+              prev.map((task) =>
+                task.id === folderTaskId
+                  ? {
+                      ...task,
+                      status: "complete",
+                      name: `Getting files: ${folderPath} (${allFiles.length} files found)`,
+                    }
+                  : task
+              )
+            );
+          }
 
-          const queryPage = queryResult.value as QueryPage<Media>;
-
-          // Filter for files only (type === "file" or type === 0)
-          const files = queryPage.data.filter(
-            (item) => item.type === "file" || (item.type as unknown) === 0
-          );
+          // Process vision data for all collected files
+          const files = allFiles;
 
           // Get vision data for each file
           for (const file of files) {
