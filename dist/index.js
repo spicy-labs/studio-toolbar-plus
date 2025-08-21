@@ -67848,20 +67848,8 @@ function convertVisionToManualCropMetadata(visionMetadata) {
   return {
     manualCropMetadata: {
       pointOfInterest: visionMetadata.visionCropMetadata.pointOfInterest,
-      subjectArea: restrictSubjectArea(visionMetadata.visionCropMetadata.subjectArea, 1, 0)
+      subjectArea: visionMetadata.visionCropMetadata.subjectArea
     }
-  };
-}
-function restrictSubjectArea(subjectArea, max2, min2) {
-  const restrictedSubjectArea = {
-    x: Math.max(min2, Math.min(max2, subjectArea.x)),
-    y: Math.max(min2, Math.min(max2, subjectArea.y)),
-    width: Math.max(min2, Math.min(max2, subjectArea.width)),
-    height: Math.max(min2, Math.min(max2, subjectArea.height))
-  };
-  return {
-    ...subjectArea,
-    ...restrictedSubjectArea
   };
 }
 
@@ -68622,6 +68610,19 @@ function DownloadTasksScreen({
         style: { textAlign: "center", marginBottom: "1rem" },
         children: "Processing Tasks"
       }),
+      /* @__PURE__ */ jsx_runtime21.jsx(Group, {
+        justify: "center",
+        mt: "xl",
+        children: /* @__PURE__ */ jsx_runtime21.jsx(Button, {
+          onClick: onClose,
+          color: "blue",
+          disabled: !allComplete,
+          leftSection: !allComplete ? /* @__PURE__ */ jsx_runtime21.jsx(IconLoader, {
+            size: 16
+          }) : undefined,
+          children: "Done"
+        })
+      }),
       /* @__PURE__ */ jsx_runtime21.jsx(List, {
         spacing: "md",
         size: "sm",
@@ -68652,18 +68653,37 @@ function DownloadTasksScreen({
             children: task.name
           })
         }, task.id))
-      }),
-      allComplete && /* @__PURE__ */ jsx_runtime21.jsx(Group, {
-        justify: "center",
-        mt: "xl",
-        children: /* @__PURE__ */ jsx_runtime21.jsx(Button, {
-          onClick: onClose,
-          color: "blue",
-          children: "Close"
-        })
       })
     ]
   });
+}
+
+// src/utils/smartCrop/clampSubjectAreaToBounds.ts
+function clampSubjectAreaToBounds(cropMetadata) {
+  const subjectArea = cropMetadata.manualCropMetadata ? cropMetadata.manualCropMetadata.subjectArea : cropMetadata.visionCropMetadata.subjectArea;
+  const clampedArea = { ...subjectArea };
+  clampedArea.x = Math.max(0, clampedArea.x);
+  clampedArea.y = Math.max(0, clampedArea.y);
+  clampedArea.width = Math.min(clampedArea.width, 1 - clampedArea.x);
+  clampedArea.height = Math.min(clampedArea.height, 1 - clampedArea.y);
+  clampedArea.width = Math.max(0, clampedArea.width);
+  clampedArea.height = Math.max(0, clampedArea.height);
+  if (cropMetadata.manualCropMetadata) {
+    return {
+      manualCropMetadata: {
+        ...cropMetadata.manualCropMetadata,
+        subjectArea: clampedArea
+      }
+    };
+  } else {
+    return {
+      manualCropMetadata: null,
+      visionCropMetadata: {
+        ...cropMetadata.visionCropMetadata,
+        subjectArea: clampedArea
+      }
+    };
+  }
 }
 
 // src/components/ImageBrowser.tsx
@@ -69382,7 +69402,7 @@ function ImageBrowser({
             connectorId: selectedConnectorId,
             asset: targetFileObj.id,
             authorization: token2,
-            metadata: sourceVisionData
+            metadata: clampSubjectAreaToBounds(sourceVisionData)
           });
           if (setResult.isOk()) {
             setCopyTasks((prev2) => prev2.map((task) => task.id === setVisionTaskId ? { ...task, status: "complete" } : task));
@@ -70083,12 +70103,13 @@ function ImageBrowser({
   });
 }
 
-// src/components/ConnectorSelectionModal.tsx
+// src/components/DownloadModal/ConnectorSelectionModal.tsx
 var import_react275 = __toESM(require_react(), 1);
 var jsx_runtime23 = __toESM(require_jsx_runtime(), 1);
 function ConnectorSelectionModal({
   opened,
   onClose,
+  onCancel,
   connectors,
   smartCropsConnectorName,
   onSelect
@@ -70113,16 +70134,25 @@ function ConnectorSelectionModal({
       onClose();
     }
   };
-  const handleClose = () => {
+  const handleCancel = () => {
     setSelectedConnectorId("");
-    onClose();
+    if (onCancel) {
+      onCancel();
+    } else {
+      onClose();
+    }
   };
   return /* @__PURE__ */ jsx_runtime23.jsx(Modal, {
     opened,
-    onClose: handleClose,
+    onClose: () => {
+    },
     title: "Select Connector for Smart Crops",
     centered: true,
+    trapFocus: false,
     size: "md",
+    closeOnClickOutside: false,
+    closeOnEscape: false,
+    withCloseButton: false,
     styles: {
       content: {
         minHeight: "300px"
@@ -70163,7 +70193,7 @@ function ConnectorSelectionModal({
           children: [
             /* @__PURE__ */ jsx_runtime23.jsx(Button, {
               variant: "outline",
-              onClick: handleClose,
+              onClick: handleCancel,
               children: "Cancel"
             }),
             /* @__PURE__ */ jsx_runtime23.jsx(Button, {
@@ -70185,6 +70215,7 @@ var jsx_runtime24 = __toESM(require_jsx_runtime(), 1);
 function ReplaceConnectorsModal({
   opened,
   onClose,
+  onCancel,
   connectorsToReplace,
   availableConnectors,
   onReplace
@@ -70240,16 +70271,22 @@ function ReplaceConnectorsModal({
     onReplace(newReplacementMap);
     onClose();
   };
-  const handleClose = () => {
+  const handleCancel = () => {
     setReplacements({});
-    onClose();
+    setReplacementMap(new Map);
+    if (onCancel) {
+      onCancel();
+    } else {
+      onClose();
+    }
   };
   return /* @__PURE__ */ jsx_runtime24.jsx(Modal, {
     opened,
-    onClose: handleClose,
+    onClose: handleCancel,
     closeOnClickOutside: false,
     closeOnEscape: false,
     withCloseButton: false,
+    trapFocus: false,
     title: "Replace Connectors",
     centered: true,
     size: "lg",
@@ -70326,7 +70363,7 @@ function ReplaceConnectorsModal({
           children: [
             /* @__PURE__ */ jsx_runtime24.jsx(Button, {
               variant: "outline",
-              onClick: handleClose,
+              onClick: handleCancel,
               children: "Cancel"
             }),
             /* @__PURE__ */ jsx_runtime24.jsx(Button, {
@@ -71780,26 +71817,12 @@ function DownloadModalNew({ opened, onClose }) {
             }
           ]);
           try {
-            const visionCheckResult = await getVision({
-              baseUrl,
-              connectorId: selectedVisionConnector,
-              asset: crop.assetId,
-              authorization: token2
-            });
-            if (!visionCheckResult.isOk() && visionCheckResult.error?.type === "VisionNotFoundError") {
-              await uploadImage({
-                baseUrl,
-                connectorId: selectedVisionConnector,
-                asset: crop.assetId,
-                authorization: token2
-              });
-            }
             const visionResult = await setVision({
               baseUrl,
               connectorId: selectedVisionConnector,
               asset: crop.assetId,
               authorization: token2,
-              metadata: crop.metadata
+              metadata: clampSubjectAreaToBounds(crop.metadata)
             });
             if (visionResult.isOk()) {
               setUploadTasks((prev2) => prev2.map((task) => task.id === taskId ? { ...task, status: "complete" } : task));
@@ -72568,6 +72591,10 @@ function DownloadModalNew({ opened, onClose }) {
       /* @__PURE__ */ jsx_runtime29.jsx(ConnectorSelectionModal, {
         opened: connectorSelectionModalOpened,
         onClose: () => setConnectorSelectionModalOpened(false),
+        onCancel: () => {
+          setConnectorSelectionModalOpened(false);
+          handleClose();
+        },
         connectors: availableConnectors,
         smartCropsConnectorName: smartCropsData?.connectorName,
         onSelect: handleConnectorSelection
@@ -72575,6 +72602,10 @@ function DownloadModalNew({ opened, onClose }) {
       /* @__PURE__ */ jsx_runtime29.jsx(ReplaceConnectorsModal, {
         opened: replaceConnectorsModalOpened,
         onClose: () => setReplaceConnectorsModalOpened(false),
+        onCancel: () => {
+          setReplaceConnectorsModalOpened(false);
+          handleClose();
+        },
         connectorsToReplace,
         availableConnectors,
         onReplace: (replacementMap) => {
@@ -78144,4 +78175,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=216E2F27DC3AD55664756E2164756E21
+//# debugId=5F885A877D2A92B964756E2164756E21
