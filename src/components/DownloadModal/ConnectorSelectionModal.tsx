@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Text, Stack, Group, Button, Select } from "@mantine/core";
-import type { Connector } from "../types/connectorTypes";
+import type { Connector } from "../../types/connectorTypes";
 
 interface ConnectorSelectionModalProps {
   opened: boolean;
@@ -55,6 +55,7 @@ export function ConnectorSelectionModal({
       opened={opened}
       onClose={() => {}} // Disable closing except via Cancel button
       title="Select Connector for Smart Crops"
+      autoFocus={false}
       centered
       size="md"
       closeOnClickOutside={false}

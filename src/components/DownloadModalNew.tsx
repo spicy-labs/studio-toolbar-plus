@@ -15,7 +15,7 @@ import { getMediaConnectorsAPI } from "../utils/getMediaConnectorsAPI";
 import { loadDocumentFromJsonStr } from "../studio/documentHandler";
 import { loadToolbarDataFromDoc } from "../studio/studioAdapter";
 import { ImageBrowser, ImageBrowserMode } from "./ImageBrowser";
-import { ConnectorSelectionModal } from "./ConnectorSelectionModal";
+import { ConnectorSelectionModal } from "./DownloadModal/ConnectorSelectionModal";
 import { ReplaceConnectorsModal } from "./DownloadModal/ReplaceConnectorsModal";
 import { DefaultSettingsModal } from "./DownloadModal/DefaultSettingsModal";
 import type { ImageBrowserFolderSelection } from "./ImageBrowser";
