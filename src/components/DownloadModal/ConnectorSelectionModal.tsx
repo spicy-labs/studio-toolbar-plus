@@ -5,6 +5,7 @@ import type { Connector } from "../../types/connectorTypes";
 interface ConnectorSelectionModalProps {
   opened: boolean;
   onClose: () => void;
+  onCancel?: () => void;
   connectors: Connector[];
   smartCropsConnectorName?: string;
   onSelect: (connectorId: string) => void;
@@ -13,6 +14,7 @@ interface ConnectorSelectionModalProps {
 export function ConnectorSelectionModal({
   opened,
   onClose,
+  onCancel,
   connectors,
   smartCropsConnectorName,
   onSelect,
@@ -23,7 +25,7 @@ export function ConnectorSelectionModal({
   useEffect(() => {
     if (opened && smartCropsConnectorName) {
       const matchingConnector = connectors.find(
-        (connector) => connector.name === smartCropsConnectorName,
+        (connector) => connector.name === smartCropsConnectorName
       );
       if (matchingConnector) {
         setSelectedConnectorId(matchingConnector.id);
@@ -45,9 +47,13 @@ export function ConnectorSelectionModal({
     }
   };
 
-  const handleClose = () => {
+  const handleCancel = () => {
     setSelectedConnectorId("");
-    onClose();
+    if (onCancel) {
+      onCancel();
+    } else {
+      onClose();
+    }
   };
 
   return (
@@ -55,8 +61,8 @@ export function ConnectorSelectionModal({
       opened={opened}
       onClose={() => {}} // Disable closing except via Cancel button
       title="Select Connector for Smart Crops"
-      autoFocus={false}
       centered
+      trapFocus={false}
       size="md"
       closeOnClickOutside={false}
       closeOnEscape={false}
@@ -96,7 +102,7 @@ export function ConnectorSelectionModal({
         />
 
         <Group justify="flex-end" mt="md">
-          <Button variant="outline" onClick={handleClose}>
+          <Button variant="outline" onClick={handleCancel}>
             Cancel
           </Button>
           <Button

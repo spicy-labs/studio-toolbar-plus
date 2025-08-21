@@ -2489,6 +2489,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       <ConnectorSelectionModal
         opened={connectorSelectionModalOpened}
         onClose={() => setConnectorSelectionModalOpened(false)}
+        onCancel={() => {
+          setConnectorSelectionModalOpened(false);
+          handleClose();
+        }}
         connectors={availableConnectors}
         smartCropsConnectorName={smartCropsData?.connectorName}
         onSelect={handleConnectorSelection}
@@ -2498,6 +2502,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       <ReplaceConnectorsModal
         opened={replaceConnectorsModalOpened}
         onClose={() => setReplaceConnectorsModalOpened(false)}
+        onCancel={() => {
+          setReplaceConnectorsModalOpened(false);
+          handleClose();
+        }}
         connectorsToReplace={connectorsToReplace}
         availableConnectors={availableConnectors}
         onReplace={(replacementMap) => {
