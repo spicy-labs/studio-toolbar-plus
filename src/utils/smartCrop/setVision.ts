@@ -1,5 +1,8 @@
 import { Result } from "typescript-result";
-import { convertVisionToManualCropMetadata, type CropMetadata } from "./smartCrop.types";
+import {
+  convertVisionToManualCropMetadata,
+  type CropMetadata,
+} from "./smartCrop.types";
 import { sha256Concat } from "./sha256Concat";
 
 type EnvironmentDetails = {
@@ -38,7 +41,6 @@ class BadRequestError extends Error {
     super(message);
   }
 }
-
 
 export async function setVision({
   baseUrl,
@@ -86,7 +88,6 @@ export async function setVision({
         throw new AuthorizationError(`Authorization failed for ${baseUrl}`);
       }
       if (response.status === 404) {
-
         if (skipUpload) {
           throw new SettingVisonBotFoundError(
             `Not found for ${asset} after upload attempt`,
@@ -135,19 +136,19 @@ export async function setVision({
   }
 }
 
-function base64ToBlob(base64Data:string, contentType = '') {
+function base64ToBlob(base64Data: string, contentType = "") {
   const byteCharacters = atob(base64Data);
   const byteNumbers = new Array(byteCharacters.length);
-  
+
   for (let i = 0; i < byteCharacters.length; i++) {
     byteNumbers[i] = byteCharacters.charCodeAt(i);
   }
-  
+
   const byteArray = new Uint8Array(byteNumbers);
   return new Blob([byteArray], { type: contentType });
 }
 
-async function uploadImage({
+export async function uploadImage({
   baseUrl,
   connectorId,
   asset,
@@ -159,13 +160,14 @@ async function uploadImage({
     const url = `${baseUrl}external-media/${await sha256Concat(connectorId, asset)}/vision`;
 
     // Hardcoded base64 image data
-    const base64Image = "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAADtJREFUKFNjZGBg+M9ABGAkS+EnLi642XzfvqHYAzcRWRFMBbJisEJsitAV00ghyBri3AhzD1G+JhTmAJCTHwEL6mXhAAAAAElFTkSuQmCC";
-    
+    const base64Image =
+      "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAADtJREFUKFNjZGBg+M9ABGAkS+EnLi642XzfvqHYAzcRWRFMBbJisEJsitAV00ghyBri3AhzD1G+JhTmAJCTHwEL6mXhAAAAAElFTkSuQmCC";
+
     // Convert base64 to Blob
-    const imageBlob = base64ToBlob(base64Image, 'image/png');
-    
+    const imageBlob = base64ToBlob(base64Image, "image/png");
+
     // Create a File object from the Blob
-    const imageFile = new File([imageBlob], 'image.png', { type: 'image/png' });
+    const imageFile = new File([imageBlob], "image.png", { type: "image/png" });
 
     const formData = new FormData();
     formData.append("file", imageFile);

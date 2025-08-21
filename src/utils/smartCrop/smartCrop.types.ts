@@ -123,3 +123,21 @@ export function convertVisionToManualCropMetadata(
     },
   };
 }
+
+function restrictSubjectArea(
+  subjectArea: SubjectArea,
+  max: number,
+  min: number
+) {
+  const restrictedSubjectArea = {
+    x: Math.max(min, Math.min(max, subjectArea.x)),
+    y: Math.max(min, Math.min(max, subjectArea.y)),
+    width: Math.max(min, Math.min(max, subjectArea.width)),
+    height: Math.max(min, Math.min(max, subjectArea.height)),
+  };
+
+  return {
+    ...subjectArea,
+    ...restrictedSubjectArea,
+  };
+}

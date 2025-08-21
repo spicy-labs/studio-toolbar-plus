@@ -18,6 +18,7 @@ import type {
 interface ReplaceConnectorsModalProps {
   opened: boolean;
   onClose: () => void;
+  onCancel?: () => void;
   connectorsToReplace: DocumentConnectorGraFx[];
   availableConnectors: Connector[];
   onReplace: (replacementMap: Map<string, string>) => void;
@@ -26,6 +27,7 @@ interface ReplaceConnectorsModalProps {
 export function ReplaceConnectorsModal({
   opened,
   onClose,
+  onCancel,
   connectorsToReplace,
   availableConnectors,
   onReplace,
@@ -48,7 +50,7 @@ export function ReplaceConnectorsModal({
 
       for (const [sourceId, name] of connectorsSources) {
         const matchingConnector = availableConnectors.find(
-          (connector) => connector.name === name,
+          (connector) => connector.name === name
         );
 
         if (matchingConnector) {
@@ -75,13 +77,13 @@ export function ReplaceConnectorsModal({
 
   // Check if all connectors have replacements selected
   const allSelected = Array.from(replacementMap.values()).every(
-    (connector) => connector.replacementId !== null,
+    (connector) => connector.replacementId !== null
   );
 
   const handleReplacementChange = (
     connectorId: string,
     name: string,
-    replacementId: string | null,
+    replacementId: string | null
   ) => {
     setReplacementMap((prev) => {
       const updated = new Map(prev);
@@ -107,15 +109,24 @@ export function ReplaceConnectorsModal({
     onClose();
   };
 
-  const handleClose = () => {
+  const handleCancel = () => {
     setReplacements({});
-    onClose();
+    setReplacementMap(new Map());
+    if (onCancel) {
+      onCancel();
+    } else {
+      onClose();
+    }
   };
 
   return (
     <Modal
       opened={opened}
-      onClose={handleClose}
+      onClose={handleCancel}
+      closeOnClickOutside={false}
+      closeOnEscape={false}
+      withCloseButton={false}
+      trapFocus={false}
       title="Replace Connectors"
       centered
       size="lg"
@@ -171,7 +182,7 @@ export function ReplaceConnectorsModal({
                         handleReplacementChange(
                           connectorId,
                           connector.name,
-                          value,
+                          value
                         )
                       }
                       searchable
@@ -179,13 +190,13 @@ export function ReplaceConnectorsModal({
                     />
                   </Table.Td>
                 </Table.Tr>
-              ),
+              )
             )}
           </Table.Tbody>
         </Table>
 
         <Group justify="flex-end" mt="md">
-          <Button variant="outline" onClick={handleClose}>
+          <Button variant="outline" onClick={handleCancel}>
             Cancel
           </Button>
           <Button onClick={handleContinue} disabled={!allSelected} color="blue">

@@ -12,6 +12,7 @@ import {
   IconCircleCheckFilled,
   IconInfoCircleFilled,
   IconExclamationCircle,
+  IconLoader,
 } from "@tabler/icons-react";
 
 interface DownloadFile {
@@ -77,7 +78,16 @@ export function DownloadTasksScreen({
       <Text size="md" style={{ textAlign: "center", marginBottom: "1rem" }}>
         Processing Tasks
       </Text>
-
+      <Group justify="center" mt="xl">
+        <Button
+          onClick={onClose}
+          color="blue"
+          disabled={!allComplete}
+          leftSection={!allComplete ? <IconLoader size={16} /> : undefined}
+        >
+          Done
+        </Button>
+      </Group>
       <List spacing="md" size="sm">
         {allTasks.map((task) => (
           <List.Item
@@ -104,14 +114,6 @@ export function DownloadTasksScreen({
           </List.Item>
         ))}
       </List>
-
-      {allComplete && (
-        <Group justify="center" mt="xl">
-          <Button onClick={onClose} color="blue">
-            Close
-          </Button>
-        </Group>
-      )}
     </Stack>
   );
 }

@@ -48,6 +48,7 @@ import { setVision } from "../utils/smartCrop/setVision";
 import type { CropMetadata } from "../utils/smartCrop/smartCrop.types";
 import type { TaskItem } from "./DownloadModal/types";
 import { DownloadTasksScreen } from "./DownloadModal/DownloadTasksScreen";
+import { clampSubjectAreaToBounds } from "../utils/smartCrop/clampSubjectAreaToBounds";
 
 // Define types for the component
 export type QueryPage<T> = {
@@ -1190,7 +1191,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
             connectorId: selectedConnectorId!,
             asset: targetFileObj.id,
             authorization: token,
-            metadata: sourceVisionData,
+            metadata: clampSubjectAreaToBounds(sourceVisionData),
           });
 
           if (setResult.isOk()) {

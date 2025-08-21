@@ -53,10 +53,13 @@ export function ConnectorSelectionModal({
   return (
     <Modal
       opened={opened}
-      onClose={handleClose}
+      onClose={() => {}} // Disable closing except via Cancel button
       title="Select Connector for Smart Crops"
       centered
       size="md"
+      closeOnClickOutside={false}
+      closeOnEscape={false}
+      withCloseButton={false}
       styles={{
         content: {
           minHeight: "300px",

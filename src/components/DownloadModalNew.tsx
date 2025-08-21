@@ -10,12 +10,12 @@ import {
   unregisterConnector,
 } from "../studio/connectorAdapter";
 import { getVision } from "../utils/smartCrop/getVision";
-import { setVision } from "../utils/smartCrop/setVision";
+import { setVision, uploadImage } from "../utils/smartCrop/setVision";
 import { getMediaConnectorsAPI } from "../utils/getMediaConnectorsAPI";
 import { loadDocumentFromJsonStr } from "../studio/documentHandler";
 import { loadToolbarDataFromDoc } from "../studio/studioAdapter";
 import { ImageBrowser, ImageBrowserMode } from "./ImageBrowser";
-import { ConnectorSelectionModal } from "./ConnectorSelectionModal";
+import { ConnectorSelectionModal } from "./DownloadModal/ConnectorSelectionModal";
 import { ReplaceConnectorsModal } from "./DownloadModal/ReplaceConnectorsModal";
 import { DefaultSettingsModal } from "./DownloadModal/DefaultSettingsModal";
 import type { ImageBrowserFolderSelection } from "./ImageBrowser";
@@ -61,6 +61,7 @@ import {
   getDocumentId,
 } from "./DownloadModal/utils";
 import { cornersOfRectangle } from "@dnd-kit/core/dist/utilities/algorithms/helpers";
+import { clampSubjectAreaToBounds } from "../utils/smartCrop/clampSubjectAreaToBounds";
 
 interface DownloadModalNewProps {
   opened: boolean;
@@ -98,7 +99,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   const [replaceConnectorsModalOpened, setReplaceConnectorsModalOpened] =
     useState(false);
   const [availableConnectors, setAvailableConnectors] = useState<Connector[]>(
-    []
+    [],
   );
   const [connectorsToReplace, setConnectorsToReplace] = useState<
     DocumentConnectorGraFx[]
@@ -133,8 +134,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   status: success ? "complete" : "error",
                   error: error || undefined,
                 }
-              : f
-          )
+              : f,
+          ),
         );
       }
     };
@@ -159,7 +160,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         const studioResult = await getStudio();
         if (!studioResult.isOk()) {
           raiseError(
-            new Error(studioResult.error?.message || "Failed to get studio")
+            new Error(studioResult.error?.message || "Failed to get studio"),
           );
           return;
         }
@@ -168,8 +169,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         if (!fontFamiliesResult.isOk()) {
           raiseError(
             new Error(
-              fontFamiliesResult.error?.message || "Failed to get font families"
-            )
+              fontFamiliesResult.error?.message ||
+                "Failed to get font families",
+            ),
           );
           return;
         }
@@ -180,7 +182,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         // Count total font styles
         const totalStyles = families.reduce(
           (total, family) => total + family.fontStyles.length,
-          0
+          0,
         );
         setFontStylesCount(totalStyles);
       } catch (error) {
@@ -194,7 +196,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   // Document processing functions
   const processDocumentForDownload = (
     documentData: any,
-    settings: DownloadSettings
+    settings: DownloadSettings,
   ): any => {
     // Create a deep copy of the document data
     let processedDocument = JSON.parse(JSON.stringify(documentData));
@@ -241,7 +243,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       (connector: any) =>
         connector.source &&
         connector.source.source === "grafx" &&
-        connector.source.id != null
+        connector.source.id != null,
     );
 
     if (grafxConnectors.length === 0) {
@@ -275,7 +277,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         }
         // Keep used grafx connectors
         return usedConnectorIds.has(connector.id);
-      }
+      },
     );
 
     return processedDocument;
@@ -313,7 +315,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
-            }
+            },
           );
 
           if (templateResponse.ok) {
@@ -445,7 +447,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     try {
       if (!window.showDirectoryPicker) {
         raiseError(
-          new Error("File System Access API is not supported in this browser")
+          new Error("File System Access API is not supported in this browser"),
         );
         return;
       }
@@ -457,7 +459,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       const filesResult = await loadFilesFromDirectory(directoryHandle);
       if (!filesResult.isOk()) {
         setError(
-          filesResult.error?.message || "Failed to load files from directory"
+          filesResult.error?.message || "Failed to load files from directory",
         );
         setModalState("uploadInstructions");
         return;
@@ -481,7 +483,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     try {
       // Find and parse chili-package.json
       const packageJsonFile = files.find(
-        (file) => file.name === "chili-package.json"
+        (file) => file.name === "chili-package.json",
       );
       if (!packageJsonFile) {
         raiseError(new NoChiliPackageError("chili-package.json not found"));
@@ -494,7 +496,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       const validationResult = verifyStudioPackage(packageJsonData);
       if (!validationResult.isOk()) {
         raiseError(
-          validationResult.error || new Error("Package validation failed")
+          validationResult.error || new Error("Package validation failed"),
         );
         return;
       }
@@ -506,7 +508,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -548,7 +550,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         studio,
         token,
         baseUrl,
-        packageTaskId
+        packageTaskId,
       );
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -562,18 +564,18 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     studio: any,
     token: string,
     baseUrl: string,
-    packageTaskId: string
+    packageTaskId: string,
   ) => {
     try {
       // Helper function to update package task status
       const updatePackageTaskStatus = (
         status: TaskItem["status"],
-        error?: string
+        error?: string,
       ) => {
         setUploadTasks((prev) =>
           prev.map((task) =>
-            task.id === packageTaskId ? { ...task, status, error } : task
-          )
+            task.id === packageTaskId ? { ...task, status, error } : task,
+          ),
         );
       };
 
@@ -582,11 +584,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       for (const document of studioPackage.documents) {
         if (document.smartCrops) {
           const smartCropsFile = files.find(
-            (file) => file.name === document.smartCrops!.filePath
+            (file) => file.name === document.smartCrops!.filePath,
           );
           if (!smartCropsFile) {
             const error = new MissingSmartCropsFileError(
-              `Smart crops file not found: ${document.smartCrops.filePath}`
+              `Smart crops file not found: ${document.smartCrops.filePath}`,
             );
             raiseError(error);
             updatePackageTaskStatus("error", error.message);
@@ -600,7 +602,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             setSmartCropsData(smartCropsFileData);
           } catch (parseError) {
             const error = new InvalidSmartCropsJsonError(
-              `Invalid smart crops JSON: ${parseError instanceof Error ? parseError.message : String(parseError)}`
+              `Invalid smart crops JSON: ${parseError instanceof Error ? parseError.message : String(parseError)}`,
             );
             raiseError(error);
             updatePackageTaskStatus("error", error.message);
@@ -619,7 +621,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         const connectorsResult = await getMediaConnectorsAPI(baseUrl, token);
         if (!connectorsResult.isOk()) {
           const error = new FailedToFetchConnectorsError(
-            `Failed to fetch connectors: ${connectorsResult.error?.message}`
+            `Failed to fetch connectors: ${connectorsResult.error?.message}`,
           );
           raiseError(error);
           updatePackageTaskStatus("error", error.message);
@@ -627,7 +629,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         }
 
         const mediaConnectors = connectorsResult.value.data.filter(
-          (connector) => connector.enabled && connector.type === "media"
+          (connector) => connector.enabled && connector.type === "media",
         );
 
         // Show connector selection modal and wait for selection
@@ -645,7 +647,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         studio,
         token,
         baseUrl,
-        packageTaskId
+        packageTaskId,
       );
     } catch (error) {
       const errorMessage =
@@ -655,8 +657,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         prev.map((task) =>
           task.id === packageTaskId
             ? { ...task, status: "error", error: errorMessage }
-            : task
-        )
+            : task,
+        ),
       );
     }
   };
@@ -668,18 +670,18 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     studio: any,
     token: string,
     baseUrl: string,
-    packageTaskId: string
+    packageTaskId: string,
   ) => {
     try {
       // Helper function to update package task status
       const updatePackageTaskStatus = (
         status: TaskItem["status"],
-        error?: string
+        error?: string,
       ) => {
         setUploadTasks((prev) =>
           prev.map((task) =>
-            task.id === packageTaskId ? { ...task, status, error } : task
-          )
+            task.id === packageTaskId ? { ...task, status, error } : task,
+          ),
         );
       };
 
@@ -687,11 +689,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       let parsedDocumentData: any = null;
       for (const document of studioPackage.documents) {
         const documentFile = files.find(
-          (file) => file.name === document.filePath
+          (file) => file.name === document.filePath,
         );
         if (!documentFile) {
           const error = new MissingDocumentFileError(
-            `Document file not found: ${document.filePath}`
+            `Document file not found: ${document.filePath}`,
           );
           raiseError(error);
           updatePackageTaskStatus("error", error.message);
@@ -705,7 +707,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           setDocumentData(parsedDocumentData);
         } catch (parseError) {
           const error = new InvalidDocumentJsonError(
-            `Invalid document JSON: ${parseError instanceof Error ? parseError.message : String(parseError)}`
+            `Invalid document JSON: ${parseError instanceof Error ? parseError.message : String(parseError)}`,
           );
           raiseError(error);
           updatePackageTaskStatus("error", error.message);
@@ -717,7 +719,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       const connectorsResult = await getMediaConnectorsAPI(baseUrl, token);
       if (!connectorsResult.isOk()) {
         const error = new FailedToFetchConnectorsError(
-          `Failed to fetch connectors: ${connectorsResult.error?.message}`
+          `Failed to fetch connectors: ${connectorsResult.error?.message}`,
         );
         raiseError(error);
         updatePackageTaskStatus("error", error.message);
@@ -725,7 +727,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       }
 
       const mediaConnectors = connectorsResult.value.data.filter(
-        (connector) => connector.enabled && connector.type === "media"
+        (connector) => connector.enabled && connector.type === "media",
       );
       setAvailableConnectors(mediaConnectors);
 
@@ -737,7 +739,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           currentDocumentData.connectors as DocumentConnector[];
         const connectorsNeedingReplacement = documentConnectors.filter(
           (connector) =>
-            connector.source.source === "grafx" && connector.source.id
+            connector.source.source === "grafx" && connector.source.id,
         ) as DocumentConnectorGraFx[];
 
         if (connectorsNeedingReplacement.length > 0) {
@@ -758,8 +760,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         prev.map((task) =>
           task.id === packageTaskId
             ? { ...task, status: "error", error: errorMessage }
-            : task
-        )
+            : task,
+        ),
       );
     }
   };
@@ -783,18 +785,16 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         currentStudio,
         currentToken,
         currentBaseUrl,
-        packageJsonTaskId
+        packageJsonTaskId,
       );
     }
   };
 
   // Handle connector replacement
   const handleConnectorReplacement = async (
-    replacementMap: Map<string, string>
+    replacementMap: Map<string, string>,
   ) => {
     setReplaceConnectorsModalOpened(false);
-
-    console.log(replacementMap);
 
     if (documentData) {
       // Perform string replacement in document JSON
@@ -844,8 +844,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((task) =>
             task.id === packageJsonTaskId
               ? { ...task, status: "error", error: errorMessage }
-              : task
-          )
+              : task,
+          ),
         );
 
         raiseError(new Error(errorMessage));
@@ -858,8 +858,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       // Mark package task as complete and continue with task processing
       setUploadTasks((prev) =>
         prev.map((task) =>
-          task.id === packageJsonTaskId ? { ...task, status: "complete" } : task
-        )
+          task.id === packageJsonTaskId
+            ? { ...task, status: "complete" }
+            : task,
+        ),
       );
 
       // Add document load task
@@ -887,7 +889,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           currentStudio,
           currentToken,
           currentBaseUrl,
-          newDocumentData
+          newDocumentData,
         );
       }
     }
@@ -900,14 +902,14 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     studio: any,
     token: string,
     baseUrl: string,
-    currentDocumentData?: any
+    currentDocumentData?: any,
   ) => {
     try {
       // Process fonts first
       for (const document of studioPackage.documents) {
         for (const fontInfo of document.fonts) {
           const fontFile = files.find(
-            (file) => file.name === fontInfo.filePath
+            (file) => file.name === fontInfo.filePath,
           );
           if (!fontFile) {
             const taskId = `font-upload-${fontInfo.details.id}`;
@@ -941,7 +943,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               fontInfo.details,
               token,
               baseUrl,
-              taskId
+              taskId,
             );
           } catch (error) {
             // Error handling is done within uploadFont function
@@ -951,6 +953,80 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
       // Process smart crops if available
       if (smartCropsData && smartCropsData.crops && selectedVisionConnector) {
+        const totalCrops = smartCropsData.crops.length;
+        const summaryTaskId = `smart-crop-upload-summary-${selectedVisionConnector}`;
+
+        // Create summary task
+        setUploadTasks((prev) => [
+          ...prev,
+          {
+            id: summaryTaskId,
+            name: `Smart Crop Upload: ${totalCrops} crops to process`,
+            type: "smart_crop_upload",
+            status: "processing",
+          },
+        ]);
+
+        // Helper function to update summary task
+        const updateSummaryTask = () => {
+          setUploadTasks((prev) => {
+            const individualTasks = prev.filter(
+              (task) =>
+                task.type === "smart_crop_upload" &&
+                task.id.startsWith("smart-crop-") &&
+                task.id !== summaryTaskId,
+            );
+
+            const totalTasks = individualTasks.length;
+            const completedTasks = individualTasks.filter(
+              (task) => task.status === "complete",
+            ).length;
+            const errorTasks = individualTasks.filter(
+              (task) => task.status === "error",
+            ).length;
+            const processingTasks = individualTasks.filter(
+              (task) => task.status === "processing",
+            ).length;
+
+            return prev.map((task) => {
+              if (task.id === summaryTaskId) {
+                if (processingTasks > 0) {
+                  return {
+                    ...task,
+                    name: `Smart Crop Upload: ${completedTasks + errorTasks}/${totalTasks} processed`,
+                  };
+                } else if (errorTasks > 0) {
+                  // Get error details for tooltip
+                  const errorDetails = individualTasks
+                    .filter((task) => task.status === "error")
+                    .map((task) => task.error || "Unknown error")
+                    .slice(0, 3);
+
+                  const tooltipMessage =
+                    errorTasks > 3
+                      ? `${errorTasks} failed: ${errorDetails.join(", ")}... and ${errorTasks - 3} more`
+                      : `${errorTasks} failed: ${errorDetails.join(", ")}`;
+
+                  return {
+                    ...task,
+                    status: "error" as const,
+                    name: `Smart Crop Upload: ${completedTasks} completed, ${errorTasks} failed`,
+                    tooltip: tooltipMessage,
+                    error: `${errorTasks} uploads failed`,
+                  };
+                } else {
+                  return {
+                    ...task,
+                    status: "complete" as const,
+                    name: `Smart Crop Upload: ${totalTasks} crops completed`,
+                  };
+                }
+              }
+              return task;
+            });
+          });
+        };
+
         for (const crop of smartCropsData.crops) {
           const taskId = `smart-crop-${crop.assetId}`;
           setUploadTasks((prev) => [
@@ -964,20 +1040,41 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           ]);
 
           try {
+            // Check if vision data exists before setting it
+            // const visionCheckResult = await getVision({
+            //   baseUrl,
+            //   connectorId: selectedVisionConnector,
+            //   asset: crop.assetId,
+            //   authorization: token,
+            // });
+
+            // if (
+            //   !visionCheckResult.isOk() &&
+            //   (visionCheckResult.error as any)?.type === "VisionNotFoundError"
+            // ) {
+            //   await uploadImage({
+            //     baseUrl,
+            //     connectorId: selectedVisionConnector,
+            //     asset: crop.assetId,
+            //     authorization: token,
+            //   });
+            // }
+
             const visionResult = await setVision({
               baseUrl,
               connectorId: selectedVisionConnector,
               asset: crop.assetId,
               authorization: token,
-              metadata: crop.metadata,
+              metadata: clampSubjectAreaToBounds(crop.metadata),
             });
 
             if (visionResult.isOk()) {
               setUploadTasks((prev) =>
                 prev.map((task) =>
-                  task.id === taskId ? { ...task, status: "complete" } : task
-                )
+                  task.id === taskId ? { ...task, status: "complete" } : task,
+                ),
               );
+              updateSummaryTask();
             } else {
               setUploadTasks((prev) =>
                 prev.map((task) =>
@@ -989,9 +1086,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                           visionResult.error?.message ||
                           "Failed to set vision data",
                       }
-                    : task
-                )
+                    : task,
+                ),
               );
+              updateSummaryTask();
             }
           } catch (error) {
             setUploadTasks((prev) =>
@@ -1003,9 +1101,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                       error:
                         error instanceof Error ? error.message : String(error),
                     }
-                  : task
-              )
+                  : task,
+              ),
             );
+            updateSummaryTask();
           }
         }
       }
@@ -1016,23 +1115,23 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((task) =>
             task.id === "document-load"
               ? { ...task, status: "processing" }
-              : task
-          )
+              : task,
+          ),
         );
 
         console.log(currentDocumentData);
         try {
           const loadResult = await loadDocumentFromJsonStr(
             studio,
-            JSON.stringify(currentDocumentData)
+            JSON.stringify(currentDocumentData),
           );
           if (loadResult.isOk()) {
             setUploadTasks((prev) =>
               prev.map((task) =>
                 task.id === "document-load"
                   ? { ...task, status: "complete" }
-                  : task
-              )
+                  : task,
+              ),
             );
           } else {
             setUploadTasks((prev) =>
@@ -1044,8 +1143,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                       error:
                         loadResult.error?.message || "Failed to load document",
                     }
-                  : task
-              )
+                  : task,
+              ),
             );
           }
         } catch (error) {
@@ -1058,8 +1157,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                     error:
                       error instanceof Error ? error.message : String(error),
                   }
-                : task
-            )
+                : task,
+            ),
           );
         }
       }
@@ -1072,7 +1171,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   const fetchAllFontFamilies = async (
     baseUrl: string,
     token: string,
-    initialUrl?: string
+    initialUrl?: string,
   ): Promise<any[]> => {
     const allData: any[] = [];
     let nextPageUrl: string | null =
@@ -1088,7 +1187,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
       if (!response.ok) {
         throw new Error(
-          `Failed to fetch font families: ${response.statusText}`
+          `Failed to fetch font families: ${response.statusText}`,
         );
       }
 
@@ -1109,7 +1208,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   const fetchAllFontStyles = async (
     baseUrl: string,
     token: string,
-    fontFamilyId: string
+    fontFamilyId: string,
   ): Promise<any[]> => {
     const allData: any[] = [];
     let nextPageUrl: string | null =
@@ -1146,7 +1245,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     fontDetails: FontData,
     token: string,
     baseUrl: string,
-    taskId: string
+    taskId: string,
   ) => {
     try {
       // First, check if font already exists - fetch all pages
@@ -1154,7 +1253,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
       // Check if family exists
       const targetFamily = allFontFamilies.find(
-        (tf: any) => tf.name === fontDetails.familyName
+        (tf: any) => tf.name === fontDetails.familyName,
       );
 
       if (targetFamily) {
@@ -1163,10 +1262,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           const allFontStyles = await fetchAllFontStyles(
             baseUrl,
             token,
-            targetFamily.id
+            targetFamily.id,
           );
           const targetStyle = allFontStyles.find(
-            (ts: any) => ts.name === fontDetails.name
+            (ts: any) => ts.name === fontDetails.name,
           );
           if (targetStyle) {
             // Font already exists, mark as info
@@ -1178,8 +1277,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                       status: "info",
                       tooltip: "Font already exists, skipping",
                     }
-                  : task
-              )
+                  : task,
+              ),
             );
             return;
           }
@@ -1187,7 +1286,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           // If fetching styles fails, continue with upload
           console.warn(
             "Failed to fetch font styles, continuing with upload:",
-            error
+            error,
           );
         }
       }
@@ -1240,7 +1339,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               styleName: fontDetails.name,
             },
           ]),
-        }
+        },
       );
 
       if (!patchResponse.ok) {
@@ -1255,20 +1354,20 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (!confirmResponse.ok) {
         throw new Error(
-          `Failed to confirm font upload: ${confirmResponse.statusText}`
+          `Failed to confirm font upload: ${confirmResponse.statusText}`,
         );
       }
 
       // Mark task as complete
       setUploadTasks((prev) =>
         prev.map((task) =>
-          task.id === taskId ? { ...task, status: "complete" } : task
-        )
+          task.id === taskId ? { ...task, status: "complete" } : task,
+        ),
       );
     } catch (error) {
       const errorMessage =
@@ -1284,8 +1383,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   status: "info",
                   tooltip: "Font already exists, skipping",
                 }
-              : task
-          )
+              : task,
+          ),
         );
       } else {
         setUploadTasks((prev) =>
@@ -1296,8 +1395,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   status: "error",
                   error: errorMessage,
                 }
-              : task
-          )
+              : task,
+          ),
         );
       }
     }
@@ -1310,7 +1409,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -1319,8 +1418,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       if (!documentResult.isOk()) {
         raiseError(
           new Error(
-            documentResult.error?.message || "Failed to get document state"
-          )
+            documentResult.error?.message || "Failed to get document state",
+          ),
         );
         return;
       }
@@ -1351,7 +1450,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   // Collect smart crops data with enhanced task tracking and proper connector management
   const collectSmartCropsDataWithTasks = async (
     studio: any,
-    connectorSelection: ImageBrowserFolderSelection
+    connectorSelection: ImageBrowserFolderSelection,
   ): Promise<SmartCropsData> => {
     const smartCropsData: SmartCropsData = {
       connectorId: connectorSelection.connectorId,
@@ -1372,11 +1471,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     // Register the connector first
     const registerResult = await registerConnector(
       studio,
-      connectorSelection.connectorId
+      connectorSelection.connectorId,
     );
     if (!registerResult.isOk()) {
       throw new Error(
-        `Failed to register connector: ${registerResult.error?.message}`
+        `Failed to register connector: ${registerResult.error?.message}`,
       );
     }
 
@@ -1398,44 +1497,87 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         ]);
 
         try {
-          // Query files in the folder using the local connector ID
-          const queryResult = await queryMediaConnectorSimple(
-            studio,
-            localConnectorId,
-            folderPath,
-            ""
-          );
+          // Collect all files from all pages in this folder
+          const allFiles: Media[] = [];
+          let pageToken = "";
+          let hasMorePages = true;
+          let pageCount = 0;
 
-          if (!queryResult.isOk()) {
-            hasErrors = true;
-            // Update task to error
+          // Pagination loop to get all files from the folder
+          while (hasMorePages) {
+            pageCount++;
+
+            // Update task name to show pagination progress
             setTasks((prev) =>
               prev.map((task) =>
                 task.id === folderTaskId
                   ? {
                       ...task,
-                      status: "error",
-                      error: `Failed to query folder: ${queryResult.error?.message}`,
+                      name: `Getting files: ${folderPath} (page ${pageCount})`,
                     }
-                  : task
-              )
+                  : task,
+              ),
             );
-            continue;
+
+            // Query files in the folder using the local connector ID
+            const queryResult = await queryMediaConnectorSimple(
+              studio,
+              localConnectorId,
+              folderPath,
+              pageToken,
+            );
+
+            if (!queryResult.isOk()) {
+              hasErrors = true;
+              // Update task to error
+              setTasks((prev) =>
+                prev.map((task) =>
+                  task.id === folderTaskId
+                    ? {
+                        ...task,
+                        status: "error",
+                        error: `Failed to query folder: ${queryResult.error?.message}`,
+                      }
+                    : task,
+                ),
+              );
+              break; // Exit pagination loop on error
+            }
+
+            const queryPage = queryResult.value as QueryPage<Media>;
+
+            // Filter for files only (type === "file" or type === 0) and add to collection
+            const pageFiles = queryPage.data.filter(
+              (item) => item.type === "file" || (item.type as unknown) === 0,
+            );
+            allFiles.push(...pageFiles);
+
+            // Check if there are more pages
+            if (queryPage.nextPageToken) {
+              pageToken = queryPage.nextPageToken;
+              hasMorePages = true;
+            } else {
+              hasMorePages = false;
+            }
           }
 
-          // Update task to complete
-          setTasks((prev) =>
-            prev.map((task) =>
-              task.id === folderTaskId ? { ...task, status: "complete" } : task
-            )
-          );
+          // Update task to complete with total file count
+          if (!hasErrors) {
+            setTasks((prev) =>
+              prev.map((task) =>
+                task.id === folderTaskId
+                  ? {
+                      ...task,
+                      status: "complete",
+                      name: `Getting files: ${folderPath} (${allFiles.length} files found)`,
+                    }
+                  : task,
+              ),
+            );
+          }
 
-          const queryPage = queryResult.value as QueryPage<Media>;
-
-          // Filter for files only (type === "file" or type === 0)
-          const files = queryPage.data.filter(
-            (item) => item.type === "file" || (item.type as unknown) === 0
-          );
+          // Process vision data for all collected files
+          const files = allFiles;
 
           // Get vision data for each file
           for (const file of files) {
@@ -1469,8 +1611,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   prev.map((task) =>
                     task.id === visionTaskId
                       ? { ...task, status: "complete" }
-                      : task
-                  )
+                      : task,
+                  ),
                 );
               } else {
                 // Handle vision errors
@@ -1485,8 +1627,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                             status: "info",
                             tooltip: "Skipped no vision data",
                           }
-                        : task
-                    )
+                        : task,
+                    ),
                   );
                 } else {
                   // Update task to error for other errors and mark as having errors
@@ -1500,8 +1642,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                             error:
                               error?.message || "Failed to get vision data",
                           }
-                        : task
-                    )
+                        : task,
+                    ),
                   );
                 }
               }
@@ -1519,8 +1661,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                             ? error.message
                             : String(error),
                       }
-                    : task
-                )
+                    : task,
+                ),
               );
             }
           }
@@ -1536,8 +1678,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                     error:
                       error instanceof Error ? error.message : String(error),
                   }
-                : task
-            )
+                : task,
+            ),
           );
         }
       }
@@ -1553,7 +1695,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     // If there were errors during processing, throw an error to fail the smart crops download
     if (hasErrors) {
       throw new Error(
-        "Smart crops data collection failed due to errors in folder querying or vision data retrieval"
+        "Smart crops data collection failed due to errors in folder querying or vision data retrieval",
       );
     }
 
@@ -1574,7 +1716,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
   // Handle file selection for upload
   const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -1590,7 +1732,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -1615,8 +1757,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   parseError instanceof Error
                     ? parseError.message
                     : String(parseError)
-                }`
-              )
+                }`,
+              ),
             );
             return;
           }
@@ -1624,14 +1766,15 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           // Load the document using the parsed JSON string
           const loadResult = await loadDocumentFromJsonStr(
             studioResult.value,
-            content
+            content,
           );
 
           if (!loadResult.isOk()) {
             raiseError(
               new Error(
-                loadResult.error?.message || "Failed to load document from JSON"
-              )
+                loadResult.error?.message ||
+                  "Failed to load document from JSON",
+              ),
             );
             return;
           }
@@ -1684,7 +1827,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     file: DownloadFile,
     folder: string,
     fontDataForPackage: { filePath: string; details: FontData }[],
-    useOriginalFontFileNames: boolean
+    useOriginalFontFileNames: boolean,
   ) => {
     try {
       const studioResult = await getStudio();
@@ -1707,7 +1850,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       if (fontFamilies) {
         for (const family of fontFamilies) {
           const style = family.fontStyles.find(
-            (s) => s.fontStyleId === fontStyleId
+            (s) => s.fontStyleId === fontStyleId,
           );
           if (style) {
             fontFamily = family;
@@ -1728,13 +1871,13 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         allFontStyles = await fetchAllFontStyles(
           baseUrl,
           token,
-          fontFamily.fontFamilyId
+          fontFamily.fontFamilyId,
         );
       } catch (error) {
         // If that fails (404), implement backup search
         console.warn(
           "Failed to fetch font styles directly, trying search fallback:",
-          error
+          error,
         );
 
         // URL encode the font family name for the search query
@@ -1745,7 +1888,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         const allSearchResults = await fetchAllFontFamilies(
           baseUrl,
           token,
-          searchUrl
+          searchUrl,
         );
 
         // Check if we found any results
@@ -1760,12 +1903,12 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         allFontStyles = await fetchAllFontStyles(
           baseUrl,
           token,
-          foundFontFamily.id
+          foundFontFamily.id,
         );
       }
 
       const fontStyleDetails = allFontStyles.find(
-        (fs) => fs.name === fontStyle.name
+        (fs) => fs.name === fontStyle.name,
       );
 
       if (!fontStyleDetails) {
@@ -1779,12 +1922,12 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (!fontDownloadResponse.ok) {
         throw new Error(
-          `Failed to download font: ${fontDownloadResponse.statusText}`
+          `Failed to download font: ${fontDownloadResponse.statusText}`,
         );
       }
 
@@ -1800,7 +1943,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         ? `fonts/${fontStyleDetails.fileName}`
         : `fonts/${fontStyleDetails.id}`;
       setDownloadFiles((prev) =>
-        prev.map((f) => (f.id === file.id ? { ...f, name: actualFileName } : f))
+        prev.map((f) =>
+          f.id === file.id ? { ...f, name: actualFileName } : f,
+        ),
       );
 
       // Add font data to package manifest
@@ -1815,7 +1960,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         `Bearer ${token}`,
         folder,
         actualFileName,
-        file.id
+        file.id,
       );
     } catch (error) {
       throw error;
@@ -1829,7 +1974,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     documentId: string,
     documentName: string,
     folder: string,
-    connectorSelection: ImageBrowserFolderSelection | null
+    connectorSelection: ImageBrowserFolderSelection | null,
   ) => {
     // Collect font data for the package manifest
     const fontDataForPackage: { filePath: string; details: FontData }[] = [];
@@ -1847,14 +1992,14 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         // Update file status to downloading
         setDownloadFiles((prev) =>
           prev.map((f) =>
-            f.id === documentJsonFile.id ? { ...f, status: "downloading" } : f
-          )
+            f.id === documentJsonFile.id ? { ...f, status: "downloading" } : f,
+          ),
         );
 
         // Process document data based on settings before download
         const processedDocumentData = processDocumentForDownload(
           documentData,
-          downloadSettings
+          downloadSettings,
         );
 
         // Create document JSON data and blob URL
@@ -1871,7 +2016,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           "",
           folder,
           documentJsonFile.name,
-          documentJsonFile.id
+          documentJsonFile.id,
         );
       } catch (error) {
         // Update file status to error
@@ -1883,8 +2028,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   status: "error",
                   error: error instanceof Error ? error.message : String(error),
                 }
-              : f
-          )
+              : f,
+          ),
         );
       }
     }
@@ -1895,8 +2040,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         // Update file status to downloading
         setDownloadFiles((prev) =>
           prev.map((f) =>
-            f.id === file.id ? { ...f, status: "downloading" } : f
-          )
+            f.id === file.id ? { ...f, status: "downloading" } : f,
+          ),
         );
 
         // Handle font download
@@ -1906,7 +2051,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           file,
           folder,
           fontDataForPackage,
-          downloadSettings.useOriginalFontFileNames
+          downloadSettings.useOriginalFontFileNames,
         );
       } catch (error) {
         // Update file status to error
@@ -1918,8 +2063,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   status: "error",
                   error: error instanceof Error ? error.message : String(error),
                 }
-              : f
-          )
+              : f,
+          ),
         );
       }
     }
@@ -1930,8 +2075,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         // Update file status to downloading
         setDownloadFiles((prev) =>
           prev.map((f) =>
-            f.id === smartCropsFile.id ? { ...f, status: "downloading" } : f
-          )
+            f.id === smartCropsFile.id ? { ...f, status: "downloading" } : f,
+          ),
         );
 
         // Get studio instance
@@ -1943,7 +2088,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         // Collect smart crops data with task tracking
         const smartCropsData = await collectSmartCropsDataWithTasks(
           studioResult.value,
-          connectorSelection
+          connectorSelection,
         );
 
         // Create smart crops JSON blob and download
@@ -1963,7 +2108,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           "",
           folder,
           smartCropsFile.name,
-          smartCropsFile.id
+          smartCropsFile.id,
         );
       } catch (error) {
         // Update file status to error
@@ -1975,8 +2120,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   status: "error",
                   error: error instanceof Error ? error.message : String(error),
                 }
-              : f
-          )
+              : f,
+          ),
         );
       }
     }
@@ -1987,8 +2132,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         // Update file status to downloading
         setDownloadFiles((prev) =>
           prev.map((f) =>
-            f.id === packageFile.id ? { ...f, status: "downloading" } : f
-          )
+            f.id === packageFile.id ? { ...f, status: "downloading" } : f,
+          ),
         );
 
         // Create package manifest and blob URL
@@ -2025,7 +2170,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           "",
           folder,
           packageFile.name,
-          packageFile.id
+          packageFile.id,
         );
       } catch (error) {
         // Update file status to error
@@ -2037,8 +2182,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   status: "error",
                   error: error instanceof Error ? error.message : String(error),
                 }
-              : f
-          )
+              : f,
+          ),
         );
       }
     }
@@ -2050,7 +2195,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     authorization: string,
     folder: string,
     filename: string,
-    downloadId: string
+    downloadId: string,
   ): Promise<void> => {
     return new Promise((resolve, reject) => {
       const requestId = `download_${Date.now()}_${Math.random()}`;
@@ -2088,7 +2233,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             downloadId,
           },
         },
-        "*"
+        "*",
       );
 
       // Timeout after 30 seconds
@@ -2102,7 +2247,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   // Handle download settings change
   const handleSettingChange = (
     setting: keyof DownloadSettings,
-    value: boolean
+    value: boolean,
   ) => {
     setDownloadSettings((prev: DownloadSettings) => ({
       ...prev,
@@ -2133,7 +2278,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio")
+          new Error(studioResult.error?.message || "Failed to get studio"),
         );
         return;
       }
@@ -2142,8 +2287,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       if (!documentResult.isOk()) {
         raiseError(
           new Error(
-            documentResult.error?.message || "Failed to get document state"
-          )
+            documentResult.error?.message || "Failed to get document state",
+          ),
         );
         return;
       }
@@ -2212,7 +2357,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         documentId,
         documentName,
         finalFolderName,
-        connectorSelection
+        connectorSelection,
       );
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -2220,7 +2365,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   };
 
   const handleFolderSelection = (
-    selection: ImageBrowserFolderSelection | null
+    selection: ImageBrowserFolderSelection | null,
   ) => {
     setConnectorSelection(selection);
     setFolderBrowserOpened(false);
@@ -2231,7 +2376,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     setConnectorSelection((prev) => {
       if (!prev) return null;
       const updatedFolders = prev.selectedFolders.filter(
-        (path) => path !== pathToRemove
+        (path) => path !== pathToRemove,
       );
       if (updatedFolders.length === 0) return null;
       return {
@@ -2245,7 +2390,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     <>
       <Modal
         opened={opened}
-        onClose={handleClose}
+        onClose={modalState === "uploading" ? () => {} : handleClose}
+        closeOnClickOutside={modalState !== "uploading"}
+        closeOnEscape={modalState !== "uploading"}
+        withCloseButton={modalState !== "uploading"}
         title={
           modalState === "initial"
             ? "Document Upload/Download"
@@ -2341,6 +2489,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       <ConnectorSelectionModal
         opened={connectorSelectionModalOpened}
         onClose={() => setConnectorSelectionModalOpened(false)}
+        onCancel={() => {
+          setConnectorSelectionModalOpened(false);
+          handleClose();
+        }}
         connectors={availableConnectors}
         smartCropsConnectorName={smartCropsData?.connectorName}
         onSelect={handleConnectorSelection}
@@ -2350,6 +2502,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       <ReplaceConnectorsModal
         opened={replaceConnectorsModalOpened}
         onClose={() => setReplaceConnectorsModalOpened(false)}
+        onCancel={() => {
+          setReplaceConnectorsModalOpened(false);
+          handleClose();
+        }}
         connectorsToReplace={connectorsToReplace}
         availableConnectors={availableConnectors}
         onReplace={(replacementMap) => {
