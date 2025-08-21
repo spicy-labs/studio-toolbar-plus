@@ -116,6 +116,9 @@ export function ReplaceConnectorsModal({
     <Modal
       opened={opened}
       onClose={handleClose}
+      closeOnClickOutside={false}
+      closeOnEscape={false}
+      withCloseButton={false}
       title="Replace Connectors"
       centered
       size="lg"
