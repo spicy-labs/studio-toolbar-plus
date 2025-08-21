@@ -108,22 +108,18 @@ export function verifyCropMetadata(metadata: any): Result<CropMetadata, Error> {
   return Result.error(
     new InvalidCropMetadataError(
       "Invalid crop metadata format",
-      JSON.stringify(metadata),
-    ),
+      JSON.stringify(metadata)
+    )
   );
 }
 
 export function convertVisionToManualCropMetadata(
-  visionMetadata: VisionCropMetadata,
+  visionMetadata: VisionCropMetadata
 ): ManualCropMetadata {
   return {
     manualCropMetadata: {
       pointOfInterest: visionMetadata.visionCropMetadata.pointOfInterest,
-      subjectArea: restrictSubjectArea(
-        visionMetadata.visionCropMetadata.subjectArea,
-        1,
-        0,
-      ),
+      subjectArea: visionMetadata.visionCropMetadata.subjectArea,
     },
   };
 }
@@ -131,7 +127,7 @@ export function convertVisionToManualCropMetadata(
 function restrictSubjectArea(
   subjectArea: SubjectArea,
   max: number,
-  min: number,
+  min: number
 ) {
   const restrictedSubjectArea = {
     x: Math.max(min, Math.min(max, subjectArea.x)),

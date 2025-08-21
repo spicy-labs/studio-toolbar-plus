@@ -61,6 +61,7 @@ import {
   getDocumentId,
 } from "./DownloadModal/utils";
 import { cornersOfRectangle } from "@dnd-kit/core/dist/utilities/algorithms/helpers";
+import { clampSubjectAreaToBounds } from "../utils/smartCrop/clampSubjectAreaToBounds";
 
 interface DownloadModalNewProps {
   opened: boolean;
@@ -1040,31 +1041,31 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
           try {
             // Check if vision data exists before setting it
-            const visionCheckResult = await getVision({
-              baseUrl,
-              connectorId: selectedVisionConnector,
-              asset: crop.assetId,
-              authorization: token,
-            });
+            // const visionCheckResult = await getVision({
+            //   baseUrl,
+            //   connectorId: selectedVisionConnector,
+            //   asset: crop.assetId,
+            //   authorization: token,
+            // });
 
-            if (
-              !visionCheckResult.isOk() &&
-              (visionCheckResult.error as any)?.type === "VisionNotFoundError"
-            ) {
-              await uploadImage({
-                baseUrl,
-                connectorId: selectedVisionConnector,
-                asset: crop.assetId,
-                authorization: token,
-              });
-            }
+            // if (
+            //   !visionCheckResult.isOk() &&
+            //   (visionCheckResult.error as any)?.type === "VisionNotFoundError"
+            // ) {
+            //   await uploadImage({
+            //     baseUrl,
+            //     connectorId: selectedVisionConnector,
+            //     asset: crop.assetId,
+            //     authorization: token,
+            //   });
+            // }
 
             const visionResult = await setVision({
               baseUrl,
               connectorId: selectedVisionConnector,
               asset: crop.assetId,
               authorization: token,
-              metadata: crop.metadata,
+              metadata: clampSubjectAreaToBounds(crop.metadata),
             });
 
             if (visionResult.isOk()) {
