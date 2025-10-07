@@ -39,9 +39,9 @@ import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerMod
 import { OutTemplateModal } from "./OutTemplateModal";
 import { CompressModal } from "./CompressModal";
 import { ToolbarSettingsModal } from "./ToolbarSettingsModal";
+import { AspectLockConfirmModal } from "./AspectLockConfirmModal";
 import type { AppConfig, AppInfo } from "../utils/appConfig";
 import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
-import { saveLayoutSizingToAction } from "../studio/studioAdapter";
 import { Result } from "typescript-result";
 import { ImageBrowser } from "./ImageBrowser";
 import { ImageBrowserMode } from "./ImageBrowser";
@@ -66,10 +66,7 @@ export function Toolbar() {
   const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = useState(false);
   const [isCompressModalOpen, setIsCompressModalOpen] = useState(false);
   const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] =
-    useState(false); // State for the confirmation modal
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] =
-    useState(false); // State for the success modal
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = useState(""); // State for the dynamic success message
+    useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isImageBrowserOpen, setIsImageBrowserOpen] = useState(false);
   const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
@@ -131,7 +128,7 @@ export function Toolbar() {
       // Fallback for local storage if chrome API isn't available
       localStorage.setItem(
         "toolbarplus_last_notified_version",
-        updateInfo.latestVersion
+        updateInfo.latestVersion,
       );
     }
     setIsUpdateModalOpen(false);
@@ -163,9 +160,9 @@ export function Toolbar() {
             },
             (error) => {
               raiseError(error);
-            }
+            },
           );
-        }
+        },
       );
     })();
   }, []);
@@ -267,22 +264,7 @@ export function Toolbar() {
   };
 
   const handleAspectLock = () => {
-    setIsAspectLockConfirmModalOpen(true); // Open the confirmation modal first
-  };
-
-  const handleConfirmAspectLock = async (value: boolean) => {
-    setIsAspectLockConfirmModalOpen(false); // Close confirmation modal
-    (await saveLayoutSizingToAction(value)).fold(
-      (_) => {
-        setAspectLockSuccessMessage(
-          value
-            ? "Success in turning Aspect Ratio On"
-            : "Success in turning Aspect Ratio Off"
-        );
-        setIsAspectLockSuccessModalOpen(true); // Open success modal on success
-      },
-      (err) => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
-    );
+    setIsAspectLockConfirmModalOpen(true);
   };
 
   return (
@@ -623,55 +605,12 @@ export function Toolbar() {
         />
       )}
 
-      {/* Aspect Lock Success Modal */}
       {/* Aspect Lock Confirmation Modal */}
       {appConfig?.showAspectLock && (
-        <Modal
+        <AspectLockConfirmModal
           opened={isAspectLockConfirmModalOpen}
           onClose={() => setIsAspectLockConfirmModalOpen(false)}
-          title="Confirm Aspect Lock Change"
-          centered
-          size="sm"
-        >
-          <Text>Turn Aspect Lock On?</Text>
-          <Group justify="flex-end" mt="md">
-            <Button
-              variant="default"
-              onClick={() => handleConfirmAspectLock(false)}
-            >
-              No
-            </Button>
-            <Button color="blue" onClick={() => handleConfirmAspectLock(true)}>
-              Yes
-            </Button>
-          </Group>
-        </Modal>
-      )}
-
-      {/* Aspect Lock Success Modal */}
-      {appConfig?.showAspectLock && (
-        <Modal
-          opened={isAspectLockSuccessModalOpen}
-          onClose={() => {
-            setIsAspectLockSuccessModalOpen(false);
-            setAspectLockSuccessMessage(""); // Reset message on close
-          }}
-          title="Aspect Lock Status"
-          centered
-          size="sm"
-        >
-          <Text>{aspectLockSuccessMessage}</Text>
-          <Group justify="flex-end" mt="md">
-            <Button
-              onClick={() => {
-                setIsAspectLockSuccessModalOpen(false);
-                setAspectLockSuccessMessage(""); // Reset message on close
-              }}
-            >
-              Close
-            </Button>
-          </Group>
-        </Modal>
+        />
       )}
 
       {/* Download Modal New */}
