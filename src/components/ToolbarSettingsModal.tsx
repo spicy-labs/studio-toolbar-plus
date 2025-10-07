@@ -32,6 +32,7 @@ import {
   IconCrop,
   IconDownload,
   IconPhotoSearch,
+  IconViewportShort,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import type {
@@ -74,7 +75,7 @@ export function ToolbarSettingsModal({
   updateInfo,
 }: ToolbarSettingsModalProps) {
   const [defaultConfig, setDefaultConfig] = useState<AppFullConfig | null>(
-    null,
+    null
   );
   const [githubVersion, setGithubVersion] = useState<string | null>(null);
   const [config, setConfig] = useState<AppConfig | null>(null);
@@ -194,6 +195,12 @@ export function ToolbarSettingsModal({
         console.log("Opening Output tool");
       },
     },
+    showCompress: {
+      icon: <IconViewportShort size={16} />,
+      handler: () => {
+        console.log("Opening Compress tool");
+      },
+    },
   };
 
   // Helper function to get tool action icon
@@ -243,10 +250,10 @@ export function ToolbarSettingsModal({
                 },
                 (_error) => {
                   setConfig(appConfigFromFullConfig(appConfig));
-                },
+                }
               );
             },
-            (error) => setErrorOnGetDefaultConfig(error),
+            (error) => setErrorOnGetDefaultConfig(error)
           );
         };
         loadDefaultConfig();
@@ -326,7 +333,7 @@ export function ToolbarSettingsModal({
               (() => {
                 const versionComparison = checkVersions(
                   updateInfo.currentVersion,
-                  githubVersion,
+                  githubVersion
                 );
                 if (versionComparison.isOk()) {
                   const result = versionComparison.value;
@@ -400,7 +407,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showFramePositionViewer",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Frame Position Viewer"
@@ -421,7 +428,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showLayoutManager",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Layout Manager"
@@ -442,7 +449,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showMagicLayouts",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Magic Layouts"
@@ -463,7 +470,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showAspectLock",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Aspect Lock"
@@ -484,7 +491,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showLayoutImageMapper",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Layout Variable Mapper"
@@ -505,7 +512,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showUploadDownload",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Upload/Download Document"
@@ -544,7 +551,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showConnectorCleanup",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Connector Cleanup"
@@ -565,7 +572,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showManualCropManager",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Manual Crop Manager"
@@ -586,7 +593,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showConnectorFolderBrowser",
-                        event.currentTarget.checked,
+                        event.currentTarget.checked
                       )
                     }
                     aria-label="Toggle Image Browser"
@@ -612,6 +619,24 @@ export function ToolbarSettingsModal({
                 </Group>
                 <Text size="xs" c="dimmed" ml={32}>
                   Generate output files from layouts
+                </Text>
+
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showCompress")}
+                    <Text>Compress</Text>
+                    {getStatusIcon("showCompress")}
+                  </Group>
+                  <Switch
+                    checked={config.showCompress}
+                    onChange={(event) =>
+                      handleToggle("showCompress", event.currentTarget.checked)
+                    }
+                    aria-label="Toggle Compress"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Compress and optimize document assets
                 </Text>
               </Stack>
             </ScrollArea.Autosize>

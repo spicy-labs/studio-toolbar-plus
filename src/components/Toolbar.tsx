@@ -26,6 +26,7 @@ import {
   IconFileExport,
   IconDownload,
   IconPhotoSearch,
+  IconViewportShort,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
@@ -36,6 +37,7 @@ import { MagicLayoutsModal } from "./MagicLayoutsModal";
 import { ConnectorCleanupModal } from "./ConnectorCleanupModal";
 import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerModal";
 import { OutTemplateModal } from "./OutTemplateModal";
+import { CompressModal } from "./CompressModal";
 import { ToolbarSettingsModal } from "./ToolbarSettingsModal";
 import type { AppConfig, AppInfo } from "../utils/appConfig";
 import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
@@ -62,6 +64,7 @@ export function Toolbar() {
   const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] =
     useState(false);
   const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = useState(false);
+  const [isCompressModalOpen, setIsCompressModalOpen] = useState(false);
   const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] =
     useState(false); // State for the confirmation modal
   const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] =
@@ -128,7 +131,7 @@ export function Toolbar() {
       // Fallback for local storage if chrome API isn't available
       localStorage.setItem(
         "toolbarplus_last_notified_version",
-        updateInfo.latestVersion,
+        updateInfo.latestVersion
       );
     }
     setIsUpdateModalOpen(false);
@@ -160,9 +163,9 @@ export function Toolbar() {
             },
             (error) => {
               raiseError(error);
-            },
+            }
           );
-        },
+        }
       );
     })();
   }, []);
@@ -258,6 +261,11 @@ export function Toolbar() {
     setIsOutTemplateModalOpen(true);
   };
 
+  const handleCompress = () => {
+    setVisible(false);
+    setIsCompressModalOpen(true);
+  };
+
   const handleAspectLock = () => {
     setIsAspectLockConfirmModalOpen(true); // Open the confirmation modal first
   };
@@ -269,12 +277,11 @@ export function Toolbar() {
         setAspectLockSuccessMessage(
           value
             ? "Success in turning Aspect Ratio On"
-            : "Success in turning Aspect Ratio Off",
+            : "Success in turning Aspect Ratio Off"
         );
         setIsAspectLockSuccessModalOpen(true); // Open success modal on success
       },
-      (err) =>
-        raiseError(err ?? Error(`Error setting aspect lock to ${value}`)),
+      (err) => raiseError(err ?? Error(`Error setting aspect lock to ${value}`))
     );
   };
 
@@ -475,6 +482,19 @@ export function Toolbar() {
                     </ActionIcon>
                   </Tooltip>
                 )}
+                {appConfig.showCompress && (
+                  <Tooltip label="Compress" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showCompress")}
+                      size="lg"
+                      aria-label="Compress"
+                      onClick={handleCompress}
+                    >
+                      <IconViewportShort size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
                 {appConfig.showConnectorFolderBrowser && (
                   <Tooltip label="Image Browser" position="bottom" withArrow>
                     <ActionIcon
@@ -592,6 +612,14 @@ export function Toolbar() {
         <OutTemplateModal
           opened={isOutTemplateModalOpen}
           onClose={() => setIsOutTemplateModalOpen(false)}
+        />
+      )}
+
+      {/* Compress Modal */}
+      {appConfig?.showCompress && (
+        <CompressModal
+          opened={isCompressModalOpen}
+          onClose={() => setIsCompressModalOpen(false)}
         />
       )}
 

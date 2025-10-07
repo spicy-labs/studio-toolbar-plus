@@ -57,3 +57,6 @@ export async function updateLayoutResizable(
   return await handleStudioFunc(studio.layout.setResizableByUser, id, update);
 }
 
+export async function deleteLayout(studio: SDK, id: string) {
+  return await handleStudioFunc(studio.layout.remove, id);
+}
