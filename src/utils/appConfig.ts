@@ -29,7 +29,8 @@ export type AppConfigKeys =
   | "showConnectorCleanup"
   | "showManualCropManager"
   | "showConnectorFolderBrowser"
-  | "showOutput";
+  | "showOutput"
+  | "showCompress";
 
 export type AppStatus = "none" | "sponsored" | "deprecated" | "experimental";
 
