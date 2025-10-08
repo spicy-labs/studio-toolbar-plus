@@ -44,6 +44,10 @@ import type {
 import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
 import { checkVersions } from "../utils/checkVersions";
 import { Result } from "typescript-result";
+import { getStudio } from "../studio/studioAdapter";
+import { setEnableActions } from "../studio/actionHandler";
+import { removeIntercom } from "../studio/utils";
+import { appStore } from "../modalStore";
 
 interface ToolbarSettingsModalProps {
   opened: boolean;
@@ -74,8 +78,9 @@ export function ToolbarSettingsModal({
   onReloadConfig,
   updateInfo,
 }: ToolbarSettingsModalProps) {
+  const raiseError = appStore((store) => store.raiseError);
   const [defaultConfig, setDefaultConfig] = useState<AppFullConfig | null>(
-    null
+    null,
   );
   const [githubVersion, setGithubVersion] = useState<string | null>(null);
   const [config, setConfig] = useState<AppConfig | null>(null);
@@ -250,10 +255,10 @@ export function ToolbarSettingsModal({
                 },
                 (_error) => {
                   setConfig(appConfigFromFullConfig(appConfig));
-                }
+                },
               );
             },
-            (error) => setErrorOnGetDefaultConfig(error)
+            (error) => setErrorOnGetDefaultConfig(error),
           );
         };
         loadDefaultConfig();
@@ -281,6 +286,18 @@ export function ToolbarSettingsModal({
     if (config == null) {
       handleClose();
       return;
+    } else {
+      if (config.enableActionsInDesignMode != null) {
+        const studioResult = await getStudio();
+        studioResult.fold(
+          (studio) =>
+            setEnableActions(studio, config.enableActionsInDesignMode),
+          () => raiseError(new Error("Failed to get studio to set actions")),
+        );
+      }
+      if (config.removeIntercom) {
+        removeIntercom();
+      }
     }
     onReloadConfig(config);
     handleClose();
@@ -333,7 +350,7 @@ export function ToolbarSettingsModal({
               (() => {
                 const versionComparison = checkVersions(
                   updateInfo.currentVersion,
-                  githubVersion
+                  githubVersion,
                 );
                 if (versionComparison.isOk()) {
                   const result = versionComparison.value;
@@ -375,6 +392,44 @@ export function ToolbarSettingsModal({
               {disclaimer}
             </Text>
 
+            <Title order={5}>Toolbar Settings</Title>
+            <Stack gap="md" mb="xl">
+              <Group justify="space-between" align="center">
+                <Group gap="xs" style={{ flex: 1 }}>
+                  <Text>Enable Actions In Design Mode</Text>
+                </Group>
+                <Switch
+                  checked={config.enableActionsInDesignMode}
+                  onChange={(event) =>
+                    handleToggle(
+                      "enableActionsInDesignMode",
+                      event.currentTarget.checked,
+                    )
+                  }
+                  aria-label="Toggle Enable Actions In Design Mode"
+                />
+              </Group>
+              <Text size="xs" c="dimmed" ml={32}>
+                Allow toolbar actions to run while in design mode
+              </Text>
+
+              <Group justify="space-between" align="center">
+                <Group gap="xs" style={{ flex: 1 }}>
+                  <Text>Remove Intercom</Text>
+                </Group>
+                <Switch
+                  checked={config.removeIntercom}
+                  onChange={(event) =>
+                    handleToggle("removeIntercom", event.currentTarget.checked)
+                  }
+                  aria-label="Toggle Remove Intercom"
+                />
+              </Group>
+              <Text size="xs" c="dimmed" ml={32}>
+                Hide the Intercom chat widget
+              </Text>
+            </Stack>
+
             <Title order={5}>Available Tools</Title>
             <ScrollArea.Autosize mah={400}>
               <Stack gap="md">
@@ -407,7 +462,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showFramePositionViewer",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Frame Position Viewer"
@@ -428,7 +483,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showLayoutManager",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Layout Manager"
@@ -449,7 +504,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showMagicLayouts",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Magic Layouts"
@@ -470,7 +525,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showAspectLock",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Aspect Lock"
@@ -491,7 +546,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showLayoutImageMapper",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Layout Variable Mapper"
@@ -512,7 +567,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showUploadDownload",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Upload/Download Document"
@@ -551,7 +606,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showConnectorCleanup",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Connector Cleanup"
@@ -572,7 +627,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showManualCropManager",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Manual Crop Manager"
@@ -593,7 +648,7 @@ export function ToolbarSettingsModal({
                     onChange={(event) =>
                       handleToggle(
                         "showConnectorFolderBrowser",
-                        event.currentTarget.checked
+                        event.currentTarget.checked,
                       )
                     }
                     aria-label="Toggle Image Browser"
