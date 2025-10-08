@@ -318,7 +318,7 @@ export function ToolbarSettingsModal({
   return (
     <Modal
       opened={opened}
-      onClose={onClose}
+      onClose={handleClose}
       title="Toolbar Settings"
       centered
       size="md"
