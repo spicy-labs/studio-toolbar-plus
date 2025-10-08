@@ -841,8 +841,8 @@ fieldset:disabled .mantine-active:active {
 .m_9814e45f {
   position: absolute;
   background: var(--overlay-bg, #0009);
-  backdrop-filter: var(--overlay-filter);
   -webkit-backdrop-filter: var(--overlay-filter);
+  backdrop-filter: var(--overlay-filter);
   border-radius: var(--overlay-radius, 0);
   z-index: var(--overlay-z-index);
   inset: 0;
@@ -1345,7 +1345,7 @@ fieldset:disabled .mantine-active:active {
   z-index: 1001;
 }
 
-[data-offset-scrollbars] .m_fd1ab0aa:has([data-mantine-scrollbar][data-state="visible"]) .m_b5489c3c {
+[data-offset-scrollbars] .m_fd1ab0aa:has([data-mantine-scrollbar]) .m_b5489c3c {
   padding-inline-end: calc(var(--mb-padding, var(--mantine-spacing-md))  + calc(.3125rem * var(--mantine-scale)));
 }
 
@@ -2376,7 +2376,38 @@ fieldset:disabled .mantine-active:active {
   outline: none;
   pointer-events: none;
   height: 100%;
-  inset: 0 0 0 calc(50% - 1.5px);
+  top: 0;
+  bottom: 0;
+}
+
+.m_bc02ba3d:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  left: calc(50% - 1.5px);
+  right: 0;
+}
+
+.m_bc02ba3d:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  left: calc(50% - 1.5px);
+  right: 0;
+}
+
+.m_bc02ba3d:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  left: calc(50% - 1.5px);
+  right: 0;
+}
+
+.m_bc02ba3d:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  left: 0;
+  right: calc(50% - 1.5px);
+}
+
+.m_bc02ba3d:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  left: 0;
+  right: calc(50% - 1.5px);
+}
+
+.m_bc02ba3d:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  left: 0;
+  right: calc(50% - 1.5px);
 }
 
 .m_bc02ba3d:before {
@@ -7121,6 +7152,15 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
   --stepper-spacing: var(--mantine-spacing-md);
   --stepper-radius: calc(62.5rem * var(--mantine-scale));
   --stepper-fz: var(--mantine-font-size-md);
+  --stepper-outline-thickness: calc(.125rem * var(--mantine-scale));
+}
+
+[data-mantine-color-scheme="light"] .m_cbb4ea7e {
+  --stepper-outline-color: var(--mantine-color-gray-2);
+}
+
+[data-mantine-color-scheme="dark"] .m_cbb4ea7e {
+  --stepper-outline-color: var(--mantine-color-dark-5);
 }
 
 .m_aaf89d0b {
@@ -7151,40 +7191,15 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
 }
 
 .m_2a371ac9 {
-  --separator-offset: calc(var(--stepper-icon-size) / 2 - calc(.0625rem * var(--mantine-scale)));
+  height: var(--stepper-outline-thickness);
+  margin-inline: var(--mantine-spacing-md);
+  background-color: var(--stepper-outline-color);
   flex: 1;
   transition: background-color .15s;
 }
 
-:where([data-mantine-color-scheme="light"]) .m_2a371ac9 {
-  background-color: var(--mantine-color-gray-2);
-}
-
-:where([data-mantine-color-scheme="dark"]) .m_2a371ac9 {
-  background-color: var(--mantine-color-dark-2);
-}
-
 .m_2a371ac9:where([data-active]) {
   background-color: var(--stepper-color);
-}
-
-.m_2a371ac9:where([data-orientation="horizontal"]) {
-  height: calc(.125rem * var(--mantine-scale));
-  margin-inline: var(--mantine-spacing-md);
-}
-
-.m_2a371ac9:where([data-orientation="vertical"]) {
-  width: calc(.125rem * var(--mantine-scale));
-  margin-top: calc(var(--mantine-spacing-xs) / 2);
-  margin-bottom: calc(var(--mantine-spacing-xs)  - calc(.125rem * var(--mantine-scale)));
-}
-
-.m_2a371ac9:where([data-orientation="vertical"]):where([data-icon-position="left"]) {
-  margin-inline-start: var(--separator-offset);
-}
-
-.m_2a371ac9:where([data-orientation="vertical"]):where([data-icon-position="right"]) {
-  margin-inline-end: var(--separator-offset);
 }
 
 .m_78da155d {
@@ -7225,6 +7240,10 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
   margin-top: 0;
 }
 
+.m_833edb7e:where(:last-of-type) {
+  min-height: auto;
+}
+
 .m_833edb7e:where(:last-of-type) .m_6496b3f3 {
   display: none;
 }
@@ -7236,7 +7255,7 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
 .m_6496b3f3 {
   top: calc(var(--stepper-icon-size)  + var(--separator-spacing));
   position: absolute;
-  border-inline-start: calc(.125rem * var(--mantine-scale)) solid;
+  border-inline-start: var(--stepper-outline-thickness) solid var(--stepper-outline-color);
   height: 100vh;
 }
 
@@ -7264,14 +7283,6 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
   right: calc(var(--stepper-icon-size) / 2);
 }
 
-:where([data-mantine-color-scheme="light"]) .m_6496b3f3 {
-  border-color: var(--mantine-color-gray-1);
-}
-
-:where([data-mantine-color-scheme="dark"]) .m_6496b3f3 {
-  border-color: var(--mantine-color-dark-5);
-}
-
 .m_6496b3f3:where([data-active]) {
   border-color: var(--stepper-color);
 }
@@ -7285,7 +7296,8 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
   font-size: var(--stepper-fz);
   display: flex;
   position: relative;
-  border: calc(.125rem * var(--mantine-scale)) solid;
+  border: var(--stepper-outline-thickness) solid var(--stepper-outline-color);
+  background-color: var(--stepper-outline-color);
   justify-content: center;
   align-items:  center;
   transition: background-color .15s, border-color .15s;
@@ -7293,14 +7305,10 @@ fieldset:disabled .m_c9ade57f:where([data-inverted]) {
 }
 
 :where([data-mantine-color-scheme="light"]) .m_1959ad01 {
-  background-color: var(--mantine-color-gray-1);
-  border-color: var(--mantine-color-gray-1);
   color: var(--mantine-color-gray-7);
 }
 
 :where([data-mantine-color-scheme="dark"]) .m_1959ad01 {
-  background-color: var(--mantine-color-dark-5);
-  border-color: var(--mantine-color-dark-5);
   color: var(--mantine-color-dark-1);
 }
 
