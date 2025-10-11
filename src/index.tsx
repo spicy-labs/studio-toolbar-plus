@@ -10,6 +10,8 @@ import { Toolbar } from "./components/Toolbar.tsx";
 import { AlertsContainer } from "./components/AlertsContainer.tsx";
 import { setEnableActions } from "./studio/actionHandler.ts";
 import { getStudio } from "./studio/studioAdapter.ts";
+import { Result } from "typescript-result";
+import { removeIntercom } from "./studio/utils.js";
 
 // Create a theme for Mantine
 const theme = createTheme({
@@ -38,7 +40,48 @@ const handleExportCSV = () => {
   // Implementation will come later
 };
 
+// Load toolbar settings from localStorage with defaults
+function loadToolbarSettings() {
+  const localConfig = localStorage.getItem("tempUserConfig");
+
+  return Result.try(() => {
+    if (localConfig) {
+      return JSON.parse(localConfig);
+    }
+    return {};
+  }).fold(
+    (parsedConfig: any) => {
+      return {
+        enableActionsInDesignMode: parsedConfig.enableActionsInDesignMode
+          ? true
+          : false,
+        removeIntercom: parsedConfig.removeIntercom ? true : false,
+      };
+    },
+    () => {
+      // If parsing failed, create new config with defaults
+      const defaultConfig = {
+        enableActionsInDesignMode: false,
+        removeIntercom: false,
+      };
+
+      return defaultConfig;
+    },
+  );
+}
+
 async function renderToolbar(studio: SDKType) {
+  // Load toolbar settings on startup
+  const toolbarSettings = await loadToolbarSettings();
+
+  if (toolbarSettings.enableActionsInDesignMode) {
+    setEnableActions(studio, true);
+  }
+
+  if (toolbarSettings.removeIntercom) {
+    removeIntercom();
+  }
+
   console.log("Rendering toolbar...");
   // Create our modal root if it doesn't exist
   if (!window.rootInstance) {
@@ -82,11 +125,10 @@ async function checkStudioExist() {
   studioResult.fold(
     (studio) => {
       studio.config.events.onParagraphStylesChanged.registerCallback(() => {
-        console.log("Studio found, rendering toolbar...");
         if (window.customToolbarLoaded == null) {
+          console.log("Studio found, rendering toolbar...");
           window.customToolbarLoaded = true;
           renderToolbar(studio);
-          setEnableActions(studio, true);
         }
       });
     },

@@ -11451,6 +11451,13 @@ async function handleStudioFunc(studioFunction, ...functionArgs) {
     }
   });
 }
+function removeIntercom() {
+  const element = document.getElementById("intercom-container");
+  if (element != null && element.parentNode != null) {
+    element.parentNode.removeChild(element);
+    console.log('Element with ID "intercom-container" has been removed.');
+  }
+}
 var init_utils = __esm(() => {
   init_dist();
 });
@@ -78696,6 +78703,14 @@ async function getDefaultConfig() {
       return Result2.error(new ParseManifestError("Invalid or missing appConfig in manifest"));
     }
     const appConfig = manifestData.appConfig;
+    appConfig.enableActionsInDesignMode = {
+      enabled: false,
+      status: "none"
+    };
+    appConfig.removeIntercom = {
+      enabled: false,
+      status: "none"
+    };
     for (const [key, value] of Object.entries(appConfig)) {
       if (!value || typeof value !== "object" || typeof value.enabled !== "boolean" || !["none", "sponsored", "deprecated", "experimental"].includes(value.status)) {
         return Result2.error(new ParseManifestError(`Invalid toolbarConfig entry for ${key}: expected {enabled: boolean, status: "none" | "sponsored" | "deprecated" | "experimental"}`));
@@ -78771,6 +78786,7 @@ function checkVersions(from3, to) {
 
 // src/components/ToolbarSettingsModal.tsx
 init_dist();
+init_utils();
 var jsx_runtime40 = __toESM(require_jsx_runtime(), 1);
 var disclaimer = /* @__PURE__ */ jsx_runtime40.jsxs(jsx_runtime40.Fragment, {
   children: [
@@ -78790,6 +78806,7 @@ function ToolbarSettingsModal({
   onReloadConfig,
   updateInfo
 }) {
+  const raiseError2 = appStore((store) => store.raiseError);
   const [defaultConfig, setDefaultConfig] = import_react288.useState(null);
   const [githubVersion, setGithubVersion] = import_react288.useState(null);
   const [config2, setConfig] = import_react288.useState(null);
@@ -79004,6 +79021,14 @@ function ToolbarSettingsModal({
     if (config2 == null) {
       handleClose();
       return;
+    } else {
+      if (config2.enableActionsInDesignMode != null) {
+        const studioResult = await getStudio();
+        studioResult.fold((studio2) => setEnableActions(studio2, config2.enableActionsInDesignMode), () => raiseError2(new Error("Failed to get studio to set actions")));
+      }
+      if (config2.removeIntercom) {
+        removeIntercom();
+      }
     }
     onReloadConfig(config2);
     handleClose();
@@ -79018,7 +79043,7 @@ function ToolbarSettingsModal({
   console.log(config2, defaultConfig);
   return /* @__PURE__ */ jsx_runtime40.jsx(Modal, {
     opened,
-    onClose,
+    onClose: handleClose,
     title: "Toolbar Settings",
     centered: true,
     size: "md",
@@ -79092,6 +79117,64 @@ function ToolbarSettingsModal({
               /* @__PURE__ */ jsx_runtime40.jsx("br", {}),
               /* @__PURE__ */ jsx_runtime40.jsx("br", {}),
               disclaimer
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime40.jsx(Title, {
+            order: 5,
+            children: "Toolbar Settings"
+          }),
+          /* @__PURE__ */ jsx_runtime40.jsxs(Stack, {
+            gap: "md",
+            mb: "xl",
+            children: [
+              /* @__PURE__ */ jsx_runtime40.jsxs(Group, {
+                justify: "space-between",
+                align: "center",
+                children: [
+                  /* @__PURE__ */ jsx_runtime40.jsx(Group, {
+                    gap: "xs",
+                    style: { flex: 1 },
+                    children: /* @__PURE__ */ jsx_runtime40.jsx(Text, {
+                      children: "Enable Actions In Design Mode"
+                    })
+                  }),
+                  /* @__PURE__ */ jsx_runtime40.jsx(Switch, {
+                    checked: config2.enableActionsInDesignMode,
+                    onChange: (event) => handleToggle("enableActionsInDesignMode", event.currentTarget.checked),
+                    "aria-label": "Toggle Enable Actions In Design Mode"
+                  })
+                ]
+              }),
+              /* @__PURE__ */ jsx_runtime40.jsx(Text, {
+                size: "xs",
+                c: "dimmed",
+                ml: 32,
+                children: "Allow toolbar actions to run while in design mode"
+              }),
+              /* @__PURE__ */ jsx_runtime40.jsxs(Group, {
+                justify: "space-between",
+                align: "center",
+                children: [
+                  /* @__PURE__ */ jsx_runtime40.jsx(Group, {
+                    gap: "xs",
+                    style: { flex: 1 },
+                    children: /* @__PURE__ */ jsx_runtime40.jsx(Text, {
+                      children: "Remove Intercom"
+                    })
+                  }),
+                  /* @__PURE__ */ jsx_runtime40.jsx(Switch, {
+                    checked: config2.removeIntercom,
+                    onChange: (event) => handleToggle("removeIntercom", event.currentTarget.checked),
+                    "aria-label": "Toggle Remove Intercom"
+                  })
+                ]
+              }),
+              /* @__PURE__ */ jsx_runtime40.jsx(Text, {
+                size: "xs",
+                c: "dimmed",
+                ml: 32,
+                children: "Hide the Intercom chat widget"
+              })
             ]
           }),
           /* @__PURE__ */ jsx_runtime40.jsx(Title, {
@@ -80113,6 +80196,8 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
+init_dist();
+init_utils();
 var jsx_runtime43 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
@@ -80120,7 +80205,34 @@ var theme = createTheme({
   colors: {}
 });
 window.test = () => console.log(appStore.getState());
+function loadToolbarSettings() {
+  const localConfig = localStorage.getItem("tempUserConfig");
+  return Result2.try(() => {
+    if (localConfig) {
+      return JSON.parse(localConfig);
+    }
+    return {};
+  }).fold((parsedConfig) => {
+    return {
+      enableActionsInDesignMode: parsedConfig.enableActionsInDesignMode ? true : false,
+      removeIntercom: parsedConfig.removeIntercom ? true : false
+    };
+  }, () => {
+    const defaultConfig = {
+      enableActionsInDesignMode: false,
+      removeIntercom: false
+    };
+    return defaultConfig;
+  });
+}
 async function renderToolbar(studio2) {
+  const toolbarSettings = await loadToolbarSettings();
+  if (toolbarSettings.enableActionsInDesignMode) {
+    setEnableActions(studio2, true);
+  }
+  if (toolbarSettings.removeIntercom) {
+    removeIntercom();
+  }
   console.log("Rendering toolbar...");
   if (!window.rootInstance) {
     const modalContainer = document.createElement("div");
@@ -80152,11 +80264,10 @@ async function checkStudioExist() {
   const studioResult = await getStudio();
   studioResult.fold((studio2) => {
     studio2.config.events.onParagraphStylesChanged.registerCallback(() => {
-      console.log("Studio found, rendering toolbar...");
       if (window.customToolbarLoaded == null) {
+        console.log("Studio found, rendering toolbar...");
         window.customToolbarLoaded = true;
         renderToolbar(studio2);
-        setEnableActions(studio2, true);
       }
     });
   }, () => {
@@ -80168,4 +80279,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=64A5B2965661CAFA64756E2164756E21
+//# debugId=170C575E280EA1CD64756E2164756E21
