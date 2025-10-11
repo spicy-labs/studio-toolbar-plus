@@ -38,6 +38,9 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [compressionReport, setCompressionReport] =
     useState<CompressionReport | null>(null);
+  const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
+  const [currentSize, setCurrentSize] = useState<string | null>(null);
+  const [isGettingSize, setIsGettingSize] = useState(false);
 
   const handleStartCompress = () => {
     // Open confirmation modal instead of directly compressing
@@ -55,7 +58,7 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error("Failed to get studio: " + studioResult.error?.message),
+          new Error("Failed to get studio: " + studioResult.error?.message)
         );
         return;
       }
@@ -67,8 +70,8 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
         raiseError(
           new Error(
             "Failed to get initial document state: " +
-              initialDocStateResult.error?.message,
-          ),
+              initialDocStateResult.error?.message
+          )
         );
         return;
       }
@@ -83,7 +86,7 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
       const layoutsResult = await getAllLayouts(studio);
       if (!layoutsResult.isOk()) {
         raiseError(
-          new Error("Failed to get layouts: " + layoutsResult.error?.message),
+          new Error("Failed to get layouts: " + layoutsResult.error?.message)
         );
         return;
       }
@@ -92,7 +95,7 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
 
       // 2. Filter for magic layouts (layouts with ✨ in the name)
       const magicLayouts = layouts.filter((layout) =>
-        layout.name.includes("✨"),
+        layout.name.includes("✨")
       );
 
       // 3. Delete each magic layout
@@ -102,8 +105,8 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
         if (!deleteResult.isOk()) {
           raiseError(
             new Error(
-              `Failed to delete layout ${layout.name}: ${deleteResult.error?.message}`,
-            ),
+              `Failed to delete layout ${layout.name}: ${deleteResult.error?.message}`
+            )
           );
           return;
         }
@@ -121,8 +124,8 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
         raiseError(
           new Error(
             "Failed to clear private data: " +
-              setPrivateDataResult.error?.message,
-          ),
+              setPrivateDataResult.error?.message
+          )
         );
         return;
       }
@@ -133,8 +136,8 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
         raiseError(
           new Error(
             "Failed to get final document state: " +
-              finalDocStateResult.error?.message,
-          ),
+              finalDocStateResult.error?.message
+          )
         );
         return;
       }
@@ -166,6 +169,53 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
   const handleCloseAfterCompress = () => {
     setCompressionReport(null);
     onClose();
+  };
+
+  const handleGetCurrentSize = async () => {
+    setIsGettingSize(true);
+    try {
+      // Get Studio instance
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError(
+          new Error("Failed to get studio: " + studioResult.error?.message)
+        );
+        return;
+      }
+      const studio = studioResult.value;
+
+      // Get current document state and calculate file size
+      const docStateResult = await getCurrentDocumentState(studio);
+      if (!docStateResult.isOk()) {
+        raiseError(
+          new Error(
+            "Failed to get document state: " + docStateResult.error?.message
+          )
+        );
+        return;
+      }
+
+      const docJson = JSON.stringify(docStateResult.value);
+      const blob = new Blob([docJson], { type: "application/json" });
+      const sizeKB = blob.size / 1024;
+
+      const formattedSize =
+        sizeKB > 1000
+          ? `${(sizeKB / 1024).toFixed(2)} MB`
+          : `${sizeKB.toFixed(2)} KB`;
+
+      setCurrentSize(formattedSize);
+      setIsSizeModalOpen(true);
+    } catch (error) {
+      raiseError(error instanceof Error ? error : new Error(String(error)));
+    } finally {
+      setIsGettingSize(false);
+    }
+  };
+
+  const handleCloseSizeModal = () => {
+    setIsSizeModalOpen(false);
+    setCurrentSize(null);
   };
 
   return (
@@ -299,29 +349,42 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
             </>
           )}
 
-          <Group justify="flex-end" mt="xl">
+          <Group justify="space-between" mt="xl">
             {compressionReport ? (
-              <Button onClick={handleCloseAfterCompress} size="md">
-                Close
-              </Button>
+              <>
+                <div /> {/* Empty div for spacing */}
+                <Button onClick={handleCloseAfterCompress} size="md">
+                  Close
+                </Button>
+              </>
             ) : (
               <>
                 <Button
                   variant="default"
-                  onClick={onClose}
-                  disabled={isProcessing}
+                  onClick={handleGetCurrentSize}
+                  loading={isGettingSize}
+                  disabled={isProcessing || isGettingSize}
                 >
-                  Cancel
+                  Get Current Size
                 </Button>
-                <Button
-                  onClick={handleStartCompress}
-                  loading={isProcessing}
-                  disabled={isProcessing}
-                  size="md"
-                  color="red"
-                >
-                  Start Compression
-                </Button>
+                <Group gap="md">
+                  <Button
+                    variant="default"
+                    onClick={onClose}
+                    disabled={isProcessing}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleStartCompress}
+                    loading={isProcessing}
+                    disabled={isProcessing}
+                    size="md"
+                    color="red"
+                  >
+                    Start Compression
+                  </Button>
+                </Group>
               </>
             )}
           </Group>
@@ -378,6 +441,40 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
               disabled={isProcessing}
             >
               Continue
+            </Button>
+          </Group>
+        </Stack>
+      </Modal>
+
+      {/* Current Size Modal */}
+      <Modal
+        opened={isSizeModalOpen}
+        onClose={handleCloseSizeModal}
+        title="Current Template Size"
+        centered
+        size="md"
+        styles={{
+          title: {
+            fontSize: "1.25rem",
+            fontWeight: 600,
+          },
+        }}
+      >
+        <Stack gap="lg">
+          <Text size="md">The current template size is:</Text>
+
+          <Text size="xl" fw={700} ta="center" c="blue">
+            {currentSize}
+          </Text>
+
+          <Text size="sm" c="dimmed">
+            This size is calculated from the current document state as a JSON
+            file.
+          </Text>
+
+          <Group justify="flex-end" mt="md">
+            <Button onClick={handleCloseSizeModal} size="md">
+              Close
             </Button>
           </Group>
         </Stack>

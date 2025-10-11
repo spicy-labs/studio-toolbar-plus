@@ -90,6 +90,10 @@
     "showOutput": {
       "enabled": true,
       "status": "none"
+    },
+    "showCompress": {
+      "enabled": false,
+      "status": "none"
     }
   }
 }
