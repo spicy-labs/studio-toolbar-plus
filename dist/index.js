@@ -26741,7 +26741,7 @@ var require_lib = __commonJS((exports, module) => {
 });
 
 // src/index.tsx
-var import_react291 = __toESM(require_react(), 1);
+var import_react292 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // node_modules/zustand/esm/vanilla.mjs
@@ -27971,6 +27971,7 @@ init_dist();
 // src/studio/layoutHandler.ts
 init_dist();
 init_utils();
+var import_studio_sdk = __toESM(require_main(), 1);
 async function getPrivateData({ studio: studio2, id }) {
   const result = await handleStudioFunc(studio2.layout.getPrivateData, id);
   console.log(result);
@@ -27984,6 +27985,46 @@ async function setPrivateData({
   privateData
 }) {
   return await handleStudioFunc(studio2.layout.setPrivateData, id, privateData);
+}
+function convertLayoutResizeUpdateToSDKUpdate(update) {
+  const sdkUpdate = {
+    enabled: { value: update.enabled },
+    constraintMode: { value: update.constrainMode }
+  };
+  if (update.minWidth !== null) {
+    sdkUpdate.minWidth = { value: String(update.minWidth) };
+  }
+  if (update.maxWidth !== null) {
+    sdkUpdate.maxWidth = { value: String(update.maxWidth) };
+  }
+  if (update.minHeight !== null) {
+    sdkUpdate.minHeight = { value: String(update.minHeight) };
+  }
+  if (update.maxHeight !== null) {
+    sdkUpdate.maxHeight = { value: String(update.maxHeight) };
+  }
+  sdkUpdate.aspectRange = null;
+  if (update.constrainMode === import_studio_sdk.ConstraintMode.range) {
+    if (update.vertical !== null && update.horizontal !== null) {
+      sdkUpdate.aspectRange = {
+        value: {
+          min: {
+            horizontal: update.horizontal.min,
+            vertical: update.vertical.min
+          },
+          max: {
+            horizontal: update.horizontal.max,
+            vertical: update.vertical.max
+          }
+        }
+      };
+    }
+  }
+  return sdkUpdate;
+}
+async function setLayoutResizable(studio2, id, layoutUpdate) {
+  const sdkUpdate = convertLayoutResizeUpdateToSDKUpdate(layoutUpdate);
+  return await handleStudioFunc(studio2.layout.setResizableByUser, id, sdkUpdate);
 }
 async function getAllLayouts(studio2) {
   return await handleStudioFunc(studio2.layout.getAll);
@@ -28007,7 +28048,7 @@ async function deleteLayout(studio2, id) {
 // src/studio/variableHandler.ts
 init_dist();
 init_utils();
-var import_studio_sdk = __toESM(require_main(), 1);
+var import_studio_sdk2 = __toESM(require_main(), 1);
 async function getAllVariables(studio2) {
   return handleStudioFunc(studio2.next.variable.getAll);
 }
@@ -28106,7 +28147,7 @@ async function setOrCreateVariableValue({
           variableType
         });
       }
-      if (variableType === import_studio_sdk.VariableType.list) {
+      if (variableType === import_studio_sdk2.VariableType.list) {
         return await setListVariableItems({
           studio: studio2,
           id: existingVariable.id,
@@ -28125,7 +28166,7 @@ async function setOrCreateVariableValue({
         name
       });
       return createResult.map(async (id) => {
-        if (variableType === import_studio_sdk.VariableType.list) {
+        if (variableType === import_studio_sdk2.VariableType.list) {
           return await setListVariableItems({ studio: studio2, id, items: value });
         }
         return await setVariableValue2({
@@ -28145,7 +28186,7 @@ function getByName(studio2, name) {
 }
 
 // src/studio/studioAdapter.ts
-var import_studio_sdk2 = __toESM(require_main(), 1);
+var import_studio_sdk3 = __toESM(require_main(), 1);
 
 // src/types/toolbarEnvelope.ts
 function createEmptyEnvelope() {
@@ -28188,6 +28229,10 @@ async function getAction({
 async function createAction(studio2) {
   return handleStudioFunc(studio2.action.create);
 }
+async function deleteAction(actionData) {
+  const actionResult = await getAction(actionData);
+  return actionResult.fold((action) => handleStudioFunc(actionData.studio.action.remove, action.id), (error) => Result2.error(error));
+}
 async function updateAction(actionData, update) {
   const { studio: studio2 } = actionData;
   const actionResult = await getAction(actionData);
@@ -28211,7 +28256,7 @@ function setEnableActions(studio2, value) {
 
 // src/studio/actions/imageSelection.js
 function imageSelectionScript(debug) {
-  const version2 = "2";
+  const version2 = "1";
   const imageSelectionData = "%DATA%";
   const errorCollection = [];
   const debugData = {};
@@ -28245,9 +28290,6 @@ function imageSelectionScript(debug) {
       return { debugData, errorCollection };
     }
     for (const variable of variables) {
-      if (variable.name.includes("✨")) {
-        continue;
-      }
       const imageVariableDependentGroups = layoutImageMapping[variable.name];
       if (debug) {
         debugData[variable.name] = {
@@ -28255,7 +28297,7 @@ function imageSelectionScript(debug) {
         };
       }
       if (!imageVariableDependentGroups) {
-        errorCollection.push(Error(`No  dependent groups found for variable: ${variable.name}`));
+        errorCollection.push(Error(`No  dependent groups found for image variable: ${variable.name}`));
         continue;
       }
       if (imageVariableDependentGroups["_always_run"]) {
@@ -28871,8 +28913,8 @@ console.log(imageSelectionScript(false))`;
   }, {
     name: "AUTO_GEN_TOOLBAR",
     triggers: [
-      { event: import_studio_sdk2.ActionEditorEvent.selectedLayoutChanged },
-      { event: import_studio_sdk2.ActionEditorEvent.variableValueChanged }
+      { event: import_studio_sdk3.ActionEditorEvent.selectedLayoutChanged },
+      { event: import_studio_sdk3.ActionEditorEvent.variableValueChanged }
     ],
     script
   });
@@ -28894,8 +28936,8 @@ console.log(imageSizingScript(false))`;
   }, {
     name: "AUTO_GEN_TOOLBAR_IR",
     triggers: [
-      { event: import_studio_sdk2.ActionEditorEvent.selectedLayoutChanged },
-      { event: import_studio_sdk2.ActionEditorEvent.variableValueChanged }
+      { event: import_studio_sdk3.ActionEditorEvent.selectedLayoutChanged },
+      { event: import_studio_sdk3.ActionEditorEvent.variableValueChanged }
     ],
     script
   });
@@ -28914,7 +28956,7 @@ console.log(layoutSizingScript(false))`;
       studio: window.SDK
     }, {
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      triggers: [{ event: import_studio_sdk2.ActionEditorEvent.pageSizeChanged }],
+      triggers: [{ event: import_studio_sdk3.ActionEditorEvent.pageSizeChanged }],
       script
     });
     if (updateResult.isError()) {
@@ -28923,7 +28965,7 @@ console.log(layoutSizingScript(false))`;
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      variableType: import_studio_sdk2.VariableType.shortText,
+      variableType: import_studio_sdk3.VariableType.shortText,
       value: JSON.stringify(layoutSizingMapResult.value, null, 0)
     });
     if (variableResult.isError()) {
@@ -28932,13 +28974,13 @@ console.log(layoutSizingScript(false))`;
     return setVariableVisblityWithName({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      visible: { type: import_studio_sdk2.VariableVisibilityType.invisible }
+      visible: { type: import_studio_sdk3.VariableVisibilityType.invisible }
     });
   } else {
     const variableResult = await setOrCreateVariableValue({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      variableType: import_studio_sdk2.VariableType.shortText,
+      variableType: import_studio_sdk3.VariableType.shortText,
       value: JSON.stringify({}, null, 0)
     });
     if (variableResult.isError()) {
@@ -28947,7 +28989,7 @@ console.log(layoutSizingScript(false))`;
     return setVariableVisblityWithName({
       studio: window.SDK,
       name: "AUTO_GEN_TOOLBAR_LAYOUTS",
-      visible: { type: import_studio_sdk2.VariableVisibilityType.invisible }
+      visible: { type: import_studio_sdk3.VariableVisibilityType.invisible }
     });
   }
 }
@@ -29005,7 +29047,7 @@ async function updateFrameLayoutMaps(frameSnapshot) {
 }
 async function getCurrentConnectors(studio2) {
   try {
-    const connectorsResult = await getConnectorsByType(studio2, import_studio_sdk2.ConnectorType.media);
+    const connectorsResult = await getConnectorsByType(studio2, import_studio_sdk3.ConnectorType.media);
     if (!connectorsResult.isOk()) {
       return Result2.error(new Error("Failed to get connectors: " + connectorsResult.error?.message));
     }
@@ -49537,185 +49579,189 @@ var IconCrop = createReactComponent("outline", "crop", "Crop", __iconNode16);
 var __iconNode17 = [["path", { d: "M12 8h3a1 1 0 0 1 1 1v3", key: "svg-0" }], ["path", { d: "M16 16h-7a1 1 0 0 1 -1 -1v-7", key: "svg-1" }], ["path", { d: "M12 20v.01", key: "svg-2" }], ["path", { d: "M16 20v.01", key: "svg-3" }], ["path", { d: "M8 20v.01", key: "svg-4" }], ["path", { d: "M4 20v.01", key: "svg-5" }], ["path", { d: "M4 16v.01", key: "svg-6" }], ["path", { d: "M4 12v.01", key: "svg-7" }], ["path", { d: "M4 8v.01", key: "svg-8" }], ["path", { d: "M8 4v.01", key: "svg-9" }], ["path", { d: "M12 4v.01", key: "svg-10" }], ["path", { d: "M16 4v.01", key: "svg-11" }], ["path", { d: "M20 4v.01", key: "svg-12" }], ["path", { d: "M20 8v.01", key: "svg-13" }], ["path", { d: "M20 12v.01", key: "svg-14" }], ["path", { d: "M20 16v.01", key: "svg-15" }], ["path", { d: "M3 3l18 18", key: "svg-16" }]];
 var IconDeselect = createReactComponent("outline", "deselect", "Deselect", __iconNode17);
 
+// node_modules/@tabler/icons-react/dist/esm/icons/IconDots.mjs
+var __iconNode18 = [["path", { d: "M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-0" }], ["path", { d: "M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-1" }], ["path", { d: "M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-2" }]];
+var IconDots = createReactComponent("outline", "dots", "Dots", __iconNode18);
+
 // node_modules/@tabler/icons-react/dist/esm/icons/IconDownload.mjs
-var __iconNode18 = [["path", { d: "M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2", key: "svg-0" }], ["path", { d: "M7 11l5 5l5 -5", key: "svg-1" }], ["path", { d: "M12 4l0 12", key: "svg-2" }]];
-var IconDownload = createReactComponent("outline", "download", "Download", __iconNode18);
+var __iconNode19 = [["path", { d: "M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2", key: "svg-0" }], ["path", { d: "M7 11l5 5l5 -5", key: "svg-1" }], ["path", { d: "M12 4l0 12", key: "svg-2" }]];
+var IconDownload = createReactComponent("outline", "download", "Download", __iconNode19);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconExchange.mjs
-var __iconNode19 = [["path", { d: "M5 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-0" }], ["path", { d: "M19 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-1" }], ["path", { d: "M19 8v5a5 5 0 0 1 -5 5h-3l3 -3m0 6l-3 -3", key: "svg-2" }], ["path", { d: "M5 16v-5a5 5 0 0 1 5 -5h3l-3 -3m0 6l3 -3", key: "svg-3" }]];
-var IconExchange = createReactComponent("outline", "exchange", "Exchange", __iconNode19);
+var __iconNode20 = [["path", { d: "M5 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-0" }], ["path", { d: "M19 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-1" }], ["path", { d: "M19 8v5a5 5 0 0 1 -5 5h-3l3 -3m0 6l-3 -3", key: "svg-2" }], ["path", { d: "M5 16v-5a5 5 0 0 1 5 -5h3l-3 -3m0 6l3 -3", key: "svg-3" }]];
+var IconExchange = createReactComponent("outline", "exchange", "Exchange", __iconNode20);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconExclamationCircle.mjs
-var __iconNode20 = [["path", { d: "M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0", key: "svg-0" }], ["path", { d: "M12 9v4", key: "svg-1" }], ["path", { d: "M12 16v.01", key: "svg-2" }]];
-var IconExclamationCircle = createReactComponent("outline", "exclamation-circle", "ExclamationCircle", __iconNode20);
+var __iconNode21 = [["path", { d: "M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0", key: "svg-0" }], ["path", { d: "M12 9v4", key: "svg-1" }], ["path", { d: "M12 16v.01", key: "svg-2" }]];
+var IconExclamationCircle = createReactComponent("outline", "exclamation-circle", "ExclamationCircle", __iconNode21);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconExternalLink.mjs
-var __iconNode21 = [["path", { d: "M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6", key: "svg-0" }], ["path", { d: "M11 13l9 -9", key: "svg-1" }], ["path", { d: "M15 4h5v5", key: "svg-2" }]];
-var IconExternalLink = createReactComponent("outline", "external-link", "ExternalLink", __iconNode21);
+var __iconNode22 = [["path", { d: "M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6", key: "svg-0" }], ["path", { d: "M11 13l9 -9", key: "svg-1" }], ["path", { d: "M15 4h5v5", key: "svg-2" }]];
+var IconExternalLink = createReactComponent("outline", "external-link", "ExternalLink", __iconNode22);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconEyeCheck.mjs
-var __iconNode22 = [["path", { d: "M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0", key: "svg-0" }], ["path", { d: "M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032", key: "svg-1" }], ["path", { d: "M15 19l2 2l4 -4", key: "svg-2" }]];
-var IconEyeCheck = createReactComponent("outline", "eye-check", "EyeCheck", __iconNode22);
+var __iconNode23 = [["path", { d: "M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0", key: "svg-0" }], ["path", { d: "M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032", key: "svg-1" }], ["path", { d: "M15 19l2 2l4 -4", key: "svg-2" }]];
+var IconEyeCheck = createReactComponent("outline", "eye-check", "EyeCheck", __iconNode23);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconEyeClosed.mjs
-var __iconNode23 = [["path", { d: "M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4", key: "svg-0" }], ["path", { d: "M3 15l2.5 -3.8", key: "svg-1" }], ["path", { d: "M21 14.976l-2.492 -3.776", key: "svg-2" }], ["path", { d: "M9 17l.5 -4", key: "svg-3" }], ["path", { d: "M15 17l-.5 -4", key: "svg-4" }]];
-var IconEyeClosed = createReactComponent("outline", "eye-closed", "EyeClosed", __iconNode23);
+var __iconNode24 = [["path", { d: "M21 9c-2.4 2.667 -5.4 4 -9 4c-3.6 0 -6.6 -1.333 -9 -4", key: "svg-0" }], ["path", { d: "M3 15l2.5 -3.8", key: "svg-1" }], ["path", { d: "M21 14.976l-2.492 -3.776", key: "svg-2" }], ["path", { d: "M9 17l.5 -4", key: "svg-3" }], ["path", { d: "M15 17l-.5 -4", key: "svg-4" }]];
+var IconEyeClosed = createReactComponent("outline", "eye-closed", "EyeClosed", __iconNode24);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFileDownload.mjs
-var __iconNode24 = [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M12 17v-6", key: "svg-2" }], ["path", { d: "M9.5 14.5l2.5 2.5l2.5 -2.5", key: "svg-3" }]];
-var IconFileDownload = createReactComponent("outline", "file-download", "FileDownload", __iconNode24);
+var __iconNode25 = [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M12 17v-6", key: "svg-2" }], ["path", { d: "M9.5 14.5l2.5 2.5l2.5 -2.5", key: "svg-3" }]];
+var IconFileDownload = createReactComponent("outline", "file-download", "FileDownload", __iconNode25);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFileUpload.mjs
-var __iconNode25 = [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M12 11v6", key: "svg-2" }], ["path", { d: "M9.5 13.5l2.5 -2.5l2.5 2.5", key: "svg-3" }]];
-var IconFileUpload = createReactComponent("outline", "file-upload", "FileUpload", __iconNode25);
+var __iconNode26 = [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }], ["path", { d: "M12 11v6", key: "svg-2" }], ["path", { d: "M9.5 13.5l2.5 -2.5l2.5 2.5", key: "svg-3" }]];
+var IconFileUpload = createReactComponent("outline", "file-upload", "FileUpload", __iconNode26);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFile.mjs
-var __iconNode26 = [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }]];
-var IconFile = createReactComponent("outline", "file", "File", __iconNode26);
+var __iconNode27 = [["path", { d: "M14 3v4a1 1 0 0 0 1 1h4", key: "svg-0" }], ["path", { d: "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", key: "svg-1" }]];
+var IconFile = createReactComponent("outline", "file", "File", __iconNode27);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFilter.mjs
-var __iconNode27 = [["path", { d: "M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z", key: "svg-0" }]];
-var IconFilter = createReactComponent("outline", "filter", "Filter", __iconNode27);
+var __iconNode28 = [["path", { d: "M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z", key: "svg-0" }]];
+var IconFilter = createReactComponent("outline", "filter", "Filter", __iconNode28);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFolder.mjs
-var __iconNode28 = [["path", { d: "M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2", key: "svg-0" }]];
-var IconFolder = createReactComponent("outline", "folder", "Folder", __iconNode28);
+var __iconNode29 = [["path", { d: "M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2", key: "svg-0" }]];
+var IconFolder = createReactComponent("outline", "folder", "Folder", __iconNode29);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconGripVertical.mjs
-var __iconNode29 = [["path", { d: "M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-0" }], ["path", { d: "M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-1" }], ["path", { d: "M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-2" }], ["path", { d: "M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-3" }], ["path", { d: "M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-4" }], ["path", { d: "M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-5" }]];
-var IconGripVertical = createReactComponent("outline", "grip-vertical", "GripVertical", __iconNode29);
+var __iconNode30 = [["path", { d: "M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-0" }], ["path", { d: "M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-1" }], ["path", { d: "M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-2" }], ["path", { d: "M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-3" }], ["path", { d: "M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-4" }], ["path", { d: "M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0", key: "svg-5" }]];
+var IconGripVertical = createReactComponent("outline", "grip-vertical", "GripVertical", __iconNode30);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconInfoCircle.mjs
-var __iconNode30 = [["path", { d: "M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0", key: "svg-0" }], ["path", { d: "M12 9h.01", key: "svg-1" }], ["path", { d: "M11 12h1v4h1", key: "svg-2" }]];
-var IconInfoCircle = createReactComponent("outline", "info-circle", "InfoCircle", __iconNode30);
+var __iconNode31 = [["path", { d: "M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0", key: "svg-0" }], ["path", { d: "M12 9h.01", key: "svg-1" }], ["path", { d: "M11 12h1v4h1", key: "svg-2" }]];
+var IconInfoCircle = createReactComponent("outline", "info-circle", "InfoCircle", __iconNode31);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconListTree.mjs
-var __iconNode31 = [["path", { d: "M9 6h11", key: "svg-0" }], ["path", { d: "M12 12h8", key: "svg-1" }], ["path", { d: "M15 18h5", key: "svg-2" }], ["path", { d: "M5 6v.01", key: "svg-3" }], ["path", { d: "M8 12v.01", key: "svg-4" }], ["path", { d: "M11 18v.01", key: "svg-5" }]];
-var IconListTree = createReactComponent("outline", "list-tree", "ListTree", __iconNode31);
+var __iconNode32 = [["path", { d: "M9 6h11", key: "svg-0" }], ["path", { d: "M12 12h8", key: "svg-1" }], ["path", { d: "M15 18h5", key: "svg-2" }], ["path", { d: "M5 6v.01", key: "svg-3" }], ["path", { d: "M8 12v.01", key: "svg-4" }], ["path", { d: "M11 18v.01", key: "svg-5" }]];
+var IconListTree = createReactComponent("outline", "list-tree", "ListTree", __iconNode32);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconList.mjs
-var __iconNode32 = [["path", { d: "M9 6l11 0", key: "svg-0" }], ["path", { d: "M9 12l11 0", key: "svg-1" }], ["path", { d: "M9 18l11 0", key: "svg-2" }], ["path", { d: "M5 6l0 .01", key: "svg-3" }], ["path", { d: "M5 12l0 .01", key: "svg-4" }], ["path", { d: "M5 18l0 .01", key: "svg-5" }]];
-var IconList = createReactComponent("outline", "list", "List", __iconNode32);
+var __iconNode33 = [["path", { d: "M9 6l11 0", key: "svg-0" }], ["path", { d: "M9 12l11 0", key: "svg-1" }], ["path", { d: "M9 18l11 0", key: "svg-2" }], ["path", { d: "M5 6l0 .01", key: "svg-3" }], ["path", { d: "M5 12l0 .01", key: "svg-4" }], ["path", { d: "M5 18l0 .01", key: "svg-5" }]];
+var IconList = createReactComponent("outline", "list", "List", __iconNode33);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconLoader.mjs
-var __iconNode33 = [["path", { d: "M12 6l0 -3", key: "svg-0" }], ["path", { d: "M16.25 7.75l2.15 -2.15", key: "svg-1" }], ["path", { d: "M18 12l3 0", key: "svg-2" }], ["path", { d: "M16.25 16.25l2.15 2.15", key: "svg-3" }], ["path", { d: "M12 18l0 3", key: "svg-4" }], ["path", { d: "M7.75 16.25l-2.15 2.15", key: "svg-5" }], ["path", { d: "M6 12l-3 0", key: "svg-6" }], ["path", { d: "M7.75 7.75l-2.15 -2.15", key: "svg-7" }]];
-var IconLoader = createReactComponent("outline", "loader", "Loader", __iconNode33);
+var __iconNode34 = [["path", { d: "M12 6l0 -3", key: "svg-0" }], ["path", { d: "M16.25 7.75l2.15 -2.15", key: "svg-1" }], ["path", { d: "M18 12l3 0", key: "svg-2" }], ["path", { d: "M16.25 16.25l2.15 2.15", key: "svg-3" }], ["path", { d: "M12 18l0 3", key: "svg-4" }], ["path", { d: "M7.75 16.25l-2.15 2.15", key: "svg-5" }], ["path", { d: "M6 12l-3 0", key: "svg-6" }], ["path", { d: "M7.75 7.75l-2.15 -2.15", key: "svg-7" }]];
+var IconLoader = createReactComponent("outline", "loader", "Loader", __iconNode34);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconMapBolt.mjs
-var __iconNode34 = [["path", { d: "M13 19l-4 -2l-6 3v-13l6 -3l6 3l6 -3v8.5", key: "svg-0" }], ["path", { d: "M9 4v13", key: "svg-1" }], ["path", { d: "M15 7v7.5", key: "svg-2" }], ["path", { d: "M19 16l-2 3h4l-2 3", key: "svg-3" }]];
-var IconMapBolt = createReactComponent("outline", "map-bolt", "MapBolt", __iconNode34);
+var __iconNode35 = [["path", { d: "M13 19l-4 -2l-6 3v-13l6 -3l6 3l6 -3v8.5", key: "svg-0" }], ["path", { d: "M9 4v13", key: "svg-1" }], ["path", { d: "M15 7v7.5", key: "svg-2" }], ["path", { d: "M19 16l-2 3h4l-2 3", key: "svg-3" }]];
+var IconMapBolt = createReactComponent("outline", "map-bolt", "MapBolt", __iconNode35);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPencil.mjs
-var __iconNode35 = [["path", { d: "M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4", key: "svg-0" }], ["path", { d: "M13.5 6.5l4 4", key: "svg-1" }]];
-var IconPencil = createReactComponent("outline", "pencil", "Pencil", __iconNode35);
+var __iconNode36 = [["path", { d: "M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4", key: "svg-0" }], ["path", { d: "M13.5 6.5l4 4", key: "svg-1" }]];
+var IconPencil = createReactComponent("outline", "pencil", "Pencil", __iconNode36);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPhotoCog.mjs
-var __iconNode36 = [["path", { d: "M15 8h.01", key: "svg-0" }], ["path", { d: "M12 21h-6a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6", key: "svg-1" }], ["path", { d: "M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3", key: "svg-2" }], ["path", { d: "M14 14l1 -1c.48 -.461 1.016 -.684 1.551 -.67", key: "svg-3" }], ["path", { d: "M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-4" }], ["path", { d: "M19.001 15.5v1.5", key: "svg-5" }], ["path", { d: "M19.001 21v1.5", key: "svg-6" }], ["path", { d: "M22.032 17.25l-1.299 .75", key: "svg-7" }], ["path", { d: "M17.27 20l-1.3 .75", key: "svg-8" }], ["path", { d: "M15.97 17.25l1.3 .75", key: "svg-9" }], ["path", { d: "M20.733 20l1.3 .75", key: "svg-10" }]];
-var IconPhotoCog = createReactComponent("outline", "photo-cog", "PhotoCog", __iconNode36);
+var __iconNode37 = [["path", { d: "M15 8h.01", key: "svg-0" }], ["path", { d: "M12 21h-6a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6", key: "svg-1" }], ["path", { d: "M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3", key: "svg-2" }], ["path", { d: "M14 14l1 -1c.48 -.461 1.016 -.684 1.551 -.67", key: "svg-3" }], ["path", { d: "M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", key: "svg-4" }], ["path", { d: "M19.001 15.5v1.5", key: "svg-5" }], ["path", { d: "M19.001 21v1.5", key: "svg-6" }], ["path", { d: "M22.032 17.25l-1.299 .75", key: "svg-7" }], ["path", { d: "M17.27 20l-1.3 .75", key: "svg-8" }], ["path", { d: "M15.97 17.25l1.3 .75", key: "svg-9" }], ["path", { d: "M20.733 20l1.3 .75", key: "svg-10" }]];
+var IconPhotoCog = createReactComponent("outline", "photo-cog", "PhotoCog", __iconNode37);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPhotoSearch.mjs
-var __iconNode37 = [["path", { d: "M15 8h.01", key: "svg-0" }], ["path", { d: "M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5", key: "svg-1" }], ["path", { d: "M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0", key: "svg-2" }], ["path", { d: "M20.2 20.2l1.8 1.8", key: "svg-3" }], ["path", { d: "M3 16l5 -5c.928 -.893 2.072 -.893 3 0l2 2", key: "svg-4" }]];
-var IconPhotoSearch = createReactComponent("outline", "photo-search", "PhotoSearch", __iconNode37);
+var __iconNode38 = [["path", { d: "M15 8h.01", key: "svg-0" }], ["path", { d: "M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5", key: "svg-1" }], ["path", { d: "M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0", key: "svg-2" }], ["path", { d: "M20.2 20.2l1.8 1.8", key: "svg-3" }], ["path", { d: "M3 16l5 -5c.928 -.893 2.072 -.893 3 0l2 2", key: "svg-4" }]];
+var IconPhotoSearch = createReactComponent("outline", "photo-search", "PhotoSearch", __iconNode38);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPlaystationSquare.mjs
-var __iconNode38 = [["path", { d: "M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z", key: "svg-0" }], ["path", { d: "M8 8m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z", key: "svg-1" }]];
-var IconPlaystationSquare = createReactComponent("outline", "playstation-square", "PlaystationSquare", __iconNode38);
+var __iconNode39 = [["path", { d: "M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z", key: "svg-0" }], ["path", { d: "M8 8m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z", key: "svg-1" }]];
+var IconPlaystationSquare = createReactComponent("outline", "playstation-square", "PlaystationSquare", __iconNode39);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPlug.mjs
-var __iconNode39 = [["path", { d: "M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054z", key: "svg-0" }], ["path", { d: "M4 20l3.5 -3.5", key: "svg-1" }], ["path", { d: "M15 4l-3.5 3.5", key: "svg-2" }], ["path", { d: "M20 9l-3.5 3.5", key: "svg-3" }]];
-var IconPlug = createReactComponent("outline", "plug", "Plug", __iconNode39);
+var __iconNode40 = [["path", { d: "M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054z", key: "svg-0" }], ["path", { d: "M4 20l3.5 -3.5", key: "svg-1" }], ["path", { d: "M15 4l-3.5 3.5", key: "svg-2" }], ["path", { d: "M20 9l-3.5 3.5", key: "svg-3" }]];
+var IconPlug = createReactComponent("outline", "plug", "Plug", __iconNode40);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconPlus.mjs
-var __iconNode40 = [["path", { d: "M12 5l0 14", key: "svg-0" }], ["path", { d: "M5 12l14 0", key: "svg-1" }]];
-var IconPlus = createReactComponent("outline", "plus", "Plus", __iconNode40);
+var __iconNode41 = [["path", { d: "M12 5l0 14", key: "svg-0" }], ["path", { d: "M5 12l14 0", key: "svg-1" }]];
+var IconPlus = createReactComponent("outline", "plus", "Plus", __iconNode41);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconReplace.mjs
-var __iconNode41 = [["path", { d: "M3 3m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-0" }], ["path", { d: "M15 15m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-1" }], ["path", { d: "M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3", key: "svg-2" }], ["path", { d: "M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3", key: "svg-3" }]];
-var IconReplace = createReactComponent("outline", "replace", "Replace", __iconNode41);
+var __iconNode42 = [["path", { d: "M3 3m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-0" }], ["path", { d: "M15 15m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z", key: "svg-1" }], ["path", { d: "M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3", key: "svg-2" }], ["path", { d: "M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3", key: "svg-3" }]];
+var IconReplace = createReactComponent("outline", "replace", "Replace", __iconNode42);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconSearch.mjs
-var __iconNode42 = [["path", { d: "M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0", key: "svg-0" }], ["path", { d: "M21 21l-6 -6", key: "svg-1" }]];
-var IconSearch = createReactComponent("outline", "search", "Search", __iconNode42);
+var __iconNode43 = [["path", { d: "M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0", key: "svg-0" }], ["path", { d: "M21 21l-6 -6", key: "svg-1" }]];
+var IconSearch = createReactComponent("outline", "search", "Search", __iconNode43);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconSettings.mjs
-var __iconNode43 = [["path", { d: "M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z", key: "svg-0" }], ["path", { d: "M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0", key: "svg-1" }]];
-var IconSettings = createReactComponent("outline", "settings", "Settings", __iconNode43);
+var __iconNode44 = [["path", { d: "M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z", key: "svg-0" }], ["path", { d: "M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0", key: "svg-1" }]];
+var IconSettings = createReactComponent("outline", "settings", "Settings", __iconNode44);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconSparkles.mjs
-var __iconNode44 = [["path", { d: "M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z", key: "svg-0" }]];
-var IconSparkles = createReactComponent("outline", "sparkles", "Sparkles", __iconNode44);
+var __iconNode45 = [["path", { d: "M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z", key: "svg-0" }]];
+var IconSparkles = createReactComponent("outline", "sparkles", "Sparkles", __iconNode45);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTextSize.mjs
-var __iconNode45 = [["path", { d: "M3 7v-2h13v2", key: "svg-0" }], ["path", { d: "M10 5v14", key: "svg-1" }], ["path", { d: "M12 19h-4", key: "svg-2" }], ["path", { d: "M15 13v-1h6v1", key: "svg-3" }], ["path", { d: "M18 12v7", key: "svg-4" }], ["path", { d: "M17 19h2", key: "svg-5" }]];
-var IconTextSize = createReactComponent("outline", "text-size", "TextSize", __iconNode45);
+var __iconNode46 = [["path", { d: "M3 7v-2h13v2", key: "svg-0" }], ["path", { d: "M10 5v14", key: "svg-1" }], ["path", { d: "M12 19h-4", key: "svg-2" }], ["path", { d: "M15 13v-1h6v1", key: "svg-3" }], ["path", { d: "M18 12v7", key: "svg-4" }], ["path", { d: "M17 19h2", key: "svg-5" }]];
+var IconTextSize = createReactComponent("outline", "text-size", "TextSize", __iconNode46);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTrash.mjs
-var __iconNode46 = [["path", { d: "M4 7l16 0", key: "svg-0" }], ["path", { d: "M10 11l0 6", key: "svg-1" }], ["path", { d: "M14 11l0 6", key: "svg-2" }], ["path", { d: "M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12", key: "svg-3" }], ["path", { d: "M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3", key: "svg-4" }]];
-var IconTrash = createReactComponent("outline", "trash", "Trash", __iconNode46);
+var __iconNode47 = [["path", { d: "M4 7l16 0", key: "svg-0" }], ["path", { d: "M10 11l0 6", key: "svg-1" }], ["path", { d: "M14 11l0 6", key: "svg-2" }], ["path", { d: "M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12", key: "svg-3" }], ["path", { d: "M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3", key: "svg-4" }]];
+var IconTrash = createReactComponent("outline", "trash", "Trash", __iconNode47);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconUpload.mjs
-var __iconNode47 = [["path", { d: "M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2", key: "svg-0" }], ["path", { d: "M7 9l5 -5l5 5", key: "svg-1" }], ["path", { d: "M12 4l0 12", key: "svg-2" }]];
-var IconUpload = createReactComponent("outline", "upload", "Upload", __iconNode47);
+var __iconNode48 = [["path", { d: "M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2", key: "svg-0" }], ["path", { d: "M7 9l5 -5l5 5", key: "svg-1" }], ["path", { d: "M12 4l0 12", key: "svg-2" }]];
+var IconUpload = createReactComponent("outline", "upload", "Upload", __iconNode48);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconViewportShort.mjs
-var __iconNode48 = [["path", { d: "M12 3v7l3 -3", key: "svg-0" }], ["path", { d: "M9 7l3 3", key: "svg-1" }], ["path", { d: "M12 21v-7l3 3", key: "svg-2" }], ["path", { d: "M9 17l3 -3", key: "svg-3" }], ["path", { d: "M18 9h1a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-1", key: "svg-4" }], ["path", { d: "M6 9h-1a2 2 0 0 0 -2 2v2a2 2 0 0 0 2 2h1", key: "svg-5" }]];
-var IconViewportShort = createReactComponent("outline", "viewport-short", "ViewportShort", __iconNode48);
+var __iconNode49 = [["path", { d: "M12 3v7l3 -3", key: "svg-0" }], ["path", { d: "M9 7l3 3", key: "svg-1" }], ["path", { d: "M12 21v-7l3 3", key: "svg-2" }], ["path", { d: "M9 17l3 -3", key: "svg-3" }], ["path", { d: "M18 9h1a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-1", key: "svg-4" }], ["path", { d: "M6 9h-1a2 2 0 0 0 -2 2v2a2 2 0 0 0 2 2h1", key: "svg-5" }]];
+var IconViewportShort = createReactComponent("outline", "viewport-short", "ViewportShort", __iconNode49);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconWand.mjs
-var __iconNode49 = [["path", { d: "M6 21l15 -15l-3 -3l-15 15l3 3", key: "svg-0" }], ["path", { d: "M15 6l3 3", key: "svg-1" }], ["path", { d: "M9 3a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2", key: "svg-2" }], ["path", { d: "M19 13a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2", key: "svg-3" }]];
-var IconWand = createReactComponent("outline", "wand", "Wand", __iconNode49);
+var __iconNode50 = [["path", { d: "M6 21l15 -15l-3 -3l-15 15l3 3", key: "svg-0" }], ["path", { d: "M15 6l3 3", key: "svg-1" }], ["path", { d: "M9 3a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2", key: "svg-2" }], ["path", { d: "M19 13a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2", key: "svg-3" }]];
+var IconWand = createReactComponent("outline", "wand", "Wand", __iconNode50);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconX.mjs
-var __iconNode50 = [["path", { d: "M18 6l-12 12", key: "svg-0" }], ["path", { d: "M6 6l12 12", key: "svg-1" }]];
-var IconX = createReactComponent("outline", "x", "X", __iconNode50);
+var __iconNode51 = [["path", { d: "M18 6l-12 12", key: "svg-0" }], ["path", { d: "M6 6l12 12", key: "svg-1" }]];
+var IconX = createReactComponent("outline", "x", "X", __iconNode51);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconArrowBigLeftFilled.mjs
-var __iconNode51 = [["path", { d: "M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z", key: "svg-0" }]];
-var IconArrowBigLeftFilled = createReactComponent("filled", "arrow-big-left-filled", "ArrowBigLeftFilled", __iconNode51);
+var __iconNode52 = [["path", { d: "M9.586 4l-6.586 6.586a2 2 0 0 0 0 2.828l6.586 6.586a2 2 0 0 0 2.18 .434l.145 -.068a2 2 0 0 0 1.089 -1.78v-2.586h7a2 2 0 0 0 2 -2v-4l-.005 -.15a2 2 0 0 0 -1.995 -1.85l-7 -.001v-2.585a2 2 0 0 0 -3.414 -1.414z", key: "svg-0" }]];
+var IconArrowBigLeftFilled = createReactComponent("filled", "arrow-big-left-filled", "ArrowBigLeftFilled", __iconNode52);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconBugFilled.mjs
-var __iconNode52 = [["path", { d: "M12 4a4 4 0 0 1 3.995 3.8l.005 .2a1 1 0 0 1 .428 .096l3.033 -1.938a1 1 0 1 1 1.078 1.684l-3.015 1.931a7.17 7.17 0 0 1 .476 2.227h3a1 1 0 0 1 0 2h-3v1a6.01 6.01 0 0 1 -.195 1.525l2.708 1.616a1 1 0 1 1 -1.026 1.718l-2.514 -1.501a6.002 6.002 0 0 1 -3.973 2.56v-5.918a1 1 0 0 0 -2 0v5.917a6.002 6.002 0 0 1 -3.973 -2.56l-2.514 1.503a1 1 0 1 1 -1.026 -1.718l2.708 -1.616a6.01 6.01 0 0 1 -.195 -1.526v-1h-3a1 1 0 0 1 0 -2h3.001v-.055a7 7 0 0 1 .474 -2.173l-3.014 -1.93a1 1 0 1 1 1.078 -1.684l3.032 1.939l.024 -.012l.068 -.027l.019 -.005l.016 -.006l.032 -.008l.04 -.013l.034 -.007l.034 -.004l.045 -.008l.015 -.001l.015 -.002l.087 -.004a4 4 0 0 1 4 -4zm0 2a2 2 0 0 0 -2 2h4a2 2 0 0 0 -2 -2z", key: "svg-0" }]];
-var IconBugFilled = createReactComponent("filled", "bug-filled", "BugFilled", __iconNode52);
+var __iconNode53 = [["path", { d: "M12 4a4 4 0 0 1 3.995 3.8l.005 .2a1 1 0 0 1 .428 .096l3.033 -1.938a1 1 0 1 1 1.078 1.684l-3.015 1.931a7.17 7.17 0 0 1 .476 2.227h3a1 1 0 0 1 0 2h-3v1a6.01 6.01 0 0 1 -.195 1.525l2.708 1.616a1 1 0 1 1 -1.026 1.718l-2.514 -1.501a6.002 6.002 0 0 1 -3.973 2.56v-5.918a1 1 0 0 0 -2 0v5.917a6.002 6.002 0 0 1 -3.973 -2.56l-2.514 1.503a1 1 0 1 1 -1.026 -1.718l2.708 -1.616a6.01 6.01 0 0 1 -.195 -1.526v-1h-3a1 1 0 0 1 0 -2h3.001v-.055a7 7 0 0 1 .474 -2.173l-3.014 -1.93a1 1 0 1 1 1.078 -1.684l3.032 1.939l.024 -.012l.068 -.027l.019 -.005l.016 -.006l.032 -.008l.04 -.013l.034 -.007l.034 -.004l.045 -.008l.015 -.001l.015 -.002l.087 -.004a4 4 0 0 1 4 -4zm0 2a2 2 0 0 0 -2 2h4a2 2 0 0 0 -2 -2z", key: "svg-0" }]];
+var IconBugFilled = createReactComponent("filled", "bug-filled", "BugFilled", __iconNode53);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconCaretDownFilled.mjs
-var __iconNode53 = [["path", { d: "M18 9c.852 0 1.297 .986 .783 1.623l-.076 .084l-6 6a1 1 0 0 1 -1.32 .083l-.094 -.083l-6 -6l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057v-.118l.005 -.058l.009 -.06l.01 -.052l.032 -.108l.027 -.067l.07 -.132l.065 -.09l.073 -.081l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01l.057 -.004l12.059 -.002z", key: "svg-0" }]];
-var IconCaretDownFilled = createReactComponent("filled", "caret-down-filled", "CaretDownFilled", __iconNode53);
+var __iconNode54 = [["path", { d: "M18 9c.852 0 1.297 .986 .783 1.623l-.076 .084l-6 6a1 1 0 0 1 -1.32 .083l-.094 -.083l-6 -6l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057v-.118l.005 -.058l.009 -.06l.01 -.052l.032 -.108l.027 -.067l.07 -.132l.065 -.09l.073 -.081l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01l.057 -.004l12.059 -.002z", key: "svg-0" }]];
+var IconCaretDownFilled = createReactComponent("filled", "caret-down-filled", "CaretDownFilled", __iconNode54);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconCircleCheckFilled.mjs
-var __iconNode54 = [["path", { d: "M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z", key: "svg-0" }]];
-var IconCircleCheckFilled = createReactComponent("filled", "circle-check-filled", "CircleCheckFilled", __iconNode54);
+var __iconNode55 = [["path", { d: "M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z", key: "svg-0" }]];
+var IconCircleCheckFilled = createReactComponent("filled", "circle-check-filled", "CircleCheckFilled", __iconNode55);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconCircleRectangleFilled.mjs
-var __iconNode55 = [["path", { d: "M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m0 5.66h-10a1 1 0 0 0 -1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1", key: "svg-0" }]];
-var IconCircleRectangleFilled = createReactComponent("filled", "circle-rectangle-filled", "CircleRectangleFilled", __iconNode55);
+var __iconNode56 = [["path", { d: "M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m0 5.66h-10a1 1 0 0 0 -1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1", key: "svg-0" }]];
+var IconCircleRectangleFilled = createReactComponent("filled", "circle-rectangle-filled", "CircleRectangleFilled", __iconNode56);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconClipboardFilled.mjs
-var __iconNode56 = [["path", { d: "M17.997 4.17a3 3 0 0 1 2.003 2.83v12a3 3 0 0 1 -3 3h-10a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 2.003 -2.83a4 4 0 0 0 3.997 3.83h4a4 4 0 0 0 3.98 -3.597zm-3.997 -2.17a2 2 0 1 1 0 4h-4a2 2 0 1 1 0 -4z", key: "svg-0" }]];
-var IconClipboardFilled = createReactComponent("filled", "clipboard-filled", "ClipboardFilled", __iconNode56);
+var __iconNode57 = [["path", { d: "M17.997 4.17a3 3 0 0 1 2.003 2.83v12a3 3 0 0 1 -3 3h-10a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 2.003 -2.83a4 4 0 0 0 3.997 3.83h4a4 4 0 0 0 3.98 -3.597zm-3.997 -2.17a2 2 0 1 1 0 4h-4a2 2 0 1 1 0 -4z", key: "svg-0" }]];
+var IconClipboardFilled = createReactComponent("filled", "clipboard-filled", "ClipboardFilled", __iconNode57);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconFilterFilled.mjs
-var __iconNode57 = [["path", { d: "M20 3h-16a1 1 0 0 0 -1 1v2.227l.008 .223a3 3 0 0 0 .772 1.795l4.22 4.641v8.114a1 1 0 0 0 1.316 .949l6 -2l.108 -.043a1 1 0 0 0 .576 -.906v-6.586l4.121 -4.12a3 3 0 0 0 .879 -2.123v-2.171a1 1 0 0 0 -1 -1z", key: "svg-0" }]];
-var IconFilterFilled = createReactComponent("filled", "filter-filled", "FilterFilled", __iconNode57);
+var __iconNode58 = [["path", { d: "M20 3h-16a1 1 0 0 0 -1 1v2.227l.008 .223a3 3 0 0 0 .772 1.795l4.22 4.641v8.114a1 1 0 0 0 1.316 .949l6 -2l.108 -.043a1 1 0 0 0 .576 -.906v-6.586l4.121 -4.12a3 3 0 0 0 .879 -2.123v-2.171a1 1 0 0 0 -1 -1z", key: "svg-0" }]];
+var IconFilterFilled = createReactComponent("filled", "filter-filled", "FilterFilled", __iconNode58);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconInfoCircleFilled.mjs
-var __iconNode58 = [["path", { d: "M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z", key: "svg-0" }]];
-var IconInfoCircleFilled = createReactComponent("filled", "info-circle-filled", "InfoCircleFilled", __iconNode58);
+var __iconNode59 = [["path", { d: "M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z", key: "svg-0" }]];
+var IconInfoCircleFilled = createReactComponent("filled", "info-circle-filled", "InfoCircleFilled", __iconNode59);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconRadioactiveFilled.mjs
-var __iconNode59 = [["path", { d: "M21 11a1 1 0 0 1 1 1a10 10 0 0 1 -5 8.656a1 1 0 0 1 -1.302 -.268l-.064 -.098l-3 -5.19a.995 .995 0 0 1 -.133 -.542l.01 -.11l.023 -.106l.034 -.106l.046 -.1l.056 -.094l.067 -.089a.994 .994 0 0 1 .165 -.155l.098 -.064a2 2 0 0 0 .993 -1.57l.007 -.163a1 1 0 0 1 .883 -.994l.117 -.007h6z", key: "svg-0" }], ["path", { d: "M7 3.344a10 10 0 0 1 10 0a1 1 0 0 1 .418 1.262l-.052 .104l-3 5.19l-.064 .098a.994 .994 0 0 1 -.155 .165l-.089 .067a1 1 0 0 1 -.195 .102l-.105 .034l-.107 .022a1.003 1.003 0 0 1 -.547 -.07l-.104 -.052a2 2 0 0 0 -1.842 -.082l-.158 .082a1 1 0 0 1 -1.302 -.268l-.064 -.098l-3 -5.19a1 1 0 0 1 .366 -1.366z", key: "svg-1" }], ["path", { d: "M9 11a1 1 0 0 1 .993 .884l.007 .117a2 2 0 0 0 .861 1.645l.237 .152a.994 .994 0 0 1 .165 .155l.067 .089l.056 .095l.045 .099c.014 .036 .026 .07 .035 .106l.022 .107l.011 .11a.994 .994 0 0 1 -.08 .437l-.053 .104l-3 5.19a1 1 0 0 1 -1.366 .366a10 10 0 0 1 -5 -8.656a1 1 0 0 1 .883 -.993l.117 -.007h6z", key: "svg-2" }]];
-var IconRadioactiveFilled = createReactComponent("filled", "radioactive-filled", "RadioactiveFilled", __iconNode59);
+var __iconNode60 = [["path", { d: "M21 11a1 1 0 0 1 1 1a10 10 0 0 1 -5 8.656a1 1 0 0 1 -1.302 -.268l-.064 -.098l-3 -5.19a.995 .995 0 0 1 -.133 -.542l.01 -.11l.023 -.106l.034 -.106l.046 -.1l.056 -.094l.067 -.089a.994 .994 0 0 1 .165 -.155l.098 -.064a2 2 0 0 0 .993 -1.57l.007 -.163a1 1 0 0 1 .883 -.994l.117 -.007h6z", key: "svg-0" }], ["path", { d: "M7 3.344a10 10 0 0 1 10 0a1 1 0 0 1 .418 1.262l-.052 .104l-3 5.19l-.064 .098a.994 .994 0 0 1 -.155 .165l-.089 .067a1 1 0 0 1 -.195 .102l-.105 .034l-.107 .022a1.003 1.003 0 0 1 -.547 -.07l-.104 -.052a2 2 0 0 0 -1.842 -.082l-.158 .082a1 1 0 0 1 -1.302 -.268l-.064 -.098l-3 -5.19a1 1 0 0 1 .366 -1.366z", key: "svg-1" }], ["path", { d: "M9 11a1 1 0 0 1 .993 .884l.007 .117a2 2 0 0 0 .861 1.645l.237 .152a.994 .994 0 0 1 .165 .155l.067 .089l.056 .095l.045 .099c.014 .036 .026 .07 .035 .106l.022 .107l.011 .11a.994 .994 0 0 1 -.08 .437l-.053 .104l-3 5.19a1 1 0 0 1 -1.366 .366a10 10 0 0 1 -5 -8.656a1 1 0 0 1 .883 -.993l.117 -.007h6z", key: "svg-2" }]];
+var IconRadioactiveFilled = createReactComponent("filled", "radioactive-filled", "RadioactiveFilled", __iconNode60);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconRosetteDiscountCheckFilled.mjs
-var __iconNode60 = [["path", { d: "M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944zm3.697 7.282a1 1 0 0 0 -1.414 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z", key: "svg-0" }]];
-var IconRosetteDiscountCheckFilled = createReactComponent("filled", "rosette-discount-check-filled", "RosetteDiscountCheckFilled", __iconNode60);
+var __iconNode61 = [["path", { d: "M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944zm3.697 7.282a1 1 0 0 0 -1.414 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z", key: "svg-0" }]];
+var IconRosetteDiscountCheckFilled = createReactComponent("filled", "rosette-discount-check-filled", "RosetteDiscountCheckFilled", __iconNode61);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconRosetteFilled.mjs
-var __iconNode61 = [["path", { d: "M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944z", key: "svg-0" }]];
-var IconRosetteFilled = createReactComponent("filled", "rosette-filled", "RosetteFilled", __iconNode61);
+var __iconNode62 = [["path", { d: "M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944z", key: "svg-0" }]];
+var IconRosetteFilled = createReactComponent("filled", "rosette-filled", "RosetteFilled", __iconNode62);
 
 // node_modules/@tabler/icons-react/dist/esm/icons/IconTrashFilled.mjs
-var __iconNode62 = [["path", { d: "M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z", key: "svg-0" }], ["path", { d: "M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z", key: "svg-1" }]];
-var IconTrashFilled = createReactComponent("filled", "trash-filled", "TrashFilled", __iconNode62);
+var __iconNode63 = [["path", { d: "M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z", key: "svg-0" }], ["path", { d: "M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z", key: "svg-1" }]];
+var IconTrashFilled = createReactComponent("filled", "trash-filled", "TrashFilled", __iconNode63);
 // src/components/LayoutMappingModal/AddMappingImageVariableModal.tsx
 var import_react249 = __toESM(require_react(), 1);
 
@@ -55544,7 +55590,7 @@ var LoadingSpinner = dt.div`
 `;
 
 // src/components/Toolbar.tsx
-var import_react289 = __toESM(require_react(), 1);
+var import_react290 = __toESM(require_react(), 1);
 
 // src/components/FrameSnapshotLayout/FrameSnapshotLayoutModal.tsx
 var import_react268 = __toESM(require_react(), 1);
@@ -70177,7 +70223,7 @@ var FixedSizeList = /* @__PURE__ */ createListComponent({
 });
 
 // src/components/ImageBrowser.tsx
-var import_studio_sdk3 = __toESM(require_main(), 1);
+var import_studio_sdk4 = __toESM(require_main(), 1);
 
 // src/components/DownloadModal/DownloadTasksScreen.tsx
 var jsx_runtime21 = __toESM(require_jsx_runtime(), 1);
@@ -70901,7 +70947,7 @@ function ImageBrowser({
         studio: studioResult.value,
         connectorId: localConnectorId,
         assetId: fileToDownload.id,
-        downloadType: import_studio_sdk3.MediaDownloadType.original,
+        downloadType: import_studio_sdk4.MediaDownloadType.original,
         metadata: {}
       });
       if (!downloadResult.isOk()) {
@@ -74221,7 +74267,7 @@ function DownloadModalNew({ opened, onClose }) {
 
 // src/components/MagicLayoutsModal.tsx
 var import_react278 = __toESM(require_react(), 1);
-var import_studio_sdk4 = __toESM(require_main(), 1);
+var import_studio_sdk5 = __toESM(require_main(), 1);
 
 // src/studio/actions/magicLayout.js
 function magicLayoutScript(debug = false) {
@@ -74371,13 +74417,13 @@ function MagicLayoutsModal({ opened, onClose }) {
       await setOrCreateVariableValue({
         studio: window.SDK,
         name: magicLayout.name,
-        variableType: import_studio_sdk4.VariableType.list,
+        variableType: import_studio_sdk5.VariableType.list,
         value: childrenNames
       });
       const visibilityResult = await setVariableVisblityWithName({
         studio: window.SDK,
         name: magicLayout.name,
-        visible: { type: import_studio_sdk4.VariableVisibilityType.invisible }
+        visible: { type: import_studio_sdk5.VariableVisibilityType.invisible }
       });
       if (visibilityResult.isError()) {
         raiseError2(new Error(`Failed to set visibility for variable ${magicLayout.name}`));
@@ -74516,11 +74562,11 @@ magicLayoutScript(false)`;
       name: "AUTO_GEN_MAGIC_LAYOUT",
       triggers: [
         ...magicVariables.map((variable) => ({
-          event: import_studio_sdk4.ActionEditorEvent.variableValueChanged,
+          event: import_studio_sdk5.ActionEditorEvent.variableValueChanged,
           triggers: [variable.id]
         })),
-        { event: import_studio_sdk4.ActionEditorEvent.selectedLayoutChanged },
-        { event: import_studio_sdk4.ActionEditorEvent.documentLoaded }
+        { event: import_studio_sdk5.ActionEditorEvent.selectedLayoutChanged },
+        { event: import_studio_sdk5.ActionEditorEvent.documentLoaded }
       ],
       script
     });
@@ -78328,6 +78374,9 @@ function CompressModal({ opened, onClose }) {
   const [isProcessing, setIsProcessing] = import_react287.useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = import_react287.useState(false);
   const [compressionReport, setCompressionReport] = import_react287.useState(null);
+  const [isSizeModalOpen, setIsSizeModalOpen] = import_react287.useState(false);
+  const [currentSize, setCurrentSize] = import_react287.useState(null);
+  const [isGettingSize, setIsGettingSize] = import_react287.useState(false);
   const handleStartCompress = () => {
     setIsConfirmModalOpen(true);
   };
@@ -78404,6 +78453,36 @@ function CompressModal({ opened, onClose }) {
   const handleCloseAfterCompress = () => {
     setCompressionReport(null);
     onClose();
+  };
+  const handleGetCurrentSize = async () => {
+    setIsGettingSize(true);
+    try {
+      const studioResult = await getStudio();
+      if (!studioResult.isOk()) {
+        raiseError2(new Error("Failed to get studio: " + studioResult.error?.message));
+        return;
+      }
+      const studio2 = studioResult.value;
+      const docStateResult = await getCurrentDocumentState(studio2);
+      if (!docStateResult.isOk()) {
+        raiseError2(new Error("Failed to get document state: " + docStateResult.error?.message));
+        return;
+      }
+      const docJson = JSON.stringify(docStateResult.value);
+      const blob = new Blob([docJson], { type: "application/json" });
+      const sizeKB = blob.size / 1024;
+      const formattedSize = sizeKB > 1000 ? `${(sizeKB / 1024).toFixed(2)} MB` : `${sizeKB.toFixed(2)} KB`;
+      setCurrentSize(formattedSize);
+      setIsSizeModalOpen(true);
+    } catch (error46) {
+      raiseError2(error46 instanceof Error ? error46 : new Error(String(error46)));
+    } finally {
+      setIsGettingSize(false);
+    }
+  };
+  const handleCloseSizeModal = () => {
+    setIsSizeModalOpen(false);
+    setCurrentSize(null);
   };
   return /* @__PURE__ */ jsx_runtime39.jsxs(jsx_runtime39.Fragment, {
     children: [
@@ -78570,27 +78649,45 @@ function CompressModal({ opened, onClose }) {
               ]
             }),
             /* @__PURE__ */ jsx_runtime39.jsx(Group, {
-              justify: "flex-end",
+              justify: "space-between",
               mt: "xl",
-              children: compressionReport ? /* @__PURE__ */ jsx_runtime39.jsx(Button, {
-                onClick: handleCloseAfterCompress,
-                size: "md",
-                children: "Close"
+              children: compressionReport ? /* @__PURE__ */ jsx_runtime39.jsxs(jsx_runtime39.Fragment, {
+                children: [
+                  /* @__PURE__ */ jsx_runtime39.jsx("div", {}),
+                  " ",
+                  /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+                    onClick: handleCloseAfterCompress,
+                    size: "md",
+                    children: "Close"
+                  })
+                ]
               }) : /* @__PURE__ */ jsx_runtime39.jsxs(jsx_runtime39.Fragment, {
                 children: [
                   /* @__PURE__ */ jsx_runtime39.jsx(Button, {
                     variant: "default",
-                    onClick: onClose,
-                    disabled: isProcessing,
-                    children: "Cancel"
+                    onClick: handleGetCurrentSize,
+                    loading: isGettingSize,
+                    disabled: isProcessing || isGettingSize,
+                    children: "Get Current Size"
                   }),
-                  /* @__PURE__ */ jsx_runtime39.jsx(Button, {
-                    onClick: handleStartCompress,
-                    loading: isProcessing,
-                    disabled: isProcessing,
-                    size: "md",
-                    color: "red",
-                    children: "Start Compression"
+                  /* @__PURE__ */ jsx_runtime39.jsxs(Group, {
+                    gap: "md",
+                    children: [
+                      /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+                        variant: "default",
+                        onClick: onClose,
+                        disabled: isProcessing,
+                        children: "Cancel"
+                      }),
+                      /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+                        onClick: handleStartCompress,
+                        loading: isProcessing,
+                        disabled: isProcessing,
+                        size: "md",
+                        color: "red",
+                        children: "Start Compression"
+                      })
+                    ]
                   })
                 ]
               })
@@ -78652,6 +78749,49 @@ function CompressModal({ opened, onClose }) {
                   children: "Continue"
                 })
               ]
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime39.jsx(Modal, {
+        opened: isSizeModalOpen,
+        onClose: handleCloseSizeModal,
+        title: "Current Template Size",
+        centered: true,
+        size: "md",
+        styles: {
+          title: {
+            fontSize: "1.25rem",
+            fontWeight: 600
+          }
+        },
+        children: /* @__PURE__ */ jsx_runtime39.jsxs(Stack, {
+          gap: "lg",
+          children: [
+            /* @__PURE__ */ jsx_runtime39.jsx(Text, {
+              size: "md",
+              children: "The current template size is:"
+            }),
+            /* @__PURE__ */ jsx_runtime39.jsx(Text, {
+              size: "xl",
+              fw: 700,
+              ta: "center",
+              c: "blue",
+              children: currentSize
+            }),
+            /* @__PURE__ */ jsx_runtime39.jsx(Text, {
+              size: "sm",
+              c: "dimmed",
+              children: "This size is calculated from the current document state as a JSON file."
+            }),
+            /* @__PURE__ */ jsx_runtime39.jsx(Group, {
+              justify: "flex-end",
+              mt: "md",
+              children: /* @__PURE__ */ jsx_runtime39.jsx(Button, {
+                onClick: handleCloseSizeModal,
+                size: "md",
+                children: "Close"
+              })
             })
           ]
         })
@@ -79583,30 +79723,410 @@ function ToolbarSettingsModal({
   });
 }
 
+// src/components/AspectLockConfirmModal.tsx
+var import_react289 = __toESM(require_react(), 1);
+var import_studio_sdk6 = __toESM(require_main(), 1);
+var jsx_runtime41 = __toESM(require_jsx_runtime(), 1);
+function AspectLockConfirmModal({
+  opened,
+  onClose
+}) {
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = import_react289.useState(false);
+  const [tolerancePercentage, setTolerancePercentage] = import_react289.useState(10);
+  const [isSecondConfirmModalOpen, setIsSecondConfirmModalOpen] = import_react289.useState(false);
+  const [isRemoveConfirmModalOpen, setIsRemoveConfirmModalOpen] = import_react289.useState(false);
+  const [isProcessing, setIsProcessing] = import_react289.useState(false);
+  const raiseError2 = appStore((store) => store.raiseError);
+  const handleUpdateLayouts = () => {
+    setIsSecondConfirmModalOpen(true);
+  };
+  const handleLegacyAspectLock = async () => {
+    onClose();
+    setIsProcessing(true);
+    try {
+      const result = await saveLayoutSizingToAction(true);
+      if (result.isError()) {
+        raiseError2(result.error ?? new Error("Failed to apply legacy aspect lock"));
+        setIsProcessing(false);
+        return;
+      }
+      setIsProcessing(false);
+      setIsSuccessModalOpen(true);
+    } catch (error46) {
+      raiseError2(error46 instanceof Error ? error46 : new Error("Unknown error occurred"));
+      setIsProcessing(false);
+    }
+  };
+  const handleRemoveRestrictProportions = () => {
+    setIsRemoveConfirmModalOpen(true);
+  };
+  const handleRemoveConfirmCancel = () => {
+    setIsRemoveConfirmModalOpen(false);
+  };
+  const handleRemoveConfirm = async () => {
+    setIsRemoveConfirmModalOpen(false);
+    setIsProcessing(true);
+    try {
+      const studioResult = await getStudio();
+      if (studioResult.isError()) {
+        raiseError2(studioResult.error ?? new Error("Failed to get studio"));
+        setIsProcessing(false);
+        return;
+      }
+      await studioResult.onSuccess(async (studio2) => {
+        const layoutsResult = await getAllLayouts(window.SDK);
+        if (layoutsResult.isError()) {
+          raiseError2(layoutsResult.error ?? new Error("Failed to get all layouts"));
+          setIsProcessing(false);
+          return;
+        }
+        const layouts = layoutsResult.value;
+        if (!layouts) {
+          raiseError2(new Error("Layouts data is undefined"));
+          setIsProcessing(false);
+          return;
+        }
+        for (const layout of layouts) {
+          if (!layout.resizableByUser.enabled) {
+            continue;
+          }
+          const { minWidth, maxWidth, minHeight, maxHeight } = layout.resizableByUser;
+          const updateResult = await setLayoutResizable(studio2, layout.id, {
+            enabled: true,
+            minWidth: minWidth ?? null,
+            maxWidth: maxWidth ?? null,
+            minHeight: minHeight ?? null,
+            maxHeight: maxHeight ?? null,
+            constrainMode: import_studio_sdk6.ConstraintMode.none
+          });
+          if (updateResult.isError()) {
+            raiseError2(updateResult.error ?? new Error(`Failed to remove restrict proportions for layout ${layout.name}`));
+            setIsProcessing(false);
+            return;
+          }
+        }
+        await deleteAction({
+          name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+          studio: studio2
+        });
+      });
+      setIsProcessing(false);
+      setIsSuccessModalOpen(true);
+    } catch (error46) {
+      raiseError2(error46 instanceof Error ? error46 : new Error("Unknown error occurred"));
+      setIsProcessing(false);
+    }
+  };
+  const handleSecondConfirmCancel = () => {
+    setIsSecondConfirmModalOpen(false);
+  };
+  const handleSecondConfirm = async () => {
+    setIsSecondConfirmModalOpen(false);
+    setIsProcessing(true);
+    try {
+      const studioResult = await getStudio();
+      if (studioResult.isError()) {
+        raiseError2(studioResult.error ?? new Error("Failed to get studio"));
+        setIsProcessing(false);
+        return;
+      }
+      await studioResult.onSuccess(async (studio2) => {
+        const layoutsResult = await getAllLayouts(window.SDK);
+        if (layoutsResult.isError()) {
+          raiseError2(layoutsResult.error ?? new Error("Failed to get all layouts"));
+          setIsProcessing(false);
+          return;
+        }
+        const layouts = layoutsResult.value;
+        if (!layouts) {
+          raiseError2(new Error("Layouts data is undefined"));
+          setIsProcessing(false);
+          return;
+        }
+        for (const layout of layouts) {
+          if (!layout.resizableByUser.enabled) {
+            continue;
+          }
+          const widthValue = typeof layout.width === "object" && layout.width !== null ? layout.width.value : layout.width;
+          const heightValue = typeof layout.height === "object" && layout.height !== null ? layout.height.value : layout.height;
+          const aspectRatio = heightValue > 0 ? widthValue / heightValue : 0;
+          if (aspectRatio === 0) {
+            continue;
+          }
+          const minRatio = aspectRatio - aspectRatio * (tolerancePercentage / 100);
+          const maxRatio = aspectRatio + aspectRatio * (tolerancePercentage / 100);
+          console.log(minRatio, maxRatio);
+          const { minWidth, maxWidth, minHeight, maxHeight } = layout.resizableByUser;
+          const updateResult = await setLayoutResizable(studio2, layout.id, {
+            enabled: true,
+            minWidth: minWidth ?? null,
+            maxWidth: maxWidth ?? null,
+            minHeight: minHeight ?? null,
+            maxHeight: maxHeight ?? null,
+            constrainMode: import_studio_sdk6.ConstraintMode.range,
+            vertical: {
+              min: 100,
+              max: 100
+            },
+            horizontal: {
+              min: 100 * minRatio,
+              max: 100 * maxRatio
+            }
+          });
+          if (updateResult.isError()) {
+            raiseError2(updateResult.error ?? new Error(`Failed to set aspect lock for layout ${layout.name}`));
+            setIsProcessing(false);
+            return;
+          }
+        }
+        await deleteAction({
+          name: "AUTO_GEN_TOOLBAR_LAYOUTS",
+          studio: studio2
+        });
+        await deleteVariables(studio2, ["AUTO_GEN_TOOLBAR_LAYOUTS"]);
+      });
+      setIsProcessing(false);
+      setIsSuccessModalOpen(true);
+    } catch (error46) {
+      raiseError2(error46 instanceof Error ? error46 : new Error("Unknown error occurred"));
+      setIsProcessing(false);
+    }
+  };
+  const handleSuccessClose = () => {
+    setIsSuccessModalOpen(false);
+    onClose();
+  };
+  return /* @__PURE__ */ jsx_runtime41.jsxs(jsx_runtime41.Fragment, {
+    children: [
+      /* @__PURE__ */ jsx_runtime41.jsxs(Modal, {
+        opened,
+        onClose,
+        title: "Confirm Aspect Lock Change",
+        centered: true,
+        size: "50%",
+        children: [
+          /* @__PURE__ */ jsx_runtime41.jsx(Text, {
+            mb: "md",
+            children: "Set the Aspect Lock Restrict Proportions range for all Layouts"
+          }),
+          /* @__PURE__ */ jsx_runtime41.jsxs(Text, {
+            size: "sm",
+            mb: "xs",
+            children: [
+              "Tolerance: ±",
+              tolerancePercentage,
+              "%"
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime41.jsx(Slider, {
+            value: tolerancePercentage,
+            onChange: setTolerancePercentage,
+            marks: [
+              { value: 5, label: "5%" },
+              { value: 10, label: "10%" },
+              { value: 15, label: "15%" }
+            ],
+            step: 5,
+            min: 5,
+            max: 15,
+            mb: "xl"
+          }),
+          /* @__PURE__ */ jsx_runtime41.jsxs(Group, {
+            justify: "space-between",
+            mt: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime41.jsxs(Menu, {
+                position: "bottom-start",
+                withArrow: true,
+                children: [
+                  /* @__PURE__ */ jsx_runtime41.jsx(Menu.Target, {
+                    children: /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                      variant: "default",
+                      size: "md",
+                      children: /* @__PURE__ */ jsx_runtime41.jsxs(Group, {
+                        gap: "xs",
+                        children: [
+                          /* @__PURE__ */ jsx_runtime41.jsx(IconDots, {
+                            size: 20
+                          }),
+                          /* @__PURE__ */ jsx_runtime41.jsx("span", {
+                            children: "More Options"
+                          }),
+                          /* @__PURE__ */ jsx_runtime41.jsx(IconChevronDown, {
+                            size: 16
+                          })
+                        ]
+                      })
+                    })
+                  }),
+                  /* @__PURE__ */ jsx_runtime41.jsxs(Menu.Dropdown, {
+                    children: [
+                      /* @__PURE__ */ jsx_runtime41.jsx(Menu.Item, {
+                        onClick: handleRemoveRestrictProportions,
+                        children: "Remove Restrict Proportions"
+                      }),
+                      /* @__PURE__ */ jsx_runtime41.jsx(Menu.Item, {
+                        onClick: handleLegacyAspectLock,
+                        children: "Use Legacy Aspect Lock"
+                      })
+                    ]
+                  })
+                ]
+              }),
+              /* @__PURE__ */ jsx_runtime41.jsxs(Group, {
+                gap: "md",
+                children: [
+                  /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                    variant: "default",
+                    onClick: onClose,
+                    size: "md",
+                    children: "Cancel"
+                  }),
+                  /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                    color: "blue",
+                    onClick: handleUpdateLayouts,
+                    size: "md",
+                    children: "Update Layouts"
+                  })
+                ]
+              })
+            ]
+          })
+        ]
+      }),
+      /* @__PURE__ */ jsx_runtime41.jsxs(Modal, {
+        opened: isSecondConfirmModalOpen,
+        onClose: handleSecondConfirmCancel,
+        title: "Confirm Changes",
+        centered: true,
+        size: "md",
+        children: [
+          /* @__PURE__ */ jsx_runtime41.jsxs(Text, {
+            children: [
+              "This will overwrite all Layouts to ±",
+              tolerancePercentage,
+              "% aspect ratio"
+            ]
+          }),
+          /* @__PURE__ */ jsx_runtime41.jsxs(Group, {
+            justify: "flex-end",
+            mt: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                variant: "default",
+                onClick: handleSecondConfirmCancel,
+                size: "lg",
+                children: "Cancel"
+              }),
+              /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                color: "blue",
+                onClick: handleSecondConfirm,
+                size: "lg",
+                children: "Confirm"
+              })
+            ]
+          })
+        ]
+      }),
+      /* @__PURE__ */ jsx_runtime41.jsxs(Modal, {
+        opened: isRemoveConfirmModalOpen,
+        onClose: handleRemoveConfirmCancel,
+        title: "Confirm Changes",
+        centered: true,
+        size: "md",
+        children: [
+          /* @__PURE__ */ jsx_runtime41.jsx(Text, {
+            children: "This will overwrite all Layouts to remove the restrict proportions"
+          }),
+          /* @__PURE__ */ jsx_runtime41.jsxs(Group, {
+            justify: "flex-end",
+            mt: "md",
+            children: [
+              /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                variant: "default",
+                onClick: handleRemoveConfirmCancel,
+                size: "lg",
+                children: "Cancel"
+              }),
+              /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                color: "blue",
+                onClick: handleRemoveConfirm,
+                size: "lg",
+                children: "Confirm"
+              })
+            ]
+          })
+        ]
+      }),
+      /* @__PURE__ */ jsx_runtime41.jsx(Modal, {
+        opened: isProcessing,
+        onClose: () => {},
+        title: "Processing",
+        centered: true,
+        size: "md",
+        closeOnClickOutside: false,
+        closeOnEscape: false,
+        withCloseButton: false,
+        children: /* @__PURE__ */ jsx_runtime41.jsxs(Stack, {
+          align: "center",
+          gap: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime41.jsx(Loader, {
+              size: "lg"
+            }),
+            /* @__PURE__ */ jsx_runtime41.jsx(Text, {
+              children: "Updating all layouts with aspect lock settings..."
+            })
+          ]
+        })
+      }),
+      /* @__PURE__ */ jsx_runtime41.jsxs(Modal, {
+        opened: isSuccessModalOpen,
+        onClose: handleSuccessClose,
+        title: "Complete",
+        centered: true,
+        size: "md",
+        children: [
+          /* @__PURE__ */ jsx_runtime41.jsx(Text, {
+            children: "All layouts have been successfully updated with aspect lock settings."
+          }),
+          /* @__PURE__ */ jsx_runtime41.jsx(Group, {
+            justify: "flex-end",
+            mt: "md",
+            children: /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+              onClick: handleSuccessClose,
+              size: "lg",
+              children: "Close"
+            })
+          })
+        ]
+      })
+    ]
+  });
+}
+
 // src/components/Toolbar.tsx
 init_dist();
-var jsx_runtime41 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime42 = __toESM(require_jsx_runtime(), 1);
 function Toolbar() {
-  const [visible2, setVisible] = import_react289.useState(false);
-  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react289.useState(false);
-  const [isDownloadModalNewOpen, setIsDownloadModalNewOpen] = import_react289.useState(false);
-  const [isConvertModalOpen, setIsConvertModalOpen] = import_react289.useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react289.useState(false);
-  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react289.useState(false);
-  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react289.useState(false);
-  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react289.useState(false);
-  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react289.useState(false);
-  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react289.useState(false);
-  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react289.useState(false);
-  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = import_react289.useState(false);
-  const [isCompressModalOpen, setIsCompressModalOpen] = import_react289.useState(false);
-  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react289.useState(false);
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] = import_react289.useState(false);
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = import_react289.useState("");
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react289.useState(false);
-  const [isImageBrowserOpen, setIsImageBrowserOpen] = import_react289.useState(false);
-  const [appConfig, setAppConfig] = import_react289.useState(null);
-  const [updateInfo, setUpdateInfo] = import_react289.useState(null);
+  const [visible2, setVisible] = import_react290.useState(false);
+  const [isDownloadUploadModalOpen, setIsDownloadUploadModalOpen] = import_react290.useState(false);
+  const [isDownloadModalNewOpen, setIsDownloadModalNewOpen] = import_react290.useState(false);
+  const [isConvertModalOpen, setIsConvertModalOpen] = import_react290.useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = import_react290.useState(false);
+  const [isFramePositionViewerOpen, setIsFramePositionViewerOpen] = import_react290.useState(false);
+  const [isAddFrameSnapshotModalOpen, setIsAddFrameSnapshotModalOpen] = import_react290.useState(false);
+  const [isLayoutManagerOpen, setIsLayoutManagerOpen] = import_react290.useState(false);
+  const [isMagicLayoutsModalOpen, setIsMagicLayoutsModalOpen] = import_react290.useState(false);
+  const [isConnectorCleanupModalOpen, setIsConnectorCleanupModalOpen] = import_react290.useState(false);
+  const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] = import_react290.useState(false);
+  const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = import_react290.useState(false);
+  const [isCompressModalOpen, setIsCompressModalOpen] = import_react290.useState(false);
+  const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] = import_react290.useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = import_react290.useState(false);
+  const [isImageBrowserOpen, setIsImageBrowserOpen] = import_react290.useState(false);
+  const [appConfig, setAppConfig] = import_react290.useState(null);
+  const [updateInfo, setUpdateInfo] = import_react290.useState(null);
   const getActionIconColor = (appKey) => {
     const appInfo = appConfig[appKey];
     const appStatus = appInfo ? appInfo.status : "none";
@@ -79655,7 +80175,7 @@ function Toolbar() {
   const reloadConfig = (config2) => {
     setAppConfig(config2);
   };
-  import_react289.useEffect(() => {
+  import_react290.useEffect(() => {
     (async () => {
       const localConfig = localStorage.getItem("tempUserConfig");
       Result2.try(() => {
@@ -79675,7 +80195,7 @@ function Toolbar() {
       });
     })();
   }, []);
-  import_react289.useEffect(() => {
+  import_react290.useEffect(() => {
     const versionDiv = document.getElementById("toolbar-version");
     if (versionDiv) {
       const currentVersion = versionDiv.dataset.currentVersion;
@@ -79741,21 +80261,14 @@ function Toolbar() {
   const handleAspectLock = () => {
     setIsAspectLockConfirmModalOpen(true);
   };
-  const handleConfirmAspectLock = async (value) => {
-    setIsAspectLockConfirmModalOpen(false);
-    (await saveLayoutSizingToAction(value)).fold((_2) => {
-      setAspectLockSuccessMessage(value ? "Success in turning Aspect Ratio On" : "Success in turning Aspect Ratio Off");
-      setIsAspectLockSuccessModalOpen(true);
-    }, (err) => raiseError2(err ?? Error(`Error setting aspect lock to ${value}`)));
-  };
-  return /* @__PURE__ */ jsx_runtime41.jsxs(jsx_runtime41.Fragment, {
+  return /* @__PURE__ */ jsx_runtime42.jsxs(jsx_runtime42.Fragment, {
     children: [
-      /* @__PURE__ */ jsx_runtime41.jsx(Transition, {
+      /* @__PURE__ */ jsx_runtime42.jsx(Transition, {
         mounted: visible2,
         transition: "slide-down",
         duration: 300,
         timingFunction: "ease",
-        children: (styles) => /* @__PURE__ */ jsx_runtime41.jsx(Box, {
+        children: (styles) => /* @__PURE__ */ jsx_runtime42.jsx(Box, {
           style: {
             ...styles,
             position: "fixed",
@@ -79772,194 +80285,194 @@ function Toolbar() {
             borderBottom: "1px solid #373A40"
           },
           onMouseLeave: () => setVisible(false),
-          children: appConfig && /* @__PURE__ */ jsx_runtime41.jsxs(Group, {
+          children: appConfig && /* @__PURE__ */ jsx_runtime42.jsxs(Group, {
             gap: "lg",
             children: [
-              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showSnapshot && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Snapshot Image Position",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showSnapshot"),
                   size: "lg",
                   "aria-label": "Snapshot Image Position",
                   onClick: handleSnapshot,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconCameraPlus, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconCameraPlus, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showFramePositionViewer && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Frame Position Viewer",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showFramePositionViewer"),
                   size: "lg",
                   "aria-label": "Frame Position Viewer",
                   onClick: handleFramePositionViewer,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconPhotoCog, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconPhotoCog, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showMagicLayouts && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Magic Layouts",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showMagicLayouts"),
                   size: "lg",
                   "aria-label": "Magic Layouts",
                   onClick: handleMagicLayouts,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconSparkles, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconSparkles, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showLayoutManager && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Layout Manager",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showLayoutManager"),
                   size: "lg",
                   "aria-label": "Layout Manager",
                   onClick: handleLayoutManager,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconListTree, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconListTree, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showAspectLock && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Aspect Lock",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showAspectLock"),
                   size: "lg",
                   "aria-label": "Aspect Lock",
                   onClick: handleAspectLock,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconPlaystationSquare, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconPlaystationSquare, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showUploadDownload && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Upload/Download Template",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showUploadDownload"),
                   size: "lg",
                   "aria-label": "Upload/Download",
                   onClick: handleDownloadModalNewClick,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconArrowsTransferUpDown, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconArrowsTransferUpDown, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showLayoutImageMapper && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Layout Variable Mapper",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showLayoutImageMapper"),
                   size: "lg",
                   "aria-label": "Layout",
                   onClick: handleLayoutClick,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconMapBolt, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconMapBolt, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showTestError && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showTestError && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Test Error",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showTestError"),
                   size: "lg",
                   "aria-label": "Test Error",
                   onClick: handleTestError,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconBug, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconBug, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showConnectorCleanup && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Connector Cleanup",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showConnectorCleanup"),
                   size: "lg",
                   "aria-label": "Connector Cleanup",
                   onClick: handleConnectorCleanup,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconPlug, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconPlug, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showManualCropManager && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Manual Crop Manager",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showManualCropManager"),
                   size: "lg",
                   "aria-label": "Manual Crop Manager",
                   onClick: handleManualCropManager,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconCrop, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconCrop, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showOutput && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showOutput && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Output",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showOutput"),
                   size: "lg",
                   "aria-label": "Output",
                   onClick: handleOutTemplate,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconDownload, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconDownload, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showCompress && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showCompress && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Compress",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showCompress"),
                   size: "lg",
                   "aria-label": "Compress",
                   onClick: handleCompress,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconViewportShort, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconViewportShort, {
                     size: 20
                   })
                 })
               }),
-              appConfig.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              appConfig.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Image Browser",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: getActionIconColor("showConnectorFolderBrowser"),
                   size: "lg",
@@ -79967,22 +80480,22 @@ function Toolbar() {
                   onClick: () => {
                     setIsImageBrowserOpen(true);
                   },
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconPhotoSearch, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconPhotoSearch, {
                     size: 20
                   })
                 })
               }),
-              /* @__PURE__ */ jsx_runtime41.jsx(Tooltip, {
+              /* @__PURE__ */ jsx_runtime42.jsx(Tooltip, {
                 label: "Settings",
                 position: "bottom",
                 withArrow: true,
-                children: /* @__PURE__ */ jsx_runtime41.jsx(ActionIcon, {
+                children: /* @__PURE__ */ jsx_runtime42.jsx(ActionIcon, {
                   variant: "filled",
                   color: "gray",
                   size: "lg",
                   "aria-label": "Settings",
                   onClick: handleSettings,
-                  children: /* @__PURE__ */ jsx_runtime41.jsx(IconSettings, {
+                  children: /* @__PURE__ */ jsx_runtime42.jsx(IconSettings, {
                     size: 20
                   })
                 })
@@ -79991,41 +80504,41 @@ function Toolbar() {
           })
         })
       }),
-      /* @__PURE__ */ jsx_runtime41.jsx(Modal, {
+      /* @__PURE__ */ jsx_runtime42.jsx(Modal, {
         opened: isUpdateModalOpen,
         onClose: () => setIsUpdateModalOpen(false),
         title: "Update Available",
         centered: true,
-        children: /* @__PURE__ */ jsx_runtime41.jsxs(Stack, {
+        children: /* @__PURE__ */ jsx_runtime42.jsxs(Stack, {
           children: [
-            /* @__PURE__ */ jsx_runtime41.jsx(Text, {
+            /* @__PURE__ */ jsx_runtime42.jsx(Text, {
               children: "A new version of Studio Toolbar Plus is available!"
             }),
-            /* @__PURE__ */ jsx_runtime41.jsxs(Text, {
+            /* @__PURE__ */ jsx_runtime42.jsxs(Text, {
               size: "sm",
               children: [
                 "Current version: ",
                 updateInfo?.currentVersion,
-                /* @__PURE__ */ jsx_runtime41.jsx("br", {}),
+                /* @__PURE__ */ jsx_runtime42.jsx("br", {}),
                 "Latest version: ",
                 updateInfo?.latestVersion
               ]
             }),
-            /* @__PURE__ */ jsx_runtime41.jsxs(Group, {
+            /* @__PURE__ */ jsx_runtime42.jsxs(Group, {
               justify: "space-between",
               mt: "md",
               children: [
-                /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime42.jsx(Button, {
                   onClick: handleDismissUpdate,
                   variant: "subtle",
                   color: "gray",
                   children: "Dismiss"
                 }),
-                /* @__PURE__ */ jsx_runtime41.jsx(Button, {
+                /* @__PURE__ */ jsx_runtime42.jsx(Button, {
                   component: "a",
-                  href: "https://github.com/spicy-labs/studio-toolbar-plus/",
+                  href: `https://github.com/spicy-labs/studio-toolbar-plus/releases/tag/${updateInfo?.latestVersion}`,
                   target: "_blank",
-                  rightSection: /* @__PURE__ */ jsx_runtime41.jsx(IconExternalLink, {
+                  rightSection: /* @__PURE__ */ jsx_runtime42.jsx(IconExternalLink, {
                     size: 16
                   }),
                   color: "blue",
@@ -80036,105 +80549,55 @@ function Toolbar() {
           ]
         })
       }),
-      isFramePositionViewerOpen && appConfig?.showFramePositionViewer && /* @__PURE__ */ jsx_runtime41.jsx(FrameSnapshotLayoutModal, {
+      isFramePositionViewerOpen && appConfig?.showFramePositionViewer && /* @__PURE__ */ jsx_runtime42.jsx(FrameSnapshotLayoutModal, {
         opened: isFramePositionViewerOpen,
         onClose: () => setIsFramePositionViewerOpen(false)
       }),
-      isAddFrameSnapshotModalOpen && appConfig?.showSnapshot && /* @__PURE__ */ jsx_runtime41.jsx(AddFrameSnapshotModal, {
+      isAddFrameSnapshotModalOpen && appConfig?.showSnapshot && /* @__PURE__ */ jsx_runtime42.jsx(AddFrameSnapshotModal, {
         opened: isAddFrameSnapshotModalOpen,
         onClose: () => setIsAddFrameSnapshotModalOpen(false),
         raiseError: raiseError2
       }),
-      isLayoutManagerOpen && appConfig?.showLayoutManager && /* @__PURE__ */ jsx_runtime41.jsx(LayoutManagerModal, {
+      isLayoutManagerOpen && appConfig?.showLayoutManager && /* @__PURE__ */ jsx_runtime42.jsx(LayoutManagerModal, {
         opened: isLayoutManagerOpen,
         onClose: () => setIsLayoutManagerOpen(false)
       }),
-      isMagicLayoutsModalOpen && appConfig?.showMagicLayouts && /* @__PURE__ */ jsx_runtime41.jsx(MagicLayoutsModal, {
+      isMagicLayoutsModalOpen && appConfig?.showMagicLayouts && /* @__PURE__ */ jsx_runtime42.jsx(MagicLayoutsModal, {
         opened: isMagicLayoutsModalOpen,
         onClose: () => setIsMagicLayoutsModalOpen(false)
       }),
-      appConfig?.showConnectorCleanup && /* @__PURE__ */ jsx_runtime41.jsx(ConnectorCleanupModal, {
+      appConfig?.showConnectorCleanup && /* @__PURE__ */ jsx_runtime42.jsx(ConnectorCleanupModal, {
         opened: isConnectorCleanupModalOpen,
         onClose: () => setIsConnectorCleanupModalOpen(false)
       }),
-      appConfig?.showManualCropManager && /* @__PURE__ */ jsx_runtime41.jsx(ManualCropManagerModal, {
+      appConfig?.showManualCropManager && /* @__PURE__ */ jsx_runtime42.jsx(ManualCropManagerModal, {
         opened: isManualCropManagerModalOpen,
         onClose: () => setIsManualCropManagerModalOpen(false)
       }),
-      appConfig?.showOutput && /* @__PURE__ */ jsx_runtime41.jsx(OutTemplateModal, {
+      appConfig?.showOutput && /* @__PURE__ */ jsx_runtime42.jsx(OutTemplateModal, {
         opened: isOutTemplateModalOpen,
         onClose: () => setIsOutTemplateModalOpen(false)
       }),
-      appConfig?.showCompress && /* @__PURE__ */ jsx_runtime41.jsx(CompressModal, {
+      appConfig?.showCompress && /* @__PURE__ */ jsx_runtime42.jsx(CompressModal, {
         opened: isCompressModalOpen,
         onClose: () => setIsCompressModalOpen(false)
       }),
-      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime41.jsxs(Modal, {
+      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime42.jsx(AspectLockConfirmModal, {
         opened: isAspectLockConfirmModalOpen,
-        onClose: () => setIsAspectLockConfirmModalOpen(false),
-        title: "Confirm Aspect Lock Change",
-        centered: true,
-        size: "sm",
-        children: [
-          /* @__PURE__ */ jsx_runtime41.jsx(Text, {
-            children: "Turn Aspect Lock On?"
-          }),
-          /* @__PURE__ */ jsx_runtime41.jsxs(Group, {
-            justify: "flex-end",
-            mt: "md",
-            children: [
-              /* @__PURE__ */ jsx_runtime41.jsx(Button, {
-                variant: "default",
-                onClick: () => handleConfirmAspectLock(false),
-                children: "No"
-              }),
-              /* @__PURE__ */ jsx_runtime41.jsx(Button, {
-                color: "blue",
-                onClick: () => handleConfirmAspectLock(true),
-                children: "Yes"
-              })
-            ]
-          })
-        ]
+        onClose: () => setIsAspectLockConfirmModalOpen(false)
       }),
-      appConfig?.showAspectLock && /* @__PURE__ */ jsx_runtime41.jsxs(Modal, {
-        opened: isAspectLockSuccessModalOpen,
-        onClose: () => {
-          setIsAspectLockSuccessModalOpen(false);
-          setAspectLockSuccessMessage("");
-        },
-        title: "Aspect Lock Status",
-        centered: true,
-        size: "sm",
-        children: [
-          /* @__PURE__ */ jsx_runtime41.jsx(Text, {
-            children: aspectLockSuccessMessage
-          }),
-          /* @__PURE__ */ jsx_runtime41.jsx(Group, {
-            justify: "flex-end",
-            mt: "md",
-            children: /* @__PURE__ */ jsx_runtime41.jsx(Button, {
-              onClick: () => {
-                setIsAspectLockSuccessModalOpen(false);
-                setAspectLockSuccessMessage("");
-              },
-              children: "Close"
-            })
-          })
-        ]
-      }),
-      appConfig?.showUploadDownload && /* @__PURE__ */ jsx_runtime41.jsx(DownloadModalNew, {
+      appConfig?.showUploadDownload && /* @__PURE__ */ jsx_runtime42.jsx(DownloadModalNew, {
         opened: isDownloadModalNewOpen,
         onClose: () => setIsDownloadModalNewOpen(false)
       }),
-      appConfig?.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime41.jsx(ImageBrowser, {
+      appConfig?.showConnectorFolderBrowser && /* @__PURE__ */ jsx_runtime42.jsx(ImageBrowser, {
         opened: isImageBrowserOpen,
         mode: 1 /* FileSelection */,
         onClose: (selection) => {
           setIsImageBrowserOpen(false);
         }
       }),
-      appConfig && /* @__PURE__ */ jsx_runtime41.jsx(ToolbarSettingsModal, {
+      appConfig && /* @__PURE__ */ jsx_runtime42.jsx(ToolbarSettingsModal, {
         opened: isSettingsModalOpen,
         onClose: () => setIsSettingsModalOpen(false),
         onReloadConfig: reloadConfig,
@@ -80145,12 +80608,12 @@ function Toolbar() {
 }
 
 // src/components/AlertsContainer.tsx
-var import_react290 = __toESM(require_react(), 1);
-var jsx_runtime42 = __toESM(require_jsx_runtime(), 1);
+var import_react291 = __toESM(require_react(), 1);
+var jsx_runtime43 = __toESM(require_jsx_runtime(), 1);
 function AlertsContainer() {
   const alerts = appStore((store) => store.alerts);
   const dismissAlert = appStore((store) => store.dismissAlert);
-  import_react290.useEffect(() => {
+  import_react291.useEffect(() => {
     const timers = [];
     alerts.forEach((alert) => {
       const timer = setTimeout(() => {
@@ -80165,7 +80628,7 @@ function AlertsContainer() {
   if (alerts.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsx_runtime42.jsx(Box, {
+  return /* @__PURE__ */ jsx_runtime43.jsx(Box, {
     style: {
       position: "fixed",
       top: "20px",
@@ -80173,10 +80636,10 @@ function AlertsContainer() {
       zIndex: 1001,
       width: "300px"
     },
-    children: /* @__PURE__ */ jsx_runtime42.jsx(Stack, {
+    children: /* @__PURE__ */ jsx_runtime43.jsx(Stack, {
       gap: "md",
-      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime42.jsx(Alert, {
-        icon: /* @__PURE__ */ jsx_runtime42.jsx(IconInfoCircle, {
+      children: alerts.map((alert) => /* @__PURE__ */ jsx_runtime43.jsx(Alert, {
+        icon: /* @__PURE__ */ jsx_runtime43.jsx(IconInfoCircle, {
           size: "1rem"
         }),
         title: "Toolbar Error",
@@ -80198,7 +80661,7 @@ function AlertsContainer() {
 // src/index.tsx
 init_dist();
 init_utils();
-var jsx_runtime43 = __toESM(require_jsx_runtime(), 1);
+var jsx_runtime44 = __toESM(require_jsx_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
   defaultRadius: "sm",
@@ -80246,16 +80709,16 @@ async function renderToolbar(studio2) {
     document.body.appendChild(toolbarContainer);
     window.toolbarInstance = import_client.createRoot(toolbarContainer);
   }
-  window.rootInstance.render(/* @__PURE__ */ jsx_runtime43.jsx(import_react291.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime43.jsx(LayoutImageMappingModal, {
+  window.rootInstance.render(/* @__PURE__ */ jsx_runtime44.jsx(import_react292.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime44.jsx(LayoutImageMappingModal, {
       onExportCSV: () => console.log("Look")
     })
   }));
-  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime43.jsx(import_react291.default.StrictMode, {
-    children: /* @__PURE__ */ jsx_runtime43.jsxs(MantineProvider, {
+  window.toolbarInstance.render(/* @__PURE__ */ jsx_runtime44.jsx(import_react292.default.StrictMode, {
+    children: /* @__PURE__ */ jsx_runtime44.jsxs(MantineProvider, {
       children: [
-        /* @__PURE__ */ jsx_runtime43.jsx(Toolbar, {}),
-        /* @__PURE__ */ jsx_runtime43.jsx(AlertsContainer, {})
+        /* @__PURE__ */ jsx_runtime44.jsx(Toolbar, {}),
+        /* @__PURE__ */ jsx_runtime44.jsx(AlertsContainer, {})
       ]
     })
   }));
@@ -80279,4 +80742,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=170C575E280EA1CD64756E2164756E21
+//# debugId=D5941859391AED7864756E2164756E21
