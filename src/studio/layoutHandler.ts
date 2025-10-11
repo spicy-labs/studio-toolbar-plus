@@ -81,6 +81,7 @@ export function convertLayoutResizeUpdateToSDKUpdate(
   if (update.maxHeight !== null) {
     sdkUpdate.maxHeight = { value: String(update.maxHeight) };
   }
+  sdkUpdate.aspectRange = null;
 
   // Handle constraint mode specific properties
   if (update.constrainMode === ConstraintMode.range) {

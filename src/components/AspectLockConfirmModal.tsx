@@ -7,7 +7,9 @@ import {
   Slider,
   Loader,
   Stack,
+  Menu,
 } from "@mantine/core";
+import { IconDots, IconChevronDown } from "@tabler/icons-react";
 import { getStudio, saveLayoutSizingToAction } from "../studio/studioAdapter";
 import { appStore } from "../modalStore";
 import { getAllLayouts, setLayoutResizable } from "../studio/layoutHandler";
@@ -126,9 +128,7 @@ export function AspectLockConfirmModal({
             maxWidth: maxWidth ?? null,
             minHeight: minHeight ?? null,
             maxHeight: maxHeight ?? null,
-            constrainMode: ConstraintMode.range,
-            vertical: null,
-            horizontal: null,
+            constrainMode: ConstraintMode.none,
           });
 
           if (updateResult.isError()) {
@@ -296,7 +296,7 @@ export function AspectLockConfirmModal({
         onClose={onClose}
         title="Confirm Aspect Lock Change"
         centered
-        size="lg"
+        size="50%"
       >
         <Text mb="md">
           Set the Aspect Lock Restrict Proportions range for all Layouts
@@ -318,26 +318,33 @@ export function AspectLockConfirmModal({
           mb="xl"
         />
         <Group justify="space-between" mt="md">
-          <Button
-            variant="subtle"
-            onClick={handleLegacyAspectLock}
-            color="gray"
-            size="lg"
-          >
-            Legacy Aspect Lock
-          </Button>
-          <Group>
-            <Button
-              variant="default"
-              onClick={handleRemoveRestrictProportions}
-              size="lg"
-            >
-              Remove Restrict Proportions
-            </Button>
-            <Button variant="default" onClick={onClose} size="lg">
+          {/* Left side - Menu with options */}
+          <Menu position="bottom-start" withArrow>
+            <Menu.Target>
+              <Button variant="default" size="md">
+                <Group gap="xs">
+                  <IconDots size={20} />
+                  <span>More Options</span>
+                  <IconChevronDown size={16} />
+                </Group>
+              </Button>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item onClick={handleRemoveRestrictProportions}>
+                Remove Restrict Proportions
+              </Menu.Item>
+              <Menu.Item onClick={handleLegacyAspectLock}>
+                Use Legacy Aspect Lock
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+
+          {/* Right side - Action buttons */}
+          <Group gap="md">
+            <Button variant="default" onClick={onClose} size="md">
               Cancel
             </Button>
-            <Button color="blue" onClick={handleUpdateLayouts} size="lg">
+            <Button color="blue" onClick={handleUpdateLayouts} size="md">
               Update Layouts
             </Button>
           </Group>
