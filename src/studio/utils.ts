@@ -22,3 +22,14 @@ export async function handleStudioFunc<T, Args extends any[]>(
     }
   });
 }
+
+export function removeIntercom() {
+  const element = document.getElementById("intercom-container");
+
+  // Check if the element exists
+  if (element != null && element.parentNode != null) {
+    // Remove the element from the DOM
+    element.parentNode.removeChild(element);
+    console.log('Element with ID "intercom-container" has been removed.');
+  }
+}

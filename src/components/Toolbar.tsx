@@ -26,6 +26,7 @@ import {
   IconFileExport,
   IconDownload,
   IconPhotoSearch,
+  IconViewportShort,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
@@ -36,10 +37,11 @@ import { MagicLayoutsModal } from "./MagicLayoutsModal";
 import { ConnectorCleanupModal } from "./ConnectorCleanupModal";
 import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerModal";
 import { OutTemplateModal } from "./OutTemplateModal";
+import { CompressModal } from "./CompressModal";
 import { ToolbarSettingsModal } from "./ToolbarSettingsModal";
+import { AspectLockConfirmModal } from "./AspectLockConfirmModal";
 import type { AppConfig, AppInfo } from "../utils/appConfig";
 import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
-import { saveLayoutSizingToAction } from "../studio/studioAdapter";
 import { Result } from "typescript-result";
 import { ImageBrowser } from "./ImageBrowser";
 import { ImageBrowserMode } from "./ImageBrowser";
@@ -62,11 +64,9 @@ export function Toolbar() {
   const [isManualCropManagerModalOpen, setIsManualCropManagerModalOpen] =
     useState(false);
   const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = useState(false);
+  const [isCompressModalOpen, setIsCompressModalOpen] = useState(false);
   const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] =
-    useState(false); // State for the confirmation modal
-  const [isAspectLockSuccessModalOpen, setIsAspectLockSuccessModalOpen] =
-    useState(false); // State for the success modal
-  const [aspectLockSuccessMessage, setAspectLockSuccessMessage] = useState(""); // State for the dynamic success message
+    useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isImageBrowserOpen, setIsImageBrowserOpen] = useState(false);
   const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
@@ -258,24 +258,13 @@ export function Toolbar() {
     setIsOutTemplateModalOpen(true);
   };
 
-  const handleAspectLock = () => {
-    setIsAspectLockConfirmModalOpen(true); // Open the confirmation modal first
+  const handleCompress = () => {
+    setVisible(false);
+    setIsCompressModalOpen(true);
   };
 
-  const handleConfirmAspectLock = async (value: boolean) => {
-    setIsAspectLockConfirmModalOpen(false); // Close confirmation modal
-    (await saveLayoutSizingToAction(value)).fold(
-      (_) => {
-        setAspectLockSuccessMessage(
-          value
-            ? "Success in turning Aspect Ratio On"
-            : "Success in turning Aspect Ratio Off",
-        );
-        setIsAspectLockSuccessModalOpen(true); // Open success modal on success
-      },
-      (err) =>
-        raiseError(err ?? Error(`Error setting aspect lock to ${value}`)),
-    );
+  const handleAspectLock = () => {
+    setIsAspectLockConfirmModalOpen(true);
   };
 
   return (
@@ -475,6 +464,19 @@ export function Toolbar() {
                     </ActionIcon>
                   </Tooltip>
                 )}
+                {appConfig.showCompress && (
+                  <Tooltip label="Compress" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showCompress")}
+                      size="lg"
+                      aria-label="Compress"
+                      onClick={handleCompress}
+                    >
+                      <IconViewportShort size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
                 {appConfig.showConnectorFolderBrowser && (
                   <Tooltip label="Image Browser" position="bottom" withArrow>
                     <ActionIcon
@@ -527,7 +529,7 @@ export function Toolbar() {
             </Button>
             <Button
               component="a"
-              href="https://github.com/spicy-labs/studio-toolbar-plus/"
+              href={`https://github.com/spicy-labs/studio-toolbar-plus/releases/tag/${updateInfo?.latestVersion}`}
               target="_blank"
               rightSection={<IconExternalLink size={16} />}
               color="blue"
@@ -595,55 +597,20 @@ export function Toolbar() {
         />
       )}
 
-      {/* Aspect Lock Success Modal */}
-      {/* Aspect Lock Confirmation Modal */}
-      {appConfig?.showAspectLock && (
-        <Modal
-          opened={isAspectLockConfirmModalOpen}
-          onClose={() => setIsAspectLockConfirmModalOpen(false)}
-          title="Confirm Aspect Lock Change"
-          centered
-          size="sm"
-        >
-          <Text>Turn Aspect Lock On?</Text>
-          <Group justify="flex-end" mt="md">
-            <Button
-              variant="default"
-              onClick={() => handleConfirmAspectLock(false)}
-            >
-              No
-            </Button>
-            <Button color="blue" onClick={() => handleConfirmAspectLock(true)}>
-              Yes
-            </Button>
-          </Group>
-        </Modal>
+      {/* Compress Modal */}
+      {appConfig?.showCompress && (
+        <CompressModal
+          opened={isCompressModalOpen}
+          onClose={() => setIsCompressModalOpen(false)}
+        />
       )}
 
-      {/* Aspect Lock Success Modal */}
+      {/* Aspect Lock Confirmation Modal */}
       {appConfig?.showAspectLock && (
-        <Modal
-          opened={isAspectLockSuccessModalOpen}
-          onClose={() => {
-            setIsAspectLockSuccessModalOpen(false);
-            setAspectLockSuccessMessage(""); // Reset message on close
-          }}
-          title="Aspect Lock Status"
-          centered
-          size="sm"
-        >
-          <Text>{aspectLockSuccessMessage}</Text>
-          <Group justify="flex-end" mt="md">
-            <Button
-              onClick={() => {
-                setIsAspectLockSuccessModalOpen(false);
-                setAspectLockSuccessMessage(""); // Reset message on close
-              }}
-            >
-              Close
-            </Button>
-          </Group>
-        </Modal>
+        <AspectLockConfirmModal
+          opened={isAspectLockConfirmModalOpen}
+          onClose={() => setIsAspectLockConfirmModalOpen(false)}
+        />
       )}
 
       {/* Download Modal New */}

@@ -8,32 +8,32 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "prettier": "^3.6.1"
+    "prettier": "^3.6.2"
   },
   "peerDependencies": {
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.3"
   },
   "dependencies": {
-    "@chili-publish/studio-sdk": "^1.21.0",
+    "@chili-publish/studio-sdk": "^1.31.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@mantine/core": "^7.17.2",
-    "@mantine/hooks": "^7.17.2",
-    "@tabler/icons-react": "^3.31.0",
+    "@mantine/core": "^7.17.8",
+    "@mantine/hooks": "^7.17.8",
+    "@tabler/icons-react": "^3.35.0",
     "@types/chrome": "^0.0.309",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
     "@types/react-window": "^1.8.8",
-    "immer": "^10.1.1",
+    "immer": "^10.1.3",
     "json-2-csv": "^5.5.9",
     "jszip": "^3.10.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-window": "^1.8.11",
-    "styled-components": "^6.1.15",
-    "typescript-result": "^3.1.1",
-    "zod": "^4.0.5",
-    "zustand": "^5.0.3"
+    "styled-components": "^6.1.19",
+    "typescript-result": "^3.5.2",
+    "zod": "^4.1.12",
+    "zustand": "^5.0.8"
   }
 }

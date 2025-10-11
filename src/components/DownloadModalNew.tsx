@@ -738,8 +738,16 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         const documentConnectors =
           currentDocumentData.connectors as DocumentConnector[];
         const connectorsNeedingReplacement = documentConnectors.filter(
-          (connector) =>
-            connector.source.source === "grafx" && connector.source.id,
+          (connector) => {
+            if (connector.source.source !== "grafx" || !connector.source.id) {
+              return false;
+            }
+            // Check if this connector already exists in available connectors
+            const existsInEnvironment = mediaConnectors.some(
+              (mc) => mc.id === connector.source.id,
+            );
+            return !existsInEnvironment; // Only need replacement if it doesn't exist
+          },
         ) as DocumentConnectorGraFx[];
 
         if (connectorsNeedingReplacement.length > 0) {
@@ -751,7 +759,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
       // Step 4: Complete package processing and start task processing
       updatePackageTaskStatus("complete");
-      await startTaskProcessing(files, studioPackage, studio, token, baseUrl);
+      await startTaskProcessing(files, studioPackage, studio, token, baseUrl, currentDocumentData);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);

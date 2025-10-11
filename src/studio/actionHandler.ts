@@ -36,6 +36,15 @@ export async function createAction(studio: SDK) {
   return handleStudioFunc(studio.action.create);
 }
 
+export async function deleteAction(actionData: ActionData) {
+  const actionResult = await getAction(actionData);
+
+  return actionResult.fold(
+    (action) => handleStudioFunc(actionData.studio.action.remove, action.id),
+    (error) => Result.error(error),
+  );
+}
+
 export async function updateAction(
   actionData: ActionData,
   update: ActionDeltaUpdate,
@@ -67,4 +76,3 @@ export function setEnableActions(studio: SDK, value: boolean) {
     studio.action.disable();
   }
 }
-

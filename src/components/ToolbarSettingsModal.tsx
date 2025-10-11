@@ -32,6 +32,7 @@ import {
   IconCrop,
   IconDownload,
   IconPhotoSearch,
+  IconViewportShort,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import type {
@@ -43,6 +44,10 @@ import type {
 import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
 import { checkVersions } from "../utils/checkVersions";
 import { Result } from "typescript-result";
+import { getStudio } from "../studio/studioAdapter";
+import { setEnableActions } from "../studio/actionHandler";
+import { removeIntercom } from "../studio/utils";
+import { appStore } from "../modalStore";
 
 interface ToolbarSettingsModalProps {
   opened: boolean;
@@ -73,6 +78,7 @@ export function ToolbarSettingsModal({
   onReloadConfig,
   updateInfo,
 }: ToolbarSettingsModalProps) {
+  const raiseError = appStore((store) => store.raiseError);
   const [defaultConfig, setDefaultConfig] = useState<AppFullConfig | null>(
     null,
   );
@@ -194,6 +200,12 @@ export function ToolbarSettingsModal({
         console.log("Opening Output tool");
       },
     },
+    showCompress: {
+      icon: <IconViewportShort size={16} />,
+      handler: () => {
+        console.log("Opening Compress tool");
+      },
+    },
   };
 
   // Helper function to get tool action icon
@@ -274,6 +286,18 @@ export function ToolbarSettingsModal({
     if (config == null) {
       handleClose();
       return;
+    } else {
+      if (config.enableActionsInDesignMode != null) {
+        const studioResult = await getStudio();
+        studioResult.fold(
+          (studio) =>
+            setEnableActions(studio, config.enableActionsInDesignMode),
+          () => raiseError(new Error("Failed to get studio to set actions")),
+        );
+      }
+      if (config.removeIntercom) {
+        removeIntercom();
+      }
     }
     onReloadConfig(config);
     handleClose();
@@ -294,7 +318,7 @@ export function ToolbarSettingsModal({
   return (
     <Modal
       opened={opened}
-      onClose={onClose}
+      onClose={handleClose}
       title="Toolbar Settings"
       centered
       size="md"
@@ -367,6 +391,44 @@ export function ToolbarSettingsModal({
               <br />
               {disclaimer}
             </Text>
+
+            <Title order={5}>Toolbar Settings</Title>
+            <Stack gap="md" mb="xl">
+              <Group justify="space-between" align="center">
+                <Group gap="xs" style={{ flex: 1 }}>
+                  <Text>Enable Actions In Design Mode</Text>
+                </Group>
+                <Switch
+                  checked={config.enableActionsInDesignMode}
+                  onChange={(event) =>
+                    handleToggle(
+                      "enableActionsInDesignMode",
+                      event.currentTarget.checked,
+                    )
+                  }
+                  aria-label="Toggle Enable Actions In Design Mode"
+                />
+              </Group>
+              <Text size="xs" c="dimmed" ml={32}>
+                Allow toolbar actions to run while in design mode
+              </Text>
+
+              <Group justify="space-between" align="center">
+                <Group gap="xs" style={{ flex: 1 }}>
+                  <Text>Remove Intercom</Text>
+                </Group>
+                <Switch
+                  checked={config.removeIntercom}
+                  onChange={(event) =>
+                    handleToggle("removeIntercom", event.currentTarget.checked)
+                  }
+                  aria-label="Toggle Remove Intercom"
+                />
+              </Group>
+              <Text size="xs" c="dimmed" ml={32}>
+                Hide the Intercom chat widget
+              </Text>
+            </Stack>
 
             <Title order={5}>Available Tools</Title>
             <ScrollArea.Autosize mah={400}>
@@ -612,6 +674,24 @@ export function ToolbarSettingsModal({
                 </Group>
                 <Text size="xs" c="dimmed" ml={32}>
                   Generate output files from layouts
+                </Text>
+
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showCompress")}
+                    <Text>Compress</Text>
+                    {getStatusIcon("showCompress")}
+                  </Group>
+                  <Switch
+                    checked={config.showCompress}
+                    onChange={(event) =>
+                      handleToggle("showCompress", event.currentTarget.checked)
+                    }
+                    aria-label="Toggle Compress"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Compress and optimize document assets
                 </Text>
               </Stack>
             </ScrollArea.Autosize>

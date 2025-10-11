@@ -29,7 +29,10 @@ export type AppConfigKeys =
   | "showConnectorCleanup"
   | "showManualCropManager"
   | "showConnectorFolderBrowser"
-  | "showOutput";
+  | "showOutput"
+  | "showCompress"
+  | "enableActionsInDesignMode"
+  | "removeIntercom";
 
 export type AppStatus = "none" | "sponsored" | "deprecated" | "experimental";
 
@@ -90,6 +93,15 @@ export async function getDefaultConfig(): Promise<
     }
 
     const appConfig = manifestData.appConfig as AppFullConfig;
+
+    appConfig.enableActionsInDesignMode = {
+      enabled: false,
+      status: "none",
+    };
+    appConfig.removeIntercom = {
+      enabled: false,
+      status: "none",
+    };
 
     // Validate the toolbarConfig structure
     for (const [key, value] of Object.entries(appConfig)) {
