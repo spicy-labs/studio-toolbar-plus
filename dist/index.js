@@ -69666,9 +69666,9 @@ async function uploadImage({
   }
 }
 
-// src/utils/getMediaConnectorsAPI.ts
+// src/utils/getConnectorsAPI.ts
 init_dist();
-async function getMediaConnectorsAPI(baseUrl, authToken) {
+async function getConnectorsAPI(baseUrl, authToken) {
   try {
     const response = await fetch(`${baseUrl}connectors`, {
       headers: {
@@ -70477,7 +70477,7 @@ function ImageBrowser({
       }
       const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
       const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
-      const connectorsResult = await getMediaConnectorsAPI(baseUrl, token2);
+      const connectorsResult = await getConnectorsAPI(baseUrl, token2);
       if (!connectorsResult.isOk()) {
         throw new Error(connectorsResult.error?.message || "Failed to fetch connectors");
       }
@@ -71891,7 +71891,7 @@ function ReplaceConnectorsModal({
       setReplacementMap(new Map);
     }
   }, [opened]);
-  const allSelected = Array.from(replacementMap.values()).every((connector) => connector.replacementId !== null);
+  const allSelected = Array.from(replacementMap.values()).every((connector) => connector.replacementId !== null || connector.name === "GraFx Fonts");
   const handleReplacementChange = (connectorId, name, replacementId) => {
     setReplacementMap((prev2) => {
       const updated = new Map(prev2);
@@ -71983,6 +71983,7 @@ function ReplaceConnectorsModal({
                   }),
                   /* @__PURE__ */ jsx_runtime24.jsx(Table.Td, {
                     children: /* @__PURE__ */ jsx_runtime24.jsx(Select, {
+                      disabled: connector.name === "GraFx Fonts",
                       data: availableConnectors.map((c2) => ({
                         value: c2.id,
                         label: c2.name
@@ -73225,7 +73226,7 @@ function DownloadModalNew({ opened, onClose }) {
         }
       }
       if (smartCropsFileData && smartCropsFileData.crops && smartCropsFileData.crops.length > 0) {
-        const connectorsResult = await getMediaConnectorsAPI(baseUrl, token2);
+        const connectorsResult = await getConnectorsAPI(baseUrl, token2);
         if (!connectorsResult.isOk()) {
           const error47 = new FailedToFetchConnectorsError(`Failed to fetch connectors: ${connectorsResult.error?.message}`);
           raiseError2(error47);
@@ -73269,14 +73270,15 @@ function DownloadModalNew({ opened, onClose }) {
           return;
         }
       }
-      const connectorsResult = await getMediaConnectorsAPI(baseUrl, token2);
+      const connectorsResult = await getConnectorsAPI(baseUrl, token2);
       if (!connectorsResult.isOk()) {
         const error47 = new FailedToFetchConnectorsError(`Failed to fetch connectors: ${connectorsResult.error?.message}`);
         raiseError2(error47);
         updatePackageTaskStatus("error", error47.message);
         return;
       }
-      const mediaConnectors = connectorsResult.value.data.filter((connector) => connector.enabled && connector.type === "media");
+      const allEnabledConnectors = connectorsResult.value.data.filter((connector) => connector.enabled);
+      const mediaConnectors = allEnabledConnectors.filter((connector) => connector.type === "media");
       setAvailableConnectors(mediaConnectors);
       const currentDocumentData = documentData || parsedDocumentData;
       if (currentDocumentData && currentDocumentData.connectors) {
@@ -73285,7 +73287,7 @@ function DownloadModalNew({ opened, onClose }) {
           if (connector.source.source !== "grafx" || !connector.source.id) {
             return false;
           }
-          const existsInEnvironment = mediaConnectors.some((mc) => mc.id === connector.source.id);
+          const existsInEnvironment = allEnabledConnectors.some((mc) => mc.id === connector.source.id);
           return !existsInEnvironment;
         });
         if (connectorsNeedingReplacement.length > 0) {
@@ -73312,12 +73314,20 @@ function DownloadModalNew({ opened, onClose }) {
   const handleConnectorReplacement = async (replacementMap) => {
     setReplaceConnectorsModalOpened(false);
     if (documentData) {
-      console.log("HELLO");
-      console.log(documentData);
       const newDocumentData = JSON.parse(JSON.stringify(documentData));
       for (const connector of newDocumentData.connectors) {
         if (connector.source.source === "grafx" && connector.source.id) {
+          console.log(connector);
           const sourceId = connector.source.id;
+          if (connector.name == "GraFx Fonts") {
+            connector.source = {
+              source: "local",
+              url: "grafx-fonts.json"
+            };
+            if (replacementMap.get(sourceId)) {
+              replacementMap.delete(sourceId);
+            }
+          }
           const replacementId = replacementMap.get(sourceId);
           if (replacementId) {
             connector.source.id = replacementId;
@@ -77324,7 +77334,7 @@ function ManualCropManagerModal({
         raiseError2(new Error("Failed to get authentication token or base URL"));
         return;
       }
-      const availableConnectorsResult = await getMediaConnectorsAPI(baseUrl, token2);
+      const availableConnectorsResult = await getConnectorsAPI(baseUrl, token2);
       if (!availableConnectorsResult.isOk()) {
         raiseError2(new Error("Failed to fetch available connectors: " + availableConnectorsResult.error?.message));
         return;
@@ -80742,4 +80752,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=D5941859391AED7864756E2164756E21
+//# debugId=11B8B48A3BFFF48564756E2164756E21

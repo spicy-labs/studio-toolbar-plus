@@ -2,12 +2,12 @@ import { Result } from "typescript-result";
 import type { ConnectorResponse } from "../types/connectorTypes";
 
 /**
- * Fetches media connectors from the API
+ * Fetches connectors from the API
  * @param baseUrl - The base URL for the API
  * @param authToken - The authentication token
  * @returns Promise<Result<ConnectorResponse, Error>> - The connector response wrapped in a Result
  */
-export async function getMediaConnectorsAPI(
+export async function getConnectorsAPI(
   baseUrl: string,
   authToken: string,
 ): Promise<Result<ConnectorResponse, Error>> {
@@ -36,3 +36,4 @@ export async function getMediaConnectorsAPI(
     );
   }
 }
+

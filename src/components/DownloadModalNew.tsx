@@ -11,7 +11,7 @@ import {
 } from "../studio/connectorAdapter";
 import { getVision } from "../utils/smartCrop/getVision";
 import { setVision, uploadImage } from "../utils/smartCrop/setVision";
-import { getMediaConnectorsAPI } from "../utils/getMediaConnectorsAPI";
+import { getConnectorsAPI } from "../utils/getConnectorsAPI";
 import { loadDocumentFromJsonStr } from "../studio/documentHandler";
 import { loadToolbarDataFromDoc } from "../studio/studioAdapter";
 import { ImageBrowser, ImageBrowserMode } from "./ImageBrowser";
@@ -618,7 +618,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         smartCropsFileData.crops.length > 0
       ) {
         // Get media connectors
-        const connectorsResult = await getMediaConnectorsAPI(baseUrl, token);
+        const connectorsResult = await getConnectorsAPI(baseUrl, token);
         if (!connectorsResult.isOk()) {
           const error = new FailedToFetchConnectorsError(
             `Failed to fetch connectors: ${connectorsResult.error?.message}`,
@@ -716,7 +716,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       }
 
       // Step 2: Get available connectors for document connector replacement
-      const connectorsResult = await getMediaConnectorsAPI(baseUrl, token);
+      const connectorsResult = await getConnectorsAPI(baseUrl, token);
       if (!connectorsResult.isOk()) {
         const error = new FailedToFetchConnectorsError(
           `Failed to fetch connectors: ${connectorsResult.error?.message}`,
@@ -726,8 +726,12 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         return;
       }
 
-      const mediaConnectors = connectorsResult.value.data.filter(
-        (connector) => connector.enabled && connector.type === "media",
+      const allEnabledConnectors = connectorsResult.value.data.filter(
+        (connector) => connector.enabled,
+      );
+
+      const mediaConnectors = allEnabledConnectors.filter(
+        (connector) => connector.type === "media",
       );
       setAvailableConnectors(mediaConnectors);
 
@@ -743,7 +747,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               return false;
             }
             // Check if this connector already exists in available connectors
-            const existsInEnvironment = mediaConnectors.some(
+            const existsInEnvironment = allEnabledConnectors.some(
               (mc) => mc.id === connector.source.id,
             );
             return !existsInEnvironment; // Only need replacement if it doesn't exist
@@ -759,7 +763,14 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
       // Step 4: Complete package processing and start task processing
       updatePackageTaskStatus("complete");
-      await startTaskProcessing(files, studioPackage, studio, token, baseUrl, currentDocumentData);
+      await startTaskProcessing(
+        files,
+        studioPackage,
+        studio,
+        token,
+        baseUrl,
+        currentDocumentData,
+      );
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
@@ -806,14 +817,22 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
     if (documentData) {
       // Perform string replacement in document JSON
-      console.log("HELLO");
-      console.log(documentData);
 
       const newDocumentData = JSON.parse(JSON.stringify(documentData));
 
       for (const connector of newDocumentData.connectors) {
         if (connector.source.source === "grafx" && connector.source.id) {
+          console.log(connector);
           const sourceId = connector.source.id;
+          if (connector.name == "GraFx Fonts") {
+            connector.source = {
+              source: "local",
+              url: "grafx-fonts.json",
+            };
+            if (replacementMap.get(sourceId)) {
+              replacementMap.delete(sourceId);
+            }
+          }
           const replacementId = replacementMap.get(sourceId);
           if (replacementId) {
             connector.source.id = replacementId;
