@@ -19,7 +19,7 @@ import type {
   Connector,
   DocumentConnectorWithUsage,
 } from "../../types/connectorTypes";
-import { getMediaConnectorsAPI } from "../../utils/getMediaConnectorsAPI";
+import { getConnectorsAPI } from "../../utils/getConnectorsAPI";
 
 interface ManualCropManagerModalProps {
   opened: boolean;
@@ -39,7 +39,7 @@ export function ManualCropManagerModal({
     DocumentConnectorWithUsage[]
   >([]);
   const [availableConnectors, setAvailableConnectors] = useState<Connector[]>(
-    [],
+    []
   );
   const [layoutViewerRefresh, setLayoutViewerRefresh] = useState<
     (() => void) | null
@@ -56,7 +56,7 @@ export function ManualCropManagerModal({
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
         raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio"),
+          new Error(studioResult.error?.message || "Failed to get studio")
         );
         return;
       }
@@ -73,17 +73,14 @@ export function ManualCropManagerModal({
         return;
       }
 
-      const availableConnectorsResult = await getMediaConnectorsAPI(
-        baseUrl,
-        token,
-      );
+      const availableConnectorsResult = await getConnectorsAPI(baseUrl, token);
 
       if (!availableConnectorsResult.isOk()) {
         raiseError(
           new Error(
             "Failed to fetch available connectors: " +
-              availableConnectorsResult.error?.message,
-          ),
+              availableConnectorsResult.error?.message
+          )
         );
         return;
       }
@@ -94,14 +91,14 @@ export function ManualCropManagerModal({
         raiseError(
           new Error(
             "Failed to load connectors: " +
-              documentConnectorsResult.error?.message,
-          ),
+              documentConnectorsResult.error?.message
+          )
         );
         return;
       }
 
       const availableConnectors = availableConnectorsResult.value.data.filter(
-        (connector) => connector.type === "media",
+        (connector) => connector.type === "media"
       );
       const documentConnectors = documentConnectorsResult.value;
       setDocumentConnectors(documentConnectors);
@@ -109,7 +106,7 @@ export function ManualCropManagerModal({
 
       // Load selected connector from sessionStorage or auto-select first connector
       const storedConnectorId = sessionStorage.getItem(
-        "tempManualCropManager_selectedConnectorId",
+        "tempManualCropManager_selectedConnectorId"
       );
 
       if (
@@ -124,12 +121,12 @@ export function ManualCropManagerModal({
         setSelectedConnectorId(firstConnectorId);
         sessionStorage.setItem(
           "tempManualCropManager_selectedConnectorId",
-          firstConnectorId,
+          firstConnectorId
         );
       }
     } catch (error) {
       raiseError(
-        error instanceof Error ? error : new Error("Failed to load connectors"),
+        error instanceof Error ? error : new Error("Failed to load connectors")
       );
     }
   };
@@ -139,7 +136,7 @@ export function ManualCropManagerModal({
     if (opened) {
       // Load selected layouts from sessionStorage
       const storedSelected = sessionStorage.getItem(
-        "tempManualCropManager_layoutsSelected",
+        "tempManualCropManager_layoutsSelected"
       );
       if (storedSelected) {
         try {
@@ -165,7 +162,7 @@ export function ManualCropManagerModal({
   useEffect(() => {
     sessionStorage.setItem(
       "tempManualCropManager_layoutsSelected",
-      JSON.stringify(selectedLayoutIds),
+      JSON.stringify(selectedLayoutIds)
     );
   }, [selectedLayoutIds]);
 
@@ -210,7 +207,7 @@ export function ManualCropManagerModal({
     if (connectorId) {
       sessionStorage.setItem(
         "tempManualCropManager_selectedConnectorId",
-        connectorId,
+        connectorId
       );
     } else {
       sessionStorage.removeItem("tempManualCropManager_selectedConnectorId");
@@ -226,7 +223,7 @@ export function ManualCropManagerModal({
     (refreshFn: () => void) => {
       setLayoutViewerRefresh(() => refreshFn);
     },
-    [],
+    []
   );
 
   // Filter connectors based on showDisabled toggle
@@ -238,7 +235,7 @@ export function ManualCropManagerModal({
   useEffect(() => {
     if (selectedConnectorId && filteredConnectors.length > 0) {
       const isSelectedConnectorAvailable = filteredConnectors.some(
-        (connector) => connector.id === selectedConnectorId,
+        (connector) => connector.id === selectedConnectorId
       );
 
       if (!isSelectedConnectorAvailable) {
@@ -265,18 +262,18 @@ export function ManualCropManagerModal({
           );
           const cropsResult = await getManualCropsFromDocByConnector(
             studioResult.value,
-            selectedConnectorId,
+            selectedConnectorId
           );
 
           if (cropsResult.isOk()) {
             const cropsData = cropsResult.value;
             const layoutsWithCrops = new Set(
-              cropsData.layouts.map((l) => l.id),
+              cropsData.layouts.map((l) => l.id)
             );
 
             // Add any layouts that now have crops but aren't selected
             const newLayoutsWithCrops = Array.from(layoutsWithCrops).filter(
-              (layoutId) => !selectedLayoutIds.includes(layoutId),
+              (layoutId) => !selectedLayoutIds.includes(layoutId)
             );
 
             if (newLayoutsWithCrops.length > 0) {

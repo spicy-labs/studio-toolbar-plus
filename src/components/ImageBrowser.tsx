@@ -42,7 +42,7 @@ import {
 } from "../studio/connectorAdapter";
 import type { Connector } from "../types/connectorTypes";
 import { MediaDownloadType } from "@chili-publish/studio-sdk";
-import { getMediaConnectorsAPI } from "../utils/getMediaConnectorsAPI";
+import { getConnectorsAPI } from "../utils/getConnectorsAPI";
 import { getVision } from "../utils/smartCrop/getVision";
 import { setVision } from "../utils/smartCrop/setVision";
 import type { CropMetadata } from "../utils/smartCrop/smartCrop.types";
@@ -116,7 +116,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   const [browserState, setBrowserState] = useState<BrowserState>("loading");
   const [connectors, setConnectors] = useState<Connector[]>([]);
   const [selectedConnectorId, setSelectedConnectorId] = useState<string | null>(
-    null,
+    null
   );
   const [displayMode, setDisplayMode] = useState<DisplayMode>("list");
   const [localConnectorId, setLocalConnectorId] = useState<string | null>(null);
@@ -124,37 +124,37 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   const [folders, setFolders] = useState<Media[]>([]);
   const [files, setFiles] = useState<Media[]>([]);
   const [selectedFolders, setSelectedFolders] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   // Persistent selection storage across navigation
   const [persistentSelections, setPersistentSelections] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   // Smart crop selection mode state
   const [smartCropMode, setSmartCropMode] = useState<boolean>(false);
   const [sourceFile, setSourceFile] = useState<string | null>(null);
   const [targetSelectedFiles, setTargetSelectedFiles] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   const [isLoadingFolders, setIsLoadingFolders] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // Thumbnail state
   const [thumbnailUrls, setThumbnailUrls] = useState<Map<string, string>>(
-    new Map(),
+    new Map()
   );
   const [thumbnailErrors, setThumbnailErrors] = useState<Map<string, string>>(
-    new Map(),
+    new Map()
   );
   const [loadingThumbnails, setLoadingThumbnails] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   // Vision data caching state
   const [visionDataCache, setVisionDataCache] = useState<Map<string, boolean>>(
-    new Map(),
+    new Map()
   );
   const [loadingVisionData, setLoadingVisionData] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   // Task processing state
   const [copyTasks, setCopyTasks] = useState<TaskItem[]>([]);
@@ -178,7 +178,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   // react-window configuration - calculate based on icon size with padding
   const itemSize = useMemo(
     () => Math.max(60, settings.iconSize + 32),
-    [settings.iconSize],
+    [settings.iconSize]
   );
 
   // Session storage key for connector selection
@@ -192,7 +192,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     if (savedSettings) {
       try {
         const parsedSettings = JSON.parse(
-          savedSettings,
+          savedSettings
         ) as ImageBrowserSettings;
         setSettings(parsedSettings);
         setTempSettings(parsedSettings);
@@ -324,15 +324,15 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         if (studioResult.isOk()) {
           const unregisterResult = await unregisterConnector(
             studioResult.value,
-            localConnectorId,
+            localConnectorId
           );
           if (!unregisterResult.isOk()) {
             // Log error but don't throw - we still want to reset state
             raiseError(
               new Error(
                 unregisterResult.error?.message ||
-                  "Failed to unregister connector",
-              ),
+                  "Failed to unregister connector"
+              )
             );
           }
         }
@@ -370,10 +370,10 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       ).parsedData as string;
 
       // Fetch connectors from API using the utility function
-      const connectorsResult = await getMediaConnectorsAPI(baseUrl, token);
+      const connectorsResult = await getConnectorsAPI(baseUrl, token);
       if (!connectorsResult.isOk()) {
         throw new Error(
-          connectorsResult.error?.message || "Failed to fetch connectors",
+          connectorsResult.error?.message || "Failed to fetch connectors"
         );
       }
 
@@ -381,7 +381,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       // Filter for media connectors that are enabled
       const mediaConnectors = connectorResponse.data.filter(
-        (connector) => connector.type === "media" && connector.enabled,
+        (connector) => connector.type === "media" && connector.enabled
       );
 
       setConnectors(mediaConnectors);
@@ -417,7 +417,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       const registerResult = await registerConnector(studio, connectorId);
       if (!registerResult.isOk()) {
         throw new Error(
-          registerResult.error?.message || "Failed to register connector",
+          registerResult.error?.message || "Failed to register connector"
         );
       }
 
@@ -459,7 +459,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   const loadVisionData = async (
     file: Media,
     localConnectorId: string,
-    connectorId: string,
+    connectorId: string
   ) => {
     if (!(file.type === "file" || (file.type as unknown) == 0)) {
       return;
@@ -516,7 +516,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
           // Other errors - don't cache
           console.warn(
             `Failed to load vision data for ${file.name}:`,
-            visionResult.error?.message,
+            visionResult.error?.message
           );
         }
       }
@@ -564,14 +564,14 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       if (!downloadResult.isOk()) {
         throw new Error(
-          downloadResult.error?.message || "Failed to download thumbnail",
+          downloadResult.error?.message || "Failed to download thumbnail"
         );
       }
 
       // Convert the Uint8Array to a blob and create object URL
       const uint8Array = downloadResult.value as Uint8Array;
       console.log(
-        `[Thumbnail] Downloaded ${file.name}: ${uint8Array.length} bytes`,
+        `[Thumbnail] Downloaded ${file.name}: ${uint8Array.length} bytes`
       );
 
       // Try to detect content type from the first few bytes
@@ -585,7 +585,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         else if (header.startsWith("4749")) contentType = "image/gif";
         else if (header.startsWith("5249")) contentType = "image/webp";
         console.log(
-          `[Thumbnail] Detected content type for ${file.name}: ${contentType} (header: ${header})`,
+          `[Thumbnail] Detected content type for ${file.name}: ${contentType} (header: ${header})`
         );
       }
 
@@ -593,7 +593,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       const thumbnailUrl = URL.createObjectURL(blob);
 
       console.log(
-        `[Thumbnail] Created blob URL for ${file.name}: ${thumbnailUrl}`,
+        `[Thumbnail] Created blob URL for ${file.name}: ${thumbnailUrl}`
       );
 
       // Update thumbnail URLs
@@ -624,7 +624,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     if (!studioResult.isOk()) {
       setError(studioResult.error?.message || "Failed to get studio");
       raiseError(
-        new Error(studioResult.error?.message || "Failed to get studio"),
+        new Error(studioResult.error?.message || "Failed to get studio")
       );
       return;
     }
@@ -635,7 +635,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   // Helper function to update selectedFolders based on persistent selections
   const updateSelectedFoldersForCurrentPath = (
     folderData: Media[],
-    path: string,
+    path: string
   ) => {
     const currentPathSelections = new Set<string>();
 
@@ -655,7 +655,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     selectedConnectorId: string | null,
     path: string,
     pageToken: string = "",
-    append: boolean = false,
+    append: boolean = false
   ) => {
     try {
       if (selectedConnectorId == null) {
@@ -681,12 +681,12 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         studioResult.value,
         connectorId,
         path,
-        pageToken,
+        pageToken
       );
 
       if (!queryResult.isOk()) {
         throw new Error(
-          queryResult.error?.message || "Failed to query media connector",
+          queryResult.error?.message || "Failed to query media connector"
         );
       }
 
@@ -694,10 +694,10 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       // Filter for folders and files separately
       const folderData = queryPage.data.filter(
-        (item) => item.type === "folder" || (item.type as unknown) == 1,
+        (item) => item.type === "folder" || (item.type as unknown) == 1
       );
       const fileData = queryPage.data.filter(
-        (item) => item.type === "file" || (item.type as unknown) == 0,
+        (item) => item.type === "file" || (item.type as unknown) == 0
       );
 
       if (append) {
@@ -772,7 +772,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       selectedConnectorId,
       currentPath,
       nextPageToken,
-      true,
+      true
     );
   };
 
@@ -1050,7 +1050,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       if (!downloadResult.isOk()) {
         throw new Error(
-          downloadResult.error?.message || "Failed to download file",
+          downloadResult.error?.message || "Failed to download file"
         );
       }
 
@@ -1071,7 +1071,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       URL.revokeObjectURL(url);
 
       console.log(
-        `Downloaded ${fileToDownload.name}: ${uint8Array.length} bytes`,
+        `Downloaded ${fileToDownload.name}: ${uint8Array.length} bytes`
       );
     } catch (error) {
       console.error("Download failed:", error);
@@ -1152,8 +1152,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                   error:
                     visionResult.error?.message || "Failed to get vision data",
                 }
-              : task,
-          ),
+              : task
+          )
         );
         return;
       }
@@ -1161,8 +1161,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       // Mark get vision task as complete
       setCopyTasks((prev) =>
         prev.map((task) =>
-          task.id === getVisionTaskId ? { ...task, status: "complete" } : task,
-        ),
+          task.id === getVisionTaskId ? { ...task, status: "complete" } : task
+        )
       );
 
       const sourceVisionData = visionResult.value;
@@ -1199,8 +1199,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
               prev.map((task) =>
                 task.id === setVisionTaskId
                   ? { ...task, status: "complete" }
-                  : task,
-              ),
+                  : task
+              )
             );
 
             // Update vision cache for target file
@@ -1220,8 +1220,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                       error:
                         setResult.error?.message || "Failed to set vision data",
                     }
-                  : task,
-              ),
+                  : task
+              )
             );
           }
         } catch (error) {
@@ -1234,8 +1234,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                     error:
                       error instanceof Error ? error.message : String(error),
                   }
-                : task,
-            ),
+                : task
+            )
           );
         }
       }
@@ -1252,14 +1252,14 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         if (studioResult.isOk()) {
           const unregisterResult = await unregisterConnector(
             studioResult.value,
-            localConnectorId,
+            localConnectorId
           );
           if (!unregisterResult.isOk()) {
             raiseError(
               new Error(
                 unregisterResult.error?.message ||
-                  "Failed to unregister connector",
-              ),
+                  "Failed to unregister connector"
+              )
             );
           }
         }
@@ -1270,7 +1270,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
     // Find the connector name from the connectors list
     const selectedConnector = connectors.find(
-      (c) => c.id === selectedConnectorId,
+      (c) => c.id === selectedConnectorId
     );
     const connectorName = selectedConnector?.name || "";
 
@@ -1283,7 +1283,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       };
       resetState();
       (onClose as (selection: ImageBrowserFolderSelection | null) => void)(
-        selection,
+        selection
       );
     } else {
       // File selection mode
@@ -1296,12 +1296,12 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         };
         resetState();
         (onClose as (selection: ImageBrowserFileSelection | null) => void)(
-          selection,
+          selection
         );
       } else {
         resetState();
         (onClose as (selection: ImageBrowserFileSelection | null) => void)(
-          null,
+          null
         );
       }
     }
@@ -1348,7 +1348,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
           }}
         >
           {part}
-        </Anchor>,
+        </Anchor>
       );
     });
 
@@ -1401,7 +1401,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
     if (thumbnailUrl) {
       console.log(
-        `[Render] Using thumbnail URL for ${file.name}: ${thumbnailUrl}`,
+        `[Render] Using thumbnail URL for ${file.name}: ${thumbnailUrl}`
       );
       return (
         <img
@@ -1691,14 +1691,14 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                             if (studioResult.isOk()) {
                               await unregisterConnector(
                                 studioResult.value,
-                                localConnectorId,
+                                localConnectorId
                               );
                             }
                           } catch (error) {
                             raiseError(
                               error instanceof Error
                                 ? error
-                                : new Error(String(error)),
+                                : new Error(String(error))
                             );
                           }
                         }
@@ -1883,7 +1883,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
             (task) =>
               task.status === "complete" ||
               task.status === "error" ||
-              task.status === "info",
+              task.status === "info"
           );
           if (allComplete) {
             setShowTaskModal(false);
