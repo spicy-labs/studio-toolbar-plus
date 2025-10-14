@@ -50,7 +50,7 @@ export function ReplaceConnectorsModal({
 
       for (const [sourceId, name] of connectorsSources) {
         const matchingConnector = availableConnectors.find(
-          (connector) => connector.name === name
+          (connector) => connector.name === name,
         );
 
         if (matchingConnector) {
@@ -77,13 +77,14 @@ export function ReplaceConnectorsModal({
 
   // Check if all connectors have replacements selected
   const allSelected = Array.from(replacementMap.values()).every(
-    (connector) => connector.replacementId !== null
+    (connector) =>
+      connector.replacementId !== null || connector.name === "GraFx Fonts",
   );
 
   const handleReplacementChange = (
     connectorId: string,
     name: string,
-    replacementId: string | null
+    replacementId: string | null,
   ) => {
     setReplacementMap((prev) => {
       const updated = new Map(prev);
@@ -172,6 +173,7 @@ export function ReplaceConnectorsModal({
                   </Table.Td>
                   <Table.Td>
                     <Select
+                      disabled={connector.name === "GraFx Fonts"}
                       data={availableConnectors.map((c) => ({
                         value: c.id,
                         label: c.name,
@@ -182,7 +184,7 @@ export function ReplaceConnectorsModal({
                         handleReplacementChange(
                           connectorId,
                           connector.name,
-                          value
+                          value,
                         )
                       }
                       searchable
@@ -190,7 +192,7 @@ export function ReplaceConnectorsModal({
                     />
                   </Table.Td>
                 </Table.Tr>
-              )
+              ),
             )}
           </Table.Tbody>
         </Table>
