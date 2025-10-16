@@ -76325,6 +76325,7 @@ function ManualCropEditor({
   const [isCopyMode, setIsCopyMode] = import_react284.useState(false);
   const [copySourceRowKey, setCopySourceRowKey] = import_react284.useState(null);
   const [isPasteEnabled, setIsPasteEnabled] = import_react284.useState(false);
+  const [includeOriginalDimensions, setIncludeOriginalDimensions] = import_react284.useState(false);
   const loadCropsForSelectedLayouts = import_react284.useCallback(async () => {
     if (!selectedConnectorId)
       return;
@@ -76367,6 +76368,15 @@ function ManualCropEditor({
       setIsLoading(false);
     }
   }, [selectedConnectorId, selectedLayoutIds, raiseError2]);
+  import_react284.useEffect(() => {
+    const saved = sessionStorage.getItem("tempManualCropEditor_includeOriginalDimensions");
+    if (saved !== null) {
+      setIncludeOriginalDimensions(saved === "true");
+    }
+  }, []);
+  import_react284.useEffect(() => {
+    sessionStorage.setItem("tempManualCropEditor_includeOriginalDimensions", includeOriginalDimensions.toString());
+  }, [includeOriginalDimensions]);
   import_react284.useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
       loadCropsForSelectedLayouts();
@@ -76538,7 +76548,11 @@ function ManualCropEditor({
             left: clipboardCrop.left,
             top: clipboardCrop.top,
             width: clipboardCrop.width,
-            height: clipboardCrop.height
+            height: clipboardCrop.height,
+            ...includeOriginalDimensions && {
+              originalParentHeight: clipboardCrop.originalParentHeight,
+              originalParentWidth: clipboardCrop.originalParentWidth
+            }
           };
           newMap.set(rowKey, updatedCrop);
         }
@@ -76553,7 +76567,8 @@ function ManualCropEditor({
     checkedRows,
     copySourceRowKey,
     layoutCrops,
-    handleCancelCopy
+    handleCancelCopy,
+    includeOriginalDimensions
   ]);
   const selectAllRowsForLayout = import_react284.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
@@ -77017,6 +77032,11 @@ function ManualCropEditor({
           children: [
             isCopyMode && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
               children: [
+                /* @__PURE__ */ jsx_runtime36.jsx(Checkbox, {
+                  label: "Include Original Image Dimensions",
+                  checked: includeOriginalDimensions,
+                  onChange: (event) => setIncludeOriginalDimensions(event.currentTarget.checked)
+                }),
                 /* @__PURE__ */ jsx_runtime36.jsx(Button, {
                   onClick: handleCancelCopy,
                   color: "gray",
@@ -80752,4 +80772,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=11B8B48A3BFFF48564756E2164756E21
+//# debugId=886A700029BA2C4464756E2164756E21
