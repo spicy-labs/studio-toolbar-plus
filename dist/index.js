@@ -76200,7 +76200,8 @@ function CropRow({
   isChecked,
   onCheckChange,
   isDeleted,
-  isCopySource
+  isCopySource,
+  showOriginalDimensions
 }) {
   const [localCrop, setLocalCrop] = import_react284.useState(crop);
   import_react284.useEffect(() => {
@@ -76295,6 +76296,22 @@ function CropRow({
           type: "text",
           inputMode: "decimal"
         })
+      }),
+      showOriginalDimensions && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+        children: [
+          /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+            children: /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+              size: "sm",
+              children: localCrop.originalParentWidth
+            })
+          }),
+          /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+            children: /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+              size: "sm",
+              children: localCrop.originalParentHeight
+            })
+          })
+        ]
       })
     ]
   });
@@ -76326,6 +76343,8 @@ function ManualCropEditor({
   const [copySourceRowKey, setCopySourceRowKey] = import_react284.useState(null);
   const [isPasteEnabled, setIsPasteEnabled] = import_react284.useState(false);
   const [includeOriginalDimensions, setIncludeOriginalDimensions] = import_react284.useState(false);
+  const [settingsDrawerOpened, setSettingsDrawerOpened] = import_react284.useState(false);
+  const [showOriginalDimensions, setShowOriginalDimensions] = import_react284.useState(false);
   const loadCropsForSelectedLayouts = import_react284.useCallback(async () => {
     if (!selectedConnectorId)
       return;
@@ -76377,6 +76396,15 @@ function ManualCropEditor({
   import_react284.useEffect(() => {
     sessionStorage.setItem("tempManualCropEditor_includeOriginalDimensions", includeOriginalDimensions.toString());
   }, [includeOriginalDimensions]);
+  import_react284.useEffect(() => {
+    const saved = sessionStorage.getItem("tempManualCropEditor_showOriginalDimensions");
+    if (saved !== null) {
+      setShowOriginalDimensions(saved === "true");
+    }
+  }, []);
+  import_react284.useEffect(() => {
+    sessionStorage.setItem("tempManualCropEditor_showOriginalDimensions", showOriginalDimensions.toString());
+  }, [showOriginalDimensions]);
   import_react284.useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
       loadCropsForSelectedLayouts();
@@ -77023,47 +77051,80 @@ function ManualCropEditor({
   return /* @__PURE__ */ jsx_runtime36.jsxs(Box, {
     style: { height: "100%", display: "flex", flexDirection: "column" },
     children: [
+      /* @__PURE__ */ jsx_runtime36.jsx(Drawer, {
+        opened: settingsDrawerOpened,
+        onClose: () => setSettingsDrawerOpened(false),
+        position: "left",
+        title: "Editor Settings",
+        padding: "md",
+        children: /* @__PURE__ */ jsx_runtime36.jsx(Stack, {
+          gap: "md",
+          children: /* @__PURE__ */ jsx_runtime36.jsx(Switch, {
+            label: "Show Original Dimensions",
+            checked: showOriginalDimensions,
+            onChange: (event) => setShowOriginalDimensions(event.currentTarget.checked)
+          })
+        })
+      }),
       /* @__PURE__ */ jsx_runtime36.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
         children: /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
-          justify: "flex-end",
+          justify: "space-between",
           align: "center",
           children: [
-            isCopyMode && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+            /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
+              label: "Editor Settings",
+              position: "right",
+              withArrow: true,
+              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
+                onClick: () => setSettingsDrawerOpened(true),
+                variant: "subtle",
+                size: "lg",
+                children: /* @__PURE__ */ jsx_runtime36.jsx(IconSettings, {
+                  size: 20
+                })
+              })
+            }),
+            /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+              gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime36.jsx(Checkbox, {
-                  label: "Include Original Image Dimensions",
-                  checked: includeOriginalDimensions,
-                  onChange: (event) => setIncludeOriginalDimensions(event.currentTarget.checked)
+                isCopyMode && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+                  children: [
+                    /* @__PURE__ */ jsx_runtime36.jsx(Checkbox, {
+                      label: "Include Original Image Dimensions",
+                      checked: includeOriginalDimensions,
+                      onChange: (event) => setIncludeOriginalDimensions(event.currentTarget.checked)
+                    }),
+                    /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                      onClick: handleCancelCopy,
+                      color: "gray",
+                      size: "sm",
+                      leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconX, {
+                        size: 16
+                      }),
+                      children: "Cancel Paste"
+                    }),
+                    /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                      onClick: handlePasteFromClipboard,
+                      disabled: !isPasteEnabled,
+                      color: "blue",
+                      size: "sm",
+                      leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconClipboardFilled, {
+                        size: 16
+                      }),
+                      children: "Paste from clipboard"
+                    })
+                  ]
                 }),
                 /* @__PURE__ */ jsx_runtime36.jsx(Button, {
-                  onClick: handleCancelCopy,
-                  color: "gray",
-                  size: "sm",
-                  leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconX, {
-                    size: 16
-                  }),
-                  children: "Cancel Paste"
-                }),
-                /* @__PURE__ */ jsx_runtime36.jsx(Button, {
-                  onClick: handlePasteFromClipboard,
-                  disabled: !isPasteEnabled,
+                  onClick: saveCropChanges,
+                  disabled: changedRows.size === 0,
                   color: "blue",
                   size: "sm",
-                  leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconClipboardFilled, {
-                    size: 16
-                  }),
-                  children: "Paste from clipboard"
+                  children: "Save Crop Changes"
                 })
               ]
-            }),
-            /* @__PURE__ */ jsx_runtime36.jsx(Button, {
-              onClick: saveCropChanges,
-              disabled: changedRows.size === 0,
-              color: "blue",
-              size: "sm",
-              children: "Save Crop Changes"
             })
           ]
         })
@@ -77264,6 +77325,16 @@ function ManualCropEditor({
                             }),
                             /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
                               children: "Height"
+                            }),
+                            showOriginalDimensions && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+                              children: [
+                                /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
+                                  children: "Original Width"
+                                }),
+                                /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
+                                  children: "Original Height"
+                                })
+                              ]
                             })
                           ]
                         })
@@ -77282,7 +77353,8 @@ function ManualCropEditor({
                             isChecked: checkedRows.has(rowKey),
                             onCheckChange: handleCheckChange,
                             isDeleted: !!isDeleted,
-                            isCopySource: copySourceRowKey === rowKey
+                            isCopySource: copySourceRowKey === rowKey,
+                            showOriginalDimensions
                           }, `${crop.frameId}-${crop.name}`);
                         })
                       })
@@ -80772,4 +80844,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=886A700029BA2C4464756E2164756E21
+//# debugId=1ABA84840CE48EAA64756E2164756E21
