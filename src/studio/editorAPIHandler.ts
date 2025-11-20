@@ -32,9 +32,15 @@ async function handleApiCall<T, Args extends any[] = any[]>(apiCall: (...args: A
     });
 }
 
-export async function getPerAssetCrop(studio: SDK) {
+export type GetPerAssetCropParams = {
+    studio: SDK;
+    layoutId: string,
+    frameId: string
+}
+
+export async function getPerAssetCrop({ studio, layoutId, frameId }: GetPerAssetCropParams) {
     const api = await studio.editorAPI;
-    return handleApiCall<PerAssetCrop>(api.getPerAssetCrop);
+    return handleApiCall<PerAssetCrop>(api.getPerAssetCrop, layoutId, frameId);
 }
 
 type SetPerAssetCropParams = {
