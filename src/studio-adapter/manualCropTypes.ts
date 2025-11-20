@@ -14,20 +14,24 @@ export type ManualCrop = {
 export type FrameProperty = {
   id: string;
   type?: string;
-  perAssetCrop?: {
+  perAssetCrop?: PerAssetCrop;
+  [key: string]: any;
+};
+
+export type PerAssetCrop = {
     [connectorId: string]: {
-      [assetName: string]: {
-        left: number;
-        top: number;
-        width: number;
-        height: number;
-        rotationDegrees: number;
-        originalParentWidth: number;
-        originalParentHeight: number;
-      };
+      [assetName: string]: AssetCrop;
     };
   };
-  [key: string]: any;
+
+export type AssetCrop = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  rotationDegrees: number;
+  originalParentWidth: number;
+  originalParentHeight: number;
 };
 
 export type DocumentLayout = {
