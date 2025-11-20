@@ -1060,6 +1060,7 @@ export function ManualCropEditor({
 
       // Start with the original document state and apply changes sequentially
       let currentDocumentState = originalDocumentState;
+      let hasDeletions = false;
 
       // First, handle deletions for each affected layout
       for (const [layoutId, deleteIndices] of layoutDeletes) {
@@ -1116,11 +1117,42 @@ export function ManualCropEditor({
 
             // Update the current document state for the next iteration
             currentDocumentState = result.value;
+            hasDeletions = true;
           }
         }
       }
 
-      // Then, handle updates for each affected layout
+      // Apply deletion changes to the Studio document before setting new crops
+      if (hasDeletions) {
+        const applyDeleteResult = await loadDocumentFromJsonStr(
+          studio,
+          JSON.stringify(currentDocumentState),
+        );
+
+        if (applyDeleteResult.isError()) {
+          raiseError(
+            new Error(
+              "Failed to apply manual crop deletions: " +
+                applyDeleteResult.error?.message,
+            ),
+          );
+          setSaveState("error");
+          setSaveMessage("Error reverting changes...");
+
+          if (originalDocumentState) {
+            const revertResult = await loadDocumentFromJsonStr(
+              studio,
+              JSON.stringify(originalDocumentState),
+            );
+            if (revertResult.isError()) {
+              raiseError(new Error("Failed to revert changes after error"));
+            }
+          }
+          return;
+        }
+      }
+
+      // Then, handle updates for each affected layout via the editor API
       for (const [layoutId, cropChanges] of layoutChanges) {
         const layoutCrop = layoutCrops.get(layoutId);
         if (!layoutCrop) continue;
@@ -1144,10 +1176,8 @@ export function ManualCropEditor({
           originalParentHeight: crop.originalParentHeight,
         }));
 
-        console.log("Current document state:", currentDocumentState);
-
-        const result = setManualCropsForLayout(
-          currentDocumentState,
+        const result = await setManualCropsForLayout(
+          studio,
           layoutId,
           selectedConnectorId,
           manualCrops,
@@ -1172,37 +1202,6 @@ export function ManualCropEditor({
           }
           return;
         }
-
-        // Update the current document state for the next iteration
-        currentDocumentState = result.value;
-      }
-
-      // Apply the final document state to the studio
-      const finalResult = await loadDocumentFromJsonStr(
-        studio,
-        JSON.stringify(currentDocumentState),
-      );
-      if (finalResult.isError()) {
-        raiseError(
-          new Error(
-            "Failed to load final document state: " +
-              finalResult.error?.message,
-          ),
-        );
-        // Error occurred, revert changes
-        setSaveState("error");
-        setSaveMessage("Error reverting changes...");
-
-        if (originalDocumentState) {
-          const revertResult = await loadDocumentFromJsonStr(
-            studio,
-            JSON.stringify(originalDocumentState),
-          );
-          if (revertResult.isError()) {
-            raiseError(new Error("Failed to revert changes after error"));
-          }
-        }
-        return;
       }
 
       // Success - show success message
