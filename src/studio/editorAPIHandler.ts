@@ -40,7 +40,7 @@ export type GetPerAssetCropParams = {
 
 export async function getPerAssetCrop({ studio, layoutId, frameId }: GetPerAssetCropParams) {
     const api = await studio.editorAPI;
-    return handleApiCall<PerAssetCrop>(api.getPerAssetCrop, layoutId, frameId);
+    return handleApiCall<{perAssetCrop:PerAssetCrop}>(api.getPerAssetCrop, layoutId, frameId);
 }
 
 type SetPerAssetCropParams = {

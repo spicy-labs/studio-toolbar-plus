@@ -1,8 +1,13 @@
 import type SDK from "@chili-publish/studio-sdk";
 import { Result } from "typescript-result";
 import { getCurrentDocumentState } from "../studio/documentHandler";
-import type { ManualCrop, FrameProperty } from "./manualCropTypes";
+import type {
+  ManualCrop,
+  FrameProperty,
+  PerAssetCrop,
+} from "./manualCropTypes";
 import type { DocumentConnectorWithUsage } from "../types/connectorTypes";
+import { getPerAssetCrop } from "../studio/editorAPIHandler";
 
 type Layouts = {
   id: string;
@@ -76,56 +81,97 @@ export async function getManualCropsFromDocByConnector(
       connectorId: connectorId,
     };
 
-    // Process each layout
+    // Prepare promises for fetching crop data
+    const cropPromises: Promise<{
+      layoutId: string;
+      frameId: string;
+      result: Result<{ perAssetCrop: PerAssetCrop }, Error>;
+    }>[] = [];
+
+    // Collect all frames that need checking
     if (documentState.layouts && Array.isArray(documentState.layouts)) {
       for (const layout of documentState.layouts) {
-        const manualCrops: ManualCrop[] = [];
-
-        // Process frame properties for this layout
         if (layout.frameProperties && Array.isArray(layout.frameProperties)) {
           for (const frameProperty of layout.frameProperties) {
-            // Check if this frame property has perAssetCrop for our connector
             if (
-              frameProperty.perAssetCrop &&
-              frameProperty.perAssetCrop[connectorId]
+              !frameProperty.perAssetCrop ||
+              !frameProperty.perAssetCrop[connectorId]
             ) {
-              const connectorCrops = frameProperty.perAssetCrop[connectorId];
-
-              // Process each asset path for this connector
-              for (const [assetPath, cropData] of Object.entries(
-                connectorCrops,
-              )) {
-                const frameName =
-                  frameIdToNameMap.get(frameProperty.id) || frameProperty.id;
-
-                const manualCrop: ManualCrop = {
-                  frameId: frameProperty.id,
-                  frameName: frameName,
-                  name: assetPath,
-                  top: cropData.top,
-                  left: cropData.left,
-                  width: cropData.width,
-                  height: cropData.height,
-                  rotationDegrees: cropData.rotationDegrees ?? 0,
-                  originalParentWidth: cropData.originalParentWidth ?? 283464,
-                  originalParentHeight: cropData.originalParentHeight ?? 283464,
-                };
-
-                manualCrops.push(manualCrop);
-              }
+              continue;
             }
+
+            cropPromises.push(
+              getPerAssetCrop({
+                studio,
+                layoutId: layout.id,
+                frameId: frameProperty.id,
+              }).then((res) => ({
+                layoutId: layout.id,
+                frameId: frameProperty.id,
+                result: res,
+              })),
+            );
           }
         }
+      }
+    }
 
-        // Only include layouts that have manual crops for this connector
-        if (manualCrops.length > 0) {
+    // Wait for all crop data fetches
+    console.log("Waiting for crop data fetches");
+    const cropResults = await Promise.all(cropPromises);
+    console.log("Crop data fetches complete", cropResults);
+
+    // Process results
+    const layoutCropsMap = new Map<string, ManualCrop[]>();
+
+    for (const { layoutId, frameId, result: cropResult } of cropResults) {
+      if (cropResult.isOk()) {
+        const perAssetCrop = cropResult.value?.perAssetCrop;
+        console.log(perAssetCrop);
+        console.log("connectorId", connectorId);
+        if (perAssetCrop && perAssetCrop[connectorId]) {
+          console.log("Found crops for connector");
+          const connectorCrops = perAssetCrop[connectorId];
+          const frameName = frameIdToNameMap.get(frameId) || frameId;
+
+          for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
+            const manualCrop: ManualCrop = {
+              frameId: frameId,
+              frameName: frameName,
+              name: assetPath,
+              top: cropData.top,
+              left: cropData.left,
+              width: cropData.width,
+              height: cropData.height,
+              rotationDegrees: cropData.rotationDegrees ?? 0,
+              originalParentWidth: cropData.originalParentWidth ?? 283464,
+              originalParentHeight: cropData.originalParentHeight ?? 283464,
+            };
+
+            console.log("manualCrop", manualCrop);
+
+            if (!layoutCropsMap.has(layoutId)) {
+              layoutCropsMap.set(layoutId, []);
+            }
+            layoutCropsMap.get(layoutId)?.push(manualCrop);
+          }
+        }
+      }
+    }
+
+    console.log("Layout crops map", layoutCropsMap);
+
+    // Construct the final result
+    if (documentState.layouts && Array.isArray(documentState.layouts)) {
+      for (const layout of documentState.layouts) {
+        const manualCrops = layoutCropsMap.get(layout.id);
+        if (manualCrops && manualCrops.length > 0) {
           const layoutWithCrops: Layouts & { manualCrops: ManualCrop[] } = {
             id: layout.id,
             name: layout.name,
             parentId: layout.parentId || "",
             manualCrops: manualCrops,
           };
-
           result.layouts.push(layoutWithCrops);
         }
       }

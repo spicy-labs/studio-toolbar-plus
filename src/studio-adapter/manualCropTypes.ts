@@ -9,6 +9,7 @@ export type ManualCrop = {
   rotationDegrees: number;
   originalParentWidth: number;
   originalParentHeight: number;
+  unit: "px" | "in" | "mm" | "cm" | "pt";
 };
 
 export type FrameProperty = {
@@ -19,10 +20,10 @@ export type FrameProperty = {
 };
 
 export type PerAssetCrop = {
-    [connectorId: string]: {
-      [assetName: string]: AssetCrop;
-    };
+  [connectorId: string]: {
+    [assetName: string]: AssetCrop;
   };
+};
 
 export type AssetCrop = {
   left: number;
@@ -32,6 +33,7 @@ export type AssetCrop = {
   rotationDegrees: number;
   originalParentWidth: number;
   originalParentHeight: number;
+  unit: "px" | "in" | "mm" | "cm" | "pt";
 };
 
 export type DocumentLayout = {
