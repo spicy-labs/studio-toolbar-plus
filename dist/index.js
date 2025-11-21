@@ -76433,7 +76433,7 @@ function ManualCropEditor({
   const [includeOriginalDimensions, setIncludeOriginalDimensions] = import_react284.useState(false);
   const [settingsDrawerOpened, setSettingsDrawerOpened] = import_react284.useState(false);
   const [showOriginalDimensions, setShowOriginalDimensions] = import_react284.useState(false);
-  const [showUnit, setShowUnit] = import_react284.useState(true);
+  const [showUnit, setShowUnit] = import_react284.useState(false);
   const loadCropsForSelectedLayouts = import_react284.useCallback(async () => {
     if (!selectedConnectorId)
       return;
@@ -76980,6 +76980,32 @@ function ManualCropEditor({
           layoutDeletes.get(layoutId).add(cropIndex);
         }
       });
+      layoutChanges.forEach((changes, layoutId) => {
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (!layoutCrop)
+          return;
+        const originalLayout = originalDocumentState2.layouts.find((l2) => l2.id === layoutId);
+        let originalCropCount = 0;
+        if (originalLayout && originalLayout.frameProperties) {
+          originalLayout.frameProperties.forEach((frameProp) => {
+            if (frameProp.perAssetCrop && frameProp.perAssetCrop[selectedConnectorId]) {
+              const cropsForFrame = frameProp.perAssetCrop[selectedConnectorId];
+              originalCropCount += Object.keys(cropsForFrame).length;
+            }
+          });
+        }
+        changes.forEach((newCrop, index6) => {
+          if (index6 < originalCropCount) {
+            const originalCrop = layoutCrop.crops[index6];
+            if (originalCrop.name !== newCrop.name) {
+              if (!layoutDeletes.has(layoutId)) {
+                layoutDeletes.set(layoutId, new Set);
+              }
+              layoutDeletes.get(layoutId).add(index6);
+            }
+          }
+        });
+      });
       let currentDocumentState = originalDocumentState2;
       let hasDeletions = false;
       for (const [layoutId, deleteIndices] of layoutDeletes) {
@@ -76990,6 +77016,8 @@ function ManualCropEditor({
             return;
           }
           for (const cropIndex of deleteIndices) {
+            if (cropIndex >= layoutCrop.crops.length)
+              continue;
             const crop = layoutCrop.crops[cropIndex];
             if (!crop) {
               raiseError2(new Error(`Crop at index ${cropIndex} not found in layout ${layoutId}`));
@@ -77028,39 +77056,58 @@ function ManualCropEditor({
           return;
         }
       }
-      for (const [layoutId, cropChanges] of layoutChanges) {
+      const affectedLayoutIds = new Set([
+        ...layoutChanges.keys(),
+        ...layoutDeletes.keys()
+      ]);
+      for (const layoutId of affectedLayoutIds) {
         const layoutCrop = layoutCrops.get(layoutId);
         if (!layoutCrop)
           continue;
+        const cropChanges = layoutChanges.get(layoutId);
+        const deleteIndices = layoutDeletes.get(layoutId);
         const updatedCrops = layoutCrop.crops.map((crop, index6) => {
-          const changedCrop = cropChanges.get(index6);
-          return changedCrop || crop;
-        });
-        const manualCrops = updatedCrops.map((crop) => ({
-          frameId: crop.frameId,
-          frameName: crop.frameName,
-          name: crop.name,
-          left: crop.left,
-          top: crop.top,
-          width: crop.width,
-          height: crop.height,
-          rotationDegrees: crop.rotationDegrees,
-          originalParentWidth: crop.originalParentWidth,
-          originalParentHeight: crop.originalParentHeight,
-          unit: crop.unit
-        }));
-        const result = await setManualCropsForLayout(studio2, layoutId, selectedConnectorId, manualCrops);
-        if (result.isError()) {
-          raiseError2(new Error("Failed to set manual crops: " + result.error?.message));
-          setSaveState("error");
-          setSaveMessage("Error reverting changes...");
-          if (originalDocumentState2) {
-            const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
-            if (revertResult.isError()) {
-              raiseError2(new Error("Failed to revert changes after error"));
-            }
+          const changedCrop = cropChanges?.get(index6);
+          if (changedCrop)
+            return changedCrop;
+          if (deleteIndices?.has(index6)) {
+            return null;
           }
-          return;
+          return crop;
+        }).filter((c2) => c2 !== null);
+        if (cropChanges) {
+          const newIndices = Array.from(cropChanges.keys()).filter((index6) => index6 >= layoutCrop.crops.length).sort((a2, b) => a2 - b);
+          for (const index6 of newIndices) {
+            updatedCrops.push(cropChanges.get(index6));
+          }
+        }
+        if (updatedCrops.length > 0) {
+          const manualCrops = updatedCrops.map((crop) => ({
+            frameId: crop.frameId,
+            frameName: crop.frameName,
+            name: crop.name,
+            left: crop.left,
+            top: crop.top,
+            width: crop.width,
+            height: crop.height,
+            rotationDegrees: crop.rotationDegrees,
+            originalParentWidth: crop.originalParentWidth,
+            originalParentHeight: crop.originalParentHeight,
+            unit: crop.unit
+          }));
+          const result = await setManualCropsForLayout(studio2, layoutId, selectedConnectorId, manualCrops);
+          if (result.isError()) {
+            raiseError2(new Error("Failed to set manual crops: " + result.error?.message));
+            setSaveState("error");
+            setSaveMessage("Error reverting changes...");
+            if (originalDocumentState2) {
+              const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+              if (revertResult.isError()) {
+                raiseError2(new Error("Failed to revert changes after error"));
+              }
+            }
+            return;
+          }
         }
       }
       setSaveState("success");
@@ -80956,4 +81003,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=4A3F3AE0B5F5C8AB64756E2164756E21
+//# debugId=378493B9D5A417F464756E2164756E21
