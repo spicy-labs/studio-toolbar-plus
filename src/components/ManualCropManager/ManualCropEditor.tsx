@@ -76,6 +76,7 @@ interface CropRowProps {
   isDeleted: boolean;
   isCopySource: boolean;
   showOriginalDimensions: boolean;
+  showUnit: boolean;
 }
 
 function CropRow({
@@ -88,6 +89,7 @@ function CropRow({
   isDeleted,
   isCopySource,
   showOriginalDimensions,
+  showUnit,
 }: CropRowProps) {
   const [localCrop, setLocalCrop] = useState<ManualCrop>(crop);
 
@@ -204,11 +206,13 @@ function CropRow({
           </Table.Td>
         </>
       )}
-      <Table.Td>
-        <Text size="sm" c="dimmed">
-          {localCrop.unit}
-        </Text>
-      </Table.Td>
+      {showUnit && (
+        <Table.Td>
+          <Text size="sm" c="dimmed">
+            {localCrop.unit}
+          </Text>
+        </Table.Td>
+      )}
     </Table.Tr>
   );
 }
@@ -269,6 +273,7 @@ export function ManualCropEditor({
   // Settings drawer state
   const [settingsDrawerOpened, setSettingsDrawerOpened] = useState(false);
   const [showOriginalDimensions, setShowOriginalDimensions] = useState(false);
+  const [showUnit, setShowUnit] = useState<boolean>(true);
 
   const loadCropsForSelectedLayouts = useCallback(async () => {
     if (!selectedConnectorId) return;
@@ -375,6 +380,22 @@ export function ManualCropEditor({
       showOriginalDimensions.toString(),
     );
   }, [showOriginalDimensions]);
+
+  // Load showUnit from sessionStorage on component mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem("tempManualCropEditor_showUnit");
+    if (saved !== null) {
+      setShowUnit(saved === "true");
+    }
+  }, []);
+
+  // Save showUnit to sessionStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem(
+      "tempManualCropEditor_showUnit",
+      showUnit.toString(),
+    );
+  }, [showUnit]);
 
   // Load crops when connector or selected layouts change
   useEffect(() => {
@@ -1390,6 +1411,11 @@ export function ManualCropEditor({
               setShowOriginalDimensions(event.currentTarget.checked)
             }
           />
+          <Switch
+            label="Show Unit column"
+            checked={showUnit}
+            onChange={(event) => setShowUnit(event.currentTarget.checked)}
+          />
         </Stack>
       </Drawer>
 
@@ -1409,42 +1435,42 @@ export function ManualCropEditor({
             </ActionIcon>
           </Tooltip>
           <Group gap="xs">
-          {isCopyMode && (
-            <>
-              <Checkbox
-                label="Include Original Image Dimensions"
-                checked={includeOriginalDimensions}
-                onChange={(event) =>
-                  setIncludeOriginalDimensions(event.currentTarget.checked)
-                }
-              />
-              <Button
-                onClick={handleCancelCopy}
-                color="gray"
-                size="sm"
-                leftSection={<IconX size={16} />}
-              >
-                Cancel Paste
-              </Button>
-              <Button
-                onClick={handlePasteFromClipboard}
-                disabled={!isPasteEnabled}
-                color="blue"
-                size="sm"
-                leftSection={<IconClipboardFilled size={16} />}
-              >
-                Paste from clipboard
-              </Button>
-            </>
-          )}
-          <Button
-            onClick={saveCropChanges}
-            disabled={changedRows.size === 0}
-            color="blue"
-            size="sm"
-          >
-            Save Crop Changes
-          </Button>
+            {isCopyMode && (
+              <>
+                <Checkbox
+                  label="Include Original Image Dimensions"
+                  checked={includeOriginalDimensions}
+                  onChange={(event) =>
+                    setIncludeOriginalDimensions(event.currentTarget.checked)
+                  }
+                />
+                <Button
+                  onClick={handleCancelCopy}
+                  color="gray"
+                  size="sm"
+                  leftSection={<IconX size={16} />}
+                >
+                  Cancel Paste
+                </Button>
+                <Button
+                  onClick={handlePasteFromClipboard}
+                  disabled={!isPasteEnabled}
+                  color="blue"
+                  size="sm"
+                  leftSection={<IconClipboardFilled size={16} />}
+                >
+                  Paste from clipboard
+                </Button>
+              </>
+            )}
+            <Button
+              onClick={saveCropChanges}
+              disabled={changedRows.size === 0}
+              color="blue"
+              size="sm"
+            >
+              Save Crop Changes
+            </Button>
           </Group>
         </Group>
       </Box>
@@ -1674,7 +1700,7 @@ export function ManualCropEditor({
                                 <Table.Th>Original Height</Table.Th>
                               </>
                             )}
-                            <Table.Th>Unit</Table.Th>
+                            {showUnit && <Table.Th>Unit</Table.Th>}
                           </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -1704,6 +1730,7 @@ export function ManualCropEditor({
                                 isDeleted={!!isDeleted}
                                 isCopySource={copySourceRowKey === rowKey}
                                 showOriginalDimensions={showOriginalDimensions}
+                                showUnit={showUnit}
                               />
                             );
                           })}
