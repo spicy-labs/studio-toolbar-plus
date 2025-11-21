@@ -9,25 +9,31 @@ export type ManualCrop = {
   rotationDegrees: number;
   originalParentWidth: number;
   originalParentHeight: number;
+  unit: "px" | "in" | "mm" | "cm" | "pt";
 };
 
 export type FrameProperty = {
   id: string;
   type?: string;
-  perAssetCrop?: {
-    [connectorId: string]: {
-      [assetName: string]: {
-        left: number;
-        top: number;
-        width: number;
-        height: number;
-        rotationDegrees: number;
-        originalParentWidth: number;
-        originalParentHeight: number;
-      };
-    };
-  };
+  perAssetCrop?: PerAssetCrop;
   [key: string]: any;
+};
+
+export type PerAssetCrop = {
+  [connectorId: string]: {
+    [assetName: string]: AssetCrop;
+  };
+};
+
+export type AssetCrop = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  rotationDegrees: number;
+  originalParentWidth: number;
+  originalParentHeight: number;
+  unit: "px" | "in" | "mm" | "cm" | "pt";
 };
 
 export type DocumentLayout = {

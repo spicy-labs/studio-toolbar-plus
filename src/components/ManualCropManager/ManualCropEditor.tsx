@@ -15,6 +15,8 @@ import {
   Checkbox,
   ActionIcon,
   Tooltip,
+  Drawer,
+  Switch,
 } from "@mantine/core";
 import {
   IconTrash,
@@ -26,6 +28,7 @@ import {
   IconClipboard,
   IconClipboardFilled,
   IconX,
+  IconSettings,
 } from "@tabler/icons-react";
 import { appStore } from "../../modalStore";
 import { getStudio } from "../../studio/studioAdapter";
@@ -72,6 +75,8 @@ interface CropRowProps {
   ) => void;
   isDeleted: boolean;
   isCopySource: boolean;
+  showOriginalDimensions: boolean;
+  showUnit: boolean;
 }
 
 function CropRow({
@@ -83,6 +88,8 @@ function CropRow({
   onCheckChange,
   isDeleted,
   isCopySource,
+  showOriginalDimensions,
+  showUnit,
 }: CropRowProps) {
   const [localCrop, setLocalCrop] = useState<ManualCrop>(crop);
 
@@ -189,6 +196,23 @@ function CropRow({
           inputMode="decimal"
         />
       </Table.Td>
+      {showOriginalDimensions && (
+        <>
+          <Table.Td>
+            <Text size="sm">{localCrop.originalParentWidth}</Text>
+          </Table.Td>
+          <Table.Td>
+            <Text size="sm">{localCrop.originalParentHeight}</Text>
+          </Table.Td>
+        </>
+      )}
+      {showUnit && (
+        <Table.Td>
+          <Text size="sm" c="dimmed">
+            {localCrop.unit}
+          </Text>
+        </Table.Td>
+      )}
     </Table.Tr>
   );
 }
@@ -243,6 +267,13 @@ export function ManualCropEditor({
   const [isCopyMode, setIsCopyMode] = useState(false);
   const [copySourceRowKey, setCopySourceRowKey] = useState<string | null>(null);
   const [isPasteEnabled, setIsPasteEnabled] = useState(false);
+  const [includeOriginalDimensions, setIncludeOriginalDimensions] =
+    useState(false);
+
+  // Settings drawer state
+  const [settingsDrawerOpened, setSettingsDrawerOpened] = useState(false);
+  const [showOriginalDimensions, setShowOriginalDimensions] = useState(false);
+  const [showUnit, setShowUnit] = useState<boolean>(false);
 
   const loadCropsForSelectedLayouts = useCallback(async () => {
     if (!selectedConnectorId) return;
@@ -313,6 +344,58 @@ export function ManualCropEditor({
       setIsLoading(false);
     }
   }, [selectedConnectorId, selectedLayoutIds, raiseError]);
+
+  // Load checkbox state from sessionStorage on component mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem(
+      "tempManualCropEditor_includeOriginalDimensions",
+    );
+    if (saved !== null) {
+      setIncludeOriginalDimensions(saved === "true");
+    }
+  }, []);
+
+  // Save checkbox state to sessionStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem(
+      "tempManualCropEditor_includeOriginalDimensions",
+      includeOriginalDimensions.toString(),
+    );
+  }, [includeOriginalDimensions]);
+
+  // Load showOriginalDimensions from sessionStorage on component mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem(
+      "tempManualCropEditor_showOriginalDimensions",
+    );
+    if (saved !== null) {
+      setShowOriginalDimensions(saved === "true");
+    }
+  }, []);
+
+  // Save showOriginalDimensions to sessionStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem(
+      "tempManualCropEditor_showOriginalDimensions",
+      showOriginalDimensions.toString(),
+    );
+  }, [showOriginalDimensions]);
+
+  // Load showUnit from sessionStorage on component mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem("tempManualCropEditor_showUnit");
+    if (saved !== null) {
+      setShowUnit(saved === "true");
+    }
+  }, []);
+
+  // Save showUnit to sessionStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem(
+      "tempManualCropEditor_showUnit",
+      showUnit.toString(),
+    );
+  }, [showUnit]);
 
   // Load crops when connector or selected layouts change
   useEffect(() => {
@@ -575,6 +658,11 @@ export function ManualCropEditor({
             top: clipboardCrop.top,
             width: clipboardCrop.width,
             height: clipboardCrop.height,
+            // Conditionally include original dimensions if checkbox is checked
+            ...(includeOriginalDimensions && {
+              originalParentHeight: clipboardCrop.originalParentHeight,
+              originalParentWidth: clipboardCrop.originalParentWidth,
+            }),
           };
 
           newMap.set(rowKey, updatedCrop);
@@ -594,6 +682,7 @@ export function ManualCropEditor({
     copySourceRowKey,
     layoutCrops,
     handleCancelCopy,
+    includeOriginalDimensions,
   ]);
 
   // Select all crops for a specific layout
@@ -1058,8 +1147,53 @@ export function ManualCropEditor({
         }
       });
 
+      // Detect implicit deletes caused by renaming assets
+      // If a crop is renamed, we must delete the old asset name and set the new one
+      layoutChanges.forEach((changes, layoutId) => {
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (!layoutCrop) return;
+        // Find the original layout to determine the number of existing crops
+        const originalLayout = originalDocumentState.layouts.find(
+          (l: any) => l.id === layoutId,
+        );
+        let originalCropCount = 0;
+
+        if (originalLayout && originalLayout.frameProperties) {
+          // Count crops exactly as they are flattened: iterate frames, then assets
+          originalLayout.frameProperties.forEach((frameProp: any) => {
+            if (
+              frameProp.perAssetCrop &&
+              frameProp.perAssetCrop[selectedConnectorId]
+            ) {
+              const cropsForFrame = frameProp.perAssetCrop[selectedConnectorId];
+              originalCropCount += Object.keys(cropsForFrame).length;
+            }
+          });
+        }
+
+        changes.forEach((newCrop, index) => {
+          // Only check crops that existed in the original document
+          // New crops (index >= originalCropCount) are not on the server yet,
+          // so they don't need to be "deleted" if renamed.
+          if (index < originalCropCount) {
+            // We can safely use layoutCrop.crops[index] because the first N items
+            // of layoutCrop.crops correspond to the original items (assuming no reordering).
+            // Even if we added items, they are appended.
+            const originalCrop = layoutCrop.crops[index];
+            if (originalCrop.name !== newCrop.name) {
+              // Name changed, mark original for deletion
+              if (!layoutDeletes.has(layoutId)) {
+                layoutDeletes.set(layoutId, new Set());
+              }
+              layoutDeletes.get(layoutId)!.add(index);
+            }
+          }
+        });
+      });
+
       // Start with the original document state and apply changes sequentially
       let currentDocumentState = originalDocumentState;
+      let hasDeletions = false;
 
       // First, handle deletions for each affected layout
       for (const [layoutId, deleteIndices] of layoutDeletes) {
@@ -1074,6 +1208,9 @@ export function ManualCropEditor({
 
           // Delete each individual crop using the granular function
           for (const cropIndex of deleteIndices) {
+            // Skip if this is a newly added crop that was then deleted (index out of bounds)
+            if (cropIndex >= layoutCrop.crops.length) continue;
+
             const crop = layoutCrop.crops[cropIndex];
             if (!crop) {
               raiseError(
@@ -1116,48 +1253,25 @@ export function ManualCropEditor({
 
             // Update the current document state for the next iteration
             currentDocumentState = result.value;
+            hasDeletions = true;
           }
         }
       }
 
-      // Then, handle updates for each affected layout
-      for (const [layoutId, cropChanges] of layoutChanges) {
-        const layoutCrop = layoutCrops.get(layoutId);
-        if (!layoutCrop) continue;
-
-        // Create updated crops array with changes applied
-        const updatedCrops = layoutCrop.crops.map((crop, index) => {
-          const changedCrop = cropChanges.get(index);
-          return changedCrop || crop;
-        });
-
-        const manualCrops = updatedCrops.map((crop) => ({
-          frameId: crop.frameId,
-          frameName: crop.frameName,
-          name: crop.name,
-          left: crop.left,
-          top: crop.top,
-          width: crop.width,
-          height: crop.height,
-          rotationDegrees: crop.rotationDegrees,
-          originalParentWidth: crop.originalParentWidth,
-          originalParentHeight: crop.originalParentHeight,
-        }));
-
-        console.log("Current document state:", currentDocumentState);
-
-        const result = setManualCropsForLayout(
-          currentDocumentState,
-          layoutId,
-          selectedConnectorId,
-          manualCrops,
+      // Apply deletion changes to the Studio document before setting new crops
+      if (hasDeletions) {
+        const applyDeleteResult = await loadDocumentFromJsonStr(
+          studio,
+          JSON.stringify(currentDocumentState),
         );
 
-        if (result.isError()) {
+        if (applyDeleteResult.isError()) {
           raiseError(
-            new Error("Failed to set manual crops: " + result.error?.message),
+            new Error(
+              "Failed to apply manual crop deletions: " +
+                applyDeleteResult.error?.message,
+            ),
           );
-          // Error occurred, revert changes
           setSaveState("error");
           setSaveMessage("Error reverting changes...");
 
@@ -1172,37 +1286,87 @@ export function ManualCropEditor({
           }
           return;
         }
-
-        // Update the current document state for the next iteration
-        currentDocumentState = result.value;
       }
 
-      // Apply the final document state to the studio
-      const finalResult = await loadDocumentFromJsonStr(
-        studio,
-        JSON.stringify(currentDocumentState),
-      );
-      if (finalResult.isError()) {
-        raiseError(
-          new Error(
-            "Failed to load final document state: " +
-              finalResult.error?.message,
-          ),
-        );
-        // Error occurred, revert changes
-        setSaveState("error");
-        setSaveMessage("Error reverting changes...");
+      // We need to process all layouts that have EITHER changes OR deletions
+      // because a deletion might require us to re-set the remaining crops (if we were using the full set method)
+      // But here we use setManualCropsForLayout which iterates and sets individual crops.
+      // However, we need to make sure we don't "set" the deleted crops back.
+      const affectedLayoutIds = new Set([
+        ...layoutChanges.keys(),
+        ...layoutDeletes.keys(),
+      ]);
+      for (const layoutId of affectedLayoutIds) {
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (!layoutCrop) continue;
+        const cropChanges = layoutChanges.get(layoutId);
+        const deleteIndices = layoutDeletes.get(layoutId);
 
-        if (originalDocumentState) {
-          const revertResult = await loadDocumentFromJsonStr(
-            studio,
-            JSON.stringify(originalDocumentState),
-          );
-          if (revertResult.isError()) {
-            raiseError(new Error("Failed to revert changes after error"));
+        // 1. Process existing crops: Apply updates or filter out deletions
+        const updatedCrops = layoutCrop.crops
+          .map((crop, index) => {
+            const changedCrop = cropChanges?.get(index);
+            // If we have a change (Update or Rename), use it
+            if (changedCrop) return changedCrop;
+            // If no change, check if it was deleted
+            if (deleteIndices?.has(index)) {
+              return null;
+            }
+            // Otherwise keep original
+            return crop;
+          })
+          .filter((c): c is ManualCrop => c !== null);
+
+        // 2. Append newly added crops (indices >= original length)
+        if (cropChanges) {
+          const newIndices = Array.from(cropChanges.keys())
+            .filter((index) => index >= layoutCrop.crops.length)
+            .sort((a, b) => a - b);
+          for (const index of newIndices) {
+            updatedCrops.push(cropChanges.get(index)!);
           }
         }
-        return;
+        // Only call setManualCropsForLayout if we have crops to set
+        // (Though even if empty, we might want to ensure state is clean, but setManualCropsForLayout iterates so it would do nothing)
+        if (updatedCrops.length > 0) {
+          const manualCrops = updatedCrops.map((crop) => ({
+            frameId: crop.frameId,
+            frameName: crop.frameName,
+            name: crop.name,
+            left: crop.left,
+            top: crop.top,
+            width: crop.width,
+            height: crop.height,
+            rotationDegrees: crop.rotationDegrees,
+            originalParentWidth: crop.originalParentWidth,
+            originalParentHeight: crop.originalParentHeight,
+            unit: crop.unit,
+          }));
+          const result = await setManualCropsForLayout(
+            studio,
+            layoutId,
+            selectedConnectorId,
+            manualCrops,
+          );
+          if (result.isError()) {
+            raiseError(
+              new Error("Failed to set manual crops: " + result.error?.message),
+            );
+            // Error occurred, revert changes
+            setSaveState("error");
+            setSaveMessage("Error reverting changes...");
+            if (originalDocumentState) {
+              const revertResult = await loadDocumentFromJsonStr(
+                studio,
+                JSON.stringify(originalDocumentState),
+              );
+              if (revertResult.isError()) {
+                raiseError(new Error("Failed to revert changes after error"));
+              }
+            }
+            return;
+          }
+        }
       }
 
       // Success - show success message
@@ -1306,41 +1470,83 @@ export function ManualCropEditor({
 
   return (
     <Box style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      {/* Settings Drawer */}
+      <Drawer
+        opened={settingsDrawerOpened}
+        onClose={() => setSettingsDrawerOpened(false)}
+        position="left"
+        title="Editor Settings"
+        padding="md"
+      >
+        <Stack gap="md">
+          <Switch
+            label="Show Original Dimensions"
+            checked={showOriginalDimensions}
+            onChange={(event) =>
+              setShowOriginalDimensions(event.currentTarget.checked)
+            }
+          />
+          <Switch
+            label="Show Unit column"
+            checked={showUnit}
+            onChange={(event) => setShowUnit(event.currentTarget.checked)}
+          />
+        </Stack>
+      </Drawer>
+
       {/* Header */}
       <Box
         p="md"
         style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}
       >
-        <Group justify="flex-end" align="center">
-          {isCopyMode && (
-            <>
-              <Button
-                onClick={handleCancelCopy}
-                color="gray"
-                size="sm"
-                leftSection={<IconX size={16} />}
-              >
-                Cancel Paste
-              </Button>
-              <Button
-                onClick={handlePasteFromClipboard}
-                disabled={!isPasteEnabled}
-                color="blue"
-                size="sm"
-                leftSection={<IconClipboardFilled size={16} />}
-              >
-                Paste from clipboard
-              </Button>
-            </>
-          )}
-          <Button
-            onClick={saveCropChanges}
-            disabled={changedRows.size === 0}
-            color="blue"
-            size="sm"
-          >
-            Save Crop Changes
-          </Button>
+        <Group justify="space-between" align="center">
+          <Tooltip label="Editor Settings" position="right" withArrow>
+            <ActionIcon
+              onClick={() => setSettingsDrawerOpened(true)}
+              variant="subtle"
+              size="lg"
+            >
+              <IconSettings size={20} />
+            </ActionIcon>
+          </Tooltip>
+          <Group gap="xs">
+            {isCopyMode && (
+              <>
+                <Checkbox
+                  label="Include Original Image Dimensions"
+                  checked={includeOriginalDimensions}
+                  onChange={(event) =>
+                    setIncludeOriginalDimensions(event.currentTarget.checked)
+                  }
+                />
+                <Button
+                  onClick={handleCancelCopy}
+                  color="gray"
+                  size="sm"
+                  leftSection={<IconX size={16} />}
+                >
+                  Cancel Paste
+                </Button>
+                <Button
+                  onClick={handlePasteFromClipboard}
+                  disabled={!isPasteEnabled}
+                  color="blue"
+                  size="sm"
+                  leftSection={<IconClipboardFilled size={16} />}
+                >
+                  Paste from clipboard
+                </Button>
+              </>
+            )}
+            <Button
+              onClick={saveCropChanges}
+              disabled={changedRows.size === 0}
+              color="blue"
+              size="sm"
+            >
+              Save Crop Changes
+            </Button>
+          </Group>
         </Group>
       </Box>
 
@@ -1563,6 +1769,13 @@ export function ManualCropEditor({
                             <Table.Th>Top</Table.Th>
                             <Table.Th>Width</Table.Th>
                             <Table.Th>Height</Table.Th>
+                            {showOriginalDimensions && (
+                              <>
+                                <Table.Th>Original Width</Table.Th>
+                                <Table.Th>Original Height</Table.Th>
+                              </>
+                            )}
+                            {showUnit && <Table.Th>Unit</Table.Th>}
                           </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -1591,6 +1804,8 @@ export function ManualCropEditor({
                                 onCheckChange={handleCheckChange}
                                 isDeleted={!!isDeleted}
                                 isCopySource={copySourceRowKey === rowKey}
+                                showOriginalDimensions={showOriginalDimensions}
+                                showUnit={showUnit}
                               />
                             );
                           })}

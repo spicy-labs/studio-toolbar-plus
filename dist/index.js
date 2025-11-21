@@ -12973,6 +12973,53 @@ var require_jsx_runtime = __commonJS((exports, module) => {
   } else {}
 });
 
+// src/studio/editorAPIHandler.ts
+function simplifyEditorResponse(editorResponse) {
+  return {
+    ...editorResponse
+  };
+}
+async function handleApiCall(apiCall, ...args) {
+  const result = await Result2.try(async () => simplifyEditorResponse(await apiCall(...args)));
+  console.log("handleApiCall result", result);
+  return result.map((res) => {
+    if (res.success) {
+      const data = res.data;
+      if (data != null) {
+        if (data === "") {
+          return Result2.ok(undefined);
+        }
+        return Result2.try(() => JSON.parse(data));
+      }
+      return Result2.error(Error(`parsedData is null`));
+    } else {
+      return Result2.error(Error(`Studio Returned Error ${res.status}:${res.error}`));
+    }
+  });
+}
+async function getPerAssetCrop({
+  studio: studio2,
+  layoutId,
+  frameId
+}) {
+  const api2 = await studio2.editorAPI;
+  return handleApiCall(api2.getPerAssetCrop, layoutId, frameId);
+}
+async function setPerAssetCrop({
+  studio: studio2,
+  perAssetCrop,
+  layoutId,
+  frameId,
+  remoteConnectorId,
+  assetId
+}) {
+  const api2 = await studio2.editorAPI;
+  return handleApiCall(api2.setPerAssetCrop, layoutId, frameId, remoteConnectorId, assetId, JSON.stringify(perAssetCrop));
+}
+var init_editorAPIHandler = __esm(() => {
+  init_dist();
+});
+
 // src/studio-adapter/getManualCropsFromDocByConnector.ts
 var exports_getManualCropsFromDocByConnector = {};
 __export(exports_getManualCropsFromDocByConnector, {
@@ -12999,33 +13046,68 @@ async function getManualCropsFromDocByConnector(studio2, connectorId) {
       layouts: [],
       connectorId
     };
+    const cropPromises = [];
     if (documentState.layouts && Array.isArray(documentState.layouts)) {
       for (const layout of documentState.layouts) {
-        const manualCrops = [];
         if (layout.frameProperties && Array.isArray(layout.frameProperties)) {
           for (const frameProperty of layout.frameProperties) {
-            if (frameProperty.perAssetCrop && frameProperty.perAssetCrop[connectorId]) {
-              const connectorCrops = frameProperty.perAssetCrop[connectorId];
-              for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
-                const frameName = frameIdToNameMap.get(frameProperty.id) || frameProperty.id;
-                const manualCrop = {
-                  frameId: frameProperty.id,
-                  frameName,
-                  name: assetPath,
-                  top: cropData.top,
-                  left: cropData.left,
-                  width: cropData.width,
-                  height: cropData.height,
-                  rotationDegrees: cropData.rotationDegrees ?? 0,
-                  originalParentWidth: cropData.originalParentWidth ?? 283464,
-                  originalParentHeight: cropData.originalParentHeight ?? 283464
-                };
-                manualCrops.push(manualCrop);
-              }
+            if (!frameProperty.perAssetCrop || !frameProperty.perAssetCrop[connectorId]) {
+              continue;
             }
+            cropPromises.push(getPerAssetCrop({
+              studio: studio2,
+              layoutId: layout.id,
+              frameId: frameProperty.id
+            }).then((res) => ({
+              layoutId: layout.id,
+              frameId: frameProperty.id,
+              result: res
+            })));
           }
         }
-        if (manualCrops.length > 0) {
+      }
+    }
+    console.log("Waiting for crop data fetches");
+    const cropResults = await Promise.all(cropPromises);
+    console.log("Crop data fetches complete", cropResults);
+    const layoutCropsMap = new Map;
+    for (const { layoutId, frameId, result: cropResult } of cropResults) {
+      if (cropResult.isOk()) {
+        const perAssetCrop = cropResult.value?.perAssetCrop;
+        console.log(perAssetCrop);
+        console.log("connectorId", connectorId);
+        if (perAssetCrop && perAssetCrop[connectorId]) {
+          console.log("Found crops for connector");
+          const connectorCrops = perAssetCrop[connectorId];
+          const frameName = frameIdToNameMap.get(frameId) || frameId;
+          for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
+            const manualCrop = {
+              frameId,
+              frameName,
+              name: assetPath,
+              top: cropData.top,
+              left: cropData.left,
+              width: cropData.width,
+              height: cropData.height,
+              rotationDegrees: cropData.rotationDegrees ?? 0,
+              originalParentWidth: cropData.originalParentWidth ?? 283464,
+              originalParentHeight: cropData.originalParentHeight ?? 283464,
+              unit: cropData.unit
+            };
+            console.log("manualCrop", manualCrop);
+            if (!layoutCropsMap.has(layoutId)) {
+              layoutCropsMap.set(layoutId, []);
+            }
+            layoutCropsMap.get(layoutId)?.push(manualCrop);
+          }
+        }
+      }
+    }
+    console.log("Layout crops map", layoutCropsMap);
+    if (documentState.layouts && Array.isArray(documentState.layouts)) {
+      for (const layout of documentState.layouts) {
+        const manualCrops = layoutCropsMap.get(layout.id);
+        if (manualCrops && manualCrops.length > 0) {
           const layoutWithCrops = {
             id: layout.id,
             name: layout.name,
@@ -13044,6 +13126,7 @@ async function getManualCropsFromDocByConnector(studio2, connectorId) {
 var init_getManualCropsFromDocByConnector = __esm(() => {
   init_dist();
   init_documentHandler();
+  init_editorAPIHandler();
 });
 
 // node_modules/json-2-csv/lib/constants.js
@@ -75473,44 +75556,41 @@ init_getManualCropsFromDocByConnector();
 
 // src/studio-adapter/setManualCropsForLayout.ts
 init_dist();
-function setManualCropsForLayout(documentState, layoutId, connectorId, manualCrops) {
+init_editorAPIHandler();
+async function setManualCropsForLayout(studio2, layoutId, connectorId, manualCrops) {
   try {
-    const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
-    console.log("Updated document state:", updatedDocumentState);
-    const layout = updatedDocumentState.layouts?.find((l2) => l2.id === layoutId);
-    if (!layout) {
-      return Result2.error(new Error(`Layout with ID ${layoutId} not found`));
-    }
-    if (!layout.frameProperties) {
-      layout.frameProperties = [];
-    }
     for (const manualCrop of manualCrops) {
-      let frameProperty = layout.frameProperties.find((fp) => fp.id === manualCrop.frameId);
-      if (!frameProperty) {
-        frameProperty = {
-          id: manualCrop.frameId,
-          type: "child",
-          perAssetCrop: {}
-        };
-        layout.frameProperties.push(frameProperty);
-      }
-      if (!frameProperty.perAssetCrop) {
-        frameProperty.perAssetCrop = {};
-      }
-      if (!frameProperty.perAssetCrop[connectorId]) {
-        frameProperty.perAssetCrop[connectorId] = {};
-      }
-      frameProperty.perAssetCrop[connectorId][manualCrop.name] = {
+      const perAssetCrop = {
         left: manualCrop.left,
         top: manualCrop.top,
         width: manualCrop.width,
         height: manualCrop.height,
         rotationDegrees: manualCrop.rotationDegrees,
         originalParentWidth: manualCrop.originalParentWidth,
-        originalParentHeight: manualCrop.originalParentHeight
+        originalParentHeight: manualCrop.originalParentHeight,
+        unit: manualCrop.unit
       };
+      console.log("setPerAssetCrop params:", {
+        perAssetCrop,
+        layoutId,
+        frameId: manualCrop.frameId,
+        remoteConnectorId: connectorId,
+        assetId: manualCrop.name
+      });
+      const result = await setPerAssetCrop({
+        studio: studio2,
+        perAssetCrop,
+        layoutId,
+        frameId: manualCrop.frameId,
+        remoteConnectorId: connectorId,
+        assetId: manualCrop.name
+      });
+      console.log("setPerAssetCrop result", result);
+      if (result.isError()) {
+        return Result2.error(result.error ?? new Error(`Failed to set per-asset crop for frame ${manualCrop.frameId} and asset ${manualCrop.name}`));
+      }
     }
-    return Result2.ok(updatedDocumentState);
+    return Result2.ok(undefined);
   } catch (error46) {
     return Result2.error(error46 instanceof Error ? error46 : new Error("Failed to set manual crops for layout"));
   }
@@ -76200,7 +76280,9 @@ function CropRow({
   isChecked,
   onCheckChange,
   isDeleted,
-  isCopySource
+  isCopySource,
+  showOriginalDimensions,
+  showUnit
 }) {
   const [localCrop, setLocalCrop] = import_react284.useState(crop);
   import_react284.useEffect(() => {
@@ -76295,6 +76377,29 @@ function CropRow({
           type: "text",
           inputMode: "decimal"
         })
+      }),
+      showOriginalDimensions && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+        children: [
+          /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+            children: /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+              size: "sm",
+              children: localCrop.originalParentWidth
+            })
+          }),
+          /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+            children: /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+              size: "sm",
+              children: localCrop.originalParentHeight
+            })
+          })
+        ]
+      }),
+      showUnit && /* @__PURE__ */ jsx_runtime36.jsx(Table.Td, {
+        children: /* @__PURE__ */ jsx_runtime36.jsx(Text, {
+          size: "sm",
+          c: "dimmed",
+          children: localCrop.unit
+        })
       })
     ]
   });
@@ -76325,6 +76430,10 @@ function ManualCropEditor({
   const [isCopyMode, setIsCopyMode] = import_react284.useState(false);
   const [copySourceRowKey, setCopySourceRowKey] = import_react284.useState(null);
   const [isPasteEnabled, setIsPasteEnabled] = import_react284.useState(false);
+  const [includeOriginalDimensions, setIncludeOriginalDimensions] = import_react284.useState(false);
+  const [settingsDrawerOpened, setSettingsDrawerOpened] = import_react284.useState(false);
+  const [showOriginalDimensions, setShowOriginalDimensions] = import_react284.useState(false);
+  const [showUnit, setShowUnit] = import_react284.useState(false);
   const loadCropsForSelectedLayouts = import_react284.useCallback(async () => {
     if (!selectedConnectorId)
       return;
@@ -76367,6 +76476,33 @@ function ManualCropEditor({
       setIsLoading(false);
     }
   }, [selectedConnectorId, selectedLayoutIds, raiseError2]);
+  import_react284.useEffect(() => {
+    const saved = sessionStorage.getItem("tempManualCropEditor_includeOriginalDimensions");
+    if (saved !== null) {
+      setIncludeOriginalDimensions(saved === "true");
+    }
+  }, []);
+  import_react284.useEffect(() => {
+    sessionStorage.setItem("tempManualCropEditor_includeOriginalDimensions", includeOriginalDimensions.toString());
+  }, [includeOriginalDimensions]);
+  import_react284.useEffect(() => {
+    const saved = sessionStorage.getItem("tempManualCropEditor_showOriginalDimensions");
+    if (saved !== null) {
+      setShowOriginalDimensions(saved === "true");
+    }
+  }, []);
+  import_react284.useEffect(() => {
+    sessionStorage.setItem("tempManualCropEditor_showOriginalDimensions", showOriginalDimensions.toString());
+  }, [showOriginalDimensions]);
+  import_react284.useEffect(() => {
+    const saved = sessionStorage.getItem("tempManualCropEditor_showUnit");
+    if (saved !== null) {
+      setShowUnit(saved === "true");
+    }
+  }, []);
+  import_react284.useEffect(() => {
+    sessionStorage.setItem("tempManualCropEditor_showUnit", showUnit.toString());
+  }, [showUnit]);
   import_react284.useEffect(() => {
     if (selectedConnectorId && selectedLayoutIds.length > 0) {
       loadCropsForSelectedLayouts();
@@ -76538,7 +76674,11 @@ function ManualCropEditor({
             left: clipboardCrop.left,
             top: clipboardCrop.top,
             width: clipboardCrop.width,
-            height: clipboardCrop.height
+            height: clipboardCrop.height,
+            ...includeOriginalDimensions && {
+              originalParentHeight: clipboardCrop.originalParentHeight,
+              originalParentWidth: clipboardCrop.originalParentWidth
+            }
           };
           newMap.set(rowKey, updatedCrop);
         }
@@ -76553,7 +76693,8 @@ function ManualCropEditor({
     checkedRows,
     copySourceRowKey,
     layoutCrops,
-    handleCancelCopy
+    handleCancelCopy,
+    includeOriginalDimensions
   ]);
   const selectAllRowsForLayout = import_react284.useCallback((layoutId) => {
     const layoutCrop = layoutCrops.get(layoutId);
@@ -76839,7 +76980,34 @@ function ManualCropEditor({
           layoutDeletes.get(layoutId).add(cropIndex);
         }
       });
+      layoutChanges.forEach((changes, layoutId) => {
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (!layoutCrop)
+          return;
+        const originalLayout = originalDocumentState2.layouts.find((l2) => l2.id === layoutId);
+        let originalCropCount = 0;
+        if (originalLayout && originalLayout.frameProperties) {
+          originalLayout.frameProperties.forEach((frameProp) => {
+            if (frameProp.perAssetCrop && frameProp.perAssetCrop[selectedConnectorId]) {
+              const cropsForFrame = frameProp.perAssetCrop[selectedConnectorId];
+              originalCropCount += Object.keys(cropsForFrame).length;
+            }
+          });
+        }
+        changes.forEach((newCrop, index6) => {
+          if (index6 < originalCropCount) {
+            const originalCrop = layoutCrop.crops[index6];
+            if (originalCrop.name !== newCrop.name) {
+              if (!layoutDeletes.has(layoutId)) {
+                layoutDeletes.set(layoutId, new Set);
+              }
+              layoutDeletes.get(layoutId).add(index6);
+            }
+          }
+        });
+      });
       let currentDocumentState = originalDocumentState2;
+      let hasDeletions = false;
       for (const [layoutId, deleteIndices] of layoutDeletes) {
         if (deleteIndices.size > 0) {
           const layoutCrop = layoutCrops.get(layoutId);
@@ -76848,6 +77016,8 @@ function ManualCropEditor({
             return;
           }
           for (const cropIndex of deleteIndices) {
+            if (cropIndex >= layoutCrop.crops.length)
+              continue;
             const crop = layoutCrop.crops[cropIndex];
             if (!crop) {
               raiseError2(new Error(`Crop at index ${cropIndex} not found in layout ${layoutId}`));
@@ -76867,33 +77037,14 @@ function ManualCropEditor({
               return;
             }
             currentDocumentState = result.value;
+            hasDeletions = true;
           }
         }
       }
-      for (const [layoutId, cropChanges] of layoutChanges) {
-        const layoutCrop = layoutCrops.get(layoutId);
-        if (!layoutCrop)
-          continue;
-        const updatedCrops = layoutCrop.crops.map((crop, index6) => {
-          const changedCrop = cropChanges.get(index6);
-          return changedCrop || crop;
-        });
-        const manualCrops = updatedCrops.map((crop) => ({
-          frameId: crop.frameId,
-          frameName: crop.frameName,
-          name: crop.name,
-          left: crop.left,
-          top: crop.top,
-          width: crop.width,
-          height: crop.height,
-          rotationDegrees: crop.rotationDegrees,
-          originalParentWidth: crop.originalParentWidth,
-          originalParentHeight: crop.originalParentHeight
-        }));
-        console.log("Current document state:", currentDocumentState);
-        const result = setManualCropsForLayout(currentDocumentState, layoutId, selectedConnectorId, manualCrops);
-        if (result.isError()) {
-          raiseError2(new Error("Failed to set manual crops: " + result.error?.message));
+      if (hasDeletions) {
+        const applyDeleteResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(currentDocumentState));
+        if (applyDeleteResult.isError()) {
+          raiseError2(new Error("Failed to apply manual crop deletions: " + applyDeleteResult.error?.message));
           setSaveState("error");
           setSaveMessage("Error reverting changes...");
           if (originalDocumentState2) {
@@ -76904,20 +77055,60 @@ function ManualCropEditor({
           }
           return;
         }
-        currentDocumentState = result.value;
       }
-      const finalResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(currentDocumentState));
-      if (finalResult.isError()) {
-        raiseError2(new Error("Failed to load final document state: " + finalResult.error?.message));
-        setSaveState("error");
-        setSaveMessage("Error reverting changes...");
-        if (originalDocumentState2) {
-          const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
-          if (revertResult.isError()) {
-            raiseError2(new Error("Failed to revert changes after error"));
+      const affectedLayoutIds = new Set([
+        ...layoutChanges.keys(),
+        ...layoutDeletes.keys()
+      ]);
+      for (const layoutId of affectedLayoutIds) {
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (!layoutCrop)
+          continue;
+        const cropChanges = layoutChanges.get(layoutId);
+        const deleteIndices = layoutDeletes.get(layoutId);
+        const updatedCrops = layoutCrop.crops.map((crop, index6) => {
+          const changedCrop = cropChanges?.get(index6);
+          if (changedCrop)
+            return changedCrop;
+          if (deleteIndices?.has(index6)) {
+            return null;
+          }
+          return crop;
+        }).filter((c2) => c2 !== null);
+        if (cropChanges) {
+          const newIndices = Array.from(cropChanges.keys()).filter((index6) => index6 >= layoutCrop.crops.length).sort((a2, b) => a2 - b);
+          for (const index6 of newIndices) {
+            updatedCrops.push(cropChanges.get(index6));
           }
         }
-        return;
+        if (updatedCrops.length > 0) {
+          const manualCrops = updatedCrops.map((crop) => ({
+            frameId: crop.frameId,
+            frameName: crop.frameName,
+            name: crop.name,
+            left: crop.left,
+            top: crop.top,
+            width: crop.width,
+            height: crop.height,
+            rotationDegrees: crop.rotationDegrees,
+            originalParentWidth: crop.originalParentWidth,
+            originalParentHeight: crop.originalParentHeight,
+            unit: crop.unit
+          }));
+          const result = await setManualCropsForLayout(studio2, layoutId, selectedConnectorId, manualCrops);
+          if (result.isError()) {
+            raiseError2(new Error("Failed to set manual crops: " + result.error?.message));
+            setSaveState("error");
+            setSaveMessage("Error reverting changes...");
+            if (originalDocumentState2) {
+              const revertResult = await loadDocumentFromJsonStr(studio2, JSON.stringify(originalDocumentState2));
+              if (revertResult.isError()) {
+                raiseError2(new Error("Failed to revert changes after error"));
+              }
+            }
+            return;
+          }
+        }
       }
       setSaveState("success");
       setSaveMessage("Changes Saved!");
@@ -77008,42 +77199,87 @@ function ManualCropEditor({
   return /* @__PURE__ */ jsx_runtime36.jsxs(Box, {
     style: { height: "100%", display: "flex", flexDirection: "column" },
     children: [
+      /* @__PURE__ */ jsx_runtime36.jsx(Drawer, {
+        opened: settingsDrawerOpened,
+        onClose: () => setSettingsDrawerOpened(false),
+        position: "left",
+        title: "Editor Settings",
+        padding: "md",
+        children: /* @__PURE__ */ jsx_runtime36.jsxs(Stack, {
+          gap: "md",
+          children: [
+            /* @__PURE__ */ jsx_runtime36.jsx(Switch, {
+              label: "Show Original Dimensions",
+              checked: showOriginalDimensions,
+              onChange: (event) => setShowOriginalDimensions(event.currentTarget.checked)
+            }),
+            /* @__PURE__ */ jsx_runtime36.jsx(Switch, {
+              label: "Show Unit column",
+              checked: showUnit,
+              onChange: (event) => setShowUnit(event.currentTarget.checked)
+            })
+          ]
+        })
+      }),
       /* @__PURE__ */ jsx_runtime36.jsx(Box, {
         p: "md",
         style: { borderBottom: "1px solid var(--mantine-color-gray-3)" },
         children: /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
-          justify: "flex-end",
+          justify: "space-between",
           align: "center",
           children: [
-            isCopyMode && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+            /* @__PURE__ */ jsx_runtime36.jsx(Tooltip, {
+              label: "Editor Settings",
+              position: "right",
+              withArrow: true,
+              children: /* @__PURE__ */ jsx_runtime36.jsx(ActionIcon, {
+                onClick: () => setSettingsDrawerOpened(true),
+                variant: "subtle",
+                size: "lg",
+                children: /* @__PURE__ */ jsx_runtime36.jsx(IconSettings, {
+                  size: 20
+                })
+              })
+            }),
+            /* @__PURE__ */ jsx_runtime36.jsxs(Group, {
+              gap: "xs",
               children: [
-                /* @__PURE__ */ jsx_runtime36.jsx(Button, {
-                  onClick: handleCancelCopy,
-                  color: "gray",
-                  size: "sm",
-                  leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconX, {
-                    size: 16
-                  }),
-                  children: "Cancel Paste"
+                isCopyMode && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+                  children: [
+                    /* @__PURE__ */ jsx_runtime36.jsx(Checkbox, {
+                      label: "Include Original Image Dimensions",
+                      checked: includeOriginalDimensions,
+                      onChange: (event) => setIncludeOriginalDimensions(event.currentTarget.checked)
+                    }),
+                    /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                      onClick: handleCancelCopy,
+                      color: "gray",
+                      size: "sm",
+                      leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconX, {
+                        size: 16
+                      }),
+                      children: "Cancel Paste"
+                    }),
+                    /* @__PURE__ */ jsx_runtime36.jsx(Button, {
+                      onClick: handlePasteFromClipboard,
+                      disabled: !isPasteEnabled,
+                      color: "blue",
+                      size: "sm",
+                      leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconClipboardFilled, {
+                        size: 16
+                      }),
+                      children: "Paste from clipboard"
+                    })
+                  ]
                 }),
                 /* @__PURE__ */ jsx_runtime36.jsx(Button, {
-                  onClick: handlePasteFromClipboard,
-                  disabled: !isPasteEnabled,
+                  onClick: saveCropChanges,
+                  disabled: changedRows.size === 0,
                   color: "blue",
                   size: "sm",
-                  leftSection: /* @__PURE__ */ jsx_runtime36.jsx(IconClipboardFilled, {
-                    size: 16
-                  }),
-                  children: "Paste from clipboard"
+                  children: "Save Crop Changes"
                 })
               ]
-            }),
-            /* @__PURE__ */ jsx_runtime36.jsx(Button, {
-              onClick: saveCropChanges,
-              disabled: changedRows.size === 0,
-              color: "blue",
-              size: "sm",
-              children: "Save Crop Changes"
             })
           ]
         })
@@ -77244,6 +77480,19 @@ function ManualCropEditor({
                             }),
                             /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
                               children: "Height"
+                            }),
+                            showOriginalDimensions && /* @__PURE__ */ jsx_runtime36.jsxs(jsx_runtime36.Fragment, {
+                              children: [
+                                /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
+                                  children: "Original Width"
+                                }),
+                                /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
+                                  children: "Original Height"
+                                })
+                              ]
+                            }),
+                            showUnit && /* @__PURE__ */ jsx_runtime36.jsx(Table.Th, {
+                              children: "Unit"
                             })
                           ]
                         })
@@ -77262,7 +77511,9 @@ function ManualCropEditor({
                             isChecked: checkedRows.has(rowKey),
                             onCheckChange: handleCheckChange,
                             isDeleted: !!isDeleted,
-                            isCopySource: copySourceRowKey === rowKey
+                            isCopySource: copySourceRowKey === rowKey,
+                            showOriginalDimensions,
+                            showUnit
                           }, `${crop.frameId}-${crop.name}`);
                         })
                       })
@@ -80752,4 +81003,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=11B8B48A3BFFF48564756E2164756E21
+//# debugId=378493B9D5A417F464756E2164756E21
