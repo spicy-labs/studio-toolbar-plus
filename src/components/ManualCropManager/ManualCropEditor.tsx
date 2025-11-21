@@ -189,6 +189,11 @@ function CropRow({
           inputMode="decimal"
         />
       </Table.Td>
+      <Table.Td>
+        <Text size="sm" c="dimmed">
+          {localCrop.unit}
+        </Text>
+      </Table.Td>
     </Table.Tr>
   );
 }
@@ -1174,6 +1179,7 @@ export function ManualCropEditor({
           rotationDegrees: crop.rotationDegrees,
           originalParentWidth: crop.originalParentWidth,
           originalParentHeight: crop.originalParentHeight,
+          unit: crop.unit,
         }));
 
         const result = await setManualCropsForLayout(
@@ -1562,6 +1568,7 @@ export function ManualCropEditor({
                             <Table.Th>Top</Table.Th>
                             <Table.Th>Width</Table.Th>
                             <Table.Th>Height</Table.Th>
+                            <Table.Th>Unit</Table.Th>
                           </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>

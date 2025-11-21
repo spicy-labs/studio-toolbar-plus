@@ -146,6 +146,7 @@ export async function getManualCropsFromDocByConnector(
               rotationDegrees: cropData.rotationDegrees ?? 0,
               originalParentWidth: cropData.originalParentWidth ?? 283464,
               originalParentHeight: cropData.originalParentHeight ?? 283464,
+              unit: cropData.unit,
             };
 
             console.log("manualCrop", manualCrop);
