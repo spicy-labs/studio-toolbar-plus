@@ -15,6 +15,8 @@ import {
   Checkbox,
   ActionIcon,
   Tooltip,
+  Drawer,
+  Switch,
 } from "@mantine/core";
 import {
   IconTrash,
@@ -26,6 +28,7 @@ import {
   IconClipboard,
   IconClipboardFilled,
   IconX,
+  IconSettings,
 } from "@tabler/icons-react";
 import { appStore } from "../../modalStore";
 import { getStudio } from "../../studio/studioAdapter";
@@ -72,6 +75,7 @@ interface CropRowProps {
   ) => void;
   isDeleted: boolean;
   isCopySource: boolean;
+  showOriginalDimensions: boolean;
 }
 
 function CropRow({
@@ -83,6 +87,7 @@ function CropRow({
   onCheckChange,
   isDeleted,
   isCopySource,
+  showOriginalDimensions,
 }: CropRowProps) {
   const [localCrop, setLocalCrop] = useState<ManualCrop>(crop);
 
@@ -189,6 +194,16 @@ function CropRow({
           inputMode="decimal"
         />
       </Table.Td>
+      {showOriginalDimensions && (
+        <>
+          <Table.Td>
+            <Text size="sm">{localCrop.originalParentWidth}</Text>
+          </Table.Td>
+          <Table.Td>
+            <Text size="sm">{localCrop.originalParentHeight}</Text>
+          </Table.Td>
+        </>
+      )}
       <Table.Td>
         <Text size="sm" c="dimmed">
           {localCrop.unit}
@@ -248,6 +263,12 @@ export function ManualCropEditor({
   const [isCopyMode, setIsCopyMode] = useState(false);
   const [copySourceRowKey, setCopySourceRowKey] = useState<string | null>(null);
   const [isPasteEnabled, setIsPasteEnabled] = useState(false);
+  const [includeOriginalDimensions, setIncludeOriginalDimensions] =
+    useState(false);
+
+  // Settings drawer state
+  const [settingsDrawerOpened, setSettingsDrawerOpened] = useState(false);
+  const [showOriginalDimensions, setShowOriginalDimensions] = useState(false);
 
   const loadCropsForSelectedLayouts = useCallback(async () => {
     if (!selectedConnectorId) return;
@@ -318,6 +339,42 @@ export function ManualCropEditor({
       setIsLoading(false);
     }
   }, [selectedConnectorId, selectedLayoutIds, raiseError]);
+
+  // Load checkbox state from sessionStorage on component mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem(
+      "tempManualCropEditor_includeOriginalDimensions",
+    );
+    if (saved !== null) {
+      setIncludeOriginalDimensions(saved === "true");
+    }
+  }, []);
+
+  // Save checkbox state to sessionStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem(
+      "tempManualCropEditor_includeOriginalDimensions",
+      includeOriginalDimensions.toString(),
+    );
+  }, [includeOriginalDimensions]);
+
+  // Load showOriginalDimensions from sessionStorage on component mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem(
+      "tempManualCropEditor_showOriginalDimensions",
+    );
+    if (saved !== null) {
+      setShowOriginalDimensions(saved === "true");
+    }
+  }, []);
+
+  // Save showOriginalDimensions to sessionStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem(
+      "tempManualCropEditor_showOriginalDimensions",
+      showOriginalDimensions.toString(),
+    );
+  }, [showOriginalDimensions]);
 
   // Load crops when connector or selected layouts change
   useEffect(() => {
@@ -580,6 +637,11 @@ export function ManualCropEditor({
             top: clipboardCrop.top,
             width: clipboardCrop.width,
             height: clipboardCrop.height,
+            // Conditionally include original dimensions if checkbox is checked
+            ...(includeOriginalDimensions && {
+              originalParentHeight: clipboardCrop.originalParentHeight,
+              originalParentWidth: clipboardCrop.originalParentWidth,
+            }),
           };
 
           newMap.set(rowKey, updatedCrop);
@@ -599,6 +661,7 @@ export function ManualCropEditor({
     copySourceRowKey,
     layoutCrops,
     handleCancelCopy,
+    includeOriginalDimensions,
   ]);
 
   // Select all crops for a specific layout
@@ -1311,14 +1374,50 @@ export function ManualCropEditor({
 
   return (
     <Box style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      {/* Settings Drawer */}
+      <Drawer
+        opened={settingsDrawerOpened}
+        onClose={() => setSettingsDrawerOpened(false)}
+        position="left"
+        title="Editor Settings"
+        padding="md"
+      >
+        <Stack gap="md">
+          <Switch
+            label="Show Original Dimensions"
+            checked={showOriginalDimensions}
+            onChange={(event) =>
+              setShowOriginalDimensions(event.currentTarget.checked)
+            }
+          />
+        </Stack>
+      </Drawer>
+
       {/* Header */}
       <Box
         p="md"
         style={{ borderBottom: "1px solid var(--mantine-color-gray-3)" }}
       >
-        <Group justify="flex-end" align="center">
+        <Group justify="space-between" align="center">
+          <Tooltip label="Editor Settings" position="right" withArrow>
+            <ActionIcon
+              onClick={() => setSettingsDrawerOpened(true)}
+              variant="subtle"
+              size="lg"
+            >
+              <IconSettings size={20} />
+            </ActionIcon>
+          </Tooltip>
+          <Group gap="xs">
           {isCopyMode && (
             <>
+              <Checkbox
+                label="Include Original Image Dimensions"
+                checked={includeOriginalDimensions}
+                onChange={(event) =>
+                  setIncludeOriginalDimensions(event.currentTarget.checked)
+                }
+              />
               <Button
                 onClick={handleCancelCopy}
                 color="gray"
@@ -1346,6 +1445,7 @@ export function ManualCropEditor({
           >
             Save Crop Changes
           </Button>
+          </Group>
         </Group>
       </Box>
 
@@ -1568,6 +1668,12 @@ export function ManualCropEditor({
                             <Table.Th>Top</Table.Th>
                             <Table.Th>Width</Table.Th>
                             <Table.Th>Height</Table.Th>
+                            {showOriginalDimensions && (
+                              <>
+                                <Table.Th>Original Width</Table.Th>
+                                <Table.Th>Original Height</Table.Th>
+                              </>
+                            )}
                             <Table.Th>Unit</Table.Th>
                           </Table.Tr>
                         </Table.Thead>
@@ -1597,6 +1703,7 @@ export function ManualCropEditor({
                                 onCheckChange={handleCheckChange}
                                 isDeleted={!!isDeleted}
                                 isCopySource={copySourceRowKey === rowKey}
+                                showOriginalDimensions={showOriginalDimensions}
                               />
                             );
                           })}
