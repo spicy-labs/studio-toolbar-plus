@@ -273,7 +273,7 @@ export function ManualCropEditor({
   // Settings drawer state
   const [settingsDrawerOpened, setSettingsDrawerOpened] = useState(false);
   const [showOriginalDimensions, setShowOriginalDimensions] = useState(false);
-  const [showUnit, setShowUnit] = useState<boolean>(true);
+  const [showUnit, setShowUnit] = useState<boolean>(false);
 
   const loadCropsForSelectedLayouts = useCallback(async () => {
     if (!selectedConnectorId) return;
@@ -1147,6 +1147,50 @@ export function ManualCropEditor({
         }
       });
 
+      // Detect implicit deletes caused by renaming assets
+      // If a crop is renamed, we must delete the old asset name and set the new one
+      layoutChanges.forEach((changes, layoutId) => {
+        const layoutCrop = layoutCrops.get(layoutId);
+        if (!layoutCrop) return;
+        // Find the original layout to determine the number of existing crops
+        const originalLayout = originalDocumentState.layouts.find(
+          (l: any) => l.id === layoutId,
+        );
+        let originalCropCount = 0;
+
+        if (originalLayout && originalLayout.frameProperties) {
+          // Count crops exactly as they are flattened: iterate frames, then assets
+          originalLayout.frameProperties.forEach((frameProp: any) => {
+            if (
+              frameProp.perAssetCrop &&
+              frameProp.perAssetCrop[selectedConnectorId]
+            ) {
+              const cropsForFrame = frameProp.perAssetCrop[selectedConnectorId];
+              originalCropCount += Object.keys(cropsForFrame).length;
+            }
+          });
+        }
+
+        changes.forEach((newCrop, index) => {
+          // Only check crops that existed in the original document
+          // New crops (index >= originalCropCount) are not on the server yet,
+          // so they don't need to be "deleted" if renamed.
+          if (index < originalCropCount) {
+            // We can safely use layoutCrop.crops[index] because the first N items
+            // of layoutCrop.crops correspond to the original items (assuming no reordering).
+            // Even if we added items, they are appended.
+            const originalCrop = layoutCrop.crops[index];
+            if (originalCrop.name !== newCrop.name) {
+              // Name changed, mark original for deletion
+              if (!layoutDeletes.has(layoutId)) {
+                layoutDeletes.set(layoutId, new Set());
+              }
+              layoutDeletes.get(layoutId)!.add(index);
+            }
+          }
+        });
+      });
+
       // Start with the original document state and apply changes sequentially
       let currentDocumentState = originalDocumentState;
       let hasDeletions = false;
@@ -1164,6 +1208,9 @@ export function ManualCropEditor({
 
           // Delete each individual crop using the granular function
           for (const cropIndex of deleteIndices) {
+            // Skip if this is a newly added crop that was then deleted (index out of bounds)
+            if (cropIndex >= layoutCrop.crops.length) continue;
+
             const crop = layoutCrop.crops[cropIndex];
             if (!crop) {
               raiseError(
@@ -1241,56 +1288,84 @@ export function ManualCropEditor({
         }
       }
 
-      // Then, handle updates for each affected layout via the editor API
-      for (const [layoutId, cropChanges] of layoutChanges) {
+      // We need to process all layouts that have EITHER changes OR deletions
+      // because a deletion might require us to re-set the remaining crops (if we were using the full set method)
+      // But here we use setManualCropsForLayout which iterates and sets individual crops.
+      // However, we need to make sure we don't "set" the deleted crops back.
+      const affectedLayoutIds = new Set([
+        ...layoutChanges.keys(),
+        ...layoutDeletes.keys(),
+      ]);
+      for (const layoutId of affectedLayoutIds) {
         const layoutCrop = layoutCrops.get(layoutId);
         if (!layoutCrop) continue;
+        const cropChanges = layoutChanges.get(layoutId);
+        const deleteIndices = layoutDeletes.get(layoutId);
 
-        // Create updated crops array with changes applied
-        const updatedCrops = layoutCrop.crops.map((crop, index) => {
-          const changedCrop = cropChanges.get(index);
-          return changedCrop || crop;
-        });
-
-        const manualCrops = updatedCrops.map((crop) => ({
-          frameId: crop.frameId,
-          frameName: crop.frameName,
-          name: crop.name,
-          left: crop.left,
-          top: crop.top,
-          width: crop.width,
-          height: crop.height,
-          rotationDegrees: crop.rotationDegrees,
-          originalParentWidth: crop.originalParentWidth,
-          originalParentHeight: crop.originalParentHeight,
-          unit: crop.unit,
-        }));
-
-        const result = await setManualCropsForLayout(
-          studio,
-          layoutId,
-          selectedConnectorId,
-          manualCrops,
-        );
-
-        if (result.isError()) {
-          raiseError(
-            new Error("Failed to set manual crops: " + result.error?.message),
-          );
-          // Error occurred, revert changes
-          setSaveState("error");
-          setSaveMessage("Error reverting changes...");
-
-          if (originalDocumentState) {
-            const revertResult = await loadDocumentFromJsonStr(
-              studio,
-              JSON.stringify(originalDocumentState),
-            );
-            if (revertResult.isError()) {
-              raiseError(new Error("Failed to revert changes after error"));
+        // 1. Process existing crops: Apply updates or filter out deletions
+        const updatedCrops = layoutCrop.crops
+          .map((crop, index) => {
+            const changedCrop = cropChanges?.get(index);
+            // If we have a change (Update or Rename), use it
+            if (changedCrop) return changedCrop;
+            // If no change, check if it was deleted
+            if (deleteIndices?.has(index)) {
+              return null;
             }
+            // Otherwise keep original
+            return crop;
+          })
+          .filter((c): c is ManualCrop => c !== null);
+
+        // 2. Append newly added crops (indices >= original length)
+        if (cropChanges) {
+          const newIndices = Array.from(cropChanges.keys())
+            .filter((index) => index >= layoutCrop.crops.length)
+            .sort((a, b) => a - b);
+          for (const index of newIndices) {
+            updatedCrops.push(cropChanges.get(index)!);
           }
-          return;
+        }
+        // Only call setManualCropsForLayout if we have crops to set
+        // (Though even if empty, we might want to ensure state is clean, but setManualCropsForLayout iterates so it would do nothing)
+        if (updatedCrops.length > 0) {
+          const manualCrops = updatedCrops.map((crop) => ({
+            frameId: crop.frameId,
+            frameName: crop.frameName,
+            name: crop.name,
+            left: crop.left,
+            top: crop.top,
+            width: crop.width,
+            height: crop.height,
+            rotationDegrees: crop.rotationDegrees,
+            originalParentWidth: crop.originalParentWidth,
+            originalParentHeight: crop.originalParentHeight,
+            unit: crop.unit,
+          }));
+          const result = await setManualCropsForLayout(
+            studio,
+            layoutId,
+            selectedConnectorId,
+            manualCrops,
+          );
+          if (result.isError()) {
+            raiseError(
+              new Error("Failed to set manual crops: " + result.error?.message),
+            );
+            // Error occurred, revert changes
+            setSaveState("error");
+            setSaveMessage("Error reverting changes...");
+            if (originalDocumentState) {
+              const revertResult = await loadDocumentFromJsonStr(
+                studio,
+                JSON.stringify(originalDocumentState),
+              );
+              if (revertResult.isError()) {
+                raiseError(new Error("Failed to revert changes after error"));
+              }
+            }
+            return;
+          }
         }
       }
 
