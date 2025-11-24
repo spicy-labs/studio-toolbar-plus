@@ -29,7 +29,8 @@ interface CompressionReport {
   magicLayoutsRemoved: number;
   magicLayoutNames: string[];
   privateDataCleared: boolean;
-  fileSizeDeltaKB: number;
+  initialSizeKB: number;
+  finalSizeKB: number;
 }
 
 export function CompressModal({ opened, onClose }: CompressModalProps) {
@@ -70,7 +71,7 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
         raiseError(
           new Error(
             "Failed to get initial document state: " +
-              initialDocStateResult.error?.message
+            initialDocStateResult.error?.message
           )
         );
         return;
@@ -124,7 +125,7 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
         raiseError(
           new Error(
             "Failed to clear private data: " +
-              setPrivateDataResult.error?.message
+            setPrivateDataResult.error?.message
           )
         );
         return;
@@ -136,7 +137,7 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
         raiseError(
           new Error(
             "Failed to get final document state: " +
-              finalDocStateResult.error?.message
+            finalDocStateResult.error?.message
           )
         );
         return;
@@ -146,14 +147,15 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
       const finalBlob = new Blob([finalDocJson], { type: "application/json" });
       const finalSizeKB = finalBlob.size / 1024;
 
-      const fileSizeDeltaKB = initialSizeKB - finalSizeKB;
+
 
       // 6. Create compression report
       setCompressionReport({
         magicLayoutsRemoved: magicLayouts.length,
         magicLayoutNames: deletedLayoutNames,
         privateDataCleared: true,
-        fileSizeDeltaKB,
+        initialSizeKB,
+        finalSizeKB,
       });
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -283,10 +285,18 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
                   </List.Item>
                   <List.Item>
                     <Text>
-                      <strong>File size decreased by:</strong>{" "}
-                      {compressionReport.fileSizeDeltaKB > 1000
-                        ? `${(compressionReport.fileSizeDeltaKB / 1024).toFixed(2)} MB`
-                        : `${compressionReport.fileSizeDeltaKB.toFixed(2)} KB`}
+                      <strong>Before Size:</strong>{" "}
+                      {compressionReport.initialSizeKB > 1000
+                        ? `${(compressionReport.initialSizeKB / 1024).toFixed(2)} MB`
+                        : `${compressionReport.initialSizeKB.toFixed(2)} KB`}
+                    </Text>
+                  </List.Item>
+                  <List.Item>
+                    <Text>
+                      <strong>After Size:</strong>{" "}
+                      {compressionReport.finalSizeKB > 1000
+                        ? `${(compressionReport.finalSizeKB / 1024).toFixed(2)} MB`
+                        : `${compressionReport.finalSizeKB.toFixed(2)} KB`}
                     </Text>
                   </List.Item>
                 </List>

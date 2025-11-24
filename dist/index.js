@@ -78695,12 +78695,12 @@ function CompressModal({ opened, onClose }) {
       const finalDocJson = JSON.stringify(finalDocStateResult.value);
       const finalBlob = new Blob([finalDocJson], { type: "application/json" });
       const finalSizeKB = finalBlob.size / 1024;
-      const fileSizeDeltaKB = initialSizeKB - finalSizeKB;
       setCompressionReport({
         magicLayoutsRemoved: magicLayouts.length,
         magicLayoutNames: deletedLayoutNames,
         privateDataCleared: true,
-        fileSizeDeltaKB
+        initialSizeKB,
+        finalSizeKB
       });
     } catch (error46) {
       raiseError2(error46 instanceof Error ? error46 : new Error(String(error46)));
@@ -78823,10 +78823,21 @@ function CompressModal({ opened, onClose }) {
                           children: /* @__PURE__ */ jsx_runtime39.jsxs(Text, {
                             children: [
                               /* @__PURE__ */ jsx_runtime39.jsx("strong", {
-                                children: "File size decreased by:"
+                                children: "Before Size:"
                               }),
                               " ",
-                              compressionReport.fileSizeDeltaKB > 1000 ? `${(compressionReport.fileSizeDeltaKB / 1024).toFixed(2)} MB` : `${compressionReport.fileSizeDeltaKB.toFixed(2)} KB`
+                              compressionReport.initialSizeKB > 1000 ? `${(compressionReport.initialSizeKB / 1024).toFixed(2)} MB` : `${compressionReport.initialSizeKB.toFixed(2)} KB`
+                            ]
+                          })
+                        }),
+                        /* @__PURE__ */ jsx_runtime39.jsx(List.Item, {
+                          children: /* @__PURE__ */ jsx_runtime39.jsxs(Text, {
+                            children: [
+                              /* @__PURE__ */ jsx_runtime39.jsx("strong", {
+                                children: "After Size:"
+                              }),
+                              " ",
+                              compressionReport.finalSizeKB > 1000 ? `${(compressionReport.finalSizeKB / 1024).toFixed(2)} MB` : `${compressionReport.finalSizeKB.toFixed(2)} KB`
                             ]
                           })
                         })
@@ -81003,4 +81014,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=378493B9D5A417F464756E2164756E21
+//# debugId=5F228DB4C675DF2564756E2164756E21
