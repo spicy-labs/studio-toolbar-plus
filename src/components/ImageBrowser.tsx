@@ -889,7 +889,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
               {isFileSelectable && smartCropMode && !isSourceFile && (
                 <Checkbox
                   checked={isTargetSelected}
-                  onChange={() => handleTargetFileToggle(item.name)}
+                  onChange={() => handleTargetFileToggle(item.id)}
                   onClick={(e) => e.stopPropagation()}
                 />
               )}
@@ -1478,10 +1478,10 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         })}
 
         {files.map((file) => {
-          const isSelected = selectedFile === file.name;
-          const isSourceFile = smartCropMode && sourceFile?.id === file.name;
+          const isSelected = selectedFile === file.id;
+          const isSourceFile = smartCropMode && sourceFile?.id === file.id;
           const isTargetSelected =
-            smartCropMode && targetSelectedFiles.has(file.name);
+            smartCropMode && targetSelectedFiles.has(file.id);
 
           // In folder mode, files are not selectable
           const isFileSelectable = mode === ImageBrowserMode.FileSelection;
@@ -1520,17 +1520,17 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                 }
                 if (smartCropMode) {
                   if (!isSourceFile) {
-                    handleTargetFileToggle(file.name);
+                    handleTargetFileToggle(file.id);
                   }
                 } else {
-                  handleFileSelection(file.name);
+                  handleFileSelection(file.id);
                 }
               }}
             >
               {isFileSelectable && smartCropMode && !isSourceFile && (
                 <Checkbox
                   checked={isTargetSelected}
-                  onChange={() => handleTargetFileToggle(file.name)}
+                  onChange={() => handleTargetFileToggle(file.id)}
                   style={{
                     position: "absolute",
                     top: "8px",
