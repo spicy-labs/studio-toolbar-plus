@@ -133,7 +133,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
   );
   // Smart crop selection mode state
   const [smartCropMode, setSmartCropMode] = useState<boolean>(false);
-  const [sourceFile, setSourceFile] = useState<string | null>(null);
+  // Store the complete Media object instead of just the ID to support cross-directory copy/paste
+  const [sourceFile, setSourceFile] = useState<Media | null>(null);
   const [targetSelectedFiles, setTargetSelectedFiles] = useState<Set<string>>(
     new Set()
   );
@@ -836,7 +837,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
     if (isFile) {
       const isSelected = selectedFile === item.id;
-      const isSourceFile = smartCropMode && sourceFile === item.id;
+      const isSourceFile = smartCropMode && sourceFile?.id === item.id;
       const isTargetSelected =
         smartCropMode && targetSelectedFiles.has(item.id);
 
@@ -1000,9 +1001,13 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
   const handleEnterSmartCropMode = () => {
     if (selectedFile) {
-      setSmartCropMode(true);
-      setSourceFile(selectedFile);
-      setTargetSelectedFiles(new Set());
+      // Find the complete file object and store it to support cross-directory copy/paste
+      const fileObj = files.find((f) => f.id === selectedFile);
+      if (fileObj) {
+        setSmartCropMode(true);
+        setSourceFile(fileObj);
+        setTargetSelectedFiles(new Set());
+      }
     }
   };
 
@@ -1120,16 +1125,13 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       ).parsedData as string;
 
       // Step 1: Get vision data from source file
-      const sourceFileObj = files.find((f) => f.id === sourceFile);
-      if (!sourceFileObj) {
-        throw new Error(`Source file ${sourceFile} not found`);
-      }
-
-      const getVisionTaskId = `get-vision-${sourceFileObj.id}`;
+      // sourceFile is now the complete Media object, so we can use it directly
+      // This allows cross-directory copy/paste since we don't need to look up the file in the current directory
+      const getVisionTaskId = `get-vision-${sourceFile.id}`;
       setCopyTasks([
         {
           id: getVisionTaskId,
-          name: `Getting vision data from: ${sourceFile}`,
+          name: `Getting vision data from: ${sourceFile.name}`,
           type: "get_vision",
           status: "processing",
         },
@@ -1138,7 +1140,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       const visionResult = await getVision({
         baseUrl,
         connectorId: selectedConnectorId!,
-        asset: sourceFileObj.id,
+        asset: sourceFile.id,
         authorization: token,
       });
 
@@ -1477,7 +1479,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
         {files.map((file) => {
           const isSelected = selectedFile === file.name;
-          const isSourceFile = smartCropMode && sourceFile === file.name;
+          const isSourceFile = smartCropMode && sourceFile?.id === file.name;
           const isTargetSelected =
             smartCropMode && targetSelectedFiles.has(file.name);
 
