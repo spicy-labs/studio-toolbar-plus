@@ -70867,7 +70867,7 @@ function ImageBrowser({
     }
     if (isFile) {
       const isSelected = selectedFile === item.id;
-      const isSourceFile = smartCropMode && sourceFile === item.id;
+      const isSourceFile = smartCropMode && sourceFile?.id === item.id;
       const isTargetSelected = smartCropMode && targetSelectedFiles.has(item.id);
       const isFileSelectable = mode === 1 /* FileSelection */;
       return /* @__PURE__ */ jsx_runtime22.jsx("div", {
@@ -70902,7 +70902,7 @@ function ImageBrowser({
             children: [
               isFileSelectable && smartCropMode && !isSourceFile && /* @__PURE__ */ jsx_runtime22.jsx(Checkbox, {
                 checked: isTargetSelected,
-                onChange: () => handleTargetFileToggle(item.name),
+                onChange: () => handleTargetFileToggle(item.id),
                 onClick: (e) => e.stopPropagation()
               }),
               renderFileIcon(item),
@@ -70993,9 +70993,12 @@ function ImageBrowser({
   };
   const handleEnterSmartCropMode = () => {
     if (selectedFile) {
-      setSmartCropMode(true);
-      setSourceFile(selectedFile);
-      setTargetSelectedFiles(new Set);
+      const fileObj = files.find((f2) => f2.id === selectedFile);
+      if (fileObj) {
+        setSmartCropMode(true);
+        setSourceFile(fileObj);
+        setTargetSelectedFiles(new Set);
+      }
     }
   };
   const handleExitSmartCropMode = () => {
@@ -71078,15 +71081,11 @@ function ImageBrowser({
       }
       const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
       const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
-      const sourceFileObj = files.find((f2) => f2.id === sourceFile);
-      if (!sourceFileObj) {
-        throw new Error(`Source file ${sourceFile} not found`);
-      }
-      const getVisionTaskId = `get-vision-${sourceFileObj.id}`;
+      const getVisionTaskId = `get-vision-${sourceFile.id}`;
       setCopyTasks([
         {
           id: getVisionTaskId,
-          name: `Getting vision data from: ${sourceFile}`,
+          name: `Getting vision data from: ${sourceFile.name}`,
           type: "get_vision",
           status: "processing"
         }
@@ -71094,7 +71093,7 @@ function ImageBrowser({
       const visionResult = await getVision({
         baseUrl,
         connectorId: selectedConnectorId,
-        asset: sourceFileObj.id,
+        asset: sourceFile.id,
         authorization: token2
       });
       if (!visionResult.isOk()) {
@@ -71351,9 +71350,9 @@ function ImageBrowser({
           }, folder.id);
         }),
         files.map((file2) => {
-          const isSelected = selectedFile === file2.name;
-          const isSourceFile = smartCropMode && sourceFile === file2.name;
-          const isTargetSelected = smartCropMode && targetSelectedFiles.has(file2.name);
+          const isSelected = selectedFile === file2.id;
+          const isSourceFile = smartCropMode && sourceFile?.id === file2.id;
+          const isTargetSelected = smartCropMode && targetSelectedFiles.has(file2.id);
           const isFileSelectable = mode === 1 /* FileSelection */;
           return /* @__PURE__ */ jsx_runtime22.jsxs(Card, {
             shadow: "sm",
@@ -71373,16 +71372,16 @@ function ImageBrowser({
               }
               if (smartCropMode) {
                 if (!isSourceFile) {
-                  handleTargetFileToggle(file2.name);
+                  handleTargetFileToggle(file2.id);
                 }
               } else {
-                handleFileSelection(file2.name);
+                handleFileSelection(file2.id);
               }
             },
             children: [
               isFileSelectable && smartCropMode && !isSourceFile && /* @__PURE__ */ jsx_runtime22.jsx(Checkbox, {
                 checked: isTargetSelected,
-                onChange: () => handleTargetFileToggle(file2.name),
+                onChange: () => handleTargetFileToggle(file2.id),
                 style: {
                   position: "absolute",
                   top: "8px",
@@ -81014,4 +81013,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=5F228DB4C675DF2564756E2164756E21
+//# debugId=3FD3690C423C834E64756E2164756E21
