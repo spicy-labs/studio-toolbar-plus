@@ -753,7 +753,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       // Update pagination state
       if (queryPage.nextPageToken) {
         setHasMorePages(true);
-        setNextPageToken(queryPage.nextPageToken);
+        setNextPageToken(extractPageToken(queryPage.nextPageToken));
       } else {
         setHasMorePages(false);
         setNextPageToken("");

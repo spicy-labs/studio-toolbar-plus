@@ -7,6 +7,7 @@ import { getFontFamilies } from "../studio/fontHandler";
 import {
   queryMediaConnectorSimple,
   downloadMediaConnector,
+  extractPageToken,
 } from "../studio/mediaConnectorHandler";
 import {
   registerConnector,
@@ -1595,7 +1596,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
             // Check if there are more pages
             if (queryPage.nextPageToken) {
-              pageToken = queryPage.nextPageToken;
+              pageToken = extractPageToken(queryPage.nextPageToken);
               hasMorePages = true;
             } else {
               hasMorePages = false;
@@ -1834,7 +1835,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             folderFiles.push(...pageFiles);
 
             if (queryPage.nextPageToken) {
-              pageToken = queryPage.nextPageToken;
+              pageToken = extractPageToken(queryPage.nextPageToken);
             } else {
               hasMorePages = false;
             }
