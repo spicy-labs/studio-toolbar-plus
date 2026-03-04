@@ -35,6 +35,7 @@ import { getStudio } from "../studio/studioAdapter";
 import {
   queryMediaConnectorSimple,
   downloadMediaConnector,
+  extractPageToken,
 } from "../studio/mediaConnectorHandler";
 import {
   registerConnector,
@@ -441,8 +442,9 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       setLocalConnectorId(localId);
       setBrowserState("folderBrowsing");
 
-      // Load initial folders
-      await loadFolders(localId, selectedConnectorId, "/", "");
+      // Load initial folders — use connectorId param, not the state variable
+      // which may not have re-rendered yet after setSelectedConnectorId
+      await loadFolders(localId, connectorId, "/", "");
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
