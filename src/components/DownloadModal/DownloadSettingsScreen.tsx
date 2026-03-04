@@ -26,6 +26,7 @@ interface DownloadSettings {
   removeUnusedConnectors: boolean;
   useOriginalFontFileNames: boolean;
   addTimestamp: boolean;
+  includeSubfolders: boolean;
 }
 
 interface DownloadSettingsScreenProps {
@@ -139,6 +140,13 @@ export function DownloadSettingsScreen({
               >
                 Add folders
               </Button>
+              <Checkbox
+                label="Include subfolders"
+                checked={downloadSettings.includeSubfolders}
+                onChange={(event) =>
+                  onSettingChange("includeSubfolders", event.currentTarget.checked)
+                }
+              />
               {mediaConnectorSelection &&
                 mediaConnectorSelection.selectedFolders.length > 0 && (
                   <Stack gap="xs">

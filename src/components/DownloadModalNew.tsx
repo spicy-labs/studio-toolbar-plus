@@ -65,6 +65,7 @@ import {
   generateTimestamp,
   validateFolderName,
   getDocumentId,
+  deduplicateSelectedFolders,
 } from "./DownloadModal/utils";
 import { cornersOfRectangle } from "@dnd-kit/core/dist/utilities/algorithms/helpers";
 import { clampSubjectAreaToBounds } from "../utils/smartCrop/clampSubjectAreaToBounds";
@@ -87,6 +88,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     removeUnusedConnectors: false,
     useOriginalFontFileNames: false,
     addTimestamp: false,
+    includeSubfolders: false,
   });
   const [folderName, setFolderName] = useState<string>("");
   const [folderNameError, setFolderNameError] = useState<string>("");
@@ -431,6 +433,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       removeUnusedConnectors: false,
       useOriginalFontFileNames: false,
       addTimestamp: true,
+      includeSubfolders: false,
     };
 
     try {
@@ -438,10 +441,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       if (toolbarDataResult.isOk()) {
         const toolbarData = toolbarDataResult.value;
         if (toolbarData.defaultDownloadSettings) {
-          const { smartCropsConnectorSelection, mediaConnectorSelection, ...settings } =
+          const { smartCropsConnectorSelection, mediaConnectorSelection, includeSubfolders, ...restSettings } =
             toolbarData.defaultDownloadSettings;
           return {
-            settings,
+            settings: { ...restSettings, includeSubfolders: includeSubfolders ?? false },
             connectorSelection: smartCropsConnectorSelection || null,
             mediaConnectorSelection: mediaConnectorSelection || null,
           };
@@ -2025,6 +2028,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     studio: any,
     mediaSelection: ImageBrowserFolderSelection,
     folder: string,
+    includeSubfolders: boolean,
   ): Promise<MediaData> => {
     const mediaData: MediaData = {
       connectorId: mediaSelection.connectorId,
@@ -2050,88 +2054,173 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       // Phase 1: Query all folders and collect file lists
       const allFiles: { file: Media; folderPath: string }[] = [];
 
-      for (const folderPath of mediaSelection.selectedFolders) {
+      // Determine which folders to scan
+      const foldersToScan = includeSubfolders
+        ? deduplicateSelectedFolders(mediaSelection.selectedFolders)
+        : mediaSelection.selectedFolders;
+
+      for (const folderPath of foldersToScan) {
         const folderTaskId = `media-query-${folderPath.replace(/[^a-zA-Z0-9]/g, "-")}`;
         setTasks((prev) => [
           ...prev,
           {
             id: folderTaskId,
-            name: `Getting media files: ${folderPath}`,
+            name: includeSubfolders
+              ? `Scanning: ${folderPath}`
+              : `Getting media files: ${folderPath}`,
             type: "media_query" as const,
             status: "processing" as const,
           },
         ]);
 
         try {
-          const folderFiles: Media[] = [];
-          let pageToken = "";
-          let hasMorePages = true;
-          let pageCount = 0;
+          if (includeSubfolders) {
+            // --- BFS recursive traversal ---
+            const folderFiles: { file: Media; folderPath: string }[] = [];
+            const queue: string[] = [folderPath];
+            let foldersScanned = 0;
 
-          while (hasMorePages) {
-            pageCount++;
-            setTasks((prev) =>
-              prev.map((task) =>
-                task.id === folderTaskId
-                  ? {
-                      ...task,
-                      name: `Getting media files: ${folderPath} (page ${pageCount})`,
-                    }
-                  : task,
-              ),
-            );
+            while (queue.length > 0) {
+              const currentPath = queue.shift()!;
+              let pageToken = "";
+              let hasMorePages = true;
 
-            const queryResult = await queryMediaConnectorSimple(
-              studio,
-              localConnectorId,
-              folderPath,
-              pageToken,
-            );
-
-            if (!queryResult.isOk()) {
-              hasErrors = true;
+              // Update task with current subfolder
               setTasks((prev) =>
                 prev.map((task) =>
                   task.id === folderTaskId
                     ? {
                         ...task,
-                        status: "error" as const,
-                        error: `Failed to query folder: ${queryResult.error?.message}`,
+                        name: `Scanning: ${currentPath} (${folderFiles.length} files in ${foldersScanned} folders)`,
                       }
                     : task,
                 ),
               );
-              break;
+
+              while (hasMorePages) {
+                const queryResult = await queryMediaConnectorSimple(
+                  studio,
+                  localConnectorId,
+                  currentPath,
+                  pageToken,
+                );
+
+                if (!queryResult.isOk()) {
+                  // Log error but continue with remaining folders
+                  console.warn(`Failed to query subfolder ${currentPath}:`, queryResult.error?.message);
+                  break;
+                }
+
+                const queryPage = queryResult.value as QueryPage<Media>;
+
+                for (const item of queryPage.data) {
+                  if (item.type === "file" || (item.type as unknown) === 0) {
+                    folderFiles.push({ file: item, folderPath: currentPath });
+                  } else if (item.type === "folder" || (item.type as unknown) === 1) {
+                    // Enqueue subfolder for traversal
+                    const subfolderPath = currentPath === "/"
+                      ? `/${item.name}`
+                      : `${currentPath}/${item.name}`;
+                    queue.push(subfolderPath);
+                  }
+                }
+
+                if (queryPage.nextPageToken) {
+                  pageToken = extractPageToken(queryPage.nextPageToken);
+                } else {
+                  hasMorePages = false;
+                }
+              }
+
+              foldersScanned++;
             }
 
-            const queryPage = queryResult.value as QueryPage<Media>;
-            const pageFiles = queryPage.data.filter(
-              (item) => item.type === "file" || (item.type as unknown) === 0,
-            );
-            folderFiles.push(...pageFiles);
-
-            if (queryPage.nextPageToken) {
-              pageToken = extractPageToken(queryPage.nextPageToken);
-            } else {
-              hasMorePages = false;
-            }
-          }
-
-          if (!hasErrors) {
+            // Mark task complete
             setTasks((prev) =>
               prev.map((task) =>
                 task.id === folderTaskId
                   ? {
                       ...task,
                       status: "complete" as const,
-                      name: `Getting media files: ${folderPath} (${folderFiles.length} files found)`,
+                      name: `Scanned: ${folderPath} (${folderFiles.length} files in ${foldersScanned} folders)`,
                     }
                   : task,
               ),
             );
 
-            for (const file of folderFiles) {
-              allFiles.push({ file, folderPath });
+            allFiles.push(...folderFiles);
+          } else {
+            // --- Existing flat query (unchanged) ---
+            const folderFiles: Media[] = [];
+            let pageToken = "";
+            let hasMorePages = true;
+            let pageCount = 0;
+
+            while (hasMorePages) {
+              pageCount++;
+              setTasks((prev) =>
+                prev.map((task) =>
+                  task.id === folderTaskId
+                    ? {
+                        ...task,
+                        name: `Getting media files: ${folderPath} (page ${pageCount})`,
+                      }
+                    : task,
+                ),
+              );
+
+              const queryResult = await queryMediaConnectorSimple(
+                studio,
+                localConnectorId,
+                folderPath,
+                pageToken,
+              );
+
+              if (!queryResult.isOk()) {
+                hasErrors = true;
+                setTasks((prev) =>
+                  prev.map((task) =>
+                    task.id === folderTaskId
+                      ? {
+                          ...task,
+                          status: "error" as const,
+                          error: `Failed to query folder: ${queryResult.error?.message}`,
+                        }
+                      : task,
+                  ),
+                );
+                break;
+              }
+
+              const queryPage = queryResult.value as QueryPage<Media>;
+              const pageFiles = queryPage.data.filter(
+                (item) => item.type === "file" || (item.type as unknown) === 0,
+              );
+              folderFiles.push(...pageFiles);
+
+              if (queryPage.nextPageToken) {
+                pageToken = extractPageToken(queryPage.nextPageToken);
+              } else {
+                hasMorePages = false;
+              }
+            }
+
+            if (!hasErrors) {
+              setTasks((prev) =>
+                prev.map((task) =>
+                  task.id === folderTaskId
+                    ? {
+                        ...task,
+                        status: "complete" as const,
+                        name: `Getting media files: ${folderPath} (${folderFiles.length} files found)`,
+                      }
+                    : task,
+                ),
+              );
+
+              for (const file of folderFiles) {
+                allFiles.push({ file, folderPath });
+              }
             }
           }
         } catch (error) {
@@ -2714,6 +2803,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           studioResult.value,
           mediaConnectorSelection,
           folder,
+          downloadSettings.includeSubfolders,
         );
 
         // Create media.json manifest and download it

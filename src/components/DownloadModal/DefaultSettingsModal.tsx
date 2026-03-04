@@ -45,6 +45,7 @@ export function DefaultSettingsModal({
       removeUnusedConnectors: false,
       useOriginalFontFileNames: false,
       addTimestamp: true,
+      includeSubfolders: false,
     });
 
   // Load existing default settings when modal opens
@@ -288,6 +289,13 @@ export function DefaultSettingsModal({
                     >
                       Add folders
                     </Button>
+                    <Checkbox
+                      label="Include subfolders"
+                      checked={defaultSettings.includeSubfolders ?? false}
+                      onChange={(event) =>
+                        handleSettingChange("includeSubfolders", event.currentTarget.checked)
+                      }
+                    />
                     {defaultSettings.mediaConnectorSelection &&
                       defaultSettings.mediaConnectorSelection
                         .selectedFolders.length > 0 && (

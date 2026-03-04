@@ -216,6 +216,34 @@ export const validateFolderName = (name: string): string => {
   return "";
 };
 
+/**
+ * Removes folder paths that are already covered by an ancestor folder.
+ * Prevents duplicate downloads when a parent and child folder are both selected
+ * and "Include subfolders" is enabled.
+ *
+ * Example: ["/Brand Assets/Logos", "/Brand Assets", "/Templates"]
+ *   → ["/Brand Assets", "/Templates"]
+ */
+export function deduplicateSelectedFolders(folders: string[]): string[] {
+  const sorted = [...folders].sort((a, b) => {
+    if (a.length !== b.length) return a.length - b.length;
+    return a.localeCompare(b);
+  });
+
+  const accepted: string[] = [];
+
+  for (const folder of sorted) {
+    const isChildOfAccepted = accepted.some(
+      (parent) => folder === parent || folder.startsWith(parent + "/"),
+    );
+    if (!isChildOfAccepted) {
+      accepted.push(folder);
+    }
+  }
+
+  return accepted;
+}
+
 // Helper function to get document ID from URL
 export const getDocumentId = (): string => {
   const urlPath = window.location.href;

@@ -17,6 +17,7 @@ export interface DownloadSettings {
   removeUnusedConnectors: boolean;
   useOriginalFontFileNames: boolean;
   addTimestamp: boolean;
+  includeSubfolders: boolean;
 }
 
 export interface DownloadFile {
