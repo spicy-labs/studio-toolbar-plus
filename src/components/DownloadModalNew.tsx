@@ -116,6 +116,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   const [selectedVisionConnector, setSelectedVisionConnector] =
     useState<string>("");
   const [smartCropsData, setSmartCropsData] = useState<any>(null);
+  const [mediaDataForUpload, setMediaDataForUpload] = useState<MediaData | null>(null);
   const [documentData, setDocumentData] = useState<any>(null);
   const [packageJsonTaskId, setPackageJsonTaskId] = useState<string>("");
   const [currentFiles, setCurrentFiles] = useState<File[]>([]);
@@ -626,6 +627,25 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         }
       }
 
+      // Step 1b: Check for media.json if needed
+      let mediaFileData: MediaData | null = null;
+      for (const document of studioPackage.documents) {
+        if (document.media) {
+          const mediaJsonFile = files.find(
+            (file) => file.name === document.media!.filePath,
+          );
+          if (mediaJsonFile) {
+            try {
+              const mediaText = await mediaJsonFile.text();
+              mediaFileData = JSON.parse(mediaText) as MediaData;
+              setMediaDataForUpload(mediaFileData);
+            } catch (parseError) {
+              console.warn("Failed to parse media.json:", parseError);
+            }
+          }
+        }
+      }
+
       // Step 2: If smart crops exist and have crops, show connector selection modal
       if (
         smartCropsFileData &&
@@ -937,6 +957,171 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     }
   };
 
+  // Upload media files to the target environment
+  const uploadMediaFiles = async (
+    files: File[],
+    mediaData: MediaData,
+    token: string,
+    baseUrl: string,
+  ): Promise<Map<string, string>> => {
+    const idMap = new Map<string, string>();
+    const totalFiles = mediaData.files.length;
+    const summaryTaskId = "media-upload-summary";
+
+    // Create summary task
+    setUploadTasks((prev) => [
+      ...prev,
+      {
+        id: summaryTaskId,
+        name: `Media Upload: ${totalFiles} files to process`,
+        type: "media_upload",
+        status: "processing",
+      },
+    ]);
+
+    // Helper function to update summary task
+    const updateSummaryTask = () => {
+      setUploadTasks((prev) => {
+        const individualTasks = prev.filter(
+          (task) =>
+            task.type === "media_upload" &&
+            task.id.startsWith("media-upload-") &&
+            task.id !== summaryTaskId,
+        );
+
+        const total = individualTasks.length;
+        const completed = individualTasks.filter(
+          (task) => task.status === "complete",
+        ).length;
+        const errors = individualTasks.filter(
+          (task) => task.status === "error",
+        ).length;
+        const processing = individualTasks.filter(
+          (task) => task.status === "processing",
+        ).length;
+
+        return prev.map((task) => {
+          if (task.id === summaryTaskId) {
+            if (processing > 0) {
+              return {
+                ...task,
+                name: `Media Upload: ${completed + errors}/${total} processed`,
+              };
+            } else if (errors > 0) {
+              const errorDetails = individualTasks
+                .filter((t) => t.status === "error")
+                .map((t) => t.error || "Unknown error")
+                .slice(0, 3);
+              const tooltipMessage =
+                errors > 3
+                  ? `${errors} failed: ${errorDetails.join(", ")}... and ${errors - 3} more`
+                  : `${errors} failed: ${errorDetails.join(", ")}`;
+              return {
+                ...task,
+                status: "error" as const,
+                name: `Media Upload: ${completed} completed, ${errors} failed`,
+                tooltip: tooltipMessage,
+                error: `${errors} uploads failed`,
+              };
+            } else {
+              return {
+                ...task,
+                status: "complete" as const,
+                name: `Media Upload: ${total} files completed`,
+              };
+            }
+          }
+          return task;
+        });
+      });
+    };
+
+    for (const mediaFile of mediaData.files) {
+      const taskId = `media-upload-${mediaFile.id}`;
+      setUploadTasks((prev) => [
+        ...prev,
+        {
+          id: taskId,
+          name: `Uploading media: ${mediaFile.name}`,
+          type: "media_upload",
+          status: "processing",
+        },
+      ]);
+
+      try {
+        // Find binary file in uploaded files (stored as media/<id>)
+        const binaryFile = files.find(
+          (f) => f.name === `media/${mediaFile.id}`,
+        );
+        if (!binaryFile) {
+          throw new Error(
+            `Media binary file not found for: ${mediaFile.name} (${mediaFile.id})`,
+          );
+        }
+
+        // Upload via POST endpoint
+        const formData = new FormData();
+        const fileName = mediaFile.extension
+          ? `${mediaFile.name}.${mediaFile.extension}`
+          : mediaFile.name;
+        formData.append("file", binaryFile, fileName);
+
+        const encodedName = encodeURIComponent(mediaFile.name);
+        const encodedFolderPath = encodeURIComponent(mediaFile.folderPath);
+        const response = await fetch(
+          `${baseUrl}media?name=${encodedName}&folderPath=${encodedFolderPath}`,
+          {
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to upload media: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        idMap.set(mediaFile.id, result.id);
+
+        setUploadTasks((prev) =>
+          prev.map((t) =>
+            t.id === taskId ? { ...t, status: "complete" } : t,
+          ),
+        );
+        updateSummaryTask();
+      } catch (error) {
+        setUploadTasks((prev) =>
+          prev.map((t) =>
+            t.id === taskId
+              ? {
+                  ...t,
+                  status: "error",
+                  error:
+                    error instanceof Error ? error.message : String(error),
+                }
+              : t,
+          ),
+        );
+        updateSummaryTask();
+      }
+    }
+
+    return idMap;
+  };
+
+  // Replace old media IDs with new IDs in the document JSON
+  const replaceMediaIds = (
+    documentData: any,
+    idMap: Map<string, string>,
+  ): any => {
+    let docString = JSON.stringify(documentData);
+    for (const [oldId, newId] of idMap) {
+      docString = docString.replaceAll(oldId, newId);
+    }
+    return JSON.parse(docString);
+  };
+
   // Start task processing (fonts, smart crops, document)
   const startTaskProcessing = async (
     files: File[],
@@ -944,8 +1129,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     studio: any,
     token: string,
     baseUrl: string,
-    currentDocumentData?: any,
+    initialDocumentData?: any,
   ) => {
+    let currentDocumentData = initialDocumentData;
     try {
       // Process fonts first
       for (const document of studioPackage.documents) {
@@ -1148,6 +1334,21 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             );
             updateSummaryTask();
           }
+        }
+      }
+
+      // Process media files if available (after smart crops, before document load)
+      if (mediaDataForUpload && mediaDataForUpload.files.length > 0) {
+        const mediaIdMap = await uploadMediaFiles(
+          files,
+          mediaDataForUpload,
+          token,
+          baseUrl,
+        );
+
+        // Replace old media IDs with new IDs in the document
+        if (mediaIdMap.size > 0 && currentDocumentData) {
+          currentDocumentData = replaceMediaIds(currentDocumentData, mediaIdMap);
         }
       }
 
@@ -1949,6 +2150,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           mediaData.files.push({
             id: file.id,
             name: file.name,
+            extension: file.extension || "",
             folderPath,
           });
 
@@ -2270,6 +2472,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     // Collect font data for the package manifest
     const fontDataForPackage: { filePath: string; details: FontData }[] = [];
     let smartCropsFilePath: string | undefined;
+    let mediaFilePath: string | undefined;
 
     // Separate files by type for proper ordering
     const documentJsonFile = files.find((f) => f.id === "document-json");
@@ -2444,6 +2647,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         const blobUrl = URL.createObjectURL(blob);
         setCreatedBlobUrls((prev) => [...prev, blobUrl]);
 
+        // Set the file path for package manifest
+        mediaFilePath = mediaFile.name;
+
         await sendDownloadRequest(
           blobUrl,
           "",
@@ -2488,6 +2694,13 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         if (smartCropsFilePath) {
           documentEntry.smartCrops = {
             filePath: smartCropsFilePath,
+          };
+        }
+
+        // Add media file path if it exists
+        if (mediaFilePath) {
+          documentEntry.media = {
+            filePath: mediaFilePath,
           };
         }
 

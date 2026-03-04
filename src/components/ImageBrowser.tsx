@@ -62,6 +62,7 @@ export type Media = {
   id: string;
   name: string;
   type: "folder" | "file";
+  extension: string;
   [key: string]: any;
 };
 

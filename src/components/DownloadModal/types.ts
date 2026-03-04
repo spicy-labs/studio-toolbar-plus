@@ -39,7 +39,8 @@ export interface TaskItem {
     | "smart_crop_upload"
     | "document_load"
     | "media_query"
-    | "media_download";
+    | "media_download"
+    | "media_upload";
   status: "pending" | "processing" | "complete" | "error" | "info";
   error?: string;
   tooltip?: string;
@@ -48,6 +49,7 @@ export interface TaskItem {
 export interface MediaFileEntry {
   id: string;
   name: string;
+  extension: string;
   folderPath: string;
 }
 
@@ -74,6 +76,9 @@ export interface StudioPackage {
     name: string | null;
     filePath: string;
     smartCrops?: {
+      filePath: string;
+    };
+    media?: {
       filePath: string;
     };
     fonts: {

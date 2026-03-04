@@ -33,6 +33,11 @@ const DocumentSchema = z.object({
       filePath: z.string(),
     })
     .optional(),
+  media: z
+    .object({
+      filePath: z.string(),
+    })
+    .optional(),
   fonts: z.array(FontDataSchema),
 });
 
