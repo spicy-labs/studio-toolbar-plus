@@ -1133,8 +1133,128 @@ fieldset:disabled .mantine-active:active {
   border-inline-end-width: calc(var(--ai-border-width) / 2);
 }
 
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):first-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):first-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):first-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):first-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):first-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):first-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):first-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):first-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):first-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):first-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):first-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):first-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):last-child, .m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):last-child {
   border-inline-start-width: calc(var(--ai-border-width) / 2);
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):last-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):last-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):last-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):last-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):last-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):last-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):last-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):last-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):last-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):last-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .m_1a0f1b21[data-orientation="horizontal"] .m_8d3f4000:not(:only-child):not(:first-child):not(:last-child), .m_1a0f1b21[data-orientation="horizontal"] .m_437b6484:not(:only-child):not(:first-child):not(:last-child) {
@@ -1150,8 +1270,128 @@ fieldset:disabled .mantine-active:active {
   border-bottom-width: calc(var(--ai-border-width) / 2);
 }
 
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):first-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):first-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):first-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):first-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):first-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):first-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):first-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):first-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):first-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):first-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):first-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):first-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):last-child, .m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):last-child {
   border-top-width: calc(var(--ai-border-width) / 2);
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):last-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):last-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):last-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):last-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):last-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):last-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):last-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):last-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):last-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):last-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .m_1a0f1b21[data-orientation="vertical"] .m_8d3f4000:not(:only-child):not(:first-child):not(:last-child), .m_1a0f1b21[data-orientation="vertical"] .m_437b6484:not(:only-child):not(:first-child):not(:last-child) {
@@ -2784,6 +3024,36 @@ fieldset:disabled .mantine-active:active {
   border-right-width: 0;
 }
 
+.m_985517d8:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_985517d8:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_985517d8:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_985517d8:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_985517d8:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_985517d8:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 :where([data-mantine-color-scheme="light"]) .m_985517d8 {
   border-color: var(--mantine-color-gray-2);
 }
@@ -3849,8 +4119,128 @@ fieldset:disabled .m_d3ea56bb, .m_d3ea56bb[data-disabled] {
   border-inline-end-width: calc(var(--button-border-width) / 2);
 }
 
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):first-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):first-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):first-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):first-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):first-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):first-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):first-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):first-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):first-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):first-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):first-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):first-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):last-child, .m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):last-child {
   border-inline-start-width: calc(var(--button-border-width) / 2);
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):last-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):last-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):last-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):last-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):last-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):last-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):last-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):last-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):last-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):last-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .m_80d6d844[data-orientation="horizontal"] .m_77c9d27d:not(:only-child):not(:first-child):not(:last-child), .m_80d6d844[data-orientation="horizontal"] .m_70be2a01:not(:only-child):not(:first-child):not(:last-child) {
@@ -3866,8 +4256,128 @@ fieldset:disabled .m_d3ea56bb, .m_d3ea56bb[data-disabled] {
   border-bottom-width: calc(var(--button-border-width) / 2);
 }
 
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):first-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):first-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):first-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):first-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):first-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):first-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):first-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):first-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):first-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):first-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):first-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):first-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):last-child, .m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):last-child {
   border-top-width: calc(var(--button-border-width) / 2);
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):last-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):last-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):last-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):last-child:not(:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):last-child:not(:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):last-child:not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):last-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):last-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):last-child:-webkit-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):last-child:-moz-any(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .m_80d6d844[data-orientation="vertical"] .m_77c9d27d:not(:only-child):not(:first-child):not(:last-child), .m_80d6d844[data-orientation="vertical"] .m_70be2a01:not(:only-child):not(:first-child):not(:last-child) {

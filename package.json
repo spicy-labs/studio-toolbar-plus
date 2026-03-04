@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "bun build.js"
+    "build": "bun ./scripts/build.js"
   },
   "devDependencies": {
     "@types/bun": "latest",
