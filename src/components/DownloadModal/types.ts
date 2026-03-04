@@ -37,10 +37,24 @@ export interface TaskItem {
     | "package_processing"
     | "font_upload"
     | "smart_crop_upload"
-    | "document_load";
+    | "document_load"
+    | "media_query"
+    | "media_download";
   status: "pending" | "processing" | "complete" | "error" | "info";
   error?: string;
   tooltip?: string;
+}
+
+export interface MediaFileEntry {
+  id: string;
+  name: string;
+  folderPath: string;
+}
+
+export interface MediaData {
+  connectorId: string;
+  connectorName: string;
+  files: MediaFileEntry[];
 }
 
 export interface SmartCropsData {

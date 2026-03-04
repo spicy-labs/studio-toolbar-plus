@@ -39,6 +39,11 @@ export type DefaultDownloadSettings = {
     connectorId: string;
     connectorName: string;
   };
+  mediaConnectorSelection?: {
+    selectedFolders: string[];
+    connectorId: string;
+    connectorName: string;
+  };
 };
 
 export type ToolbarEnvelope = {

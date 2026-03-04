@@ -14,30 +14,7 @@ import {
   IconExclamationCircle,
   IconLoader,
 } from "@tabler/icons-react";
-
-interface DownloadFile {
-  id: string;
-  name: string;
-  status: "pending" | "downloading" | "complete" | "error";
-  error?: string;
-}
-
-interface TaskItem {
-  id: string;
-  name: string;
-  type:
-    | "download"
-    | "query_folder"
-    | "get_vision"
-    | "smart_crops"
-    | "package_processing"
-    | "font_upload"
-    | "smart_crop_upload"
-    | "document_load";
-  status: "pending" | "processing" | "complete" | "error" | "info";
-  error?: string;
-  tooltip?: string;
-}
+import type { DownloadFile, TaskItem } from "./types";
 
 interface DownloadTasksScreenProps {
   downloadFiles: DownloadFile[];

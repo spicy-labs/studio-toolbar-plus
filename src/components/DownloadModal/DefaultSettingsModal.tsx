@@ -35,6 +35,7 @@ export function DefaultSettingsModal({
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [folderBrowserOpened, setFolderBrowserOpened] = useState(false);
+  const [mediaFolderBrowserOpened, setMediaFolderBrowserOpened] = useState(false);
   const [defaultSettings, setDefaultSettings] =
     useState<DefaultDownloadSettings>({
       includeFonts: true,
@@ -92,6 +93,14 @@ export function DefaultSettingsModal({
         smartCropsConnectorSelection: undefined,
       }));
     }
+
+    // Clear media connector selection when media is unchecked
+    if (setting === "includeGrafxMedia" && !value) {
+      setDefaultSettings((prev) => ({
+        ...prev,
+        mediaConnectorSelection: undefined,
+      }));
+    }
   };
 
   // Handle folder selection from ImageBrowser
@@ -126,6 +135,38 @@ export function DefaultSettingsModal({
         ...prev,
         smartCropsConnectorSelection: {
           ...prev.smartCropsConnectorSelection,
+          selectedFolders: updatedFolders,
+        },
+      };
+    });
+  };
+
+  // Handle media folder selection from ImageBrowser
+  const handleMediaFolderSelection = (
+    selection: ImageBrowserFolderSelection | null,
+  ) => {
+    setDefaultSettings((prev) => ({
+      ...prev,
+      mediaConnectorSelection: selection || undefined,
+    }));
+    setMediaFolderBrowserOpened(false);
+  };
+
+  // Handle removing a specific media folder path
+  const handleRemoveMediaFolderPath = (pathToRemove: string) => {
+    setDefaultSettings((prev) => {
+      if (!prev.mediaConnectorSelection) return prev;
+      const updatedFolders =
+        prev.mediaConnectorSelection.selectedFolders.filter(
+          (path) => path !== pathToRemove,
+        );
+      if (updatedFolders.length === 0) {
+        return { ...prev, mediaConnectorSelection: undefined };
+      }
+      return {
+        ...prev,
+        mediaConnectorSelection: {
+          ...prev.mediaConnectorSelection,
           selectedFolders: updatedFolders,
         },
       };
@@ -226,7 +267,7 @@ export function DefaultSettingsModal({
                 />
               )}
 
-              <Group gap="xs">
+              <Stack gap="xs">
                 <Checkbox
                   label="Include GraFx Media"
                   checked={defaultSettings.includeGrafxMedia}
@@ -238,11 +279,48 @@ export function DefaultSettingsModal({
                   }
                 />
                 {defaultSettings.includeGrafxMedia && (
-                  <Text size="sm" c="red">
-                    Not implemented
-                  </Text>
+                  <Stack gap="xs" style={{ marginLeft: "1.5rem" }}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      style={{ width: "fit-content" }}
+                      onClick={() => setMediaFolderBrowserOpened(true)}
+                    >
+                      Add folders
+                    </Button>
+                    {defaultSettings.mediaConnectorSelection &&
+                      defaultSettings.mediaConnectorSelection
+                        .selectedFolders.length > 0 && (
+                        <Stack gap="xs">
+                          <Text size="xs" fw={500}>
+                            Selected folders:
+                          </Text>
+                          {defaultSettings.mediaConnectorSelection.selectedFolders.map(
+                            (path: string, index: number) => (
+                              <Group
+                                key={index}
+                                gap="xs"
+                                style={{ marginLeft: "0.5rem" }}
+                              >
+                                <ActionIcon
+                                  size="xs"
+                                  variant="subtle"
+                                  color="red"
+                                  onClick={() => handleRemoveMediaFolderPath(path)}
+                                >
+                                  <IconCircleX size={12} />
+                                </ActionIcon>
+                                <Text size="xs" c="dimmed" style={{ flex: 1 }}>
+                                  {path}
+                                </Text>
+                              </Group>
+                            ),
+                          )}
+                        </Stack>
+                      )}
+                  </Stack>
                 )}
-              </Group>
+              </Stack>
 
               <Stack gap="xs">
                 <Checkbox
@@ -359,12 +437,21 @@ export function DefaultSettingsModal({
         </Stack>
       </Modal>
 
-      {/* Image Browser Modal */}
+      {/* Image Browser Modal for Smart Crops */}
       <ImageBrowser
         opened={folderBrowserOpened}
         mode={ImageBrowserMode.FolderSelection}
         initialSelection={defaultSettings.smartCropsConnectorSelection}
         onClose={handleFolderSelection}
+      />
+
+      {/* Image Browser Modal for Media */}
+      <ImageBrowser
+        opened={mediaFolderBrowserOpened}
+        mode={ImageBrowserMode.FolderSelection}
+        autoConnectorName="GraFx Media"
+        initialSelection={defaultSettings.mediaConnectorSelection}
+        onClose={handleMediaFolderSelection}
       />
     </>
   );
