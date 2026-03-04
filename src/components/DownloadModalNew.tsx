@@ -957,6 +957,40 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     }
   };
 
+  // Fetch all existing media files in a folder (handles pagination)
+  const fetchExistingMediaInFolder = async (
+    baseUrl: string,
+    token: string,
+    folderPath: string,
+  ): Promise<{ id: string; name: string }[]> => {
+    const allFiles: { id: string; name: string }[] = [];
+    const encodedFolder = encodeURIComponent(folderPath);
+    let nextPageUrl: string | null =
+      `${baseUrl}media?sortBy=name&sortOrder=asc&folder=${encodedFolder}&includeItemsFromSubfolders=false&includeFolders=false`;
+
+    while (nextPageUrl) {
+      const response = await fetch(nextPageUrl, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!response.ok) {
+        console.warn(
+          `Failed to query existing media in folder ${folderPath}: ${response.statusText}`,
+        );
+        break;
+      }
+
+      const result = await response.json();
+      for (const item of result.data || []) {
+        allFiles.push({ id: item.id, name: item.name });
+      }
+
+      nextPageUrl = result.links?.nextPage || null;
+    }
+
+    return allFiles;
+  };
+
   // Upload media files to the target environment
   const uploadMediaFiles = async (
     files: File[],
@@ -1036,19 +1070,60 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       });
     };
 
+    // Pre-fetch existing files for each unique folder path
+    const uniqueFolders = [
+      ...new Set(mediaData.files.map((f) => f.folderPath)),
+    ];
+    const existingFilesByFolder = new Map<
+      string,
+      { id: string; name: string }[]
+    >();
+    for (const folder of uniqueFolders) {
+      const existing = await fetchExistingMediaInFolder(
+        baseUrl,
+        token,
+        folder,
+      );
+      existingFilesByFolder.set(folder, existing);
+    }
+
     for (const mediaFile of mediaData.files) {
       const taskId = `media-upload-${mediaFile.id}`;
-      setUploadTasks((prev) => [
-        ...prev,
-        {
-          id: taskId,
-          name: `Uploading media: ${mediaFile.name}`,
-          type: "media_upload",
-          status: "processing",
-        },
-      ]);
 
       try {
+        // Check if a file with the same name already exists in the target folder
+        const existingFiles =
+          existingFilesByFolder.get(mediaFile.folderPath) || [];
+        const existingMatch = existingFiles.find(
+          (f) => f.name === mediaFile.name,
+        );
+
+        if (existingMatch) {
+          // File already exists — skip upload, use existing ID
+          idMap.set(mediaFile.id, existingMatch.id);
+          setUploadTasks((prev) => [
+            ...prev,
+            {
+              id: taskId,
+              name: `Media exists, skipped: ${mediaFile.name}`,
+              type: "media_upload",
+              status: "complete",
+            },
+          ]);
+          updateSummaryTask();
+          continue;
+        }
+
+        setUploadTasks((prev) => [
+          ...prev,
+          {
+            id: taskId,
+            name: `Uploading media: ${mediaFile.name}`,
+            type: "media_upload",
+            status: "processing",
+          },
+        ]);
+
         // Find binary file in uploaded files (stored as media/<id>)
         const binaryFile = files.find(
           (f) => f.name === `media/${mediaFile.id}`,
