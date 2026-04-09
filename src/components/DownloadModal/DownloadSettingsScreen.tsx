@@ -26,6 +26,7 @@ interface DownloadSettings {
   removeUnusedConnectors: boolean;
   useOriginalFontFileNames: boolean;
   addTimestamp: boolean;
+  includeSubfolders: boolean;
 }
 
 interface DownloadSettingsScreenProps {
@@ -35,10 +36,13 @@ interface DownloadSettingsScreenProps {
   downloadSettings: DownloadSettings;
   fontStylesCount: number;
   connectorSelection: ImageBrowserFolderSelection | null;
+  mediaConnectorSelection: ImageBrowserFolderSelection | null;
   onFolderNameChange: (value: string) => void;
   onSettingChange: (setting: keyof DownloadSettings, value: boolean) => void;
   onAddFolder: () => void;
   onRemoveFolderPath: (path: string) => void;
+  onAddMediaFolder: () => void;
+  onRemoveMediaFolderPath: (path: string) => void;
   onBack: () => void;
   onDownload: () => void;
 }
@@ -50,10 +54,13 @@ export function DownloadSettingsScreen({
   downloadSettings,
   fontStylesCount,
   connectorSelection,
+  mediaConnectorSelection,
   onFolderNameChange,
   onSettingChange,
   onAddFolder,
   onRemoveFolderPath,
+  onAddMediaFolder,
+  onRemoveMediaFolderPath,
   onBack,
   onDownload,
 }: DownloadSettingsScreenProps) {
@@ -115,7 +122,7 @@ export function DownloadSettingsScreen({
           )}
         </Stack>
 
-        <Group gap="xs">
+        <Stack gap="xs">
           <Checkbox
             label="Include GraFx Media"
             checked={downloadSettings.includeGrafxMedia}
@@ -124,11 +131,54 @@ export function DownloadSettingsScreen({
             }
           />
           {downloadSettings.includeGrafxMedia && (
-            <Text size="sm" c="red">
-              Not implemented
-            </Text>
+            <Stack gap="xs" style={{ marginLeft: "1.5rem" }}>
+              <Button
+                variant="outline"
+                size="sm"
+                style={{ width: "fit-content" }}
+                onClick={onAddMediaFolder}
+              >
+                Add folders
+              </Button>
+              <Checkbox
+                label="Include subfolders"
+                checked={downloadSettings.includeSubfolders}
+                onChange={(event) =>
+                  onSettingChange("includeSubfolders", event.currentTarget.checked)
+                }
+              />
+              {mediaConnectorSelection &&
+                mediaConnectorSelection.selectedFolders.length > 0 && (
+                  <Stack gap="xs">
+                    <Text size="xs" fw={500}>
+                      Selected folders:
+                    </Text>
+                    {mediaConnectorSelection.selectedFolders.map(
+                      (path: string, index: number) => (
+                        <Group
+                          key={index}
+                          gap="xs"
+                          style={{ marginLeft: "0.5rem" }}
+                        >
+                          <ActionIcon
+                            size="xs"
+                            variant="subtle"
+                            color="red"
+                            onClick={() => onRemoveMediaFolderPath(path)}
+                          >
+                            <IconCircleX size={12} />
+                          </ActionIcon>
+                          <Text size="xs" c="dimmed" style={{ flex: 1 }}>
+                            {path}
+                          </Text>
+                        </Group>
+                      )
+                    )}
+                  </Stack>
+                )}
+            </Stack>
           )}
-        </Group>
+        </Stack>
 
         <Stack gap="xs">
           <Checkbox

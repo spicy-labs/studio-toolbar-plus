@@ -472,7 +472,8 @@ export function ManualCropEditor({
       const checkedCrops: ManualCrop[] = [];
       Array.from(checkedRows).forEach((rowKey) => {
         if (rowKey.startsWith(`${layoutId}-`)) {
-          const [, cropIndexStr] = rowKey.split("-");
+          const lastDash = rowKey.lastIndexOf("-");
+          const cropIndexStr = rowKey.substring(lastDash + 1);
           const cropIndex = parseInt(cropIndexStr, 10);
 
           // First try to get crop from changedRows, then fallback to layoutCrops
@@ -509,7 +510,8 @@ export function ManualCropEditor({
       setChangedRows((prev) => {
         const newMap = new Map(prev);
         checkedRowsForLayout.forEach((rowKey) => {
-          const [, cropIndexStr] = rowKey.split("-");
+          const lastDash = rowKey.lastIndexOf("-");
+          const cropIndexStr = rowKey.substring(lastDash + 1);
           const cropIndex = parseInt(cropIndexStr, 10);
           const deleteEntry: ManualCropToDelete = {
             layoutId,
@@ -643,7 +645,9 @@ export function ManualCropEditor({
       const newMap = new Map(prev);
 
       selectedRowKeys.forEach((rowKey) => {
-        const [layoutId, cropIndexStr] = rowKey.split("-");
+        const lastDash = rowKey.lastIndexOf("-");
+        const layoutId = rowKey.substring(0, lastDash);
+        const cropIndexStr = rowKey.substring(lastDash + 1);
         const cropIndex = parseInt(cropIndexStr, 10);
         const layoutCrop = layoutCrops.get(layoutId);
 
@@ -1129,7 +1133,9 @@ export function ManualCropEditor({
       const layoutDeletes = new Map<string, Set<number>>();
 
       changedRows.forEach((entry, rowKey) => {
-        const [layoutId, cropIndexStr] = rowKey.split("-");
+        const lastDash = rowKey.lastIndexOf("-");
+        const layoutId = rowKey.substring(0, lastDash);
+        const cropIndexStr = rowKey.substring(lastDash + 1);
         const cropIndex = parseInt(cropIndexStr, 10);
 
         if ("frameId" in entry) {
@@ -1612,8 +1618,12 @@ export function ManualCropEditor({
                                       ),
                                     );
                                     if (checkedRowKeys.length === 1) {
-                                      const [, cropIndexStr] =
-                                        checkedRowKeys[0].split("-");
+                                      const lastDash =
+                                        checkedRowKeys[0].lastIndexOf("-");
+                                      const cropIndexStr =
+                                        checkedRowKeys[0].substring(
+                                          lastDash + 1,
+                                        );
                                       const cropIndex = parseInt(
                                         cropIndexStr,
                                         10,

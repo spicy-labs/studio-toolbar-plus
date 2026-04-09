@@ -246,47 +246,12 @@ export function ManualCropManagerModal({
     }
   }, [selectedConnectorId, filteredConnectors]);
 
-  const handleCropsSaved = useCallback(async () => {
+  const handleCropsSaved = useCallback(() => {
     // Refresh the layout viewer crop indicators when crops are saved
     if (layoutViewerRefresh) {
       layoutViewerRefresh();
     }
-
-    // Check if any new layouts now have crops and should be added to selection
-    if (selectedConnectorId) {
-      try {
-        const studioResult = await getStudio();
-        if (studioResult.isOk()) {
-          const { getManualCropsFromDocByConnector } = await import(
-            "../../studio-adapter/getManualCropsFromDocByConnector"
-          );
-          const cropsResult = await getManualCropsFromDocByConnector(
-            studioResult.value,
-            selectedConnectorId
-          );
-
-          if (cropsResult.isOk()) {
-            const cropsData = cropsResult.value;
-            const layoutsWithCrops = new Set(
-              cropsData.layouts.map((l) => l.id)
-            );
-
-            // Add any layouts that now have crops but aren't selected
-            const newLayoutsWithCrops = Array.from(layoutsWithCrops).filter(
-              (layoutId) => !selectedLayoutIds.includes(layoutId)
-            );
-
-            if (newLayoutsWithCrops.length > 0) {
-              setSelectedLayoutIds((prev) => [...prev, ...newLayoutsWithCrops]);
-            }
-          }
-        }
-      } catch (error) {
-        // Silently fail - this is just a convenience feature
-        console.warn("Failed to auto-select layouts with new crops:", error);
-      }
-    }
-  }, [layoutViewerRefresh, selectedConnectorId, selectedLayoutIds]);
+  }, [layoutViewerRefresh]);
 
   return (
     <Modal

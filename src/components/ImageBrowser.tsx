@@ -35,6 +35,7 @@ import { getStudio } from "../studio/studioAdapter";
 import {
   queryMediaConnectorSimple,
   downloadMediaConnector,
+  extractPageToken,
 } from "../studio/mediaConnectorHandler";
 import {
   registerConnector,
@@ -61,6 +62,7 @@ export type Media = {
   id: string;
   name: string;
   type: "folder" | "file";
+  extension: string;
   [key: string]: any;
 };
 
@@ -88,6 +90,7 @@ interface ImageBrowserProps<
 > {
   opened: boolean;
   mode: T;
+  autoConnectorName?: string;
   onClose: T extends ImageBrowserMode.FileSelection
     ? (selection: ImageBrowserFileSelection | null) => void
     : (selection: ImageBrowserFolderSelection | null) => void;
@@ -107,6 +110,7 @@ interface ImageBrowserSettings {
 export function ImageBrowser<T extends ImageBrowserMode>({
   opened,
   mode,
+  autoConnectorName,
   onClose,
   initialSelection = null,
 }: ImageBrowserProps<T>) {
@@ -387,6 +391,19 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
       setConnectors(mediaConnectors);
 
+      // Auto-select connector by name if autoConnectorName is provided
+      if (autoConnectorName) {
+        const autoConnector = mediaConnectors.find(
+          (c) => c.name === autoConnectorName
+        );
+        if (autoConnector) {
+          setSelectedConnectorId(autoConnector.id);
+          await proceedWithConnector(autoConnector.id, studioResult.value);
+          return;
+        }
+        // If no matching connector found, fall through to normal selection
+      }
+
       // Check if we have a pre-selected connector and it exists in the loaded connectors
       if (
         selectedConnectorId &&
@@ -426,8 +443,9 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       setLocalConnectorId(localId);
       setBrowserState("folderBrowsing");
 
-      // Load initial folders
-      await loadFolders(localId, selectedConnectorId, "/", "");
+      // Load initial folders — use connectorId param, not the state variable
+      // which may not have re-rendered yet after setSelectedConnectorId
+      await loadFolders(localId, connectorId, "/", "");
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
@@ -738,7 +756,7 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       // Update pagination state
       if (queryPage.nextPageToken) {
         setHasMorePages(true);
-        setNextPageToken(queryPage.nextPageToken);
+        setNextPageToken(extractPageToken(queryPage.nextPageToken));
       } else {
         setHasMorePages(false);
         setNextPageToken("");
@@ -1673,47 +1691,49 @@ export function ImageBrowser<T extends ImageBrowserMode>({
                   >
                     <IconSettings size={20} />
                   </ActionIcon>
-                  <Select
-                    label="Change Connector"
-                    placeholder="Select a connector"
-                    data={connectors.map((c) => ({
-                      value: c.id,
-                      label: c.name,
-                    }))}
-                    value={selectedConnectorId}
-                    onChange={async (value) => {
-                      if (value && value !== selectedConnectorId) {
-                        // Reset state and switch to new connector
-                        setSelectedConnectorIdWithReset(value);
+                  {!autoConnectorName && (
+                    <Select
+                      label="Change Connector"
+                      placeholder="Select a connector"
+                      data={connectors.map((c) => ({
+                        value: c.id,
+                        label: c.name,
+                      }))}
+                      value={selectedConnectorId}
+                      onChange={async (value) => {
+                        if (value && value !== selectedConnectorId) {
+                          // Reset state and switch to new connector
+                          setSelectedConnectorIdWithReset(value);
 
-                        // Cleanup current connector if exists
-                        if (localConnectorId) {
-                          try {
-                            const studioResult = await getStudio();
-                            if (studioResult.isOk()) {
-                              await unregisterConnector(
-                                studioResult.value,
-                                localConnectorId
+                          // Cleanup current connector if exists
+                          if (localConnectorId) {
+                            try {
+                              const studioResult = await getStudio();
+                              if (studioResult.isOk()) {
+                                await unregisterConnector(
+                                  studioResult.value,
+                                  localConnectorId
+                                );
+                              }
+                            } catch (error) {
+                              raiseError(
+                                error instanceof Error
+                                  ? error
+                                  : new Error(String(error))
                               );
                             }
-                          } catch (error) {
-                            raiseError(
-                              error instanceof Error
-                                ? error
-                                : new Error(String(error))
-                            );
+                          }
+
+                          // Proceed with new connector
+                          const studioResult = await getStudio();
+                          if (studioResult.isOk()) {
+                            await proceedWithConnector(value, studioResult.value);
                           }
                         }
-
-                        // Proceed with new connector
-                        const studioResult = await getStudio();
-                        if (studioResult.isOk()) {
-                          await proceedWithConnector(value, studioResult.value);
-                        }
-                      }
-                    }}
-                    style={{ width: "250px" }}
-                  />
+                      }}
+                      style={{ width: "250px" }}
+                    />
+                  )}
                 </Group>
               </Group>
 

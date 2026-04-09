@@ -68,6 +68,19 @@ const baseQueryOptions = {
  *
  */
 
+/**
+ * Extracts the raw page token from a nextPageToken value.
+ * GraFx Media returns a full URL as nextPageToken, but the SDK expects just the token string.
+ */
+export function extractPageToken(nextPageToken: string): string {
+  try {
+    const url = new URL(nextPageToken);
+    return url.searchParams.get("nextPageToken") || nextPageToken;
+  } catch {
+    return nextPageToken;
+  }
+}
+
 export async function queryMediaConnectorSimple(
   studio: SDK,
   connectorId: string,

@@ -4,7 +4,11 @@ import { appStore } from "../modalStore";
 import { getStudio } from "../studio/studioAdapter";
 import { getCurrentDocumentState } from "../studio/documentHandler";
 import { getFontFamilies } from "../studio/fontHandler";
-import { queryMediaConnectorSimple } from "../studio/mediaConnectorHandler";
+import {
+  queryMediaConnectorSimple,
+  downloadMediaConnector,
+  extractPageToken,
+} from "../studio/mediaConnectorHandler";
 import {
   registerConnector,
   unregisterConnector,
@@ -36,6 +40,7 @@ import { InitialScreen } from "./DownloadModal/InitialScreen";
 import { DownloadSettingsScreen } from "./DownloadModal/DownloadSettingsScreen";
 import { DownloadTasksScreen } from "./DownloadModal/DownloadTasksScreen";
 import { UploadTasksScreen } from "./DownloadModal/UploadTasksScreen";
+import { MediaDownloadType } from "@chili-publish/studio-sdk";
 import {
   type ModalState,
   type DownloadSettings,
@@ -43,6 +48,7 @@ import {
   type TaskItem,
   type SmartCropsData,
   type StudioPackage,
+  type MediaData,
   FontAlreadyExistsError,
   NoChiliPackageError,
   MissingFontFileError,
@@ -59,6 +65,7 @@ import {
   generateTimestamp,
   validateFolderName,
   getDocumentId,
+  deduplicateSelectedFolders,
 } from "./DownloadModal/utils";
 import { cornersOfRectangle } from "@dnd-kit/core/dist/utilities/algorithms/helpers";
 import { clampSubjectAreaToBounds } from "../utils/smartCrop/clampSubjectAreaToBounds";
@@ -81,6 +88,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     removeUnusedConnectors: false,
     useOriginalFontFileNames: false,
     addTimestamp: false,
+    includeSubfolders: false,
   });
   const [folderName, setFolderName] = useState<string>("");
   const [folderNameError, setFolderNameError] = useState<string>("");
@@ -90,6 +98,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   const [fontStylesCount, setFontStylesCount] = useState<number>(0);
   const [folderBrowserOpened, setFolderBrowserOpened] = useState(false);
   const [connectorSelection, setConnectorSelection] =
+    useState<ImageBrowserFolderSelection | null>(null);
+  const [mediaFolderBrowserOpened, setMediaFolderBrowserOpened] = useState(false);
+  const [mediaConnectorSelection, setMediaConnectorSelection] =
     useState<ImageBrowserFolderSelection | null>(null);
   const [uploadTasks, setUploadTasks] = useState<TaskItem[]>([]);
 
@@ -107,6 +118,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   const [selectedVisionConnector, setSelectedVisionConnector] =
     useState<string>("");
   const [smartCropsData, setSmartCropsData] = useState<any>(null);
+  const [mediaDataForUpload, setMediaDataForUpload] = useState<MediaData | null>(null);
   const [documentData, setDocumentData] = useState<any>(null);
   const [packageJsonTaskId, setPackageJsonTaskId] = useState<string>("");
   const [currentFiles, setCurrentFiles] = useState<File[]>([]);
@@ -353,6 +365,8 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     setFolderNameError("");
     setDownloadFiles([]);
     setConnectorSelection(null);
+    setMediaConnectorSelection(null);
+    setMediaFolderBrowserOpened(false);
     onClose();
   };
 
@@ -362,9 +376,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
     // Load default settings and apply them
     try {
-      const { settings, connectorSelection } = await loadDefaultSettings();
+      const { settings, connectorSelection, mediaConnectorSelection } = await loadDefaultSettings();
       setDownloadSettings(settings);
       setConnectorSelection(connectorSelection);
+      setMediaConnectorSelection(mediaConnectorSelection);
     } catch (error) {
       console.warn("Failed to load default settings:", error);
       // Keep current settings if loading fails
@@ -408,6 +423,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
   const loadDefaultSettings = async (): Promise<{
     settings: DownloadSettings;
     connectorSelection: ImageBrowserFolderSelection | null;
+    mediaConnectorSelection: ImageBrowserFolderSelection | null;
   }> => {
     const defaultFallback: DownloadSettings = {
       includeFonts: true,
@@ -417,6 +433,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       removeUnusedConnectors: false,
       useOriginalFontFileNames: false,
       addTimestamp: true,
+      includeSubfolders: false,
     };
 
     try {
@@ -424,11 +441,12 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       if (toolbarDataResult.isOk()) {
         const toolbarData = toolbarDataResult.value;
         if (toolbarData.defaultDownloadSettings) {
-          const { smartCropsConnectorSelection, ...settings } =
+          const { smartCropsConnectorSelection, mediaConnectorSelection, includeSubfolders, ...restSettings } =
             toolbarData.defaultDownloadSettings;
           return {
-            settings,
+            settings: { ...restSettings, includeSubfolders: includeSubfolders ?? false },
             connectorSelection: smartCropsConnectorSelection || null,
+            mediaConnectorSelection: mediaConnectorSelection || null,
           };
         }
       }
@@ -439,6 +457,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     return {
       settings: defaultFallback,
       connectorSelection: null,
+      mediaConnectorSelection: null,
     };
   };
 
@@ -607,6 +626,25 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             raiseError(error);
             updatePackageTaskStatus("error", error.message);
             return;
+          }
+        }
+      }
+
+      // Step 1b: Check for media.json if needed
+      let mediaFileData: MediaData | null = null;
+      for (const document of studioPackage.documents) {
+        if (document.media) {
+          const mediaJsonFile = files.find(
+            (file) => file.name === document.media!.filePath,
+          );
+          if (mediaJsonFile) {
+            try {
+              const mediaText = await mediaJsonFile.text();
+              mediaFileData = JSON.parse(mediaText) as MediaData;
+              setMediaDataForUpload(mediaFileData);
+            } catch (parseError) {
+              console.warn("Failed to parse media.json:", parseError);
+            }
           }
         }
       }
@@ -922,6 +960,246 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     }
   };
 
+  // Fetch all existing media files in a folder (handles pagination)
+  const fetchExistingMediaInFolder = async (
+    baseUrl: string,
+    token: string,
+    folderPath: string,
+  ): Promise<{ id: string; name: string }[]> => {
+    const allFiles: { id: string; name: string }[] = [];
+    const encodedFolder = encodeURIComponent(folderPath);
+    let nextPageUrl: string | null =
+      `${baseUrl}media?sortBy=name&sortOrder=asc&folder=${encodedFolder}&includeItemsFromSubfolders=false&includeFolders=false`;
+
+    while (nextPageUrl) {
+      const response = await fetch(nextPageUrl, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!response.ok) {
+        console.warn(
+          `Failed to query existing media in folder ${folderPath}: ${response.statusText}`,
+        );
+        break;
+      }
+
+      const result = await response.json();
+      for (const item of result.data || []) {
+        allFiles.push({ id: item.id, name: item.name });
+      }
+
+      nextPageUrl = result.links?.nextPage || null;
+    }
+
+    return allFiles;
+  };
+
+  // Upload media files to the target environment
+  const uploadMediaFiles = async (
+    files: File[],
+    mediaData: MediaData,
+    token: string,
+    baseUrl: string,
+  ): Promise<Map<string, string>> => {
+    const idMap = new Map<string, string>();
+    const totalFiles = mediaData.files.length;
+    const summaryTaskId = "media-upload-summary";
+
+    // Create summary task
+    setUploadTasks((prev) => [
+      ...prev,
+      {
+        id: summaryTaskId,
+        name: `Media Upload: ${totalFiles} files to process`,
+        type: "media_upload",
+        status: "processing",
+      },
+    ]);
+
+    // Helper function to update summary task
+    const updateSummaryTask = () => {
+      setUploadTasks((prev) => {
+        const individualTasks = prev.filter(
+          (task) =>
+            task.type === "media_upload" &&
+            task.id.startsWith("media-upload-") &&
+            task.id !== summaryTaskId,
+        );
+
+        const total = individualTasks.length;
+        const completed = individualTasks.filter(
+          (task) => task.status === "complete",
+        ).length;
+        const errors = individualTasks.filter(
+          (task) => task.status === "error",
+        ).length;
+        const processing = individualTasks.filter(
+          (task) => task.status === "processing",
+        ).length;
+
+        return prev.map((task) => {
+          if (task.id === summaryTaskId) {
+            if (processing > 0) {
+              return {
+                ...task,
+                name: `Media Upload: ${completed + errors}/${total} processed`,
+              };
+            } else if (errors > 0) {
+              const errorDetails = individualTasks
+                .filter((t) => t.status === "error")
+                .map((t) => t.error || "Unknown error")
+                .slice(0, 3);
+              const tooltipMessage =
+                errors > 3
+                  ? `${errors} failed: ${errorDetails.join(", ")}... and ${errors - 3} more`
+                  : `${errors} failed: ${errorDetails.join(", ")}`;
+              return {
+                ...task,
+                status: "error" as const,
+                name: `Media Upload: ${completed} completed, ${errors} failed`,
+                tooltip: tooltipMessage,
+                error: `${errors} uploads failed`,
+              };
+            } else {
+              return {
+                ...task,
+                status: "complete" as const,
+                name: `Media Upload: ${total} files completed`,
+              };
+            }
+          }
+          return task;
+        });
+      });
+    };
+
+    // Pre-fetch existing files for each unique folder path
+    const uniqueFolders = [
+      ...new Set(mediaData.files.map((f) => f.folderPath)),
+    ];
+    const existingFilesByFolder = new Map<
+      string,
+      { id: string; name: string }[]
+    >();
+    for (const folder of uniqueFolders) {
+      const existing = await fetchExistingMediaInFolder(
+        baseUrl,
+        token,
+        folder,
+      );
+      existingFilesByFolder.set(folder, existing);
+    }
+
+    for (const mediaFile of mediaData.files) {
+      const taskId = `media-upload-${mediaFile.id}`;
+
+      try {
+        // Check if a file with the same name already exists in the target folder
+        const existingFiles =
+          existingFilesByFolder.get(mediaFile.folderPath) || [];
+        const existingMatch = existingFiles.find(
+          (f) => f.name === mediaFile.name,
+        );
+
+        if (existingMatch) {
+          // File already exists — skip upload, use existing ID
+          idMap.set(mediaFile.id, existingMatch.id);
+          setUploadTasks((prev) => [
+            ...prev,
+            {
+              id: taskId,
+              name: `Media exists, skipped: ${mediaFile.name}`,
+              type: "media_upload",
+              status: "complete",
+            },
+          ]);
+          updateSummaryTask();
+          continue;
+        }
+
+        setUploadTasks((prev) => [
+          ...prev,
+          {
+            id: taskId,
+            name: `Uploading media: ${mediaFile.name}`,
+            type: "media_upload",
+            status: "processing",
+          },
+        ]);
+
+        // Find binary file in uploaded files (stored as media/<id>)
+        const binaryFile = files.find(
+          (f) => f.name === `media/${mediaFile.id}`,
+        );
+        if (!binaryFile) {
+          throw new Error(
+            `Media binary file not found for: ${mediaFile.name} (${mediaFile.id})`,
+          );
+        }
+
+        // Upload via POST endpoint
+        const formData = new FormData();
+        const fileName = mediaFile.extension
+          ? `${mediaFile.name}.${mediaFile.extension}`
+          : mediaFile.name;
+        formData.append("file", binaryFile, fileName);
+
+        const encodedName = encodeURIComponent(mediaFile.name);
+        const encodedFolderPath = encodeURIComponent(mediaFile.folderPath);
+        const response = await fetch(
+          `${baseUrl}media?name=${encodedName}&folderPath=${encodedFolderPath}`,
+          {
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to upload media: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        idMap.set(mediaFile.id, result.id);
+
+        setUploadTasks((prev) =>
+          prev.map((t) =>
+            t.id === taskId ? { ...t, status: "complete" } : t,
+          ),
+        );
+        updateSummaryTask();
+      } catch (error) {
+        setUploadTasks((prev) =>
+          prev.map((t) =>
+            t.id === taskId
+              ? {
+                  ...t,
+                  status: "error",
+                  error:
+                    error instanceof Error ? error.message : String(error),
+                }
+              : t,
+          ),
+        );
+        updateSummaryTask();
+      }
+    }
+
+    return idMap;
+  };
+
+  // Replace old media IDs with new IDs in the document JSON
+  const replaceMediaIds = (
+    documentData: any,
+    idMap: Map<string, string>,
+  ): any => {
+    let docString = JSON.stringify(documentData);
+    for (const [oldId, newId] of idMap) {
+      docString = docString.replaceAll(oldId, newId);
+    }
+    return JSON.parse(docString);
+  };
+
   // Start task processing (fonts, smart crops, document)
   const startTaskProcessing = async (
     files: File[],
@@ -929,8 +1207,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     studio: any,
     token: string,
     baseUrl: string,
-    currentDocumentData?: any,
+    initialDocumentData?: any,
   ) => {
+    let currentDocumentData = initialDocumentData;
     try {
       // Process fonts first
       for (const document of studioPackage.documents) {
@@ -1133,6 +1412,21 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             );
             updateSummaryTask();
           }
+        }
+      }
+
+      // Process media files if available (after smart crops, before document load)
+      if (mediaDataForUpload && mediaDataForUpload.files.length > 0) {
+        const mediaIdMap = await uploadMediaFiles(
+          files,
+          mediaDataForUpload,
+          token,
+          baseUrl,
+        );
+
+        // Replace old media IDs with new IDs in the document
+        if (mediaIdMap.size > 0 && currentDocumentData) {
+          currentDocumentData = replaceMediaIds(currentDocumentData, mediaIdMap);
         }
       }
 
@@ -1581,7 +1875,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
             // Check if there are more pages
             if (queryPage.nextPageToken) {
-              pageToken = queryPage.nextPageToken;
+              pageToken = extractPageToken(queryPage.nextPageToken);
               hasMorePages = true;
             } else {
               hasMorePages = false;
@@ -1727,6 +2021,341 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     }
 
     return smartCropsData;
+  };
+
+  // Collect media files from selected folders
+  const collectMediaDataWithTasks = async (
+    studio: any,
+    mediaSelection: ImageBrowserFolderSelection,
+    folder: string,
+    includeSubfolders: boolean,
+  ): Promise<MediaData> => {
+    const mediaData: MediaData = {
+      connectorId: mediaSelection.connectorId,
+      connectorName: mediaSelection.connectorName,
+      files: [],
+    };
+
+    // Register the connector
+    const registerResult = await registerConnector(
+      studio,
+      mediaSelection.connectorId,
+    );
+    if (!registerResult.isOk()) {
+      throw new Error(
+        `Failed to register connector: ${registerResult.error?.message}`,
+      );
+    }
+
+    const localConnectorId = registerResult.value as string;
+    let hasErrors = false;
+
+    try {
+      // Phase 1: Query all folders and collect file lists
+      const allFiles: { file: Media; folderPath: string }[] = [];
+
+      // Determine which folders to scan
+      const foldersToScan = includeSubfolders
+        ? deduplicateSelectedFolders(mediaSelection.selectedFolders)
+        : mediaSelection.selectedFolders;
+
+      for (const folderPath of foldersToScan) {
+        const folderTaskId = `media-query-${folderPath.replace(/[^a-zA-Z0-9]/g, "-")}`;
+        setTasks((prev) => [
+          ...prev,
+          {
+            id: folderTaskId,
+            name: includeSubfolders
+              ? `Scanning: ${folderPath}`
+              : `Getting media files: ${folderPath}`,
+            type: "media_query" as const,
+            status: "processing" as const,
+          },
+        ]);
+
+        try {
+          if (includeSubfolders) {
+            // --- BFS recursive traversal ---
+            const folderFiles: { file: Media; folderPath: string }[] = [];
+            const queue: string[] = [folderPath];
+            let foldersScanned = 0;
+
+            while (queue.length > 0) {
+              const currentPath = queue.shift()!;
+              let pageToken = "";
+              let hasMorePages = true;
+
+              // Update task with current subfolder
+              setTasks((prev) =>
+                prev.map((task) =>
+                  task.id === folderTaskId
+                    ? {
+                        ...task,
+                        name: `Scanning: ${currentPath} (${folderFiles.length} files in ${foldersScanned} folders)`,
+                      }
+                    : task,
+                ),
+              );
+
+              while (hasMorePages) {
+                const queryResult = await queryMediaConnectorSimple(
+                  studio,
+                  localConnectorId,
+                  currentPath,
+                  pageToken,
+                );
+
+                if (!queryResult.isOk()) {
+                  // Log error but continue with remaining folders
+                  console.warn(`Failed to query subfolder ${currentPath}:`, queryResult.error?.message);
+                  break;
+                }
+
+                const queryPage = queryResult.value as QueryPage<Media>;
+
+                for (const item of queryPage.data) {
+                  if (item.type === "file" || (item.type as unknown) === 0) {
+                    folderFiles.push({ file: item, folderPath: currentPath });
+                  } else if (item.type === "folder" || (item.type as unknown) === 1) {
+                    // Enqueue subfolder for traversal
+                    const subfolderPath = currentPath === "/"
+                      ? `/${item.name}`
+                      : `${currentPath}/${item.name}`;
+                    queue.push(subfolderPath);
+                  }
+                }
+
+                if (queryPage.nextPageToken) {
+                  pageToken = extractPageToken(queryPage.nextPageToken);
+                } else {
+                  hasMorePages = false;
+                }
+              }
+
+              foldersScanned++;
+            }
+
+            // Mark task complete
+            setTasks((prev) =>
+              prev.map((task) =>
+                task.id === folderTaskId
+                  ? {
+                      ...task,
+                      status: "complete" as const,
+                      name: `Scanned: ${folderPath} (${folderFiles.length} files in ${foldersScanned} folders)`,
+                    }
+                  : task,
+              ),
+            );
+
+            allFiles.push(...folderFiles);
+          } else {
+            // --- Existing flat query (unchanged) ---
+            const folderFiles: Media[] = [];
+            let pageToken = "";
+            let hasMorePages = true;
+            let pageCount = 0;
+
+            while (hasMorePages) {
+              pageCount++;
+              setTasks((prev) =>
+                prev.map((task) =>
+                  task.id === folderTaskId
+                    ? {
+                        ...task,
+                        name: `Getting media files: ${folderPath} (page ${pageCount})`,
+                      }
+                    : task,
+                ),
+              );
+
+              const queryResult = await queryMediaConnectorSimple(
+                studio,
+                localConnectorId,
+                folderPath,
+                pageToken,
+              );
+
+              if (!queryResult.isOk()) {
+                hasErrors = true;
+                setTasks((prev) =>
+                  prev.map((task) =>
+                    task.id === folderTaskId
+                      ? {
+                          ...task,
+                          status: "error" as const,
+                          error: `Failed to query folder: ${queryResult.error?.message}`,
+                        }
+                      : task,
+                  ),
+                );
+                break;
+              }
+
+              const queryPage = queryResult.value as QueryPage<Media>;
+              const pageFiles = queryPage.data.filter(
+                (item) => item.type === "file" || (item.type as unknown) === 0,
+              );
+              folderFiles.push(...pageFiles);
+
+              if (queryPage.nextPageToken) {
+                pageToken = extractPageToken(queryPage.nextPageToken);
+              } else {
+                hasMorePages = false;
+              }
+            }
+
+            if (!hasErrors) {
+              setTasks((prev) =>
+                prev.map((task) =>
+                  task.id === folderTaskId
+                    ? {
+                        ...task,
+                        status: "complete" as const,
+                        name: `Getting media files: ${folderPath} (${folderFiles.length} files found)`,
+                      }
+                    : task,
+                ),
+              );
+
+              for (const file of folderFiles) {
+                allFiles.push({ file, folderPath });
+              }
+            }
+          }
+        } catch (error) {
+          hasErrors = true;
+          setTasks((prev) =>
+            prev.map((task) =>
+              task.id === folderTaskId
+                ? {
+                    ...task,
+                    status: "error" as const,
+                    error:
+                      error instanceof Error ? error.message : String(error),
+                  }
+                : task,
+            ),
+          );
+        }
+      }
+
+      // Phase 2: Download each file as binary
+      for (const { file, folderPath } of allFiles) {
+        const downloadTaskId = `media-download-${file.id}`;
+        setTasks((prev) => [
+          ...prev,
+          {
+            id: downloadTaskId,
+            name: `Downloading media: ${file.name || file.id}`,
+            type: "media_download" as const,
+            status: "processing" as const,
+          },
+        ]);
+
+        try {
+          const downloadResult = await downloadMediaConnector({
+            studio,
+            connectorId: localConnectorId,
+            assetId: file.id,
+            downloadType: MediaDownloadType.original,
+            metadata: {},
+          });
+
+          if (!downloadResult.isOk()) {
+            hasErrors = true;
+            setTasks((prev) =>
+              prev.map((task) =>
+                task.id === downloadTaskId
+                  ? {
+                      ...task,
+                      status: "error" as const,
+                      error:
+                        downloadResult.error?.message ||
+                        "Failed to download media file",
+                    }
+                  : task,
+              ),
+            );
+            continue;
+          }
+
+          const binaryData = downloadResult.value;
+          if (!(binaryData instanceof Uint8Array)) {
+            hasErrors = true;
+            setTasks((prev) =>
+              prev.map((task) =>
+                task.id === downloadTaskId
+                  ? {
+                      ...task,
+                      status: "error" as const,
+                      error: "Unexpected download response format",
+                    }
+                  : task,
+              ),
+            );
+            continue;
+          }
+
+          // Create blob and send download request
+          const blob = new Blob([binaryData]);
+          const blobUrl = URL.createObjectURL(blob);
+          setCreatedBlobUrls((prev) => [...prev, blobUrl]);
+
+          await sendDownloadRequest(
+            blobUrl,
+            "",
+            folder,
+            `media/${file.id}`,
+            downloadTaskId,
+          );
+
+          // Track for manifest
+          mediaData.files.push({
+            id: file.id,
+            name: file.name,
+            extension: file.extension || "",
+            folderPath,
+          });
+
+          setTasks((prev) =>
+            prev.map((task) =>
+              task.id === downloadTaskId
+                ? { ...task, status: "complete" as const }
+                : task,
+            ),
+          );
+        } catch (error) {
+          hasErrors = true;
+          setTasks((prev) =>
+            prev.map((task) =>
+              task.id === downloadTaskId
+                ? {
+                    ...task,
+                    status: "error" as const,
+                    error:
+                      error instanceof Error ? error.message : String(error),
+                  }
+                : task,
+            ),
+          );
+        }
+      }
+    } finally {
+      try {
+        await unregisterConnector(studio, localConnectorId);
+      } catch (error) {
+        console.warn("Failed to unregister connector:", error);
+      }
+    }
+
+    if (hasErrors) {
+      throw new Error(
+        "Media data collection failed due to errors in folder querying or file downloading",
+      );
+    }
+
+    return mediaData;
   };
 
   // Handle JSON file upload
@@ -2002,15 +2631,18 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     documentName: string,
     folder: string,
     connectorSelection: ImageBrowserFolderSelection | null,
+    mediaConnectorSelection: ImageBrowserFolderSelection | null,
   ) => {
     // Collect font data for the package manifest
     const fontDataForPackage: { filePath: string; details: FontData }[] = [];
     let smartCropsFilePath: string | undefined;
+    let mediaFilePath: string | undefined;
 
     // Separate files by type for proper ordering
     const documentJsonFile = files.find((f) => f.id === "document-json");
     const fontFiles = files.filter((f) => f.id.startsWith("font-"));
     const smartCropsFile = files.find((f) => f.id === "smart-crops");
+    const mediaFile = files.find((f) => f.id === "media-json");
     const packageFile = files.find((f) => f.id === "studio-package");
 
     // Download document JSON first
@@ -2153,6 +2785,58 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       }
     }
 
+    // Process media files if included
+    if (mediaFile && mediaConnectorSelection) {
+      try {
+        setDownloadFiles((prev) =>
+          prev.map((f) =>
+            f.id === mediaFile.id ? { ...f, status: "downloading" } : f,
+          ),
+        );
+
+        const studioResult = await getStudio();
+        if (!studioResult.isOk()) {
+          throw new Error("Failed to get studio for media collection");
+        }
+
+        const mediaData = await collectMediaDataWithTasks(
+          studioResult.value,
+          mediaConnectorSelection,
+          folder,
+          downloadSettings.includeSubfolders,
+        );
+
+        // Create media.json manifest and download it
+        const mediaJsonStr = JSON.stringify(mediaData, null, 2);
+        const blob = new Blob([mediaJsonStr], { type: "application/json" });
+        const blobUrl = URL.createObjectURL(blob);
+        setCreatedBlobUrls((prev) => [...prev, blobUrl]);
+
+        // Set the file path for package manifest
+        mediaFilePath = mediaFile.name;
+
+        await sendDownloadRequest(
+          blobUrl,
+          "",
+          folder,
+          mediaFile.name,
+          mediaFile.id,
+        );
+      } catch (error) {
+        setDownloadFiles((prev) =>
+          prev.map((f) =>
+            f.id === mediaFile.id
+              ? {
+                  ...f,
+                  status: "error",
+                  error: error instanceof Error ? error.message : String(error),
+                }
+              : f,
+          ),
+        );
+      }
+    }
+
     // Download package manifest last (after all fonts and smart crops are processed)
     if (packageFile) {
       try {
@@ -2175,6 +2859,13 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         if (smartCropsFilePath) {
           documentEntry.smartCrops = {
             filePath: smartCropsFilePath,
+          };
+        }
+
+        // Add media file path if it exists
+        if (mediaFilePath) {
+          documentEntry.media = {
+            filePath: mediaFilePath,
           };
         }
 
@@ -2285,6 +2976,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     if (setting === "includeSmartCrops" && !value) {
       setConnectorSelection(null);
     }
+
+    // Clear media connector selection when media is unchecked
+    if (setting === "includeGrafxMedia" && !value) {
+      setMediaConnectorSelection(null);
+    }
   };
 
   // Handle download execution with settings
@@ -2373,6 +3069,19 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         });
       }
 
+      // Add media manifest file if media is included and folders are selected
+      if (
+        downloadSettings.includeGrafxMedia &&
+        mediaConnectorSelection &&
+        mediaConnectorSelection.selectedFolders.length > 0
+      ) {
+        filesToDownload.push({
+          id: "media-json",
+          name: "media.json",
+          status: "pending",
+        });
+      }
+
       setDownloadFiles(filesToDownload);
       setTasks([]); // Reset tasks
       setModalState("tasks");
@@ -2385,6 +3094,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         documentName,
         finalFolderName,
         connectorSelection,
+        mediaConnectorSelection,
       );
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -2410,6 +3120,24 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         ...prev,
         selectedFolders: updatedFolders,
       };
+    });
+  };
+
+  const handleMediaFolderSelection = (
+    selection: ImageBrowserFolderSelection | null,
+  ) => {
+    setMediaConnectorSelection(selection);
+    setMediaFolderBrowserOpened(false);
+  };
+
+  const handleRemoveMediaFolderPath = (pathToRemove: string) => {
+    setMediaConnectorSelection((prev) => {
+      if (!prev) return null;
+      const updatedFolders = prev.selectedFolders.filter(
+        (path) => path !== pathToRemove,
+      );
+      if (updatedFolders.length === 0) return null;
+      return { ...prev, selectedFolders: updatedFolders };
     });
   };
 
@@ -2469,10 +3197,13 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             downloadSettings={downloadSettings}
             fontStylesCount={fontStylesCount}
             connectorSelection={connectorSelection}
+            mediaConnectorSelection={mediaConnectorSelection}
             onFolderNameChange={handleFolderNameChange}
             onSettingChange={handleSettingChange}
             onAddFolder={() => setFolderBrowserOpened(true)}
             onRemoveFolderPath={handleRemoveFolderPath}
+            onAddMediaFolder={() => setMediaFolderBrowserOpened(true)}
+            onRemoveMediaFolderPath={handleRemoveMediaFolderPath}
             onBack={() => setModalState("initial")}
             onDownload={handleDownloadWithSettings}
           />
@@ -2501,7 +3232,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         onChange={handleFileChange}
       />
 
-      {/* Image Browser Modal */}
+      {/* Image Browser Modal for Smart Crops */}
       <ImageBrowser
         opened={folderBrowserOpened}
         mode={ImageBrowserMode.FolderSelection}
@@ -2509,6 +3240,18 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         onClose={(selection) => {
           handleFolderSelection(selection);
           setFolderBrowserOpened(false);
+        }}
+      />
+
+      {/* Image Browser Modal for Media */}
+      <ImageBrowser
+        opened={mediaFolderBrowserOpened}
+        mode={ImageBrowserMode.FolderSelection}
+        autoConnectorName="GraFx Media"
+        initialSelection={mediaConnectorSelection}
+        onClose={(selection) => {
+          handleMediaFolderSelection(selection);
+          setMediaFolderBrowserOpened(false);
         }}
       />
 

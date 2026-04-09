@@ -17,6 +17,7 @@ export interface DownloadSettings {
   removeUnusedConnectors: boolean;
   useOriginalFontFileNames: boolean;
   addTimestamp: boolean;
+  includeSubfolders: boolean;
 }
 
 export interface DownloadFile {
@@ -37,10 +38,26 @@ export interface TaskItem {
     | "package_processing"
     | "font_upload"
     | "smart_crop_upload"
-    | "document_load";
+    | "document_load"
+    | "media_query"
+    | "media_download"
+    | "media_upload";
   status: "pending" | "processing" | "complete" | "error" | "info";
   error?: string;
   tooltip?: string;
+}
+
+export interface MediaFileEntry {
+  id: string;
+  name: string;
+  extension: string;
+  folderPath: string;
+}
+
+export interface MediaData {
+  connectorId: string;
+  connectorName: string;
+  files: MediaFileEntry[];
 }
 
 export interface SmartCropsData {
@@ -60,6 +77,9 @@ export interface StudioPackage {
     name: string | null;
     filePath: string;
     smartCrops?: {
+      filePath: string;
+    };
+    media?: {
       filePath: string;
     };
     fonts: {

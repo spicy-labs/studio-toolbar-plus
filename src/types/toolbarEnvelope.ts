@@ -34,7 +34,13 @@ export type DefaultDownloadSettings = {
   removeUnusedConnectors: boolean;
   useOriginalFontFileNames: boolean;
   addTimestamp: boolean;
+  includeSubfolders?: boolean;
   smartCropsConnectorSelection?: {
+    selectedFolders: string[];
+    connectorId: string;
+    connectorName: string;
+  };
+  mediaConnectorSelection?: {
     selectedFolders: string[];
     connectorId: string;
     connectorName: string;
@@ -61,6 +67,7 @@ export function createEmptyEnvelope(): ToolbarEnvelope {
       removeUnusedConnectors: false,
       useOriginalFontFileNames: false,
       addTimestamp: true,
+      includeSubfolders: false,
     },
   };
 }
