@@ -16902,534 +16902,6 @@ var require_client = __commonJS((exports, module) => {
   }
 });
 
-// node_modules/typescript-result/dist/index.js
-function isPromise(value) {
-  if (value === null || value === undefined) {
-    return false;
-  }
-  if (typeof value !== "object") {
-    return false;
-  }
-  return value instanceof Promise || "then" in value;
-}
-function isFunction(value) {
-  return typeof value === "function";
-}
-function isAsyncFn(fn) {
-  return fn.constructor.name === "AsyncFunction";
-}
-function isGenerator(obj) {
-  return typeof obj === "object" && obj !== null && typeof obj.next === "function" && typeof obj.throw === "function" && typeof obj.return === "function" && typeof obj[Symbol.iterator] === "function" && obj[Symbol.iterator]() === obj;
-}
-function isAsyncGenerator(obj) {
-  return typeof obj === "object" && obj !== null && typeof obj.next === "function" && typeof obj.throw === "function" && typeof obj.return === "function" && typeof obj[Symbol.asyncIterator] === "function" && obj[Symbol.asyncIterator]() === obj;
-}
-var NonExhaustiveError, Matcher = class {
-  constructor(error) {
-    this.error = error;
-  }
-  cases = [];
-  defaultHandler = undefined;
-  when(value, ...args) {
-    const cases = [value, ...args.slice(0, -1)];
-    const handler = args.at(-1);
-    this.cases.push(...cases.map((value2) => ({
-      value: value2,
-      handler
-    })));
-    return this;
-  }
-  else = (handler) => {
-    if (this.defaultHandler) {
-      throw new Error("already registered an 'else' handler");
-    }
-    this.defaultHandler = handler;
-    return this;
-  };
-  run = () => {
-    const isAsync = this.cases.some((item) => isAsyncFn(item.handler));
-    for (const item of this.cases) {
-      const match = isFunction(item.value) && this.error instanceof item.value || item.value === this.error;
-      if (match) {
-        const value = item.handler(this.error);
-        return isPromise(value) ? value : isAsync ? Promise.resolve(value) : value;
-      }
-    }
-    if (this.defaultHandler) {
-      return this.defaultHandler(this.error);
-    }
-    throw new NonExhaustiveError(this.error);
-  };
-}, AsyncResult, Result, ResultFactory, Result2;
-var init_dist = __esm(() => {
-  NonExhaustiveError = class extends Error {
-    constructor(error) {
-      super("Not all error cases were handled");
-      this.error = error;
-    }
-  };
-  AsyncResult = class _AsyncResult extends Promise {
-    constructor(executor) {
-      super(executor);
-    }
-    *[Symbol.iterator]() {
-      return yield this;
-    }
-    get isAsyncResult() {
-      return true;
-    }
-    async toTuple() {
-      const result = await this;
-      return result.toTuple();
-    }
-    async errorOrNull() {
-      const result = await this;
-      return result.errorOrNull();
-    }
-    async getOrNull() {
-      const result = await this;
-      return result.getOrNull();
-    }
-    async getOrDefault(defaultValue) {
-      const result = await this;
-      return result.getOrDefault(defaultValue);
-    }
-    async getOrElse(onFailure) {
-      const result = await this;
-      return result.getOrElse(onFailure);
-    }
-    async getOrThrow() {
-      const result = await this;
-      return result.getOrThrow();
-    }
-    async fold(onSuccess, onFailure) {
-      const result = await this;
-      return result.fold(onSuccess, onFailure);
-    }
-    onFailure(action) {
-      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-        try {
-          if (!result.ok) {
-            await action(result.error);
-          }
-          resolve(result);
-        } catch (e) {
-          reject(e);
-        }
-      }).catch(reject));
-    }
-    onSuccess(action) {
-      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-        try {
-          if (result.ok) {
-            await action(result.value);
-          }
-          resolve(result);
-        } catch (error) {
-          reject(error);
-        }
-      }).catch(reject));
-    }
-    map(transform) {
-      return new _AsyncResult((resolve, reject) => {
-        this.then(async (result) => resolve(await result.map(transform))).catch(reject);
-      });
-    }
-    mapCatching(transformValue, transformError) {
-      return new _AsyncResult((resolve, reject) => {
-        this.map(transformValue).then((result) => resolve(result)).catch((error) => {
-          try {
-            resolve(ResultFactory.error(transformError ? transformError(error) : error));
-          } catch (err) {
-            reject(err);
-          }
-        });
-      });
-    }
-    mapError(transform) {
-      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-        try {
-          resolve(result.mapError(transform));
-        } catch (error) {
-          reject(error);
-        }
-      }).catch(reject));
-    }
-    recover(onFailure) {
-      return new _AsyncResult((resolve, reject) => this.then(async (result) => {
-        try {
-          const outcome = await result.recover(onFailure);
-          resolve(outcome);
-        } catch (error) {
-          reject(error);
-        }
-      }).catch(reject));
-    }
-    recoverCatching(onFailure, transformError) {
-      return new _AsyncResult((resolve, reject) => this.then((result) => {
-        resolve(result.recoverCatching(onFailure, transformError));
-      }).catch(reject));
-    }
-    toString() {
-      return "AsyncResult";
-    }
-    static error(error) {
-      return new _AsyncResult((resolve) => resolve(ResultFactory.error(error)));
-    }
-    static ok(value) {
-      return new _AsyncResult((resolve) => resolve(ResultFactory.ok(value)));
-    }
-    static fromPromise(promise) {
-      return new _AsyncResult((resolve, reject) => {
-        promise.then((value) => resolve(ResultFactory.isResult(value) ? value : ResultFactory.ok(value))).catch(reject);
-      });
-    }
-    static fromPromiseCatching(promise, transform) {
-      return new _AsyncResult((resolve, reject) => {
-        promise.then((value) => resolve(ResultFactory.isResult(value) ? value : ResultFactory.ok(value))).catch((caughtError) => {
-          resolve(ResultFactory.error(transform?.(caughtError) ?? caughtError));
-        }).catch(reject);
-      });
-    }
-  };
-  Result = class {
-    constructor(_value, _error) {
-      this._value = _value;
-      this._error = _error;
-    }
-    *[Symbol.iterator]() {
-      return yield this;
-    }
-    get isResult() {
-      return true;
-    }
-    get value() {
-      return this._value;
-    }
-    get error() {
-      return this._error;
-    }
-    get success() {
-      return this.error === undefined;
-    }
-    get failure() {
-      return this.error !== undefined;
-    }
-    get ok() {
-      return this.success;
-    }
-    isOk() {
-      return this.success;
-    }
-    isError() {
-      return this.failure;
-    }
-    toTuple() {
-      return [this._value ?? null, this._error ?? null];
-    }
-    errorOrNull() {
-      return this.failure ? this._error : null;
-    }
-    getOrNull() {
-      return this.success ? this._value : null;
-    }
-    getOrDefault(defaultValue) {
-      return this.success ? this._value : defaultValue;
-    }
-    getOrElse(onFailure) {
-      if (isAsyncFn(onFailure)) {
-        return this.success ? Promise.resolve(this._value) : onFailure(this._error);
-      }
-      return this.success ? this._value : onFailure(this._error);
-    }
-    getOrThrow() {
-      if (this.success) {
-        return this._value;
-      }
-      throw this._error;
-    }
-    fold(onSuccess, onFailure) {
-      const isAsync = isAsyncFn(onSuccess) || isAsyncFn(onFailure);
-      const outcome = this.success ? onSuccess(this._value) : onFailure(this._error);
-      return isAsync && !isPromise(outcome) ? Promise.resolve(outcome) : outcome;
-    }
-    match() {
-      return this.failure ? new Matcher(this._error) : undefined;
-    }
-    onFailure(action) {
-      const isAsync = isAsyncFn(action);
-      if (this.failure) {
-        const outcome = action(this._error);
-        if (isAsync) {
-          return new AsyncResult((resolve) => {
-            outcome.then(() => resolve(ResultFactory.error(this._error)));
-          });
-        }
-        return this;
-      }
-      return isAsync ? AsyncResult.ok(this._value) : this;
-    }
-    onSuccess(action) {
-      const isAsync = isAsyncFn(action);
-      if (this.success) {
-        const outcome = action(this._value);
-        if (isAsync) {
-          return new AsyncResult((resolve) => {
-            outcome.then(() => resolve(ResultFactory.ok(this._value)));
-          });
-        }
-        return this;
-      }
-      return isAsync ? AsyncResult.error(this._error) : this;
-    }
-    map(transform) {
-      return this.success ? ResultFactory.run(() => transform(this._value)) : isAsyncFn(transform) ? AsyncResult.error(this._error) : this;
-    }
-    mapCatching(transformValue, transformError) {
-      return this.success ? ResultFactory.try(() => transformValue(this._value), transformError) : this;
-    }
-    mapError(transform) {
-      if (this.success) {
-        return this;
-      }
-      return ResultFactory.error(transform(this._error));
-    }
-    recover(onFailure) {
-      return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : ResultFactory.run(() => onFailure(this._error));
-    }
-    recoverCatching(onFailure, transformError) {
-      return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : ResultFactory.try(() => onFailure(this._error), transformError);
-    }
-    toString() {
-      if (this.success) {
-        return `Result.ok(${this._value})`;
-      }
-      return `Result.error(${this.error})`;
-    }
-  };
-  ResultFactory = class _ResultFactory {
-    constructor() {}
-    static ok(value) {
-      return new Result(value, undefined);
-    }
-    static error(error) {
-      return new Result(undefined, error);
-    }
-    static isResult(possibleResult) {
-      return possibleResult instanceof Result;
-    }
-    static isAsyncResult(possibleAsyncResult) {
-      return possibleAsyncResult instanceof AsyncResult;
-    }
-    static run(fn) {
-      const returnValue = fn();
-      if (isGenerator(returnValue) || isAsyncGenerator(returnValue)) {
-        return _ResultFactory.handleGenerator(returnValue);
-      }
-      if (isPromise(returnValue)) {
-        return AsyncResult.fromPromise(returnValue);
-      }
-      return _ResultFactory.isResult(returnValue) ? returnValue : _ResultFactory.ok(returnValue);
-    }
-    static allInternal(items, opts) {
-      const runner = opts.catching ? _ResultFactory.try : _ResultFactory.run;
-      const flattened = [];
-      let isAsync = items.some(isPromise);
-      let hasFailure = false;
-      for (const item of items) {
-        if (isFunction(item)) {
-          if (hasFailure) {
-            continue;
-          }
-          const returnValue = runner(item);
-          if (_ResultFactory.isResult(returnValue) && !returnValue.ok) {
-            hasFailure = true;
-            if (!isAsync) {
-              return returnValue;
-            }
-          }
-          if (_ResultFactory.isAsyncResult(returnValue)) {
-            isAsync = true;
-          }
-          flattened.push(returnValue);
-        } else if (_ResultFactory.isResult(item)) {
-          if (!item.ok) {
-            hasFailure = true;
-            if (!isAsync) {
-              return item;
-            }
-          }
-          flattened.push(item);
-        } else if (_ResultFactory.isAsyncResult(item)) {
-          isAsync = true;
-          flattened.push(item);
-        } else if (isPromise(item)) {
-          isAsync = true;
-          flattened.push(opts.catching ? AsyncResult.fromPromiseCatching(item) : AsyncResult.fromPromise(item));
-        } else {
-          flattened.push(_ResultFactory.ok(item));
-        }
-      }
-      if (isAsync) {
-        return new AsyncResult((resolve, reject) => {
-          const asyncResults = [];
-          const asyncIndexes = [];
-          for (let i = 0;i < flattened.length; i++) {
-            const item = flattened[i];
-            if (_ResultFactory.isAsyncResult(item)) {
-              asyncResults.push(item);
-              asyncIndexes.push(i);
-            }
-          }
-          Promise.all(asyncResults).then((resolvedResults) => {
-            const merged = [...flattened];
-            for (let i = 0;i < resolvedResults.length; i++) {
-              merged[asyncIndexes[i]] = resolvedResults[i];
-            }
-            const firstFailedResult = merged.find((resolvedResult) => !resolvedResult.ok);
-            if (firstFailedResult) {
-              resolve(firstFailedResult);
-              return;
-            }
-            resolve(_ResultFactory.ok(merged.map((result) => result.getOrNull())));
-          }).catch((reason) => {
-            reject(reason);
-          });
-        });
-      }
-      return _ResultFactory.ok(flattened.map((result) => result.getOrNull()));
-    }
-    static all(...items) {
-      return _ResultFactory.allInternal(items, {
-        catching: false
-      });
-    }
-    static allCatching(...items) {
-      return _ResultFactory.allInternal(items, {
-        catching: true
-      });
-    }
-    static wrap(fn, transformError) {
-      return function wrapped(...args) {
-        return _ResultFactory.try(() => fn(...args), transformError);
-      };
-    }
-    static try(fn, transform) {
-      try {
-        const returnValue = fn();
-        if (isGenerator(returnValue)) {
-          return _ResultFactory.handleGenerator(returnValue);
-        }
-        if (isAsyncGenerator(returnValue)) {
-          const asyncResult = _ResultFactory.handleGenerator(returnValue);
-          return AsyncResult.fromPromiseCatching(asyncResult, transform);
-        }
-        if (isPromise(returnValue)) {
-          return AsyncResult.fromPromiseCatching(returnValue, transform);
-        }
-        return _ResultFactory.isResult(returnValue) ? returnValue : _ResultFactory.ok(returnValue);
-      } catch (caughtError) {
-        return _ResultFactory.error(transform?.(caughtError) ?? caughtError);
-      }
-    }
-    static fromAsync(valueOrFn) {
-      return _ResultFactory.run(typeof valueOrFn === "function" ? valueOrFn : () => valueOrFn);
-    }
-    static fromAsyncCatching(valueOrFn, transformError) {
-      return _ResultFactory.try(typeof valueOrFn === "function" ? valueOrFn : () => valueOrFn, transformError);
-    }
-    static handleGenerator(it) {
-      function handleResult(result2) {
-        if (!result2.ok) {
-          return iterate(it.return(result2));
-        }
-        return iterate(it.next(result2.value));
-      }
-      function handleStep(step) {
-        if (step.done) {
-          if (step.value instanceof Result || step.value instanceof AsyncResult) {
-            return step.value;
-          }
-          return _ResultFactory.ok(step.value);
-        }
-        if (step.value instanceof Result) {
-          return handleResult(step.value);
-        }
-        if (step.value instanceof AsyncResult) {
-          return step.value.then(handleResult);
-        }
-        return iterate(it.next(step.value));
-      }
-      function iterate(iteratorResult) {
-        return isPromise(iteratorResult) ? iteratorResult.then(handleStep) : handleStep(iteratorResult);
-      }
-      const result = iterate(it.next());
-      return isPromise(result) ? AsyncResult.fromPromise(result) : result;
-    }
-    static gen(generatorOrSelfOrFn, fn) {
-      const it = isGenerator(generatorOrSelfOrFn) || isAsyncGenerator(generatorOrSelfOrFn) ? generatorOrSelfOrFn : typeof generatorOrSelfOrFn === "function" ? generatorOrSelfOrFn() : fn?.apply(generatorOrSelfOrFn);
-      return _ResultFactory.handleGenerator(it);
-    }
-    static genCatching(generatorOrSelfOrFn, transformValueOrError, transformError) {
-      const isGen = isGenerator(generatorOrSelfOrFn) || isAsyncGenerator(generatorOrSelfOrFn);
-      const self2 = typeof generatorOrSelfOrFn === "function" || isGen ? undefined : generatorOrSelfOrFn;
-      const tValue = typeof generatorOrSelfOrFn === "function" ? generatorOrSelfOrFn : transformValueOrError;
-      const tError = typeof generatorOrSelfOrFn === "function" || isGen ? transformValueOrError : transformError;
-      try {
-        const it = isGen ? generatorOrSelfOrFn : self2 ? tValue.apply(generatorOrSelfOrFn) : tValue();
-        const result = _ResultFactory.handleGenerator(it);
-        if (_ResultFactory.isAsyncResult(result)) {
-          return result.catch((error) => AsyncResult.error(tError?.(error) ?? error));
-        }
-        return result;
-      } catch (error) {
-        return _ResultFactory.error(tError?.(error) ?? error);
-      }
-    }
-    static assertOk(result) {
-      if (!result.ok) {
-        throw new Error("Expected a successful result, but got an error instead");
-      }
-    }
-    static assertError(result) {
-      if (result.ok) {
-        throw new Error("Expected a failed result, but got a value instead");
-      }
-    }
-    static [Symbol.hasInstance](instance) {
-      return instance instanceof Result;
-    }
-  };
-  Result2 = ResultFactory;
-});
-
-// src/studio/utils.ts
-async function handleStudioFunc(studioFunction, ...functionArgs) {
-  const result = await Result2.wrap(studioFunction)(...functionArgs);
-  return result.map((er) => {
-    if (er.success) {
-      const data = er.parsedData;
-      if (data == null) {
-        return Result2.error(Error(`parsedData is null`));
-      } else {
-        return data;
-      }
-    } else {
-      return Result2.error(Error(`Studio Returned Error ${er.status}:${er.error}`));
-    }
-  });
-}
-function removeIntercom() {
-  const element = document.getElementById("intercom-container");
-  if (element != null && element.parentNode != null) {
-    element.parentNode.removeChild(element);
-    console.log('Element with ID "intercom-container" has been removed.');
-  }
-}
-var init_utils = __esm(() => {
-  init_dist();
-});
-
 // node_modules/@chili-publish/studio-sdk/_bundles/main.js
 var require_main = __commonJS((exports, module) => {
   (function(h, O) {
@@ -18999,17 +18471,6 @@ var require_main = __commonJS((exports, module) => {
   });
 });
 
-// src/studio/documentHandler.ts
-async function getCurrentDocumentState(studio2) {
-  return handleStudioFunc(studio2.document.getCurrentState);
-}
-async function loadDocumentFromJsonStr(studio2, document2) {
-  return handleStudioFunc(studio2.document.load, document2);
-}
-var init_documentHandler = __esm(() => {
-  init_utils();
-});
-
 // node_modules/react/cjs/react-jsx-runtime.development.js
 var require_react_jsx_runtime_development = __commonJS((exports) => {
   var React9 = __toESM(require_react());
@@ -19458,162 +18919,6 @@ var require_jsx_dev_runtime = __commonJS((exports, module) => {
   if (false) {} else {
     module.exports = react_jsx_dev_runtime_development;
   }
-});
-
-// src/studio/editorAPIHandler.ts
-function simplifyEditorResponse(editorResponse) {
-  return {
-    ...editorResponse
-  };
-}
-async function handleApiCall(apiCall, ...args) {
-  const result = await Result2.try(async () => simplifyEditorResponse(await apiCall(...args)));
-  console.log("handleApiCall result", result);
-  return result.map((res) => {
-    if (res.success) {
-      const data = res.data;
-      if (data != null) {
-        if (data === "") {
-          return Result2.ok(undefined);
-        }
-        return Result2.try(() => JSON.parse(data));
-      }
-      return Result2.error(Error(`parsedData is null`));
-    } else {
-      return Result2.error(Error(`Studio Returned Error ${res.status}:${res.error}`));
-    }
-  });
-}
-async function getPerAssetCrop({
-  studio: studio2,
-  layoutId,
-  frameId
-}) {
-  const api2 = await studio2.editorAPI;
-  return handleApiCall(api2.getPerAssetCrop, layoutId, frameId);
-}
-async function setPerAssetCrop({
-  studio: studio2,
-  perAssetCrop,
-  layoutId,
-  frameId,
-  remoteConnectorId,
-  assetId
-}) {
-  const api2 = await studio2.editorAPI;
-  return handleApiCall(api2.setPerAssetCrop, layoutId, frameId, remoteConnectorId, assetId, JSON.stringify(perAssetCrop));
-}
-var init_editorAPIHandler = __esm(() => {
-  init_dist();
-});
-
-// src/studio-adapter/getManualCropsFromDocByConnector.ts
-var exports_getManualCropsFromDocByConnector = {};
-__export(exports_getManualCropsFromDocByConnector, {
-  getManualCropsFromDocByConnector: () => getManualCropsFromDocByConnector
-});
-async function getManualCropsFromDocByConnector(studio2, connectorId) {
-  try {
-    const documentStateResult = await getCurrentDocumentState(studio2);
-    if (!documentStateResult.isOk()) {
-      return Result2.error(new Error("Failed to get document state: " + documentStateResult.error?.message));
-    }
-    const documentState = documentStateResult.value;
-    const frameIdToNameMap = new Map;
-    if (documentState.pages && Array.isArray(documentState.pages)) {
-      for (const page of documentState.pages) {
-        if (page.frames && Array.isArray(page.frames)) {
-          for (const frame of page.frames) {
-            frameIdToNameMap.set(frame.id, frame.name);
-          }
-        }
-      }
-    }
-    const result = {
-      layouts: [],
-      connectorId
-    };
-    const cropPromises = [];
-    if (documentState.layouts && Array.isArray(documentState.layouts)) {
-      for (const layout of documentState.layouts) {
-        if (layout.frameProperties && Array.isArray(layout.frameProperties)) {
-          for (const frameProperty of layout.frameProperties) {
-            if (!frameProperty.perAssetCrop || !frameProperty.perAssetCrop[connectorId]) {
-              continue;
-            }
-            cropPromises.push(getPerAssetCrop({
-              studio: studio2,
-              layoutId: layout.id,
-              frameId: frameProperty.id
-            }).then((res) => ({
-              layoutId: layout.id,
-              frameId: frameProperty.id,
-              result: res
-            })));
-          }
-        }
-      }
-    }
-    console.log("Waiting for crop data fetches");
-    const cropResults = await Promise.all(cropPromises);
-    console.log("Crop data fetches complete", cropResults);
-    const layoutCropsMap = new Map;
-    for (const { layoutId, frameId, result: cropResult } of cropResults) {
-      if (cropResult.isOk()) {
-        const perAssetCrop = cropResult.value?.perAssetCrop;
-        console.log(perAssetCrop);
-        console.log("connectorId", connectorId);
-        if (perAssetCrop && perAssetCrop[connectorId]) {
-          console.log("Found crops for connector");
-          const connectorCrops = perAssetCrop[connectorId];
-          const frameName = frameIdToNameMap.get(frameId) || frameId;
-          for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
-            const manualCrop = {
-              frameId,
-              frameName,
-              name: assetPath,
-              top: cropData.top,
-              left: cropData.left,
-              width: cropData.width,
-              height: cropData.height,
-              rotationDegrees: cropData.rotationDegrees ?? 0,
-              originalParentWidth: cropData.originalParentWidth ?? 283464,
-              originalParentHeight: cropData.originalParentHeight ?? 283464,
-              unit: cropData.unit
-            };
-            console.log("manualCrop", manualCrop);
-            if (!layoutCropsMap.has(layoutId)) {
-              layoutCropsMap.set(layoutId, []);
-            }
-            layoutCropsMap.get(layoutId)?.push(manualCrop);
-          }
-        }
-      }
-    }
-    console.log("Layout crops map", layoutCropsMap);
-    if (documentState.layouts && Array.isArray(documentState.layouts)) {
-      for (const layout of documentState.layouts) {
-        const manualCrops = layoutCropsMap.get(layout.id);
-        if (manualCrops && manualCrops.length > 0) {
-          const layoutWithCrops = {
-            id: layout.id,
-            name: layout.name,
-            parentId: layout.parentId || "",
-            manualCrops
-          };
-          result.layouts.push(layoutWithCrops);
-        }
-      }
-    }
-    return Result2.ok(result);
-  } catch (error49) {
-    return Result2.error(error49 instanceof Error ? error49 : new Error(String(error49)));
-  }
-}
-var init_getManualCropsFromDocByConnector = __esm(() => {
-  init_dist();
-  init_documentHandler();
-  init_editorAPIHandler();
 });
 
 // node_modules/json-2-csv/lib/constants.js
@@ -34010,9 +33315,506 @@ var immerImpl = (initializer) => (set2, get, store) => {
 };
 var immer2 = immerImpl;
 
-// src/modalStore.ts
-init_dist();
+// node_modules/typescript-result/dist/index.js
+function isPromise(value) {
+  if (value === null || value === undefined) {
+    return false;
+  }
+  if (typeof value !== "object") {
+    return false;
+  }
+  return value instanceof Promise || "then" in value;
+}
+function isFunction(value) {
+  return typeof value === "function";
+}
+function isAsyncFn(fn) {
+  return fn.constructor.name === "AsyncFunction";
+}
+function isGenerator(obj) {
+  return typeof obj === "object" && obj !== null && typeof obj.next === "function" && typeof obj.throw === "function" && typeof obj.return === "function" && typeof obj[Symbol.iterator] === "function" && obj[Symbol.iterator]() === obj;
+}
+function isAsyncGenerator(obj) {
+  return typeof obj === "object" && obj !== null && typeof obj.next === "function" && typeof obj.throw === "function" && typeof obj.return === "function" && typeof obj[Symbol.asyncIterator] === "function" && obj[Symbol.asyncIterator]() === obj;
+}
+var NonExhaustiveError = class extends Error {
+  constructor(error) {
+    super("Not all error cases were handled");
+    this.error = error;
+  }
+};
+var Matcher = class {
+  constructor(error) {
+    this.error = error;
+  }
+  cases = [];
+  defaultHandler = undefined;
+  when(value, ...args) {
+    const cases = [value, ...args.slice(0, -1)];
+    const handler = args.at(-1);
+    this.cases.push(...cases.map((value2) => ({
+      value: value2,
+      handler
+    })));
+    return this;
+  }
+  else = (handler) => {
+    if (this.defaultHandler) {
+      throw new Error("already registered an 'else' handler");
+    }
+    this.defaultHandler = handler;
+    return this;
+  };
+  run = () => {
+    const isAsync = this.cases.some((item) => isAsyncFn(item.handler));
+    for (const item of this.cases) {
+      const match = isFunction(item.value) && this.error instanceof item.value || item.value === this.error;
+      if (match) {
+        const value = item.handler(this.error);
+        return isPromise(value) ? value : isAsync ? Promise.resolve(value) : value;
+      }
+    }
+    if (this.defaultHandler) {
+      return this.defaultHandler(this.error);
+    }
+    throw new NonExhaustiveError(this.error);
+  };
+};
+var AsyncResult = class _AsyncResult extends Promise {
+  constructor(executor) {
+    super(executor);
+  }
+  *[Symbol.iterator]() {
+    return yield this;
+  }
+  get isAsyncResult() {
+    return true;
+  }
+  async toTuple() {
+    const result = await this;
+    return result.toTuple();
+  }
+  async errorOrNull() {
+    const result = await this;
+    return result.errorOrNull();
+  }
+  async getOrNull() {
+    const result = await this;
+    return result.getOrNull();
+  }
+  async getOrDefault(defaultValue) {
+    const result = await this;
+    return result.getOrDefault(defaultValue);
+  }
+  async getOrElse(onFailure) {
+    const result = await this;
+    return result.getOrElse(onFailure);
+  }
+  async getOrThrow() {
+    const result = await this;
+    return result.getOrThrow();
+  }
+  async fold(onSuccess, onFailure) {
+    const result = await this;
+    return result.fold(onSuccess, onFailure);
+  }
+  onFailure(action) {
+    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+      try {
+        if (!result.ok) {
+          await action(result.error);
+        }
+        resolve(result);
+      } catch (e) {
+        reject(e);
+      }
+    }).catch(reject));
+  }
+  onSuccess(action) {
+    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+      try {
+        if (result.ok) {
+          await action(result.value);
+        }
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    }).catch(reject));
+  }
+  map(transform) {
+    return new _AsyncResult((resolve, reject) => {
+      this.then(async (result) => resolve(await result.map(transform))).catch(reject);
+    });
+  }
+  mapCatching(transformValue, transformError) {
+    return new _AsyncResult((resolve, reject) => {
+      this.map(transformValue).then((result) => resolve(result)).catch((error) => {
+        try {
+          resolve(ResultFactory.error(transformError ? transformError(error) : error));
+        } catch (err) {
+          reject(err);
+        }
+      });
+    });
+  }
+  mapError(transform) {
+    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+      try {
+        resolve(result.mapError(transform));
+      } catch (error) {
+        reject(error);
+      }
+    }).catch(reject));
+  }
+  recover(onFailure) {
+    return new _AsyncResult((resolve, reject) => this.then(async (result) => {
+      try {
+        const outcome = await result.recover(onFailure);
+        resolve(outcome);
+      } catch (error) {
+        reject(error);
+      }
+    }).catch(reject));
+  }
+  recoverCatching(onFailure, transformError) {
+    return new _AsyncResult((resolve, reject) => this.then((result) => {
+      resolve(result.recoverCatching(onFailure, transformError));
+    }).catch(reject));
+  }
+  toString() {
+    return "AsyncResult";
+  }
+  static error(error) {
+    return new _AsyncResult((resolve) => resolve(ResultFactory.error(error)));
+  }
+  static ok(value) {
+    return new _AsyncResult((resolve) => resolve(ResultFactory.ok(value)));
+  }
+  static fromPromise(promise) {
+    return new _AsyncResult((resolve, reject) => {
+      promise.then((value) => resolve(ResultFactory.isResult(value) ? value : ResultFactory.ok(value))).catch(reject);
+    });
+  }
+  static fromPromiseCatching(promise, transform) {
+    return new _AsyncResult((resolve, reject) => {
+      promise.then((value) => resolve(ResultFactory.isResult(value) ? value : ResultFactory.ok(value))).catch((caughtError) => {
+        resolve(ResultFactory.error(transform?.(caughtError) ?? caughtError));
+      }).catch(reject);
+    });
+  }
+};
+var Result = class {
+  constructor(_value, _error) {
+    this._value = _value;
+    this._error = _error;
+  }
+  *[Symbol.iterator]() {
+    return yield this;
+  }
+  get isResult() {
+    return true;
+  }
+  get value() {
+    return this._value;
+  }
+  get error() {
+    return this._error;
+  }
+  get success() {
+    return this.error === undefined;
+  }
+  get failure() {
+    return this.error !== undefined;
+  }
+  get ok() {
+    return this.success;
+  }
+  isOk() {
+    return this.success;
+  }
+  isError() {
+    return this.failure;
+  }
+  toTuple() {
+    return [this._value ?? null, this._error ?? null];
+  }
+  errorOrNull() {
+    return this.failure ? this._error : null;
+  }
+  getOrNull() {
+    return this.success ? this._value : null;
+  }
+  getOrDefault(defaultValue) {
+    return this.success ? this._value : defaultValue;
+  }
+  getOrElse(onFailure) {
+    if (isAsyncFn(onFailure)) {
+      return this.success ? Promise.resolve(this._value) : onFailure(this._error);
+    }
+    return this.success ? this._value : onFailure(this._error);
+  }
+  getOrThrow() {
+    if (this.success) {
+      return this._value;
+    }
+    throw this._error;
+  }
+  fold(onSuccess, onFailure) {
+    const isAsync = isAsyncFn(onSuccess) || isAsyncFn(onFailure);
+    const outcome = this.success ? onSuccess(this._value) : onFailure(this._error);
+    return isAsync && !isPromise(outcome) ? Promise.resolve(outcome) : outcome;
+  }
+  match() {
+    return this.failure ? new Matcher(this._error) : undefined;
+  }
+  onFailure(action) {
+    const isAsync = isAsyncFn(action);
+    if (this.failure) {
+      const outcome = action(this._error);
+      if (isAsync) {
+        return new AsyncResult((resolve) => {
+          outcome.then(() => resolve(ResultFactory.error(this._error)));
+        });
+      }
+      return this;
+    }
+    return isAsync ? AsyncResult.ok(this._value) : this;
+  }
+  onSuccess(action) {
+    const isAsync = isAsyncFn(action);
+    if (this.success) {
+      const outcome = action(this._value);
+      if (isAsync) {
+        return new AsyncResult((resolve) => {
+          outcome.then(() => resolve(ResultFactory.ok(this._value)));
+        });
+      }
+      return this;
+    }
+    return isAsync ? AsyncResult.error(this._error) : this;
+  }
+  map(transform) {
+    return this.success ? ResultFactory.run(() => transform(this._value)) : isAsyncFn(transform) ? AsyncResult.error(this._error) : this;
+  }
+  mapCatching(transformValue, transformError) {
+    return this.success ? ResultFactory.try(() => transformValue(this._value), transformError) : this;
+  }
+  mapError(transform) {
+    if (this.success) {
+      return this;
+    }
+    return ResultFactory.error(transform(this._error));
+  }
+  recover(onFailure) {
+    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : ResultFactory.run(() => onFailure(this._error));
+  }
+  recoverCatching(onFailure, transformError) {
+    return this.success ? isAsyncFn(onFailure) ? AsyncResult.ok(this._value) : this : ResultFactory.try(() => onFailure(this._error), transformError);
+  }
+  toString() {
+    if (this.success) {
+      return `Result.ok(${this._value})`;
+    }
+    return `Result.error(${this.error})`;
+  }
+};
+var ResultFactory = class _ResultFactory {
+  constructor() {}
+  static ok(value) {
+    return new Result(value, undefined);
+  }
+  static error(error) {
+    return new Result(undefined, error);
+  }
+  static isResult(possibleResult) {
+    return possibleResult instanceof Result;
+  }
+  static isAsyncResult(possibleAsyncResult) {
+    return possibleAsyncResult instanceof AsyncResult;
+  }
+  static run(fn) {
+    const returnValue = fn();
+    if (isGenerator(returnValue) || isAsyncGenerator(returnValue)) {
+      return _ResultFactory.handleGenerator(returnValue);
+    }
+    if (isPromise(returnValue)) {
+      return AsyncResult.fromPromise(returnValue);
+    }
+    return _ResultFactory.isResult(returnValue) ? returnValue : _ResultFactory.ok(returnValue);
+  }
+  static allInternal(items, opts) {
+    const runner = opts.catching ? _ResultFactory.try : _ResultFactory.run;
+    const flattened = [];
+    let isAsync = items.some(isPromise);
+    let hasFailure = false;
+    for (const item of items) {
+      if (isFunction(item)) {
+        if (hasFailure) {
+          continue;
+        }
+        const returnValue = runner(item);
+        if (_ResultFactory.isResult(returnValue) && !returnValue.ok) {
+          hasFailure = true;
+          if (!isAsync) {
+            return returnValue;
+          }
+        }
+        if (_ResultFactory.isAsyncResult(returnValue)) {
+          isAsync = true;
+        }
+        flattened.push(returnValue);
+      } else if (_ResultFactory.isResult(item)) {
+        if (!item.ok) {
+          hasFailure = true;
+          if (!isAsync) {
+            return item;
+          }
+        }
+        flattened.push(item);
+      } else if (_ResultFactory.isAsyncResult(item)) {
+        isAsync = true;
+        flattened.push(item);
+      } else if (isPromise(item)) {
+        isAsync = true;
+        flattened.push(opts.catching ? AsyncResult.fromPromiseCatching(item) : AsyncResult.fromPromise(item));
+      } else {
+        flattened.push(_ResultFactory.ok(item));
+      }
+    }
+    if (isAsync) {
+      return new AsyncResult((resolve, reject) => {
+        const asyncResults = [];
+        const asyncIndexes = [];
+        for (let i = 0;i < flattened.length; i++) {
+          const item = flattened[i];
+          if (_ResultFactory.isAsyncResult(item)) {
+            asyncResults.push(item);
+            asyncIndexes.push(i);
+          }
+        }
+        Promise.all(asyncResults).then((resolvedResults) => {
+          const merged = [...flattened];
+          for (let i = 0;i < resolvedResults.length; i++) {
+            merged[asyncIndexes[i]] = resolvedResults[i];
+          }
+          const firstFailedResult = merged.find((resolvedResult) => !resolvedResult.ok);
+          if (firstFailedResult) {
+            resolve(firstFailedResult);
+            return;
+          }
+          resolve(_ResultFactory.ok(merged.map((result) => result.getOrNull())));
+        }).catch((reason) => {
+          reject(reason);
+        });
+      });
+    }
+    return _ResultFactory.ok(flattened.map((result) => result.getOrNull()));
+  }
+  static all(...items) {
+    return _ResultFactory.allInternal(items, {
+      catching: false
+    });
+  }
+  static allCatching(...items) {
+    return _ResultFactory.allInternal(items, {
+      catching: true
+    });
+  }
+  static wrap(fn, transformError) {
+    return function wrapped(...args) {
+      return _ResultFactory.try(() => fn(...args), transformError);
+    };
+  }
+  static try(fn, transform) {
+    try {
+      const returnValue = fn();
+      if (isGenerator(returnValue)) {
+        return _ResultFactory.handleGenerator(returnValue);
+      }
+      if (isAsyncGenerator(returnValue)) {
+        const asyncResult = _ResultFactory.handleGenerator(returnValue);
+        return AsyncResult.fromPromiseCatching(asyncResult, transform);
+      }
+      if (isPromise(returnValue)) {
+        return AsyncResult.fromPromiseCatching(returnValue, transform);
+      }
+      return _ResultFactory.isResult(returnValue) ? returnValue : _ResultFactory.ok(returnValue);
+    } catch (caughtError) {
+      return _ResultFactory.error(transform?.(caughtError) ?? caughtError);
+    }
+  }
+  static fromAsync(valueOrFn) {
+    return _ResultFactory.run(typeof valueOrFn === "function" ? valueOrFn : () => valueOrFn);
+  }
+  static fromAsyncCatching(valueOrFn, transformError) {
+    return _ResultFactory.try(typeof valueOrFn === "function" ? valueOrFn : () => valueOrFn, transformError);
+  }
+  static handleGenerator(it) {
+    function handleResult(result2) {
+      if (!result2.ok) {
+        return iterate(it.return(result2));
+      }
+      return iterate(it.next(result2.value));
+    }
+    function handleStep(step) {
+      if (step.done) {
+        if (step.value instanceof Result || step.value instanceof AsyncResult) {
+          return step.value;
+        }
+        return _ResultFactory.ok(step.value);
+      }
+      if (step.value instanceof Result) {
+        return handleResult(step.value);
+      }
+      if (step.value instanceof AsyncResult) {
+        return step.value.then(handleResult);
+      }
+      return iterate(it.next(step.value));
+    }
+    function iterate(iteratorResult) {
+      return isPromise(iteratorResult) ? iteratorResult.then(handleStep) : handleStep(iteratorResult);
+    }
+    const result = iterate(it.next());
+    return isPromise(result) ? AsyncResult.fromPromise(result) : result;
+  }
+  static gen(generatorOrSelfOrFn, fn) {
+    const it = isGenerator(generatorOrSelfOrFn) || isAsyncGenerator(generatorOrSelfOrFn) ? generatorOrSelfOrFn : typeof generatorOrSelfOrFn === "function" ? generatorOrSelfOrFn() : fn?.apply(generatorOrSelfOrFn);
+    return _ResultFactory.handleGenerator(it);
+  }
+  static genCatching(generatorOrSelfOrFn, transformValueOrError, transformError) {
+    const isGen = isGenerator(generatorOrSelfOrFn) || isAsyncGenerator(generatorOrSelfOrFn);
+    const self2 = typeof generatorOrSelfOrFn === "function" || isGen ? undefined : generatorOrSelfOrFn;
+    const tValue = typeof generatorOrSelfOrFn === "function" ? generatorOrSelfOrFn : transformValueOrError;
+    const tError = typeof generatorOrSelfOrFn === "function" || isGen ? transformValueOrError : transformError;
+    try {
+      const it = isGen ? generatorOrSelfOrFn : self2 ? tValue.apply(generatorOrSelfOrFn) : tValue();
+      const result = _ResultFactory.handleGenerator(it);
+      if (_ResultFactory.isAsyncResult(result)) {
+        return result.catch((error) => AsyncResult.error(tError?.(error) ?? error));
+      }
+      return result;
+    } catch (error) {
+      return _ResultFactory.error(tError?.(error) ?? error);
+    }
+  }
+  static assertOk(result) {
+    if (!result.ok) {
+      throw new Error("Expected a successful result, but got an error instead");
+    }
+  }
+  static assertError(result) {
+    if (result.ok) {
+      throw new Error("Expected a failed result, but got a value instead");
+    }
+  }
+  static [Symbol.hasInstance](instance) {
+    return instance instanceof Result;
+  }
+};
+var Result2 = ResultFactory;
 
+// src/modalStore.ts
 class VariableTypesDoNotMatchError extends Error {
   constructor(message) {
     super(message);
@@ -34606,12 +34408,31 @@ function raiseError(store, error) {
   console.error(error);
 }
 
-// src/studio/studioAdapter.ts
-init_dist();
+// src/studio/utils.ts
+async function handleStudioFunc(studioFunction, ...functionArgs) {
+  const result = await Result2.wrap(studioFunction)(...functionArgs);
+  return result.map((er) => {
+    if (er.success) {
+      const data = er.parsedData;
+      if (data == null) {
+        return Result2.error(Error(`parsedData is null`));
+      } else {
+        return data;
+      }
+    } else {
+      return Result2.error(Error(`Studio Returned Error ${er.status}:${er.error}`));
+    }
+  });
+}
+function removeIntercom() {
+  const element = document.getElementById("intercom-container");
+  if (element != null && element.parentNode != null) {
+    element.parentNode.removeChild(element);
+    console.log('Element with ID "intercom-container" has been removed.');
+  }
+}
 
 // src/studio/layoutHandler.ts
-init_dist();
-init_utils();
 var import_studio_sdk = __toESM(require_main(), 1);
 async function getPrivateData({ studio: studio2, id }) {
   const result = await handleStudioFunc(studio2.layout.getPrivateData, id);
@@ -34687,8 +34508,6 @@ async function deleteLayout(studio2, id) {
 }
 
 // src/studio/variableHandler.ts
-init_dist();
-init_utils();
 var import_studio_sdk2 = __toESM(require_main(), 1);
 async function getAllVariables(studio2) {
   return handleStudioFunc(studio2.next.variable.getAll);
@@ -34849,9 +34668,6 @@ function createEmptyEnvelope() {
 }
 
 // src/studio/actionHandler.ts
-init_dist();
-init_utils();
-
 class ActionNotFoundError extends Error {
   _tag = "ActionNotFoundError";
 }
@@ -35151,11 +34967,7 @@ function layoutMappingToActionMap(layoutMaps, doc) {
   return actionMap;
 }
 
-// src/studio-adapter/frameLayoutMappingToLookup.ts
-init_dist();
-
 // src/studio/frameHandler.ts
-init_utils();
 async function getSelected2(studio2) {
   return handleStudioFunc(studio2.frame.getSelected);
 }
@@ -35223,7 +35035,6 @@ async function frameLayoutMappingToLookup(frameMaps, studio2) {
 }
 
 // src/studio-adapter/layoutManagerToLookup.ts
-init_dist();
 async function layoutManagerToLookup(studio2, onlyResizable = false) {
   const layoutsResult = await getAllLayouts(studio2);
   if (layoutsResult.isError()) {
@@ -35346,11 +35157,13 @@ function layoutSizingScript(debug = false) {
   }
 }
 
-// src/studio/studioAdapter.ts
-init_documentHandler();
-
-// src/studio/connectorAdapter.ts
-init_utils();
+// src/studio/documentHandler.ts
+async function getCurrentDocumentState(studio2) {
+  return handleStudioFunc(studio2.document.getCurrentState);
+}
+async function loadDocumentFromJsonStr(studio2, document2) {
+  return handleStudioFunc(studio2.document.load, document2);
+}
 
 // node_modules/@chili-publish/studio-sdk/lib/src/next/types/ConnectorTypes.js
 var ConnectorRegistrationSource;
@@ -56705,7 +56518,6 @@ var IconTrashFilled = createReactComponent("filled", "trash-filled", "TrashFille
 var import_react249 = __toESM(require_react(), 1);
 
 // src/types/layoutConfigTypes.ts
-init_dist();
 function convertDocVariableToLayoutVariable(variable) {
   switch (variable.type) {
     case "image":
@@ -57206,7 +57018,6 @@ var LayoutMultiSelect = ({
 };
 
 // src/components/LayoutMappingModal/VariableCard.tsx
-init_dist();
 var import_react258 = __toESM(require_react(), 1);
 
 // node_modules/@dnd-kit/core/dist/core.esm.js
@@ -63876,17 +63687,13 @@ function LayoutManagerModal({
 
 // src/components/DownloadModalNew.tsx
 var import_react277 = __toESM(require_react(), 1);
-init_documentHandler();
 
 // src/studio/fontHandler.ts
-init_utils();
 async function getFontFamilies(studio2) {
   return await handleStudioFunc(studio2.font.getFontFamilies);
 }
 
 // src/studio/mediaConnectorHandler.ts
-init_utils();
-init_dist();
 async function downloadMediaConnector({
   studio: studio2,
   connectorId,
@@ -63927,9 +63734,6 @@ async function queryMediaConnectorSimple(studio2, connectorId, path, pageToken =
   return handleStudioFunc(studio2.mediaConnector.query, connectorId, queryOptions);
 }
 
-// src/utils/smartCrop/getVision.ts
-init_dist();
-
 // src/utils/smartCrop/sha256Concat.ts
 async function sha256Concat(a2, b2) {
   const concatenated = a2 + b2;
@@ -63940,9 +63744,6 @@ async function sha256Concat(a2, b2) {
   const hashHex = hashArray.map((byte) => byte.toString(16).padStart(2, "0")).join("");
   return hashHex;
 }
-
-// src/utils/smartCrop/smartCrop.types.ts
-init_dist();
 
 // node_modules/zod/v4/classic/external.js
 var exports_external = {};
@@ -77573,7 +77374,6 @@ async function getVision({
 }
 
 // src/utils/smartCrop/setVision.ts
-init_dist();
 class SettingVisonBotFoundError extends Error {
   requestBody;
   responseBody;
@@ -77703,7 +77503,6 @@ async function uploadImage({
 }
 
 // src/utils/getConnectorsAPI.ts
-init_dist();
 async function getConnectorsAPI(baseUrl, authToken) {
   try {
     const response = await fetch(`${baseUrl}connectors`, {
@@ -77721,9 +77520,6 @@ async function getConnectorsAPI(baseUrl, authToken) {
     return Result2.error(error49 instanceof Error ? error49 : new Error(`Unknown error occurred: ${String(error49)}`));
   }
 }
-
-// src/components/DownloadModalNew.tsx
-init_documentHandler();
 
 // src/components/ImageBrowser.tsx
 var import_react272 = __toESM(require_react(), 1);
@@ -80979,7 +80775,6 @@ class FailedToFetchConnectorsError extends Error {
 }
 
 // src/components/DownloadModal/utils.ts
-init_dist();
 var FontDataSchema = exports_external.object({
   filePath: exports_external.string(),
   details: exports_external.object({
@@ -83664,7 +83459,152 @@ var import_react285 = __toESM(require_react(), 1);
 
 // src/components/ManualCropManager/LayoutViewer.tsx
 var import_react280 = __toESM(require_react(), 1);
-init_getManualCropsFromDocByConnector();
+
+// src/studio/editorAPIHandler.ts
+function simplifyEditorResponse(editorResponse) {
+  return {
+    ...editorResponse
+  };
+}
+async function handleApiCall(apiCall, ...args) {
+  const result = await Result2.try(async () => simplifyEditorResponse(await apiCall(...args)));
+  console.log("handleApiCall result", result);
+  return result.map((res) => {
+    if (res.success) {
+      const data = res.data;
+      if (data != null) {
+        if (data === "") {
+          return Result2.ok(undefined);
+        }
+        return Result2.try(() => JSON.parse(data));
+      }
+      return Result2.error(Error(`parsedData is null`));
+    } else {
+      return Result2.error(Error(`Studio Returned Error ${res.status}:${res.error}`));
+    }
+  });
+}
+async function getPerAssetCrop({
+  studio: studio2,
+  layoutId,
+  frameId
+}) {
+  const api2 = await studio2.editorAPI;
+  return handleApiCall(api2.getPerAssetCrop, layoutId, frameId);
+}
+async function setPerAssetCrop({
+  studio: studio2,
+  perAssetCrop,
+  layoutId,
+  frameId,
+  remoteConnectorId,
+  assetId
+}) {
+  const api2 = await studio2.editorAPI;
+  return handleApiCall(api2.setPerAssetCrop, layoutId, frameId, remoteConnectorId, assetId, JSON.stringify(perAssetCrop));
+}
+
+// src/studio-adapter/getManualCropsFromDocByConnector.ts
+async function getManualCropsFromDocByConnector(studio2, connectorId) {
+  try {
+    const documentStateResult = await getCurrentDocumentState(studio2);
+    if (!documentStateResult.isOk()) {
+      return Result2.error(new Error("Failed to get document state: " + documentStateResult.error?.message));
+    }
+    const documentState = documentStateResult.value;
+    const frameIdToNameMap = new Map;
+    if (documentState.pages && Array.isArray(documentState.pages)) {
+      for (const page of documentState.pages) {
+        if (page.frames && Array.isArray(page.frames)) {
+          for (const frame of page.frames) {
+            frameIdToNameMap.set(frame.id, frame.name);
+          }
+        }
+      }
+    }
+    const result = {
+      layouts: [],
+      connectorId
+    };
+    const cropPromises = [];
+    if (documentState.layouts && Array.isArray(documentState.layouts)) {
+      for (const layout of documentState.layouts) {
+        if (layout.frameProperties && Array.isArray(layout.frameProperties)) {
+          for (const frameProperty of layout.frameProperties) {
+            if (!frameProperty.perAssetCrop || !frameProperty.perAssetCrop[connectorId]) {
+              continue;
+            }
+            cropPromises.push(getPerAssetCrop({
+              studio: studio2,
+              layoutId: layout.id,
+              frameId: frameProperty.id
+            }).then((res) => ({
+              layoutId: layout.id,
+              frameId: frameProperty.id,
+              result: res
+            })));
+          }
+        }
+      }
+    }
+    console.log("Waiting for crop data fetches");
+    const cropResults = await Promise.all(cropPromises);
+    console.log("Crop data fetches complete", cropResults);
+    const layoutCropsMap = new Map;
+    for (const { layoutId, frameId, result: cropResult } of cropResults) {
+      if (cropResult.isOk()) {
+        const perAssetCrop = cropResult.value?.perAssetCrop;
+        console.log(perAssetCrop);
+        console.log("connectorId", connectorId);
+        if (perAssetCrop && perAssetCrop[connectorId]) {
+          console.log("Found crops for connector");
+          const connectorCrops = perAssetCrop[connectorId];
+          const frameName = frameIdToNameMap.get(frameId) || frameId;
+          for (const [assetPath, cropData] of Object.entries(connectorCrops)) {
+            const manualCrop = {
+              frameId,
+              frameName,
+              name: assetPath,
+              top: cropData.top,
+              left: cropData.left,
+              width: cropData.width,
+              height: cropData.height,
+              rotationDegrees: cropData.rotationDegrees ?? 0,
+              originalParentWidth: cropData.originalParentWidth ?? 283464,
+              originalParentHeight: cropData.originalParentHeight ?? 283464,
+              unit: cropData.unit
+            };
+            console.log("manualCrop", manualCrop);
+            if (!layoutCropsMap.has(layoutId)) {
+              layoutCropsMap.set(layoutId, []);
+            }
+            layoutCropsMap.get(layoutId)?.push(manualCrop);
+          }
+        }
+      }
+    }
+    console.log("Layout crops map", layoutCropsMap);
+    if (documentState.layouts && Array.isArray(documentState.layouts)) {
+      for (const layout of documentState.layouts) {
+        const manualCrops = layoutCropsMap.get(layout.id);
+        if (manualCrops && manualCrops.length > 0) {
+          const layoutWithCrops = {
+            id: layout.id,
+            name: layout.name,
+            parentId: layout.parentId || "",
+            manualCrops
+          };
+          result.layouts.push(layoutWithCrops);
+        }
+      }
+    }
+    return Result2.ok(result);
+  } catch (error49) {
+    return Result2.error(error49 instanceof Error ? error49 : new Error(String(error49)));
+  }
+}
+
+// src/components/ManualCropManager/LayoutViewer.tsx
 var jsx_dev_runtime32 = __toESM(require_jsx_dev_runtime(), 1);
 function LayoutViewer({
   selectedLayoutIds,
@@ -84136,12 +84076,8 @@ function LayoutTreeItem({
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
 var import_react284 = __toESM(require_react(), 1);
-init_documentHandler();
-init_getManualCropsFromDocByConnector();
 
 // src/studio-adapter/setManualCropsForLayout.ts
-init_dist();
-init_editorAPIHandler();
 async function setManualCropsForLayout(studio2, layoutId, connectorId, manualCrops) {
   try {
     for (const manualCrop of manualCrops) {
@@ -84155,13 +84091,6 @@ async function setManualCropsForLayout(studio2, layoutId, connectorId, manualCro
         originalParentHeight: manualCrop.originalParentHeight,
         unit: manualCrop.unit
       };
-      console.log("setPerAssetCrop params:", {
-        perAssetCrop,
-        layoutId,
-        frameId: manualCrop.frameId,
-        remoteConnectorId: connectorId,
-        assetId: manualCrop.name
-      });
       const result = await setPerAssetCrop({
         studio: studio2,
         perAssetCrop,
@@ -84170,7 +84099,6 @@ async function setManualCropsForLayout(studio2, layoutId, connectorId, manualCro
         remoteConnectorId: connectorId,
         assetId: manualCrop.name
       });
-      console.log("setPerAssetCrop result", result);
       if (result.isError()) {
         return Result2.error(result.error ?? new Error(`Failed to set per-asset crop for frame ${manualCrop.frameId} and asset ${manualCrop.name}`));
       }
@@ -84182,7 +84110,6 @@ async function setManualCropsForLayout(studio2, layoutId, connectorId, manualCro
 }
 
 // src/studio-adapter/deleteManualCropsForLayout.ts
-init_dist();
 function deleteSingleManualCropForLayout(documentState, layoutId, connectorId, frameId, assetName) {
   try {
     const updatedDocumentState = JSON.parse(JSON.stringify(documentState));
@@ -84215,7 +84142,6 @@ function deleteSingleManualCropForLayout(documentState, layoutId, connectorId, f
 
 // src/components/ManualCropManager/CopyCropToLayerModal.tsx
 var import_react281 = __toESM(require_react(), 1);
-init_getManualCropsFromDocByConnector();
 var jsx_dev_runtime33 = __toESM(require_jsx_dev_runtime(), 1);
 function CopyCropToLayerModal({
   opened,
@@ -84855,7 +84781,6 @@ function CopyAndReplaceModal2({
 }
 
 // src/components/ManualCropManager/ManualCropEditor.tsx
-init_dist();
 var jsx_dev_runtime36 = __toESM(require_jsx_dev_runtime(), 1);
 function CropRow({
   crop,
@@ -85135,7 +85060,8 @@ function ManualCropEditor({
     const checkedCrops = [];
     Array.from(checkedRows).forEach((rowKey) => {
       if (rowKey.startsWith(`${layoutId}-`)) {
-        const [, cropIndexStr] = rowKey.split("-");
+        const lastDash = rowKey.lastIndexOf("-");
+        const cropIndexStr = rowKey.substring(lastDash + 1);
         const cropIndex = parseInt(cropIndexStr, 10);
         const changedCrop = changedRows.get(rowKey);
         let crop;
@@ -85156,7 +85082,8 @@ function ManualCropEditor({
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
       checkedRowsForLayout.forEach((rowKey) => {
-        const [, cropIndexStr] = rowKey.split("-");
+        const lastDash = rowKey.lastIndexOf("-");
+        const cropIndexStr = rowKey.substring(lastDash + 1);
         const cropIndex = parseInt(cropIndexStr, 10);
         const deleteEntry = {
           layoutId,
@@ -85249,7 +85176,9 @@ function ManualCropEditor({
     setChangedRows((prev2) => {
       const newMap = new Map(prev2);
       selectedRowKeys.forEach((rowKey) => {
-        const [layoutId, cropIndexStr] = rowKey.split("-");
+        const lastDash = rowKey.lastIndexOf("-");
+        const layoutId = rowKey.substring(0, lastDash);
+        const cropIndexStr = rowKey.substring(lastDash + 1);
         const cropIndex = parseInt(cropIndexStr, 10);
         const layoutCrop = layoutCrops.get(layoutId);
         if (layoutCrop && layoutCrop.crops[cropIndex]) {
@@ -85551,7 +85480,9 @@ function ManualCropEditor({
       const layoutChanges = new Map;
       const layoutDeletes = new Map;
       changedRows.forEach((entry, rowKey) => {
-        const [layoutId, cropIndexStr] = rowKey.split("-");
+        const lastDash = rowKey.lastIndexOf("-");
+        const layoutId = rowKey.substring(0, lastDash);
+        const cropIndexStr = rowKey.substring(lastDash + 1);
         const cropIndex = parseInt(cropIndexStr, 10);
         if ("frameId" in entry) {
           if (!layoutChanges.has(layoutId)) {
@@ -85929,7 +85860,8 @@ function ManualCropEditor({
                                 onClick: () => {
                                   const checkedRowKeys = Array.from(checkedRows).filter((rowKey) => rowKey.startsWith(`${layoutCrop.layoutId}-`));
                                   if (checkedRowKeys.length === 1) {
-                                    const [, cropIndexStr] = checkedRowKeys[0].split("-");
+                                    const lastDash = checkedRowKeys[0].lastIndexOf("-");
+                                    const cropIndexStr = checkedRowKeys[0].substring(lastDash + 1);
                                     const cropIndex = parseInt(cropIndexStr, 10);
                                     handleCopyToClipboard(layoutCrop.layoutId, cropIndex);
                                   }
@@ -86273,30 +86205,11 @@ function ManualCropManagerModal({
       }
     }
   }, [selectedConnectorId, filteredConnectors]);
-  const handleCropsSaved = import_react285.useCallback(async () => {
+  const handleCropsSaved = import_react285.useCallback(() => {
     if (layoutViewerRefresh) {
       layoutViewerRefresh();
     }
-    if (selectedConnectorId) {
-      try {
-        const studioResult = await getStudio();
-        if (studioResult.isOk()) {
-          const { getManualCropsFromDocByConnector: getManualCropsFromDocByConnector2 } = await Promise.resolve().then(() => (init_getManualCropsFromDocByConnector(), exports_getManualCropsFromDocByConnector));
-          const cropsResult = await getManualCropsFromDocByConnector2(studioResult.value, selectedConnectorId);
-          if (cropsResult.isOk()) {
-            const cropsData = cropsResult.value;
-            const layoutsWithCrops = new Set(cropsData.layouts.map((l2) => l2.id));
-            const newLayoutsWithCrops = Array.from(layoutsWithCrops).filter((layoutId) => !selectedLayoutIds.includes(layoutId));
-            if (newLayoutsWithCrops.length > 0) {
-              setSelectedLayoutIds((prev2) => [...prev2, ...newLayoutsWithCrops]);
-            }
-          }
-        }
-      } catch (error49) {
-        console.warn("Failed to auto-select layouts with new crops:", error49);
-      }
-    }
-  }, [layoutViewerRefresh, selectedConnectorId, selectedLayoutIds]);
+  }, [layoutViewerRefresh]);
   return /* @__PURE__ */ jsx_dev_runtime37.jsxDEV(Modal, {
     opened,
     onClose: handleClose,
@@ -86462,7 +86375,6 @@ function ManualCropManagerModal({
 
 // src/components/OutTemplateModal.tsx
 var import_react286 = __toESM(require_react(), 1);
-init_documentHandler();
 var import_json_2_csv = __toESM(require_converter(), 1);
 var import_jszip = __toESM(require_lib(), 1);
 var jsx_dev_runtime38 = __toESM(require_jsx_dev_runtime(), 1);
@@ -87213,7 +87125,6 @@ ${errorDetails}
 
 // src/components/CompressModal.tsx
 var import_react287 = __toESM(require_react(), 1);
-init_documentHandler();
 var jsx_dev_runtime39 = __toESM(require_jsx_dev_runtime(), 1);
 function CompressModal({ opened, onClose }) {
   const raiseError2 = appStore((store) => store.raiseError);
@@ -87661,8 +87572,6 @@ function CompressModal({ opened, onClose }) {
 var import_react288 = __toESM(require_react(), 1);
 
 // src/utils/appConfig.ts
-init_dist();
-
 class ManifestRequestError extends Error {
   _tag = "ManifestRequestError";
   constructor(message) {
@@ -87723,8 +87632,6 @@ async function getDefaultConfig() {
 }
 
 // src/utils/checkVersions.ts
-init_dist();
-
 class FromIsNotSemanticError extends Error {
   _tag = "FromIsNotSemanticError";
   constructor(message) {
@@ -87782,8 +87689,6 @@ function checkVersions(from3, to) {
 }
 
 // src/components/ToolbarSettingsModal.tsx
-init_dist();
-init_utils();
 var jsx_dev_runtime40 = __toESM(require_jsx_dev_runtime(), 1);
 var disclaimer = /* @__PURE__ */ jsx_dev_runtime40.jsxDEV(jsx_dev_runtime40.Fragment, {
   children: [
@@ -88963,7 +88868,6 @@ function AspectLockConfirmModal({
 }
 
 // src/components/Toolbar.tsx
-init_dist();
 var jsx_dev_runtime42 = __toESM(require_jsx_dev_runtime(), 1);
 function Toolbar() {
   const [visible2, setVisible] = import_react290.useState(false);
@@ -89516,8 +89420,6 @@ function AlertsContainer() {
 }
 
 // src/index.tsx
-init_dist();
-init_utils();
 var jsx_dev_runtime44 = __toESM(require_jsx_dev_runtime(), 1);
 var theme = createTheme({
   primaryColor: "blue",
@@ -89599,4 +89501,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=372B6953D301722864756E2164756E21
+//# debugId=E4B245FB23A527A864756E2164756E21
