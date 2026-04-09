@@ -29,14 +29,6 @@ export async function setManualCropsForLayout(
         unit: manualCrop.unit,
       };
 
-      console.log("setPerAssetCrop params:", {
-        perAssetCrop,
-        layoutId,
-        frameId: manualCrop.frameId,
-        remoteConnectorId: connectorId,
-        assetId: manualCrop.name,
-      });
-
       const result = await setPerAssetCrop({
         studio,
         perAssetCrop,
@@ -45,8 +37,6 @@ export async function setManualCropsForLayout(
         remoteConnectorId: connectorId,
         assetId: manualCrop.name,
       });
-
-      console.log("setPerAssetCrop result", result);
 
       // `setPerAssetCrop` currently uses the generic `handleApiCall` helper
       // which returns a nested Result. We only care whether the outer call
