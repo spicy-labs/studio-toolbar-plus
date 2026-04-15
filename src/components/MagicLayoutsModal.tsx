@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Text, Stack, Button, Loader } from "@mantine/core";
 import {
   getAllLayouts,
@@ -37,6 +37,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
   const [isProcessing, setIsProcessing] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
   const raiseError = appStore((store) => store.raiseError);
+  const runningRef = useRef(false);
 
   // Helper function to recursively gather leaf children (children with no children)
   const gatherAllChildren = async (
@@ -513,8 +514,12 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       // Reset state when modal is closed
       setIsProcessing(true);
       setIsComplete(false);
+      runningRef.current = false;
       return;
     }
+
+    if (runningRef.current) return;
+    runningRef.current = true;
 
     // Run the magic process when modal opens
     const executeMagic = async () => {
