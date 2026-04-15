@@ -82788,6 +82788,7 @@ function MagicLayoutsModal({ opened, onClose }) {
   const [isProcessing, setIsProcessing] = import_react278.useState(true);
   const [isComplete, setIsComplete] = import_react278.useState(false);
   const raiseError2 = appStore((store) => store.raiseError);
+  const runningRef = import_react278.useRef(false);
   const gatherAllChildren = async (childrenLayoutIds, onlyLeafs, skipUnavailable = true, recur = 0) => {
     const leafNames = [];
     const leafIds = [];
@@ -83049,8 +83050,12 @@ magicLayoutScript(false)`;
     if (!opened) {
       setIsProcessing(true);
       setIsComplete(false);
+      runningRef.current = false;
       return;
     }
+    if (runningRef.current)
+      return;
+    runningRef.current = true;
     const executeMagic = async () => {
       try {
         await runMagicProcess();
@@ -89501,4 +89506,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=E4B245FB23A527A864756E2164756E21
+//# debugId=A2F6BF169213233A64756E2164756E21
