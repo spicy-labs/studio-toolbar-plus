@@ -4,6 +4,7 @@ import {
   getPrivateData,
   setPrivateData,
   getAllLayouts,
+  getRootLayoutId,
   getSelected,
 } from "./layoutHandler.ts";
 import {
@@ -69,14 +70,17 @@ export async function getStudio() {
   return Result.ok(window.SDK);
 }
 
-async function tryAddingToolbarToData(data: PrivateData) {
+async function tryAddingToolbarToData(
+  rootLayoutId: string,
+  data: PrivateData,
+) {
   const newData = {
     ...data,
     toolbar: JSON.stringify(createEmptyEnvelope(), null, 0),
   };
   return setPrivateData({
     studio: window.SDK,
-    id: "0",
+    id: rootLayoutId,
     privateData: newData,
   });
 }
@@ -117,8 +121,14 @@ export async function loadLayoutSizesFromDoc(): Promise<
 export async function loadToolbarDataFromDoc(): Promise<
   Result<ToolbarEnvelope, never> | Result<never, Error>
 > {
+  const rootIdResult = await getRootLayoutId(window.SDK);
+  if (!rootIdResult.isOk()) {
+    return rootIdResult as Result<never, Error>;
+  }
+  const rootLayoutId = rootIdResult.value as string;
+
   const dataResult = await getPrivateData({
-    id: "0",
+    id: rootLayoutId,
     studio: window.SDK,
   });
 
@@ -133,7 +143,7 @@ export async function loadToolbarDataFromDoc(): Promise<
 
       return toolbarResult as Result<never, Error>;
     } else {
-      const setDataResult = await tryAddingToolbarToData(data);
+      const setDataResult = await tryAddingToolbarToData(rootLayoutId, data);
       if (setDataResult.isOk()) {
         return Result.ok(createEmptyEnvelope());
       }
@@ -161,8 +171,14 @@ export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(
   key: K,
   value: ToolbarEnvelope[K],
 ) {
+  const rootIdResult = await getRootLayoutId(window.SDK);
+  if (!rootIdResult.isOk()) {
+    return rootIdResult;
+  }
+  const rootLayoutId = rootIdResult.value as string;
+
   const dataResult = await getPrivateData({
-    id: "0",
+    id: rootLayoutId,
     studio: window.SDK,
   });
 
@@ -170,10 +186,10 @@ export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(
     let data = dataResult.value as PrivateData;
 
     if (data.toolbar == null) {
-      const setDataResult = await tryAddingToolbarToData(data);
+      const setDataResult = await tryAddingToolbarToData(rootLayoutId, data);
       if (setDataResult.isOk()) {
         const dataResult = await getPrivateData({
-          id: "0",
+          id: rootLayoutId,
           studio: window.SDK,
         });
 
@@ -198,7 +214,7 @@ export async function saveToolbarDataToDoc<K extends keyof ToolbarEnvelope>(
           data.toolbar = stringifyResult.value as string;
           const setDataResult = await setPrivateData({
             studio: window.SDK,
-            id: "0",
+            id: rootLayoutId,
             privateData: data,
           });
           if (setDataResult.isOk()) {

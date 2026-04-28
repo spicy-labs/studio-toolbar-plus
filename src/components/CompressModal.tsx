@@ -16,6 +16,7 @@ import {
   getAllLayouts,
   deleteLayout,
   setPrivateData,
+  getRootLayoutId,
 } from "../studio/layoutHandler";
 import { getCurrentDocumentState } from "../studio/documentHandler";
 import type { Layout } from "@chili-publish/studio-sdk";
@@ -114,10 +115,20 @@ export function CompressModal({ opened, onClose }: CompressModalProps) {
         deletedLayoutNames.push(layout.name);
       }
 
-      // 4. Set privateData to {} on layout with id "0"
+      // 4. Clear privateData on the root layout (the layout with no parentId)
+      const rootLayoutIdResult = await getRootLayoutId(studio);
+      if (!rootLayoutIdResult.isOk()) {
+        raiseError(
+          new Error(
+            "Failed to resolve root layout: " +
+            rootLayoutIdResult.error?.message
+          )
+        );
+        return;
+      }
       const setPrivateDataResult = await setPrivateData({
         studio,
-        id: "0",
+        id: rootLayoutIdResult.value as string,
         privateData: {},
       });
 
