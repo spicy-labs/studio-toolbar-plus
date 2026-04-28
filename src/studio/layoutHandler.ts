@@ -122,6 +122,25 @@ export async function getAllLayouts(studio: SDK) {
   return await handleStudioFunc(studio.layout.getAll);
 }
 
+export async function getRootLayoutId(studio: SDK) {
+  const layoutsResult = await getAllLayouts(studio);
+  if (!layoutsResult.isOk()) {
+    return layoutsResult as Result<never, Error>;
+  }
+
+  const layouts = layoutsResult.value as Array<{
+    id: string;
+    parentId?: string | null;
+  }>;
+  const root = layouts.find((layout) => !layout.parentId);
+  if (!root) {
+    return Result.error(
+      new Error("Could not find root layout (no layout without a parentId)"),
+    );
+  }
+  return Result.ok(root.id);
+}
+
 export async function getLayoutById(studio: SDK, id: string) {
   return await handleStudioFunc(studio.layout.getById, id);
 }
