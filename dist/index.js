@@ -34491,6 +34491,18 @@ async function setLayoutResizable(studio2, id, layoutUpdate) {
 async function getAllLayouts(studio2) {
   return await handleStudioFunc(studio2.layout.getAll);
 }
+async function getRootLayoutId(studio2) {
+  const layoutsResult = await getAllLayouts(studio2);
+  if (!layoutsResult.isOk()) {
+    return layoutsResult;
+  }
+  const layouts = layoutsResult.value;
+  const root = layouts.find((layout) => !layout.parentId);
+  if (!root) {
+    return Result2.error(new Error("Could not find root layout (no layout without a parentId)"));
+  }
+  return Result2.ok(root.id);
+}
 async function getLayoutById(studio2, id) {
   return await handleStudioFunc(studio2.layout.getById, id);
 }
@@ -35199,14 +35211,14 @@ async function getStudio() {
     return Result2.error(new Error("Studio SDK does not exist on the window"));
   return Result2.ok(window.SDK);
 }
-async function tryAddingToolbarToData(data) {
+async function tryAddingToolbarToData(rootLayoutId, data) {
   const newData = {
     ...data,
     toolbar: JSON.stringify(createEmptyEnvelope(), null, 0)
   };
   return setPrivateData({
     studio: window.SDK,
-    id: "0",
+    id: rootLayoutId,
     privateData: newData
   });
 }
@@ -35225,8 +35237,13 @@ async function loadFrameLayoutMapsFromDoc() {
   return result;
 }
 async function loadToolbarDataFromDoc() {
+  const rootIdResult = await getRootLayoutId(window.SDK);
+  if (!rootIdResult.isOk()) {
+    return rootIdResult;
+  }
+  const rootLayoutId = rootIdResult.value;
   const dataResult = await getPrivateData({
-    id: "0",
+    id: rootLayoutId,
     studio: window.SDK
   });
   if (dataResult.isOk()) {
@@ -35238,7 +35255,7 @@ async function loadToolbarDataFromDoc() {
       }
       return toolbarResult;
     } else {
-      const setDataResult = await tryAddingToolbarToData(data);
+      const setDataResult = await tryAddingToolbarToData(rootLayoutId, data);
       if (setDataResult.isOk()) {
         return Result2.ok(createEmptyEnvelope());
       }
@@ -35254,17 +35271,22 @@ function saveFrameLayoutMapsToDoc(frameMaps) {
   return saveToolbarDataToDoc("frameMaps", frameMaps);
 }
 async function saveToolbarDataToDoc(key, value) {
+  const rootIdResult = await getRootLayoutId(window.SDK);
+  if (!rootIdResult.isOk()) {
+    return rootIdResult;
+  }
+  const rootLayoutId = rootIdResult.value;
   const dataResult = await getPrivateData({
-    id: "0",
+    id: rootLayoutId,
     studio: window.SDK
   });
   if (dataResult.isOk()) {
     let data = dataResult.value;
     if (data.toolbar == null) {
-      const setDataResult = await tryAddingToolbarToData(data);
+      const setDataResult = await tryAddingToolbarToData(rootLayoutId, data);
       if (setDataResult.isOk()) {
         const dataResult2 = await getPrivateData({
-          id: "0",
+          id: rootLayoutId,
           studio: window.SDK
         });
         if (dataResult2.isOk()) {
@@ -35285,7 +35307,7 @@ async function saveToolbarDataToDoc(key, value) {
           data.toolbar = stringifyResult.value;
           const setDataResult = await setPrivateData({
             studio: window.SDK,
-            id: "0",
+            id: rootLayoutId,
             privateData: data
           });
           if (setDataResult.isOk()) {
@@ -87179,9 +87201,14 @@ function CompressModal({ opened, onClose }) {
         }
         deletedLayoutNames.push(layout.name);
       }
+      const rootLayoutIdResult = await getRootLayoutId(studio2);
+      if (!rootLayoutIdResult.isOk()) {
+        raiseError2(new Error("Failed to resolve root layout: " + rootLayoutIdResult.error?.message));
+        return;
+      }
       const setPrivateDataResult = await setPrivateData({
         studio: studio2,
-        id: "0",
+        id: rootLayoutIdResult.value,
         privateData: {}
       });
       if (!setPrivateDataResult.isOk()) {
@@ -89506,4 +89533,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=A2F6BF169213233A64756E2164756E21
+//# debugId=E10DC535FF561DCE64756E2164756E21
