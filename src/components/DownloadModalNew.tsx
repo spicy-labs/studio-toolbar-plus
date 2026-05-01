@@ -57,6 +57,7 @@ import {
   FailedToFetchConnectorsError,
   MissingDocumentFileError,
   InvalidDocumentJsonError,
+  DocumentTypeMismatchError,
 } from "./DownloadModal/types";
 import {
   loadFilesFromDirectory,
@@ -65,6 +66,7 @@ import {
   generateTimestamp,
   validateFolderName,
   getDocumentId,
+  getDocumentKind,
   deduplicateSelectedFolders,
 } from "./DownloadModal/utils";
 import { cornersOfRectangle } from "@dnd-kit/core/dist/utilities/algorithms/helpers";
@@ -311,17 +313,20 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         await studioResult.value.configuration.getValue("ENVIRONMENT_API")
       ).parsedData;
 
-      // Get template ID from URL
+      // Get document ID and kind (template vs component) from URL
       const urlPath = window.location.href;
-      const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
+      const idMatch = urlPath.match(
+        /\/studio\/(templates|components)\/([\w-]+)/,
+      );
 
-      if (templateIdMatch && templateIdMatch[1]) {
-        const templateId = templateIdMatch[1];
+      if (idMatch && idMatch[2]) {
+        const resourcePath = idMatch[1]; // "templates" or "components"
+        const documentId = idMatch[2];
 
         try {
-          // Fetch template details to get the name
-          const templateResponse = await fetch(
-            `${baseUrl}templates/${templateId}`,
+          // Fetch document details to get the name
+          const detailsResponse = await fetch(
+            `${baseUrl}${resourcePath}/${documentId}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -330,18 +335,18 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             },
           );
 
-          if (templateResponse.ok) {
-            const templateData = await templateResponse.json();
-            if (templateData && templateData.data && templateData.data.name) {
-              return templateData.data.name;
+          if (detailsResponse.ok) {
+            const detailsData = await detailsResponse.json();
+            if (detailsData && detailsData.data && detailsData.data.name) {
+              return detailsData.data.name;
             }
           }
         } catch (error) {
-          // Fall back to document ID if template fetch fails
+          // Fall back to document ID if details fetch fails
         }
 
-        // Return template ID if name fetch failed
-        return templateId;
+        // Return document ID if name fetch failed
+        return documentId;
       }
 
       return "document";
@@ -521,6 +526,21 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
       }
 
       const studioPackage = validationResult.value;
+
+      // Reject mismatched uploads before any work begins.
+      // Legacy packages without documentType are treated as "template".
+      const currentKind = getDocumentKind();
+      const packageKind = studioPackage.documentType ?? "template";
+      if (currentKind && currentKind !== packageKind) {
+        raiseError(
+          new DocumentTypeMismatchError(
+            `You are trying to upload a ${packageKind} to a ${currentKind} endpoint. ` +
+              `Please open a ${packageKind} in Studio and try again.`,
+          ),
+        );
+        return;
+      }
+
       setUploadTasks([]);
 
       // Get studio instance and configuration
@@ -2872,6 +2892,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
         const manifest: StudioPackage = {
           engineVersion: documentData.engineVersion || "unknown",
           source: window.location.href,
+          documentType: getDocumentKind() ?? "template",
           documents: [documentEntry],
         };
 

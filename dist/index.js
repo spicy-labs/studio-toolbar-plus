@@ -80796,6 +80796,14 @@ class FailedToFetchConnectorsError extends Error {
   }
 }
 
+class DocumentTypeMismatchError extends Error {
+  _tag = "DocumentTypeMismatchError";
+  constructor(message) {
+    super(message);
+    this.name = "DocumentTypeMismatchError";
+  }
+}
+
 // src/components/DownloadModal/utils.ts
 var FontDataSchema = exports_external.object({
   filePath: exports_external.string(),
@@ -80825,6 +80833,7 @@ var DocumentSchema = exports_external.object({
 var StudioPackageSchema = exports_external.object({
   engineVersion: exports_external.string(),
   source: exports_external.string(),
+  documentType: exports_external.enum(["template", "component"]).optional(),
   documents: exports_external.array(DocumentSchema)
 });
 function verifyStudioPackage(packageData) {
@@ -80932,10 +80941,16 @@ function deduplicateSelectedFolders(folders) {
   }
   return accepted;
 }
+var getDocumentKind = () => {
+  const match2 = window.location.href.match(/\/studio\/(templates|components)\//);
+  if (!match2)
+    return null;
+  return match2[1] === "templates" ? "template" : "component";
+};
 var getDocumentId = () => {
   const urlPath = window.location.href;
-  const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
-  return templateIdMatch ? templateIdMatch[1] : "document";
+  const idMatch = urlPath.match(/\/studio\/(?:templates|components)\/([\w-]+)/);
+  return idMatch ? idMatch[1] : "document";
 };
 
 // src/components/DownloadModalNew.tsx
@@ -81085,24 +81100,25 @@ function DownloadModalNew({ opened, onClose }) {
       const token2 = (await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")).parsedData;
       const baseUrl = (await studioResult.value.configuration.getValue("ENVIRONMENT_API")).parsedData;
       const urlPath = window.location.href;
-      const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
-      if (templateIdMatch && templateIdMatch[1]) {
-        const templateId = templateIdMatch[1];
+      const idMatch = urlPath.match(/\/studio\/(templates|components)\/([\w-]+)/);
+      if (idMatch && idMatch[2]) {
+        const resourcePath = idMatch[1];
+        const documentId = idMatch[2];
         try {
-          const templateResponse = await fetch(`${baseUrl}templates/${templateId}`, {
+          const detailsResponse = await fetch(`${baseUrl}${resourcePath}/${documentId}`, {
             headers: {
               Authorization: `Bearer ${token2}`,
               "Content-Type": "application/json"
             }
           });
-          if (templateResponse.ok) {
-            const templateData = await templateResponse.json();
-            if (templateData && templateData.data && templateData.data.name) {
-              return templateData.data.name;
+          if (detailsResponse.ok) {
+            const detailsData = await detailsResponse.json();
+            if (detailsData && detailsData.data && detailsData.data.name) {
+              return detailsData.data.name;
             }
           }
         } catch (error50) {}
-        return templateId;
+        return documentId;
       }
       return "document";
     } catch (error50) {
@@ -81230,6 +81246,12 @@ function DownloadModalNew({ opened, onClose }) {
         return;
       }
       const studioPackage = validationResult.value;
+      const currentKind = getDocumentKind();
+      const packageKind = studioPackage.documentType ?? "template";
+      if (currentKind && currentKind !== packageKind) {
+        raiseError2(new DocumentTypeMismatchError(`You are trying to upload a ${packageKind} to a ${currentKind} endpoint. ` + `Please open a ${packageKind} in Studio and try again.`));
+        return;
+      }
       setUploadTasks([]);
       const studioResult = await getStudio();
       if (!studioResult.isOk()) {
@@ -82481,6 +82503,7 @@ function DownloadModalNew({ opened, onClose }) {
         const manifest = {
           engineVersion: documentData2.engineVersion || "unknown",
           source: window.location.href,
+          documentType: getDocumentKind() ?? "template",
           documents: [documentEntry]
         };
         const manifestStr = JSON.stringify(manifest, null, 2);
@@ -89533,4 +89556,4 @@ async function checkStudioExist() {
 }
 checkStudioExist();
 
-//# debugId=E10DC535FF561DCE64756E2164756E21
+//# debugId=9504721DD11D89C564756E2164756E21
