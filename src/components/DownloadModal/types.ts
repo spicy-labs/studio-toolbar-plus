@@ -69,9 +69,14 @@ export interface SmartCropsData {
   }[];
 }
 
+export type DocumentType = "template" | "component";
+
 export interface StudioPackage {
   engineVersion: string;
   source: string;
+  // Optional for back-compat with packages downloaded before this field existed.
+  // When missing, treat as "template".
+  documentType?: DocumentType;
   documents: Array<{
     id: string;
     name: string | null;
@@ -159,5 +164,13 @@ export class FailedToFetchConnectorsError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "FailedToFetchConnectorsError";
+  }
+}
+
+export class DocumentTypeMismatchError extends Error {
+  readonly _tag = "DocumentTypeMismatchError";
+  constructor(message: string) {
+    super(message);
+    this.name = "DocumentTypeMismatchError";
   }
 }

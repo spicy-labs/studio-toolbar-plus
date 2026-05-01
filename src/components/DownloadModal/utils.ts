@@ -44,6 +44,7 @@ const DocumentSchema = z.object({
 const StudioPackageSchema = z.object({
   engineVersion: z.string(),
   source: z.string(),
+  documentType: z.enum(["template", "component"]).optional(),
   documents: z.array(DocumentSchema),
 });
 
@@ -244,9 +245,20 @@ export function deduplicateSelectedFolders(folders: string[]): string[] {
   return accepted;
 }
 
+export type DocumentKind = "template" | "component";
+
+// Detect whether the current Studio URL is a template or component endpoint.
+export const getDocumentKind = (): DocumentKind | null => {
+  const match = window.location.href.match(
+    /\/studio\/(templates|components)\//
+  );
+  if (!match) return null;
+  return match[1] === "templates" ? "template" : "component";
+};
+
 // Helper function to get document ID from URL
 export const getDocumentId = (): string => {
   const urlPath = window.location.href;
-  const templateIdMatch = urlPath.match(/templates\/([\w-]+)/);
-  return templateIdMatch ? templateIdMatch[1] : "document";
+  const idMatch = urlPath.match(/\/studio\/(?:templates|components)\/([\w-]+)/);
+  return idMatch ? idMatch[1] : "document";
 };

@@ -32,7 +32,10 @@
       "matches": [
         "*://chiligrafx.com/environments/*/studio/templates/*",
         "*://chiligrafx-dev.com/environments/*/studio/templates/*",
-        "*://chiligrafx-main.com/environments/*/studio/templates/*"
+        "*://chiligrafx-main.com/environments/*/studio/templates/*",
+        "*://chiligrafx.com/environments/*/studio/components/*",
+        "*://chiligrafx-dev.com/environments/*/studio/components/*",
+        "*://chiligrafx-main.com/environments/*/studio/components/*"
       ],
       "js": ["content.js"],
       "all_frames": true
