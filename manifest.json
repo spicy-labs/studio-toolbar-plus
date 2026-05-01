@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "studio-toolbar-plus",
-  "version": "0.16.5",
+  "version": "0.17.1",
   "description": "A simple toolbar extension to give you more super powers in GraFx Studio",
   "icons": {
     "16": "icons/icon16.png",
@@ -22,7 +22,8 @@
     "*://*.chiligrafx.com/*",
     "*://*.chili-publish.online/*",
     "*://*.chiligrafx-dev.com/*",
-    "*://*.chiligrafx-main.com/*"
+    "*://*.chiligrafx-main.com/*",
+    "*://*.kadanza.io/*"
   ],
   "background": {
     "service_worker": "downloader.js"
@@ -32,7 +33,13 @@
       "matches": [
         "*://chiligrafx.com/environments/*/studio/templates/*",
         "*://chiligrafx-dev.com/environments/*/studio/templates/*",
-        "*://chiligrafx-main.com/environments/*/studio/templates/*"
+        "*://chiligrafx-main.com/environments/*/studio/templates/*",
+        "*://chili-publish.online/environments/*/studio/templates/*",
+        "*://chiligrafx.com/environments/*/studio/components/*",
+        "*://chiligrafx-dev.com/environments/*/studio/components/*",
+        "*://chiligrafx-main.com/environments/*/studio/components/*",
+        "*://chili-publish.online/environments/*/studio/components/*",
+        "*://*.kadanza.io/*/extensions/grafx/*"
       ],
       "js": ["content.js"],
       "all_frames": true
@@ -44,7 +51,9 @@
       "matches": [
         "*://*.chiligrafx.com/*",
         "*://*.chiligrafx-dev.com/*",
-        "*://*.chiligrafx-main.com/*"
+        "*://*.chiligrafx-main.com/*",
+        "*://*.chili-publish.online/*",
+        "*://*.kadanza.io/*"
       ]
     }
   ],
