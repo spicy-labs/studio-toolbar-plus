@@ -25,6 +25,7 @@ interface InitialScreenProps {
   onJsonDownload: () => void;
   onJsonUpload: () => void;
   onDefaultSettings: () => void;
+  uploadDisabled?: boolean;
 }
 
 export function InitialScreen({
@@ -34,6 +35,7 @@ export function InitialScreen({
   onJsonDownload,
   onJsonUpload,
   onDefaultSettings,
+  uploadDisabled = false,
 }: InitialScreenProps) {
   return (
     <Stack gap="xl">
@@ -52,7 +54,11 @@ export function InitialScreen({
         </Alert>
       )}
 
-      <SimpleGrid cols={2} spacing="xl" style={{ marginTop: "1rem" }}>
+      <SimpleGrid
+        cols={uploadDisabled ? 1 : 2}
+        spacing="xl"
+        style={{ marginTop: "1rem" }}
+      >
         <Button
           onClick={onDownload}
           color="blue"
@@ -70,22 +76,24 @@ export function InitialScreen({
           </Group>
         </Button>
 
-        <Button
-          onClick={onUpload}
-          color="green"
-          fullWidth
-          size="lg"
-          style={{
-            height: "80px",
-            fontSize: "1rem",
-            fontWeight: 500,
-          }}
-        >
-          <Group gap="md" style={{ flexDirection: "column" }}>
-            <IconUpload size={28} />
-            <span>Upload</span>
-          </Group>
-        </Button>
+        {!uploadDisabled && (
+          <Button
+            onClick={onUpload}
+            color="green"
+            fullWidth
+            size="lg"
+            style={{
+              height: "80px",
+              fontSize: "1rem",
+              fontWeight: 500,
+            }}
+          >
+            <Group gap="md" style={{ flexDirection: "column" }}>
+              <IconUpload size={28} />
+              <span>Upload</span>
+            </Group>
+          </Button>
+        )}
       </SimpleGrid>
 
       {/* Quick Actions */}
@@ -105,16 +113,18 @@ export function InitialScreen({
                 <IconFileDownload size={20} />
               </ActionIcon>
             </Tooltip>
-            <Tooltip label="Upload document JSON">
-              <ActionIcon
-                onClick={onJsonUpload}
-                color="gray"
-                variant="subtle"
-                size="lg"
-              >
-                <IconFileUpload size={20} />
-              </ActionIcon>
-            </Tooltip>
+            {!uploadDisabled && (
+              <Tooltip label="Upload document JSON">
+                <ActionIcon
+                  onClick={onJsonUpload}
+                  color="gray"
+                  variant="subtle"
+                  size="lg"
+                >
+                  <IconFileUpload size={20} />
+                </ActionIcon>
+              </Tooltip>
+            )}
           </Group>
           <Tooltip label="Default Settings">
             <ActionIcon
