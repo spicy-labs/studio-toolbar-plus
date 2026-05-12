@@ -20,6 +20,9 @@ build
 .cache
 .parcel-cache
 
+# Build output (produced by CI on release)
+dist/
+
 # Environment variables
 .env
 .env.*
@@ -33,7 +36,6 @@ Desktop.ini
 
 # Lockfiles
 package-lock.json
-bun.lock
 yarn.lock
 pnpm-lock.yaml
 

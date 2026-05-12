@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> "$GITHUB_PATH"
+
+      - name: Verify manifest version matches tag
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          MANIFEST_VERSION=$(grep -oP '"version":\s*"\K[^"]+' manifest.json | head -n1)
+          if [ "$TAG_VERSION" != "$MANIFEST_VERSION" ]; then
+            echo "::error::Tag version ($TAG_VERSION) does not match manifest.json version ($MANIFEST_VERSION)"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Package extension
+        run: |
+          ZIP_NAME="studio-toolbar-plus-${GITHUB_REF_NAME}.zip"
+          zip -r "$ZIP_NAME" \
+            manifest.json \
+            content.js \
+            downloader.js \
+            icons \
+            dist/index.js \
+            dist/index.css
+          echo "ZIP_NAME=$ZIP_NAME" >> "$GITHUB_ENV"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" "$ZIP_NAME" \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes
