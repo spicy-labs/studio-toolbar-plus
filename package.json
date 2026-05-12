@@ -7,33 +7,33 @@
     "build": "bun ./scripts/build.js"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "prettier": "^3.6.2"
+    "@types/bun": "1.3.9",
+    "prettier": "3.8.1"
   },
   "peerDependencies": {
-    "typescript": "~5.8.3"
+    "typescript": "5.8.3"
   },
   "dependencies": {
-    "@chili-publish/studio-sdk": "^1.31.0",
-    "@dnd-kit/core": "^6.3.1",
-    "@dnd-kit/sortable": "^10.0.0",
-    "@dnd-kit/utilities": "^3.2.2",
-    "@mantine/core": "^7.17.8",
-    "@mantine/hooks": "^7.17.8",
-    "@tabler/icons-react": "^3.35.0",
-    "@types/chrome": "^0.0.309",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.1",
-    "@types/react-window": "^1.8.8",
-    "immer": "^10.1.3",
-    "json-2-csv": "^5.5.9",
-    "jszip": "^3.10.1",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-window": "^1.8.11",
-    "styled-components": "^6.1.19",
-    "typescript-result": "^3.5.2",
-    "zod": "^4.1.12",
-    "zustand": "^5.0.8"
+    "@chili-publish/studio-sdk": "1.38.0",
+    "@dnd-kit/core": "6.3.1",
+    "@dnd-kit/sortable": "10.0.0",
+    "@dnd-kit/utilities": "3.2.2",
+    "@mantine/core": "7.17.8",
+    "@mantine/hooks": "7.17.8",
+    "@tabler/icons-react": "3.37.1",
+    "@types/chrome": "0.0.309",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@types/react-window": "1.8.8",
+    "immer": "10.2.0",
+    "json-2-csv": "5.5.10",
+    "jszip": "3.10.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-window": "1.8.11",
+    "styled-components": "6.3.11",
+    "typescript-result": "3.5.2",
+    "zod": "4.3.6",
+    "zustand": "5.0.11"
   }
 }
