@@ -57,6 +57,22 @@ export function appConfigFromFullConfig(fullConfig: AppFullConfig): AppConfig {
   return config;
 }
 
+export function isKadanzaHost(): boolean {
+  if (typeof window === "undefined") return false;
+  const host = window.location.hostname;
+  return host === "kadanza.io" || host.endsWith(".kadanza.io");
+}
+
+export function applyHostOverrides(config: AppConfig): AppConfig {
+  if (!isKadanzaHost()) return config;
+  const masked: AppConfig = {} as AppConfig;
+  for (const key of Object.keys(config) as AppConfigKeys[]) {
+    masked[key] = false;
+  }
+  masked.showUploadDownload = true;
+  return masked;
+}
+
 export async function getDefaultConfig(): Promise<
   Result<[AppFullConfig, string], Error>
 > {

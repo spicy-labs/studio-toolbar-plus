@@ -17,6 +17,8 @@ import {
   Tooltip,
   Drawer,
   Switch,
+  Modal,
+  List,
 } from "@mantine/core";
 import {
   IconTrash,
@@ -25,6 +27,7 @@ import {
   IconReplace,
   IconDeselect,
   IconArrowAutofitDown,
+  IconArrowsTransferUpDown,
   IconClipboard,
   IconClipboardFilled,
   IconX,
@@ -274,6 +277,15 @@ export function ManualCropEditor({
   const [settingsDrawerOpened, setSettingsDrawerOpened] = useState(false);
   const [showOriginalDimensions, setShowOriginalDimensions] = useState(false);
   const [showUnit, setShowUnit] = useState<boolean>(false);
+
+  // Import/Export state
+  const [importReport, setImportReport] = useState<{
+    added: number;
+    overridden: number;
+    skipped: string[];
+    layoutName: string;
+  } | null>(null);
+  const [importReportModalOpened, setImportReportModalOpened] = useState(false);
 
   const loadCropsForSelectedLayouts = useCallback(async () => {
     if (!selectedConnectorId) return;
@@ -594,6 +606,173 @@ export function ManualCropEditor({
       return newSet;
     });
   }, []);
+
+  // Export selected crops to JSON file
+  const handleExportCrops = useCallback(
+    (layoutId: string) => {
+      const checkedCrops = getCheckedCropsForLayout(layoutId);
+      if (checkedCrops.length === 0) return;
+
+      const layoutCrop = layoutCrops.get(layoutId);
+      const layoutName = layoutCrop?.layoutName || "layout";
+
+      const exportData: Record<
+        string,
+        Omit<ManualCrop, "frameId" | "frameName">[]
+      > = {};
+      checkedCrops.forEach((crop) => {
+        if (!exportData[crop.frameName]) {
+          exportData[crop.frameName] = [];
+        }
+        exportData[crop.frameName].push({
+          name: crop.name,
+          left: crop.left,
+          top: crop.top,
+          width: crop.width,
+          height: crop.height,
+          rotationDegrees: crop.rotationDegrees,
+          originalParentWidth: crop.originalParentWidth,
+          originalParentHeight: crop.originalParentHeight,
+          unit: crop.unit,
+        });
+      });
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `crops-${layoutName}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    },
+    [getCheckedCropsForLayout, layoutCrops],
+  );
+
+  // Import crops from JSON file
+  const handleImportCrops = useCallback(
+    (layoutId: string) => {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = ".json";
+      input.onchange = async (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0];
+        if (!file) return;
+
+        try {
+          const text = await file.text();
+          const importData: Record<
+            string,
+            Array<{
+              name: string;
+              left: number;
+              top: number;
+              width: number;
+              height: number;
+              rotationDegrees: number;
+              originalParentWidth: number;
+              originalParentHeight: number;
+              unit: string;
+            }>
+          > = JSON.parse(text);
+
+          const layoutCrop = layoutCrops.get(layoutId);
+          if (!layoutCrop) return;
+
+          // Build frameName -> frameId map from existing crops and document state
+          const frameNameToId = new Map<string, string>();
+          layoutCrop.crops.forEach((crop) => {
+            frameNameToId.set(crop.frameName, crop.frameId);
+          });
+
+          const studioResult = await getStudio();
+          if (studioResult.isOk()) {
+            const docStateResult = await getCurrentDocumentState(
+              studioResult.value,
+            );
+            if (docStateResult.isOk()) {
+              const docState = docStateResult.value as any;
+              if (docState.pages) {
+                for (const page of docState.pages) {
+                  if (page.frames) {
+                    for (const frame of page.frames) {
+                      frameNameToId.set(frame.name, frame.id);
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          let added = 0;
+          let overridden = 0;
+          const skipped: string[] = [];
+
+          setChangedRows((prev) => {
+            const newMap = new Map(prev);
+
+            for (const [frameName, crops] of Object.entries(importData)) {
+              const frameId = frameNameToId.get(frameName);
+              if (!frameId) {
+                skipped.push(frameName);
+                continue;
+              }
+
+              for (const cropData of crops) {
+                const newCrop: ManualCrop = {
+                  frameId,
+                  frameName,
+                  name: cropData.name,
+                  left: cropData.left,
+                  top: cropData.top,
+                  width: cropData.width,
+                  height: cropData.height,
+                  rotationDegrees: cropData.rotationDegrees,
+                  originalParentWidth: cropData.originalParentWidth,
+                  originalParentHeight: cropData.originalParentHeight,
+                  unit: cropData.unit as ManualCrop["unit"],
+                };
+
+                const existingIndex = layoutCrop.crops.findIndex(
+                  (c) => c.frameId === frameId && c.name === cropData.name,
+                );
+
+                if (existingIndex !== -1) {
+                  const rowKey = `${layoutId}-${existingIndex}`;
+                  newMap.set(rowKey, newCrop);
+                  overridden++;
+                } else {
+                  const newIndex = layoutCrop.crops.length + added;
+                  const rowKey = `${layoutId}-${newIndex}`;
+                  newMap.set(rowKey, newCrop);
+                  added++;
+                }
+              }
+            }
+
+            return newMap;
+          });
+
+          setImportReport({
+            added,
+            overridden,
+            skipped,
+            layoutName: layoutCrop.layoutName,
+          });
+          setImportReportModalOpened(true);
+        } catch (error) {
+          raiseError(
+            error instanceof Error
+              ? error
+              : new Error("Failed to parse import file"),
+          );
+        }
+      };
+      input.click();
+    },
+    [layoutCrops, raiseError],
+  );
 
   // Clipboard functionality handlers
   const handleCopyToClipboard = useCallback(
@@ -1582,6 +1761,28 @@ export function ManualCropEditor({
                     <Group justify="space-between" align="center" mb="md">
                       <Title order={4}>{layoutCrop.layoutName}</Title>
                       <Group gap="xs">
+                        <Tooltip
+                          label={
+                            checkedSnapshotsCount > 0
+                              ? "Export selected crops to file"
+                              : "Import crops from file"
+                          }
+                          position="top"
+                          withArrow
+                        >
+                          <ActionIcon
+                            color="blue"
+                            variant="filled"
+                            onClick={() =>
+                              checkedSnapshotsCount > 0
+                                ? handleExportCrops(layoutCrop.layoutId)
+                                : handleImportCrops(layoutCrop.layoutId)
+                            }
+                            disabled={isCopyMode || !selectedConnectorId}
+                          >
+                            <IconArrowsTransferUpDown size={16} />
+                          </ActionIcon>
+                        </Tooltip>
                         {checkedSnapshotsCount > 0 && (
                           <>
                             <Tooltip
@@ -1865,6 +2066,41 @@ export function ManualCropEditor({
           onAddCopy={addCopyOfCropForReplace}
         />
       )}
+
+      {/* Import Report Modal */}
+      <Modal
+        opened={importReportModalOpened}
+        onClose={() => setImportReportModalOpened(false)}
+        title={`Import Report — ${importReport?.layoutName ?? ""}`}
+        size="sm"
+      >
+        {importReport && (
+          <Stack gap="sm">
+            <Text>
+              <strong>{importReport.added}</strong> crop(s) added
+            </Text>
+            <Text>
+              <strong>{importReport.overridden}</strong> crop(s) overridden
+            </Text>
+            {importReport.skipped.length > 0 && (
+              <>
+                <Text>
+                  <strong>{importReport.skipped.length}</strong> frame(s) skipped
+                  (frame not found):
+                </Text>
+                <List size="sm">
+                  {importReport.skipped.map((frameName) => (
+                    <List.Item key={frameName}>{frameName}</List.Item>
+                  ))}
+                </List>
+              </>
+            )}
+            {importReport.skipped.length === 0 && (
+              <Text c="dimmed">No frames were skipped.</Text>
+            )}
+          </Stack>
+        )}
+      </Modal>
     </Box>
   );
 }

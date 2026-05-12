@@ -75,9 +75,14 @@ import { clampSubjectAreaToBounds } from "../utils/smartCrop/clampSubjectAreaToB
 interface DownloadModalNewProps {
   opened: boolean;
   onClose: () => void;
+  uploadDisabled?: boolean;
 }
 
-export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
+export function DownloadModalNew({
+  opened,
+  onClose,
+  uploadDisabled = false,
+}: DownloadModalNewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const raiseError = appStore((store) => store.raiseError);
   const [modalState, setModalState] = useState<ModalState>("initial");
@@ -3209,6 +3214,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             onJsonDownload={handleJsonDownload}
             onJsonUpload={onJsonUpload}
             onDefaultSettings={handleDefaultSettings}
+            uploadDisabled={uploadDisabled}
           />
         ) : modalState === "downloadSettings" ? (
           <DownloadSettingsScreen

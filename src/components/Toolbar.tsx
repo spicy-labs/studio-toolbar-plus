@@ -41,7 +41,12 @@ import { CompressModal } from "./CompressModal";
 import { ToolbarSettingsModal } from "./ToolbarSettingsModal";
 import { AspectLockConfirmModal } from "./AspectLockConfirmModal";
 import type { AppConfig, AppInfo } from "../utils/appConfig";
-import { appConfigFromFullConfig, getDefaultConfig } from "../utils/appConfig";
+import {
+  appConfigFromFullConfig,
+  applyHostOverrides,
+  getDefaultConfig,
+  isKadanzaHost,
+} from "../utils/appConfig";
 import { Result } from "typescript-result";
 import { ImageBrowser } from "./ImageBrowser";
 import { ImageBrowserMode } from "./ImageBrowser";
@@ -136,7 +141,7 @@ export function Toolbar() {
 
   // Function to reload configuration from localStorage
   const reloadConfig = (config: AppConfig) => {
-    setAppConfig(config);
+    setAppConfig(applyHostOverrides(config));
   };
 
   // Load configuration from localStorage on component mount
@@ -151,7 +156,7 @@ export function Toolbar() {
       }).fold(
         (parsedConfig) => {
           console.log(parsedConfig);
-          setAppConfig(parsedConfig as AppConfig);
+          reloadConfig(parsedConfig as AppConfig);
         },
         async (error) => {
           (await getDefaultConfig()).fold(
@@ -492,17 +497,19 @@ export function Toolbar() {
                     </ActionIcon>
                   </Tooltip>
                 )}
-                <Tooltip label="Settings" position="bottom" withArrow>
-                  <ActionIcon
-                    variant="filled"
-                    color="gray"
-                    size="lg"
-                    aria-label="Settings"
-                    onClick={handleSettings}
-                  >
-                    <IconSettings size={20} />
-                  </ActionIcon>
-                </Tooltip>
+                {!isKadanzaHost() && (
+                  <Tooltip label="Settings" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color="gray"
+                      size="lg"
+                      aria-label="Settings"
+                      onClick={handleSettings}
+                    >
+                      <IconSettings size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
               </Group>
             )}
           </Box>
@@ -618,6 +625,7 @@ export function Toolbar() {
         <DownloadModalNew
           opened={isDownloadModalNewOpen}
           onClose={() => setIsDownloadModalNewOpen(false)}
+          uploadDisabled={isKadanzaHost()}
         />
       )}
 

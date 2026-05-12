@@ -22,7 +22,8 @@
     "*://*.chiligrafx.com/*",
     "*://*.chili-publish.online/*",
     "*://*.chiligrafx-dev.com/*",
-    "*://*.chiligrafx-main.com/*"
+    "*://*.chiligrafx-main.com/*",
+    "*://*.kadanza.io/*"
   ],
   "background": {
     "service_worker": "downloader.js"
@@ -33,9 +34,12 @@
         "*://chiligrafx.com/environments/*/studio/templates/*",
         "*://chiligrafx-dev.com/environments/*/studio/templates/*",
         "*://chiligrafx-main.com/environments/*/studio/templates/*",
+        "*://chili-publish.online/environments/*/studio/templates/*",
         "*://chiligrafx.com/environments/*/studio/components/*",
         "*://chiligrafx-dev.com/environments/*/studio/components/*",
-        "*://chiligrafx-main.com/environments/*/studio/components/*"
+        "*://chiligrafx-main.com/environments/*/studio/components/*",
+        "*://chili-publish.online/environments/*/studio/components/*",
+        "*://*.kadanza.io/*/extensions/grafx/*"
       ],
       "js": ["content.js"],
       "all_frames": true
@@ -47,7 +51,9 @@
       "matches": [
         "*://*.chiligrafx.com/*",
         "*://*.chiligrafx-dev.com/*",
-        "*://*.chiligrafx-main.com/*"
+        "*://*.chiligrafx-main.com/*",
+        "*://*.chili-publish.online/*",
+        "*://*.kadanza.io/*"
       ]
     }
   ],
