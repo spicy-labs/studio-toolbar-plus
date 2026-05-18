@@ -17,21 +17,26 @@ After this, developers loading the extension from source need to run `bun instal
 
 ## Cutting a release
 
+Releases can be cut from any branch — the workflow triggers on the tag, not the branch it points to. The typical flow for this project is to cut a **pre-release off a feature branch** so it can be tested early, then flip it to a full release after the branch merges into `main`. See [Pre-releases](#pre-releases) below for that flow.
+
+The steps below assume you're on the branch you want to release from (could be `main`, could be a feature branch).
+
 1. **Bump the version in `manifest.json`.** This is the only place the version lives. Use [semver](https://semver.org): patch for bug fixes, minor for new features, major for breaking changes.
 
    ```json
    "version": "0.17.1"
    ```
 
-2. **Commit the bump.**
+2. **Commit the bump and push the branch.**
 
    ```bash
+   BRANCH=$(git rev-parse --abbrev-ref HEAD)
    git add manifest.json
    git commit -m "chore: bump version to 0.17.1"
-   git push origin main
+   git push origin "$BRANCH"
    ```
 
-3. **Tag and push.** The tag must be `v` + the manifest version — the workflow fails the build if they disagree.
+3. **Tag and push.** The tag must be `v` + the manifest version — the workflow fails the build if they disagree. The tag points at the current commit on your branch, so make sure the bump commit is the one you want released.
 
    ```bash
    git tag v0.17.1
@@ -39,6 +44,24 @@ After this, developers loading the extension from source need to run `bun instal
    ```
 
 4. **Watch the workflow run** at `https://github.com/<owner>/studio-toolbar-plus/actions`. It takes ~1–2 minutes. On success, the release appears at `https://github.com/<owner>/studio-toolbar-plus/releases` with `studio-toolbar-plus-v0.17.1.zip` attached.
+
+## Pre-releases
+
+The workflow auto-detects pre-releases: if the tagged commit isn't reachable from `origin/main`, the release is created with `--prerelease`. That keeps the orange "Pre-release" badge on branch builds and keeps them out of the "Latest" slot, so anyone landing on the repo home sees the last real release instead of a work-in-progress.
+
+No action needed at tag time — just push the tag from your branch.
+
+### Promoting a pre-release to a full release
+
+Once the feature branch is merged into `main` and you're confident in the build:
+
+```bash
+gh release edit v0.17.1 --prerelease=false --latest
+```
+
+The tag itself doesn't move — it still points at the commit on the original branch (which is now part of `main`'s history via the merge). Only the release's pre-release flag and "latest" status change.
+
+If you need the tag to point at the merge commit on `main` instead of the original branch tip (e.g. the merge introduced fixups), that's a re-tag — see [Recovering from a bad tag](#recovering-from-a-bad-tag).
 
 ## What's in the zip
 

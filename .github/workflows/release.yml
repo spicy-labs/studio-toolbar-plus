@@ -14,6 +14,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine release type
+        id: release_type
+        run: |
+          git fetch origin main:refs/remotes/origin/main
+          if git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "Tag commit is reachable from main → full release"
+            echo "prerelease_flag=" >> "$GITHUB_OUTPUT"
+          else
+            echo "Tag commit is not on main → pre-release"
+            echo "prerelease_flag=--prerelease" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Install Bun
         run: |
@@ -53,4 +67,5 @@ jobs:
         run: |
           gh release create "$GITHUB_REF_NAME" "$ZIP_NAME" \
             --title "$GITHUB_REF_NAME" \
-            --generate-notes
+            --generate-notes \
+            ${{ steps.release_type.outputs.prerelease_flag }}
