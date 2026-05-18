@@ -33,6 +33,7 @@ import {
   IconDownload,
   IconPhotoSearch,
   IconViewportShort,
+  IconDeviceDesktopCog,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import type {
@@ -204,6 +205,12 @@ export function ToolbarSettingsModal({
       icon: <IconViewportShort size={16} />,
       handler: () => {
         console.log("Opening Compress tool");
+      },
+    },
+    showStudioVersion: {
+      icon: <IconDeviceDesktopCog size={16} />,
+      handler: () => {
+        console.log("Opening Studio Version tool");
       },
     },
   };
@@ -692,6 +699,28 @@ export function ToolbarSettingsModal({
                 </Group>
                 <Text size="xs" c="dimmed" ml={32}>
                   Compress and optimize document assets
+                </Text>
+
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showStudioVersion")}
+                    <Text>Studio Version</Text>
+                    {getStatusIcon("showStudioVersion")}
+                  </Group>
+                  <Switch
+                    checked={config.showStudioVersion}
+                    onChange={(event) =>
+                      handleToggle(
+                        "showStudioVersion",
+                        event.currentTarget.checked,
+                      )
+                    }
+                    aria-label="Toggle Studio Version"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Override the SDK version used to load templates (per
+                  environment, 60 min)
                 </Text>
               </Stack>
             </ScrollArea.Autosize>
