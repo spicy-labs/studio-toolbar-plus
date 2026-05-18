@@ -27,6 +27,7 @@ import {
   IconDownload,
   IconPhotoSearch,
   IconViewportShort,
+  IconDeviceDesktopCog,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
@@ -40,6 +41,7 @@ import { OutTemplateModal } from "./OutTemplateModal";
 import { CompressModal } from "./CompressModal";
 import { ToolbarSettingsModal } from "./ToolbarSettingsModal";
 import { AspectLockConfirmModal } from "./AspectLockConfirmModal";
+import { StudioVersionModal } from "./StudioVersionModal";
 import type { AppConfig, AppInfo } from "../utils/appConfig";
 import {
   appConfigFromFullConfig,
@@ -74,6 +76,7 @@ export function Toolbar() {
     useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isImageBrowserOpen, setIsImageBrowserOpen] = useState(false);
+  const [isStudioVersionModalOpen, setIsStudioVersionModalOpen] = useState(false);
   const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
   const [updateInfo, setUpdateInfo] = useState<{
     currentVersion: string;
@@ -497,6 +500,22 @@ export function Toolbar() {
                     </ActionIcon>
                   </Tooltip>
                 )}
+                {appConfig.showStudioVersion && (
+                  <Tooltip label="Studio Version" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showStudioVersion")}
+                      size="lg"
+                      aria-label="Studio Version"
+                      onClick={() => {
+                        setVisible(false);
+                        setIsStudioVersionModalOpen(true);
+                      }}
+                    >
+                      <IconDeviceDesktopCog size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
                 {!isKadanzaHost() && (
                   <Tooltip label="Settings" position="bottom" withArrow>
                     <ActionIcon
@@ -636,6 +655,14 @@ export function Toolbar() {
           onClose={(selection) => {
             setIsImageBrowserOpen(false);
           }}
+        />
+      )}
+
+      {/* Studio Version Modal */}
+      {appConfig?.showStudioVersion && (
+        <StudioVersionModal
+          opened={isStudioVersionModalOpen}
+          onClose={() => setIsStudioVersionModalOpen(false)}
         />
       )}
 
