@@ -31,6 +31,7 @@ export type AppConfigKeys =
   | "showConnectorFolderBrowser"
   | "showOutput"
   | "showCompress"
+  | "showStudioVersion"
   | "enableActionsInDesignMode"
   | "removeIntercom";
 

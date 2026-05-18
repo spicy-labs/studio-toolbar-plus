@@ -12,6 +12,10 @@ import { setEnableActions } from "./studio/actionHandler.ts";
 import { getStudio } from "./studio/studioAdapter.ts";
 import { Result } from "typescript-result";
 import { removeIntercom } from "./studio/utils.js";
+import { installStudioVersionInterceptor } from "./utils/studioVersionInterceptor";
+
+// Install fetch interceptor as early as possible so /settings responses can be rewritten.
+installStudioVersionInterceptor();
 
 // Create a theme for Mantine
 const theme = createTheme({
