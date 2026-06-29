@@ -118,7 +118,8 @@ export function imageSelectionScript(debug) {
       // Use a regular expression to match ${NAME}
       return input.replace(/\${(.*?)}/g, (_, name) => {
         const variableValue = getVariableValue(name);
-        const currentTransforms = allTransforms[name];
+        const currentTransforms = allTransforms ? allTransforms[name] : undefined;
+        if (!currentTransforms || currentTransforms.length === 0) return variableValue;
         return currentTransforms.reduce((previousValue, transform) => {
           if (transform.replaceAll) {
             return previousValue.replaceAll(transform.find, transform.replace);
