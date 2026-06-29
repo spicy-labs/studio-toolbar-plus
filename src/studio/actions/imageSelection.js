@@ -74,14 +74,18 @@ export function imageSelectionScript(debug) {
         if (variableMatch != null) {
           return variableMatch;
         }
-        const compositeKey = getCompositeKeyFromVariables(d.split("|"));
-        variableMatch = imageVariableDependentGroups[d][compositeKey];
+        const depNames = d.split("|");
+        const currentValues = depNames.map((dep) => `${getVariableValue(dep)}`);
+        const groups = imageVariableDependentGroups[d];
+        variableMatch = groups.findLast((g) =>
+          g.deps.every((allowed, i) => allowed.includes(currentValues[i]))
+        ) || null;
 
         if (debug) {
-          debugData[variable.name].compositeKeys = !debugData[variable.name]
-            .compositeKeys
-            ? [compositeKey]
-            : [...debugData[variable.name].compositeKeys, compositeKey];
+          debugData[variable.name].currentValues = !debugData[variable.name]
+            .currentValues
+            ? [currentValues]
+            : [...debugData[variable.name].currentValues, currentValues];
           debugData[variable.name].variableMatches = !debugData[variable.name]
             .variableMatches
             ? [variableMatch]
@@ -118,7 +122,8 @@ export function imageSelectionScript(debug) {
       // Use a regular expression to match ${NAME}
       return input.replace(/\${(.*?)}/g, (_, name) => {
         const variableValue = getVariableValue(name);
-        const currentTransforms = allTransforms[name];
+        const currentTransforms = allTransforms ? allTransforms[name] : undefined;
+        if (!currentTransforms || currentTransforms.length === 0) return variableValue;
         return currentTransforms.reduce((previousValue, transform) => {
           if (transform.replaceAll) {
             return previousValue.replaceAll(transform.find, transform.replace);
@@ -128,20 +133,6 @@ export function imageSelectionScript(debug) {
       });
     }
 
-    function getCompositeKeyFromVariables(dependencies) {
-      return dependencies
-        .map((dep) => {
-          const variableRawValue = getVariableValue(dep);
-          // const variableValue =
-          //   typeof variableRawValue == "boolean"
-          //     ? variableRawValue
-          //       ? "TRUE"
-          //       : "FALSE"
-          //     : variableRawValue;
-          return `${variableRawValue}`;
-        })
-        .join("|");
-    }
   } catch (e) {
     errorCollection.push(e);
   }
