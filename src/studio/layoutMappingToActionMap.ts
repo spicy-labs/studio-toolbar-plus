@@ -97,42 +97,20 @@ function buildVariableMap(
 
       const dependentKey = dependentNames.join("|");
       if (!variableMap[docVariable.name][dependentKey]) {
-        variableMap[docVariable.name][dependentKey] = {};
+        variableMap[docVariable.name][dependentKey] = [];
       }
 
-      const allPossibleValues = group.dependents.map((dependent) => {
-        return dependent.values;
-      });
-
-      const generateCombinations = (
-        arrays: string[][],
-        current: string[] = [],
-        index: number = 0,
-      ): string[][] => {
-        if (index === arrays.length) {
-          return [current];
-        }
-        const result: string[][] = [];
-        for (const value of arrays[index]) {
-          result.push(
-            ...generateCombinations(arrays, [...current, value], index + 1),
-          );
-        }
-        return result;
-      };
-
-      const valueCombinations = generateCombinations(allPossibleValues);
       const valueString = getValueString(group.variableValue, doc);
       const transforms = getTransforms(group.variableValue, doc);
-      const entry: Record<string, any> = { value: valueString };
+      const entry: Record<string, any> = {
+        value: valueString,
+        deps: group.dependents.map((dependent) => dependent.values),
+      };
       if (Object.keys(transforms).length > 0) {
         entry.transforms = transforms;
       }
 
-      valueCombinations.forEach((combination) => {
-        const valueKey = combination.join("|");
-        variableMap[docVariable.name][dependentKey][valueKey] = entry;
-      });
+      variableMap[docVariable.name][dependentKey].push(entry);
     });
   });
 

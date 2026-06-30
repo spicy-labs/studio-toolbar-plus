@@ -12,9 +12,36 @@ The `imageSelectionScript` action injects a JSON lookup table (`imageSelectionDa
 
 **Impact:** 15 MB -> ~2 MB
 
-**Caveat (implemented):** The current fix builds the variable data once per `LayoutMap` and assigns the same JS object reference to all layout names. However, `JSON.stringify` does not deduplicate shared references — it serializes the full object under every key. To get actual JSON-level dedup, the output format or the `saveLayoutMappingToAction` serialization step would need to change, e.g.:
-- A custom `JSON.stringify` replacer that detects duplicate subtrees and emits a reference
-- Restructuring the output so shared data is emitted once under a `_shared` key and layouts point to it by reference, with matching changes in `imageSelectionScript` to resolve the reference at runtime
+**Caveat (implemented):** The current fix builds the variable data once per `LayoutMap` and assigns the same JS object reference to all layout names. However, `JSON.stringify` does not deduplicate shared references — it serializes the full object under every key. So the serialized action script is still ~8x larger than it needs to be.
+
+To get actual JSON-level dedup, `saveLayoutMappingToAction` would need to serialize the action map differently. Instead of emitting the raw `JSON.stringify(actionMap)` where every layout key contains its own full copy of the data, the serialization step would:
+
+1. Detect which layout names share the same underlying variable map (same JS reference or deep-equal)
+2. Emit each unique variable map once as a standalone variable in the script (e.g. `const _shared_0 = { ... }`)
+3. Build `imageSelectionData` as a thin mapping of layout names to those shared variables
+
+The generated script would go from:
+```js
+const imageSelectionData = {
+  "Print 1:4 Impulse": { /* 2 MB of variable data */ },
+  "Print 1:2 Impulse": { /* same 2 MB again */ },
+  "Print 2:3 Impulse": { /* same 2 MB again */ },
+  // ... 5 more identical copies
+};
+```
+
+To:
+```js
+const _shared_0 = { /* 2 MB of variable data, once */ };
+const imageSelectionData = {
+  "Print 1:4 Impulse": _shared_0,
+  "Print 1:2 Impulse": _shared_0,
+  "Print 2:3 Impulse": _shared_0,
+  // ... 5 more references
+};
+```
+
+This change lives entirely in `saveLayoutMappingToAction` (in `studioAdapter.ts`) where the script string is assembled — the builder output and `imageSelectionScript` runtime logic stay the same. The tradeoff is that the output is no longer a single `JSON.stringify` call; it becomes a custom code-gen step that emits JS variable declarations.
 
 ### B. 98.7% of transform arrays are empty
 
