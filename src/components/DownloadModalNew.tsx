@@ -142,10 +142,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((f) =>
             f.id === downloadId
               ? {
-                  ...f,
-                  status: success ? "complete" : "error",
-                  error: error || undefined,
-                }
+                ...f,
+                status: success ? "complete" : "error",
+                error: error || undefined,
+              }
               : f,
           ),
         );
@@ -182,7 +182,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           raiseError(
             new Error(
               fontFamiliesResult.error?.message ||
-                "Failed to get font families",
+              "Failed to get font families",
             ),
           );
           return;
@@ -858,6 +858,18 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
       const newDocumentData = JSON.parse(JSON.stringify(documentData));
 
+      // extra check for brandkit Media
+      if (newDocumentData.brandKit.media) {
+        for (const brandkitMedia of newDocumentData.brandKit.media) {
+          // will all be GraFx Media, so don't need to double check any of this stuff
+          const sourceId = brandkitMedia.remoteConnectorId;
+          const replacementId = replacementMap.get(sourceId);
+          if (replacementId) {
+              brandkitMedia.remoteConnectorId = replacementId;
+          }
+        }
+      }
+
       for (const connector of newDocumentData.connectors) {
         if (connector.source.source === "grafx" && connector.source.id) {
           console.log(connector);
@@ -868,13 +880,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               url: "grafx-fonts.json",
             };
             if (replacementMap.get(sourceId)) {
-              console.log(`Found ${sourceId} in replacementMap, removing from map...`)
               replacementMap.delete(sourceId);
             }
           }
           const replacementId = replacementMap.get(sourceId);
           if (replacementId) {
-            console.log(`Replacing ID of ${JSON.stringify(connector)}!`);
             connector.source.id = replacementId;
             newDocumentData.layouts.forEach((layout) => {
               layout.frameProperties.forEach((props) => {
@@ -1175,11 +1185,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((t) =>
             t.id === taskId
               ? {
-                  ...t,
-                  status: "error",
-                  error:
-                    error instanceof Error ? error.message : String(error),
-                }
+                ...t,
+                status: "error",
+                error:
+                  error instanceof Error ? error.message : String(error),
+              }
               : t,
           ),
         );
@@ -1388,12 +1398,12 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                 prev.map((task) =>
                   task.id === taskId
                     ? {
-                        ...task,
-                        status: "error",
-                        error:
-                          visionResult.error?.message ||
-                          "Failed to set vision data",
-                      }
+                      ...task,
+                      status: "error",
+                      error:
+                        visionResult.error?.message ||
+                        "Failed to set vision data",
+                    }
                     : task,
                 ),
               );
@@ -1404,11 +1414,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               prev.map((task) =>
                 task.id === taskId
                   ? {
-                      ...task,
-                      status: "error",
-                      error:
-                        error instanceof Error ? error.message : String(error),
-                    }
+                    ...task,
+                    status: "error",
+                    error:
+                      error instanceof Error ? error.message : String(error),
+                  }
                   : task,
               ),
             );
@@ -1461,11 +1471,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               prev.map((task) =>
                 task.id === "document-load"
                   ? {
-                      ...task,
-                      status: "error",
-                      error:
-                        loadResult.error?.message || "Failed to load document",
-                    }
+                    ...task,
+                    status: "error",
+                    error:
+                      loadResult.error?.message || "Failed to load document",
+                  }
                   : task,
               ),
             );
@@ -1475,11 +1485,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             prev.map((task) =>
               task.id === "document-load"
                 ? {
-                    ...task,
-                    status: "error",
-                    error:
-                      error instanceof Error ? error.message : String(error),
-                  }
+                  ...task,
+                  status: "error",
+                  error:
+                    error instanceof Error ? error.message : String(error),
+                }
                 : task,
             ),
           );
@@ -1596,10 +1606,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               prev.map((task) =>
                 task.id === taskId
                   ? {
-                      ...task,
-                      status: "info",
-                      tooltip: "Font already exists, skipping",
-                    }
+                    ...task,
+                    status: "info",
+                    tooltip: "Font already exists, skipping",
+                  }
                   : task,
               ),
             );
@@ -1702,10 +1712,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((task) =>
             task.id === taskId
               ? {
-                  ...task,
-                  status: "info",
-                  tooltip: "Font already exists, skipping",
-                }
+                ...task,
+                status: "info",
+                tooltip: "Font already exists, skipping",
+              }
               : task,
           ),
         );
@@ -1714,10 +1724,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((task) =>
             task.id === taskId
               ? {
-                  ...task,
-                  status: "error",
-                  error: errorMessage,
-                }
+                ...task,
+                status: "error",
+                error: errorMessage,
+              }
               : task,
           ),
         );
@@ -1835,9 +1845,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               prev.map((task) =>
                 task.id === folderTaskId
                   ? {
-                      ...task,
-                      name: `Getting files: ${folderPath} (page ${pageCount})`,
-                    }
+                    ...task,
+                    name: `Getting files: ${folderPath} (page ${pageCount})`,
+                  }
                   : task,
               ),
             );
@@ -1857,10 +1867,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                 prev.map((task) =>
                   task.id === folderTaskId
                     ? {
-                        ...task,
-                        status: "error",
-                        error: `Failed to query folder: ${queryResult.error?.message}`,
-                      }
+                      ...task,
+                      status: "error",
+                      error: `Failed to query folder: ${queryResult.error?.message}`,
+                    }
                     : task,
                 ),
               );
@@ -1890,10 +1900,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               prev.map((task) =>
                 task.id === folderTaskId
                   ? {
-                      ...task,
-                      status: "complete",
-                      name: `Getting files: ${folderPath} (${allFiles.length} files found)`,
-                    }
+                    ...task,
+                    status: "complete",
+                    name: `Getting files: ${folderPath} (${allFiles.length} files found)`,
+                  }
                   : task,
               ),
             );
@@ -1946,10 +1956,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                     prev.map((task) =>
                       task.id === visionTaskId
                         ? {
-                            ...task,
-                            status: "info",
-                            tooltip: "Skipped no vision data",
-                          }
+                          ...task,
+                          status: "info",
+                          tooltip: "Skipped no vision data",
+                        }
                         : task,
                     ),
                   );
@@ -1960,11 +1970,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                     prev.map((task) =>
                       task.id === visionTaskId
                         ? {
-                            ...task,
-                            status: "error",
-                            error:
-                              error?.message || "Failed to get vision data",
-                          }
+                          ...task,
+                          status: "error",
+                          error:
+                            error?.message || "Failed to get vision data",
+                        }
                         : task,
                     ),
                   );
@@ -1977,13 +1987,13 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                 prev.map((task) =>
                   task.id === visionTaskId
                     ? {
-                        ...task,
-                        status: "error",
-                        error:
-                          error instanceof Error
-                            ? error.message
-                            : String(error),
-                      }
+                      ...task,
+                      status: "error",
+                      error:
+                        error instanceof Error
+                          ? error.message
+                          : String(error),
+                    }
                     : task,
                 ),
               );
@@ -1996,11 +2006,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             prev.map((task) =>
               task.id === folderTaskId
                 ? {
-                    ...task,
-                    status: "error",
-                    error:
-                      error instanceof Error ? error.message : String(error),
-                  }
+                  ...task,
+                  status: "error",
+                  error:
+                    error instanceof Error ? error.message : String(error),
+                }
                 : task,
             ),
           );
@@ -2092,9 +2102,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                 prev.map((task) =>
                   task.id === folderTaskId
                     ? {
-                        ...task,
-                        name: `Scanning: ${currentPath} (${folderFiles.length} files in ${foldersScanned} folders)`,
-                      }
+                      ...task,
+                      name: `Scanning: ${currentPath} (${folderFiles.length} files in ${foldersScanned} folders)`,
+                    }
                     : task,
                 ),
               );
@@ -2142,10 +2152,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               prev.map((task) =>
                 task.id === folderTaskId
                   ? {
-                      ...task,
-                      status: "complete" as const,
-                      name: `Scanned: ${folderPath} (${folderFiles.length} files in ${foldersScanned} folders)`,
-                    }
+                    ...task,
+                    status: "complete" as const,
+                    name: `Scanned: ${folderPath} (${folderFiles.length} files in ${foldersScanned} folders)`,
+                  }
                   : task,
               ),
             );
@@ -2164,9 +2174,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                 prev.map((task) =>
                   task.id === folderTaskId
                     ? {
-                        ...task,
-                        name: `Getting media files: ${folderPath} (page ${pageCount})`,
-                      }
+                      ...task,
+                      name: `Getting media files: ${folderPath} (page ${pageCount})`,
+                    }
                     : task,
                 ),
               );
@@ -2184,10 +2194,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                   prev.map((task) =>
                     task.id === folderTaskId
                       ? {
-                          ...task,
-                          status: "error" as const,
-                          error: `Failed to query folder: ${queryResult.error?.message}`,
-                        }
+                        ...task,
+                        status: "error" as const,
+                        error: `Failed to query folder: ${queryResult.error?.message}`,
+                      }
                       : task,
                   ),
                 );
@@ -2212,10 +2222,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
                 prev.map((task) =>
                   task.id === folderTaskId
                     ? {
-                        ...task,
-                        status: "complete" as const,
-                        name: `Getting media files: ${folderPath} (${folderFiles.length} files found)`,
-                      }
+                      ...task,
+                      status: "complete" as const,
+                      name: `Getting media files: ${folderPath} (${folderFiles.length} files found)`,
+                    }
                     : task,
                 ),
               );
@@ -2231,11 +2241,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             prev.map((task) =>
               task.id === folderTaskId
                 ? {
-                    ...task,
-                    status: "error" as const,
-                    error:
-                      error instanceof Error ? error.message : String(error),
-                  }
+                  ...task,
+                  status: "error" as const,
+                  error:
+                    error instanceof Error ? error.message : String(error),
+                }
                 : task,
             ),
           );
@@ -2270,12 +2280,12 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               prev.map((task) =>
                 task.id === downloadTaskId
                   ? {
-                      ...task,
-                      status: "error" as const,
-                      error:
-                        downloadResult.error?.message ||
-                        "Failed to download media file",
-                    }
+                    ...task,
+                    status: "error" as const,
+                    error:
+                      downloadResult.error?.message ||
+                      "Failed to download media file",
+                  }
                   : task,
               ),
             );
@@ -2289,10 +2299,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               prev.map((task) =>
                 task.id === downloadTaskId
                   ? {
-                      ...task,
-                      status: "error" as const,
-                      error: "Unexpected download response format",
-                    }
+                    ...task,
+                    status: "error" as const,
+                    error: "Unexpected download response format",
+                  }
                   : task,
               ),
             );
@@ -2333,11 +2343,11 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             prev.map((task) =>
               task.id === downloadTaskId
                 ? {
-                    ...task,
-                    status: "error" as const,
-                    error:
-                      error instanceof Error ? error.message : String(error),
-                  }
+                  ...task,
+                  status: "error" as const,
+                  error:
+                    error instanceof Error ? error.message : String(error),
+                }
                 : task,
             ),
           );
@@ -2411,10 +2421,9 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           } catch (parseError) {
             raiseError(
               new Error(
-                `Invalid JSON format: ${
-                  parseError instanceof Error
-                    ? parseError.message
-                    : String(parseError)
+                `Invalid JSON format: ${parseError instanceof Error
+                  ? parseError.message
+                  : String(parseError)
                 }`,
               ),
             );
@@ -2431,7 +2440,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
             raiseError(
               new Error(
                 loadResult.error?.message ||
-                  "Failed to load document from JSON",
+                "Failed to load document from JSON",
               ),
             );
             return;
@@ -2685,10 +2694,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((f) =>
             f.id === documentJsonFile.id
               ? {
-                  ...f,
-                  status: "error",
-                  error: error instanceof Error ? error.message : String(error),
-                }
+                ...f,
+                status: "error",
+                error: error instanceof Error ? error.message : String(error),
+              }
               : f,
           ),
         );
@@ -2720,10 +2729,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((f) =>
             f.id === file.id
               ? {
-                  ...f,
-                  status: "error",
-                  error: error instanceof Error ? error.message : String(error),
-                }
+                ...f,
+                status: "error",
+                error: error instanceof Error ? error.message : String(error),
+              }
               : f,
           ),
         );
@@ -2777,10 +2786,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((f) =>
             f.id === smartCropsFile.id
               ? {
-                  ...f,
-                  status: "error",
-                  error: error instanceof Error ? error.message : String(error),
-                }
+                ...f,
+                status: "error",
+                error: error instanceof Error ? error.message : String(error),
+              }
               : f,
           ),
         );
@@ -2829,10 +2838,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((f) =>
             f.id === mediaFile.id
               ? {
-                  ...f,
-                  status: "error",
-                  error: error instanceof Error ? error.message : String(error),
-                }
+                ...f,
+                status: "error",
+                error: error instanceof Error ? error.message : String(error),
+              }
               : f,
           ),
         );
@@ -2898,10 +2907,10 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
           prev.map((f) =>
             f.id === packageFile.id
               ? {
-                  ...f,
-                  status: "error",
-                  error: error instanceof Error ? error.message : String(error),
-                }
+                ...f,
+                status: "error",
+                error: error instanceof Error ? error.message : String(error),
+              }
               : f,
           ),
         );
@@ -3147,7 +3156,7 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
     <>
       <Modal
         opened={opened}
-        onClose={modalState === "uploading" ? () => {} : handleClose}
+        onClose={modalState === "uploading" ? () => { } : handleClose}
         closeOnClickOutside={modalState !== "uploading"}
         closeOnEscape={modalState !== "uploading"}
         withCloseButton={modalState !== "uploading"}
