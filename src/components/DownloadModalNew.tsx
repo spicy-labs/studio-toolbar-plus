@@ -868,11 +868,13 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
               url: "grafx-fonts.json",
             };
             if (replacementMap.get(sourceId)) {
+              console.log(`Found ${sourceId} in replacementMap, removing from map...`)
               replacementMap.delete(sourceId);
             }
           }
           const replacementId = replacementMap.get(sourceId);
           if (replacementId) {
+            console.log(`Replacing ID of ${JSON.stringify(connector)}!`);
             connector.source.id = replacementId;
             newDocumentData.layouts.forEach((layout) => {
               layout.frameProperties.forEach((props) => {
