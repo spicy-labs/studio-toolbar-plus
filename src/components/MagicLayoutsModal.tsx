@@ -434,6 +434,60 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       frameIdToNameMap.set(frame.id, frame.name);
     });
 
+    // Read each muggle layout's per-frame anchor types. Anchoring is per-layout
+    // and can't change at runtime, so the action can't read it — we bake it here
+    // and the action uses it to keep remembered positions correct across page
+    // resizes for any anchor setup (relative/start/end/startAndEnd/center).
+    // An anchor is safe to remember-across-resize only if it's relative to the
+    // PAGE; a frame-to-frame anchor depends on another frame's geometry, so we
+    // mark those "not tracked" (they still apply from baked, just aren't
+    // remembered) rather than mispredict them.
+    const isPageTargeted = (anchor: any): boolean => {
+      if (!anchor) return true;
+      if (anchor.target && anchor.target.type === "frame") return false;
+      if (anchor.startTarget && anchor.startTarget.type === "frame")
+        return false;
+      if (anchor.endTarget && anchor.endTarget.type === "frame") return false;
+      return true;
+    };
+    // A frame auto-sizes (copyfitting or auto-grow) => its width/height are
+    // content-driven, not user-driven, so the action must not capture size for
+    // it (that would pin a data-driven size and break auto-sizing).
+    const isAutoSizing = (fp: any): boolean =>
+      fp?.enableCopyfitting?.value === true ||
+      fp?.autoGrow?.enabled?.value === true;
+    const muggleAnchors: Record<
+      string,
+      Record<string, { h: string; v: string; track: boolean; auto: boolean }>
+    > = {};
+    for (const muggleName of Object.keys(muggleToMagicLayouts)) {
+      const muggleLayout = allLayouts.find((l) => l.name === muggleName);
+      if (!muggleLayout) continue;
+      const anchorPropsResult = await getPropertiesOnLayout(
+        window.SDK,
+        muggleLayout.id,
+      );
+      if (anchorPropsResult.isError()) continue;
+      const anchorProps = anchorPropsResult.value;
+      if (!anchorProps || !Array.isArray(anchorProps)) continue;
+      const frameAnchors: Record<
+        string,
+        { h: string; v: string; track: boolean; auto: boolean }
+      > = {};
+      for (const fp of anchorProps) {
+        if (!fp) continue;
+        const name = frameIdToNameMap.get(fp.id);
+        if (!name) continue;
+        frameAnchors[name] = {
+          h: fp.horizontal?.type ?? "relative",
+          v: fp.vertical?.type ?? "relative",
+          track: isPageTargeted(fp.horizontal) && isPageTargeted(fp.vertical),
+          auto: isAutoSizing(fp),
+        };
+      }
+      muggleAnchors[muggleName] = frameAnchors;
+    }
+
     // Process frame properties for each child layout
     const layoutFramesData: Record<string, any[]> = {};
 
@@ -524,10 +578,18 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       }
     }
 
-    // Version stamp of the baked data so the action can distinguish a
-    // regenerated layout from a user's manual frame move on reload.
+    // Version stamp of everything the action's stored overrides depend on —
+    // sizes, frame positions, the layout->variable mapping, AND anchors. If any
+    // change, overrides are decoded against stale assumptions, so a bump must
+    // discard them.
     const dataVersion = hashLayoutData(
-      JSON.stringify(childLayoutSizes) + "|" + JSON.stringify(layoutFramesData),
+      JSON.stringify(childLayoutSizes) +
+        "|" +
+        JSON.stringify(layoutFramesData) +
+        "|" +
+        JSON.stringify(muggleToMagicLayouts) +
+        "|" +
+        JSON.stringify(muggleAnchors),
     );
 
     // Create and update the magic layout action script
@@ -537,7 +599,8 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
         .replace('"%DATA1%"', JSON.stringify(childLayoutSizes))
         .replace('"%DATA2%"', JSON.stringify(layoutFramesData))
         .replace('"%DATA3%"', JSON.stringify(muggleToMagicLayouts))
-        .replace('"%DATA4%"', JSON.stringify(dataVersion)) +
+        .replace('"%DATA4%"', JSON.stringify(dataVersion))
+        .replace('"%DATA5%"', JSON.stringify(muggleAnchors)) +
       "\nmagicLayoutScript(false)";
 
     const updateResult = await updateAction(
