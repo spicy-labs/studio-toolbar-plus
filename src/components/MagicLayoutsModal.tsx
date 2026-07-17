@@ -33,6 +33,18 @@ interface MagicLayoutsModalProps {
   onClose: () => void;
 }
 
+// Stable, deterministic hash of the baked layout data. The action stores this
+// with its state and, when it changes (the modal was re-run with real layout
+// changes), discards accumulated manual-move overrides so the new design wins.
+// djb2; not cryptographic, just needs to change when the data does.
+function hashLayoutData(input: string): string {
+  let hash = 5381;
+  for (let i = 0; i < input.length; i++) {
+    hash = ((hash << 5) + hash + input.charCodeAt(i)) | 0;
+  }
+  return (hash >>> 0).toString(36);
+}
+
 export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
   const [isProcessing, setIsProcessing] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
@@ -335,6 +347,40 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       }
     }
 
+    // Ensure the state variable the action uses to remember what it last
+    // applied. Created once and left untouched on re-run so manual-move state
+    // survives; a change to the baked layout data is detected via the version
+    // hash instead of by resetting this.
+    const existingStateVar = await getByName(
+      window.SDK,
+      "AUTO_GEN_MAGIC_STATE",
+    );
+    if (existingStateVar.isError() || !existingStateVar.value) {
+      await setOrCreateVariableValue({
+        studio: window.SDK,
+        name: "AUTO_GEN_MAGIC_STATE",
+        variableType: VariableType.longText,
+        value: "{}",
+      });
+      await setVariableVisblityWithName({
+        studio: window.SDK,
+        name: "AUTO_GEN_MAGIC_STATE",
+        visible: { type: VariableVisibilityType.invisible },
+      });
+      const createdStateVar = await getByName(
+        window.SDK,
+        "AUTO_GEN_MAGIC_STATE",
+      );
+      if (createdStateVar.isOk() && createdStateVar.value) {
+        await moveVariable({
+          studio: window.SDK,
+          id: createdStateVar.value.id,
+          newParentId: autoGenMagicId,
+          order: 0,
+        });
+      }
+    }
+
     // Get all layouts again and filter to only child layouts
     const allLayoutsResult = await getAllLayouts(window.SDK);
 
@@ -478,13 +524,20 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       }
     }
 
+    // Version stamp of the baked data so the action can distinguish a
+    // regenerated layout from a user's manual frame move on reload.
+    const dataVersion = hashLayoutData(
+      JSON.stringify(childLayoutSizes) + "|" + JSON.stringify(layoutFramesData),
+    );
+
     // Create and update the magic layout action script
     const script =
       magicLayoutScript
         .toString()
         .replace('"%DATA1%"', JSON.stringify(childLayoutSizes))
         .replace('"%DATA2%"', JSON.stringify(layoutFramesData))
-        .replace('"%DATA3%"', JSON.stringify(muggleToMagicLayouts)) +
+        .replace('"%DATA3%"', JSON.stringify(muggleToMagicLayouts))
+        .replace('"%DATA4%"', JSON.stringify(dataVersion)) +
       "\nmagicLayoutScript(false)";
 
     const updateResult = await updateAction(
