@@ -33,6 +33,18 @@ interface MagicLayoutsModalProps {
   onClose: () => void;
 }
 
+// Stable, deterministic hash of the baked layout data. The action stores this
+// with its state and, when it changes (the modal was re-run with real layout
+// changes), discards accumulated manual-move overrides so the new design wins.
+// djb2; not cryptographic, just needs to change when the data does.
+function hashLayoutData(input: string): string {
+  let hash = 5381;
+  for (let i = 0; i < input.length; i++) {
+    hash = ((hash << 5) + hash + input.charCodeAt(i)) | 0;
+  }
+  return (hash >>> 0).toString(36);
+}
+
 export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
   const [isProcessing, setIsProcessing] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
@@ -335,6 +347,40 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       }
     }
 
+    // Ensure the state variable the action uses to remember what it last
+    // applied. Created once and left untouched on re-run so manual-move state
+    // survives; a change to the baked layout data is detected via the version
+    // hash instead of by resetting this.
+    const existingStateVar = await getByName(
+      window.SDK,
+      "AUTO_GEN_MAGIC_STATE",
+    );
+    if (existingStateVar.isError() || !existingStateVar.value) {
+      await setOrCreateVariableValue({
+        studio: window.SDK,
+        name: "AUTO_GEN_MAGIC_STATE",
+        variableType: VariableType.longText,
+        value: "{}",
+      });
+      await setVariableVisblityWithName({
+        studio: window.SDK,
+        name: "AUTO_GEN_MAGIC_STATE",
+        visible: { type: VariableVisibilityType.invisible },
+      });
+      const createdStateVar = await getByName(
+        window.SDK,
+        "AUTO_GEN_MAGIC_STATE",
+      );
+      if (createdStateVar.isOk() && createdStateVar.value) {
+        await moveVariable({
+          studio: window.SDK,
+          id: createdStateVar.value.id,
+          newParentId: autoGenMagicId,
+          order: 0,
+        });
+      }
+    }
+
     // Get all layouts again and filter to only child layouts
     const allLayoutsResult = await getAllLayouts(window.SDK);
 
@@ -388,8 +434,67 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       frameIdToNameMap.set(frame.id, frame.name);
     });
 
+    // Read each muggle layout's per-frame anchor types. Anchoring is per-layout
+    // and can't change at runtime, so the action can't read it — we bake it here
+    // and the action uses it to keep remembered positions correct across page
+    // resizes for any anchor setup (relative/start/end/startAndEnd/center).
+    // An anchor is safe to remember-across-resize only if it's relative to the
+    // PAGE; a frame-to-frame anchor depends on another frame's geometry, so we
+    // mark those "not tracked" (they still apply from baked, just aren't
+    // remembered) rather than mispredict them.
+    const isPageTargeted = (anchor: any): boolean => {
+      if (!anchor) return true;
+      if (anchor.target && anchor.target.type === "frame") return false;
+      if (anchor.startTarget && anchor.startTarget.type === "frame")
+        return false;
+      if (anchor.endTarget && anchor.endTarget.type === "frame") return false;
+      return true;
+    };
+    // A frame auto-sizes (copyfitting or auto-grow) => its width/height are
+    // content-driven, not user-driven, so the action must not capture size for
+    // it (that would pin a data-driven size and break auto-sizing).
+    const isAutoSizing = (fp: any): boolean =>
+      fp?.enableCopyfitting?.value === true ||
+      fp?.autoGrow?.enabled?.value === true;
+    const muggleAnchors: Record<
+      string,
+      Record<string, { h: string; v: string; track: boolean; auto: boolean }>
+    > = {};
+    for (const muggleName of Object.keys(muggleToMagicLayouts)) {
+      const muggleLayout = allLayouts.find((l) => l.name === muggleName);
+      if (!muggleLayout) continue;
+      const anchorPropsResult = await getPropertiesOnLayout(
+        window.SDK,
+        muggleLayout.id,
+      );
+      if (anchorPropsResult.isError()) continue;
+      const anchorProps = anchorPropsResult.value;
+      if (!anchorProps || !Array.isArray(anchorProps)) continue;
+      const frameAnchors: Record<
+        string,
+        { h: string; v: string; track: boolean; auto: boolean }
+      > = {};
+      for (const fp of anchorProps) {
+        if (!fp) continue;
+        const name = frameIdToNameMap.get(fp.id);
+        if (!name) continue;
+        const h = fp.horizontal?.type ?? "relative";
+        const v = fp.vertical?.type ?? "relative";
+        const track =
+          isPageTargeted(fp.horizontal) && isPageTargeted(fp.vertical);
+        const auto = isAutoSizing(fp);
+        if (h !== "relative" || v !== "relative" || !track || auto) {
+          frameAnchors[name] = { h, v, track, auto };
+        }
+      }
+      if (Object.keys(frameAnchors).length > 0) {
+        muggleAnchors[muggleName] = frameAnchors;
+      }
+    }
+
     // Process frame properties for each child layout
-    const layoutFramesData: Record<string, any[]> = {};
+    type BakedFrame = [name: string, x: number, y: number, w: number, h: number, r?: number];
+    const layoutFramesData: Record<string, BakedFrame[]> = {};
 
     for (const layout of childLayouts) {
       const framePropertiesResult = await getPropertiesOnLayout(
@@ -419,7 +524,7 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
         );
       }
 
-      const visibleFramesWithOverrides: any[] = [];
+      const visibleFramesWithOverrides: BakedFrame[] = [];
 
       // Check each frame's properties
       for (const frameProps of frameProperties) {
@@ -459,16 +564,16 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
             );
           }
 
-          visibleFramesWithOverrides.push({
-            id: frameProps.id,
-            x: frameProps.x.value,
-            y: frameProps.y.value,
-            width: frameProps.width.value,
-            height: frameProps.height.value,
-            isVisible: frameProps.isVisible,
-            rotationDegrees: frameProps.rotationDegrees.value,
-            name: frameName,
-          });
+          const r = frameProps.rotationDegrees.value;
+          const entry: BakedFrame = [
+            frameName,
+            frameProps.x.value,
+            frameProps.y.value,
+            frameProps.width.value,
+            frameProps.height.value,
+          ];
+          if (r) entry.push(r);
+          visibleFramesWithOverrides.push(entry);
         }
       }
 
@@ -478,13 +583,29 @@ export function MagicLayoutsModal({ opened, onClose }: MagicLayoutsModalProps) {
       }
     }
 
+    // Version stamp of everything the action's stored overrides depend on —
+    // sizes, frame positions, the layout->variable mapping, AND anchors. If any
+    // change, overrides are decoded against stale assumptions, so a bump must
+    // discard them.
+    const dataVersion = hashLayoutData(
+      JSON.stringify(childLayoutSizes) +
+        "|" +
+        JSON.stringify(layoutFramesData) +
+        "|" +
+        JSON.stringify(muggleToMagicLayouts) +
+        "|" +
+        JSON.stringify(muggleAnchors),
+    );
+
     // Create and update the magic layout action script
     const script =
       magicLayoutScript
         .toString()
-        .replace('"%DATA1%"', JSON.stringify(childLayoutSizes))
-        .replace('"%DATA2%"', JSON.stringify(layoutFramesData))
-        .replace('"%DATA3%"', JSON.stringify(muggleToMagicLayouts)) +
+        .replace('"%DATA1%"', () => JSON.stringify(childLayoutSizes))
+        .replace('"%DATA2%"', () => JSON.stringify(layoutFramesData))
+        .replace('"%DATA3%"', () => JSON.stringify(muggleToMagicLayouts))
+        .replace('"%DATA4%"', () => JSON.stringify(dataVersion))
+        .replace('"%DATA5%"', () => JSON.stringify(muggleAnchors)) +
       "\nmagicLayoutScript(false)";
 
     const updateResult = await updateAction(
