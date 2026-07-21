@@ -1,0 +1,101 @@
+{
+  "selectedLayoutId": "95166dd3-e683-45f6-b5da-0cf17276da2f",
+  "sdkVersion": "1.45.0",
+  "engineVersion": "2.28.0",
+  "documentVersion": "0.25.0",
+  "properties": {
+    "type": "template"
+  },
+  "pages": [
+    {
+      "id": "5cbc9292-57fd-4e6a-9dc8-40de2bf87725",
+      "number": 0,
+      "frames": [],
+      "isVisible": true
+    }
+  ],
+  "layouts": [
+    {
+      "id": "89b401dd-adcc-41ee-91b1-94ef060533dc",
+      "name": "A4",
+      "frameProperties": [],
+      "width": 595275,
+      "height": 841889,
+      "childLayouts": [
+        "4d10cf5f-559f-4754-bb3a-591b12175ad4",
+        "95166dd3-e683-45f6-b5da-0cf17276da2f"
+      ],
+      "type": "top",
+      "unit": "mm",
+      "intent": "print",
+      "fillColor": {
+        "color": {
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "type": "rgb"
+        },
+        "opacity": 1,
+        "type": "local"
+      },
+      "fillColorEnabled": true,
+      "bleed": {
+        "value": 8503,
+        "type": "combined"
+      },
+      "privateData": {},
+      "availableForUser": true,
+      "resizableByUser": {
+        "enabled": false,
+        "constraintMode": "none"
+      }
+    },
+    {
+      "id": "4d10cf5f-559f-4754-bb3a-591b12175ad4",
+      "name": "A4-A",
+      "parentId": "89b401dd-adcc-41ee-91b1-94ef060533dc",
+      "frameProperties": [],
+      "childLayouts": [],
+      "type": "child",
+      "privateData": {},
+      "availableForUser": true,
+      "resizableByUser": {
+        "enabled": false,
+        "constraintMode": "none"
+      }
+    },
+    {
+      "id": "95166dd3-e683-45f6-b5da-0cf17276da2f",
+      "name": "A4-B",
+      "parentId": "89b401dd-adcc-41ee-91b1-94ef060533dc",
+      "frameProperties": [],
+      "childLayouts": [],
+      "type": "child",
+      "privateData": {},
+      "availableForUser": true,
+      "resizableByUser": {
+        "enabled": false,
+        "constraintMode": "none"
+      }
+    }
+  ],
+  "brandKit": {
+    "colors": [],
+    "gradients": [],
+    "characterStyles": [],
+    "paragraphStyles": [],
+    "fontFamilies": [],
+    "media": [],
+    "themes": [],
+    "isAutoSync": false
+  },
+  "variables": [],
+  "connectors": [],
+  "actions": [],
+  "constraints": {
+    "frames": {}
+  },
+  "flags": 0,
+  "resignerMetadata": [],
+  "checkSum": "1eebf9540a753b3581e93281391c724c2c194c55ff7f64d14982f2c2eb6063348f2b2a13fefa8fc8a6d0ac027c9bfaf88806c8466c4c1aafc8a4dd529eaad63119001c61036e733261438a1a2c1244b38b258ceb2a952d5878fafd2b662823c6e1434d8ff8c2860970a862e81fbfbde9a979c8362d9ee8f78519c1ecded7eba3cfdd9dd8aa64dca7872f1525b57bc8605bf49349c81e163162ef719759b1d50cc2972ae67be5e37020987cca52a5f59c08a3d5921e2f2c119ccae3be2357878ccad83e10f6195dbe15b655c11deae8bf976ba9635e8857db6f8283479ebc87a3286297601e376a9a2ba468bc0fc0d7ff663eae6dbf40b54b5205d7a361e79f3d"
+}

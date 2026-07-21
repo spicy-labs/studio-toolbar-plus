@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studio SDK Integration Harness</title>
+  </head>
+  <body>
+    <div id="studio-editor" style="width:800px;height:600px;"></div>
+
+    <script src="/sdk/main.js"></script>
+    <script>
+      window.editorError = null;
+
+      // Match the engine to the template's native version (base-template.json
+      // is engine 2.28 / model 0.25). Overridable via ?engine=<x.y.latest>.
+      const engineVersion =
+        new URLSearchParams(location.search).get("engine") || "2.28.latest";
+
+      const SDK = new StudioSDK.default({
+        editorId: "studio-editor",
+        editorLink: `https://studio-cdn.chiligrafx.com/editor/${engineVersion}/web`,
+        onConnectionError(error) {
+          window.editorError = error;
+        },
+      });
+
+      SDK.loadEditor();
+      window.SDK = SDK;
+    </script>
+  </body>
+</html>
