@@ -41,6 +41,23 @@
         "*://chili-publish.online/environments/*/studio/components/*",
         "*://*.kadanza.io/*/extensions/grafx/*"
       ],
+      "js": ["interceptor-bootstrap.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "*://chiligrafx.com/environments/*/studio/templates/*",
+        "*://chiligrafx-dev.com/environments/*/studio/templates/*",
+        "*://chiligrafx-main.com/environments/*/studio/templates/*",
+        "*://chili-publish.online/environments/*/studio/templates/*",
+        "*://chiligrafx.com/environments/*/studio/components/*",
+        "*://chiligrafx-dev.com/environments/*/studio/components/*",
+        "*://chiligrafx-main.com/environments/*/studio/components/*",
+        "*://chili-publish.online/environments/*/studio/components/*",
+        "*://*.kadanza.io/*/extensions/grafx/*"
+      ],
       "js": ["content.js"],
       "all_frames": true
     }
