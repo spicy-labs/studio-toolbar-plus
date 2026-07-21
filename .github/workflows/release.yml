@@ -55,6 +55,7 @@ jobs:
           zip -r "$ZIP_NAME" \
             manifest.json \
             content.js \
+            interceptor-bootstrap.js \
             downloader.js \
             icons \
             dist/index.js \

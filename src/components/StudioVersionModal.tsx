@@ -41,9 +41,12 @@ export function StudioVersionModal({ opened, onClose }: Props) {
     setError(null);
     setLoading(true);
 
+    let cancelled = false;
+
     (async () => {
       try {
         const studioResult = await getStudio();
+        if (cancelled) return;
         if (!studioResult.isOk()) {
           throw new Error(
             studioResult.error?.message || "Failed to get studio",
@@ -69,12 +72,14 @@ export function StudioVersionModal({ opened, onClose }: Props) {
             `Could not parse env from ENVIRONMENT_API: ${baseUrl}`,
           );
         }
-        setEnvId(slug);
 
         const [settings, avail] = await Promise.all([
           fetchCurrentSettings(baseUrl, token),
           fetchAvailableSdkVersions(baseUrl, token),
         ]);
+        if (cancelled) return;
+
+        setEnvId(slug);
         setCurrentVersion(settings.sdkVersionPublic);
         setAvailable(avail);
 
@@ -97,12 +102,14 @@ export function StudioVersionModal({ opened, onClose }: Props) {
           setSavedExpiresAt(null);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : String(err));
+        if (!cancelled) setError(err instanceof Error ? err.message : String(err));
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     })();
-  }, [opened, envId]);
+
+    return () => { cancelled = true; };
+  }, [opened]);
 
   const options = useMemo(() => {
     if (!available) return [];

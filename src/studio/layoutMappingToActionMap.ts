@@ -58,20 +58,20 @@ function getTransforms(
         }
       }
       return obj;
-    }, {});
+    }, Object.create(null) as Record<string, any>);
 }
 
 function buildVariableMap(
   targetVars: TargetVariable[],
   doc: Doc,
 ): Record<string, any> {
-  const variableMap: Record<string, any> = {};
+  const variableMap: Record<string, any> = Object.create(null);
 
   targetVars.forEach((targetVar: TargetVariable) => {
     const docVariable = doc.variables.find((v) => v.id === targetVar.id);
     if (!docVariable) return;
 
-    variableMap[docVariable.name] = {};
+    variableMap[docVariable.name] = Object.create(null);
 
     targetVar.dependentGroup.forEach((group) => {
       if (group.alwaysRun) {
@@ -118,7 +118,7 @@ function buildVariableMap(
 }
 
 export function layoutMappingToActionMap(layoutMaps: LayoutMap[], doc: Doc) {
-  const actionMap: Record<string, Record<string, any>> = {};
+  const actionMap: Record<string, Record<string, any>> = Object.create(null);
 
   layoutMaps.forEach((layoutMap) => {
     const variableMap = buildVariableMap(layoutMap.variables, doc);
@@ -127,7 +127,7 @@ export function layoutMappingToActionMap(layoutMaps: LayoutMap[], doc: Doc) {
       const layout = doc.layouts.find((l) => l.id === layoutId);
       if (layout) {
         if (!actionMap[layout.name]) {
-          actionMap[layout.name] = {};
+          actionMap[layout.name] = Object.create(null);
         }
         Object.assign(actionMap[layout.name], variableMap);
       }

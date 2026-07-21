@@ -64,6 +64,7 @@ export function magicLayoutScript(debug = false) {
     }
 
     function enc(type, D, p, s) {
+      if (!D) return [0, 0];
       if (type === "start") return [p, s];
       if (type === "end") return [D - p - s, s];
       if (type === "startAndEnd") return [p, D - p - s];
@@ -118,8 +119,6 @@ export function magicLayoutScript(debug = false) {
         if (!an.track) return;
         const bInv = bakedInvariant(prevValue, bf);
         if (!bInv) return;
-        const bh = dec(an.h, pageW, bInv.h[0], bInv.h[1]);
-        const bv = dec(an.v, pageH, bInv.v[0], bInv.v[1]);
         let lx, ly, lw, lh, lr;
         try {
           lx = getFrameX(bf[0]);
@@ -130,12 +129,17 @@ export function magicLayoutScript(debug = false) {
         } catch (e) {
           return;
         }
+        const liveH = enc(an.h, pageW, lx, lw);
+        const liveV = enc(an.v, pageH, ly, lh);
+        const sh = (an.h === "center" || an.h === "relative") ? pageW : 1;
+        const sv = (an.v === "center" || an.v === "relative") ? pageH : 1;
         const sizeMoved =
           !an.auto &&
-          (Math.abs(lw - bh[1]) > POS_TOL || Math.abs(lh - bv[1]) > POS_TOL);
+          (Math.abs(lw - dec(an.h, pageW, bInv.h[0], bInv.h[1])[1]) > POS_TOL ||
+           Math.abs(lh - dec(an.v, pageH, bInv.v[0], bInv.v[1])[1]) > POS_TOL);
         const posMoved =
-          Math.abs(lx - bh[0]) > POS_TOL ||
-          Math.abs(ly - bv[0]) > POS_TOL ||
+          Math.abs(liveH[0] - bInv.h[0]) * sh > POS_TOL ||
+          Math.abs(liveV[0] - bInv.v[0]) * sv > POS_TOL ||
           Math.abs(lr - bInv.r) > ROT_TOL;
         if (posMoved || sizeMoved) {
           const h = enc(an.h, pageW, lx, lw);
@@ -159,29 +163,30 @@ export function magicLayoutScript(debug = false) {
     const currentLayout = { width: pageW, height: pageH };
 
     setPageSize(magicLayoutSize.w, magicLayoutSize.h);
+    try {
+      const existing = {};
+      studio.frames.all().forEach(function (frame) {
+        existing[frame.name] = true;
+        frame.setVisible(false);
+      });
 
-    const existing = {};
-    studio.frames.all().forEach(function (frame) {
-      existing[frame.name] = true;
-      frame.setVisible(false);
-    });
-
-    targetBaked.forEach(function (bf) {
-      if (!existing[bf[0]]) return;
-      const an = anchorsFor(bf[0]);
-      const exp = expectedInvariant(targetValue, bf);
-      if (!exp) return;
-      const hh = dec(an.h, magicLayoutSize.w, exp.h[0], exp.h[1]);
-      const vv = dec(an.v, magicLayoutSize.h, exp.v[0], exp.v[1]);
-      setFrameVisible(bf[0], true);
-      setFrameX(bf[0], hh[0]);
-      setFrameY(bf[0], vv[0]);
-      setFrameWidth(bf[0], hh[1]);
-      setFrameHeight(bf[0], vv[1]);
-      setFrameRotation(bf[0], exp.r);
-    });
-
-    setPageSize(currentLayout.width, currentLayout.height);
+      targetBaked.forEach(function (bf) {
+        if (!existing[bf[0]]) return;
+        const an = anchorsFor(bf[0]);
+        const exp = expectedInvariant(targetValue, bf);
+        if (!exp) return;
+        const hh = dec(an.h, magicLayoutSize.w, exp.h[0], exp.h[1]);
+        const vv = dec(an.v, magicLayoutSize.h, exp.v[0], exp.v[1]);
+        setFrameVisible(bf[0], true);
+        setFrameX(bf[0], hh[0]);
+        setFrameY(bf[0], vv[0]);
+        setFrameWidth(bf[0], hh[1]);
+        setFrameHeight(bf[0], vv[1]);
+        setFrameRotation(bf[0], exp.r);
+      });
+    } finally {
+      setPageSize(currentLayout.width, currentLayout.height);
+    }
 
     state.last[variableMagicName] = {
       value: targetValue,
