@@ -77,9 +77,12 @@ export function imageSelectionScript(debug) {
         const depNames = d.split("|");
         const currentValues = depNames.map((dep) => `${getVariableValue(dep)}`);
         const groups = imageVariableDependentGroups[d];
-        variableMatch = groups.findLast((g) =>
-          g.deps.every((allowed, i) => allowed.includes(currentValues[i]))
-        ) || null;
+        for (var gi = groups.length - 1; gi >= 0; gi--) {
+          if (groups[gi].deps.every((allowed, i) => allowed.includes(currentValues[i]))) {
+            variableMatch = groups[gi];
+            break;
+          }
+        }
 
         if (debug) {
           debugData[variable.name].currentValues = !debugData[variable.name]
