@@ -44,3 +44,7 @@ pnpm-lock.yaml
 
 # AI Files
 .aider*
+# Client template inputs for the anonymizer — NEVER commit these.
+# Only the anonymized outputs under test/fixtures/*.json are committed.
+test/_client-inputs/
+*.CHILI.json
