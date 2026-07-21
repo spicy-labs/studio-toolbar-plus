@@ -858,9 +858,18 @@ export function DownloadModalNew({ opened, onClose }: DownloadModalNewProps) {
 
       const newDocumentData = JSON.parse(JSON.stringify(documentData));
 
+      if (newDocumentData.brandKit?.media) {
+        for (const brandkitMedia of newDocumentData.brandKit.media) {
+          const sourceId = brandkitMedia.remoteConnectorId;
+          const replacementId = replacementMap.get(sourceId);
+          if (replacementId) {
+            brandkitMedia.remoteConnectorId = replacementId;
+          }
+        }
+      }
+
       for (const connector of newDocumentData.connectors) {
         if (connector.source.source === "grafx" && connector.source.id) {
-          console.log(connector);
           const sourceId = connector.source.id;
           if (connector.name == "GraFx Fonts") {
             connector.source = {
