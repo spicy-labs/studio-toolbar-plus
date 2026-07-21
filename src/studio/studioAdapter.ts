@@ -42,6 +42,7 @@ import { updateAction } from "./actionHandler.ts";
 import { imageSelectionScript } from "./actions/imageSelection.js";
 import { imageSizingScript } from "./actions/imageSizing.js";
 import { layoutMappingToActionMap } from "./layoutMappingToActionMap.ts";
+import { buildActionScript } from "./buildActionScript.ts";
 import { frameLayoutMappingToLookup } from "../studio-adapter/frameLayoutMappingToLookup.ts";
 import { layoutManagerToLookup } from "../studio-adapter/layoutManagerToLookup.ts";
 import { layoutSizingScript } from "./actions/layoutSizing.js";
@@ -328,36 +329,8 @@ export async function saveLayoutMappingToAction(
 ) {
   const actionMap = layoutMappingToActionMap(layoutMaps, doc);
 
-  const sharedDeclarations: string[] = [];
-  const deduped: Record<string, string> = {};
-  const seen = new Map<string, string>();
-
-  for (const [layoutName, variableMap] of Object.entries(actionMap)) {
-    const json = JSON.stringify(variableMap);
-    const existing = seen.get(json);
-    if (existing) {
-      deduped[layoutName] = existing;
-    } else {
-      const varName = `_shared_${seen.size}`;
-      seen.set(json, varName);
-      sharedDeclarations.push(`var ${varName} = ${json};`);
-      deduped[layoutName] = varName;
-    }
-  }
-
-  const dataExpr =
-    "{" +
-    Object.entries(deduped)
-      .map(([layoutName, varName]) => `${JSON.stringify(layoutName)}:${varName}`)
-      .join(",") +
-    "}";
-
   const script =
-    sharedDeclarations.join("\n") +
-    "\n" +
-    imageSelectionScript
-      .toString()
-      .replace('"%DATA%"', dataExpr) +
+    buildActionScript(actionMap, imageSelectionScript.toString()) +
     "\nconsole.log(imageSelectionScript(false))";
 
   const updateResult = await updateAction(
