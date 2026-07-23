@@ -555,7 +555,7 @@ export function Toolbar() {
             </Button>
             <Button
               component="a"
-              href={`https://github.com/spicy-labs/studio-toolbar-plus/releases/tag/${updateInfo?.latestVersion}`}
+              href={`https://github.com/spicy-labs/studio-toolbar-plus/releases/tag/v${updateInfo?.latestVersion}`}
               target="_blank"
               rightSection={<IconExternalLink size={16} />}
               color="blue"
