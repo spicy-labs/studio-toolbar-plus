@@ -23,6 +23,20 @@ Studio Toolbar Plus is a chrome extension that transforms your GraFx Studio Desi
 
 5. Voilà! The extension should now appear in your Chrome toolbar, ready to save the day
 
+### 🏢 If your IT department blocks extensions
+
+The extension has a **fixed extension ID** that never changes between versions:
+
+```
+ohbpbenmjbmoghpliikbiepbdpjiopcg
+```
+
+Ask your IT admin to allowlist that ID (Chrome policy `ExtensionInstallAllowlist`).
+They only have to do it once — every future release keeps the same ID.
+
+> Versions **before 0.20.0** had an ID that changed on every install, which is why
+> an allowlist entry used to stop working after an upgrade. That's fixed as of 0.20.0.
+
 ## ⚠️ Current State of Affairs
 
 This is a very early version - like "just learned to walk" early. It should be stable enough for daily use, but the code definitely needs cleanup and testing. Think of it as adopting a puppy that's mostly housebroken.
