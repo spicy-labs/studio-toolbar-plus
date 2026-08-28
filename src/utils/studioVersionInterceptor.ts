@@ -6,6 +6,25 @@ import {
 
 const INTERCEPTOR_FLAG = "__studioVersionInterceptorInstalled";
 
+export type AppliedOverrideSnapshot = {
+  envId: string;
+  sdkVersion: string;
+  expiresAt: number;
+};
+
+// Storage self-expires, so this is the source of truth for what Studio loaded with.
+let appliedOverride: AppliedOverrideSnapshot | null = null;
+
+// Only Studio's boot-time /settings call defines what the page loaded with. Later
+// calls hit the same URL — the version modal fetches it too — and must not be able
+// to redefine the snapshot, or a tab running the default version would report an
+// override applied in another tab.
+let bootSettingsCallSeen = false;
+
+export function getAppliedOverride(): AppliedOverrideSnapshot | null {
+  return appliedOverride;
+}
+
 function extractUrl(input: RequestInfo | URL): string {
   if (typeof input === "string") return input;
   if (input instanceof URL) return input.toString();
@@ -27,7 +46,12 @@ export function installStudioVersionInterceptor(): void {
 
     const url = extractUrl(input);
     const envId = getEnvFromSettingsUrl(url);
-    if (!envId || !response.ok) return response;
+    if (!envId) return response;
+
+    const isBootSettingsCall = !bootSettingsCallSeen;
+    bootSettingsCallSeen = true;
+
+    if (!response.ok) return response;
 
     const override = getOverride(envId);
     if (!override) return response;
@@ -39,11 +63,19 @@ export function installStudioVersionInterceptor(): void {
         data.sdkVersionPublic = toPublicVersion(override.sdkVersion);
         const headers = new Headers(response.headers);
         headers.set("content-type", "application/json");
-        return new Response(JSON.stringify(data), {
+        const rewrittenResponse = new Response(JSON.stringify(data), {
           status: response.status,
           statusText: response.statusText,
           headers,
         });
+        if (isBootSettingsCall) {
+          appliedOverride = {
+            envId,
+            sdkVersion: override.sdkVersion,
+            expiresAt: override.expiresAt,
+          };
+        }
+        return rewrittenResponse;
       }
     } catch {
       // fall through and return the original response

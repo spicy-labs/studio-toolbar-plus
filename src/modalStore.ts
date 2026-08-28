@@ -158,9 +158,14 @@ type EffectStore = {
   studio: StudioEffects;
 };
 
-type Alert = {
+export type AlertSeverity = "error" | "warning" | "info";
+
+export type Alert = {
   id: string;
   message: string;
+  severity: AlertSeverity;
+  title?: string;
+  persistent?: boolean;
 };
 
 type AppStore = {
@@ -169,6 +174,15 @@ type AppStore = {
   errors: { error: Error; state: AppStore }[];
   alerts: Alert[];
   raiseError: (error: Result<any, Error> | Error) => void;
+  showAlert: (
+    message: string,
+    opts?: {
+      id?: string;
+      severity?: AlertSeverity;
+      title?: string;
+      persistent?: boolean;
+    },
+  ) => void;
   showToolbar: () => void;
   hideToolbar: () => void;
   enableToolbar: () => void;
@@ -1238,6 +1252,32 @@ export const appStore = create<AppStore>()(
         set((state) => raiseError(state, error as Error));
       }
     },
+    showAlert: (message, opts) =>
+      set((state) => {
+        const severity = opts?.severity ?? "info";
+        const existingAlert = opts?.id
+          ? state.alerts.find((alert) => alert.id === opts.id)
+          : undefined;
+
+        if (existingAlert) {
+          // Only overwrite what the caller actually passed — updating a
+          // persistent alert's message must not silently make it dismissable.
+          existingAlert.message = message;
+          if (opts?.severity != null) existingAlert.severity = severity;
+          if (opts?.title != null) existingAlert.title = opts.title;
+          if (opts?.persistent != null)
+            existingAlert.persistent = opts.persistent;
+          return;
+        }
+
+        state.alerts.push({
+          id: opts?.id ?? Math.random().toString(36).substring(2, 15),
+          message,
+          severity,
+          title: opts?.title,
+          persistent: opts?.persistent,
+        });
+      }),
     dismissAlert: (id) =>
       set((state) => {
         state.alerts = state.alerts.filter((alert) => alert.id !== id);
@@ -1257,6 +1297,7 @@ function raiseError(store: WritableDraft<AppStore>, error: Error) {
   const alert: Alert = {
     id: alertId,
     message: error.message,
+    severity: "error",
   };
 
   // Push the alert into the alerts array
