@@ -10,25 +10,30 @@ const alertPresentation: Record<
     variant: "filled" | "light";
     title: string;
     icon: typeof IconInfoCircle;
+    // `light` renders a translucent tint, which is unreadable over the Studio
+    // canvas — give those an opaque surface with a colored accent instead.
+    surface?: string;
   }
 > = {
   error: {
     color: "red",
     variant: "filled",
     title: "Toolbar Error",
-    icon: IconInfoCircle,
+    icon: IconAlertTriangle,
   },
   warning: {
     color: "yellow",
     variant: "light",
     title: "Warning",
     icon: IconAlertTriangle,
+    surface: "#2c2a20",
   },
   info: {
     color: "blue",
     variant: "light",
     title: "Notice",
     icon: IconInfoCircle,
+    surface: "#20252c",
   },
 };
 
@@ -108,7 +113,19 @@ export function AlertsContainer() {
                 styles={{
                   root: {
                     animation: "fadeIn 0.3s ease-in-out",
+                    ...(presentation.surface
+                      ? {
+                          backgroundColor: presentation.surface,
+                          border: `1px solid var(--mantine-color-${presentation.color}-8)`,
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.45)",
+                        }
+                      : {}),
                   },
+                  ...(presentation.surface
+                    ? {
+                        message: { color: "var(--mantine-color-gray-2)" },
+                      }
+                    : {}),
                 }}
               >
                 {alert.message}
