@@ -52,6 +52,14 @@ import {
 import { Result } from "typescript-result";
 import { ImageBrowser } from "./ImageBrowser";
 import { ImageBrowserMode } from "./ImageBrowser";
+import { getAppliedOverride } from "../utils/studioVersionInterceptor";
+import { getOverride, toPublicVersion } from "../utils/studioVersion";
+
+const OVERRIDE_ALERT_ID = "studio-version-override";
+// Module-level so a Toolbar remount can't lose track of a dismissal and re-show
+// the banner. Both reset on reload, which is when the banner's info changes anyway.
+let overrideBannerShown = false;
+let overrideBannerDismissed = false;
 
 export function Toolbar() {
   const [visible, setVisible] = useState(false);
@@ -174,6 +182,50 @@ export function Toolbar() {
       );
     })();
   }, []);
+
+  useEffect(() => {
+    if (!appConfig?.showStudioVersion) return;
+
+    const syncOverrideBanner = () => {
+      const snapshot = getAppliedOverride();
+      if (!snapshot) return;
+
+      const hasOverrideAlert = appStore
+        .getState()
+        .alerts.some((alert) => alert.id === OVERRIDE_ALERT_ID);
+      if (overrideBannerShown && !hasOverrideAlert) {
+        overrideBannerDismissed = true;
+      }
+
+      if (overrideBannerDismissed) return;
+
+      const stored = getOverride(snapshot.envId);
+      const remainingMinutes = Math.max(
+        0,
+        Math.ceil((snapshot.expiresAt - Date.now()) / 60000),
+      );
+
+      appStore.getState().showAlert(
+        stored
+          ? `Studio is running ${toPublicVersion(snapshot.sdkVersion)} — expires in ${remainingMinutes} min`
+          : "Override expired — reload to return to the default version",
+        {
+          id: OVERRIDE_ALERT_ID,
+          severity: "warning",
+          title: stored
+            ? "Version override active"
+            : "Version override expired",
+          persistent: true,
+        },
+      );
+      overrideBannerShown = true;
+    };
+
+    syncOverrideBanner();
+    const interval = window.setInterval(syncOverrideBanner, 30000);
+
+    return () => window.clearInterval(interval);
+  }, [appConfig?.showStudioVersion]);
 
   // Listen for update notifications
   useEffect(() => {

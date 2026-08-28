@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   Alert,
-  Anchor,
   Button,
   Group,
   Loader,
@@ -27,6 +26,8 @@ type Props = {
   onClose: () => void;
 };
 
+type View = "picker" | "confirmApply" | "confirmClear";
+
 export function StudioVersionModal({ opened, onClose }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,9 +36,11 @@ export function StudioVersionModal({ opened, onClose }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const [savedExpiresAt, setSavedExpiresAt] = useState<number | null>(null);
   const [envId, setEnvId] = useState<string | null>(null);
+  const [view, setView] = useState<View>("picker");
 
   useEffect(() => {
     if (!opened) return;
+    setView("picker");
     setError(null);
     setLoading(true);
 
@@ -143,29 +146,45 @@ export function StudioVersionModal({ opened, onClose }: Props) {
     return result;
   }, [available]);
 
-  const handleApply = () => {
-    if (!envId || !selected || !available) return;
-    const sdkVersion = available[selected]?.sdkVersion;
-    if (!sdkVersion) return;
-    const override = setOverride(envId, sdkVersion);
-    setSavedExpiresAt(override.expiresAt);
+  const selectedSdkVersion = selected
+    ? available?.[selected]?.sdkVersion
+    : undefined;
+
+  const handleConfirmApply = () => {
+    if (!envId || !selectedSdkVersion) return;
+    setOverride(envId, selectedSdkVersion);
+    window.location.reload();
   };
 
-  const handleClear = () => {
+  const handleConfirmClear = () => {
     if (!envId) return;
     clearOverride(envId);
-    setSavedExpiresAt(null);
-    setSelected(null);
+    window.location.reload();
   };
 
-  const remainingMinutes = savedExpiresAt
-    ? Math.max(0, Math.ceil((savedExpiresAt - Date.now()) / 60000))
+  const publicVersion = selectedSdkVersion
+    ? toPublicVersion(selectedSdkVersion)
     : null;
+
+  const handleClose = () => {
+    setView("picker");
+    onClose();
+  };
+
+  const showConfirmApply = () => {
+    if (!envId || !selectedSdkVersion) return;
+    setView("confirmApply");
+  };
+
+  const showConfirmClear = () => {
+    if (!envId || !savedExpiresAt) return;
+    setView("confirmClear");
+  };
 
   return (
     <Modal
       opened={opened}
-      onClose={onClose}
+      onClose={handleClose}
       title="Studio Version"
       centered
       size="md"
@@ -184,7 +203,7 @@ export function StudioVersionModal({ opened, onClose }: Props) {
           </Alert>
         )}
 
-        {!loading && !error && (
+        {!loading && !error && view === "picker" && (
           <>
             <Text>
               This template is loaded in{" "}
@@ -204,34 +223,66 @@ export function StudioVersionModal({ opened, onClose }: Props) {
               clearable
             />
 
-            {savedExpiresAt && selected && available?.[selected] && (
-              <Alert color="blue">
-                Override active for {remainingMinutes} more minute
-                {remainingMinutes === 1 ? "" : "s"}. Studio will load this
-                template in {toPublicVersion(available[selected].sdkVersion)} on
-                next reload.{" "}
-                <Anchor
-                  component="button"
-                  type="button"
-                  onClick={() => window.location.reload()}
-                >
-                  Reload Editor
-                </Anchor>
-              </Alert>
-            )}
-
             <Group justify="space-between" mt="md">
-              <Button variant="subtle" color="gray" onClick={handleClear}>
+              <Button
+                variant="subtle"
+                color="gray"
+                onClick={showConfirmClear}
+                disabled={!envId || !savedExpiresAt}
+              >
                 Clear override
               </Button>
               <Group>
-                <Button variant="default" onClick={onClose}>
+                <Button variant="default" onClick={handleClose}>
                   Close
                 </Button>
-                <Button onClick={handleApply} disabled={!selected}>
-                  Apply for 60 min
+                <Button
+                  onClick={showConfirmApply}
+                  disabled={!envId || !selected || !selectedSdkVersion}
+                >
+                  Apply
                 </Button>
               </Group>
+            </Group>
+          </>
+        )}
+
+        {!loading &&
+          !error &&
+          view === "confirmApply" &&
+          publicVersion && (
+            <>
+              <Text fw={700}>Reload in {publicVersion}?</Text>
+              <Text>
+                This template will reload in{" "}
+                <Text span fw={700}>
+                  {publicVersion}
+                </Text>{" "}
+                for the next 60 minutes. Unsaved changes will be lost.
+              </Text>
+              <Group justify="flex-end" mt="md">
+                <Button variant="default" onClick={() => setView("picker")}>
+                  Cancel
+                </Button>
+                <Button onClick={handleConfirmApply}>
+                  Reload in {publicVersion}
+                </Button>
+              </Group>
+            </>
+          )}
+
+        {!loading && !error && view === "confirmClear" && (
+          <>
+            <Text fw={700}>Reload without the override?</Text>
+            <Text>
+              This template will reload in the default version. Unsaved changes
+              will be lost.
+            </Text>
+            <Group justify="flex-end" mt="md">
+              <Button variant="default" onClick={() => setView("picker")}>
+                Cancel
+              </Button>
+              <Button onClick={handleConfirmClear}>Reload and clear</Button>
             </Group>
           </>
         )}
