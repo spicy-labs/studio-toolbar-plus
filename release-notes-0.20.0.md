@@ -1,27 +1,3 @@
-## 🚨 READ THIS FIRST — this update resets your extension settings
-
-**This one time only, upgrading to 0.20.0 will erase your saved Toolbar settings.**
-
-To fix the IT/allowlist problem below, the extension now has a permanent identity.
-Chrome treats the new identity as a brand-new extension, and Chrome keeps each
-extension's saved data separate — so anything the Toolbar had stored locally
-starts empty:
-
-*   Magic Layout configurations saved in the extension
-*   Layout variable mappings
-*   Any other Toolbar preferences and local settings
-
-**Your templates and documents are completely untouched.** Nothing in GraFx Studio
-changes. This is *only* the extension's own local storage in your browser. Nothing
-is deleted from Studio, from your environment, or from any document you've built.
-
-> 💡 If you have Toolbar configurations you don't want to re-create by hand, export
-> or write them down **before** you install 0.20.0.
-
-This is a one-time cost. From 0.20.0 onward the identity is fixed forever, so no
-future update will do this again — and as a bonus, upgrading will stop wiping your
-settings the way it silently did on every previous release.
-
 ✨ Improved
 -----------
 
@@ -46,12 +22,40 @@ settings the way it silently did on every previous release.
         storage bucket each time you updated. That's why your configurations kept
         vanishing. It won't happen again after this release.
 
+*   **Studio Version override is much harder to be fooled by.** The override
+    (added in 0.19.0) lets you load a template on a specific Studio engine
+    instead of your environment's default. It now tells you, at all times, that
+    it is on:
+    *   **A persistent banner sits in the toolbar while an override is active,**
+        showing which version you're pinned to and how much time is left before
+        it lapses. It updates as the clock runs down and flags the moment the
+        override expires, so a pinned tab can no longer masquerade as a normal one.
+    *   **Applying or clearing an override now asks first, then reloads.** Both
+        actions require a page reload to take effect, so the modal confirms
+        up front and warns that unsaved changes will be lost — rather than
+        reloading out from under you or leaving you on a stale page that
+        silently disagrees with the setting you just changed.
+    *   **The modal now names the version you're actually running.** "This
+        template is loaded in X" reads the version the tab genuinely booted on,
+        and the clear-override prompt names the real environment default instead
+        of a generic "the default version."
+
 🐛 Fixed
 --------
 
 *   **The "update available" link in the toolbar now opens the right page.** The
     link was missing the `v` in the release tag, so clicking it landed on a
     GitHub 404 instead of the new release.
+
+*   **Run-mode exports now use the overridden engine, not the environment
+    default.** With a Studio Version override active, the tab previewed on the
+    version you picked but server-side output (PDF, PNG, JPG, MP4, GIF, HTML)
+    was still rendered on your environment's default engine — a wrong result
+    that looked entirely correct. Output requests now carry the overridden
+    engine, so what you export matches what you tested. Only tabs that actually
+    booted with the override are affected; a clean tab still exports on the
+    default. If a request ever slips past the rewrite, you get an error alert
+    rather than a quietly mismatched file.
 
 📦 How to install
 -----------------
@@ -64,3 +68,4 @@ settings the way it silently did on every previous release.
 4.  **Remove your existing studio-toolbar-plus entry** before loading the new one. Because the ID changed, Chrome will otherwise happily run both side by side and you'll get two toolbars.
 5.  Click **Load unpacked** and select the unzipped folder.
 6.  Open the extension's **Details** page and confirm the version reads `0.20.0` and the ID reads `ohbpbenmjbmoghpliikbiepbdpjiopcg`.
+
