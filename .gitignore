@@ -48,3 +48,7 @@ pnpm-lock.yaml
 # Only the anonymized outputs under test/fixtures/*.json are committed.
 test/_client-inputs/
 *.CHILI.json
+
+# Extension signing key — NEVER commit. Backed up outside the repo.
+# The PUBLIC half is committed in manifest.json as "key"; this is the private half.
+*.pem

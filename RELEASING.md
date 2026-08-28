@@ -15,6 +15,35 @@ git push
 
 After this, developers loading the extension from source need to run `bun install && bun run build` once before loading the `dist/` files via "Load unpacked" in Chrome.
 
+## The extension ID is pinned — don't break it
+
+`manifest.json` has a top-level `"key"` field. It's the public half of an RSA
+keypair and it fixes the extension ID at:
+
+```
+ohbpbenmjbmoghpliikbiepbdpjiopcg
+```
+
+Without it, Chrome derives the ID from the absolute install folder path, so every
+user — and every re-unzip into a new folder — got a different ID. That broke IT
+allowlists and wiped `chrome.storage` settings on every upgrade. Added in 0.20.0.
+
+**Rules:**
+
+- Never edit, reorder away, or regenerate the `key`. Changing it breaks customer
+  allowlists and erases every user's saved settings.
+- The private key is `studio-toolbar-plus.pem`, gitignored and kept outside the
+  repo. It is *not* used by the release workflow. Keep it backed up in case we
+  later ship signed `.crx` builds and need to preserve the ID.
+- If you need to re-derive the ID from the pem:
+
+  ```bash
+  openssl rsa -in studio-toolbar-plus.pem -pubout -outform DER \
+    | shasum -a 256 | head -c 32 | tr '0-9a-f' 'a-p'
+  ```
+
+---
+
 ## Cutting a release
 
 Releases can be cut from any branch — the workflow triggers on the tag, not the branch it points to. The typical flow for this project is to cut a **pre-release off a feature branch** so it can be tested early, then flip it to a full release after the branch merges into `main`. See [Pre-releases](#pre-releases) below for that flow.
@@ -67,7 +96,7 @@ If you need the tag to point at the merge commit on `main` instead of the origin
 
 The release zip contains everything Chrome needs to install the extension — and nothing else:
 
-- `manifest.json`
+- `manifest.json` (including the `key` field that pins the extension ID)
 - `content.js`
 - `downloader.js`
 - `icons/`
