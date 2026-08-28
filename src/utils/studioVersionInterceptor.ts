@@ -21,6 +21,15 @@ let appliedOverride: AppliedOverrideSnapshot | null = null;
 // override applied in another tab.
 let bootSettingsCallSeen = false;
 
+// The environment's real default version, per env, as the server reported it
+// before we rewrote it. Nothing else can tell us this — the version modal's own
+// /settings call is intercepted too, so it reads our override back to itself.
+const observedDefaults = new Map<string, string>();
+
+export function getObservedDefaultVersion(envId: string): string | null {
+  return observedDefaults.get(envId) ?? null;
+}
+
 export function getAppliedOverride(): AppliedOverrideSnapshot | null {
   return appliedOverride;
 }
@@ -48,10 +57,12 @@ export function installStudioVersionInterceptor(): void {
     const envId = getEnvFromSettingsUrl(url);
     if (!envId) return response;
 
+    // A failed call isn't Studio booting — if it were latched here, a retried
+    // boot call would apply the override without being recognised as the boot.
+    if (!response.ok) return response;
+
     const isBootSettingsCall = !bootSettingsCallSeen;
     bootSettingsCallSeen = true;
-
-    if (!response.ok) return response;
 
     const override = getOverride(envId);
     if (!override) return response;
@@ -60,6 +71,9 @@ export function installStudioVersionInterceptor(): void {
       const cloned = response.clone();
       const data = await cloned.json();
       if (data && typeof data === "object" && "sdkVersionPublic" in data) {
+        if (typeof data.sdkVersionPublic === "string") {
+          observedDefaults.set(envId, data.sdkVersionPublic);
+        }
         data.sdkVersionPublic = toPublicVersion(override.sdkVersion);
         const headers = new Headers(response.headers);
         headers.set("content-type", "application/json");
