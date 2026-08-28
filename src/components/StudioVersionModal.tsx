@@ -20,6 +20,10 @@ import {
   type AvailableSdkVersions,
 } from "../utils/studioVersion";
 import { getStudio } from "../studio/studioAdapter";
+import {
+  getAppliedOverride,
+  getObservedDefaultVersion,
+} from "../utils/studioVersionInterceptor";
 
 type Props = {
   opened: boolean;
@@ -166,6 +170,20 @@ export function StudioVersionModal({ opened, onClose }: Props) {
     ? toPublicVersion(selectedSdkVersion)
     : null;
 
+  // The environment's real default. Our own fetchCurrentSettings is intercepted
+  // when an override is stored, so `currentVersion` can be the override read back
+  // to us — only the interceptor knows what the server actually said.
+  const defaultVersion = envId ? getObservedDefaultVersion(envId) : null;
+
+  // What this tab is genuinely running: the override if it was applied at boot,
+  // otherwise the environment default. The fetched value is the last resort,
+  // correct only when nothing was ever rewritten.
+  const snapshot = getAppliedOverride();
+  const loadedVersion =
+    snapshot && snapshot.envId === envId
+      ? toPublicVersion(snapshot.sdkVersion)
+      : (defaultVersion ?? currentVersion);
+
   const handleClose = () => {
     setView("picker");
     onClose();
@@ -208,7 +226,7 @@ export function StudioVersionModal({ opened, onClose }: Props) {
             <Text>
               This template is loaded in{" "}
               <Text span fw={700}>
-                {currentVersion ?? "unknown"}
+                {loadedVersion ?? "unknown"}
               </Text>
             </Text>
 
@@ -275,8 +293,18 @@ export function StudioVersionModal({ opened, onClose }: Props) {
           <>
             <Text fw={700}>Reload without the override?</Text>
             <Text>
-              This template will reload in the default version. Unsaved changes
-              will be lost.
+              This template will reload in{" "}
+              {defaultVersion ? (
+                <>
+                  <Text span fw={700}>
+                    {defaultVersion}
+                  </Text>
+                  .
+                </>
+              ) : (
+                "the default version."
+              )}{" "}
+              Unsaved changes will be lost.
             </Text>
             <Group justify="flex-end" mt="md">
               <Button variant="default" onClick={() => setView("picker")}>
