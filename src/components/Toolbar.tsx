@@ -52,14 +52,19 @@ import {
 import { Result } from "typescript-result";
 import { ImageBrowser } from "./ImageBrowser";
 import { ImageBrowserMode } from "./ImageBrowser";
-import { getAppliedOverride } from "../utils/studioVersionInterceptor";
+import {
+  getAppliedOverride,
+  getOutputEngineState,
+} from "../utils/studioVersionInterceptor";
 import { getOverride, toPublicVersion } from "../utils/studioVersion";
 
 const OVERRIDE_ALERT_ID = "studio-version-override";
+const OVERRIDE_OUTPUT_ALERT_ID = "studio-version-override-output";
 // Module-level so a Toolbar remount can't lose track of a dismissal and re-show
 // the banner. Both reset on reload, which is when the banner's info changes anyway.
 let overrideBannerShown = false;
 let overrideBannerDismissed = false;
+let outputSkipBannerShown = false;
 
 export function Toolbar() {
   const [visible, setVisible] = useState(false);
@@ -190,6 +195,27 @@ export function Toolbar() {
       const snapshot = getAppliedOverride();
       if (!snapshot) return;
 
+      // Checked before any early return below. An export that slipped past the
+      // interceptor rendered on the environment default and still succeeded —
+      // the user must hear about it even if they dismissed the version banner,
+      // and even if the override expired between the export and this tick.
+      // Injection is gated on the boot snapshot, so a skip cannot be counted
+      // unless this tab was genuinely running an override at request time.
+      if (!outputSkipBannerShown && getOutputEngineState().skipped > 0) {
+        appStore
+          .getState()
+          .showAlert(
+            "An export request was sent without the engine override — that output rendered on the environment default engine, not the version you selected.",
+            {
+              id: OVERRIDE_OUTPUT_ALERT_ID,
+              severity: "error",
+              title: "Export ignored the version override",
+              persistent: true,
+            },
+          );
+        outputSkipBannerShown = true;
+      }
+
       const hasOverrideAlert = appStore
         .getState()
         .alerts.some((alert) => alert.id === OVERRIDE_ALERT_ID);
@@ -205,9 +231,13 @@ export function Toolbar() {
         Math.ceil((snapshot.expiresAt - Date.now()) / 60000),
       );
 
+      const engineNote = snapshot.engineVersion
+        ? ` — exports render on engine ${snapshot.engineVersion}`
+        : " — exports render on the environment default engine (re-apply the override to change that)";
+
       appStore.getState().showAlert(
         stored
-          ? `Studio is running ${toPublicVersion(snapshot.sdkVersion)} — expires in ${remainingMinutes} min`
+          ? `Studio is running ${toPublicVersion(snapshot.sdkVersion)} — expires in ${remainingMinutes} min${engineNote}`
           : "Override expired — reload to return to the default version",
         {
           id: OVERRIDE_ALERT_ID,

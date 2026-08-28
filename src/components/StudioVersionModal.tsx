@@ -153,10 +153,13 @@ export function StudioVersionModal({ opened, onClose }: Props) {
   const selectedSdkVersion = selected
     ? available?.[selected]?.sdkVersion
     : undefined;
+  const selectedEngineVersion = selected
+    ? available?.[selected]?.engineVersion
+    : undefined;
 
   const handleConfirmApply = () => {
     if (!envId || !selectedSdkVersion) return;
-    setOverride(envId, selectedSdkVersion);
+    setOverride(envId, selectedSdkVersion, selectedEngineVersion);
     window.location.reload();
   };
 
@@ -278,6 +281,16 @@ export function StudioVersionModal({ opened, onClose }: Props) {
                 </Text>{" "}
                 for the next 60 minutes. Unsaved changes will be lost.
               </Text>
+              {selectedEngineVersion && (
+                <Text>
+                  Exports requested from Run mode will render on engine{" "}
+                  <Text span fw={700}>
+                    {selectedEngineVersion}
+                  </Text>
+                  . A document authored on a newer engine can fail to render on
+                  an older one.
+                </Text>
+              )}
               <Group justify="flex-end" mt="md">
                 <Button variant="default" onClick={() => setView("picker")}>
                   Cancel
