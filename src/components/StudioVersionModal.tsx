@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import {
   clearOverride,
+  compareSdkPublic,
   fetchAvailableSdkVersions,
   fetchCurrentSettings,
   getEnvFromBaseUrl,
@@ -178,6 +179,16 @@ export function StudioVersionModal({ opened, onClose }: Props) {
   // to us — only the interceptor knows what the server actually said.
   const defaultVersion = envId ? getObservedDefaultVersion(envId) : null;
 
+  // The version this environment resolves to for everyone without an override.
+  // `defaultVersion` is only populated once the interceptor has actually seen and
+  // rewritten a /settings response, so it is null whenever no override is stored.
+  // In that state nothing was rewritten, so `currentVersion` — what our own
+  // /settings fetch returned — is the genuine server value. When an override IS
+  // stored the fetch is intercepted and `currentVersion` is our own override read
+  // back to us, i.e. a lie; that is exactly when `defaultVersion` exists and wins.
+  // So `??` is correct in both states, and this is the only trustworthy source.
+  const envDefault = defaultVersion ?? currentVersion;
+
   // What this tab is genuinely running: the override if it was applied at boot,
   // otherwise the environment default. The fetched value is the last resort,
   // correct only when nothing was ever rewritten.
@@ -185,7 +196,16 @@ export function StudioVersionModal({ opened, onClose }: Props) {
   const loadedVersion =
     snapshot && snapshot.envId === envId
       ? toPublicVersion(snapshot.sdkVersion)
-      : (defaultVersion ?? currentVersion);
+      : envDefault;
+
+  // Direction of the pending selection relative to the environment default.
+  // Negative = older, positive = newer, 0 = same, null = not comparable / nothing
+  // selected. Compared on `publicVersion` rather than the option key so the
+  // "latest" entry resolves to a real x.y number.
+  const selectionVsDefault =
+    publicVersion && envDefault
+      ? compareSdkPublic(publicVersion, envDefault)
+      : null;
 
   const handleClose = () => {
     setView("picker");
@@ -226,12 +246,34 @@ export function StudioVersionModal({ opened, onClose }: Props) {
 
         {!loading && !error && view === "picker" && (
           <>
-            <Text>
-              This template is loaded in{" "}
-              <Text span fw={700}>
-                {loadedVersion ?? "unknown"}
+            {envDefault && loadedVersion === envDefault ? (
+              // Same number on both lines reads as a discrepancy where there is
+              // none, so collapse to one line when they agree.
+              <Text>
+                This template is loaded in{" "}
+                <Text span fw={700}>
+                  {loadedVersion}
+                </Text>
+                , which is this environment's default.
               </Text>
-            </Text>
+            ) : (
+              <>
+                <Text>
+                  This template is loaded in{" "}
+                  <Text span fw={700}>
+                    {loadedVersion ?? "unknown"}
+                  </Text>
+                </Text>
+                {envDefault && (
+                  <Text>
+                    This environment's default is{" "}
+                    <Text span fw={700}>
+                      {envDefault}
+                    </Text>
+                  </Text>
+                )}
+              </>
+            )}
 
             <Select
               label="Load this template in"
@@ -243,6 +285,32 @@ export function StudioVersionModal({ opened, onClose }: Props) {
               searchable
               clearable
             />
+
+            {/*
+              Older and newer are deliberately styled differently. Loading an
+              older version is fail-closed: a recently-saved template simply
+              refuses to open and nothing is lost. Loading a newer one and saving
+              rewrites the stored document in a format the default engine can
+              never read again. Dressing both as warnings would train people to
+              dismiss the one that actually destroys work.
+            */}
+            {selectionVsDefault !== null && envDefault && (
+              <>
+                {selectionVsDefault < 0 && (
+                  <Text size="xs" c="dimmed">
+                    Older than your environment's default ({envDefault}).
+                    Recently-saved templates may refuse to open on this version.
+                  </Text>
+                )}
+                {selectionVsDefault > 0 && (
+                  <Text size="xs" c="yellow">
+                    Newer than your environment's default ({envDefault}). If you
+                    save, this template may no longer open on {envDefault}. The
+                    toolbar will ask you to confirm before any save goes through.
+                  </Text>
+                )}
+              </>
+            )}
 
             <Group justify="space-between" mt="md">
               <Button
@@ -287,8 +355,30 @@ export function StudioVersionModal({ opened, onClose }: Props) {
                   <Text span fw={700}>
                     {selectedEngineVersion}
                   </Text>
-                  . A document authored on a newer engine can fail to render on
-                  an older one.
+                  .
+                  {/*
+                    When the direction is unknown — the environment default was
+                    never observed, or did not parse — fall back to the generic
+                    caution rather than showing nothing. This is the least
+                    informed state, so it is the last one that should read as
+                    reassuring.
+                  */}
+                  {(selectionVsDefault === null || selectionVsDefault < 0) &&
+                    " A document authored on a newer engine can fail to render on an older one."}
+                  {selectionVsDefault !== null &&
+                    selectionVsDefault > 0 &&
+                    envDefault && (
+                      <>
+                        {" "}
+                        Saving from this version can leave the template unable to
+                        open on{" "}
+                        <Text span fw={700}>
+                          {envDefault}
+                        </Text>
+                        . The toolbar will ask you to confirm before any save
+                        goes through.
+                      </>
+                    )}
                 </Text>
               )}
               <Group justify="flex-end" mt="md">

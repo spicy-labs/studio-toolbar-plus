@@ -67,6 +67,111 @@ export function withEngineVersion(
   }
 }
 
+// Compare two "1.46"-style public SDK versions. Returns -1 / 0 / 1, or null when
+// either side is unparseable ("latest", "", a build channel name).
+// Lexical comparison is wrong here — "1.9" > "1.46" as strings but is the older
+// release — so each segment is compared numerically.
+// Inputs may carry a patch segment ("1.46.0"); only major.minor is compared,
+// because major.minor is all sdkVersionPublic ever gives us.
+export function compareSdkPublic(a: string, b: string): number | null {
+  const parse = (v: string): [number, number] | null => {
+    const [major, minor] = String(v ?? "").split(".");
+    const majorNum = Number(major);
+    const minorNum = minor == null ? 0 : Number(minor);
+    if (!Number.isFinite(majorNum) || !Number.isFinite(minorNum)) return null;
+    if (major === "" || major == null) return null;
+    if (minor === "") return null;
+    return [majorNum, minorNum];
+  };
+  const left = parse(a);
+  const right = parse(b);
+  if (!left || !right) return null;
+  if (left[0] !== right[0]) return left[0] < right[0] ? -1 : 1;
+  if (left[1] !== right[1]) return left[1] < right[1] ? -1 : 1;
+  return 0;
+}
+
+// The four save routes we care about. Each is anchored with `/?(?:[?#]|$)` — the
+// same trick OUTPUT_URL_RE uses — so a sub-path can never match: without it,
+// /templates/{id} would also satisfy the create matcher and /templates/{id}/preview
+// (a read-only render) would look like an update and get blocked.
+// These are path-only tests. The CALLER checks the HTTP method: PUT for update,
+// POST for create. There are no PATCH routes on either resource, so method+path
+// is a complete classification.
+// The `(?!import` lookahead keeps /templates/import and /components/import out:
+// they sit where an id would and would otherwise read as an update of a template
+// literally named "import".
+const TEMPLATE_UPDATE_URL_RE =
+  /\/grafx\/api\/v1\/environment\/([^/]+)\/templates\/(?!import(?:[/?#]|$))([^/]+)\/?(?:[?#]|$)/;
+const TEMPLATE_CREATE_URL_RE =
+  /\/grafx\/api\/v1\/environment\/([^/]+)\/templates\/?(?:[?#]|$)/;
+const COMPONENT_UPDATE_URL_RE =
+  /\/grafx\/api\/v1\/environment\/([^/]+)\/components\/(?!import(?:[/?#]|$))([^/]+)\/?(?:[?#]|$)/;
+const COMPONENT_CREATE_URL_RE =
+  /\/grafx\/api\/v1\/environment\/([^/]+)\/components\/?(?:[?#]|$)/;
+
+// PUT /grafx/api/v1/environment/{envId}/templates/{templateId}
+export function getEnvFromTemplateUpdateUrl(url: string): string | null {
+  const match = url.match(TEMPLATE_UPDATE_URL_RE);
+  return match ? match[1] : null;
+}
+
+// POST /grafx/api/v1/environment/{envId}/templates
+export function getEnvFromTemplateCreateUrl(url: string): string | null {
+  const match = url.match(TEMPLATE_CREATE_URL_RE);
+  return match ? match[1] : null;
+}
+
+// PUT /grafx/api/v1/environment/{envId}/components/{componentId}
+export function getEnvFromComponentUpdateUrl(url: string): string | null {
+  const match = url.match(COMPONENT_UPDATE_URL_RE);
+  return match ? match[1] : null;
+}
+
+// POST /grafx/api/v1/environment/{envId}/components
+export function getEnvFromComponentCreateUrl(url: string): string | null {
+  const match = url.match(COMPONENT_CREATE_URL_RE);
+  return match ? match[1] : null;
+}
+
+// Does this request body carry a document, or is it just a metadata edit?
+// Callers treat "unknown" as BLOCK — we fail closed, because a false negative
+// here means a silently corrupted template while the UI claims it protected you.
+export function classifySave(
+  kind: "template" | "component",
+  bodyText: string | null | undefined,
+): "save" | "rename" | "unknown" {
+  // A rename can never carry a document: the backend rejects `?name=` together
+  // with a body, so an absent body means metadata-only.
+  if (bodyText == null || bodyText.trim() === "") return "rename";
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(bodyText);
+  } catch {
+    // Blob, gzip, FormData — anything non-empty we cannot read. Fail closed.
+    return "unknown";
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    return "unknown";
+  }
+  const body = parsed as Record<string, unknown>;
+
+  if (kind === "template") {
+    // The `||` is LOAD-BEARING — do not "simplify" it to a single key. Legacy
+    // documents carry one without the other: engine fixtures 0.0.25–0.1.3 have
+    // engineVersion only, 0.2.0–0.2.4 have documentVersion only.
+    if ("documentVersion" in body || "engineVersion" in body) return "save";
+    // A template body we cannot recognise might still be a document. Block.
+    return "unknown";
+  }
+
+  // Components discriminate on key presence alone: a rename omits `content`
+  // entirely, so this survives the object-vs-string ambiguity in `content`
+  // (the API types claim string, the backend enforces object).
+  return "content" in body ? "save" : "rename";
+}
+
 export function getEnvFromBaseUrl(baseUrl: string): string | null {
   // ENVIRONMENT_API ends like ".../grafx/api/v1/environment/{envId}/"
   const match = baseUrl.match(/\/environment\/([^/]+)\/?$/);
