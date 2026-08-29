@@ -2,6 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import { Modal } from "@mantine/core";
 import { appStore } from "../modalStore";
 import { getStudio } from "../studio/studioAdapter";
+import {
+  fetchWithAuth,
+  getBaseUrl,
+  getAuthToken,
+} from "../utils/fetchWithAuth";
 import { getCurrentDocumentState } from "../studio/documentHandler";
 import { getFontFamilies } from "../studio/fontHandler";
 import {
@@ -14,7 +19,7 @@ import {
   unregisterConnector,
 } from "../studio/connectorAdapter";
 import { getVision } from "../utils/smartCrop/getVision";
-import { setVision, uploadImage } from "../utils/smartCrop/setVision";
+import { setVision } from "../utils/smartCrop/setVision";
 import { getConnectorsAPI } from "../utils/getConnectorsAPI";
 import { loadDocumentFromJsonStr } from "../studio/documentHandler";
 import { loadToolbarDataFromDoc } from "../studio/studioAdapter";
@@ -132,7 +137,6 @@ export function DownloadModalNew({
   const [currentStudioPackage, setCurrentStudioPackage] =
     useState<StudioPackage | null>(null);
   const [currentStudio, setCurrentStudio] = useState<any>(null);
-  const [currentToken, setCurrentToken] = useState<string>("");
   const [currentBaseUrl, setCurrentBaseUrl] = useState<string>("");
   const [isDefaultSettingsModalOpen, setIsDefaultSettingsModalOpen] =
     useState(false);
@@ -305,19 +309,6 @@ export function DownloadModalNew({
   // Helper function to get template name and document ID
   const getDocumentName = async (): Promise<string> => {
     try {
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        return "document";
-      }
-
-      // Get token and baseUrl from configuration
-      const token = (
-        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-      ).parsedData;
-      const baseUrl = (
-        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-      ).parsedData;
-
       // Get document ID and kind (template vs component) from URL
       const urlPath = window.location.href;
       const idMatch = urlPath.match(
@@ -329,14 +320,10 @@ export function DownloadModalNew({
         const documentId = idMatch[2];
 
         try {
-          // Fetch document details to get the name
-          const detailsResponse = await fetch(
-            `${baseUrl}${resourcePath}/${documentId}`,
+          const detailsResponse = await fetchWithAuth(
+            `${resourcePath}/${documentId}`,
             {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
+              headers: { "Content-Type": "application/json" },
             },
           );
 
@@ -558,15 +545,7 @@ export function DownloadModalNew({
       }
 
       const studio = studioResult.value;
-      const token = (await studio.configuration.getValue("GRAFX_AUTH_TOKEN"))
-        .parsedData as string;
-      const baseUrl = (await studio.configuration.getValue("ENVIRONMENT_API"))
-        .parsedData as string;
-
-      if (!token || !baseUrl) {
-        raiseError(new Error("Failed to get authentication token or base URL"));
-        return;
-      }
+      const baseUrl = await getBaseUrl();
 
       // Create chili-package.json processing task
       const packageTaskId = "package-processing";
@@ -584,7 +563,6 @@ export function DownloadModalNew({
       setCurrentFiles(files);
       setCurrentStudioPackage(studioPackage);
       setCurrentStudio(studio);
-      setCurrentToken(token);
       setCurrentBaseUrl(baseUrl);
 
       // Process chili-package.json workflow
@@ -592,7 +570,6 @@ export function DownloadModalNew({
         files,
         studioPackage,
         studio,
-        token,
         baseUrl,
         packageTaskId,
       );
@@ -606,7 +583,6 @@ export function DownloadModalNew({
     files: File[],
     studioPackage: StudioPackage,
     studio: any,
-    token: string,
     baseUrl: string,
     packageTaskId: string,
   ) => {
@@ -681,7 +657,7 @@ export function DownloadModalNew({
         smartCropsFileData.crops.length > 0
       ) {
         // Get media connectors
-        const connectorsResult = await getConnectorsAPI(baseUrl, token);
+        const connectorsResult = await getConnectorsAPI();
         if (!connectorsResult.isOk()) {
           const error = new FailedToFetchConnectorsError(
             `Failed to fetch connectors: ${connectorsResult.error?.message}`,
@@ -708,7 +684,6 @@ export function DownloadModalNew({
         files,
         studioPackage,
         studio,
-        token,
         baseUrl,
         packageTaskId,
       );
@@ -731,7 +706,6 @@ export function DownloadModalNew({
     files: File[],
     studioPackage: StudioPackage,
     studio: any,
-    token: string,
     baseUrl: string,
     packageTaskId: string,
   ) => {
@@ -779,7 +753,7 @@ export function DownloadModalNew({
       }
 
       // Step 2: Get available connectors for document connector replacement
-      const connectorsResult = await getConnectorsAPI(baseUrl, token);
+      const connectorsResult = await getConnectorsAPI();
       if (!connectorsResult.isOk()) {
         const error = new FailedToFetchConnectorsError(
           `Failed to fetch connectors: ${connectorsResult.error?.message}`,
@@ -830,7 +804,6 @@ export function DownloadModalNew({
         files,
         studioPackage,
         studio,
-        token,
         baseUrl,
         currentDocumentData,
       );
@@ -858,14 +831,12 @@ export function DownloadModalNew({
       currentFiles.length > 0 &&
       currentStudioPackage &&
       currentStudio &&
-      currentToken &&
       currentBaseUrl
     ) {
       await continuePackageProcessing(
         currentFiles,
         currentStudioPackage,
         currentStudio,
-        currentToken,
         currentBaseUrl,
         packageJsonTaskId,
       );
@@ -979,14 +950,12 @@ export function DownloadModalNew({
         currentFiles.length > 0 &&
         currentStudioPackage &&
         currentStudio &&
-        currentToken &&
         currentBaseUrl
       ) {
         await startTaskProcessing(
           currentFiles,
           currentStudioPackage,
           currentStudio,
-          currentToken,
           currentBaseUrl,
           newDocumentData,
         );
@@ -997,7 +966,6 @@ export function DownloadModalNew({
   // Fetch all existing media files in a folder (handles pagination)
   const fetchExistingMediaInFolder = async (
     baseUrl: string,
-    token: string,
     folderPath: string,
   ): Promise<{ id: string; name: string }[]> => {
     const allFiles: { id: string; name: string }[] = [];
@@ -1006,9 +974,7 @@ export function DownloadModalNew({
       `${baseUrl}media?sortBy=name&sortOrder=asc&folder=${encodedFolder}&includeItemsFromSubfolders=false&includeFolders=false`;
 
     while (nextPageUrl) {
-      const response = await fetch(nextPageUrl, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetchWithAuth(nextPageUrl, { absoluteUrl: true });
 
       if (!response.ok) {
         console.warn(
@@ -1032,7 +998,6 @@ export function DownloadModalNew({
   const uploadMediaFiles = async (
     files: File[],
     mediaData: MediaData,
-    token: string,
     baseUrl: string,
   ): Promise<Map<string, string>> => {
     const idMap = new Map<string, string>();
@@ -1118,7 +1083,6 @@ export function DownloadModalNew({
     for (const folder of uniqueFolders) {
       const existing = await fetchExistingMediaInFolder(
         baseUrl,
-        token,
         folder,
       );
       existingFilesByFolder.set(folder, existing);
@@ -1180,11 +1144,10 @@ export function DownloadModalNew({
 
         const encodedName = encodeURIComponent(mediaFile.name);
         const encodedFolderPath = encodeURIComponent(mediaFile.folderPath);
-        const response = await fetch(
-          `${baseUrl}media?name=${encodedName}&folderPath=${encodedFolderPath}`,
+        const response = await fetchWithAuth(
+          `media?name=${encodedName}&folderPath=${encodedFolderPath}`,
           {
             method: "POST",
-            headers: { Authorization: `Bearer ${token}` },
             body: formData,
           },
         );
@@ -1239,7 +1202,6 @@ export function DownloadModalNew({
     files: File[],
     studioPackage: StudioPackage,
     studio: any,
-    token: string,
     baseUrl: string,
     initialDocumentData?: any,
   ) => {
@@ -1281,7 +1243,6 @@ export function DownloadModalNew({
             await uploadFont(
               fontFile,
               fontInfo.details,
-              token,
               baseUrl,
               taskId,
             );
@@ -1380,31 +1341,9 @@ export function DownloadModalNew({
           ]);
 
           try {
-            // Check if vision data exists before setting it
-            // const visionCheckResult = await getVision({
-            //   baseUrl,
-            //   connectorId: selectedVisionConnector,
-            //   asset: crop.assetId,
-            //   authorization: token,
-            // });
-
-            // if (
-            //   !visionCheckResult.isOk() &&
-            //   (visionCheckResult.error as any)?.type === "VisionNotFoundError"
-            // ) {
-            //   await uploadImage({
-            //     baseUrl,
-            //     connectorId: selectedVisionConnector,
-            //     asset: crop.assetId,
-            //     authorization: token,
-            //   });
-            // }
-
             const visionResult = await setVision({
-              baseUrl,
               connectorId: selectedVisionConnector,
               asset: crop.assetId,
-              authorization: token,
               metadata: clampSubjectAreaToBounds(crop.metadata),
             });
 
@@ -1454,7 +1393,6 @@ export function DownloadModalNew({
         const mediaIdMap = await uploadMediaFiles(
           files,
           mediaDataForUpload,
-          token,
           baseUrl,
         );
 
@@ -1525,7 +1463,6 @@ export function DownloadModalNew({
   // Helper function to fetch all pages from a paginated font-families endpoint
   const fetchAllFontFamilies = async (
     baseUrl: string,
-    token: string,
     initialUrl?: string,
   ): Promise<any[]> => {
     const allData: any[] = [];
@@ -1533,11 +1470,9 @@ export function DownloadModalNew({
       initialUrl || `${baseUrl}font-families?sortBy=Name&sortOrder=asc`;
 
     while (nextPageUrl) {
-      const response = await fetch(nextPageUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      const response = await fetchWithAuth(nextPageUrl, {
+        absoluteUrl: true,
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
@@ -1562,7 +1497,6 @@ export function DownloadModalNew({
   // Helper function to fetch all pages from a paginated font-styles endpoint
   const fetchAllFontStyles = async (
     baseUrl: string,
-    token: string,
     fontFamilyId: string,
   ): Promise<any[]> => {
     const allData: any[] = [];
@@ -1570,11 +1504,9 @@ export function DownloadModalNew({
       `${baseUrl}font-families/${fontFamilyId}/styles`;
 
     while (nextPageUrl) {
-      const response = await fetch(nextPageUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      const response = await fetchWithAuth(nextPageUrl, {
+        absoluteUrl: true,
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
@@ -1598,13 +1530,12 @@ export function DownloadModalNew({
   const uploadFont = async (
     fontFile: File,
     fontDetails: FontData,
-    token: string,
     baseUrl: string,
     taskId: string,
   ) => {
     try {
       // First, check if font already exists - fetch all pages
-      const allFontFamilies = await fetchAllFontFamilies(baseUrl, token);
+      const allFontFamilies = await fetchAllFontFamilies(baseUrl);
 
       // Check if family exists
       const targetFamily = allFontFamilies.find(
@@ -1616,7 +1547,6 @@ export function DownloadModalNew({
         try {
           const allFontStyles = await fetchAllFontStyles(
             baseUrl,
-            token,
             targetFamily.id,
           );
           const targetStyle = allFontStyles.find(
@@ -1658,11 +1588,8 @@ export function DownloadModalNew({
       formData.append("file", renamedFile);
 
       // Step 1: Upload
-      const uploadResponse = await fetch(`${baseUrl}font-styles/temp`, {
+      const uploadResponse = await fetchWithAuth("font-styles/temp", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         body: formData,
       });
 
@@ -1679,14 +1606,11 @@ export function DownloadModalNew({
       const preloadedFont = uploadData.data.preloadedData[0];
 
       // Step 2: Patch
-      const patchResponse = await fetch(
-        `${baseUrl}font-styles/temp/${uploadData.batchId}`,
+      const patchResponse = await fetchWithAuth(
+        `font-styles/temp/${uploadData.batchId}`,
         {
           method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify([
             {
               fontStyleId: preloadedFont.id,
@@ -1702,14 +1626,9 @@ export function DownloadModalNew({
       }
 
       // Step 3: Confirm
-      const confirmResponse = await fetch(
-        `${baseUrl}font-styles/temp/${uploadData.batchId}/confirm`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+      const confirmResponse = await fetchWithAuth(
+        `font-styles/temp/${uploadData.batchId}/confirm`,
+        { method: "POST" },
       );
 
       if (!confirmResponse.ok) {
@@ -1812,16 +1731,6 @@ export function DownloadModalNew({
       connectorName: connectorSelection.connectorName,
       crops: [],
     };
-
-    // Get environment details for getVision calls
-    const token = (await studio.configuration.getValue("GRAFX_AUTH_TOKEN"))
-      .parsedData as string;
-    const baseUrl = (await studio.configuration.getValue("ENVIRONMENT_API"))
-      .parsedData as string;
-
-    if (!token || !baseUrl) {
-      throw new Error("Failed to get authentication token or base URL");
-    }
 
     // Register the connector first
     const registerResult = await registerConnector(
@@ -1949,10 +1858,8 @@ export function DownloadModalNew({
 
             try {
               const visionResult = await getVision({
-                baseUrl,
                 connectorId: connectorSelection.connectorId,
                 asset: file.id,
-                authorization: token,
               });
 
               if (visionResult.isOk()) {
@@ -2520,18 +2427,7 @@ export function DownloadModalNew({
     useOriginalFontFileNames: boolean,
   ) => {
     try {
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        throw new Error(studioResult.error?.message || "Failed to get studio");
-      }
-
-      // Get token and baseUrl from configuration
-      const token = (
-        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-      ).parsedData as string;
-      const baseUrl = (
-        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-      ).parsedData as string;
+      const baseUrl = await getBaseUrl();
 
       // Find the font family and style from our stored fontFamilies
       let fontFamily: FontFamily | undefined;
@@ -2560,7 +2456,6 @@ export function DownloadModalNew({
         // Try to fetch font styles using the fontFamilyId
         allFontStyles = await fetchAllFontStyles(
           baseUrl,
-          token,
           fontFamily.fontFamilyId,
         );
       } catch (error) {
@@ -2577,7 +2472,6 @@ export function DownloadModalNew({
         const searchUrl = `${baseUrl}font-families?search=${encodedFontName}&limit=1&sortBy=&sortOrder=`;
         const allSearchResults = await fetchAllFontFamilies(
           baseUrl,
-          token,
           searchUrl,
         );
 
@@ -2592,7 +2486,6 @@ export function DownloadModalNew({
         // Make a new call to get font styles using the found fontFamilyId
         allFontStyles = await fetchAllFontStyles(
           baseUrl,
-          token,
           foundFontFamily.id,
         );
       }
@@ -2606,13 +2499,8 @@ export function DownloadModalNew({
       }
 
       // Download the font file
-      const fontDownloadResponse = await fetch(
-        `${baseUrl}font-styles/${fontStyleDetails.id}/download`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+      const fontDownloadResponse = await fetchWithAuth(
+        `font-styles/${fontStyleDetails.id}/download`,
       );
 
       if (!fontDownloadResponse.ok) {
@@ -2647,7 +2535,7 @@ export function DownloadModalNew({
       // Send download request to background script
       await sendDownloadRequest(
         blobUrl,
-        `Bearer ${token}`,
+        `Bearer ${await getAuthToken()}`,
         folder,
         actualFileName,
         file.id,
