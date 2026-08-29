@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Group, Modal, Stack, Text } from "@mantine/core";
 import type { PendingSave } from "../utils/studioVersionInterceptor";
 
@@ -13,9 +13,28 @@ type Props = {
 
 export function SaveBlockedModal({ pending, onForce, onCancel }: Props) {
   const [forcing, setForcing] = useState(false);
+  // Set when the user dismisses while a force is already in flight. The request
+  // is gone and cannot be recalled, so this hides the modal WITHOUT touching the
+  // held save — the Toolbar still owns it and still reports the outcome.
+  const [steppedAside, setSteppedAside] = useState(false);
+
+  // A new held save reuses this component, so never inherit the previous one's
+  // dismissal.
+  useEffect(() => {
+    setSteppedAside(false);
+  }, [pending?.id]);
 
   const handleCancel = () => {
-    if (!pending || forcing) return;
+    if (!pending) return;
+    if (forcing) {
+      // Once forced, the request is on the wire: there is nothing left to cancel
+      // and the interceptor's timeout backstop was cleared when it settled. If
+      // the network then hangs, refusing to close would trap the user behind a
+      // blocking overlay with no exit. Step aside instead — the result alert
+      // still tells them how it went.
+      setSteppedAside(true);
+      return;
+    }
     onCancel(pending.id);
   };
 
@@ -38,7 +57,7 @@ export function SaveBlockedModal({ pending, onForce, onCancel }: Props) {
 
   return (
     <Modal
-      opened={pending !== null}
+      opened={pending !== null && !steppedAside}
       // Escape and click-outside both cancel, and that is deliberate. A held save
       // is a fetch promise the editor is still waiting on, so every exit from this
       // modal must settle it. Making the modal undismissable would not make the
