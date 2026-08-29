@@ -298,7 +298,7 @@ export function Toolbar() {
       .getState()
       .showAlert(
         result.status
-          ? `The forced save did not succeed — the server responded ${result.status}. Nothing was saved.`
+          ? `The forced save did not succeed — the server responded ${result.status}.`
           : "The forced save could not be sent. It may never have left the browser — check the document before saving again.",
         {
           id: SAVE_BLOCKED_ALERT_ID,
