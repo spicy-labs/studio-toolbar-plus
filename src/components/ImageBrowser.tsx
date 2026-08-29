@@ -366,16 +366,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
         throw new Error(studioResult.error?.message || "Failed to get studio");
       }
 
-      // Get token and baseUrl from configuration
-      const token = (
-        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-      ).parsedData as string;
-      const baseUrl = (
-        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-      ).parsedData as string;
-
       // Fetch connectors from API using the utility function
-      const connectorsResult = await getConnectorsAPI(baseUrl, token);
+      const connectorsResult = await getConnectorsAPI();
       if (!connectorsResult.isOk()) {
         throw new Error(
           connectorsResult.error?.message || "Failed to fetch connectors"
@@ -495,24 +487,9 @@ export function ImageBrowser<T extends ImageBrowserMode>({
     setLoadingVisionData((prev) => new Set(prev).add(fileKey));
 
     try {
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        throw new Error(studioResult.error?.message || "Failed to get studio");
-      }
-
-      // Get token and baseUrl from configuration
-      const token = (
-        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-      ).parsedData as string;
-      const baseUrl = (
-        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-      ).parsedData as string;
-
       const visionResult = await getVision({
-        baseUrl,
         connectorId,
         asset: file.id,
-        authorization: token,
       });
 
       if (visionResult.isOk()) {
@@ -1129,19 +1106,6 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       setCopyTasks([]);
       setShowTaskModal(true);
 
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        throw new Error(studioResult.error?.message || "Failed to get studio");
-      }
-
-      // Get token and baseUrl from configuration
-      const token = (
-        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-      ).parsedData as string;
-      const baseUrl = (
-        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-      ).parsedData as string;
-
       // Step 1: Get vision data from source file
       // sourceFile is now the complete Media object, so we can use it directly
       // This allows cross-directory copy/paste since we don't need to look up the file in the current directory
@@ -1156,10 +1120,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
       ]);
 
       const visionResult = await getVision({
-        baseUrl,
         connectorId: selectedConnectorId!,
         asset: sourceFile.id,
-        authorization: token,
       });
 
       if (!visionResult.isOk()) {
@@ -1207,10 +1169,8 @@ export function ImageBrowser<T extends ImageBrowserMode>({
 
         try {
           const setResult = await setVision({
-            baseUrl,
             connectorId: selectedConnectorId!,
             asset: targetFileObj.id,
-            authorization: token,
             metadata: clampSubjectAreaToBounds(sourceVisionData),
           });
 

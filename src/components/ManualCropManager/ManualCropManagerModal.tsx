@@ -62,18 +62,7 @@ export function ManualCropManagerModal({
       }
       const studio = studioResult.value;
 
-      // Get token and baseUrl from configuration
-      const token = (await studio.configuration.getValue("GRAFX_AUTH_TOKEN"))
-        .parsedData as string;
-      const baseUrl = (await studio.configuration.getValue("ENVIRONMENT_API"))
-        .parsedData as string;
-
-      if (!token || !baseUrl) {
-        raiseError(new Error("Failed to get authentication token or base URL"));
-        return;
-      }
-
-      const availableConnectorsResult = await getConnectorsAPI(baseUrl, token);
+      const availableConnectorsResult = await getConnectorsAPI();
 
       if (!availableConnectorsResult.isOk()) {
         raiseError(
