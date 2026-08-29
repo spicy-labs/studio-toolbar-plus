@@ -1,16 +1,19 @@
-import {
-  getEnvFromOutputUrl,
-  getEnvFromSettingsUrl,
-  getOverride,
-  toPublicVersion,
-  withEngineVersion,
-} from "./studioVersion";
-
-// NOTE: in the packaged extension this module never installs — interceptor-bootstrap.js
-// runs at document_start and claims INTERCEPTOR_FLAG long before this bundle loads, so
-// IT is the production implementation and any behaviour change must be made there too.
-// This copy still runs in the test harness and in any context without the bootstrap.
-const INTERCEPTOR_FLAG = "__studioVersionInterceptorInstalled";
+// Typed, read-only accessor layer over `window.__studioVersionInterceptorState`.
+//
+// `interceptor-bootstrap.js` is the SOLE implementation of the fetch interceptor: it
+// runs at document_start in the MAIN world and claims the install flag long before
+// this bundle loads. It owns the /settings rewrite, the output engine injection and
+// the save-blocking state machine, and it publishes everything it knows on the shared
+// window state object — which is the only channel between the two, since both live in
+// the page's main world.
+//
+// This module deliberately contains NO behaviour. Do not reintroduce a second
+// implementation here: a hand-mirrored copy of the bootstrap's state machine would
+// drift silently, with no equivalence check to catch it. Any behaviour change belongs
+// in interceptor-bootstrap.js, covered by test/scenarios/interceptor-bootstrap.test.ts.
+//
+// Every accessor must tolerate the bootstrap never having run (an older bootstrap, or
+// a context where it was not injected): read sane defaults, and never throw.
 const STATE_KEY = "__studioVersionInterceptorState";
 
 export type AppliedOverrideSnapshot = {
@@ -30,6 +33,18 @@ export type OutputEngineState = {
   lastEngineVersion: string | null;
 };
 
+// A save the bootstrap is holding: the request has not been sent, and its fetch
+// promise stays pending until forceSave/cancelSave settles it.
+export type PendingSave = {
+  id: string;
+  kind: "template" | "component";
+  isCreate: boolean;
+  overrideVersion: string;
+  defaultVersion: string | null;
+};
+
+export type SaveState = { blocked: number; forced: number; observed: number };
+
 type InterceptorState = {
   // Storage self-expires, so this is the source of truth for what Studio loaded with.
   appliedOverride: AppliedOverrideSnapshot | null;
@@ -43,6 +58,12 @@ type InterceptorState = {
   // override applied in another tab.
   bootSettingsCallSeen: boolean;
   output: OutputEngineState;
+  pendingSave: PendingSave | null;
+  save: SaveState;
+  // Published by the bootstrap. Absent when the bootstrap never ran or predates
+  // the save-blocking feature — callers must treat them as optional.
+  forceSave?: (id: string) => Promise<{ ok: boolean; status: number }>;
+  cancelSave?: (id: string) => void;
 };
 
 // interceptor-bootstrap.js installs the real patch at document_start, long before
@@ -56,6 +77,8 @@ function getState(): InterceptorState {
       observedDefaults: {},
       bootSettingsCallSeen: false,
       output: { injected: 0, skipped: 0, lastEngineVersion: null },
+      pendingSave: null,
+      save: { blocked: 0, forced: 0, observed: 0 },
     } satisfies InterceptorState;
   }
   return w[STATE_KEY] as InterceptorState;
@@ -73,142 +96,37 @@ export function getOutputEngineState(): OutputEngineState {
   return getState().output;
 }
 
-function extractUrl(input: RequestInfo | URL): string {
-  if (typeof input === "string") return input;
-  if (input instanceof URL) return input.toString();
-  return input.url;
+export function getPendingSave(): PendingSave | null {
+  return getState().pendingSave ?? null;
 }
 
-function extractMethod(input: RequestInfo | URL, init?: RequestInit): string {
-  if (init?.method) return init.method;
-  if (input instanceof Request) return input.method;
-  return "GET";
+export function getSaveState(): SaveState {
+  return getState().save ?? { blocked: 0, forced: 0, observed: 0 };
 }
 
-// Rewrite the outgoing body so the render server uses the tab's engine instead of
-// resolving the environment default server-side. Returns the (possibly unchanged)
-// fetch arguments; anything unexpected passes through untouched and is counted as
-// a skip.
-async function applyEngineVersion(
-  input: RequestInfo | URL,
-  init: RequestInit | undefined,
-  engineVersion: string,
-  state: InterceptorState,
-): Promise<[RequestInfo | URL, RequestInit | undefined]> {
+// Release a held save to the server. Resolves to {ok: false, status: 0} when the
+// bootstrap is absent or too old to publish forceSave — never throws, because a
+// throw here would leave the editor's save promise pending forever, which is the
+// exact failure this feature exists to prevent.
+export async function forceSave(
+  id: string,
+): Promise<{ ok: boolean; status: number }> {
+  const fn = getState().forceSave;
+  if (typeof fn !== "function") return { ok: false, status: 0 };
   try {
-    if (typeof init?.body === "string") {
-      const body = withEngineVersion(init.body, engineVersion);
-      if (body === null) {
-        state.output.skipped += 1;
-        return [input, init];
-      }
-      state.output.injected += 1;
-      state.output.lastEngineVersion = engineVersion;
-      return [input, { ...init, body }];
-    }
-
-    if (input instanceof Request && init?.body == null) {
-      const text = await input.clone().text();
-      const body = withEngineVersion(text, engineVersion);
-      if (body === null) {
-        state.output.skipped += 1;
-        return [input, init];
-      }
-      const rewritten = new Request(input, { body });
-      state.output.injected += 1;
-      state.output.lastEngineVersion = engineVersion;
-      return [rewritten, init];
-    }
+    return await fn(id);
   } catch {
-    // fall through — a failed rewrite must never fail the export itself
+    return { ok: false, status: 0 };
   }
-
-  state.output.skipped += 1;
-  return [input, init];
 }
 
-export function installStudioVersionInterceptor(): void {
-  const w = window as any;
-  if (w[INTERCEPTOR_FLAG]) return;
-  w[INTERCEPTOR_FLAG] = true;
-
-  const state = getState();
-  const origFetch = window.fetch.bind(window);
-
-  const patchedFetch = async function (
-    input: RequestInfo | URL,
-    init?: RequestInit,
-  ): Promise<Response> {
-    let requestInput = input;
-    let requestInit = init;
-
-    const requestUrl = extractUrl(input);
-    const outputEnvId = getEnvFromOutputUrl(requestUrl);
-    if (outputEnvId && extractMethod(input, init).toUpperCase() === "POST") {
-      // Gate on the boot snapshot, never on storage. localStorage is shared
-      // across tabs: a tab that booted clean must keep exporting on the default
-      // engine even while another tab holds an override, or its export would
-      // silently diverge from the preview it is showing — with no banner, since
-      // that tab has no snapshot. For the same reason the engine we send is the
-      // one this tab is running, not whatever storage currently says.
-      const snapshot = state.appliedOverride;
-      if (snapshot?.engineVersion && snapshot.envId === outputEnvId) {
-        [requestInput, requestInit] = await applyEngineVersion(
-          input,
-          init,
-          snapshot.engineVersion,
-          state,
-        );
-      }
-    }
-
-    const response = await origFetch(requestInput as any, requestInit);
-
-    const url = extractUrl(requestInput);
-    const envId = getEnvFromSettingsUrl(url);
-    if (!envId) return response;
-
-    // A failed call isn't Studio booting — if it were latched here, a retried
-    // boot call would apply the override without being recognised as the boot.
-    if (!response.ok) return response;
-
-    const isBootSettingsCall = !state.bootSettingsCallSeen;
-    state.bootSettingsCallSeen = true;
-
-    const override = getOverride(envId);
-    if (!override) return response;
-
-    try {
-      const cloned = response.clone();
-      const data = await cloned.json();
-      if (data && typeof data === "object" && "sdkVersionPublic" in data) {
-        if (typeof data.sdkVersionPublic === "string") {
-          state.observedDefaults[envId] = data.sdkVersionPublic;
-        }
-        data.sdkVersionPublic = toPublicVersion(override.sdkVersion);
-        const headers = new Headers(response.headers);
-        headers.set("content-type", "application/json");
-        const rewrittenResponse = new Response(JSON.stringify(data), {
-          status: response.status,
-          statusText: response.statusText,
-          headers,
-        });
-        if (isBootSettingsCall) {
-          state.appliedOverride = {
-            envId,
-            sdkVersion: override.sdkVersion,
-            engineVersion: override.engineVersion,
-            expiresAt: override.expiresAt,
-          };
-        }
-        return rewrittenResponse;
-      }
-    } catch {
-      // fall through and return the original response
-    }
-
-    return response;
-  };
-
-  window.fetch = patchedFetch as unknown as typeof window.fetch;
+// Settle a held save with the synthetic 409. A no-op when the bootstrap is absent.
+export function cancelSave(id: string): void {
+  const fn = getState().cancelSave;
+  if (typeof fn !== "function") return;
+  try {
+    fn(id);
+  } catch {
+    // a failed cancel must never propagate into the caller's UI handler
+  }
 }

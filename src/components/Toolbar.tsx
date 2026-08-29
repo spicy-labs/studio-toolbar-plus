@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   ActionIcon,
   Box,
@@ -42,6 +42,7 @@ import { CompressModal } from "./CompressModal";
 import { ToolbarSettingsModal } from "./ToolbarSettingsModal";
 import { AspectLockConfirmModal } from "./AspectLockConfirmModal";
 import { StudioVersionModal } from "./StudioVersionModal";
+import { SaveBlockedModal } from "./SaveBlockedModal";
 import type { AppConfig, AppInfo } from "../utils/appConfig";
 import {
   appConfigFromFullConfig,
@@ -53,13 +54,18 @@ import { Result } from "typescript-result";
 import { ImageBrowser } from "./ImageBrowser";
 import { ImageBrowserMode } from "./ImageBrowser";
 import {
+  cancelSave,
+  forceSave,
   getAppliedOverride,
   getOutputEngineState,
+  getPendingSave,
+  type PendingSave,
 } from "../utils/studioVersionInterceptor";
 import { getOverride, toPublicVersion } from "../utils/studioVersion";
 
 const OVERRIDE_ALERT_ID = "studio-version-override";
 const OVERRIDE_OUTPUT_ALERT_ID = "studio-version-override-output";
+const SAVE_BLOCKED_ALERT_ID = "studio-version-save-blocked";
 // Module-level so a Toolbar remount can't lose track of a dismissal and re-show
 // the banner. Both reset on reload, which is when the banner's info changes anyway.
 let overrideBannerShown = false;
@@ -90,6 +96,12 @@ export function Toolbar() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isImageBrowserOpen, setIsImageBrowserOpen] = useState(false);
   const [isStudioVersionModalOpen, setIsStudioVersionModalOpen] = useState(false);
+  const [pendingSave, setPendingSave] = useState<PendingSave | null>(null);
+  // Mirrors `pendingSave`, written synchronously wherever it changes. The force
+  // handler awaits a network round-trip, so by the time it resumes the
+  // `pendingSave` captured in its closure may be stale — a save blocked during
+  // that await would be invisible to it. The ref is always current.
+  const pendingSaveRef = useRef<PendingSave | null>(null);
   const [appConfig, setAppConfig] = useState<AppConfig | null>(null);
   const [updateInfo, setUpdateInfo] = useState<{
     currentVersion: string;
@@ -188,6 +200,115 @@ export function Toolbar() {
     })();
   }, []);
 
+  // Registered unconditionally — NOT gated on `appConfig?.showStudioVersion`.
+  // The interceptor blocks saves regardless of toolbar config, and a held save
+  // with no UI to release it is the worst possible state: the editor's fetch
+  // promise stays pending, the spinner never stops and File > Save stays
+  // disabled until reload. The listener must exist wherever the block can fire.
+  useEffect(() => {
+    const handleSaveBlocked = (event: Event) => {
+      const detail = (event as CustomEvent<PendingSave>).detail;
+      if (!detail || typeof detail.id !== "string") return;
+      pendingSaveRef.current = detail;
+      setPendingSave(detail);
+      // A persistent error alert as well as the modal, so the reason is still on
+      // screen after the modal is dismissed — including when it is dismissed by
+      // Escape or a click outside.
+      appStore
+        .getState()
+        .showAlert(
+          `A save was blocked: this tab is running Studio ${detail.overrideVersion}${
+            detail.defaultVersion
+              ? `, but this environment's default is ${detail.defaultVersion}`
+              : ", and this environment's default could not be determined"
+          }. Saving would write the ${detail.kind} in a format the default version cannot open.`,
+          {
+            id: SAVE_BLOCKED_ALERT_ID,
+            severity: "error",
+            title: "Save blocked — version override active",
+            persistent: true,
+          },
+        );
+    };
+
+    window.addEventListener("studioToolbarPlus:saveBlocked", handleSaveBlocked);
+
+    // The interceptor runs at document_start, so a block can in principle land
+    // before this component mounts. Pick up anything already held.
+    const alreadyHeld = getPendingSave();
+    if (alreadyHeld) {
+      pendingSaveRef.current = alreadyHeld;
+      setPendingSave(alreadyHeld);
+    }
+
+    return () =>
+      window.removeEventListener(
+        "studioToolbarPlus:saveBlocked",
+        handleSaveBlocked,
+      );
+  }, []);
+
+  // Clears the held save only if `id` is STILL the one on screen, and reports
+  // whether it was. forceSave frees the interceptor's single slot as soon as it
+  // hands the replay off, before the network round-trip finishes — and the
+  // workspace does not serialise saves, so a second save can be blocked inside
+  // that window. Clearing unconditionally would close the *new* save's modal and
+  // dismiss its alert, leaving it held with no UI until the 2-minute backstop.
+  const clearIfCurrent = (id: string): boolean => {
+    if (pendingSaveRef.current?.id !== id) return false;
+    pendingSaveRef.current = null;
+    setPendingSave(null);
+    return true;
+  };
+
+  const handleCancelBlockedSave = (id: string) => {
+    cancelSave(id);
+    if (clearIfCurrent(id)) {
+      appStore.getState().dismissAlert(SAVE_BLOCKED_ALERT_ID);
+    }
+  };
+
+  const handleForceBlockedSave = async (id: string) => {
+    const result = await forceSave(id);
+    // A newer block has taken over the modal and the alert while this one was in
+    // flight — its warning must stand, so leave both alone and say nothing about
+    // this finished save.
+    if (!clearIfCurrent(id)) return;
+    appStore.getState().dismissAlert(SAVE_BLOCKED_ALERT_ID);
+
+    if (result.ok) {
+      appStore
+        .getState()
+        .showAlert(
+          "Save forced through. This document was written in the override's format and may no longer open on the environment default.",
+          {
+            id: SAVE_BLOCKED_ALERT_ID,
+            severity: "info",
+            title: "Saved on the override version",
+            persistent: true,
+          },
+        );
+      return;
+    }
+
+    // status 0 means the replay never ran — an absent or outdated interceptor,
+    // or a network-level failure. We genuinely do not know whether anything
+    // reached the server, so the copy must not claim the server rejected it.
+    appStore
+      .getState()
+      .showAlert(
+        result.status
+          ? `The forced save did not succeed — the server responded ${result.status}. Nothing was saved.`
+          : "The forced save could not be sent. It may never have left the browser — check the document before saving again.",
+        {
+          id: SAVE_BLOCKED_ALERT_ID,
+          severity: "error",
+          title: "Forced save failed",
+          persistent: true,
+        },
+      );
+  };
+
   useEffect(() => {
     if (!appConfig?.showStudioVersion) return;
 
@@ -238,7 +359,11 @@ export function Toolbar() {
       appStore.getState().showAlert(
         stored
           ? `Studio is running ${toPublicVersion(snapshot.sdkVersion)} — expires in ${remainingMinutes} min${engineNote}`
-          : "Override expired — reload to return to the default version",
+          : // The stored override has expired, but the interceptor gates on the
+            // boot snapshot, which never expires. This tab is still running the
+            // override engine and saves are still blocked, so the copy must not
+            // imply the user is already back on the default and safe.
+            `The override has expired, but this tab is still running ${toPublicVersion(snapshot.sdkVersion)} until you reload it`,
         {
           id: OVERRIDE_ALERT_ID,
           severity: "warning",
@@ -747,6 +872,18 @@ export function Toolbar() {
           onClose={() => setIsStudioVersionModalOpen(false)}
         />
       )}
+
+      {/*
+        Save Blocked Modal — rendered unconditionally, for the same reason the
+        listener is registered unconditionally: the interceptor holds saves
+        regardless of `showStudioVersion`, and this modal is the only UI that can
+        release one.
+      */}
+      <SaveBlockedModal
+        pending={pendingSave}
+        onForce={handleForceBlockedSave}
+        onCancel={handleCancelBlockedSave}
+      />
 
       {/* Toolbar Settings Modal */}
       {appConfig && (
