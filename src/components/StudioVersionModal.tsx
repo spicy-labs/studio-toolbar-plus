@@ -20,7 +20,7 @@ import {
   toPublicVersion,
   type AvailableSdkVersions,
 } from "../utils/studioVersion";
-import { getStudio } from "../studio/studioAdapter";
+import { getBaseUrl } from "../utils/fetchWithAuth";
 import {
   getAppliedOverride,
   getObservedDefaultVersion,
@@ -53,23 +53,8 @@ export function StudioVersionModal({ opened, onClose }: Props) {
 
     (async () => {
       try {
-        const studioResult = await getStudio();
+        const baseUrl = await getBaseUrl();
         if (cancelled) return;
-        if (!studioResult.isOk()) {
-          throw new Error(
-            studioResult.error?.message || "Failed to get studio",
-          );
-        }
-        const token = (
-          await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-        ).parsedData;
-        const baseUrl = (
-          await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-        ).parsedData;
-
-        if (!token || !baseUrl) {
-          throw new Error("Failed to get authentication token or base URL");
-        }
 
         // Derive the env slug from the API base URL — this matches the slug
         // the interceptor sees on /settings calls (which is NOT the same as
@@ -82,8 +67,8 @@ export function StudioVersionModal({ opened, onClose }: Props) {
         }
 
         const [settings, avail] = await Promise.all([
-          fetchCurrentSettings(baseUrl, token),
-          fetchAvailableSdkVersions(baseUrl, token),
+          fetchCurrentSettings(),
+          fetchAvailableSdkVersions(baseUrl),
         ]);
         if (cancelled) return;
 

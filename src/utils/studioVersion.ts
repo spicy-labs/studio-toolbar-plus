@@ -2,6 +2,8 @@
 // Stored in localStorage so it is accessible from the page-injected bundle
 // (chrome.* APIs are unavailable in the main world).
 
+import { fetchWithAuth } from "./fetchWithAuth";
+
 export type StudioVersionOverride = {
   sdkVersion: string; // full semver e.g. "1.42.0"
   // The engine that pairs with sdkVersion, as available-sdk-versions reported it
@@ -220,17 +222,17 @@ function envlessBase(baseUrl: string): string {
   return baseUrl.replace(/\/environment\/[^/]+\/?$/, "/environment/");
 }
 
+// Unlike its sibling below, this keeps the baseUrl parameter: the endpoint
+// lives on the env-less base (see envlessBase), so the caller-provided URL is
+// transformed rather than taken straight from fetchWithAuth's config.
 export async function fetchAvailableSdkVersions(
   baseUrl: string,
-  token: string,
 ): Promise<AvailableSdkVersions> {
-  const res = await fetch(
+  const res = await fetchWithAuth(
     `${envlessBase(baseUrl)}settings/available-sdk-versions`,
     {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+      absoluteUrl: true,
+      headers: { "Content-Type": "application/json" },
     },
   );
   if (!res.ok) {
@@ -239,15 +241,11 @@ export async function fetchAvailableSdkVersions(
   return res.json();
 }
 
-export async function fetchCurrentSettings(
-  baseUrl: string,
-  token: string,
-): Promise<{ sdkVersionPublic: string }> {
-  const res = await fetch(`${baseUrl}settings`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
+export async function fetchCurrentSettings(): Promise<{
+  sdkVersionPublic: string;
+}> {
+  const res = await fetchWithAuth("settings", {
+    headers: { "Content-Type": "application/json" },
   });
   if (!res.ok) {
     throw new Error(`Failed to fetch settings: ${res.status}`);

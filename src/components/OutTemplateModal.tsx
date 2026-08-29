@@ -13,6 +13,7 @@ import {
 } from "@mantine/core";
 import { appStore } from "../modalStore";
 import { getStudio } from "../studio/studioAdapter";
+import { fetchWithAuth } from "../utils/fetchWithAuth";
 import { getAllLayouts, getSelected } from "../studio/layoutHandler";
 import { getAllVariables } from "../studio/variableHandler";
 import { getCurrentDocumentState } from "../studio/documentHandler";
@@ -122,28 +123,8 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
 
   const fetchOutputSettings = async () => {
     try {
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio"),
-        );
-        return;
-      }
-
-      // Get token and baseUrl from configuration
-      const token = (
-        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-      ).parsedData;
-      const baseUrl = (
-        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-      ).parsedData;
-
-      // Call the output/settings endpoint
-      const response = await fetch(`${baseUrl}output/settings`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      const response = await fetchWithAuth("output/settings", {
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
@@ -407,19 +388,6 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
         return;
       }
 
-      // Get token and baseUrl from configuration
-      const token = (
-        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-      ).parsedData as string;
-      const baseUrl = (
-        await studioResult.value.configuration.getValue("ENVIRONMENT_API")
-      ).parsedData as string;
-
-      if (!token || !baseUrl) {
-        raiseError(new Error("Failed to get authentication token or base URL"));
-        return;
-      }
-
       // Create tasks for each combination of output setting and layout
       const newTasks: OutputTask[] = [];
 
@@ -450,7 +418,7 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
 
       // Start processing each task
       for (const task of newTasks) {
-        processOutputTask(task, documentJson, engineVersion, token, baseUrl);
+        processOutputTask(task, documentJson, engineVersion);
       }
     } catch (error) {
       raiseError(error instanceof Error ? error : new Error(String(error)));
@@ -463,8 +431,6 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
     task: OutputTask,
     documentJson: any,
     engineVersion: string,
-    token: string,
-    baseUrl: string,
   ) => {
     try {
       // Determine the endpoint based on setting type
@@ -491,7 +457,7 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
       const requestBody: any = {
         documentContent: documentJson,
         layoutsToExport: [task.layoutId],
-        outputSettingsId: task.outputSettingsId, // Extract output setting ID
+        outputSettingsId: task.outputSettingsId,
         engineVersion: engineVersion,
       };
 
@@ -501,12 +467,9 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
       }
 
       // Call the output endpoint
-      const outputResponse = await fetch(`${baseUrl}${endpoint}`, {
+      const outputResponse = await fetchWithAuth(endpoint, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
       });
 
@@ -540,7 +503,7 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
         undefined,
         taskResponse.links.taskInfo,
       );
-      pollTaskStatus(task.id, taskResponse.links.taskInfo, token);
+      pollTaskStatus(task.id, taskResponse.links.taskInfo);
     } catch (error) {
       updateTaskStatus(
         task.id,
@@ -570,15 +533,12 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
   const pollTaskStatus = async (
     taskId: string,
     taskInfoUrl: string,
-    token: string,
   ) => {
     const poll = async (): Promise<void> => {
       try {
-        const response = await fetch(taskInfoUrl, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+        const response = await fetchWithAuth(taskInfoUrl, {
+          absoluteUrl: true,
+          headers: { "Content-Type": "application/json" },
         });
 
         if (response.status === 202) {
@@ -630,24 +590,9 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
     if (!task.downloadUrl) return;
 
     try {
-      const studioResult = await getStudio();
-      if (!studioResult.isOk()) {
-        raiseError(
-          new Error(studioResult.error?.message || "Failed to get studio"),
-        );
-        return;
-      }
-
-      // Get token from configuration
-      const token = (
-        await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-      ).parsedData;
-
       // Fetch the file with authorization
-      const response = await fetch(task.downloadUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const response = await fetchWithAuth(task.downloadUrl, {
+        absoluteUrl: true,
       });
 
       if (!response.ok) {
@@ -690,26 +635,14 @@ export function OutTemplateModal({ opened, onClose }: OutTemplateModalProps) {
       try {
         const errorReportUrl = task.errorMessage.split("Error report: ")[1];
 
-        // Get studio and token for authorization
-        const studioResult = await getStudio();
-        if (studioResult.isOk()) {
-          const token = (
-            await studioResult.value.configuration.getValue("GRAFX_AUTH_TOKEN")
-          ).parsedData;
+        const response = await fetchWithAuth(errorReportUrl, {
+          absoluteUrl: true,
+          headers: { "Content-Type": "application/json" },
+        });
 
-          if (token) {
-            const response = await fetch(errorReportUrl, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            });
-
-            if (response.ok) {
-              const errorDetails = await response.text();
-              additionalErrorDetails = `\n\n## Detailed Error Report\n\`\`\`\n${errorDetails}\n\`\`\``;
-            }
-          }
+        if (response.ok) {
+          const errorDetails = await response.text();
+          additionalErrorDetails = `\n\n## Detailed Error Report\n\`\`\`\n${errorDetails}\n\`\`\``;
         }
       } catch (error) {
         // If fetching additional details fails, continue with basic report

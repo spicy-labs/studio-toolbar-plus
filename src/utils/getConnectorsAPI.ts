@@ -1,21 +1,13 @@
 import { Result } from "typescript-result";
 import type { ConnectorResponse } from "../types/connectorTypes";
+import { fetchWithAuth } from "./fetchWithAuth";
 
-/**
- * Fetches connectors from the API
- * @param baseUrl - The base URL for the API
- * @param authToken - The authentication token
- * @returns Promise<Result<ConnectorResponse, Error>> - The connector response wrapped in a Result
- */
-export async function getConnectorsAPI(
-  baseUrl: string,
-  authToken: string,
-): Promise<Result<ConnectorResponse, Error>> {
+export async function getConnectorsAPI(): Promise<
+  Result<ConnectorResponse, Error>
+> {
   try {
-    // Fetch connectors from API
-    const response = await fetch(`${baseUrl}connectors`, {
+    const response = await fetchWithAuth("connectors", {
       headers: {
-        Authorization: `Bearer ${authToken}`,
         "Content-Type": "application/json",
       },
     });
@@ -36,4 +28,3 @@ export async function getConnectorsAPI(
     );
   }
 }
-
