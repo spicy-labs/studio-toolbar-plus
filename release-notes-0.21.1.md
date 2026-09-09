@@ -12,22 +12,13 @@
     The problem was *when* it made that comparison. It also ran when you switched
     layouts — and at that exact moment the engine has already reported the new
     layout's name while still reporting the *old* layout's frame positions. So
-    switching from Impulse to Destination looked, to the feature, like every frame
-    on Destination had just been dragged into Impulse's arrangement. It dutifully
+    switching from Layout A to Layout B looked, to the feature, like every frame
+    on Layout B had just been dragged into Layout A's arrangement. It dutifully
     saved that as a remembered adjustment and replayed it the next time the
-    Destination variant came up.
+    Layout B variant came up.
 
     Nobody had moved anything — a layout switch was being misread as a manual
     edit.
-
-    Adjustments are no longer recorded on a layout switch, because the positions
-    read there are unreliable by definition. **Real manual moves are still
-    remembered exactly as before** — when a variable changes, and when a document
-    is reopened.
-
-    Existing bad adjustments are cleared automatically: the stored state format
-    has been bumped, so the first run after updating starts from the layout's
-    real baked positions.
 
 📦 How to install
 -----------------
