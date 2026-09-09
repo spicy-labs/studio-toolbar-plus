@@ -1,5 +1,5 @@
 export function magicLayoutScript(debug = false) {
-  const version = "8";
+  const version = "9";
 
   // baked frame: [name, x, y, w, h, r?]  (r omitted when 0)
   // override:    [hPos, hSize, vPos, vSize, r?]  (r omitted when 0)
@@ -12,13 +12,24 @@ export function magicLayoutScript(debug = false) {
     const muggleAnchors = "%DATA5%";
 
     const stateVariableName = "AUTO_GEN_MAGIC_STATE";
-    const stateFormat = "layout-2";
+    const stateFormat = "layout-3";
     const POS_TOL = 0.5;
     const ROT_TOL = 0.5;
 
     const currentLayoutName = getSelectedLayoutName();
     const variableMagicName = muggleToVariableMagic[currentLayoutName];
     if (!variableMagicName) return;
+
+    // Live frame reads are only meaningful when the frames we're about to read
+    // are the ones we last positioned on THIS layout. On a selectedLayoutChanged
+    // run they are not: the engine reports the new layout's name while the
+    // frames still sit where the old layout left them.
+    // No `triggers` at all means we can't tell: fall back to remembering
+    // nothing rather than risk recording another layout's frames.
+    const layoutMayBeStale =
+      typeof triggers === "undefined" ||
+      !triggers ||
+      !!triggers.selectedLayoutChanged;
 
     const targetValue = getSelectedItemFromListVariable(variableMagicName);
 
@@ -106,6 +117,8 @@ export function magicLayoutScript(debug = false) {
     const prev = state.last[variableMagicName];
     if (
       !redesigned &&
+      !layoutMayBeStale &&
+      state.lastLayout === currentLayoutName &&
       prev &&
       prev.layout === currentLayoutName &&
       layoutFramesData[prev.value] &&
@@ -114,7 +127,7 @@ export function magicLayoutScript(debug = false) {
     ) {
       const prevValue = prev.value;
       const ov = {};
-      layoutFramesData[prevValue].forEach(function (bf) {
+      layoutFramesData[prevValue].forEach(function(bf) {
         const an = anchorsFor(bf[0]);
         if (!an.track) return;
         const bInv = bakedInvariant(prevValue, bf);
@@ -136,7 +149,7 @@ export function magicLayoutScript(debug = false) {
         const sizeMoved =
           !an.auto &&
           (Math.abs(lw - dec(an.h, pageW, bInv.h[0], bInv.h[1])[1]) > POS_TOL ||
-           Math.abs(lh - dec(an.v, pageH, bInv.v[0], bInv.v[1])[1]) > POS_TOL);
+            Math.abs(lh - dec(an.v, pageH, bInv.v[0], bInv.v[1])[1]) > POS_TOL);
         const posMoved =
           Math.abs(liveH[0] - bInv.h[0]) * sh > POS_TOL ||
           Math.abs(liveV[0] - bInv.v[0]) * sv > POS_TOL ||
@@ -165,12 +178,12 @@ export function magicLayoutScript(debug = false) {
     setPageSize(magicLayoutSize.w, magicLayoutSize.h);
     try {
       const existing = {};
-      studio.frames.all().forEach(function (frame) {
+      studio.frames.all().forEach(function(frame) {
         existing[frame.name] = true;
         frame.setVisible(false);
       });
 
-      targetBaked.forEach(function (bf) {
+      targetBaked.forEach(function(bf) {
         if (!existing[bf[0]]) return;
         const an = anchorsFor(bf[0]);
         const exp = expectedInvariant(targetValue, bf);
@@ -192,6 +205,8 @@ export function magicLayoutScript(debug = false) {
       value: targetValue,
       layout: currentLayoutName,
     };
+
+    state.lastLayout = currentLayoutName;
     setVariableValue(stateVariableName, JSON.stringify(state));
   } catch (e) {
     console.log(e);
